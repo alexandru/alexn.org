@@ -7,5 +7,7 @@
 
 See this article for details:
 
-[Blogging for Hackers](http://bionicspirit.com/blog/2012/01/05/blogging-for-hackers.html)
+[Blogging for Hackers](http://alexn.org/blog/2012/01/05/blogging-for-hackers.html)
+
+This is actually my new domain, which I'm merging with alexn.org.
 
