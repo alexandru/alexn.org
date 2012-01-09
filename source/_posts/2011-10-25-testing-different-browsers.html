@@ -1,0 +1,98 @@
+---
+layout: post
+title: "Testing Different Browsers: It`s a Pain in the Ass"
+categories:
+  - opinion
+  - javascript
+  - browser
+  - webdev
+---
+
+<p>
+  I got a notice that my <a
+  href="https://github.com/alexandru/crossdomain-requests-js"
+  target="blank_">crossdomain-requests-js script</a> (described in
+  length <a
+  href="/blog/2011/03/24/cross-domain-requests.html">here</a>)
+  does not work on IExplorer 9.
+</p>
+
+<p>
+  God, how much I hate dealing with browsers. Initially when I wrote
+  that script I tested on IExplorer 6 and IExplorer 8. I already had
+  to deal with issues regarding the IExplorer 8 compatibility mode. I
+  already had taken the decision to completely ignore IExplorer 7, as
+  that was a fucked up release. Either way, it is possible that I
+  completely wrecked IExplorer support with later changes that I
+  failed to retest.
+</p>
+
+<p>
+  And all of this for a 233 lines script (including comments and
+  whitespace). How fucked up is that?
+</p>
+
+<p>
+  This is also why I love JQuery so much. Unfortunately if you want to
+  publish a <i>reusable</i> library it's extremely annoying to bring a
+  dependency such as JQuery with it. Even though JQuery is popular,
+  the latest release is a whooping 90K in size. Do you know how
+  painful that is on mobile browsers? NO, infrastructure code has to
+  be done for the lowest common denominator: that's why people still
+  do complex shit in C. C is portable and you can link to C from any
+  other library.
+</p>
+
+<p>
+  Either way, I might do a rewrite in CoffeeScript: at least that's
+  going to save me the pain of dealing with syntax differences, as
+  I've been having those kinds of problems too ;-)
+</p>
+
+<h2>So what to do?</h2>
+
+<ul>
+  <li>
+    prefer CoffeeScript for development, not because it is cool but
+    because it is sane
+  </li>
+  <li>
+    Microsoft was kind enough to release virtual-machine images for
+    testing your websites in various IExplorer versions - I'm
+    installing them in VirtualBox right now using this script here: <a
+    target="_blank"
+    href="https://github.com/xdissent/ievms">https://github.com/xdissent/ievms</a>
+    (many thanks to the author, I'll let you know how it goes)
+  </li>
+  <li>
+    Always test with the 6 biggies: Firefox, Chrome, Opera, IExplorer
+    6, IExplorer 8 (watch out for the compatibility mode) and
+    IExplorer 9
+  </li>
+  <li>
+    There are few differences between Chrome and Safari, both being
+    based on WebKit and V8 is pretty compatible with Safari's JS
+    Engine, so I don't bother with it. But it doesn't hurt if you have
+    it around.
+  </li>
+  <li>
+    Mobile Safari and Android's browser are <i>different</i> from
+    desktop Safari and Chrome. Do not assume that your shit will
+    automatically work on mobiles.
+  </li>
+</ul>
+
+<h2>Do me a small favor ...</h2>
+
+<p>
+  Open this page: <a href="/crossdomain-requests-js/"
+  target="_blank">http://{{ site.site_domain }}/crossdomain-requests-js/</a>
+</p>
+
+<p>
+  Then tell me if it works or not in your browser, including the
+  browser name and version you are using. You can use the comments
+  section below, or in <a href="http://bit.ly/sA07lI"
+  target="_blank">this opened issue on GitHub</a>.  
+</p>
+
