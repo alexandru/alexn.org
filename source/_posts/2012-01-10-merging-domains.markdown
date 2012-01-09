@@ -23,6 +23,8 @@ and that's going to be the focus of my unified blog:
 * Lessons from my life as a software developer, with an
   entrepreneurial mindset, that works remotely and is a father of a
   baby boy :-)
+  
+So apologies for any inconvenience generated. Old content is not lost.
 
 ## Personal Reasons for bionicspirit.com
 
