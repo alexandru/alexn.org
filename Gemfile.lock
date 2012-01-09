@@ -1,0 +1,62 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    albino (1.3.3)
+      posix-spawn (>= 0.3.6)
+    classifier (1.3.3)
+      fast-stemmer (>= 1.0.0)
+    coffee-script (2.2.0)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.1.3)
+    directory_watcher (1.4.1)
+    execjs (1.2.11)
+      multi_json (~> 1.0)
+    fast-stemmer (1.0.0)
+    hike (1.2.1)
+    hpricot (0.8.5)
+    jekyll (0.11.0)
+      albino (>= 1.3.2)
+      classifier (>= 1.3.1)
+      directory_watcher (>= 1.1.1)
+      kramdown (>= 0.13.2)
+      liquid (>= 1.9.0)
+      maruku (>= 0.5.9)
+    kramdown (0.13.4)
+    libv8 (3.3.10.2)
+    liquid (2.2.2)
+    maruku (0.6.0)
+      syntax (>= 1.0.0)
+    mime-types (1.17.2)
+    multi_json (1.0.4)
+    posix-spawn (0.3.6)
+    rack (1.4.0)
+    rdiscount (1.6.8)
+    sass (3.1.12)
+    sprockets (2.0.3)
+      hike (~> 1.2)
+      rack (~> 1.0)
+      tilt (!= 1.3.0, ~> 1.1)
+    syntax (1.0.0)
+    therubyracer (0.9.8)
+      libv8 (~> 3.3.10)
+    tilt (1.3.3)
+    uglifier (1.1.0)
+      execjs (>= 0.3.0)
+      multi_json (>= 1.0.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  coffee-script
+  hpricot
+  jekyll
+  liquid (= 2.2.2)
+  mime-types
+  rack
+  rdiscount
+  sass
+  sprockets
+  therubyracer
+  uglifier

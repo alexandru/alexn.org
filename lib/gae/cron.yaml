@@ -1,0 +1,5 @@
+cron:
+- description: ping bionicspirit.com to wake it up
+  url: /tasks/ping
+  schedule: every 4 minutes
+

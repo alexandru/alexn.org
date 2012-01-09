@@ -1,0 +1,36 @@
+---
+layout: default
+---
+
+<div id="post">
+  <h1>{{ page.title }}</h1>
+  <div class="post-date">{{ page.date | date_to_string }}</div>
+
+  {{ content }}
+</div>
+
+<div id="other-articles">
+  <h2>Related Articles</h2>
+
+  <ul class="posts">
+    {% for post in site.related_posts limit:5 %}
+      <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div id="contributions">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_shortname = 'bionicspirit'; 
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+

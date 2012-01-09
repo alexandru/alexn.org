@@ -1,0 +1,434 @@
+$background-color: #eee;
+$heading-color: #340007;
+$body-font-size: 14px;
+$header-1-size: 155%;
+$max-width: 760px;
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    background-color: $background-color;
+    height: 100%;
+}
+
+body {
+    font-family: helvetica, verdana, sans-serif;
+    font-size: $body-font-size;
+    text-align: center;
+
+    h1, h2, h3, h4, h5, h6 {
+	font-size: 100%;
+	margin: 1em 0;
+	margin-top: 1.5em;
+	color: $heading-color;
+	text-align: left;
+    }
+
+    h1 {
+	font-size: $header-1-size;
+    }
+    h2 {
+	font-size: $header-1-size - 20;
+    }
+    h3 {
+	font-size: $header-1-size - 40;    
+    }
+
+    p {
+	margin: 1em 0;
+    }
+
+    a {
+	color: #00a;
+	&:hover {
+	    color: black;
+	}
+	&:visited {
+	    color: #a0a;
+	}
+    }
+
+    .site {
+	background-color: #fff;
+	font-size: 115%;
+	text-align: left;
+
+	width: 97%;
+	max-width: $max-width;
+
+	margin: 0em auto 2em auto;
+	padding-top: 3em;
+
+	padding-left: 1.5%;
+	padding-right: 1.5%;
+
+	.meta {
+	    color: #aaa;
+	}
+
+	.footer {
+	    font-size: 80%;
+	    color: #666;
+	    border-top: 4px solid #eee;
+	    margin-top: 2em;
+	    overflow: hidden;
+
+	    .contact {
+		float: left;
+		margin-right: 3em;
+		a {
+		    color: #8085C1;
+		}
+	    }
+
+	    .rss {
+		margin-top: 1.1em;
+		margin-right: 0;
+		float: right;
+		margin-right: -0.2em; 
+		a {
+		    text-decoration: none;
+		    display: block;
+		    float: right; 
+		}
+		img {
+		    border: 0; 
+		}
+	    }
+	}
+
+	img.right {
+	    float: right; margin-left: 10px; margin-bottom: 10px;
+	}
+
+	ul.posts {
+	    list-style-type: none;
+	    margin-bottom: 2em;
+
+	    li {
+		line-height: 1.75em;
+		a {
+		    clear: right;
+		}
+	    }
+	    span {
+		color: #aaa;
+		font-family: Monaco, "Courier New", monospace;
+		font-size: 80%;
+	    }
+	}
+
+    }
+}
+
+#header {
+  color: #a00;
+  font-weight: bold;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  .wrapper {
+      position: relative;
+      max-width: $max-width;
+      width: 97%;
+      padding: 1.5%;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      margin: auto;
+      text-align: left;
+      font-size: 120%;
+      background-color: #000;
+  }
+
+  .github {
+      position: absolute;
+      top: 0;
+      right: 0;
+  }
+
+  a {
+      color: #FF9999;
+      text-decoration: none;
+
+      &:hover {
+	  text-decoration: underline;
+      }
+      &.extra {
+	  color: #fff;
+	  margin-left: 1em;
+      }
+  }
+}
+
+#post {
+
+    ul, ol {
+	margin-left: 1.35em;
+
+	li {
+	    margin-bottom: 5px;
+	}
+    }
+
+    .highlight {
+	font-size: 90%;
+	padding: 1em;
+	margin: 1em 0;
+	overflow: auto;
+
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+    }
+
+    /* terminal */
+
+    .dialog {
+	padding: 20px;
+	background-color: #eee;
+	span {
+	    float: left;
+	    display: block;
+	    width: 70px;
+	}
+    }
+
+    br {
+	clear: both;
+    }
+    
+    .post-date {
+	margin-top: -25px;
+	color: #555;
+	margin-bottom: 30px;
+    }
+}
+
+#other-articles {
+    position: relative;
+    border-top: 2px solid #C69AA1;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    margin-top: 2em;
+
+    h2 {
+	margin-top: 0;
+	color: #A66C75;
+	margin-bottom: 10px;
+	padding: 0;
+    }
+
+    ul {
+	padding: 0;
+	margin: 0;
+	margin-left: 10px;
+	li {
+	    list-style: none;
+	    padding: 0;
+	    margin: 0;
+	}
+    }
+}
+
+
+#contributions {
+    position: relative;
+    border-top: 2px solid #C69AA1;
+    padding-top: 10px;
+
+    h2 {
+	margin-top: 0;
+	color: #A66C75;
+    }
+
+    #comments {
+	margin: 0;
+	padding: 0;
+	margin-top: 30px;
+
+	font-family: Helvetica, Verdana, sans;
+	font-size: 14px;
+    }
+    #comments .odd {
+	background-color: #F0F0F0;
+    }
+    #comments .comment-item {
+	padding: 10px;
+	clear: both;
+    }
+    #comments .comment-item img {
+	display: block;
+	float: left;
+	margin-right: 10px;
+    }
+    #comments .comment-item .author {
+	font-size: 12px;
+	font-weight: bold;
+	margin-bottom: 5px;
+	color: #333;
+    }
+    #comments .comment-item .author a {
+	text-decoration: none;
+	color: #2962A7;
+    }
+    #comments .comment-item .author a:hover {
+	text-decoration: underline;
+    }
+    #comments .comment-item .content {
+	min-height: 80px;
+	max-width:  500px;
+	float: left;
+    }
+    #comments .comment-item:after {
+	display: block;
+	content: ".";
+	clear: both;
+	height: 0;
+	visibility: hidden;
+    }
+    #comments form {
+	clear: both;
+	margin-top: 20px;
+	margin-left: 10px;
+    }
+    #comments form label {
+	float: left;
+	display: block;
+	width: 85px;
+
+	margin-top: 10px;
+	color: #333;
+    }
+    #comments form input {
+	border: 1px solid black;
+	outline: 0;
+	height: 20px;
+	width: 296px;
+	
+	margin-top: 10px;
+	clear: right;
+	padding: 2px;
+    }
+    #comments form .help {
+	display: block;
+	margin-left: 90px;
+	color: #666;
+	font-size: 12px;
+    }
+    #comments form textarea {
+	border: 1px solid black;
+	width: 290px;
+	height: 80px;
+	outline: 0;
+	margin-top: 10px;
+	clear: right;    
+	padding: 5px;
+    }
+    #comments form .required label {
+	font-weight: bold;
+    }
+    #comments .errorlist {
+	margin: 0;
+	padding: 0;
+	font-size: 12px;
+	color: #9F3737;    
+    }
+    #comments .errorlist li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: block;
+	margin-left: 80px;
+    }
+    #comments .errorlist li:before {
+	content: "- ";
+    }
+    #comments .errornote {
+	font-weight: bold;
+	color: #9F3737;        
+    }
+    #comments .loader {
+	margin-left: 80px;
+    }
+    #comments .button {
+	margin-left: 80px;
+	width: 200px;
+	height: 28px;
+	line-height: 20px;
+	font-size: 11pt;
+	font-weight: bold;
+	background-color: #d8d8d8;
+	color: #111;
+	border: 1px solid #888;
+	border-radius: 5px;
+	cursor: pointer;
+    }
+
+}
+
+
+#email-subscription form input, #email-subscription form button {
+  padding: 4px; 
+}
+
+#about {
+    ul {
+	margin-left: 10px;
+	li {
+	    list-style: none;
+	}
+    }
+}
+
+#resume .enumeration p b {
+    display: block;
+    width: 120px;
+    float: left;
+}
+
+#resume .enumeration p span {
+    display: block;
+    float: left;
+    width: 600px;
+}
+#resume .enumeration p {
+    margin-bottom: 10px;
+}
+
+#resume .enumeration.bigger-labels p b {
+    width: 150px;
+}
+#resume .enumeration.bigger-labels p span {
+    width: 570px;
+}
+
+#resume .testimonial {
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+#resume .testimonial cite {
+    margin-bottom: 7px;
+    display: block;
+}
+
+#resume .testimonial .credit {
+    font-size: 80%;
+    font-weight: bold;
+    color: #333;
+}
+
+#resume .testimonial .credit a {
+    color: #1F5386;
+    text-decoration: none;
+}
+
+.clear {
+    display: block;
+    clear: both;
+}

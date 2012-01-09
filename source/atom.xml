@@ -1,0 +1,28 @@
+---
+layout: nil
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+ <id>http://{{ site.site_domain }}/rss</id>
+ <title>{{ site.blog_title }}</title>
+ <link href="http://{{ site.site_domain }}/rss" rel="self"/>
+ <link href="http://{{ site.site_domain }}/" />
+ <updated>{{ site.time | date_to_xmlschema }}</updated>
+
+ <author>
+   <name>Alexandru Nedelcu</name>
+   <email>contact@bionicspirit.com</email>
+ </author>
+
+ {% for post in site.posts %}
+ {% unless post.is_draft %}
+ <entry>
+   <title>{{ post.title }}</title>
+   <link href="http://{{ site.site_domain }}{{ post.url }}"/>
+   <updated>{{ post.date | date_to_xmlschema }}</updated>
+   <id>http://{{ site.site_domain }}{{ post.id }}</id>
+   <content type="html">{{ post.content | xml_escape }}</content>
+ </entry>
+ {% endunless %}
+ {% endfor %}
+</feed>

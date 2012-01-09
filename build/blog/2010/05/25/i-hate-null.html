@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>I hate NULL and all its variants!</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="author" content="Alexandru Nedelcu">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <link rel="image_src" href="/assets/images/picture_alex.jpg" />
+
+    <link href="http://bionicspirit.com/rss" rel="alternate" title="Alexandru Nedelcu" type="application/atom+xml" />
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+    <link rel="stylesheet" href="/assets/stylesheets/all.css?ck=da842919f02d3b42fbb737c24477db85" type="text/css" media="screen, projection" />
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-21445302-1']);
+      // uncomment for the subdomains to get tracked
+      // _gaq.push(['_setDomainName', '.bionicspirit.com']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+	  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </head>
+  <body>
+
+    <div id="header">
+      <div class="wrapper">
+	<a href="/">bionicspirit.com</a>
+	<a class="extra" href="/pages/about.html" rel="author">about</a>
+	<a class="extra" href="/pages/subscribe.html">subscribe</a>
+	<a href="http://github.com/alexandru" class="github"><img src="/assets/images/fork.png" alt="Fork me on GitHub" /></a>
+      </div>
+    </div>
+      
+    <div class="site">
+      <div id="post">
+  <h1>I hate NULL and all its variants!</h1>
+  <div class="post-date">25 May 2010</div>
+
+  <p>
+  How many times have you had a chain of methods like this (example
+  showing <a target="_blank" href="http://www.crummy.com/software/BeautifulSoup/">BeautifulSoup</a>
+  in action) ...
+</p>
+
+<div class="highlight"><pre><code class="python"><span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;table&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;class&#39;</span><span class="p">:</span><span class="s">&#39;search-params&#39;</span><span class="p">})</span>\
+    <span class="o">.</span><span class="n">findParent</span><span class="p">(</span><span class="s">&#39;form&#39;</span><span class="p">)</span>\    
+    <span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;td&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;class&#39;</span><span class="p">:</span> <span class="s">&#39;elem&#39;</span><span class="p">})</span>\    
+    <span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;input&#39;</span><span class="p">)</span>\    
+    <span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">)</span>
+</code></pre>
+</div>
+
+
+<p>
+  BeautifulSoup is not JQuery, and when it doesn't find an element on
+  find actions, it just returns None or an empty list. Then you get a
+  beautiful index error or a method not available on NoneType kind of
+  error, with the result being that the error itself doesn't say
+  anything useful about what happened (except the source-code line
+  number) ... whereas in the case above I would probably prefer a
+  WebUIError or something.
+</p>
+
+<p>
+  And really, most of the time I just want the result of such an
+  expression to be None, in case one method invocation fails, and I do
+  not think that having a try/except block for every line of code that
+  does something interesting is ideal.
+</p>
+
+<p>
+  Fortunately Python is dynamic, and you can come up with something
+  resembling the <a target="_blank" href="http://en.wikipedia.org/wiki/Monad_(functional_programming)#Maybe_monad">Maybe
+  monad</a>. Here's one way to do it ...
+</p>
+
+<ol>
+  <li>instead of sending invocations to your initial object /
+  collection (in my case a BeautifulSoup object used for querying),
+  you're sending them to a proxy</li>
+ 
+  <li>for each invocation type you want, the proxy stores the
+  invocation types into a list</li>
+
+  <li>when you want to execute the resulting expression, you iterate
+  through that list actually invoking those actions, keeping an
+  intermediate result</li>
+
+  <li>if at any point that intermediate result becomes None (or
+  something that evaluates to False) or an exception is thrown, then
+  you can either invoke some handler (specializing the exception
+  thrown) or you can return None</li>
+
+</ol>
+
+<p>There are 3 types of invocations I needed to work with BeautifulSoup ...</p>
+
+<ol>
+  <li>attribute access (overridden with __getattr__)</li>
+  <li>method invocation (overridden with __call__)</li>
+  <li>indexer (overridden with __getitem__ and __setitem__)</li>
+</ol>
+
+<p>My proxy implementation starts something like this ...</p>
+
+<div class="highlight"><pre><code class="python"><span class="k">class</span> <span class="nc">Proxy</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>        
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">on_error_callback</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">_chain</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">_memo</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_wrapped_inst</span> <span class="o">=</span> <span class="n">instance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_chain</span> <span class="o">=</span> <span class="n">_chain</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_on_error_callback</span> <span class="o">=</span> <span class="n">on_error_callback</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memo</span> <span class="o">=</span> <span class="n">_memo</span> <span class="ow">or</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_proxy</span><span class="p">(</span><span class="n">ProxyAttribute</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>            
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_proxy</span><span class="p">(</span><span class="n">ProxyInvoke</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">))</span>
+</code></pre>
+</div>
+
+
+<p>
+  As you can see, there's an <i>instance</i> of an object getting
+  wrapped (<i>_wrapped_instance</i>), there's a <i>_chain</i> of
+  expressions memorized, there's an <i>_on_error_callback</i> that gets
+  executed in case of error, and there's a <i>_memo</i> that keeps the
+  result of the last execution (libraries like BeautifulSoup are slow).
+</p>
+
+<p>
+  Of course, I'm getting fancy, because I want <a target="_blank" href="http://en.wikipedia.org/wiki/Memoization">memoization</a> and
+  because in order to prevent the proxy getting into an inconsistent
+  state, when adding a new invocation type to the <i>_chain</i> I'm
+  taking a page from functional programming by creating a new proxy
+  object (making the proxy somewhat immutable).
+</p>
+
+<p>
+  So I override <i>__getattr__</i> and <i>__call__</i> and
+  <i>__getitem__</i> and <i>__setitem__. </i>For example on
+  <i>__getattr__</i> I add to <i>_chain</i> an instance of a
+  <i>ProxyAttribute</i>, which looks something like this ...
+</p>
+
+<div class="highlight"><pre><code class="python"><span class="k">class</span> <span class="nc">ProxyAttribute</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&quot;.&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+        
+    <span class="k">def</span> <span class="nf">do</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</code></pre>
+</div>
+
+
+<p>
+  And when I want the result of such invocation, if the intermediate
+  result is stored in <i>obj</i>, then it would look like ...
+</p>
+
+<div class="highlight"><pre><code class="python"><span class="n">obj</span> <span class="o">=</span> <span class="n">proxy_attribute_instance</span><span class="o">.</span><span class="n">do</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</code></pre>
+</div>
+
+
+<p>Now, for how it would look in practice ...</p>
+
+<div class="highlight"><pre><code class="python"><span class="k">def</span> <span class="nf">handler_soup_error</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>    
+     <span class="k">raise</span> <span class="n">WebUIError</span><span class="p">(</span><span class="s">&quot;Web interface specification changed&quot;</span><span class="p">)</span>
+
+<span class="n">soup</span> <span class="o">=</span> <span class="n">Proxy</span><span class="p">(</span><span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">document</span><span class="p">),</span> <span class="n">handler_soup_error</span><span class="p">)</span>
+
+<span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;table&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;class&#39;</span><span class="p">:</span><span class="s">&#39;search-params&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">findParent</span><span class="p">(</span><span class="s">&#39;form&#39;</span><span class="p">)</span>\    
+    <span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;td&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;class&#39;</span><span class="p">:</span> <span class="s">&#39;elem&#39;</span><span class="p">})</span>\    
+    <span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;input&#39;</span><span class="p">)</span>\    
+    <span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">)</span>\    
+    <span class="o">.</span><span class="n">do</span><span class="p">()</span>
+</code></pre>
+</div>
+
+
+<p>
+  So at the actual call site, the only difference is that <i>do()</i>
+  call. If the error handler wouldn't be specified, the result returned
+  would be None. Simple as that.
+</p>
+
+<p>
+  I also needed an utility, because I want to capture a partial
+  evaluation to not rerun it for multiple special cases (like in the
+  above case capturing all "td" elements) ...
+</p>
+
+<div class="highlight"><pre><code class="python"><span class="n">all_td_elems</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;table&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;class&#39;</span><span class="p">:</span><span class="s">&#39;search-params&#39;</span><span class="p">})</span>\    
+    <span class="o">.</span><span class="n">findParent</span><span class="p">(</span><span class="s">&#39;form&#39;</span><span class="p">)</span>\    
+    <span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;td&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;class&#39;</span><span class="p">:</span> <span class="s">&#39;elem&#39;</span><span class="p">})</span>\    
+    <span class="o">.</span><span class="n">do_cache</span><span class="p">()</span> <span class="c"># not an inspiring name unfortunately</span>
+
+    <span class="c"># and then resume with the same behavior ...</span>
+    <span class="n">all_td_elements</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;input&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">do</span><span class="p">()</span>
+</code></pre>
+</div>
+
+
+<p>
+  Yeah, it's just a small hack, but it's so damn useful sometimes.
+  The source code is posted here: 
+  <a target="_blank" href="http://code.google.com/p/useful-snippets/source/browse/trunk/proxy.py">http://code.google.com/p/useful-snippets/source/browse/trunk/proxy.py</a>
+</p>
+
+</div>
+
+<div id="other-articles">
+  <h2>Related Articles</h2>
+
+  <ul class="posts">
+    
+      <li><span>15 Dec 2011</span> &raquo; <a href="/blog/2011/12/15/crawling-the-android-marketplace-155200-apps.html">Crawling the Android Marketplace</a></li>
+    
+      <li><span>05 Jan 2012</span> &raquo; <a href="/blog/2012/01/05/blogging-for-hackers.html">Blogging Platform for Hackers</a></li>
+    
+      <li><span>24 Mar 2011</span> &raquo; <a href="/blog/2011/03/24/cross-domain-requests.html">Cross-Domain, Cross-Browser AJAX Requests</a></li>
+    
+      <li><span>03 Dec 2009</span> &raquo; <a href="/blog/2009/12/03/catalyst-form-handler-tutorial.html">Catalyst, HTML::FormHandler and DBIx::Class tutorial</a></li>
+    
+      <li><span>20 Feb 2009</span> &raquo; <a href="/blog/2009/02/20/tips-for-creating-voip-dialer.html">FreeSWITCH - Tips for Creating a Dialer</a></li>
+    
+  </ul>
+</div>
+
+<div id="contributions">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_shortname = 'bionicspirit'; 
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+      
+      <div class="footer">
+	<div class="contact">
+	  <p>
+	    &copy; 2012 Alexandru Nedelcu
+	    <br />
+	    Some rights reserved (<a href="http://creativecommons.org/licenses/by-nc/3.0/" rel="license">CC BY-NC 3.0</a>)
+	    <br />
+	    <a href="mailto:&#099;&#111;&#110;&#116;&#097;&#099;&#116;&#064;&#097;&#108;&#101;&#120;&#110;&#046;&#111;&#114;&#103;">&#099;&#111;&#110;&#116;&#097;&#099;&#116;&#064;&#097;&#108;&#101;&#120;&#110;&#046;&#111;&#114;&#103;</a>
+	  </p>
+	</div>
+
+	<div class="rss">
+	  <a href="/rss" target="_blank" title="Subscribe to RSS Feed">
+	    <img src="/assets/images/rss.png" alt="Subscribe to RSS Feed" />
+	  </a>
+	  <a href="/pages/subscribe.html" title="Subscribe to Newsletter">
+	    <img src="/assets/images/email.png" alt="Subscribe to Newsletter" />
+	  </a>
+	  <a href="https://twitter.com/alex_ndc" target="_blank" title="Follow me on Twitter (@alex_ndc)">
+	    <img src="/assets/images/twitter.png" alt="Follow me on Twitter (@alex_ndc)" />
+	  </a>
+	</div>
+      </div>
+    </div>
+  </body>
+</html>

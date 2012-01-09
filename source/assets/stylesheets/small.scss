@@ -1,0 +1,37 @@
+@media only screen and (max-width: 600px) {
+
+    body {
+	.site {
+	    ul.posts {
+		a {
+		    display: block;
+		    margin-bottom: 20px;
+		}
+	    }
+	}
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    body {
+	font-size: 105%;
+
+	.site {
+	    padding-top: 130px;
+	}
+    }
+
+    #post .highlight {
+	font-size: 100%;
+    }
+
+    #header .wrapper {
+	height: 95px;
+    }
+    #header {
+	a {
+	    display: block;
+	    line-height: 150%;
+	}
+    }
+}

@@ -1,0 +1,29 @@
+---
+layout: default
+---
+
+<div id="home">
+  <h2>{{ site.blog_description }}</h2>
+
+  <ul class="posts">
+    {% for post in site.posts %}
+      {% unless post.is_draft %}
+      <li>
+	<span>{{ post.date | date_to_string }}</span> &raquo; 
+	<a href="{{ post.url }}">{{ post.title }}</a>
+      </li>
+      {% endunless %}
+    {% endfor %}
+  </ul>
+
+  <h2>Latest Favorite Links</h2>
+
+  <ul class="posts">
+    {% delicious username:alex_ndc tag:nice count:25 ttl:3600 %}
+    <li>
+      <span>{{ item.date | date_to_string }}</span> &raquo; 
+      <a href="{{ item.link }}" title="{{ item.description }}" rel="external">{{ item.title }}</a>
+    </li>
+    {% enddelicious %}
+  </ul>
+</div>
