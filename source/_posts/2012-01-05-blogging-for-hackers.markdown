@@ -2,6 +2,7 @@
 layout: post
 title: "Blogging Platform for Hackers"
 categories:
+  - publishing
   - servers
   - heroku
   - tutorial

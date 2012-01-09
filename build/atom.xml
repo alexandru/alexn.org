@@ -4,7 +4,7 @@
  <title>Bionic Spirit</title>
  <link href="http://bionicspirit.com/rss" rel="self"/>
  <link href="http://bionicspirit.com/" />
- <updated>2012-01-10T00:18:33+02:00</updated>
+ <updated>2012-01-10T01:30:09+02:00</updated>
 
  <author>
    <name>Bionic Spirit</name>
@@ -12,6 +12,109 @@
    <uri>http://bionicspirit.com</uri>
  </author>
 
+ 
+ 
+ <entry>
+   <title>How and Why I Merged 2 Domain Names</title>
+   <link href="http://bionicspirit.com/blog/2012/01/10/merging-domains.html"/>
+   <updated>2012-01-10T00:00:00+02:00</updated>
+   <id>http://bionicspirit.com/blog/2012/01/10/merging-domains</id>
+
+   <author>
+     <name>Bionic Spirit</name>
+     <email>contact@bionicspirit.com</email>
+     <uri>http://bionicspirit.com</uri>
+   </author>
+
+   <rights type="text">
+     Copyright 2012 Alexandru Nedelcu.
+     Some rights reserved (CC BY-NC 3.0)
+     License: http://creativecommons.org/licenses/by-nc/3.0/
+   </rights>
+
+   
+   <category scheme="http://bionicspirit.com/tag/" term="tutorial" label="tutorial" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="publishing" label="publishing" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="servers" label="servers" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="heroku" label="heroku" />
+   
+
+   <content type="html">&lt;p&gt;I've merged 2 domain names: &lt;a href=&quot;http://alexn.org&quot;&gt;alexn.org&lt;/a&gt; and
+&lt;a href=&quot;http://bionicspirit.com&quot;&gt;bionicspirit.com&lt;/a&gt;; and so I'm teaching you
+how to do it.&lt;/p&gt;
+
+&lt;p&gt;I wanted the later to be a more focused blog, however I'm a software
+developer, not an &quot;&lt;em&gt;X developer&lt;/em&gt;&quot;. Focusing on single technologies is
+boring and not really my style. However, I am focused on excellence
+and that's going to be the focus of my unified blog:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;DIY techniques;&lt;/li&gt;
+&lt;li&gt;Personal development;&lt;/li&gt;
+&lt;li&gt;The basics: algorithms, server admin, design, ux;&lt;/li&gt;
+&lt;li&gt;Lessons from my life as a software developer, with an
+entrepreneurial mindset, that works remotely and is a father of a
+baby boy :-)&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;Personal Reasons for bionicspirit.com&lt;/h2&gt;
+
+&lt;p&gt;I'm migrating &lt;a href=&quot;http://alexn.org&quot;&gt;alexn.org&lt;/a&gt; to
+&lt;a href=&quot;http://bionicspirit.com&quot;&gt;bionicspirit.com&lt;/a&gt; and not the other way
+around.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;it can be pronounced without spelling, even in my native language;&lt;/li&gt;
+&lt;li&gt;it is easier to remember;&lt;/li&gt;
+&lt;li&gt;it can become a brand that transcends my own name;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;However, if I don't get this right, I'm going to be penalized by
+Google and by my subscribers. It is also not an action that can be
+easily reverted. I also can't get rid of the old domain, for all
+eternity, as links to it are already spread throughout the web. But
+that's fine, I'll just make it a simple profile page.&lt;/p&gt;
+
+&lt;h2&gt;First Step: Have a Checklist&lt;/h2&gt;
+
+&lt;p&gt;It's very easy to forget about small details. So it's really smart to
+have a TODO list ready:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;migrate articles;&lt;/li&gt;
+&lt;li&gt;migrate feed link;&lt;/li&gt;
+&lt;li&gt;all links from the old website must still be functional (with a
+redirect);&lt;/li&gt;
+&lt;li&gt;migrate supporting services: Google Analytics, Disqus, FeedBurner,
+etc...&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;Then make a battle plan. Try and identify the problems that you may
+come up against. For example:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;It's best if a single step from the above doesn't disrupt anything
+(googlebot, feed readers, external links). So in what sequence do
+you execute?&lt;/li&gt;
+&lt;li&gt;Can Disqus merge 2 accounts? If not, can you do a manual merge?&lt;/li&gt;
+&lt;li&gt;How can 2 FeedBurner accounts be merged?&lt;/li&gt;
+&lt;li&gt;Do you have conflicting content?&lt;/li&gt;
+&lt;li&gt;Do you have garbage that you'd like to get rid of?&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;Check this list before, after and during the process. Double-check
+that all tasks have been completed and are working properly. Never
+leave behind broken links.&lt;/p&gt;
+</content>
+ </entry>
+ 
  
  
  <entry>
@@ -32,6 +135,8 @@
      License: http://creativecommons.org/licenses/by-nc/3.0/
    </rights>
 
+   
+   <category scheme="http://bionicspirit.com/tag/" term="publishing" label="publishing" />
    
    <category scheme="http://bionicspirit.com/tag/" term="servers" label="servers" />
    
