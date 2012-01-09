@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
- <id>http://bionicspirit.com/rss</id>
+ <id>http://bionicspirit.com/</id>
  <title>Bionic Spirit</title>
  <link href="http://bionicspirit.com/rss" rel="self"/>
  <link href="http://bionicspirit.com/" />
- <updated>2012-01-09T23:49:36+02:00</updated>
+ <updated>2012-01-09T23:56:05+02:00</updated>
 
  <author>
-   <name>Alexandru Nedelcu</name>
+   <name>Bionic Spirit</name>
    <email>contact@bionicspirit.com</email>
+   <uri>http://bionicspirit.com</uri>
  </author>
 
  
@@ -18,6 +19,31 @@
    <link href="http://bionicspirit.com/blog/2012/01/05/blogging-for-hackers.html"/>
    <updated>2012-01-05T00:00:00+02:00</updated>
    <id>http://bionicspirit.com/blog/2012/01/05/blogging-for-hackers</id>
+
+   <author>
+     <name>Bionic Spirit</name>
+     <email>contact@bionicspirit.com</email>
+     <uri>http://bionicspirit.com</uri>
+   </author>
+
+   <rights type="text">
+     Copyright 2012 Alexandru Nedelcu.
+     Some rights reserved (CC BY-NC 3.0)
+     License: http://creativecommons.org/licenses/by-nc/3.0/
+   </rights>
+
+   
+   <category scheme="http://bionicspirit.com/tag/" term="servers" label="servers" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="heroku" label="heroku" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="tutorial" label="tutorial" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="ruby" label="ruby" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="gae" label="gae" />
+   
+
    <content type="html">&lt;p&gt;&lt;img src=&quot;/assets/photos/heroku.png&quot; class=&quot;right&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;I'm showing you how to:&lt;/p&gt;
@@ -553,6 +579,27 @@ anyway, but this was fun.&lt;/p&gt;
    <link href="http://bionicspirit.com/blog/2011/12/16/ux-tip-dont-make-your-interface-us-centric.html"/>
    <updated>2011-12-16T00:00:00+02:00</updated>
    <id>http://bionicspirit.com/blog/2011/12/16/ux-tip-dont-make-your-interface-us-centric</id>
+
+   <author>
+     <name>Bionic Spirit</name>
+     <email>contact@bionicspirit.com</email>
+     <uri>http://bionicspirit.com</uri>
+   </author>
+
+   <rights type="text">
+     Copyright 2011 Alexandru Nedelcu.
+     Some rights reserved (CC BY-NC 3.0)
+     License: http://creativecommons.org/licenses/by-nc/3.0/
+   </rights>
+
+   
+   <category scheme="http://bionicspirit.com/tag/" term="opinion" label="opinion" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="design" label="design" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="ux" label="ux" />
+   
+
    <content type="html">&lt;p&gt;To illustrate the shit I was talking about in
 &lt;a href=&quot;/blog/2011/12/12/ux-tip-outside-us-dont-require-postal-codes.html&quot;&gt;Outside the US, Don't Require Postal Codes&lt;/a&gt;,
 here's a concrete example: &lt;strong&gt;DZone.com&lt;/strong&gt;&lt;/p&gt;
@@ -611,6 +658,27 @@ send you money for the effort).&lt;/p&gt;
    <link href="http://bionicspirit.com/blog/2011/12/15/crawling-the-android-marketplace-155200-apps.html"/>
    <updated>2011-12-15T00:00:00+02:00</updated>
    <id>http://bionicspirit.com/blog/2011/12/15/crawling-the-android-marketplace-155200-apps</id>
+
+   <author>
+     <name>Bionic Spirit</name>
+     <email>contact@bionicspirit.com</email>
+     <uri>http://bionicspirit.com</uri>
+   </author>
+
+   <rights type="text">
+     Copyright 2011 Alexandru Nedelcu.
+     Some rights reserved (CC BY-NC 3.0)
+     License: http://creativecommons.org/licenses/by-nc/3.0/
+   </rights>
+
+   
+   <category scheme="http://bionicspirit.com/tag/" term="python" label="python" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="android" label="android" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="tutorial" label="tutorial" />
+   
+
    <content type="html">&lt;p&gt;I had a very specific need for fetching the details for some apps in
 the marketplace, in an automated manner. And so I found
 &lt;a href=&quot;https://github.com/jberkel/supermarket&quot;&gt;the supermarket gem&lt;/a&gt;, a
@@ -742,6 +810,27 @@ Android's Marketplace.&lt;/p&gt;
    <link href="http://bionicspirit.com/blog/2011/12/12/ux-tip-outside-us-dont-require-postal-codes.html"/>
    <updated>2011-12-12T00:00:00+02:00</updated>
    <id>http://bionicspirit.com/blog/2011/12/12/ux-tip-outside-us-dont-require-postal-codes</id>
+
+   <author>
+     <name>Bionic Spirit</name>
+     <email>contact@bionicspirit.com</email>
+     <uri>http://bionicspirit.com</uri>
+   </author>
+
+   <rights type="text">
+     Copyright 2011 Alexandru Nedelcu.
+     Some rights reserved (CC BY-NC 3.0)
+     License: http://creativecommons.org/licenses/by-nc/3.0/
+   </rights>
+
+   
+   <category scheme="http://bionicspirit.com/tag/" term="opinion" label="opinion" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="design" label="design" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="ux" label="ux" />
+   
+
    <content type="html">&lt;img src=&quot;/assets/photos/ireland.png&quot; style=&quot;float: right; margin-left: 20px; margin-bottom: 20px; margin-top: 20px;&quot; /&gt;
 
 &lt;p&gt;
@@ -836,6 +925,25 @@ Android's Marketplace.&lt;/p&gt;
    <link href="http://bionicspirit.com/blog/2011/12/12/android-learning-resources.html"/>
    <updated>2011-12-12T00:00:00+02:00</updated>
    <id>http://bionicspirit.com/blog/2011/12/12/android-learning-resources</id>
+
+   <author>
+     <name>Bionic Spirit</name>
+     <email>contact@bionicspirit.com</email>
+     <uri>http://bionicspirit.com</uri>
+   </author>
+
+   <rights type="text">
+     Copyright 2011 Alexandru Nedelcu.
+     Some rights reserved (CC BY-NC 3.0)
+     License: http://creativecommons.org/licenses/by-nc/3.0/
+   </rights>
+
+   
+   <category scheme="http://bionicspirit.com/tag/" term="android" label="android" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="books" label="books" />
+   
+
    <content type="html">&lt;p&gt;Starting out learning Android development may be intimidating at
 first, as with any new platform of reasonable complexity you'll have
 a lot to learn. However the learning process is fun. So here are
@@ -962,6 +1070,23 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
    <link href="http://bionicspirit.com/blog/2011/12/02/why-intellij-idea-is-better-for-android-development.html"/>
    <updated>2011-12-02T00:00:00+02:00</updated>
    <id>http://bionicspirit.com/blog/2011/12/02/why-intellij-idea-is-better-for-android-development</id>
+
+   <author>
+     <name>Bionic Spirit</name>
+     <email>contact@bionicspirit.com</email>
+     <uri>http://bionicspirit.com</uri>
+   </author>
+
+   <rights type="text">
+     Copyright 2011 Alexandru Nedelcu.
+     Some rights reserved (CC BY-NC 3.0)
+     License: http://creativecommons.org/licenses/by-nc/3.0/
+   </rights>
+
+   
+   <category scheme="http://bionicspirit.com/tag/" term="android" label="android" />
+   
+
    <content type="html">&lt;p&gt;
   The default IDE, as enforced by Google's Android SDK, is
   Eclipse. Overall Eclipse is a good IDE, however my experience with
@@ -1101,6 +1226,25 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
    <link href="http://bionicspirit.com/blog/2011/11/29/earning-money-as-an-amazon-affiliate.html"/>
    <updated>2011-11-29T00:00:00+02:00</updated>
    <id>http://bionicspirit.com/blog/2011/11/29/earning-money-as-an-amazon-affiliate</id>
+
+   <author>
+     <name>Bionic Spirit</name>
+     <email>contact@bionicspirit.com</email>
+     <uri>http://bionicspirit.com</uri>
+   </author>
+
+   <rights type="text">
+     Copyright 2011 Alexandru Nedelcu.
+     Some rights reserved (CC BY-NC 3.0)
+     License: http://creativecommons.org/licenses/by-nc/3.0/
+   </rights>
+
+   
+   <category scheme="http://bionicspirit.com/tag/" term="entrepreneurship" label="entrepreneurship" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="opinion" label="opinion" />
+   
+
    <content type="html">&lt;p&gt;
   I published an article that I've meant to publish for a long
   time. I'm usually lazy to not bother writing many articles, however
@@ -1333,6 +1477,29 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
    <link href="http://bionicspirit.com/blog/2011/11/25/4-books-for-learning-to-design-the-hard-way.html"/>
    <updated>2011-11-25T00:00:00+02:00</updated>
    <id>http://bionicspirit.com/blog/2011/11/25/4-books-for-learning-to-design-the-hard-way</id>
+
+   <author>
+     <name>Bionic Spirit</name>
+     <email>contact@bionicspirit.com</email>
+     <uri>http://bionicspirit.com</uri>
+   </author>
+
+   <rights type="text">
+     Copyright 2011 Alexandru Nedelcu.
+     Some rights reserved (CC BY-NC 3.0)
+     License: http://creativecommons.org/licenses/by-nc/3.0/
+   </rights>
+
+   
+   <category scheme="http://bionicspirit.com/tag/" term="entrepreneurship" label="entrepreneurship" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="design" label="design" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="ux" label="ux" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="books" label="books" />
+   
+
    <content type="html">&lt;p&gt;
   This is the path I'm taking to &lt;i&gt;not suck&lt;/i&gt; at design anymore, as
   frankly, I'm getting tired of sucking. I've read the first 3 books
@@ -1547,6 +1714,25 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
    <link href="http://bionicspirit.com/blog/2011/10/29/how-i-use-flickr.html"/>
    <updated>2011-10-29T00:00:00+03:00</updated>
    <id>http://bionicspirit.com/blog/2011/10/29/how-i-use-flickr</id>
+
+   <author>
+     <name>Bionic Spirit</name>
+     <email>contact@bionicspirit.com</email>
+     <uri>http://bionicspirit.com</uri>
+   </author>
+
+   <rights type="text">
+     Copyright 2011 Alexandru Nedelcu.
+     Some rights reserved (CC BY-NC 3.0)
+     License: http://creativecommons.org/licenses/by-nc/3.0/
+   </rights>
+
+   
+   <category scheme="http://bionicspirit.com/tag/" term="opinion" label="opinion" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="api" label="api" />
+   
+
    <content type="html">&lt;p&gt;
   I've got a growing number of personal pictures and the collection is
   growing since 2003, when I got my first digital camera, a shitty
@@ -1679,6 +1865,29 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
    <link href="http://bionicspirit.com/blog/2011/10/25/testing-different-browsers.html"/>
    <updated>2011-10-25T00:00:00+03:00</updated>
    <id>http://bionicspirit.com/blog/2011/10/25/testing-different-browsers</id>
+
+   <author>
+     <name>Bionic Spirit</name>
+     <email>contact@bionicspirit.com</email>
+     <uri>http://bionicspirit.com</uri>
+   </author>
+
+   <rights type="text">
+     Copyright 2011 Alexandru Nedelcu.
+     Some rights reserved (CC BY-NC 3.0)
+     License: http://creativecommons.org/licenses/by-nc/3.0/
+   </rights>
+
+   
+   <category scheme="http://bionicspirit.com/tag/" term="opinion" label="opinion" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="javascript" label="javascript" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="browser" label="browser" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="webdev" label="webdev" />
+   
+
    <content type="html">&lt;p&gt;
   I got a notice that my &lt;a
   href=&quot;https://github.com/alexandru/crossdomain-requests-js&quot;
@@ -1777,6 +1986,29 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
    <link href="http://bionicspirit.com/blog/2011/10/23/why-i-find-heroku-suboptimal.html"/>
    <updated>2011-10-23T00:00:00+03:00</updated>
    <id>http://bionicspirit.com/blog/2011/10/23/why-i-find-heroku-suboptimal</id>
+
+   <author>
+     <name>Bionic Spirit</name>
+     <email>contact@bionicspirit.com</email>
+     <uri>http://bionicspirit.com</uri>
+   </author>
+
+   <rights type="text">
+     Copyright 2011 Alexandru Nedelcu.
+     Some rights reserved (CC BY-NC 3.0)
+     License: http://creativecommons.org/licenses/by-nc/3.0/
+   </rights>
+
+   
+   <category scheme="http://bionicspirit.com/tag/" term="opinion" label="opinion" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="servers" label="servers" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="heroku" label="heroku" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="webdev" label="webdev" />
+   
+
    <content type="html">&lt;p&gt;
   I love freebies. I often find myself compelled to search for the
   best price / convenience ratio, and from this perspective you cannot
@@ -2067,6 +2299,29 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
    <link href="http://bionicspirit.com/blog/2011/03/24/cross-domain-requests.html"/>
    <updated>2011-03-24T00:00:00+02:00</updated>
    <id>http://bionicspirit.com/blog/2011/03/24/cross-domain-requests</id>
+
+   <author>
+     <name>Bionic Spirit</name>
+     <email>contact@bionicspirit.com</email>
+     <uri>http://bionicspirit.com</uri>
+   </author>
+
+   <rights type="text">
+     Copyright 2011 Alexandru Nedelcu.
+     Some rights reserved (CC BY-NC 3.0)
+     License: http://creativecommons.org/licenses/by-nc/3.0/
+   </rights>
+
+   
+   <category scheme="http://bionicspirit.com/tag/" term="tutorial" label="tutorial" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="javascript" label="javascript" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="browser" label="browser" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="webdev" label="webdev" />
+   
+
    <content type="html">&lt;p&gt;
   This article describes how to make cross-browser requests, in all
   browsers (including &lt;u&gt;IExplorer 6&lt;/u&gt;), without using a proxy or JSONP
@@ -2519,6 +2774,25 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
    <link href="http://bionicspirit.com/blog/2010/05/25/i-hate-null.html"/>
    <updated>2010-05-25T00:00:00+03:00</updated>
    <id>http://bionicspirit.com/blog/2010/05/25/i-hate-null</id>
+
+   <author>
+     <name>Bionic Spirit</name>
+     <email>contact@bionicspirit.com</email>
+     <uri>http://bionicspirit.com</uri>
+   </author>
+
+   <rights type="text">
+     Copyright 2010 Alexandru Nedelcu.
+     Some rights reserved (CC BY-NC 3.0)
+     License: http://creativecommons.org/licenses/by-nc/3.0/
+   </rights>
+
+   
+   <category scheme="http://bionicspirit.com/tag/" term="tutorial" label="tutorial" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="python" label="python" />
+   
+
    <content type="html">&lt;p&gt;
   How many times have you had a chain of methods like this (example
   showing &lt;a target=&quot;_blank&quot; href=&quot;http://www.crummy.com/software/BeautifulSoup/&quot;&gt;BeautifulSoup&lt;/a&gt;
@@ -2702,6 +2976,25 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
    <link href="http://bionicspirit.com/blog/2009/12/03/catalyst-form-handler-tutorial.html"/>
    <updated>2009-12-03T00:00:00+02:00</updated>
    <id>http://bionicspirit.com/blog/2009/12/03/catalyst-form-handler-tutorial</id>
+
+   <author>
+     <name>Bionic Spirit</name>
+     <email>contact@bionicspirit.com</email>
+     <uri>http://bionicspirit.com</uri>
+   </author>
+
+   <rights type="text">
+     Copyright 2009 Alexandru Nedelcu.
+     Some rights reserved (CC BY-NC 3.0)
+     License: http://creativecommons.org/licenses/by-nc/3.0/
+   </rights>
+
+   
+   <category scheme="http://bionicspirit.com/tag/" term="tutorial" label="tutorial" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="perl" label="perl" />
+   
+
    <content type="html">&lt;h2 id=&quot;Introduction&quot;&gt;Introduction&lt;/h2&gt; 
 &lt;div id=&quot;Introduction_CONTENT&quot;&gt; 
 &lt;p&gt;&lt;a href=&quot;http://search.cpan.org/perldoc?HTML::FormHandler&quot;&gt;HTML::FormHandler&lt;/a&gt; is a module for handling forms and HTTP requests
@@ -3123,6 +3416,25 @@ with custom validators and notes about template rendering.&lt;/p&gt;
    <link href="http://bionicspirit.com/blog/2009/02/20/tips-for-creating-voip-dialer.html"/>
    <updated>2009-02-20T00:00:00+02:00</updated>
    <id>http://bionicspirit.com/blog/2009/02/20/tips-for-creating-voip-dialer</id>
+
+   <author>
+     <name>Bionic Spirit</name>
+     <email>contact@bionicspirit.com</email>
+     <uri>http://bionicspirit.com</uri>
+   </author>
+
+   <rights type="text">
+     Copyright 2009 Alexandru Nedelcu.
+     Some rights reserved (CC BY-NC 3.0)
+     License: http://creativecommons.org/licenses/by-nc/3.0/
+   </rights>
+
+   
+   <category scheme="http://bionicspirit.com/tag/" term="tutorial" label="tutorial" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="freeswitch" label="freeswitch" />
+   
+
    <content type="html">&lt;h2&gt;Note (Feb 17, 2011)&lt;/h2&gt; 
 
 &lt;p&gt;
@@ -3657,6 +3969,25 @@ Or in your script:
    <link href="http://bionicspirit.com/blog/2009/02/01/using-best-tools-programming-not-doable.html"/>
    <updated>2009-02-01T00:00:00+02:00</updated>
    <id>http://bionicspirit.com/blog/2009/02/01/using-best-tools-programming-not-doable</id>
+
+   <author>
+     <name>Bionic Spirit</name>
+     <email>contact@bionicspirit.com</email>
+     <uri>http://bionicspirit.com</uri>
+   </author>
+
+   <rights type="text">
+     Copyright 2009 Alexandru Nedelcu.
+     Some rights reserved (CC BY-NC 3.0)
+     License: http://creativecommons.org/licenses/by-nc/3.0/
+   </rights>
+
+   
+   <category scheme="http://bionicspirit.com/tag/" term="opinion" label="opinion" />
+   
+   <category scheme="http://bionicspirit.com/tag/" term="hacking" label="hacking" />
+   
+
    <content type="html">&lt;p&gt;
   There's something that bothers me when it comes to starting a new
   project. You can't really use the best tool for a certain job, if that
