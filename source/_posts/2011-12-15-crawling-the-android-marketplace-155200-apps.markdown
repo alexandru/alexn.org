@@ -2,6 +2,7 @@
 title: "Crawling the Android Marketplace"
 layout: post
 categories: 
+  - entrepreneurship
   - python
   - android
   - tutorial
@@ -100,28 +101,16 @@ the number of downloads is between 42,576,311 and 164,116,615. This
 number seems rather low to me, making it clear that Android
 distribution is freemium based.
 
-### Distribution of Free Apps Downloads Across Categories
+*UPDATE: initially here there were some charts showing the popularity
+of free/paid apps per category. I deleted them as I don't like the
+flames these kind of charts generate!*
 
-{% img center /assets/photos/freeapps-downloads.png %}
+## Conclusion
 
-### Distribution of Paid Apps Downloads Across Categories
-
-{% img center /assets/photos/paidapps-downloads.png %}
-
-### Number of Publishers Working on Free Apps
-
-{% img center /assets/photos/freeapps-pubs-nr.png %}
-
-### Number of Publishers Working on Paid Apps
-
-{% img center /assets/photos/paidapps-pubs-nr.png %}
-
-## Conclusions
-
-I don't think I have one yet. It seems to me like the development
-model of Android resembles that of the web - lots of freemium apps,
-lots of crap. However, there are gems on the market available and
-there are developers making a decent income from publishing on
-Android's Marketplace.
-
-
+I don't think I have one. Upon analyzing the data, it seems to me like
+the development model of Android resembles that of the web - lots of
+freemium apps, lots of crap. However, there are gems on the market
+available and there are developers making a decent income from
+publishing on Android's Marketplace. Competition is tough, but it is
+(for now at least) an unregulated free market with tremendous
+potential.
