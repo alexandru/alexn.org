@@ -36,15 +36,13 @@ module Jekyll
         @img['class'].gsub!(/"/, '') if @img['class']
       end
 
-      config = YAML::load(File.open File.join(File.dirname(__FILE__), '..', '..', '_config.yml'))
-      if @img['src'].start_with?('/') and config['assets_domain']
-        @img['src'] = "http://" + config['assets_domain'] + @img['src']
-      end
-
       super
     end
 
     def render(context)
+      assets_domain = context.environments[0]['site']['assets_domain']     
+      @img['src'] = "http://" + assets_domain + @img['src'] if assets_domain and @img['src'] =~ /^\/[^\/]/
+
       if @img
         "<img #{@img.collect {|k,v| "#{k}=\"#{v}\"" if v}.join(" ")}>"
       else
