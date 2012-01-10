@@ -73,6 +73,8 @@ Create a Rack configuration file that handles your logic, called
 class RedirectBetweenDomains
   def call(env)
     request = Rack::Request.new(env)
+    
+    # replacement logic here:
     new_url = request.url.sub("alexn.org", "bionicspirit.com")
 
     headers = {
