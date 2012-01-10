@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "I Merged 2 Domains - alexn.org and bionicspirit.com"
+title: "Merging Two Domains - alexn.org and bionicspirit.com"
 categories:
   - tutorial
   - servers
