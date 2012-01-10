@@ -1,5 +1,3 @@
-require 'yaml'
-
 module Jekyll
   class AssetLinkTag < Liquid::Tag
 
@@ -10,11 +8,9 @@ module Jekyll
 
     def render(context)
       path = @path
-      if path.start_with? "/"
-        config = YAML::load_file(File.join(File.dirname(__FILE__), '..', '..', '_config.yml'))
-        path = "//" + config['assets_domain'] + path if config['assets_domain']
-      end
-      return path
+      assets_domain = context.environments[0]['site']['assets_domain']     
+      path = "//" + assets_domain + path if path =~ /^\/[^\/]/ and assets_domain
+      path
     end
 
   end
