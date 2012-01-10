@@ -4,7 +4,7 @@
  <title>Bionic Spirit</title>
  <link href="http://bionicspirit.com/rss" rel="self"/>
  <link href="http://bionicspirit.com/" />
- <updated>2012-01-11T00:21:17+02:00</updated>
+ <updated>2012-01-11T00:22:05+02:00</updated>
 
  <author>
    <name>Bionic Spirit</name>
@@ -122,7 +122,8 @@ bundle install
       &lt;span class=&quot;c1&quot;&gt;# permanent redirects could end up cached&lt;/span&gt;
       &lt;span class=&quot;s1&quot;&gt;&amp;#39;Cache-Control&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;no-cache&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
       
-      &lt;span class=&quot;c1&quot;&gt;# not really needed, but rack complains otherwise&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;# not needed, but rack (env=development) complains&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;# otherwise      &lt;/span&gt;
       &lt;span class=&quot;s1&quot;&gt;&amp;#39;Content-Type&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;text/html&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;    
 
@@ -188,7 +189,7 @@ name). Also checkout their article on
    <category scheme="http://bionicspirit.com/tag/" term="heroku" label="heroku" />
    
 
-   <content type="html">&lt;p&gt;&lt;img src=&quot;//assets-2.alexn.org/assets/photos/heroku.png&quot; class=&quot;right&quot; /&gt;&lt;/p&gt;
+   <content type="html">&lt;p&gt;&lt;img src=&quot;//assets-1.alexn.org/assets/photos/heroku.png&quot; class=&quot;right&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;I'm showing you how to:&lt;/p&gt;
 
@@ -846,7 +847,7 @@ and crawled it.&lt;/p&gt;
 
 &lt;h2&gt;How To Do it By Yourself&lt;/h2&gt;
 
-&lt;p&gt;&lt;img class=&quot;right&quot; src=&quot;//assets-1.alexn.org/assets/photos/wolfspider150.gif&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class=&quot;right&quot; src=&quot;//assets-2.alexn.org/assets/photos/wolfspider150.gif&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;The actual script that I created can be found in the
 &lt;a href=&quot;https://github.com/alexandru/AndroidMarketCrawler&quot;&gt;AndroidMarketCrawler&lt;/a&gt;
@@ -963,7 +964,7 @@ potential.&lt;/p&gt;
    <category scheme="http://bionicspirit.com/tag/" term="ux" label="ux" />
    
 
-   <content type="html">&lt;img src=&quot;//assets-2.alexn.org/assets/photos/ireland.png&quot; style=&quot;float: right; margin-left: 20px; margin-bottom: 20px; margin-top: 20px;&quot; /&gt;
+   <content type="html">&lt;img src=&quot;//assets-1.alexn.org/assets/photos/ireland.png&quot; style=&quot;float: right; margin-left: 20px; margin-bottom: 20px; margin-top: 20px;&quot; /&gt;
 
 &lt;p&gt;
   I have this annoyance with US-centric UIs that started to bug me
@@ -1232,7 +1233,7 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
   IDEA, the Community Edition&lt;/a&gt;.
 &lt;/p&gt;
 
-&lt;img src=&quot;//assets-1.alexn.org/assets/images/intellij.png&quot; width=&quot;750&quot; height=&quot;622&quot; /&gt;
+&lt;img src=&quot;//assets-2.alexn.org/assets/images/intellij.png&quot; width=&quot;750&quot; height=&quot;622&quot; /&gt;
 
 &lt;p&gt;
   Normally I work within Emacs, for everything I do. However with Java
