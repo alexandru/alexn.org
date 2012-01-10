@@ -62,9 +62,7 @@ task :compile do
 end
 
 desc "Deploys assets to GAE"
-task :gae do
-  build_assets
-
+task :gae => :compile do
   rm_rf "/tmp/gaecdn"
   mkdir "/tmp/gaecdn"
   sh "cp -rf ./#{CONFIG['destination']}/assets /tmp/gaecdn/"
