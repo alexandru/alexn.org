@@ -8,10 +8,5 @@ group :development do
   gem 'rdiscount'
   gem 'hpricot'  
   gem 'liquid', '2.2.2'
-
   gem 'sass'
-  gem 'uglifier'
-  gem 'therubyracer'
-  gem 'sprockets'
-  gem 'coffee-script'
 end
