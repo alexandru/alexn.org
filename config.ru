@@ -168,8 +168,8 @@ use Fancy404NotFound
 
 # protected with password (for now)
 
-use Rack::Auth::Basic, "Bionic Spirit" do |username, password|
-  'secret' == password
-end
+#use Rack::Auth::Basic, "Bionic Spirit" do |username, password|
+#  'secret' == password
+#end
 
 run Application.new(PUBLIC)
