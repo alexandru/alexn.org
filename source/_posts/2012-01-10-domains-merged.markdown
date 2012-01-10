@@ -111,6 +111,7 @@ git push heroku master
 
 When it finishes, you can test the setup on
 *http://yourappid.heroku.com* (where *rabbit* is your application's
-name).
+name). Also checkout their article on
+[adding custom domains](http://devcenter.heroku.com/articles/custom-domains).
 
 
