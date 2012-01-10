@@ -1,4 +1,5 @@
 require 'sass'
+require 'digest/md5'
 
 module Jekyll
 
@@ -37,14 +38,13 @@ module Jekyll
         all_content << content
       end
 
-      chk = site.time.to_s.gsub(/\W+/, '')      
-      all_css = dest.join('assets', "all-#{chk}.css")
+      all_css = dest.join('assets', "all.css")
       all_css.dirname.mkpath unless all_css.dirname.exist?
       File.open(all_css, 'w') do |fh|
         fh.write(all_content)
       end
 
-      site.static_files << Jekyll::AllCSSFile.new(site, site.dest, 'assets', "all-#{chk}.css")
+      site.static_files << Jekyll::AllCSSFile.new(site, site.dest, 'assets', "all.css")
     end    
   end
 
@@ -52,13 +52,17 @@ module Jekyll
     def initialize(tag_name, markup, tokens)
     end
 
+    def checksum
+      path = File.join(File.dirname(__FILE__), '..', 'assets', 'all.css')
+      css = File.exists?(path) ? File.read(path) : ''
+      Digest::MD5.hexdigest(css)
+    end
+
     def render(context)
-      chk = context.environments[0]['site']['time'].to_s.gsub(/\W+/, '')
+      chk = checksum
       assets_domain = context.environments[0]['site']['assets_domain']
-
-      path = "/assets/all-#{chk}.css"
+      path = "/assets/all.css?ck=#{chk}"
       path = "http://#{assets_domain}#{path}" if assets_domain
-
       return path
     end
   end
