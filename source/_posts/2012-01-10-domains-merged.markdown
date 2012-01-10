@@ -83,7 +83,8 @@ class RedirectBetweenDomains
       # permanent redirects could end up cached
       'Cache-Control' => 'no-cache',
       
-      # not really needed, but rack complains otherwise
+      # not needed, but rack (env=development) complains
+      # otherwise      
       'Content-Type': 'text/html',
     }	
 
