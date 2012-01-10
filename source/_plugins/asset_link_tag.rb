@@ -7,10 +7,7 @@ module Jekyll
     end
 
     def render(context)
-      path = @path
-      assets_domain = context.environments[0]['site']['assets_domain']     
-      path = "//" + assets_domain + path if path =~ /^\/[^\/]/ and assets_domain
-      path
+      Jekyll.wrap_assets_link(@path, context['site'])
     end
 
   end

@@ -1,7 +1,6 @@
 import webapp2
 from google.appengine.api import urlfetch
 
-
 class PingService(webapp2.RequestHandler):
   def get(self):
       self.response.headers['Content-Type'] = 'text/plain'

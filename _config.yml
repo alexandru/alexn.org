@@ -4,7 +4,12 @@ blog_description: "Crazy Words From a Hacker-Wannabe"
 markdown: rdiscount
 pygments: true
 site_domain: bionicspirit.com
-assets_domain: assets-bionicspirit.appspot.com
+
+# my CDN domains
+assets_domains: 
+  - bionicspirit-cdn-1.appspot.com
+  - bionicspirit-cdn-2.appspot.com
+
 permalink: /blog/:year/:month/:day/:title.html
 
 source: ./source

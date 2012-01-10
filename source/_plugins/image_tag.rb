@@ -40,8 +40,7 @@ module Jekyll
     end
 
     def render(context)
-      assets_domain = context.environments[0]['site']['assets_domain']     
-      @img['src'] = "http://" + assets_domain + @img['src'] if assets_domain and @img['src'] =~ /^\/[^\/]/
+      @img['src'] = Jekyll.wrap_assets_link(@img['src'], context['site'])
 
       if @img
         "<img #{@img.collect {|k,v| "#{k}=\"#{v}\"" if v}.join(" ")}>"
