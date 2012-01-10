@@ -60,10 +60,7 @@ module Jekyll
 
     def render(context)
       chk = checksum
-      assets_domain = context.environments[0]['site']['assets_domain']
-      path = "/assets/all.css?ck=#{chk}"
-      path = "http://#{assets_domain}#{path}" if assets_domain
-      return path
+      Jekyll.wrap_assets_link("/assets/all.css?ck=#{chk}", context.environments[0]['site'])
     end
   end
 end
