@@ -28,3 +28,11 @@ task :gae do
   end
 end
 
+
+desc "Deploy assets to CloudFront/S3"
+task :aws do
+  # sets a 1 year expiry header this also means that resources can't
+  # be updated without invalidating them first in CloudFront, which is
+  # a PITA, so this is good for images, but not CSS
+  sh 's3cmd sync ./build/assets/ s3://bionicspirit/assets/ --acl-public --add-header "Cache-Control: public, max-age=22896000"'
+end
