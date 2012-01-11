@@ -11,7 +11,7 @@ module Jekyll
     end
 
     domains = config['assets_domains'] || []
-    return path unless domains
+    return path unless domains and domains.length > 0
 
     domain = domains[path.hash % domains.length]
     "//#{domain}#{path}"
