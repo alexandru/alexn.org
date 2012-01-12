@@ -77,18 +77,7 @@ class RedirectBetweenDomains
     # replacement logic here:
     new_url = request.url.sub("alexn.org", "bionicspirit.com")
 
-    headers = {
-      "Location" => new_url, 
-      
-      # permanent redirects could end up cached
-      'Cache-Control' => 'no-cache',
-      
-      # not needed, but rack (env=development) complains
-      # otherwise      
-      'Content-Type': 'text/html',
-    }	
-
-    [301, headers, []]
+    [301, {"Location" => new_url}, []]
   end
 end
 

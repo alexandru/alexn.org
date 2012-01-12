@@ -115,18 +115,7 @@ bundle install
     <span class="c1"># replacement logic here:</span>
     <span class="n">new_url</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">url</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;alexn.org&quot;</span><span class="p">,</span> <span class="s2">&quot;bionicspirit.com&quot;</span><span class="p">)</span>
 
-    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="s2">&quot;Location&quot;</span> <span class="o">=&gt;</span> <span class="n">new_url</span><span class="p">,</span> 
-      
-      <span class="c1"># permanent redirects could end up cached</span>
-      <span class="s1">&#39;Cache-Control&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;no-cache&#39;</span><span class="p">,</span>
-      
-      <span class="c1"># not needed, but rack (env=development) complains</span>
-      <span class="c1"># otherwise      </span>
-      <span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;text/html&#39;</span><span class="p">,</span>
-    <span class="p">}</span>    
-
-    <span class="o">[</span><span class="mi">301</span><span class="p">,</span> <span class="n">headers</span><span class="p">,</span> <span class="o">[]]</span>
+    <span class="o">[</span><span class="mi">301</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;Location&quot;</span> <span class="o">=&gt;</span> <span class="n">new_url</span><span class="p">},</span> <span class="o">[]]</span>
   <span class="k">end</span>
 <span class="k">end</span>
 
