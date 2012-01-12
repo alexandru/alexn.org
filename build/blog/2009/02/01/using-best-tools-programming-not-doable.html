@@ -17,6 +17,7 @@
 
     <link href="https://plus.google.com/112639155372207976835/" rel="publisher" />
 
+    <!-- Google Analytics -->
     <script language="javascript" type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-27605864-1']);
@@ -151,18 +152,23 @@
 </div>
 
 <div id="contributions">
-  <div id="disqus_thread"></div>
-  <script type="text/javascript">
-    var disqus_shortname = 'alexnorg'; 
-
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-  </script>
-  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <div id="comments" data-domain="thebuzzengine.appspot.com"></div> 
+    <script language="javascript" type="text/javascript"> 
+      var BUZZENGINE_PARAMS = { 
+	  article_url:   window.location + '', 
+	  article_title: document.getElementsByTagName('title').length ? 
+	      document.getElementsByTagName('title')[0].innerHTML : null 
+      }; 
+ 
+      (function() { 
+          var s = document.createElement('script'); 
+          s.type = 'text/javascript'; 
+          s.async = true; 
+          s.src = 'http://thebuzzengine.appspot.com/static/js/buzzengine.min.js'; 
+          var x = document.getElementsByTagName('script')[0]; 
+          x.parentNode.insertBefore(s, x); 
+      })();      
+    </script>
 </div>
 
 
