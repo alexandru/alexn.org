@@ -7,7 +7,7 @@ module Jekyll
     end
 
     def render(context)
-      Jekyll.wrap_assets_link(@path, context['site'])
+      Utils.wrap_assets_link(@path, context['site'])
     end
 
   end

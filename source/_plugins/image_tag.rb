@@ -40,7 +40,7 @@ module Jekyll
     end
 
     def render(context)
-      @img['src'] = Jekyll.wrap_assets_link(@img['src'], context['site'])
+      @img['src'] = Utils.wrap_assets_link(@img['src'], context['site'])
 
       if @img
         "<img #{@img.collect {|k,v| "#{k}=\"#{v}\"" if v}.join(" ")}>"

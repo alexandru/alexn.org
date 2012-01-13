@@ -59,8 +59,8 @@ module Jekyll
     end
 
     def render(context)
-      chk = checksum
-      # Jekyll.wrap_assets_link("/assets/all.css?ck=#{chk}", context.environments[0]['site'])
+      chk = checksum + Time.now.strftime("%Y%m%d")
+      # Utils.wrap_assets_link("/assets/all.css?ck=#{chk}", context.environments[0]['site'])
       "/assets/all.css?ck=#{chk}"
     end
   end
