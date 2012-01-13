@@ -1,7 +1,10 @@
 ---
 title: "Android Learning Resources"
-categories: [android, beginner, resources]
 layout: post
+categories: 
+  - Resources
+  - Books
+  - Android
 ---
 
 Starting out learning Android development may be intimidating at

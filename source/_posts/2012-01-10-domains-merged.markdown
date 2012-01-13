@@ -2,10 +2,10 @@
 layout: post
 title: "Merging Two Domains - alexn.org and bionicspirit.com"
 categories:
-  - tutorial
-  - servers
-  - heroku
-  - publishing
+  - Tutorial
+  - Publishing
+  - Server
+  - Heroku
 ---
 
 I apologize if your feed reader went rogue and flagged all articles as

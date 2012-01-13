@@ -2,10 +2,12 @@
 title: "Crawling the Android Marketplace"
 layout: post
 categories: 
-  - entrepreneurship
-  - python
-  - android
-  - tutorial
+  - Tutorial
+  - Programming
+  - Python
+  - Android
+  - Web
+  - API
 ---
 
 I had a very specific need for fetching the details for some apps in
