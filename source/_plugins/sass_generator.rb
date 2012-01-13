@@ -36,11 +36,16 @@ module Jekyll
         end
 
         all_content << content
-      end
+      end      
 
       all_css = dest.join('assets', "all.css")
       all_css.dirname.mkpath unless all_css.dirname.exist?
       File.open(all_css, 'w') do |fh|
+        fh.write(all_content)
+      end
+
+      digest_css = dest.join("assets", "all-" + Digest::MD5.hexdigest(all_content)[0,9] + ".css")
+      File.open(digest_css, 'w') do |fh|
         fh.write(all_content)
       end
 
@@ -52,16 +57,10 @@ module Jekyll
     def initialize(tag_name, markup, tokens)
     end
 
-    def checksum
-      path = File.join(File.dirname(__FILE__), '..', 'assets', 'all.css')
-      css = File.exists?(path) ? File.read(path) : ''
-      Digest::MD5.hexdigest(css)
-    end
-
     def render(context)
-      chk = checksum + Time.now.strftime("%Y%m%d")
-      # Utils.wrap_assets_link("/assets/all.css?ck=#{chk}", context.environments[0]['site'])
-      "/assets/all.css?ck=#{chk}"
+      path = File.join(File.dirname(__FILE__), '..', '..', 'build', 'assets', 'all.css')
+      css = File.exists?(path) ? File.read(path) : Time.now.strftime("%Y%m%d")
+      Utils.wrap_assets_link("/assets/all-" + Digest::MD5.hexdigest(css)[0,9] + ".css")
     end
   end
 end
