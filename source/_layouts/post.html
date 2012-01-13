@@ -3,42 +3,48 @@ layout: default
 ---
 
 <article id="post">
-  <h1>{{ page.title }}</h1>
-
-  <div id="meta">
-    <div class="post-date">Published: {{ page.date | date_to_string }}</div>
-    <div class="tags">
-      {% for tag in page.tags %}
-      <a rel="category tag" href="/tags/{{ tag }}/">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
-      {% endfor %}    
+  <header>
+    <div id="meta">
+      <div class="post-date">Published: {{ page.date | date_to_string }}</div>
+      <div class="tags">
+	{% for tag in page.tags %}
+	<a rel="category tag" href="/tags/{{ tag }}/">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
+	{% endfor %}    
+      </div>
     </div>
+
+    <h1>{{ page.title }}</h1>
+  </header>
+
+  <div id="#content">
+    {{ content }}
   </div>
 
-  {{ content }}
+  <footer>
+    <div id="other-articles">
+      <h2>Related Articles</h2>
+
+      <ul class="posts">
+	{% for post in site.related_posts limit:5 %}
+	{% include render-post-link.html %}
+	{% endfor %}
+      </ul>
+    </div>
+
+    <div id="contributions">
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">
+	var disqus_shortname = 'alexnorg'; 
+
+	/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </footer>
 </article>
-
-<div id="other-articles">
-  <h2>Related Articles</h2>
-
-  <ul class="posts">
-    {% for post in site.related_posts limit:5 %}
-      {% include render-post-link.html %}
-    {% endfor %}
-  </ul>
-</div>
-
-<div id="contributions">
-  <div id="disqus_thread"></div>
-  <script type="text/javascript">
-    var disqus_shortname = 'alexnorg'; 
-
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-  </script>
-  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
 

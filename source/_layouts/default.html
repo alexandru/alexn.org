@@ -1,62 +1,76 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>{% if page.title %}{{ page.title }}{% else %}{{ site.blog_title }}{% endif %}</title>
+<!--[if lt IE 7]> <html class="ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+  <title>{% if page.title %}{{ page.title }}{% else %}{{ site.blog_title }}{% endif %}</title>
 
-    <meta charset="utf-8">
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="author" content="Alexandru Nedelcu">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="author" content="Alexandru Nedelcu">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    <link rel="image_src" href="{% asset_link /assets/images/picture_alex.jpg %}" />
+  <link rel="image_src" href="{% asset_link /assets/images/picture_alex.jpg %}">
+  <link href="http://{{ site.site_domain }}/rss" rel="alternate" title="Alexandru Nedelcu" type="application/atom+xml">
+  <link rel="shortcut icon" href="{% asset_link /assets/images/faviconred.ico %}"> 
+  <link rel="stylesheet" href="{% all_css_path %}" type="text/css">
 
-    <link href="http://{{ site.site_domain }}/rss" rel="alternate" title="Alexandru Nedelcu" type="application/atom+xml" />
-    <link rel="shortcut icon" href="{% asset_link /assets/images/faviconred.ico %}" /> 
-    <link rel="stylesheet" href="{% all_css_path %}" type="text/css" media="screen, projection" />
+  <link href="https://plus.google.com/112639155372207976835/" rel="publisher">
 
-    <link href="https://plus.google.com/112639155372207976835/" rel="publisher" />
+  {% include google-analytics.html %}
+</head>
+<body>
+  <div id="header-container">
+    <header>
+      <h1 id="title">{{ site.blog_title }}</h1>
 
-    {% include google-analytics.html %}
-  </head>
-  <body>
+      <nav>
+	  <a href="/">{{ site.site_domain }}</a>
+	  <a class="extra" href="/pages/about.html" rel="author">about</a>
+	  <a class="extra" href="/pages/subscribe.html">subscribe</a>
+	  <a href="http://github.com/alexandru" class="github" title="Fork me on GitHub"><span>Fork me on GitHub</span></a>
+      </nav>
+    </header>
+  </div>
 
-    <div id="header">
-      <div class="wrapper">
-	<a href="/">{{ site.site_domain }}</a>
-	<a class="extra" href="/pages/about.html" rel="author">about</a>
-	<a class="extra" href="/pages/subscribe.html">subscribe</a>
-	<a href="http://github.com/alexandru" class="github"><img src="{% asset_link /assets/images/fork.png %}" width="149" height="149" alt="Fork me on GitHub" /></a>
-      </div>
-    </div>
-      
-    <div class="site">
+  <div id="main-container">
+    <div id="main">
       {{ content }}
-      
-      <div class="footer">
-	<div class="contact">
-	  <p>
-	    &copy; {{ site.time | date:"%Y" }} Alexandru Nedelcu
-	    <br />
-	    Some rights reserved (<a href="http://creativecommons.org/licenses/by-nc/3.0/" rel="license">CC BY-NC 3.0</a>)
-	    <br />
-	    <a href="mailto:&#099;&#111;&#110;&#116;&#097;&#099;&#116;&#064;&#098;&#105;&#111;&#110;&#105;&#099;&#115;&#112;&#105;&#114;&#105;&#116;&#046;&#099;&#111;&#109;">&#099;&#111;&#110;&#116;&#097;&#099;&#116;&#064;&#098;&#105;&#111;&#110;&#105;&#099;&#115;&#112;&#105;&#114;&#105;&#116;&#046;&#099;&#111;&#109;</a>
-	  </p>
-	</div>
-
-	<div class="rss">
-	  <a href="/rss" target="_blank" title="Subscribe to RSS Feed">
-	    <img src="{% asset_link /assets/images/rss.png %}" alt="Subscribe to RSS Feed" />
-	  </a>
-	  <a href="/pages/subscribe.html" title="Subscribe to Newsletter">
-	    <img src="{% asset_link /assets/images/email.png %}" alt="Subscribe to Newsletter" />
-	  </a>
-	  <a href="https://twitter.com/alex_ndc" target="_blank" title="Follow me on Twitter (@alex_ndc)">
-	    <img src="{% asset_link /assets/images/twitter.png %}" alt="Follow me on Twitter (@alex_ndc)" />
-	  </a>
-	</div>
-      </div>
     </div>
+  </div>
 
-   </body>
+  <div id="footer-container">
+    <footer>
+      <div class="contact">
+	&copy; {{ site.time | date:"%Y" }} Alexandru Nedelcu
+	<br />
+	Some rights reserved (<a href="http://creativecommons.org/licenses/by-nc/3.0/" rel="license">CC BY-NC 3.0</a>)
+	<br />
+	<a href="mailto:&#099;&#111;&#110;&#116;&#097;&#099;&#116;&#064;&#098;&#105;&#111;&#110;&#105;&#099;&#115;&#112;&#105;&#114;&#105;&#116;&#046;&#099;&#111;&#109;">&#099;&#111;&#110;&#116;&#097;&#099;&#116;&#064;&#098;&#105;&#111;&#110;&#105;&#099;&#115;&#112;&#105;&#114;&#105;&#116;&#046;&#099;&#111;&#109;</a>
+      </div>
+
+      <div class="rss">
+	<a href="/rss" target="_blank" title="Subscribe to RSS Feed">
+	  <img src="{% asset_link /assets/images/rss.png %}" alt="Subscribe to RSS Feed" />
+	</a>
+	<a href="/pages/subscribe.html" title="Subscribe to Newsletter">
+	  <img src="{% asset_link /assets/images/email.png %}" alt="Subscribe to Newsletter" />
+	</a>
+	<a href="https://twitter.com/alex_ndc" target="_blank" title="Follow me on Twitter (@alex_ndc)">
+	  <img src="{% asset_link /assets/images/twitter.png %}" alt="Follow me on Twitter (@alex_ndc)" />
+	</a>
+      </div>
+    </footer>
+  </div>
+
+
+  <!--[if lt IE 7 ]>
+  <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js"></script>
+  <script>window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})})</script>
+  <![endif]-->
+
+</body>
 </html>
+
