@@ -60,7 +60,7 @@ module Jekyll
 
     def render(context)
       chk = checksum
-      # Jekyll.wrap_assets_link("/assets/all.css?ck=#{chk}", context.environments[0]['site'])
+      Jekyll.wrap_assets_link("/assets/all.css?ck=#{chk}", context.environments[0]['site'])
       "/assets/all.css?ck=#{chk}"
     end
   end

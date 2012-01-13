@@ -2,7 +2,7 @@
 # Jekyll Plugin with a better algorithm for calculating 
 # Related Posts.
 #
-# Relies on Cosine Similarity of post categories. See this Wikipedia
+# Relies on Cosine Similarity of post tags. See this Wikipedia
 # reference: http://en.wikipedia.org/wiki/Cosine_similarity
 #
 
@@ -18,19 +18,19 @@ module RelatedPosts
   def related_posts(posts)
     return [] unless posts.size > 1
 
-    all_categories = []
+    all_tags = []
     per_post = {}
 
     posts.each do |post|
       per_post[post] ||= {}
-      post.categories.each do |category|
-        all_categories << category unless all_categories.member? category
-        per_post[post][category] = 1
+      post.tags.each do |tag|
+        all_tags << tag unless all_tags.member? tag
+        per_post[post][tag] = 1
       end
     end
 
     # building points
-    all_categories = all_categories.sort
+    all_tags = all_tags.sort
     all_articles = []
 
     # dotprod = this_point.zip(that_point).map{|x| x[0] * x[1]}.inject(:+)
@@ -38,10 +38,10 @@ module RelatedPosts
     # magb = Math.sqrt(that_point.map{|x| x ** 2}.inject(:+))
     # similarity = dot
 
-    this_point = all_categories.map{|x| self.categories.member?(x) ? 1 : 0}
+    this_point = all_tags.map{|x| self.tags.member?(x) ? 1 : 0}
     posts.each do |post|
-      next if post.categories.member? 'Deprecated'
-      that_point = all_categories.map{|x| post.categories.member?(x) ? 1 : 0}
+      next if post.tags.member? 'Deprecated'
+      that_point = all_tags.map{|x| post.tags.member?(x) ? 1 : 0}
       
       dotp = this_point.zip(that_point).map{|x| x[0] * x[1]}.inject(:+)
       maga = Math.sqrt(this_point.map{|x| x ** 2}.inject(:+))

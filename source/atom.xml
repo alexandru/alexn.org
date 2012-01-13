@@ -35,8 +35,8 @@ layout: nil
      License: http://creativecommons.org/licenses/by-nc/3.0/
    </rights>
 
-   {% for category in post.categories %}
-   <category scheme="http://bionicspirit.com/tag/" term="{{ category }}" label="{{ category }}" />
+   {% for tag in post.tags %}
+   <category scheme="http://bionicspirit.com/tags/" term="{{ tag }}" label="{{ tag }}" />
    {% endfor %}
 
    <content type="html">{{ post.content | xml_escape }}</content>

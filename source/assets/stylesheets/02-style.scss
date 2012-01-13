@@ -42,12 +42,12 @@ body {
     }
 
     a {
-	color: #00a;
-	&:hover {
-	    color: black;
+	color: #184BB4;
+        &:visited {
+	    color: #551A8B;
 	}
-	&:visited {
-	    color: #a0a;
+	&:hover {
+	    color: #000;
 	}
     }
 
@@ -109,15 +109,54 @@ body {
 	    margin-bottom: 2em;
 
 	    li {
-		line-height: 1.75em;
+		clear: both;
+
 		a {
 		    clear: right;
+		    font-size: 110%;
+		    text-decoration: none;
+		    &:hover { 
+			text-decoration: underline; 
+		    }
 		}
-	    }
-	    span {
-		color: #aaa;
-		font-family: Monaco, "Courier New", monospace;
-		font-size: 80%;
+
+		time {
+		    display: block;
+		    float: left;
+
+		    color: #aaa;
+		    font-family: Monaco, "Courier New", monospace;
+		    font-size: 80%;		    
+		    line-height: 200%;
+
+		    &:after {
+			margin-left: 5px;
+			margin-right: 5px;
+			content: "»";
+		    }
+		}
+
+		.wrapper {
+		    float: left;
+		    margin-bottom: 15px;
+		}
+
+		.tags {
+		    color: #5A80A4;
+
+		    a {
+			color: inherit;
+			font-size: 80%;
+			text-decoration: none;
+			&:hover {
+			    text-decoration: underline;
+			}
+		    }
+		}
+
+		&.last .wrapper {
+		    margin-bottom: 0;
+		}
 	    }
 	}
 
@@ -226,12 +265,6 @@ body {
     ul {
 	padding: 0;
 	margin: 0;
-	margin-left: 10px;
-	li {
-	    list-style: none;
-	    padding: 0;
-	    margin: 0;
-	}
     }
 }
 

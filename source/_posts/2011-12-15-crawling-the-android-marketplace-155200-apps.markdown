@@ -1,7 +1,7 @@
 ---
 title: "Crawling the Android Marketplace"
 layout: post
-categories: 
+tags: 
   - Python
   - Android
   - Web
