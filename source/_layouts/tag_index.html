@@ -5,10 +5,20 @@ layout: default
 <div id="tag-page">
   <h1>{{ page.title }}</h1>
 
-  <ul class="posts">
+  <ol class="posts">
     {% for post in site.tags[page.tag] %}
       {% include render-post-link.html %}
     {% endfor %}
-  </ul>
+  </ol>
+
+  {% if page.related_posts %}
+  <h2>Other Articles</h2>
+
+  <ol class="posts">
+    {% for post in page.related_posts limit:5 %}
+      {% include render-post-link.html %}
+    {% endfor %}
+  </ol>
+  {% endif %}
 </div>
 

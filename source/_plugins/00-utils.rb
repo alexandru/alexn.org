@@ -1,4 +1,4 @@
-module Jekyll
+module Utils
 
   def self.wrap_assets_link(path, site=nil)
     return path unless path =~ /\/[^\/]/
