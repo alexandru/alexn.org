@@ -6,23 +6,23 @@ layout: default
   <h1>{{ site.blog_description }}</h1>
 
   <ul class="posts">
-    {% for post in site.posts %}
-      {% unless post.is_draft %}
-      <li>
-	<span>{{ post.date | date_to_string }}</span> &raquo; 
-	<a href="{{ post.url }}">{{ post.title }}</a>
-      </li>
-      {% endunless %}
+    {% for post in site.posts %}    
+      {% include render-post-link.html %}
     {% endfor %}
-  </ul>
+  </ul>  
 
   <h2>Latest Favorite Links</h2>
 
   <ul class="posts">
     {% delicious username:alex_ndc tag:nice count:25 ttl:3600 %}
-    <li>
-      <span>{{ item.date | date_to_string }}</span> &raquo; 
-      <a href="{{ item.link }}" title="{{ item.description }}" rel="external">{{ item.title }}</a>
+    <li class="{% if forloop.last %} last{% endif %}"> 
+      <time datetime="{{ item.date | date_to_xmlschema }}">{{ item.date | date_to_string }}</time>
+      <div class="wrapper">
+	<a href="{{ item.link }}" title="{{ item.description }}">{{ item.title }}</a>
+      </div>
+      {% if forloop.last %}
+      <div class="clear"></div>
+      {% endif %}
     </li>
     {% enddelicious %}
   </ul>

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Blogging Platform for Hackers"
-categories:
+tags:
   - Publishing
   - Server
   - Cloud
