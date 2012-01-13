@@ -2,8 +2,6 @@
 title: "Crawling the Android Marketplace"
 layout: post
 categories: 
-  - Tutorial
-  - Programming
   - Python
   - Android
   - Web

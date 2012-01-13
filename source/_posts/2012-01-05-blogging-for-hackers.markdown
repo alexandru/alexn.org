@@ -2,14 +2,12 @@
 layout: post
 title: "Blogging Platform for Hackers"
 categories:
-  - Tutorial
   - Publishing
   - Server
-  - Ruby
+  - Cloud
   - Heroku
   - Jekyll
   - GAE
-  - Popular
 ---
 
 <img src="{% asset_link /assets/photos/heroku.png %}" class="right" />

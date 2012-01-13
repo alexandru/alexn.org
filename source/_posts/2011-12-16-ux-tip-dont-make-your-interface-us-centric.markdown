@@ -2,7 +2,7 @@
 layout: post
 title: "UX Tip: Don't Make Me Curse The Day I Decided To Sign-Up"
 categories:
-  - Opinion
+  - Web
   - Design
   - UX
 ---

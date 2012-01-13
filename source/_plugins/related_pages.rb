@@ -56,7 +56,7 @@ module RelatedPosts
     end
 
     all_articles.sort{|a,b| 
-      (b[0] <=> a[0]) || (b[1].date <=> a[1].date) 
+      b[0] != a[0] ? b[0] <=> a[0] : b[1] <=> a[1]
     }.map{|x| x[1]}.find_all{|x| x != self}
   end
 end
