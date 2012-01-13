@@ -1,30 +1,43 @@
-@media only screen and (max-width: 700px) {
-    body .site ul.posts li .wrapper {
+@media only screen and (max-width: 760px) {
+    body {
+	font-size: 18px;
+    }
+   	 
+    body #main ul.posts li time, body #main ol.posts li time {
 	float: none;
 	clear: both;
     }
-}
+    body article ul.posts li .wrapper {
+	float: none;
+	clear: both;
+    }
 
-@media only screen and (max-width: 400px) {
-    body {
-	font-size: 105%;
+    body #main ul.posts li .tags, body #main ol.posts li .tags {
+	margin-top:20px;
+    }
 
-	.site {
-	    padding-top: 130px;
+    body #main ul.posts li, body #main ol.posts li {
+	padding-top: 10px;
+	padding-bottom: 10px;
+    }
+
+    body #main {
+	h1, h2, h3 {
+	    font-size: 120%;
 	}
     }
 
-    #post .highlight {
-	font-size: 100%;
+    body #main article#post .highlight {
+	font-size: 70%;
+	line-height: 110%;
     }
 
-    #header .wrapper {
-	height: 95px;
-    }
-    #header {
-	a {
-	    display: block;
-	    line-height: 150%;
+    body #main article#post .highlight {
+	overflow: visible;
+	border-radius: 0;
+	* {
+	    background-color: #002B36;
 	}
     }
 }
+

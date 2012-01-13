@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "UX Tip: Don't Make Me Curse The Day I Decided To Sign-Up"
+title: "UX Tip: Don't Hurt Me On Sign-Up, Wait Until Later"
 tags:
   - Web
   - Design

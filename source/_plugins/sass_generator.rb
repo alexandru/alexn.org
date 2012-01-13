@@ -60,9 +60,10 @@ module Jekyll
     end
 
     def render(context)
+      return '/assets/all.css' unless context['site']['build_type'] == 'production'
       path = File.join(File.dirname(__FILE__), '..', '..', 'build', 'assets', 'all.css')
       css = File.exists?(path) ? File.read(path) : Time.now.strftime("%Y%m%d")
-      Utils.wrap_assets_link("/assets/all-" + Digest::MD5.hexdigest(css)[0,9] + ".css")
+      Utils.wrap_assets_link("/assets/all-" + Digest::MD5.hexdigest(css)[0,9] + ".css", context['site'])
     end
   end
 end

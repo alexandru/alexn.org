@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Merging Two Domains - alexn.org and bionicspirit.com"
+title: "Just Merged 2 Domains, Basic SEO, Cheap Setup"
 tags:
   - Publishing
   - SEO

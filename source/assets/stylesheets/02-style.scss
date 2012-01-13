@@ -1,12 +1,20 @@
-// Colors (TODO: add them all)
+/********
+   COLORS
+*/
 
 $background-color: #eee;
 $heading-color: #340007;
-$body-font-size: 14px;
-$header-1-size: 155%;
+$h1-heading-color: #aa0000;
+$body-font-size: 16px;
+$body-line-height: 24px;
+$header-1-size: 180%;
 $max-width: 760px;
+$min-width: 480px;
+$vertical-padding: 20px;
 
-// Mixins
+/********
+   MIXINS
+*/
 
 @mixin tags-base {		    
     color: #5A80A4;
@@ -20,7 +28,20 @@ $max-width: 760px;
     }
 }
 
-// CSS
+@mixin container-wrapper {
+    margin: auto;
+    max-width: $max-width;
+    min-width: $min-width;
+    width: 97%;
+    padding: 1.5%;
+    padding-top: $vertical-padding;
+    padding-bottom: $vertical-padding;
+    background-color: #fff;
+}
+
+/********
+   STYLES
+*/
 
 * {
     margin: 0;
@@ -32,31 +53,16 @@ html, body {
     height: 100%;
 }
 
+/* RESET */
+
 body {
-    font-family: helvetica, verdana, sans-serif;
+    font-family: helvetica,verdana,sans-serif;
     font-size: $body-font-size;
+    line-height: $body-line-height;
     text-align: center;
 
-    h1, h2, h3, h4, h5, h6 {
-	font-size: 100%;
-	margin: 1em 0;
-	margin-top: 1.5em;
-	color: $heading-color;
-	text-align: left;
-    }
-
-    h1 {
-	font-size: $header-1-size;
-    }
-    h2 {
-	font-size: $header-1-size - 20;
-    }
-    h3 {
-	font-size: $header-1-size - 40;    
-    }
-
     p {
-	margin: 1em 0;
+	margin: $vertical-padding/2 0;
     }
 
     a {
@@ -69,383 +75,333 @@ body {
 	}
     }
 
-    .site {
-	background-color: #fff;
-	font-size: 115%;
-	text-align: left;
-
-	width: 97%;
-	max-width: $max-width;
-
-	margin: 0em auto 2em auto;
-	padding-top: 3em;
-
-	padding-left: 1.5%;
-	padding-right: 1.5%;
-
-	.meta {
-	    color: #aaa;
-	}
-
-	.footer {
-	    font-size: 80%;
-	    color: #666;
-	    border-top: 4px solid #eee;
-	    margin-top: 2em;
-	    overflow: hidden;
-
-	    .contact {
-		float: left;
-		margin-right: 3em;
-		a {
-		    color: #8085C1;
-		}
-	    }
-
-	    .rss {
-		margin-top: 1.1em;
-		margin-right: 0;
-		float: right;
-		margin-right: -0.2em; 
-		a {
-		    text-decoration: none;
-		    display: block;
-		    float: right; 
-		}
-		img {
-		    border: 0; 
-		}
-	    }
-	}
-
-	img.right {
-	    float: right; margin-left: 10px; margin-bottom: 10px;
-	}
-
-	ul.posts, ol.posts {
-	    list-style-type: none;
-	    margin-bottom: 2em;
-
-	    li {
-		clear: both;
-
-		a {
-		    clear: right;
-		    font-size: 110%;
-		    text-decoration: none;
-		    &:hover { 
-			text-decoration: underline; 
-		    }
-		}
-
-		time {
-		    display: block;
-		    float: left;
-
-		    color: #aaa;
-		    font-family: Monaco, "Courier New", monospace;
-		    font-size: 80%;		    
-		    line-height: 200%;
-
-		    &:after {
-			margin-left: 5px;
-			margin-right: 5px;
-			content: "»";
-		    }
-		}
-
-		.wrapper {
-		    float: left;
-		    margin-bottom: 15px;
-		}
-
-		.tags {
-		    @include tags-base;
-		    a {
-			font-size: 80%;
-		    }
-		}
-		
-		&.last .wrapper {
-		    margin-bottom: 0;
-		}
-	    }
-
-	    &.delicious {
-		li a {
-		    font-size: 100%;
-		}
-		li time {
-		    line-height: 170%;
-		}
-		.wrapper {
-		    margin-bottom: 0;
-		}
-	    }
-	}
-
-    }
-}
-
-#header {
-  color: #a00;
-  font-weight: bold;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  .wrapper {
-      position: relative;
-      max-width: $max-width;
-      width: 97%;
-      padding: 1.5%;
-      padding-top: 20px;
-      padding-bottom: 20px;
-      margin: auto;
-      text-align: left;
-      font-size: 120%;
-      background-color: #000;
-  }
-
-  .github {
-      position: absolute;
-      top: 0;
-      right: 0;
-  }
-
-  a {
-      color: #FF9999;
-      text-decoration: none;
-
-      &:hover {
-	  text-decoration: underline;
-      }
-      &.extra {
-	  color: #fff;
-	  margin-left: 1em;
-      }
-  }
-}
-
-article#post {
-    ul, ol {
-	margin-left: 1.35em;
-
-	li {
-	    margin-bottom: 5px;
-	}
-    }
-
-    .highlight {
-	font-size: 90%;
-	padding: 1em;
-	margin: 1em 0;
-	overflow: auto;
-
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-    }
-
-    /* terminal */
-
-    .dialog {
-	padding: 20px;
-	background-color: #eee;
-	span {
-	    float: left;
+    .clearfix {
+	zoom: 1;
+	&:after {
+	    content: ".";
 	    display: block;
-	    width: 70px;
+	    height: 0;
+	    clear: both;
+	    visibility: hidden;
 	}
-    }
+    }    
+}
 
-    br {
-	clear: both;
-    }
-    
-    #meta {
-	margin-top: -15px;
-	margin-bottom: 30px;
-	font-size: 80%;	
-	color: #888;
+body > #header-container {
+    width: 100%;
+    color: #a00;
+    font-weight: bold;
+    top: 0;
+    left: 0;
 
-	.post-date {
-	    float: left;
-	    margin-right: 10px;
+    header {
+	@include container-wrapper;
+	position: relative;
+	text-align: left;
+	font-size: 120%;
+	background-color: #000;
+
+	h1 {
+	    display: none;
 	}
 
-	.tags {
-	    @include tags-base;
+	nav {
+	    a.github {		
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 149px;
+		height: 149px;
+		background-image: url(/assets/images/fork.png);
+		
+		span {
+		    display: none;
+		}
+	    }
 
-	    &:before {
-		content: "»";
-		color: #888;
-		margin-right: 5px;
+	    a {
+		color: #FF9999;
+		text-decoration: none;
+
+		&:hover {
+		    text-decoration: underline;
+		}
+		&.extra {
+		    color: #fff;
+		    margin-left: 1em;
+		}
 	    }
 	}
     }
 }
 
-#other-articles {
-    position: relative;
-    border-top: 2px solid #C69AA1;
-    padding-top: 10px;
-    padding-bottom: 20px;
-    margin-top: 2em;
+body #main {    
+    @include container-wrapper;
+
+    padding-bottom: 0;
+    text-align: left;
+
+    border-bottom: 2px dashed $background-color;
+
+    .meta {
+	color: #aaa;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+	font-size: 100%;
+
+	margin-top: $vertical-padding;
+	margin-bottom: $vertical-padding;
+	
+	color: lighten($heading-color, 10%);
+	text-align: left;
+    }
+
+    h1 {
+	margin-top: 0.5em;
+	font-size: $header-1-size;
+	margin-bottom: $vertical-padding + $vertical-padding / 2;
+	line-height: 130%;
+    }
 
     h2 {
-	margin-top: 0;
-	color: #A66C75;
-	margin-bottom: 10px;
-	padding: 0;
+	font-size: $header-1-size - 30;
+    }
+    h3 {
+	font-size: $header-1-size - 45;    
     }
 
-    ul {
-	padding: 0;
-	margin: 0;
+    img.right {
+	float: right; margin-left: 10px; margin-bottom: 10px;
+    }
+
+    ul.posts, ol.posts {
+	list-style-type: none;
+
+	li {
+	    display: block;
+	    padding-bottom: $vertical-padding / 2;
+	    padding-top: $vertical-padding / 2;
+	    border-bottom: 1px dashed darken($background-color, 20%);
+
+	    &.first {
+		padding-top: 0;
+	    }
+	    &.last {
+		padding-bottom: 0;
+		border-bottom: 0;
+	    }
+
+	    a {
+		font-size: 110%;
+		text-decoration: none;
+		&:hover { 
+		    text-decoration: underline; 
+		}
+	    }
+
+	    time {
+		display: block;
+		float: left;
+
+		color: #aaa;
+		font-family: Monaco, "Courier New", monospace;
+		font-size: 80%;		    
+		line-height: 200%;
+
+		&:after {
+		    margin-left: 5px;
+		    margin-right: 5px;
+		    content: "»";
+		}
+	    }
+
+	    .wrapper {
+		float: left;
+	    }
+
+	    .tags {
+		@include tags-base;
+		a {
+		    font-size: 80%;
+		}
+	    }
+	    
+	    &.last .wrapper {
+		margin-bottom: 0;
+	    }
+	}
+
+	&.delicious {
+	    li a {
+		font-size: 100%;
+	    }
+	    li time {
+		line-height: 170%;
+	    }
+	    .wrapper {
+		margin-bottom: 0;
+	    }
+	}
+    }
+
+    article {
+	padding-bottom: $vertical-padding;
+	h2, h3 {
+	    margin-top: $vertical-padding + $vertical-padding / 2;
+	} 
+    }
+
+    article#home {
+	padding-bottom: $vertical-padding / 2;
+    }
+
+    article#post {
+	ul, ol {
+	    margin-left: 1.35em;
+
+	    li {
+		margin-bottom: $vertical-padding / 2;
+	    }
+	}
+
+	.highlight {
+	    font-size: 90%;
+	    padding: 1em;
+	    margin: 1em 0;
+	    overflow: auto;
+
+	    -webkit-border-radius: 10px;
+	    -moz-border-radius: 10px;
+	    border-radius: 10px;
+	}
+
+	/* terminal */
+
+	.dialog {
+	    padding: $vertical-padding;
+	    background-color: $background-color;
+	    span {
+		float: left;
+		display: block;
+		width: 70px;
+	    }
+	}
+
+	br {
+	    clear: both;
+	}
+
+	#meta {
+	    margin-top: $vertical-padding / 2;
+	    font-size: 90%;	
+	    color: #888;
+
+	    .post-date {
+		float: left;
+		margin-right: 10px;
+	    }
+
+	    .tags {
+		@include tags-base;
+
+		&:before {
+		    content: "»";
+		    color: #888;
+		    margin-right: 5px;
+		}
+	    }
+	}
+
+	footer {
+	    padding-top: $vertical-padding;
+	}
     }
 }
 
+body #footer-container {
+    padding-bottom: 40px;
+}
+
+body #footer-container footer {
+    @include container-wrapper;
+
+    padding-top: 0;
+    padding-bottom: 0;
+
+    font-size: 80%;
+    line-height: 160%;
+    color: #666;
+    border-top: 3px dashed $background-color;
+    border-bottom: 3px dashed $background-color;
+    overflow: hidden;
+    text-align: left;
+
+    margin-top: 4px;
+    padding: 5px 1.5%;
+
+    .contact {
+	float: left;
+	margin-right: 3em;
+	margin-top: 5px;
+	a {
+	    color: #8085C1;
+	}
+    }
+
+    .rss {
+	margin-right: 0;
+	float: right;
+	margin-right: -0.2em; 
+	a {
+	    text-decoration: none;
+	    display: block;
+	    float: right; 
+	}
+	img {
+	    border: 0; 
+	}
+    }
+}
+
+
+body #main article footer #other-articles {
+    border-top: 2px solid #C69AA1;
+
+    h2 {
+	color: #A66C75;
+	margin: 0;
+	padding: 0;
+	padding-top: $vertical-padding;
+	padding-bottom: $vertical-padding;
+	font-size: 140%;
+    }
+    
+    ul {
+	margin: 0;
+	padding: 0;
+	padding-bottom: $vertical-padding / 2;
+
+	li {
+	    margin-bottom: 0;
+	}
+    }
+}
 
 #contributions {
     position: relative;
     border-top: 2px solid #C69AA1;
-    padding-top: 10px;
+    padding-top: 10px;    
 
     h2 {
 	margin-top: 0;
 	color: #A66C75;
     }
-
-    #comments {
-	margin: 0;
-	padding: 0;
-	margin-top: 30px;
-
-	font-family: Helvetica, Verdana, sans;
-	font-size: 14px;
-    }
-    #comments .odd {
-	background-color: #F0F0F0;
-    }
-    #comments .comment-item {
-	padding: 10px;
-	clear: both;
-    }
-    #comments .comment-item img {
-	display: block;
-	float: left;
-	margin-right: 10px;
-    }
-    #comments .comment-item .author {
-	font-size: 12px;
-	font-weight: bold;
-	margin-bottom: 5px;
-	color: #333;
-    }
-    #comments .comment-item .author a {
-	text-decoration: none;
-	color: #2962A7;
-    }
-    #comments .comment-item .author a:hover {
-	text-decoration: underline;
-    }
-    #comments .comment-item .content {
-	min-height: 80px;
-	max-width:  500px;
-	float: left;
-    }
-    #comments .comment-item:after {
-	display: block;
-	content: ".";
-	clear: both;
-	height: 0;
-	visibility: hidden;
-    }
-    #comments form {
-	clear: both;
-	margin-top: 20px;
-	margin-left: 10px;
-    }
-    #comments form label {
-	float: left;
-	display: block;
-	width: 85px;
-
-	margin-top: 10px;
-	color: #333;
-    }
-    #comments form input {
-	border: 1px solid black;
-	outline: 0;
-	height: 20px;
-	width: 296px;
-	
-	margin-top: 10px;
-	clear: right;
-	padding: 2px;
-    }
-    #comments form .help {
-	display: block;
-	margin-left: 90px;
-	color: #666;
-	font-size: 12px;
-    }
-    #comments form textarea {
-	border: 1px solid black;
-	width: 290px;
-	height: 80px;
-	outline: 0;
-	margin-top: 10px;
-	clear: right;    
-	padding: 5px;
-    }
-    #comments form .required label {
-	font-weight: bold;
-    }
-    #comments .errorlist {
-	margin: 0;
-	padding: 0;
-	font-size: 12px;
-	color: #9F3737;    
-    }
-    #comments .errorlist li {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	display: block;
-	margin-left: 80px;
-    }
-    #comments .errorlist li:before {
-	content: "- ";
-    }
-    #comments .errornote {
-	font-weight: bold;
-	color: #9F3737;        
-    }
-    #comments .loader {
-	margin-left: 80px;
-    }
-    #comments .button {
-	margin-left: 80px;
-	width: 200px;
-	height: 28px;
-	line-height: 20px;
-	font-size: 11pt;
-	font-weight: bold;
-	background-color: #d8d8d8;
-	color: #111;
-	border: 1px solid #888;
-	border-radius: 5px;
-	cursor: pointer;
-    }
-
 }
 
 
 #email-subscription form input, #email-subscription form button {
-  padding: 4px; 
+    padding: 4px; 
 }
 
 #about {

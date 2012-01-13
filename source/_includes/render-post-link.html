@@ -1,5 +1,5 @@
 {% unless post.is_draft %}
-<li class="{% if forloop.last %} last{% endif %}"> 
+<li class="clearfix {% if forloop.last %} last{% endif %}{% if forloop.first %} first{% endif %}"> 
   <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_string }}</time>
   <div class="wrapper">
     <a href="{{ post.url }}" rel="prefetch related">{{ post.title }}</a>
@@ -9,8 +9,5 @@
       {% endfor %}
     </div>
   </div>
-  {% if forloop.last %}
-  <div class="clear"></div>
-  {% endif %}
 </li>
 {% endunless %}
