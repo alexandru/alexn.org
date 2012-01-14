@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Just Merged 2 Domains, Basic SEO, Cheap Setup"
+title: "Just Merged 2 Domains, Rationale, Cheap Setup"
 tags:
   - Publishing
   - SEO

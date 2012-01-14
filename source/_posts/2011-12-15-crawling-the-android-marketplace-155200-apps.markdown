@@ -24,7 +24,7 @@ This really pissed me off, this is Google, they should grok APIs. But
 this info is already available from their website and so I went ahead
 and crawled it.
 
-The script <strike>and the data collected are</strike> is available. Read below.
+The script and the data collected are is available. Read below.
 
 <!-- more -->
 
@@ -37,15 +37,16 @@ The actual script that I created can be found in the
 GitHub Repository, with the relevant files being:
 
 * [crawler.py](https://github.com/alexandru/AndroidMarketCrawler/blob/master/crawler.py) - source code with lots of comments, it's really not complicated, you should go read it
-* <strike>marketplace_database.json_lines.bz2 - compressed file
+* marketplace_database.json_lines.bz2 - compressed file
   containing the details of the crawled apps, one per each line; this
   is not a proper JSON file, you use it by reading it line by line,
   where each line represents a JSON object (personal preference, as
   otherwise the file is pretty big and you can run out of
-  memory)</strike>
+  memory)
 
-UPDATE: I decided to pull the crawled data out, deleting it. The
-Android Marketplace explicitly bans crawling apparently.
+**UPDATE:** The Android Marketplace explicitly bans crawling
+apparently. This crawler and associated data only serves educational
+purposes. Don't abuse it.
 
 {% highlight python %}
 for app in AndroidMarketCrawler(concurrency=10):
@@ -105,12 +106,3 @@ distribution is freemium based.
 of free/paid apps per category. I deleted them as I don't like the
 flames these kind of charts generate!*
 
-## Conclusion
-
-I don't think I have one. Upon analyzing the data, it seems to me like
-the development model of Android resembles that of the web - lots of
-freemium apps, lots of crap. However, there are gems on the market
-available and there are developers making a decent income from
-publishing on Android's Marketplace. Competition is tough, but it is
-(for now at least) an unregulated free market with tremendous
-potential.
