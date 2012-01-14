@@ -5,12 +5,12 @@ tag_title_prefix: "Category: "
 markdown: rdiscount
 pygments: true
 site_domain: bionicspirit.com
-build_type: development
+build_type: production
 
 # my CDN domains
 assets_domains: 
   # cloudfront
-  - media.bionicspirit.com
+  - cdn.bionicspirit.com
   #
   # gae (bionicspirit-cdn-1)
   #- assets-1.alexn.org
