@@ -10,11 +10,11 @@ build_type: production
 # my CDN domains
 assets_domains: 
   # cloudfront
-  - cdn.bionicspirit.com
+  #- cdn.bionicspirit.com
   #
   # gae (bionicspirit-cdn-1)
-  #- assets-1.alexn.org
-  #- assets-2.alexn.org
+  - bionicspirit-cdn-1.appspot.com
+  - bionicspirit-cdn-1.appspot.com
 
 permalink: /blog/:year/:month/:day/:title.html
 
