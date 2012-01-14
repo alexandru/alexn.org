@@ -188,8 +188,7 @@ body #main {
     body #main ul.posts li, body #main ol.posts li {
       display: block;
       padding-bottom: 10px;
-      padding-top: 10px;
-      border-bottom: 1px dashed #bbbbbb; }
+      padding-top: 10px; }
       body #main ul.posts li.first, body #main ol.posts li.first {
         padding-top: 0; }
       body #main ul.posts li.last, body #main ol.posts li.last {
@@ -254,6 +253,7 @@ body #main {
       padding: 1em;
       margin: 1em 0;
       overflow: auto;
+      line-height: 130%;
       -webkit-border-radius: 10px;
       -moz-border-radius: 10px;
       border-radius: 10px; }
@@ -339,7 +339,7 @@ body #main article footer #other-articles {
   body #main article footer #other-articles ul {
     margin: 0;
     padding: 0;
-    padding-bottom: 10px; }
+    padding-bottom: 20px; }
     body #main article footer #other-articles ul li {
       margin-bottom: 0; }
 
@@ -398,36 +398,3 @@ body #main article footer #other-articles {
 .clear {
   display: block;
   clear: both; }
-@media only screen and (max-width: 760px) {
-  body {
-    font-size: 18px; }
-    body img {
-      max-width: 95% !important; }
-
-  body #main ul.posts li time, body #main ol.posts li time {
-    float: none;
-    clear: both; }
-
-  body article ul.posts li .wrapper {
-    float: none;
-    clear: both; }
-
-  body #main ul.posts li .tags, body #main ol.posts li .tags {
-    margin-top: 20px; }
-
-  body #main ul.posts li, body #main ol.posts li {
-    padding-top: 10px;
-    padding-bottom: 10px; }
-
-  body #main h1, body #main h2, body #main h3 {
-    font-size: 120%; }
-
-  body #main article#post .highlight {
-    font-size: 70%;
-    line-height: 110%; }
-
-  body #main article#post .highlight {
-    overflow: visible;
-    border-radius: 0; }
-    body #main article#post .highlight pre, body #main article#post .highlight * {
-      background-color: #002B36 !important; } }
