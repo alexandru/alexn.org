@@ -184,7 +184,6 @@ body #main {
 	    display: block;
 	    padding-bottom: $vertical-padding / 2;
 	    padding-top: $vertical-padding / 2;
-	    border-bottom: 1px dashed darken($background-color, 20%);
 
 	    &.first {
 		padding-top: 0;
@@ -393,7 +392,7 @@ body #main article footer #other-articles {
     ul {
 	margin: 0;
 	padding: 0;
-	padding-bottom: $vertical-padding / 2;
+	padding-bottom: $vertical-padding;
 
 	li {
 	    margin-bottom: 0;
