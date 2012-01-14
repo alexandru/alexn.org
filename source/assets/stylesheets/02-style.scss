@@ -183,7 +183,6 @@ body #main {
 	li {
 	    display: block;
 	    padding-bottom: $vertical-padding / 2;
-	    padding-top: $vertical-padding / 2;
 
 	    &.first {
 		padding-top: 0;
@@ -257,6 +256,10 @@ body #main {
 	padding-bottom: $vertical-padding / 2;
     }
 
+    article#post header h1 {
+	margin-bottom: $vertical-padding / 2;
+    }
+
     article {
 	#content {
 	    ul, ol {
@@ -305,7 +308,7 @@ body #main {
 	}
 
 	#meta {
-	    margin-top: $vertical-padding / 2;
+	    margin-bottom: $vertical-padding;
 	    font-size: 90%;	
 	    color: #888;
 
