@@ -22,7 +22,9 @@ module Jekyll
 
       sorted = RelatedPosts.sort_on_similarity(tags, items)
       return '' unless sorted && sorted.length > 1
+
       book = Hash[sorted[0].marshal_dump.map{|key, value| [key.to_s, value]}]
+      book['image'] = Utils.wrap_assets_link(book['image'], context['site'])
 
       result = ''
       context.stack do        
