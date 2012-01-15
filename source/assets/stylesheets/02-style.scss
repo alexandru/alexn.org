@@ -168,7 +168,7 @@ body #main {
 	font-size: $header-1-size - 30;
     }
     h3 {
-	font-size: $header-1-size - 45;    
+	font-size: $header-1-size - 60;    
     }
 
     img.right {
@@ -340,6 +340,13 @@ body #main {
 		padding-top: $vertical-padding / 2;
 		padding-bottom: $vertical-padding / 2;
 
+		a {
+		    font-size: 110%;
+		    &:visited {
+			color: #184BB4;
+		    }
+		}
+
 		a > img {
 		    display: block;
 		    float: left;
@@ -360,8 +367,9 @@ body #main {
 		    }
 
 		    .desc, .disclaimer {
-			color: #222;
-			font-size: 80%;
+			font-size: 90%;
+			color: #333;
+			line-height: 110%;
 		    } 
 		    .disclaimer {
 			color: #666;
