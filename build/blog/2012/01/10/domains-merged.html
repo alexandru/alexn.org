@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+  <title>Just Merged 2 Domains: Rationale, Setup</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="author" content="Alexandru Nedelcu">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <link rel="image_src" href="//cdn.bionicspirit.com/assets/images/picture_alex.jpg">
+  <link href="http://bionicspirit.com/rss" rel="alternate" title="Alexandru Nedelcu" type="application/atom+xml">
+  <link rel="shortcut icon" href="//cdn.bionicspirit.com/assets/images/faviconred.ico"> 
+  <link rel="stylesheet" href="//cdn.bionicspirit.com/assets/all-ed11c11e4.css" type="text/css">
+
+  <link href="https://plus.google.com/112639155372207976835/" rel="publisher">
+
+  <!-- Google Analytics -->
+<script language="javascript" type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27605864-1']);
+  // to enable tracking (and thus cookies set) for all subdomains
+  //_gaq.push(['_setDomainName', 'bionicspirit.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+<body>
+  <div id="header-container">
+    <header>
+      <h1 id="title">Bionic Spirit</h1>
+
+      <nav>
+	  <a href="/">bionicspirit.com</a>
+	  <a class="extra" href="/pages/about.html" rel="author">about</a>
+	  <a class="extra" href="/pages/subscribe.html">subscribe</a>
+	  <a href="http://github.com/alexandru" class="github" title="Fork me on GitHub"><span>Fork me on GitHub</span></a>
+      </nav>
+    </header>
+  </div>
+
+  <div id="main-container">
+    <div id="main">
+      <article id="post">
+  <header>
+    <h1>Just Merged 2 Domains: Rationale, Setup</h1>
+    <div id="meta">
+      <div class="post-date">Published: 10 Jan 2012</div>
+      <div class="tags">
+	
+	<a rel="category tag" href="/tags/Publishing/">Publishing</a>, 
+	
+	<a rel="category tag" href="/tags/SEO/">SEO</a>, 
+	
+	<a rel="category tag" href="/tags/Server/">Server</a>, 
+	
+	<a rel="category tag" href="/tags/Heroku/">Heroku</a>
+	    
+      </div>
+    </div>
+  </header>
+
+  <div id="content">
+    <p>I migrated <em>alexn.org</em> to a new domain name: <em>bionicspirit.com</em>.</p>
+
+<p><em>bionicspirit.com</em> was supposed to be a blog about Android-related
+development, however I cannot focus on two blogs, one being a big
+enough chore already. I also prefer <em>bionicspirit.com</em> because:</p>
+
+<ul>
+<li>it can be pronounced even over the phone, in English or in my native
+language,</li>
+<li>it is easier to remember, even if it is longer,</li>
+<li>it is a dot-com.</li>
+</ul>
+
+
+<h2>301 Permanent Redirect</h2>
+
+<p>I had to do a 301 Permanent Redirect for all requests, from
+<em>alexn.org</em> to <em>bionicspirit.com</em>, without changing the path. This
+keeps all links valid, keeps users happy and also keeps the Google
+Juice flowing. Unfortunately my Google ranking did take a plunge into
+obscurity, but hopefully it will recover.</p>
+
+<p>In case you don't have a smart DNS service, here's how to do it
+cheaply, using Heroku (again):</p>
+
+<div class="highlight"><pre><code class="bash"><span class="c"># new directory</span>
+mkdir mydomain
+<span class="c"># change to it</span>
+<span class="nb">cd </span>mydomain
+
+<span class="c"># initialize a git repository</span>
+git init .
+</code></pre>
+</div>
+
+
+<p>Then create a file called "<em>Gemfile</em>", for specifying dependencies:</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="n">source</span> <span class="s1">&#39;http://rubygems.org&#39;</span>
+
+<span class="n">gem</span> <span class="s1">&#39;rack&#39;</span>
+
+<span class="n">group</span> <span class="ss">:development</span> <span class="k">do</span>
+  <span class="c1"># command line tools</span>
+  <span class="n">gem</span> <span class="s1">&#39;heroku&#39;</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+
+<p>Install these prerequisites (on the command-line again):</p>
+
+<div class="highlight"><pre><code class="bash"><span class="c"># in case you don&#39;t already have Bundler installed:</span>
+gem install bundler
+
+<span class="c"># and then ...</span>
+bundle install 
+</code></pre>
+</div>
+
+
+<p>Create a Rack configuration file that handles your logic, called
+"<em>config.ru</em>":</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="c1"># our Rack middleware</span>
+
+<span class="k">class</span> <span class="nc">RedirectBetweenDomains</span>
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="no">Rack</span><span class="o">::</span><span class="no">Request</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+    
+    <span class="c1"># replacement logic here:</span>
+    <span class="n">new_url</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">url</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;alexn.org&quot;</span><span class="p">,</span> <span class="s2">&quot;bionicspirit.com&quot;</span><span class="p">)</span>
+
+    <span class="o">[</span><span class="mi">301</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;Location&quot;</span> <span class="o">=&gt;</span> <span class="n">new_url</span><span class="p">},</span> <span class="o">[]]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">run</span> <span class="no">RedirectBetweenDomains</span><span class="o">.</span><span class="n">new</span>
+</code></pre>
+</div>
+
+
+<p>Now deploy on Heroku (from the command line):</p>
+
+<div class="highlight"><pre><code class="bash"><span class="c"># committing</span>
+git add .
+git commit -m <span class="s1">&#39;initial commit - rack config&#39;</span>
+
+<span class="c"># creating heroku app</span>
+heroku create
+
+<span class="c"># renaming to something nicer</span>
+heroku rename yourappid
+
+<span class="c"># deploying on heroku</span>
+git push heroku master
+</code></pre>
+</div>
+
+
+<p>When it finishes, you can test the setup on
+<em>http://yourappid.heroku.com</em> (where <em>rabbit</em> is your application's
+name). Also checkout their article on
+<a href="http://devcenter.heroku.com/articles/custom-domains">adding custom domains</a>.</p>
+
+  </div>
+
+  <footer>
+    
+    <div id="amazon-book" class="clearfix">
+      <a href="http://www.amazon.com/gp/product/1565925092/ref=as_li_ss_il?ie=UTF8&tag=alexanedel-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1565925092" rel="nofollow external"><img src="//cdn.bionicspirit.com/assets/amazon/http.jpg" /></a>
+      <div class="content">
+	<a href="http://www.amazon.com/gp/product/1565925092/ref=as_li_ss_il?ie=UTF8&tag=alexanedel-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1565925092" rel="nofollow external" class="title">HTTP: The Definitive Guide</a>
+	<div class="meta">ISBN-10: 1565925092 | ISBN-13: 978-1565925090</div>
+	<div class="disclaimer">
+	  <b>Disclaimer:</b> If you buy this book, at no extra cost to
+	  you I'm receiving a commission from Amazon.
+	</div>
+	<div class="desc">In addition to explaining the basic HTTP features, syntax and
+guidelines, this book clarifies related, but often misunderstood
+topics, such as: TCP connection management, web proxy and cache
+architectures, web robots and robots.txt files, Basic and Digest
+authentication, secure HTTP transactions, entity body processing,
+internationalized content, and traffic redirection.
+</div>
+      </div>
+    </div>
+    
+
+    <div id="other-articles">
+      <h2>Related Articles</h2>
+
+      <ul class="posts">
+	
+	
+<li class="clearfix  first"> 
+  <time datetime="2012-01-05T00:00:00+02:00">05 Jan 2012</time>
+  <div class="wrapper">
+    <a href="/blog/2012/01/05/blogging-for-hackers.html" rel="prefetch related">Blogging Platform for Hackers</a>
+    <div class="tags">
+      
+      <a href="/tags/Publishing/">Publishing</a>, 
+      
+      <a href="/tags/Server/">Server</a>, 
+      
+      <a href="/tags/Cloud/">Cloud</a>, 
+      
+      <a href="/tags/Heroku/">Heroku</a>, 
+      
+      <a href="/tags/Jekyll/">Jekyll</a>, 
+      
+      <a href="/tags/GAE/">GAE</a>
+      
+    </div>
+  </div>
+</li>
+
+
+	
+	
+<li class="clearfix "> 
+  <time datetime="2011-10-23T00:00:00+03:00">23 Oct 2011</time>
+  <div class="wrapper">
+    <a href="/blog/2011/10/23/why-i-find-heroku-suboptimal.html" rel="prefetch related">Why I Find Heroku Suboptimal</a>
+    <div class="tags">
+      
+      <a href="/tags/Heroku/">Heroku</a>, 
+      
+      <a href="/tags/Server/">Server</a>, 
+      
+      <a href="/tags/Cloud/">Cloud</a>, 
+      
+      <a href="/tags/Nginx/">Nginx</a>, 
+      
+      <a href="/tags/Varnish/">Varnish</a>, 
+      
+      <a href="/tags/Linode/">Linode</a>
+      
+    </div>
+  </div>
+</li>
+
+
+	
+	
+<li class="clearfix "> 
+  <time datetime="2011-11-29T00:00:00+02:00">29 Nov 2011</time>
+  <div class="wrapper">
+    <a href="/blog/2011/11/29/earning-money-as-an-amazon-affiliate.html" rel="prefetch related">Earning Money as an Amazon Affiliate</a>
+    <div class="tags">
+      
+      <a href="/tags/Story/">Story</a>, 
+      
+      <a href="/tags/Publishing/">Publishing</a>, 
+      
+      <a href="/tags/Income/">Income</a>, 
+      
+      <a href="/tags/Amazon/">Amazon</a>
+      
+    </div>
+  </div>
+</li>
+
+
+	
+	
+<li class="clearfix "> 
+  <time datetime="2011-12-16T00:00:00+02:00">16 Dec 2011</time>
+  <div class="wrapper">
+    <a href="/blog/2011/12/16/ux-tip-dont-make-your-interface-us-centric.html" rel="prefetch related">UX Tip: Don't Hurt Me On Sign-Up, Wait Until Later</a>
+    <div class="tags">
+      
+      <a href="/tags/Web/">Web</a>, 
+      
+      <a href="/tags/Design/">Design</a>, 
+      
+      <a href="/tags/UX/">UX</a>
+      
+    </div>
+  </div>
+</li>
+
+
+	
+	
+<li class="clearfix  last"> 
+  <time datetime="2011-12-15T00:00:00+02:00">15 Dec 2011</time>
+  <div class="wrapper">
+    <a href="/blog/2011/12/15/crawling-the-android-marketplace-155200-apps.html" rel="prefetch related">Crawling the Android Marketplace</a>
+    <div class="tags">
+      
+      <a href="/tags/Python/">Python</a>, 
+      
+      <a href="/tags/Android/">Android</a>, 
+      
+      <a href="/tags/Web/">Web</a>, 
+      
+      <a href="/tags/API/">API</a>
+      
+    </div>
+  </div>
+</li>
+
+
+	
+      </ul>
+    </div>
+
+    <div id="contributions">
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">
+	var disqus_shortname = 'alexnorg'; 
+
+	/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </footer>
+</article>
+
+
+    </div>
+  </div>
+
+  <div id="footer-container">
+    <footer>
+      <div class="contact">
+	&copy; 2012 Alexandru Nedelcu
+	<br />
+	Some rights reserved (<a href="http://creativecommons.org/licenses/by-nc/3.0/" rel="license">CC BY-NC 3.0</a>)
+	<br />
+	<a href="mailto:&#099;&#111;&#110;&#116;&#097;&#099;&#116;&#064;&#098;&#105;&#111;&#110;&#105;&#099;&#115;&#112;&#105;&#114;&#105;&#116;&#046;&#099;&#111;&#109;">&#099;&#111;&#110;&#116;&#097;&#099;&#116;&#064;&#098;&#105;&#111;&#110;&#105;&#099;&#115;&#112;&#105;&#114;&#105;&#116;&#046;&#099;&#111;&#109;</a>
+      </div>
+
+      <div class="rss">
+	<a href="/rss" target="_blank" title="Subscribe to RSS Feed">
+	  <img src="//cdn.bionicspirit.com/assets/images/rss.png" alt="Subscribe to RSS Feed" />
+	</a>
+	<a href="/pages/subscribe.html" title="Subscribe to Newsletter">
+	  <img src="//cdn.bionicspirit.com/assets/images/email.png" alt="Subscribe to Newsletter" />
+	</a>
+	<a href="https://twitter.com/alex_ndc" target="_blank" title="Follow me on Twitter (@alex_ndc)">
+	  <img src="//cdn.bionicspirit.com/assets/images/twitter.png" alt="Follow me on Twitter (@alex_ndc)" />
+	</a>
+      </div>
+    </footer>
+  </div>
+
+
+  <!--[if lt IE 7 ]>
+  <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js"></script>
+  <script>window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})})</script>
+  <![endif]-->
+
+</body>
+</html>
+
