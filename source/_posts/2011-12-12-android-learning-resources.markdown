@@ -1,6 +1,7 @@
 ---
 title: "Android Learning Resources"
 layout: post
+has_ads: true
 tags: 
   - Books
   - Android
