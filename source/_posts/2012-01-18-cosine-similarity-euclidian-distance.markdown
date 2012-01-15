@@ -24,11 +24,6 @@ conversion rates. You can use it for:
 * finding similar / complementary / opposite items to suggest to
   customers of your shopping cart
  
-We'll be using two very similar but different formulas:
-
-* Cosine Similarity
-* Euclidian Distance
-  
 ## Understanding the Problem
 
 To find similar items to a certain item, you've got to first define
@@ -95,7 +90,7 @@ The mathematical formula for the Euclidean distance is really
 simple. Considering 2 points, A and B, with their associated
 coordinates, the distance is defined as:
 
-{% img center /assets/graphics/euclidian-distance.gif %}
+{% img center /assets/graphics/euclidean-distance.png %}
 
 The lower the distance between 2 points, then the higher the
 similarity. Here's some Ruby code:
@@ -233,7 +228,7 @@ like we've used here for tags.
 This method is very similar to the one above, but does tend to give
 slightly different results. Here's the formula:
 
-{% img center /assets/graphics/cosine-similarity.gif %}
+{% img center /assets/graphics/cosine-similarity.png %}
 
 If you look at the visual with the 2 axis and 2 points, we need the
 cosine of the angle *theta* that's between the vectors associated with
