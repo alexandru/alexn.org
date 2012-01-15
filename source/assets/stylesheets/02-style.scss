@@ -343,7 +343,7 @@ body #main {
 		a > img {
 		    display: block;
 		    float: left;
-		    width: 80px;
+		    width: 100px;
 		    margin-right: 10px;
 		    border: 0;
 		}
@@ -352,7 +352,7 @@ body #main {
 		    font-size: 90%;
 		    line-height: 150%;
 
-		    margin-left: 90px;
+		    margin-left: 110px;
 		    clear: right;
 
 		    .meta {
@@ -360,11 +360,11 @@ body #main {
 		    }
 
 		    .desc, .disclaimer {
-			color: #444;
+			color: #222;
 			font-size: 80%;
 		    } 
 		    .disclaimer {
-			color: #555;
+			color: #666;
 			margin-bottom: 5px;
 		    }
 		}
