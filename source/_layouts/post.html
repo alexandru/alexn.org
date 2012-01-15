@@ -20,6 +20,21 @@ layout: default
   </div>
 
   <footer>
+    {% amazonbook %}
+    <div id="amazon-book" class="clearfix">
+      <a href="{{ book.url }}" rel="nofollow external"><img src="{{ book.image }}" /></a>
+      <div class="content">
+	<a href="{{ book.url }}" rel="nofollow external" class="title">{{ book.title }}</a>
+	<div class="meta">{{ book.meta }}</div>
+	<div class="disclaimer">
+	  <b>Disclaimer:</b> If you buy this book, at no extra cost to
+	  you I'm receiving a commission from Amazon.
+	</div>
+	<div class="desc">{{ book.description }}</div>
+      </div>
+    </div>
+    {% endamazonbook %}
+
     <div id="other-articles">
       <h2>Related Articles</h2>
 

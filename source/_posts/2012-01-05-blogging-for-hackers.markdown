@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Blogging Platform for Hackers"
+has_ads: true
 tags:
   - Publishing
   - Server
