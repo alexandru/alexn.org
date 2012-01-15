@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "Just Merged 2 Domains, Rationale, Cheap Setup"
+title: "Just Merged 2 Domains: Rationale, Setup"
+has_ads: true
 tags:
   - Publishing
   - SEO
@@ -8,9 +9,7 @@ tags:
   - Heroku
 ---
 
-I apologize if your feed reader went rogue and flagged all articles as
-being unread. I migrated *alexn.org* to a new domain name:
-*bionicspirit.com*.
+I migrated *alexn.org* to a new domain name: *bionicspirit.com*.
 
 *bionicspirit.com* was supposed to be a blog about Android-related
 development, however I cannot focus on two blogs, one being a big
@@ -26,7 +25,8 @@ enough chore already. I also prefer *bionicspirit.com* because:
 I had to do a 301 Permanent Redirect for all requests, from
 *alexn.org* to *bionicspirit.com*, without changing the path. This
 keeps all links valid, keeps users happy and also keeps the Google
-Juice flowing.
+Juice flowing. Unfortunately my Google ranking did take a plunge into
+obscurity, but hopefully it will recover.
 
 In case you don't have a smart DNS service, here's how to do it
 cheaply, using Heroku (again):
