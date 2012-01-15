@@ -175,6 +175,10 @@ body #main {
 	float: right; margin-left: 10px; margin-bottom: 10px;
     }
 
+    img.center {
+    	display: block; margin: auto;
+    }
+
     ul.posts, ol.posts {
 	list-style-type: none;
 	margin: 0;

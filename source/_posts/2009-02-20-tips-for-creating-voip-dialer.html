@@ -123,6 +123,7 @@ tutorial is based on the default settings.</p>
   creating a file
   named <i>/opt/freeswitch/conf/dialplan/default/2009_play.xml</i> with
   the following text:
+</p>
 
 {% highlight xml %}
 <include> 
@@ -134,8 +135,10 @@ tutorial is based on the default settings.</p>
     </condition> 
  
   </extension> 
-</include>{% endhighlight %}
+</include>
+{% endhighlight %}
  
+<p>
     The file is self-descriptive. When the phone is answered, it waits 2
     seconds before playing your audio file of choice.
 </p> 
@@ -178,6 +181,7 @@ tutorial is based on the default settings.</p>
 <p> 
   In your favorite text editor, create a file "voice.js", with the
   following code:
+</p>
 
 {% highlight javascript %}
 session = new Session('sofia/external/$number@provider');
@@ -191,7 +195,8 @@ if (session.ready()) {
     session.streamFile('/path/to/your.wav');
 }
 {% endhighlight %}
- 
+
+<p> 
   See:
   <ul> 
     <li><a target="_blank" href="http://wiki.freeswitch.org/wiki/Session_waitForAnswer">waitForAnswer</a></li> 
@@ -224,13 +229,15 @@ if (session.ready()) {
 
 {% highlight bash %}
 originate {origination_caller_id_number=123456, \
-           ignore_early_media=true}sofia/external/$number@provider &{% endhighlight %}
+           ignore_early_media=true}sofia/external/$number@provider &
+{% endhighlight %}
  
 Or in your script:
 
 {% highlight javascript %}
 var session = new Session("{origination_caller_id_number=1234567}"
-                          + "sofia/external/$number@provider");{% endhighlight %}
+                          + "sofia/external/$number@provider");
+{% endhighlight %}
  
 <p> 
   For the B-leg of a bridged connection, you either set
@@ -245,16 +252,18 @@ var session = new Session("{origination_caller_id_number=1234567}"
 originate {origination_caller_id_number=1111111111, \
            effective_caller_id_number=222222222, \
            ignore_early_media=true}sofia/external/$number@provider \
-           &bridge(sofia/external/$second_number@provider){% endhighlight %}
+           &bridge(sofia/external/$second_number@provider)
+{% endhighlight %}
 
 <h2>How to retry if phone is busy?</h2> 
  
-</p><p> 
+<p> 
   We want to retry the call immediately after, maybe the client
   pressed the wrong button and rejected the call.  As in this 
   <a target="_blank" href="http://wiki.freeswitch.org/wiki/Busy_Call_Retry">wiki
   page</a>, but with a twist: we wouldn't want to retry more than
   once, because annoyed customers are not happy customers.
+</p>
 
 {% highlight javascript %}
 function makeCall(nr_or_tries) { 
@@ -289,7 +298,8 @@ var nr_or_tries = 0;
 while (nr_or_tries < 2) { 
     if (!makeCall(nr_or_tries++)) break;
 }{% endhighlight %}
- 
+
+<p> 
   See: <a target="_blank" href="http://wiki.freeswitch.org/wiki/Session_hangup">hangup</a>.
 </p> 
  
@@ -322,6 +332,7 @@ while (nr_or_tries < 2) {
   keys pressed. So, lets say than when you press "1", you want to
   repeat your message, and when you press "2", you want to play
   another audio file:
+</p>
 
 {% highlight javascript %}
 var session = new Session(/*... params ... */);
@@ -360,6 +371,7 @@ if (session.ready()) {
     session.streamFile("/path/to/your.wav", on_event);
 }{% endhighlight %}
  
+<p>
   <b>Note:</b> minutes cost money, so you should add a counter to
   limit the maximum times a message can be replayed. There are many
   weirdos out there ;)
@@ -371,6 +383,7 @@ if (session.ready()) {
   Maybe you want your client to be connected to a real operator (when
   he's pressing "0" on his phone keyboard maybe?). It's easy, here's
   how:
+</p>
 
 {% highlight javascript %}
 // the original session 
@@ -389,8 +402,9 @@ if (session.ready()) {
     if (new_session.ready()) { 
         bridge(session, new_session);
     } 
-}{% endhighlight %}
- 
+}{% endhighlight %} 
+
+<p>
   See: <a target="_blank" href="http://wiki.freeswitch.org/wiki/Mod_commands#bridge">bridge</a>.  
   If you want to add the actual key-press event, see the example above.
 </p> 
@@ -447,6 +461,8 @@ if (session.ready()) {
   you'll find the perl package <i>FreeSWITCH::Client</i>. Copy it to your
   project's location, and create a script called <u>dialer.pl</u> with
   the following code:
+</p>
+
  
 {% highlight perl %}
 #!/usr/bin/perl 
@@ -472,7 +488,8 @@ print "Channels\n------------\n$reply\n";
 $fs->command("jsrun dialer.js");
 
 $fs->disconnect();{% endhighlight %}
- 
+
+<p> 
   Btw, if you're not feeling comfortable about communicating through
   plain-old sockets with FreeSWITCH,
   try <a target="_blank" href="http://wiki.freeswitch.org/wiki/Mod_http">mod_http</a>.
@@ -484,7 +501,6 @@ $fs->disconnect();{% endhighlight %}
   Congratulations, you've made it to the end. You just need to add
   you're specific business logic, and you already have a kick-ass
   dialer.
- 
 </p> 
  
 <p> 

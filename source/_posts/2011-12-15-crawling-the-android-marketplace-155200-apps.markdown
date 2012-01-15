@@ -4,6 +4,7 @@ layout: post
 tags: 
   - Python
   - Android
+  - Mining
   - Web
   - API
 ---
