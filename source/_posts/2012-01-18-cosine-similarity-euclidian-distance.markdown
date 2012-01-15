@@ -10,12 +10,12 @@ tags:
   - Jekyll
 ---
 
-[{% img /assets/photos/xkcd435.png %}](http://xkcd.com/435/)
+{% img right /assets/graphics/similarity-graphic-small.png %}
 
 I'm showing you how to find related items based on a really simple
-formula. If you pay attention, this technique all over the web (like
-on Amazon) to personalize the user experience and increase conversion
-rates. You can use it for:
+formula. If you pay attention, this technique is used all over the web
+(like on Amazon) to personalize the user experience and increase
+conversion rates. You can use it for:
 
 * building a *Related Articles* section on your blog, which gives
   better conversions and a lower bounce-rate
@@ -283,7 +283,7 @@ Also, sorting the articles in the above sample gives me the following:
 
 Right, so much better for this chosen sample.
 
-## Go Forth and Give Kick-ass Suggestions
+## Other Formulas and One Example
 
 There is no one size fits all and the formula you're going to use
 depends on your data and what you want out of it.
