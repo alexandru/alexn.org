@@ -39,7 +39,7 @@ class PathCorrections < BaseMiddleware
     env['PATH_INFO'] += 'index.html' if env['PATH_INFO'].end_with? '/'
     request = Rack::Request.new(env)
     
-    if request.host.start_with("bionicspirit.heroku.com")
+    if request.host.start_with?("bionicspirit.heroku.com")
       [301, {"Location" => request.url.sub("bionicspirit.heroku.com", "bionicspirit.com")}, self]
     elsif request.host.start_with?("www.")
       [301, {"Location" => request.url.sub("//www.", "//")}, self]
