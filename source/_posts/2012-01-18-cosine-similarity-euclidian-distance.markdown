@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Data Mining: Finding Similar Items"
+has_ads: true
 tags:
   - Algorithms
   - Programming  
