@@ -330,6 +330,41 @@ body #main {
 
 	footer {
 	    padding-top: $vertical-padding;
+
+	    #amazon-book {
+		border-top: 2px solid #C69AA1;
+		padding-top: $vertical-padding / 2;
+		padding-bottom: $vertical-padding / 2;
+
+		a > img {
+		    display: block;
+		    float: left;
+		    width: 80px;
+		    margin-right: 10px;
+		    border: 0;
+		}
+
+		.content {
+		    font-size: 90%;
+		    line-height: 150%;
+
+		    margin-left: 90px;
+		    clear: right;
+
+		    .meta {
+			font-size: 80% !important;
+		    }
+
+		    .desc, .disclaimer {
+			color: #444;
+			font-size: 80%;
+		    } 
+		    .disclaimer {
+			color: #555;
+			margin-bottom: 5px;
+		    }
+		}
+	    }
 	}
     }
 }
