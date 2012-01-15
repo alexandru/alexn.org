@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "UX Tip: Don't Hurt Me On Sign-Up, Wait Until Later"
+has_ads: true
 tags:
   - Web
   - Design

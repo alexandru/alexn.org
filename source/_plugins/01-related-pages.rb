@@ -17,13 +17,14 @@ module RelatedPosts
   end
 
   def self.sort_on_similarity(these_tags, those_posts)    
-    return [] unless those_posts.size > 1
+    return those_posts unless those_posts.size > 1
 
-    all_tags = []
+    all_tags = [] + these_tags
     per_post = {}
 
-    those_posts.each do |post|
-      per_post[post] ||= {}
+    those_posts.each do |post|      
+      per_post[post] ||= {}      
+
       post.tags.each do |tag|
         all_tags << tag unless all_tags.member? tag
         per_post[post][tag] = 1
@@ -57,9 +58,12 @@ module RelatedPosts
       ]
     end
 
-    all_articles.sort{|a,b| 
-      b[0] != a[0] ? b[0] <=> a[0] : b[1] <=> a[1]
-    }.map{|x| x[1]}
+    begin
+      all_articles.sort{|a,b| b[0] != a[0] ? b[0] <=> a[0] : b[1] <=> a[1]}.map{|x| x[1]}
+    rescue
+      # in case items cannot be compared
+      all_articles.sort{|a,b| b[0] != a[0] ? b[0] <=> a[0] : Random.rand(3) - 1}.map{|x| x[1]}
+    end  
   end
 
   def related_posts(posts)   

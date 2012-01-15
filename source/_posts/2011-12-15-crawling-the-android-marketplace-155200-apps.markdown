@@ -1,6 +1,7 @@
 ---
 title: "Crawling the Android Marketplace"
 layout: post
+has_ads: true
 tags: 
   - Python
   - Android
