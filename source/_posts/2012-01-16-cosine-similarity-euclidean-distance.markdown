@@ -286,7 +286,7 @@ Also, sorting the articles in the above sample gives me the following:
 Right, so much better for this chosen sample and usage. Ain't this
 fun? BUT, you guessed it, there's a problem with this too ...
 
-### The Problem with Our Sample; And The Tf-Idf Weight
+### The Problem with Our Sample; The Tf-Idf Weight
 
 Our data sample is so simple that we could have simply counted the
 number of common tags and use that as a metric. The result would be
@@ -393,5 +393,5 @@ some text into another.
 
 [Contact me](http://localhost:9292/pages/subscribe.html) or clone my
 blog,
-[edit the file](http://github.com/alexandru/bionicspirit.com/source/_posts/2012-01-16-cosine-similarity-euclidean-distance.markdown)
+[edit this file](https://github.com/alexandru/bionicspirit.com/blob/master/source/_posts/2012-01-16-cosine-similarity-euclidean-distance.markdown)
 and send me a pull request ;-)
