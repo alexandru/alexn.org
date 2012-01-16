@@ -6,6 +6,7 @@ tags:
   - Python
   - Android
   - Mining
+  - Stats
   - Web
   - API
 ---

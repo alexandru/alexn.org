@@ -1,10 +1,11 @@
 ---
 layout: default
+type: post
 ---
 
 <article id="post">
   <header>
-    <h1>{{ page.title }}</h1>
+    <h1 itemprop="name">{{ page.title }}</h1>
     <div id="meta">
       <div class="post-date">Published: {{ page.date | date_to_string }}</div>
       <div class="tags">
@@ -49,7 +50,7 @@ layout: default
       <div id="share">
 	<!-- AddThis Button BEGIN -->
 	<div class="addthis_toolbox addthis_default_style ">
-	  <a class="addthis_button_tweet"></a>
+	  <a class="addthis_button_tweet" tw:via="alex_ndc"></a>
 	  <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
 	  <a class="addthis_counter addthis_pill_style"></a>
 	</div>
