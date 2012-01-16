@@ -9,6 +9,3 @@ handlers:
 - url: /assets
   static_dir: assets
   expiration: "365d"
-
-- url: /tasks/ping
-  script: ping.app
