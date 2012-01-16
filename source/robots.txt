@@ -2,4 +2,5 @@ User-agent: *
 Allow: /
 Disallow: /books/
 Disallow: /utils/
+Disallow: /tags/
 Sitemap: http://{{ site.site_domain }}/sitemap.xml

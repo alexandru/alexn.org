@@ -128,4 +128,4 @@ name). Also checkout their article on
 [adding custom domains](http://devcenter.heroku.com/articles/custom-domains).
 
 In case you're wondering, this is the Heroku instance I've got
-configured:
+configured: [alexn.heroku.com](http://alexn.heroku.com).
