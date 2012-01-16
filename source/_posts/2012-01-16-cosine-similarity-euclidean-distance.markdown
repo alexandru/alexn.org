@@ -290,7 +290,7 @@ fun? BUT, you guessed it, there's a problem with this too ...
 
 Our data sample is so simple that we could have simply counted the
 number of common tags and use that as a metric. The result would be
-the same without getting fancy with the Cosine Similarity metric :-)
+the same without getting fancy with Cosine Similarity :-)
 
 Clearly a tag such as "Heroku" is more specific than a general purpose
 tag such as "Web". Also, just because Jekyll was mentioned in an
