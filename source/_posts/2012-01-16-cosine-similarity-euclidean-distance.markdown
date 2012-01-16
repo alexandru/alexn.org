@@ -21,7 +21,7 @@ conversion rates.
 To get one question out of the way: there are already many available
 libraries that do this, but as you'll see there are multiple ways of
 skinning the cat and you won't be able to pick the right one without
-understand the process, at least intuitively.
+understanding the process, at least intuitively.
 
 ## Defining the Problem
 
