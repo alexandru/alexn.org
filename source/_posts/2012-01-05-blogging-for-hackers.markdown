@@ -7,8 +7,9 @@ tags:
   - Server
   - Cloud
   - Heroku
-  - Jekyll
   - GAE
+  - Ruby
+  - Jekyll
 ---
 
 <img src="{% asset_link /assets/photos/heroku.png %}" class="right" />
