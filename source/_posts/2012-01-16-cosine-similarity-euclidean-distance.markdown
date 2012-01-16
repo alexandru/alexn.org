@@ -16,13 +16,13 @@ Because we want to give kick-ass product recommendations.
 I'm showing you how to find related items based on a really simple
 formula. If you pay attention, this technique is used all over the web
 (like on Amazon) to personalize the user experience and increase
-conversion rates. 
+conversion rates.
 
 To get one question out of the way: there are already many available
 libraries that do this, but as you'll see there are multiple ways of
 skinning the cat and you won't be able to pick the right one without
 understand the process, at least intuitively.
-  
+
 ## Defining the Problem
 
 {% img right /assets/photos/amazon.png Amazon gives kick-ass suggestions to their customers %}
@@ -320,7 +320,7 @@ John, has given the following ratings to 5 movies:
 [1, 2, 3, 4, 5]. The other one, Mary, has given the following ratings
 to the same 5 movies: [4, 5, 6, 7, 8]. The 2 users are very similar,
 as there is a perfect linear correlation between them, since Mary just
-gives the same rankings as John times 4. The formula itself or the
+gives the same rankings as John plus 3. The formula itself or the
 theory is not very intuitive though. But it is simple to calculate:
 
 {% img center /assets/graphics/pearson.png %}
@@ -355,7 +355,7 @@ puts pearson_score([1,2,3,4,5], [4,5,6,7,8])
 puts pearson_score([1,2,3,4,5], [4,5,0,7,8])
 # => 0.5063696835418333
 puts pearson_score([1,2,3,4,5], [4,5,0,7,7])
-# => 0.4338609156373123
+# => 0.4338609156373132
 puts pearson_score([1,2,3,4,5], [8,7,6,5,4])
 # => -1
 {% endhighlight %}
