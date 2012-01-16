@@ -23,9 +23,9 @@ type: post
   <footer>
     {% amazonbook %}
     <div id="amazon-book" class="clearfix">
-      <a href="{{ book.url }}" rel="nofollow external"><img src="{{ book.image }}" /></a>
+      <a href="{{ book.url }}" rel="nofollow external" onClick="recordOutboundLink(this, 'Book Recommendation', '{{ book.url }}');return false;"><img src="{{ book.image }}" /></a>
       <div class="content">
-	<a href="{{ book.url }}" rel="nofollow external" class="title">{{ book.title }}</a>
+	<a href="{{ book.url }}" rel="nofollow external" class="title" onClick="recordOutboundLink(this, 'Book Recommendation', '{{ book.url }}');return false;">{{ book.title }}</a>
 	<div class="meta">{{ book.meta }}</div>
 	<div class="disclaimer">
 	  <b>Disclaimer:</b> If you buy this book, at no extra cost to
@@ -47,17 +47,6 @@ type: post
     </div>
 
     <div id="contributions">
-      <div id="share">
-	<!-- AddThis Button BEGIN -->
-	<div class="addthis_toolbox addthis_default_style ">
-	  <a class="addthis_button_tweet" tw:via="alex_ndc"></a>
-	  <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
-	  <a class="addthis_counter addthis_pill_style"></a>
-	</div>
-	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4eba65e344fa9470"></script>
-	<!-- AddThis Button END -->
-      </div>
-
       <div id="disqus_thread"></div>
       <script type="text/javascript">
 	var disqus_shortname = 'alexnorg'; 
