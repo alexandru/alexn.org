@@ -5,6 +5,7 @@ has_ads: true
 tags: 
   - Python
   - Android
+  - Mining
   - Web
   - API
 ---
