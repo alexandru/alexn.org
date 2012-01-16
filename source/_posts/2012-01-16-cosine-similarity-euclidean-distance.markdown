@@ -394,7 +394,6 @@ some text into another.
 
 ## Found a Problem with My Article?
 
-[Contact me](/pages/subscribe.html) or clone my
-blog,
+[Contact me](/pages/subscribe.html) or clone my blog,
 [edit this file](https://github.com/alexandru/bionicspirit.com/blob/master/source/_posts/2012-01-16-cosine-similarity-euclidean-distance.markdown)
 and send me a pull request ;-)
