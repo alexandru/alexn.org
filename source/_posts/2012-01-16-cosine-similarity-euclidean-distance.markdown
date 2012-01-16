@@ -303,9 +303,12 @@ So here's a solution to this: the
 statistical measure used to evaluate how important a word is to a
 document in a collection or corpus*. With it you can give values to
 your coordinates that are much more specific than simple ones and
-zeros.
+zeros. But I'll leave that for another day.
 
-But I'll leave that for another day.
+Also, related to our simple data-set here, perhaps an even simpler
+metric, like the
+[Jaccard index](http://en.wikipedia.org/wiki/Jaccard_index) would be
+better.
 
 ## Pearson Correlation Coefficient
 
@@ -391,7 +394,7 @@ some text into another.
 
 ## Found a Problem with My Article?
 
-[Contact me](http://localhost:9292/pages/subscribe.html) or clone my
+[Contact me](/pages/subscribe.html) or clone my
 blog,
 [edit this file](https://github.com/alexandru/bionicspirit.com/blob/master/source/_posts/2012-01-16-cosine-similarity-euclidean-distance.markdown)
 and send me a pull request ;-)
