@@ -58,7 +58,7 @@ for app in AndroidMarketCrawler(concurrency=10):
 {% endhighlight %}
 
 I used the Python programming language, along with
-[Eventlet](eventlet.net) for fetching URLs in parallel (async I/O with
+[Eventlet](http://eventlet.net) for fetching URLs in parallel (async I/O with
 epoll/libevent, providing you with coroutines support and green
 threads) and [PyQuery](http://packages.python.org/pyquery/) for
 selecting DOM elements using CSS3 selectors (instead of XPath or

@@ -107,8 +107,8 @@ def euclidean_distance(a, b)
   Math.sqrt(sq.inject(0) {|s,c| s + c})
 end
 
-# Returns the associated point in the our space 
-# of a list of tags.
+# Returns the associated point of our tags_set, relative to our
+# tags_space.
 #
 # Params:
 #  - tags_set: list of tags
