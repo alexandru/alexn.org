@@ -320,7 +320,7 @@ John, has given the following ratings to 5 movies:
 [1, 2, 3, 4, 5]. The other one, Mary, has given the following ratings
 to the same 5 movies: [4, 5, 6, 7, 8]. The 2 users are very similar,
 as there is a perfect linear correlation between them, since Mary just
-gives the same rankings as John plus 4. The formula itself or the
+gives the same rankings as John plus 3. The formula itself or the
 theory is not very intuitive though. But it is simple to calculate:
 
 {% img center /assets/graphics/pearson.png %}
