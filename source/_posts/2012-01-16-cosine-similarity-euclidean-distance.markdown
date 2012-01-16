@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Data Mining: Giving Kick-ass Product&nbsp;Recommendations"
+title: "Data Mining: Finding Similar Items and Users"
 has_ads: true
 tags:
   - Algorithms
@@ -10,6 +10,8 @@ tags:
 ---
 
 {% img right /assets/graphics/similarity-graphic-small.png %}
+
+Because we want to give kick-ass product recommendations.
 
 I'm showing you how to find related items based on a really simple
 formula. If you pay attention, this technique is used all over the web
@@ -216,12 +218,11 @@ second article:
 [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1]
 {% endhighlight %}
 
-Again, 4 coordinates are different.So here's the deal with Euclidean
-distance: it measures *dissimilarity*, instead of similarity. The
-coordinates that are the same are less important than the coordinates
-that are different. For my purpose here, this is not good - because
-articles with more tags (or less) tags than the average are going to
-be disadvantaged. 
+Again, 4 coordinates are different. So here's the deal with Euclidean
+distance: it measures *dissimilarity*. The coordinates that are the
+same are less important than the coordinates that are different. For
+my purpose here, this is not good - because articles with more tags
+(or less) tags than the average are going to be disadvantaged.
 
 ## Cosine Similarity
 
@@ -283,7 +284,28 @@ Also, sorting the articles in the above sample gives me the following:
 {% endhighlight %}
 
 Right, so much better for this chosen sample and usage. Ain't this
-fun?
+fun? BUT, you guessed it, there's a problem with this too ...
+
+### The Problem with Our Sample; And The Tf-Idf Weight
+
+Our data sample is so simple that we could have simply counted the
+number of common tags and use that as a metric. The result would be
+the same without getting fancy with the Cosine Similarity metric :-)
+
+Clearly a tag such as "Heroku" is more specific than a general purpose
+tag such as "Web". Also, just because Jekyll was mentioned in an
+article, that doesn't make the article about Jekyll. Also an article
+tagged with "Android" may be twice as Android-related as another
+article also tagged with "Android".
+
+So here's a solution to this: the
+**[Tf-Idf weight](http://en.wikipedia.org/wiki/Tf%E2%80%93idf)**, *a
+statistical measure used to evaluate how important a word is to a
+document in a collection or corpus*. With it you can give values to
+your coordinates that are much more specific than simple ones and
+zeros.
+
+But I'll leave that for another day.
 
 ## Pearson Correlation Coefficient
 
@@ -367,17 +389,9 @@ similar in spirit to the
 which measures the minimum number of changes required to transform
 some text into another.
 
-## Usage Sample
+## Found a Problem with My Article?
 
-Checkout the *related/other articles* sections on this blog. It is how I've
-solved the problem of lonely tags. Checkout this tag index page:
-[SEO](/tags/SEO/).
-
-Compare it with your average Wordpress tag index. Ain't this a lot
-nicer? Yes, it's a Jekyll plugin. In case you want it for your own
-Jekyll website, you can find the code in
-[my repo](https://github.com/alexandru/bionicspirit.com/blob/master/source/_plugins/01-related-pages.rb)
-(drop it in a directory called _plugins).
-
-So you see, you don't have to work at Google-scale to take advantage
-of such techniques.
+[Contact me](http://localhost:9292/pages/subscribe.html) or clone my
+blog,
+[edit the file](http://github.com/alexandru/bionicspirit.com/source/_posts/2012-01-16-cosine-similarity-euclidean-distance.markdown)
+and send me a pull request ;-)
