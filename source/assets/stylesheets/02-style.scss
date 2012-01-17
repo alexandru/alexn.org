@@ -186,18 +186,9 @@ body #main {
 
 	li {
 	    display: block;
-	    padding-bottom: $vertical-padding / 2;
-
-	    &.first {
-		padding-top: 0;
-	    }
-	    &.last {
-		padding-bottom: 0;
-		border-bottom: 0;
-	    }
+	    padding-bottom: $vertical-padding / 4;
 
 	    a {
-		font-size: 110%;
 		text-decoration: none;
 		&:hover { 
 		    text-decoration: underline; 
@@ -205,34 +196,10 @@ body #main {
 	    }
 
 	    time {
-		display: block;
-		float: left;
-
 		color: #aaa;
 		font-family: Monaco, "Courier New", monospace;
 		font-size: 80%;		    
-		line-height: 200%;
-
-		&:after {
-		    margin-left: 5px;
-		    margin-right: 5px;
-		    content: "»";
-		}
-	    }
-
-	    .wrapper {
-		float: left;
-	    }
-
-	    .tags {
-		@include tags-base;
-		a {
-		    font-size: 80%;
-		}
-	    }
-	    
-	    &.last .wrapper {
-		margin-bottom: 0;
+		margin-right: 5px;
 	    }
 	}
 
@@ -261,7 +228,7 @@ body #main {
     }
 
     article#post header h1 {
-	margin-bottom: $vertical-padding / 2;
+	margin-bottom: 0;
     }
 
     article {
@@ -312,24 +279,10 @@ body #main {
 	}
 
 	#meta {
-	    margin-bottom: $vertical-padding;
-	    font-size: 90%;	
-	    color: #888;
-
-	    .post-date {
-		float: left;
-		margin-right: 10px;
-	    }
-
-	    .tags {
-		@include tags-base;
-
-		&:before {
-		    content: "»";
-		    color: #888;
-		    margin-right: 5px;
-		}
-	    }
+	    margin-top: $vertical-padding / 2;
+	    margin-bottom: $vertical-padding + $vertical-padding / 2;
+	    font-size: 100%;	
+	    color: #7A6062;
 	}
 
 	footer {
