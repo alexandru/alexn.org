@@ -230,6 +230,12 @@ body #main {
     article#post header h1 {
 	margin-bottom: 0;
     }
+    
+    article#archive {
+	ul, ol {
+	    margin-top: $vertical-padding;
+	}
+    }
 
     article {
 	#content {

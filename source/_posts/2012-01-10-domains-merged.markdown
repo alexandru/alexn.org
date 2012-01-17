@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Just Merged 2 Domains: Rationale, Setup"
-has_ads: true
+archive: true
 tags:
   - Publishing
   - SEO
