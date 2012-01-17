@@ -13,6 +13,17 @@ type: post
 
   <div id="content">
     {{ content }}
+
+    <h2>Subscribe</h2>
+
+    <p>
+      If you liked this article, subscribe <a
+      href="/pages/subscribe.html">by Email</a> or by RSS.
+    </p>
+
+    <p>
+      Thanks,
+    </p>
   </div>
 
   <footer>
@@ -24,22 +35,6 @@ type: post
 	{% include render-post-link.html %}
 	{% endfor %}
       </ul>
-    </div>
-
-    <div id="email-subscription">
-      <h2>Subscribe By Email</h2>
-
-      <p>
-	Have my posts delivered to you by FeedBurner:
-      </p>
-
-      <form action="http://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('http://feedburner.google.com/fb/a/mailverify?uri=bionicspirit', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true">
-	<input type="hidden" value="bionicspirit" name="uri" />
-	<input type="hidden" name="loc" value="en_US" />
-    
-	<input type="email" name="email" placeholder="Your Email ..." />
-	<button type="submit">Subscribe</button>    
-      </form>
     </div>
 
     <div id="contributions">
