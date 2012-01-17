@@ -10,4 +10,15 @@ layout: default
       {% include render-post-link.html %}
     {% endfor %}
   </ol>  
+
+  <h2>Latest Favorite Links</h2>
+
+  <ol class="posts">
+    {% delicious username:alex_ndc tag:nice count:10 ttl:3600 %}
+    <li> 
+      <time datetime="{{ item.date | date_to_xmlschema }}">{{ item.date | date_to_string }} &raquo;</time>
+      <a href="{{ item.link }}" rel="external">{{ item.title }}</a>
+    </li>    
+    {% enddelicious %}
+  </ol>  
 </article>

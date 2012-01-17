@@ -128,7 +128,7 @@ module Jekyll
 
       length = collection.length
       result = []
-              
+
       # loop through found bookmarks and render results
       context.stack do
         collection.each_with_index do |item, index|
