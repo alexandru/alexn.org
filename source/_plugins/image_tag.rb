@@ -17,6 +17,8 @@
 # <img class="left half" src="http://site.com/images/ninja.png" width="150" height="150" title="Ninja Attack!" alt="Ninja in attack posture">
 #
 
+require_relative 'utils'
+
 module Jekyll
 
   class ImageTag < Liquid::Tag

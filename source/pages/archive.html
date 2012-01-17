@@ -7,16 +7,12 @@ title: Archive
   <h1>Archive</h1>
 
   <p>
-    This is where all old, deprecated or poorly written articles come
-    to die. I won't delete them, they are just banned from the home
-    page ...
+    <i>Raw and unfiltered ...</i>
   </p>
 
   <ol class="posts">
     {% for post in site.posts %}      
-      {% if post.archive %}
       {% include render-post-link.html %}
-      {% endif %}
     {% endfor %}
   </ol>  
 </article>

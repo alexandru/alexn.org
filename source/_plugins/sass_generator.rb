@@ -1,5 +1,6 @@
 require 'sass'
 require 'digest/md5'
+require_relative 'utils'
 
 module Jekyll
 
