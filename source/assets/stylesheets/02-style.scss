@@ -379,7 +379,7 @@ body #footer-container footer {
 }
 
 
-body #main article footer #other-articles {
+body #main article footer #other-articles, body #main article footer #email-subscription {
     border-top: 2px solid #C69AA1;
 
     h2 {
@@ -399,6 +399,14 @@ body #main article footer #other-articles {
 	li {
 	    margin-bottom: 0;
 	}
+    }
+}
+
+body #main article footer #email-subscription {
+    padding-bottom: $vertical-padding;
+    color: #333;
+    h2 {
+	padding-bottom: $vertical-padding / 2;
     }
 }
 
