@@ -1,6 +1,10 @@
 # My Personal Blog (bionicspirit.com)
 
-* generated with [Jekyll](https://github.com/mojombo/jekyll)
+Built with the following tools:
+
+* [Jekyll](http://octopress.org/)
+* Plugin code take from [Octopress.org](http://octopress.org/)
+* Custom stuff by me
 
 It was originally hosted on Heroku, relying on Google App Engine for
 serving images and other static assets. See this article for details:
@@ -11,16 +15,6 @@ Since then I've moved it to AWS's free tier, on a micro-instance, in
 combination with CloudFront. But it is still ready for deployment on
 Heroku/GAE (checkout config.ru) ... I'm just messing around, figuring
 out which is the best/cheapest :)
-
-As a Jekyll-generated website, it features:
-
-* enhanced related articles functionality
-* tag indexes that are also giving suggestions on other articles
-  (related to that tag, but not tagged per se)
-* Amazon book suggestions
-* custom theme
-* Delicious link recommendations (currently disabled)
-* it's freakishly fast, easy to customize and cheap to host
 
 ## LICENSE
 
