@@ -39,5 +39,7 @@ module HighlightCode
       code  += "<span class='line'>#{line}</span>"
     end
     table += "</pre></td><td class='code'><pre><code class='#{lang}'>#{code}</code></pre></td></tr></table></div>"
+    # slight change
+    "<div class='highlight'><pre><code class='#{lang}'>#{code}</code></highlight>"
   end
 end
