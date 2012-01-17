@@ -45,7 +45,7 @@ namespace :deploy do
 
   desc "Deploy to my server (with RSync)"
   task :ec2 do
-    sh "rsync --exclude=\".*\" -rcv ./ bionicspirit.com:/var/www/bionicspirit.com/"
+    sh "rsync --delete --exclude=\".*\" -rcv ./ bionicspirit.com:/var/www/bionicspirit.com/"
   end  
 end
 
