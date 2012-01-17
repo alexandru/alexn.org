@@ -1,20 +1,10 @@
 # My Personal Blog (bionicspirit.com)
 
-Built with the following tools:
+URL: [bionicspirit.com](http://bionicspirit.com)
 
-* [Jekyll](http://octopress.org/)
-* Plugin code take from [Octopress.org](http://octopress.org/)
-* Custom stuff by me
-
-It was originally hosted on Heroku, relying on Google App Engine for
-serving images and other static assets. See this article for details:
+Proudly built with Jekyll. See this article for details:
 
 [Blogging for Hackers](http://bionicspirit.com/blog/2012/01/05/blogging-for-hackers.html)
-
-Since then I've moved it to AWS's free tier, on a micro-instance, in
-combination with CloudFront. But it is still ready for deployment on
-Heroku/GAE (checkout config.ru) ... I'm just messing around, figuring
-out which is the best/cheapest :)
 
 ## LICENSE
 
