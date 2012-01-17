@@ -34,9 +34,9 @@ take your old domain off the net with the 301 Redirect - at first you
 can add a *rel="canonical"* to your web pages, in your document's
 head, like this:
 
-{% highlight html %}
+```html
 <link rel="canonical" href="http://www.newdomain.com/path/to/document">
-{% endhighlight %}
+```
 
 More details about *rel="canonical"* you can find by viewing this
 video by Matt Cutts: [About
@@ -53,7 +53,7 @@ back somehow.
 In case you don't have a smart DNS service, here's how to do it
 cheaply, using Heroku (again):
 
-{% highlight bash %}
+```bash
 # new directory
 mkdir mydomain
 # change to it
@@ -61,11 +61,11 @@ cd mydomain
 
 # initialize a git repository
 git init .
-{% endhighlight %}
+```
 
 Then create a file called "*Gemfile*", for specifying dependencies:
 
-{% highlight ruby %}
+```ruby
 source 'http://rubygems.org'
 
 gem 'rack'
@@ -74,22 +74,22 @@ group :development do
   # command line tools
   gem 'heroku'
 end
-{% endhighlight %}
+```
 
 Install these prerequisites (on the command-line again):
 
-{% highlight bash %}
+```bash
 # in case you don't already have Bundler installed:
 gem install bundler
 
 # and then ...
 bundle install 
-{% endhighlight %}
+```
 
 Create a Rack configuration file that handles your logic, called
 "*config.ru*":
 
-{% highlight ruby %}
+```ruby
 # our Rack middleware
 
 class RedirectBetweenDomains
@@ -103,11 +103,11 @@ class RedirectBetweenDomains
 end
 
 run RedirectBetweenDomains.new
-{% endhighlight %}
+```
 
 Now deploy on Heroku (from the command line):
 
-{% highlight bash %}
+```bash
 # committing
 git add .
 git commit -m 'initial commit - rack config'
@@ -120,7 +120,7 @@ heroku rename yourappid
 
 # deploying on heroku
 git push heroku master
-{% endhighlight %}
+```
 
 When it finishes, you can test the setup on
 *http://yourappid.heroku.com* (where *rabbit* is your application's
