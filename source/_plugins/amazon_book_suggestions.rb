@@ -1,6 +1,9 @@
 require 'yaml'
 require 'ostruct'
 
+require_relative 'utils'
+require_relative 'related_pages'
+
 module Jekyll
   class AmazonBookTag < Liquid::Block
     def initialize(tag_name, text, tokens)
