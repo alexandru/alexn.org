@@ -12,7 +12,7 @@ tags:
   - Jekyll
 ---
 
-<img src="{% asset_link /assets/photos/heroku.png %}" class="right" />
+{% img right /assets/photos/heroku.png %}
 
 I'm showing you how to:
 
