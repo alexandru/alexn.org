@@ -1,3 +1,5 @@
+require_relative 'utils'
+
 module Jekyll
   class AssetLinkTag < Liquid::Tag
 
