@@ -1,3 +1,5 @@
+require_relative 'related_pages'
+
 module Jekyll
 
   class TagIndex < Page
