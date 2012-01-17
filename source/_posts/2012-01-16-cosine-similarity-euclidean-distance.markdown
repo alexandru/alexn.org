@@ -392,8 +392,4 @@ similar in spirit to the
 which measures the minimum number of changes required to transform
 some text into another.
 
-## Found a Problem with My Article?
 
-[Contact me](/pages/subscribe.html) or clone my blog,
-[edit this file](https://github.com/alexandru/bionicspirit.com/blob/master/source/_posts/2012-01-16-cosine-similarity-euclidean-distance.markdown)
-and send me a pull request ;-)
