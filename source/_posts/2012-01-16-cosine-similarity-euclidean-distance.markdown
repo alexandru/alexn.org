@@ -1,7 +1,6 @@
 ---
 layout: post
 title: "Data Mining: Finding Similar Items and Users"
-has_ads: true
 tags:
   - Algorithms
   - Programming  
@@ -22,8 +21,6 @@ To get one question out of the way: there are already many available
 libraries that do this, but as you'll see there are multiple ways of
 skinning the cat and you won't be able to pick the right one without
 understanding the process, at least intuitively.
-
-<!--more-->
 
 ## Defining the Problem
 
@@ -51,9 +48,9 @@ complicated instances.
 
 We'll be using my blog as sample. Let's take some tags:
 
-```ruby
+{% highlight ruby %}
 ["API", "Algorithms", "Amazon", "Android", "Books", "Browser"]
-```
+{% endhighlight %}
 
 That's 6 tags. Well, what if we considered these tags as dimensions in
 a 6-dimensional
@@ -65,9 +62,9 @@ zero (not tagged).
 So let's say we've got one article tagged with *API* and
 *Browser*. Then its associated point will be:
 
-```ruby
+{% highlight ruby %}
 [ 1, 0, 0, 0, 0, 1 ]
-```
+{% endhighlight %}
 
 Now these coordinates could represent something else. For instance
 they could represent users. If say you've got a total of 6 users in
@@ -75,9 +72,9 @@ your system, 2 of them rating an item with 3 and 5 stars respectively,
 you could have for the article in question this associated point
 (do note the order is very important):
 
-```ruby
+{% highlight ruby %}
 [ 0, 3, 0, 0, 5, 0 ]
-```
+{% endhighlight %}
 
 So now you can go ahead and calculate distances between these
 points. For instance you could calculate the angle between the
@@ -98,7 +95,7 @@ coordinates, the distance is defined as:
 The lower the distance between 2 points, then the higher the
 similarity. Here's some Ruby code:
 
-```ruby
+{% highlight ruby %}
 # Returns the Euclidean distance between 2 points
 #
 # Params:
@@ -141,12 +138,12 @@ def sort_by_similarity(items, by_these_tags)
   sorted = similarities.sort {|a,b| a[1] <=> b[1]}
   return sorted.map{|point,s| point}
 end
-```
+{% endhighlight %}
 
 And here is the test you could do, and btw you can copy the above and
 the bellow script and run it directly:
 
-```ruby
+{% highlight ruby %}
 # SAMPLE DATA
 
 all_articles = [
@@ -195,7 +192,7 @@ sorted = sort_by_similarity(
 
 require 'yaml'
 puts YAML.dump(sorted)
-```
+{% endhighlight %}
 
 ### The Problem (or Strength) of Euclidean Distance
 
@@ -207,18 +204,18 @@ to ["Publishing", "Web", "API"], even though the first article shares
 To visualize why, look at the points used in calculating the distance
 for the first article:
 
-```ruby
+{% highlight ruby %}
 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
 [1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1]
-```
+{% endhighlight %}
 
 So 4 coordinates are different. Now look at the points used for the
 second article:
 
-```ruby
+{% highlight ruby %}
 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
 [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1]
-```
+{% endhighlight %}
 
 Again, 4 coordinates are different. So here's the deal with Euclidean
 distance: it measures *dissimilarity*. The coordinates that are the
@@ -247,7 +244,7 @@ never get negative for our sample).
 Here's the Ruby code (leaving out the wiring to our sample data, do
 that as an exercise):
 
-```ruby
+{% highlight ruby %}
 def dot_product(a, b)
   products = a.zip(b).map{|a, b| a * b}
   products.inject(0) {|s,p| s + p}
@@ -267,11 +264,11 @@ end
 def cosine_similarity(a, b)
   dot_product(a, b) / (magnitude(a) * magnitude(b))
 end
-```
+{% endhighlight %}
 
 Also, sorting the articles in the above sample gives me the following:
 
-```yaml
+{% highlight yaml %}
 - article: Crawling the Android Marketplace
   similarity: 0.5163977794943222
 
@@ -283,7 +280,7 @@ Also, sorting the articles in the above sample gives me the following:
 
 - article: "Data Mining: Finding Similar Items"
   similarity: 0.0
-```
+{% endhighlight %}
 
 Right, so much better for this chosen sample and usage. Ain't this
 fun? BUT, you guessed it, there's a problem with this too ...
@@ -332,7 +329,7 @@ theory is not very intuitive though. But it is simple to calculate:
 
 Here's the code:
 
-```ruby
+{% highlight ruby %}
 def pearson_score(a, b)
   n = a.length
   return 0 unless n > 0
@@ -363,7 +360,7 @@ puts pearson_score([1,2,3,4,5], [4,5,0,7,7])
 # => 0.4338609156373132
 puts pearson_score([1,2,3,4,5], [8,7,6,5,4])
 # => -1
-```
+{% endhighlight %}
 
 
 ## Manhattan Distance
@@ -393,5 +390,3 @@ similar in spirit to the
 [Levenshtein distance](http://en.wikipedia.org/wiki/Levenshtein_distance),
 which measures the minimum number of changes required to transform
 some text into another.
-
-
