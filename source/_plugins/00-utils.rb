@@ -7,7 +7,7 @@ module Utils
     return path unless domains && domains.length > 0
 
     domain = domains[path.hash % domains.length]
-    "http://#{domain}#{path}"
+    "//#{domain}#{path}"
   end
 
 end
