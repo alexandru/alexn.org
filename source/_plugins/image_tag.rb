@@ -42,6 +42,16 @@ module Jekyll
     def render(context)
       @img['src'] = Utils.wrap_assets_link(@img['src'], context['site'])
 
+      if @img['class'] == 'right'
+        @img['style'] = 'float: right; margin-left: 10px; margin-bottom: 10px;'
+        @img['align'] = 'right'
+      elsif @img['class'] == 'left'
+        @img['style'] = 'float: left; margin-right: 10px; margin-bottom: 10px;'
+        @img['align'] = 'left'
+      elsif @img['class'] == 'center'
+        @img['style'] = 'float: none; display: block; margin: auto;'
+      end
+
       if @img
         "<img #{@img.collect {|k,v| "#{k}=\"#{v}\"" if v}.join(" ")}>"
       else

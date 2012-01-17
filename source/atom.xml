@@ -16,7 +16,7 @@ layout: nil
  </author>
 
  {% for post in site.posts %}
- {% unless post.is_draft %}
+ {% unless post.is_draft or post.archive %}
  <entry>
    <title>{{ post.title }}</title>
    <link href="http://{{ site.site_domain }}{{ post.url }}"/>
