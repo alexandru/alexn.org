@@ -10,7 +10,7 @@ type: post
       <div class="post-date">Published: {{ page.date | date_to_string }}</div>
       <div class="tags">
 	{% for tag in page.tags %}
-	<a rel="category tag" href="/tags/{{ tag }}/">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
+	<a rel="category tag nofollow" href="/tags/{{ tag }}/">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
 	{% endfor %}    
       </div>
     </div>
@@ -54,7 +54,7 @@ type: post
 	/* * * DON'T EDIT BELOW THIS LINE * * */
 	(function() {
             var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
             (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 	})();
       </script>
