@@ -56,7 +56,7 @@ html, body {
 /* RESET */
 
 body {
-    font-family: helvetica,verdana,sans-serif;
+    font-family: 'Droid Sans',helvetica,verdana,sans-serif;
     font-size: $body-font-size;
     line-height: $body-line-height;
     text-align: center;
@@ -171,13 +171,26 @@ body #main {
 	font-size: $header-1-size - 60;    
     }
 
-    img.right {
+    img.normal {
+	display: block;
+	margin-top: 10px;
+	margin-bottom: 10px;
+    }
+
+    img.right, img.frame-right {
 	float: right; margin-left: 10px; margin-bottom: 10px;
     }
 
-    img.center {
+    img.center, img.frame-center {
     	display: block; margin: auto;
     }
+
+    img.frame-right, img.frame-center {
+	border: 0.5em solid #FFFFFF;	
+	border-radius: 0.3em 0.3em 0.3em 0.3em;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+    }
+
 
     ul.posts, ol.posts {
 	list-style-type: none;
