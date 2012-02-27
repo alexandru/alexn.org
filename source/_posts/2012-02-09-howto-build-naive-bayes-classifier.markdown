@@ -168,11 +168,11 @@ Do note that above I also eliminated the *denominator* from our original
 formula, because it is a constant that we do not need (called
 *evidence*).
 
-### 2.2 Avoiding Floating Point Underflow (UPDATE Feb 27, 2012)
+### 2.2. Avoiding Floating Point Underflow (UPDATE Feb 27, 2012)
 
 Because of the underlying limits of floating points, if you're working
-with big documents (not the case in these example), you do have to
-make one important optimization to the above formula:
+with big documents (not the case in this example), you do have to make
+one important optimization to the above formula:
 
 - instead of the probabilities of each word, you store the (natural)
   logarithms of those probabilities 
