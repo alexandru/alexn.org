@@ -168,7 +168,22 @@ Do note that above I also eliminated the *denominator* from our original
 formula, because it is a constant that we do not need (called
 *evidence*).
 
-### 2.2. Training
+### 2.2 (UPDATE Feb 27, 2012) Avoiding Floating Point Underflow
+
+Because of the underlying limits of floating points, if you're working
+with big documents (not the case in these example), you do have to
+make one important optimization to the above formula:
+
+- instead of the probabilities of each word, you store the (natural)
+  logarithms of those probabilities 
+- instead of multiplying the numbers, you add them instead
+
+So instead of the above formula, if you need this optimization, then
+use this one:
+
+{% img /assets/graphics/bayes-logarithms.png %}
+
+### 2.3. Training
 
 Your implementation must have a training method. Here's how mine looks like:
 
@@ -189,7 +204,7 @@ classifier.train :ham,  "I'm hungry, no I don't want your penis"
 For the full implementation, take a look at
 [base.rb](https://github.com/alexandru/stuff-classifier/blob/master/lib/stuff-classifier/base.rb).
 
-### 2.3. Getting Rid of Stop Words / Stemming
+### 2.4. Getting Rid of Stop Words / Stemming
 
 First of all, you must get rid of the junk. Every language has words
 that are so commonly used that make them meaningless for any kind of
@@ -247,7 +262,7 @@ a good idea. Stemming is useful in the beginning when you don't have a
 lot of data. Otherwise consider "*house*" and "*housing*" ... the
 former is used less frequently in a spammy context then the later.
 
-### 2.4. Implementation Guidelines
+### 2.5. Implementation Guidelines
 
 When classifying emails for spam, it is a good idea to be sure that a
 certain message is a spam message, otherwise users may get pissed by
