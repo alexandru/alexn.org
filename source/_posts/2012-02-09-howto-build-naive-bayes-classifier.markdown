@@ -168,7 +168,7 @@ Do note that above I also eliminated the *denominator* from our original
 formula, because it is a constant that we do not need (called
 *evidence*).
 
-### 2.2 (UPDATE Feb 27, 2012) Avoiding Floating Point Underflow
+### 2.2 Avoiding Floating Point Underflow (UPDATE Feb 27, 2012)
 
 Because of the underlying limits of floating points, if you're working
 with big documents (not the case in these example), you do have to
