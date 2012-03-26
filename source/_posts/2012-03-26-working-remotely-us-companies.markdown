@@ -231,7 +231,54 @@ a soul-sucking activity that's being paid with peanuts.
 
 ## 5. Coping With The Downsides
 
-### 5.1. Consider Renting an Office Space
+### 5.1. Communication
+
+This is the biggest problem from the perspective of your employer.
+
+Working in a different timezone does have advantages, like having
+enough quiet time to work, but it creates stress on both sides.
+
+Because I'm anti-social, I've had my share of problems related to
+this, but here are some things I've learned and that helped me:
+
+* daily meetings and status reports are good, even if in a normal
+  context these status reports are annoying as hell (i.e. for people
+  that share the same office)
+* do not get disconnected from your employer for more than a day; if
+  you skipped a status report, make it a priority for the next day  
+* be honest; I cannot stress this enough, as shit happens all the time
+  (like you had a personal problem, or you had to pay your taxes, or
+  you just weren't in the mood for working) ... and lying about it is
+  the worst decision you could make  
+* don't be afraid to ask stupid questions, don't be silent on
+  roadblocks; as much as a no-brainer this is, beginners are always
+  afraid of sounding stupid, therefore are afraid to communicate the
+  problems they encounter, and it creates a vicious circle, as the
+  longer you wait, the harder it gets to communicate your problems
+* be there on time; if you've got a scheduled meeting at a certain
+  hour, never be late   
+* get a smartphone and always be online; but insist on asynchronous
+  forms of communication (i.e. email) and on respecting working hours,
+  the smartphone being just a channel for emergencies    
+* never go silent; if you're contacted, then answer with at least an
+  email that you're busy and you'll be available later or the next day
+  
+I know this is common-sense stuff, but it happens and it ain't pretty.
+
+### 5.2. Have Money Saved for Emergencies
+
+Technically you won't be an employer. You're going to be more like a
+long-term contractor.
+
+This means your agreement will be a lot more fragile, as firing a
+contractor from another country is really easy and painless.
+
+So have enough in the bank to survive for another 2-3 months in case
+shit happens. It never happened to me, but I do have this constant
+stress that it will happen, so it's important to have a cushion for
+peace of mind.
+
+### 5.3. Consider Renting an Office Space
 
 A lot of people like working from home. Thus they avoid daily
 commuting, or dressing properly on each day. It's kind of fun to
@@ -263,7 +310,7 @@ loved one, instead of enjoying the moment you'll be thinking about
 work. Right now my daily routine is so solid that when I get home, I'm
 home and work related issues simply disappear.
 
-### 5.2. You'll Feel Stupid, But Don't Worry About It
+### 5.4. You'll Feel Stupid, But Don't Worry About It
 
 Another problem is this nagging feeling that you're simply not good
 enough. You're probably one of the best developers from your city, but
@@ -275,7 +322,7 @@ and everything else will be fine. The point of reference should always
 be your own performance. Are you better than a month before? Have you
 learned anything new? That's all that counts.
 
-### 5.3. Live a Healthy Life
+### 5.5. Live a Healthy Life
 
 Here's some common sense advice that I've learned by not listening to
 other people and doing every mistake I could ever do:
