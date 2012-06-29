@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/Article">
+<head>
+  <title>Using the Best Tools in Programming: Not Really Doable</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+    
+  <link href="http://bionicspirit.com/rss" rel="alternate" title="Alexandru Nedelcu" type="application/atom+xml">
+  <link rel="shortcut icon" href="//d2fo8u6if66r8r.cloudfront.net/assets/images/faviconred3.ico"> 
+  <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="//d2fo8u6if66r8r.cloudfront.net/assets/all-8aba01c02.css" type="text/css">
+
+  <!-- Google+ / Facebook optimations -->
+  <link rel="image_src" href="//d2fo8u6if66r8r.cloudfront.net/assets/images/picture_alex.jpg">
+  <!-- not really sure about this -->
+  
+  <link href="https://plus.google.com/112639155372207976835/" rel="author">
+  
+  <!-- END: Google+ / Facebook optimations -->
+
+  <!-- Google Analytics -->
+<script language="javascript" type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27605864-1']);
+  // to enable tracking (and thus cookies set) for all subdomains
+  //_gaq.push(['_setDomainName', 'bionicspirit.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+<body>
+  <div id="header-container">
+    <header>
+      <h1 id="title">Bionic Spirit</h1>
+
+      <nav>
+	  <a href="/">bionicspirit.com</a>
+	  <a class="extra" href="/pages/archive.html">archive</a>
+	  <a class="extra" href="/pages/about.html">about</a>
+	  <a class="extra" href="/pages/subscribe.html">subscribe</a>
+	  <a href="http://github.com/alexandru" class="github" title="Fork me on GitHub"><span>Fork me on GitHub</span></a>
+      </nav>
+    </header>
+  </div>
+
+  <div id="main-container">
+    <div id="main">
+      <article id="post">
+  <header>
+    <h1 itemprop="name">Using the Best Tools in Programming: Not Really Doable</h1>
+    <div id="meta">
+      <div class="post-date">Published: 01 Feb 2009</div>
+    </div>
+  </header>
+
+  <div id="content">
+    <p>
+  There's something that bothers me when it comes to starting a new
+  project. You can't really use the best tool for a certain job, if that
+  tool is not integrated with the rest of your platform. Let me explain.
+</p>
+
+<p>
+  At our startup we pride ourselves with our pragmatism. We are true
+  polyglots :) capable of diving in any project, no matter the language
+  it was written in. This also gives us the power to make educated
+  choices about the technologies we're going to use for our own gigs.
+</p>
+
+<p>
+  Our programming language of choice is Perl, because of its flexibility
+  and because usually there's no need to reinvent the wheel since you
+  can find a CPAN module for almost anything.
+</p>
+
+<p>
+  But recently I began experimenting with data-mining techniques,
+  flirting with various NLP libraries. You can find almost anything in
+  CPAN's <a target="_blank"
+  href="http://search.cpan.org/search?query=AI%3A%3A&amp;mode=module">AI::
+  namespace</a>. But I also knew about <a target="_blank"
+  href="http://www.nltk.org/">NLTK</a>, a Python collection of
+  libraries with excellent documentation, and I also found <a
+  target="_blank" href="http://opennlp.sourceforge.net/">OpenNLP</a>,
+  <a target="_blank"
+  href="http://web.media.mit.edu/~hugo/montylingua/">MontyLingua</a>,
+  <a target="_blank"
+  href="http://web.media.mit.edu/~hugo/conceptnet/">ConceptNet</a>, <a
+  target="_blank"
+  href="http://www.abisource.com/projects/link-grammar/">link-grammar</a>
+  and various <a target="_blank"
+  href="http://www2.nict.go.jp/x/x161/members/mutiyama/software.html">Ruby
+  modules</a>.
+</p>
+
+
+<p>
+  And all of a sudden I got cold feet. Java packages in OpenNLP may have
+  the advantage of speed (just a guess and it doesn't matter for the
+  purpose of this discussion). NLTK has pedigree and great
+  documentation, not to mention that many books related to NLP, AI and
+  data mining have Python samples (for example I own <a target="_blank"
+  href="http://oreilly.com/catalog/9780596529321/">Programming
+  Collective Intelligence</a> and <a target="_blank"
+  href="http://aima.cs.berkeley.edu/">AIMA</a>). Usually the solution is
+  straightforward: you test all the options, and choose the best one.
+</p>
+
+<p>
+  But what if you want to combine them?
+</p>
+
+<p>
+  Well, then you're shit out of luck. Surely you can do that with
+  inter-process communication, but for that you'll have to write
+  glue-code and pay the price for extra latency, bandwidth and memory
+  ... parsing millions of documents, moving results between processes,
+  it's not really practical. Perl does have <a target="_blank"
+  href="http://search.cpan.org/dist/Inline-Java/Java.pod">Inline::Java</a>,
+  but I would only use it in extreme situations.
+</p>
+
+<p>
+  That's why there's so much wheel reinvention around. Unless a module
+  is written in C, for which any language has a FFI, almost nobody wants
+  to use a Java module from Ruby, or a Python module from Perl. That's
+  why there's <a href="http://lucene.apache.org/" target="_blank">Lucene</a>, and then
+  there's <a target="_blank"
+  href="http://incubator.apache.org/lucene.net/">Lucene.NET</a>, <a target="_blank"
+  href="http://sourceforge.net/projects/clucene">CLucene</a>, <a target="_blank"
+  href="http://www.oreillynet.com/onlamp/blog/2005/10/lucene_in_ruby_name_ferret_thi.html">Ferret</a>,
+  <a target="_blank"
+      href="http://framework.zend.com/manual/en/zend.search.lucene.html#zend.search.lucene.introduction">Zend_Search_Lucene</a>,
+  <a target="_blank"
+      href="http://search.cpan.org/~tmtm/Plucene-1.25/lib/Plucene.pm">Plucene</a>
+  and <a target="_blank" href="http://incubator.apache.org/lucene4c/">Lucene4c</a>.
+</p>
+
+<p>
+  What is really needed is a universal virtual machine with a flexible
+  <a target="_blank"
+  href="http://en.wikipedia.org/wiki/Metaobject_Protocol">MOP</a>,
+  allowing seamless communication between languages. I'm happy there
+  are a couple of efforts in this space, including <a target="_blank"
+  href="http://www.parrot.org/">Parrot</a>, and the <a target="_blank"
+  href="http://en.wikipedia.org/wiki/Dynamic_Language_Runtime">DLR</a>. Also,
+  the biggest obstacles of alternative implementations are the modules
+  written in C. Fortunately, JRuby/Rubinius have a brand new
+  implementation-independent <a target="_blank"
+  href="http://blog.headius.com/2008/10/ffi-for-ruby-now-available.html">FFI</a>,
+  and <a target="_blank"
+  href="http://code.google.com/p/ironclad/">Ironclad</a> will allow
+  IronPython users to use CPython extensions (number one on their list
+  being numpy).
+</p>
+
+<p>
+  These developments make me happy :)
+</p>
+
+
+
+    <h2>Subscribe</h2>
+
+    <p>
+      If you liked this article, subscribe <a
+      href="/pages/subscribe.html">by Email</a> or by RSS.
+    </p>
+
+    <p>
+      Thanks,
+    </p>
+  </div>
+
+  <footer>
+    <div id="other-articles">
+      <h2>Other Articles</h2>
+
+      <ul class="posts">
+	
+	
+<li> 
+  <time datetime="2012-02-09T00:00:00+02:00">09 Feb 2012 &raquo;</time>
+  <a href="/blog/2012/02/09/howto-build-naive-bayes-classifier.html" rel="prefetch related">How To Build a Naive Bayes Classifier</a>
+</li>
+
+
+	
+	
+<li> 
+  <time datetime="2012-01-16T00:00:00+02:00">16 Jan 2012 &raquo;</time>
+  <a href="/blog/2012/01/16/cosine-similarity-euclidean-distance.html" rel="prefetch related">Data Mining: Finding Similar Items and Users</a>
+</li>
+
+
+	
+	
+<li> 
+  <time datetime="2012-01-05T00:00:00+02:00">05 Jan 2012 &raquo;</time>
+  <a href="/blog/2012/01/05/blogging-for-hackers.html" rel="prefetch related">Blogging Platform for Hackers</a>
+</li>
+
+
+	
+	
+<li> 
+  <time datetime="2011-12-15T00:00:00+02:00">15 Dec 2011 &raquo;</time>
+  <a href="/blog/2011/12/15/crawling-the-android-marketplace-155200-apps.html" rel="prefetch related">Crawling the Android Marketplace</a>
+</li>
+
+
+	
+	
+<li> 
+  <time datetime="2011-12-12T00:00:00+02:00">12 Dec 2011 &raquo;</time>
+  <a href="/blog/2011/12/12/android-learning-resources.html" rel="prefetch related">Android Learning Resources</a>
+</li>
+
+
+	
+      </ul>
+    </div>
+
+    
+    <div id="contributions">
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">
+	var disqus_shortname = 'alexnorg'; 
+
+	/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    
+  </footer>
+</article>
+
+
+    </div>
+  </div>
+
+  <div id="footer-container">
+    <footer>
+      <div class="contact">
+	&copy; 2012 Alexandru Nedelcu
+	<br />
+	Some rights reserved (<a href="http://creativecommons.org/licenses/by-nc/3.0/" rel="license">CC BY-NC 3.0</a>)
+    <!--sse-->
+	<br />
+	<a href="mailto:&#099;&#111;&#110;&#116;&#097;&#099;&#116;&#064;&#098;&#105;&#111;&#110;&#105;&#099;&#115;&#112;&#105;&#114;&#105;&#116;&#046;&#099;&#111;&#109;">&#099;&#111;&#110;&#116;&#097;&#099;&#116;&#064;&#098;&#105;&#111;&#110;&#105;&#099;&#115;&#112;&#105;&#114;&#105;&#116;&#046;&#099;&#111;&#109;</a>
+    <!--/sse-->
+      </div>
+
+      <div class="rss">
+	<a href="https://twitter.com/alex_ndc" target="_blank" title="Follow me on Twitter (@alex_ndc)">
+	  <img src="//d2fo8u6if66r8r.cloudfront.net/assets/images/twitter.png" alt="Follow me on Twitter (@alex_ndc)" />
+	</a>
+      </div>
+    </footer>
+  </div>
+
+
+  <!--[if lt IE 7 ]>
+  <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js"></script>
+  <script>window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})})</script>
+  <![endif]-->
+
+  <script type="text/javascript">
+    function recordOutboundLink(link, category, action) {
+      try {
+        var myTracker=_gat._getTrackerByName();
+	_gaq.push(['myTracker._trackEvent', ' + category + ', ' + action + ']);
+	setTimeout('document.location = "' + link.href + '"', 100);
+      }catch(err){}
+    }    
+  </script>
+</body>
+</html>
+
