@@ -4,7 +4,7 @@
  <title>Bionic Spirit</title>
  <link href="http://bionicspirit.com/rss" rel="self"/>
  <link href="http://bionicspirit.com/" />
- <updated>2012-06-29T18:04:50+03:00</updated>
+ <updated>2012-06-29T18:55:28+03:00</updated>
 
  <author>
    <name>Bionic Spirit</name>
@@ -91,13 +91,13 @@ with a probability attached. So when flipping a coin, we can have one
 of these 2 events happening: tail or head. Each of them has a
 probability of 50%. Using a Venn diagram, this would look like this:&lt;/p&gt;
 
-&lt;p&gt;&lt;img class=&quot;center&quot; src=&quot;//cdn.bionicspirit.com/assets/graphics/coin-flip.png&quot; style=&quot;float: none; display: block; margin: auto;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class=&quot;center&quot; src=&quot;//www.bionicspirit.com/assets/graphics/coin-flip.png&quot; style=&quot;float: none; display: block; margin: auto;&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;And another example which clearly shows the &lt;em&gt;dependence&lt;/em&gt; between
 &quot;rain&quot; and &quot;cloud formation&quot;, as raining can only happen if there are
 clouds:&lt;/p&gt;
 
-&lt;p&gt;&lt;img class=&quot;center&quot; src=&quot;//cdn.bionicspirit.com/assets/graphics/inclusive.png&quot; style=&quot;float: none; display: block; margin: auto;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class=&quot;center&quot; src=&quot;//www.bionicspirit.com/assets/graphics/inclusive.png&quot; style=&quot;float: none; display: block; margin: auto;&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;The relationship between events is very important, as you'll see next:&lt;/p&gt;
 
@@ -122,7 +122,7 @@ independent events, because calculating the intersection (both
 happening at the same time) depends on it. So for independent events,
 calculating the intersection is easy:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;//cdn.bionicspirit.com/assets/graphics/independent-events-intersection.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//www.bionicspirit.com/assets/graphics/independent-events-intersection.png&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;Some examples:&lt;/p&gt;
 
@@ -155,11 +155,11 @@ email is a spam message, given that it contains the word &quot;penis&quot;?&lt;/
 &lt;p&gt;So these 2 events are clearly dependent, which is why you must use the
 simple form of the Bayes Theorem:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;//cdn.bionicspirit.com/assets/graphics/conditional-prob.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//www.bionicspirit.com/assets/graphics/conditional-prob.png&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;With the solution being:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;//cdn.bionicspirit.com/assets/graphics/spam-simple-bayes.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//www.bionicspirit.com/assets/graphics/spam-simple-bayes.png&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;This was a simple one, you could definitely see the result without
 complicating yourself with the Bayes formula.&lt;/p&gt;
@@ -178,14 +178,14 @@ contains both &quot;viagra&quot; and &quot;penis&quot;?&lt;/li&gt;
 
 &lt;p&gt;Shit just got more complicated, because now the formula is this one:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;//cdn.bionicspirit.com/assets/graphics/spam-multiple-bayes.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//www.bionicspirit.com/assets/graphics/spam-multiple-bayes.png&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;And you definitely don't want to bother with it if we keep adding
 words. But what if we simplified our assumptions and just say that the
 occurrence of &lt;em&gt;penis&lt;/em&gt; is totally independent from the occurrence of
 &lt;em&gt;viagra&lt;/em&gt;? Then the formula just got much simpler:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;//cdn.bionicspirit.com/assets/graphics/spam-multiple-bayes-naive.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//www.bionicspirit.com/assets/graphics/spam-multiple-bayes-naive.png&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;To classify an email as spam, you'll have to calculate the conditional
 probability by taking hints from the words contained. And the Naive
@@ -211,7 +211,7 @@ at
 categories you test against. The category with the highest probability
 for the given text wins:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;//cdn.bionicspirit.com/assets/graphics/bayes-classifier-formula.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//www.bionicspirit.com/assets/graphics/bayes-classifier-formula.png&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;Do note that above I also eliminated the &lt;em&gt;denominator&lt;/em&gt; from our original
 formula, because it is a constant that we do not need (called
@@ -233,7 +233,7 @@ logarithms of those probabilities&lt;/li&gt;
 &lt;p&gt;So instead of the above formula, if you need this optimization, then
 use this one:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;//cdn.bionicspirit.com/assets/graphics/bayes-logarithms.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//www.bionicspirit.com/assets/graphics/bayes-logarithms.png&quot;&gt;&lt;/p&gt;
 
 &lt;h3&gt;2.3. Training&lt;/h3&gt;
 
@@ -406,7 +406,7 @@ you started.&lt;/p&gt;
    <category scheme="http://bionicspirit.com/tags/" term="Ruby" label="Ruby" />
    
 
-   <content type="html">&lt;p&gt;&lt;img class=&quot;right&quot; src=&quot;//cdn.bionicspirit.com/assets/graphics/similarity-graphic-small.png&quot; style=&quot;float: right; margin-left: 10px; margin-bottom: 10px;&quot; align=&quot;right&quot;&gt;&lt;/p&gt;
+   <content type="html">&lt;p&gt;&lt;img class=&quot;right&quot; src=&quot;//www.bionicspirit.com/assets/graphics/similarity-graphic-small.png&quot; style=&quot;float: right; margin-left: 10px; margin-bottom: 10px;&quot; align=&quot;right&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;Because we want to give kick-ass product recommendations.&lt;/p&gt;
 
@@ -422,7 +422,7 @@ understanding the process, at least intuitively.&lt;/p&gt;
 
 &lt;h2&gt;Defining the Problem&lt;/h2&gt;
 
-&lt;p&gt;&lt;img class=&quot;right&quot; src=&quot;//cdn.bionicspirit.com/assets/photos/amazon.png&quot; title=&quot;Amazon gives kick-ass suggestions to their customers&quot;  style=&quot;float: right; margin-left: 10px; margin-bottom: 10px;&quot; align=&quot;right&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class=&quot;right&quot; src=&quot;//www.bionicspirit.com/assets/photos/amazon.png&quot; title=&quot;Amazon gives kick-ass suggestions to their customers&quot;  style=&quot;float: right; margin-left: 10px; margin-bottom: 10px;&quot; align=&quot;right&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;To find similar items to a certain item, you've got to first define
 what it means for 2 items to be similar and this depends on the
@@ -486,7 +486,7 @@ associated vectors, or the actual euclidean distance between the 2
 points. For a 2-dimensional Euclidean space, here's how it would look
 like:&lt;/p&gt;
 
-&lt;p&gt;&lt;img class=&quot;center&quot; src=&quot;//cdn.bionicspirit.com/assets/graphics/similarity-graphic.png&quot; style=&quot;float: none; display: block; margin: auto;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class=&quot;center&quot; src=&quot;//www.bionicspirit.com/assets/graphics/similarity-graphic.png&quot; style=&quot;float: none; display: block; margin: auto;&quot;&gt;&lt;/p&gt;
 
 &lt;h2&gt;Euclidean Distance&lt;/h2&gt;
 
@@ -494,7 +494,7 @@ like:&lt;/p&gt;
 simple. Considering 2 points, A and B, with their associated
 coordinates, the distance is defined as:&lt;/p&gt;
 
-&lt;p&gt;&lt;img class=&quot;center&quot; src=&quot;//cdn.bionicspirit.com/assets/graphics/euclidean-distance.png&quot; style=&quot;float: none; display: block; margin: auto;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class=&quot;center&quot; src=&quot;//www.bionicspirit.com/assets/graphics/euclidean-distance.png&quot; style=&quot;float: none; display: block; margin: auto;&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;The lower the distance between 2 points, then the higher the
 similarity. Here's some Ruby code:&lt;/p&gt;
@@ -637,7 +637,7 @@ my purpose here, this is not good - because articles with more tags
 slightly different results, because this one actually measures
 similarity instead of dissimilarity. Here's the formula:&lt;/p&gt;
 
-&lt;p&gt;&lt;img class=&quot;center&quot; src=&quot;//cdn.bionicspirit.com/assets/graphics/cosine-similarity.png&quot; style=&quot;float: none; display: block; margin: auto;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class=&quot;center&quot; src=&quot;//www.bionicspirit.com/assets/graphics/cosine-similarity.png&quot; style=&quot;float: none; display: block; margin: auto;&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;If you look at the visual with the 2 axis and 2 points, we need the
 cosine of the angle &lt;em&gt;theta&lt;/em&gt; that's between the vectors associated with
@@ -735,7 +735,7 @@ as there is a perfect linear correlation between them, since Mary just
 gives the same rankings as John plus 3. The formula itself or the
 theory is not very intuitive though. But it is simple to calculate:&lt;/p&gt;
 
-&lt;p&gt;&lt;img class=&quot;center&quot; src=&quot;//cdn.bionicspirit.com/assets/graphics/pearson.png&quot; style=&quot;float: none; display: block; margin: auto;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class=&quot;center&quot; src=&quot;//www.bionicspirit.com/assets/graphics/pearson.png&quot; style=&quot;float: none; display: block; margin: auto;&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;Here's the code:&lt;/p&gt;
 
@@ -785,7 +785,7 @@ point to the other if a grid-like path is followed. I like this
 graphic from Wikipedia that perfectly illustrates the difference with
 Euclidean distance:&lt;/p&gt;
 
-&lt;p&gt;&lt;img class=&quot;center&quot; src=&quot;//cdn.bionicspirit.com/assets/graphics/manhattan.png&quot; style=&quot;float: none; display: block; margin: auto;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class=&quot;center&quot; src=&quot;//www.bionicspirit.com/assets/graphics/manhattan.png&quot; style=&quot;float: none; display: block; margin: auto;&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;Red, yellow and blue lines all have the same length and the distance
 is bigger than the corresponding green diagonal, which is the normal
@@ -841,7 +841,7 @@ some text into another.&lt;/p&gt;
    <category scheme="http://bionicspirit.com/tags/" term="Jekyll" label="Jekyll" />
    
 
-   <content type="html">&lt;p&gt;&lt;img class=&quot;right&quot; src=&quot;//cdn.bionicspirit.com/assets/photos/heroku.png&quot; style=&quot;float: right; margin-left: 10px; margin-bottom: 10px;&quot; align=&quot;right&quot;&gt;&lt;/p&gt;
+   <content type="html">&lt;p&gt;&lt;img class=&quot;right&quot; src=&quot;//www.bionicspirit.com/assets/photos/heroku.png&quot; style=&quot;float: right; margin-left: 10px; margin-bottom: 10px;&quot; align=&quot;right&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;I'm showing you how to:&lt;/p&gt;
 
@@ -1428,7 +1428,7 @@ and crawled it.&lt;/p&gt;
 
 &lt;h2&gt;How To Do it By Yourself&lt;/h2&gt;
 
-&lt;p&gt;&lt;img class=&quot;right&quot; src=&quot;//cdn.bionicspirit.com/assets/photos/wolfspider150.gif&quot; style=&quot;float: right; margin-left: 10px; margin-bottom: 10px;&quot; align=&quot;right&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class=&quot;right&quot; src=&quot;//www.bionicspirit.com/assets/photos/wolfspider150.gif&quot; style=&quot;float: right; margin-left: 10px; margin-bottom: 10px;&quot; align=&quot;right&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;The actual script that I created can be found in the
 &lt;a href=&quot;https://github.com/alexandru/AndroidMarketCrawler&quot;&gt;AndroidMarketCrawler&lt;/a&gt;
@@ -1559,7 +1559,7 @@ fast. Books from 2010, while still useful, are already insufficient
 now with the release of Ice Cream Sandwich. The upside is that there
 are a lot of books out there.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://commonsware.com&quot;&gt;&lt;img class=&quot;right&quot; src=&quot;//cdn.bionicspirit.com/assets/photos/books-commonsware.png&quot; title=&quot;&quot;  style=&quot;float: right; margin-left: 10px; margin-bottom: 10px;&quot; align=&quot;right&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://commonsware.com&quot;&gt;&lt;img class=&quot;right&quot; src=&quot;//www.bionicspirit.com/assets/photos/books-commonsware.png&quot; title=&quot;&quot;  style=&quot;float: right; margin-left: 10px; margin-bottom: 10px;&quot; align=&quot;right&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;For ~ $40 you can buy a 1-year subscription for
 &lt;a href=&quot;http://commonsware.com&quot;&gt;CommonsWare.com&lt;/a&gt;. The author, Mark Murphy, is
@@ -1580,7 +1580,7 @@ these):&lt;/p&gt;
 &lt;/ul&gt;
 
 
-&lt;p&gt;&lt;a href=&quot;http://www.amazon.com/gp/product/1934356565/ref=as_li_ss_tl?ie=UTF8&amp;amp;tag=bionicspirit-20&amp;amp;linkCode=as2&amp;amp;camp=1789&amp;amp;creative=390957&amp;amp;creativeASIN=1934356565&quot;&gt;&lt;img class=&quot;right&quot; src=&quot;//cdn.bionicspirit.com/assets/photos/prag_hello_android.jpg&quot; width=&quot;150&quot; title=&quot;Hello Android (3rd edition)&quot;  style=&quot;float: right; margin-left: 10px; margin-bottom: 10px;&quot; align=&quot;right&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.amazon.com/gp/product/1934356565/ref=as_li_ss_tl?ie=UTF8&amp;amp;tag=bionicspirit-20&amp;amp;linkCode=as2&amp;amp;camp=1789&amp;amp;creative=390957&amp;amp;creativeASIN=1934356565&quot;&gt;&lt;img class=&quot;right&quot; src=&quot;//www.bionicspirit.com/assets/photos/prag_hello_android.jpg&quot; width=&quot;150&quot; title=&quot;Hello Android (3rd edition)&quot;  style=&quot;float: right; margin-left: 10px; margin-bottom: 10px;&quot; align=&quot;right&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Again, don't buy these items from Amazon. Buy them with the 1-year
 subscription from the &lt;a href=&quot;http://commonsware.com&quot;&gt;Author's Website&lt;/a&gt; (I
@@ -1958,7 +1958,7 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
 &lt;h2&gt;The Design of Everyday Things (&lt;a href=&quot;http://www.amazon.com/gp/product/0465067107/ref=as_li_ss_tl?ie=UTF8&amp;tag=alexanedel-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=0465067107&quot; rel=&quot;nofollow&quot; title=&quot;The Design of Everyday Things&quot;&gt;link&lt;/a&gt;)&lt;/h2&gt;
 
 &lt;a href=&quot;http://www.amazon.com/gp/product/0465067107/ref=as_li_ss_tl?ie=UTF8&amp;tag=alexanedel-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=0465067107&quot; title=&quot;The Design of Everyday Things&quot; rel=&quot;nofollow&quot;&gt;
-  &lt;img class=&quot;right&quot; src=&quot;//cdn.bionicspirit.com/assets/photos/book-design-1.jpg&quot; width=&quot;104&quot; height=&quot;160&quot; style=&quot;float: right; margin-left: 10px; margin-bottom: 10px;&quot; align=&quot;right&quot;&gt;
+  &lt;img class=&quot;right&quot; src=&quot;//www.bionicspirit.com/assets/photos/book-design-1.jpg&quot; width=&quot;104&quot; height=&quot;160&quot; style=&quot;float: right; margin-left: 10px; margin-bottom: 10px;&quot; align=&quot;right&quot;&gt;
 &lt;/a&gt;
 
 &lt;p&gt;
@@ -1995,7 +1995,7 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
 &lt;h2&gt;Non-Designer's Design Book (&lt;a href=&quot;http://www.amazon.com/gp/product/0321534042/ref=as_li_ss_il?ie=UTF8&amp;tag=alexanedel-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=0321534042&quot; rel=&quot;nofollow&quot; title=&quot;Non-Designer's Design Book&quot;&gt;link&lt;/a&gt;)&lt;/h2&gt;
 
 &lt;a href=&quot;http://www.amazon.com/gp/product/0321534042/ref=as_li_ss_il?ie=UTF8&amp;tag=alexanedel-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=0321534042&quot; title=&quot;Non-Designer's Design Book&quot; rel=&quot;nofollow&quot;&gt;
-  &lt;img class=&quot;right&quot; src=&quot;//cdn.bionicspirit.com/assets/photos/book-design-2.jpg&quot; width=&quot;112&quot; height=&quot;160&quot; style=&quot;float: right; margin-left: 10px; margin-bottom: 10px;&quot; align=&quot;right&quot;&gt;
+  &lt;img class=&quot;right&quot; src=&quot;//www.bionicspirit.com/assets/photos/book-design-2.jpg&quot; width=&quot;112&quot; height=&quot;160&quot; style=&quot;float: right; margin-left: 10px; margin-bottom: 10px;&quot; align=&quot;right&quot;&gt;
 &lt;/a&gt;
 
 &lt;p&gt;
@@ -2026,7 +2026,7 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
 &lt;h2&gt;Color: A Course in Mastering the Art of Mixing Colors (&lt;a href=&quot;http://www.amazon.com/gp/product/1585422193/ref=as_li_ss_il?ie=UTF8&amp;tag=alexanedel-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1585422193&quot; rel=&quot;nofollow&quot; title=&quot;Color: A Course in Mastering the Art of Mixing Colors&quot;&gt;link&lt;/a&gt;)&lt;/h2&gt;
 
 &lt;a href=&quot;http://www.amazon.com/gp/product/1585422193/ref=as_li_ss_il?ie=UTF8&amp;tag=alexanedel-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1585422193&quot; rel=&quot;nofollow&quot; title=&quot;Color: A Course in Mastering the Art of Mixing Colors&quot;&gt;
-  &lt;img class=&quot;right&quot; src=&quot;//cdn.bionicspirit.com/assets/photos/book-design-3.jpg&quot; width=&quot;129&quot; height=&quot;160&quot; style=&quot;float: right; margin-left: 10px; margin-bottom: 10px;&quot; align=&quot;right&quot;&gt;
+  &lt;img class=&quot;right&quot; src=&quot;//www.bionicspirit.com/assets/photos/book-design-3.jpg&quot; width=&quot;129&quot; height=&quot;160&quot; style=&quot;float: right; margin-left: 10px; margin-bottom: 10px;&quot; align=&quot;right&quot;&gt;
 &lt;/a&gt;
 
 &lt;p&gt;
@@ -2083,7 +2083,7 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
 &lt;h2&gt;Drawing on the Right Side of the Brain (&lt;a href=&quot;http://www.amazon.com/gp/product/0874774195/ref=as_li_ss_il?ie=UTF8&amp;tag=alexanedel-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=0874774195&quot;  rel=&quot;nofollow&quot; title=&quot;The New Drawing on the Right Side of the Brain&quot;&gt;link&lt;/a&gt;)&lt;/h2&gt;
 
 &lt;a href=&quot;http://www.amazon.com/gp/product/0874774195/ref=as_li_ss_il?ie=UTF8&amp;tag=alexanedel-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=0874774195&quot; rel=&quot;nofollow&quot; title=&quot;The New Drawing on the Right Side of the Brain&quot;&gt;
-  &lt;img class=&quot;right&quot; src=&quot;//cdn.bionicspirit.com/assets/photos/book-design-4.jpg&quot; width=&quot;131&quot; height=&quot;160&quot; style=&quot;float: right; margin-left: 10px; margin-bottom: 10px;&quot; align=&quot;right&quot;&gt;
+  &lt;img class=&quot;right&quot; src=&quot;//www.bionicspirit.com/assets/photos/book-design-4.jpg&quot; width=&quot;131&quot; height=&quot;160&quot; style=&quot;float: right; margin-left: 10px; margin-bottom: 10px;&quot; align=&quot;right&quot;&gt;
 &lt;/a&gt;
 
 &lt;p&gt;
