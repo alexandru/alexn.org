@@ -4,7 +4,7 @@
  <title>Bionic Spirit</title>
  <link href="http://bionicspirit.com/rss" rel="self"/>
  <link href="http://bionicspirit.com/" />
- <updated>2012-07-02T12:22:45+03:00</updated>
+ <updated>2012-07-02T12:30:56+03:00</updated>
 
  <author>
    <name>Bionic Spirit</name>
@@ -222,13 +222,13 @@ acceptable trade-off.&lt;/p&gt;
 &lt;a href=&quot;http://docs.oracle.com/javase/6/docs/api/java/util/concurrent/locks/ReentrantReadWriteLock.html&quot;&gt;ReentrantReadWriteLock&lt;/a&gt;.
 This is a pair of 2 locks that you can acquire, one for reads and one
 for writes. So by using it you can ensure that you can have multiple
-threads reading from your datastructure, but once you want to make
+threads reading from your datastructure, but when you want to make
 writes then you acquire the &lt;code&gt;writeLock()&lt;/code&gt;, which blocks every other
 thread from reading or writing. And this is perfectly acceptable for a
 cache.&lt;/p&gt;
 
 &lt;p&gt;However when using an immutable Map, you don't need a
-ReentrantReadWriteLock. Our original code can just use a plain lock
+&lt;code&gt;ReentrantReadWriteLock&lt;/code&gt;. Our original code can just use a plain lock
 on writes:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SafeCache&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
@@ -286,7 +286,7 @@ library (in version 2.10).&lt;/p&gt;
 &lt;p&gt;So I want to modify our &lt;code&gt;apply()&lt;/code&gt; method to be non-blocking. After
 all, we are dealing with potentially expensive computations here.&lt;/p&gt;
 
-&lt;p&gt;First, we'll use these classes from Akka:&lt;/p&gt;
+&lt;p&gt;First, we'll use these imports from Akka:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;akka.dispatch.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;ExecutionContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Await&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Future&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;akka.util.duration._&lt;/span&gt;
