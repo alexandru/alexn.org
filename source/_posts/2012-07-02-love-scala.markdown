@@ -173,13 +173,13 @@ In Java you can solve this by using a
 [ReentrantReadWriteLock](http://docs.oracle.com/javase/6/docs/api/java/util/concurrent/locks/ReentrantReadWriteLock.html).
 This is a pair of 2 locks that you can acquire, one for reads and one
 for writes. So by using it you can ensure that you can have multiple
-threads reading from your datastructure, but once you want to make
+threads reading from your datastructure, but when you want to make
 writes then you acquire the `writeLock()`, which blocks every other
 thread from reading or writing. And this is perfectly acceptable for a
 cache.
 
 However when using an immutable Map, you don't need a
-ReentrantReadWriteLock. Our original code can just use a plain lock
+`ReentrantReadWriteLock`. Our original code can just use a plain lock
 on writes:
 
 {% highlight scala %}
@@ -236,7 +236,7 @@ library (in version 2.10).
 So I want to modify our `apply()` method to be non-blocking. After
 all, we are dealing with potentially expensive computations here.
 
-First, we'll use these classes from Akka:
+First, we'll use these imports from Akka:
 
 {% highlight scala %}
 import akka.dispatch.{ExecutionContext, Await, Future}
@@ -271,10 +271,10 @@ class CachedFuture(implicit val ec: ExecutionContext) {
 }
 {% endhighlight %}
 
-So the differences are:
+The differences are:
 
 - instead of processing the value and storing the result, we are
-  instead creating and storing a Future reference  
+  creating and storing a Future reference  
 - the constructor of our class now takes an implicit parameter that
   references an `ExecutionContext`, under which these Futures will get
   executed (think of Futures as Thread instances, with the
@@ -318,7 +318,6 @@ Here's something you can do for instance:
   val responses = List.fill(10000) {
     val r = random.nextInt(1000)
     cachedFuture(random.nextInt(1000).toString) {
-      writes.incrementAndGet();
       Thread.sleep(100)
       random.nextInt(1000)
     }
