@@ -42,14 +42,8 @@ namespace :deploy do
     # sets a 1 year expiry header this also means that resources can't
     # be updated without invalidating them first in CloudFront, which is
     # a PITA, so this is good for images, but not CSS
-    sh 's3cmd sync ./build/assets/ s3://bionicspirit/assets/ --acl-public --add-header "Cache-Control: public, max-age=22896000"'
+    sh 's3cmd sync ./build/html/assets/ s3://bionicspirit/assets/ --acl-public --add-header "Cache-Control: public, max-age=22896000"'
   end
-
-
-  desc "Deploy to my server (with RSync)"
-  task :ec2 do
-    sh "rsync --delete --exclude=\".*\" -rcv ./ bionicspirit.com:/var/www/bionicspirit.com/"
-  end  
 end
 
-task :default => [:compile, 'deploy:aws', 'deploy:ec2']
+task :default => [:compile, 'deploy:aws']
