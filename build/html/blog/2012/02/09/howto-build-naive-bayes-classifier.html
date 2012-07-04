@@ -9,12 +9,12 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
     
   <link href="http://bionicspirit.com/rss" rel="alternate" title="Alexandru Nedelcu" type="application/atom+xml">
-  <link rel="shortcut icon" href="//www.bionicspirit.com/assets/images/faviconred3.ico"> 
+  <link rel="shortcut icon" href="/assets/images/faviconred3.ico"> 
   <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="//www.bionicspirit.com/assets/all-4f6bc127a.css" type="text/css">
+  <link rel="stylesheet" href="/assets/all-4f6bc127a.css" type="text/css">
 
   <!-- Google+ / Facebook optimations -->
-  <link rel="image_src" href="//www.bionicspirit.com/assets/images/picture_alex.jpg">
+  <link rel="image_src" href="/assets/images/picture_alex.jpg">
   <!-- not really sure about this -->
   
   <link href="https://plus.google.com/112639155372207976835/" rel="author">
@@ -112,13 +112,13 @@ with a probability attached. So when flipping a coin, we can have one
 of these 2 events happening: tail or head. Each of them has a
 probability of 50%. Using a Venn diagram, this would look like this:</p>
 
-<p><img class="center" src="//www.bionicspirit.com/assets/graphics/coin-flip.png" style="float: none; display: block; margin: auto;"></p>
+<p><img class="center" src="/assets/graphics/coin-flip.png" style="float: none; display: block; margin: auto;"></p>
 
 <p>And another example which clearly shows the <em>dependence</em> between
 "rain" and "cloud formation", as raining can only happen if there are
 clouds:</p>
 
-<p><img class="center" src="//www.bionicspirit.com/assets/graphics/inclusive.png" style="float: none; display: block; margin: auto;"></p>
+<p><img class="center" src="/assets/graphics/inclusive.png" style="float: none; display: block; margin: auto;"></p>
 
 <p>The relationship between events is very important, as you'll see next:</p>
 
@@ -143,7 +143,7 @@ independent events, because calculating the intersection (both
 happening at the same time) depends on it. So for independent events,
 calculating the intersection is easy:</p>
 
-<p><img src="//www.bionicspirit.com/assets/graphics/independent-events-intersection.png"></p>
+<p><img src="/assets/graphics/independent-events-intersection.png"></p>
 
 <p>Some examples:</p>
 
@@ -176,11 +176,11 @@ email is a spam message, given that it contains the word "penis"?</p>
 <p>So these 2 events are clearly dependent, which is why you must use the
 simple form of the Bayes Theorem:</p>
 
-<p><img src="//www.bionicspirit.com/assets/graphics/conditional-prob.png"></p>
+<p><img src="/assets/graphics/conditional-prob.png"></p>
 
 <p>With the solution being:</p>
 
-<p><img src="//www.bionicspirit.com/assets/graphics/spam-simple-bayes.png"></p>
+<p><img src="/assets/graphics/spam-simple-bayes.png"></p>
 
 <p>This was a simple one, you could definitely see the result without
 complicating yourself with the Bayes formula.</p>
@@ -199,14 +199,14 @@ contains both "viagra" and "penis"?</li>
 
 <p>Shit just got more complicated, because now the formula is this one:</p>
 
-<p><img src="//www.bionicspirit.com/assets/graphics/spam-multiple-bayes.png"></p>
+<p><img src="/assets/graphics/spam-multiple-bayes.png"></p>
 
 <p>And you definitely don't want to bother with it if we keep adding
 words. But what if we simplified our assumptions and just say that the
 occurrence of <em>penis</em> is totally independent from the occurrence of
 <em>viagra</em>? Then the formula just got much simpler:</p>
 
-<p><img src="//www.bionicspirit.com/assets/graphics/spam-multiple-bayes-naive.png"></p>
+<p><img src="/assets/graphics/spam-multiple-bayes-naive.png"></p>
 
 <p>To classify an email as spam, you'll have to calculate the conditional
 probability by taking hints from the words contained. And the Naive
@@ -232,7 +232,7 @@ at
 categories you test against. The category with the highest probability
 for the given text wins:</p>
 
-<p><img src="//www.bionicspirit.com/assets/graphics/bayes-classifier-formula.png"></p>
+<p><img src="/assets/graphics/bayes-classifier-formula.png"></p>
 
 <p>Do note that above I also eliminated the <em>denominator</em> from our original
 formula, because it is a constant that we do not need (called
@@ -254,7 +254,7 @@ logarithms of those probabilities</li>
 <p>So instead of the above formula, if you need this optimization, then
 use this one:</p>
 
-<p><img src="//www.bionicspirit.com/assets/graphics/bayes-logarithms.png"></p>
+<p><img src="/assets/graphics/bayes-logarithms.png"></p>
 
 <h3>2.3. Training</h3>
 
@@ -494,7 +494,7 @@ you started.</p>
 
       <div class="rss">
 	<a href="https://twitter.com/alex_ndc" target="_blank" title="Follow me on Twitter (@alex_ndc)">
-	  <img src="//www.bionicspirit.com/assets/images/twitter.png" alt="Follow me on Twitter (@alex_ndc)" />
+	  <img src="/assets/images/twitter.png" alt="Follow me on Twitter (@alex_ndc)" />
 	</a>
       </div>
     </footer>
