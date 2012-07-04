@@ -46,4 +46,4 @@ namespace :deploy do
   end
 end
 
-task :default => [:compile, 'deploy:aws']
+task :default => [:compile]
