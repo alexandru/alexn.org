@@ -4,7 +4,7 @@
  <title>Bionic Spirit</title>
  <link href="http://bionicspirit.com/rss" rel="self"/>
  <link href="http://bionicspirit.com/" />
- <updated>2012-07-02T12:30:56+03:00</updated>
+ <updated>2012-07-02T17:27:16+03:00</updated>
 
  <author>
    <name>Bionic Spirit</name>
@@ -52,12 +52,11 @@ Java, should you need to. I'm now a fan.&lt;/p&gt;
 
 &lt;h2&gt;Syntactic Sugar&lt;/h2&gt;
 
-&lt;p&gt;So let's say that you've got a web service that calls out to other web
-services, or does something else expensive, like calculating the
-digits of PI or something and you want to cache the returned results
-in a map of some sort.&lt;/p&gt;
+&lt;p&gt;Say that we've got a web service that calls out to other web services,
+or does something else expensive (like calculating the digits of PI
+:)) and you want to cache the returned results in a map of some sort.&lt;/p&gt;
 
-&lt;p&gt;Our client-side usage of this class will be something like this:&lt;/p&gt;
+&lt;p&gt;Our client-side usage of this class will be like:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cache&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Cache&lt;/span&gt;
 
@@ -72,7 +71,7 @@ in a map of some sort.&lt;/p&gt;
 &lt;/div&gt;
 
 
-&lt;p&gt;First, let's implement a naive version in Scala:&lt;/p&gt;
+&lt;p&gt;First, let's implement a naive version:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;NaiveCache&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;Any&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
@@ -91,25 +90,14 @@ in a map of some sort.&lt;/p&gt;
 &lt;/div&gt;
 
 
-&lt;p&gt;So this looks pretty simple. We've got a Map that stores the results
-and an &lt;code&gt;apply&lt;/code&gt; method that takes as input a Key and a function
-&lt;code&gt;process()&lt;/code&gt; that returns the value of some computation. Straight off
-the bat we are using these features of Scala:&lt;/p&gt;
+&lt;p&gt;This looks pretty simple. We've got a Map that stores the results and
+an &lt;code&gt;apply&lt;/code&gt; method that takes as input a Key and a function &lt;code&gt;process()&lt;/code&gt;
+that returns the value of some computation.&lt;/p&gt;
 
-&lt;ul&gt;
-&lt;li&gt;function currying, for making the calls to &lt;code&gt;apply()&lt;/code&gt; look as if they
-are built-in statements&lt;/li&gt;
-&lt;li&gt;pattern matching on the result of &lt;code&gt;map.get&lt;/code&gt;, which returns an
-&lt;a href=&quot;http://www.scala-lang.org/api/current/index.html#scala.Option&quot;&gt;Option&lt;/a&gt;,
-which is a much nicer way in Scala for dealing with Null references&lt;/li&gt;
-&lt;li&gt;local type inference&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;But I don't like the fact that this function returns Any reference,
-because we are in a static language and I hate casting, which in this
-case is totally unnecessary. The right return type of &lt;code&gt;apply()&lt;/code&gt; could
-be inferred from its parameters. So let's fix that by adding a generic
+&lt;p&gt;But it's not OK that this function returns Any reference, because we
+are in a static language and I hate casting, which in this case is
+totally unnecessary. The right return type of &lt;code&gt;apply()&lt;/code&gt; could be
+inferred from its parameters. So we'll fix that by adding a generic
 variable:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;NaiveCache&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
@@ -132,16 +120,15 @@ variable:&lt;/p&gt;
 &lt;/div&gt;
 
 
-&lt;p&gt;So we've added a generic type T to our &lt;code&gt;apply()&lt;/code&gt; which is inferred at
-the call-site from &lt;code&gt;process()&lt;/code&gt;. There's also something else going on
-in there ... we still want our map to hold anything, however in order
-to do that:&lt;/p&gt;
+&lt;p&gt;We've added the generic type T to our &lt;code&gt;apply()&lt;/code&gt; which is inferred at
+the call-site from &lt;code&gt;process()&lt;/code&gt;. We still want our map to hold
+anything, however in order to do that:&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;when we fetch the value from our map, we need to cast it to T in
 order to prevent compiler errors&lt;/li&gt;
 &lt;li&gt;if we do that, but then we call our &lt;code&gt;apply()&lt;/code&gt; method with the same
-key but with different &lt;code&gt;process()&lt;/code&gt; arguments, then we can end up
+key but with a different &lt;code&gt;process()&lt;/code&gt;, then we can end up
 with &lt;code&gt;ClassCastExceptions&lt;/code&gt;, so to prevent it we need to make the
 return type of &lt;code&gt;process()&lt;/code&gt; part of our key&lt;/li&gt;
 &lt;/ol&gt;
@@ -152,10 +139,10 @@ erased at compile-time and so aren't available at runtime. Scala has
 the same behavior, however in Scala we can specify that we want the
 &lt;a href=&quot;http://www.scala-lang.org/api/current/index.html#scala.reflect.Manifest&quot;&gt;Manifest&lt;/a&gt;
 for our type T, which will give us access to the erasure of T at
-runtime. We can use the name of type T in composing our key. Pretty
-neat huh?&lt;/p&gt;
+runtime. Thus we can use the name of type T in composing our key.&lt;/p&gt;
 
-&lt;p&gt;So these will now work with no cast exceptions:&lt;/p&gt;
+&lt;p&gt;So these will now work with no cast exceptions, because the 2 calls to
+cache will work on 2 different keys:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// key will be ... some-string::String&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value1&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cache&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;some-string&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Hello world!&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
@@ -169,7 +156,7 @@ neat huh?&lt;/p&gt;
 &lt;h2&gt;Concurrency&lt;/h2&gt;
 
 &lt;p&gt;I also mentioned concurrency. Can instances of this class be used in a
-multi-threaded context?&lt;/p&gt;
+multi-threaded context safely?&lt;/p&gt;
 
 &lt;p&gt;Yes definitely, with maybe a small adjustment to our map
 declaration. It's better if we marked our map as being &lt;code&gt;@volatile&lt;/code&gt;,
@@ -187,18 +174,25 @@ or something):&lt;/p&gt;
 &lt;/div&gt;
 
 
-&lt;p&gt;It's not all roses here btw, because between fetching the key from the
-map and updating the map with a new value, we can have a race
-condition, so in case of multiple threads pounding on this cache you
-can end up with waisted resources from threads doing duplicate work,
-although this may be acceptable for a cache.&lt;/p&gt;
+&lt;p&gt;Something is a little off. Between fetching the key from the map and
+updating the map with a new value, we can have a race problem, so in
+case of multiple threads pounding on this cache you can end up with
+waisted resources from threads doing duplicate work, although this may
+be acceptable for a cache.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;But we've got no freaking locking anywhere!&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The advantages of this implementation are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;simple to understand&lt;/li&gt;
+&lt;li&gt;no locking anywhere, for anything; the logic is completely non-blocking&lt;/li&gt;
+&lt;li&gt;our cache never gets into an inconsistent state&lt;/li&gt;
+&lt;/ul&gt;
+
 
 &lt;p&gt;Try doing that with a &lt;code&gt;java.util.HashMap&lt;/code&gt;. The difference here is that
 this Map is completely immutable. Its internal state can never be
-corrupted by multiple threads reading or writing it because on every
-write a new Map is created and the reference to the old one gets
+corrupted by multiple threads reading and writing to it because on
+every write a new Map is created and the reference to the old one gets
 replaced. Replacing that reference is also an atomic operation.&lt;/p&gt;
 
 &lt;p&gt;So this means:&lt;/p&gt;
@@ -211,12 +205,11 @@ cheaper than a synchronization block)&lt;/li&gt;
 &lt;/ul&gt;
 
 
-&lt;p&gt;But lets say you want to fix the race condition that results in
-waisted resources. Many developers would just use the Java Monitor
-Pattern and just &lt;code&gt;synchronize&lt;/code&gt; the whole &lt;code&gt;apply()&lt;/code&gt; method. But this
-means that multiple threads won't be able to read from this cache in
-parallel, which in the case of a cache I don't think it's an
-acceptable trade-off.&lt;/p&gt;
+&lt;p&gt;But say you want to fix the race condition that results in duplicate
+effort. Many developers would just use the Java Monitor Pattern and
+&lt;code&gt;synchronize&lt;/code&gt; the whole &lt;code&gt;apply()&lt;/code&gt; method. But this means that multiple
+threads won't be able to read from this cache in parallel, which in
+the case of a cache I don't think it's an acceptable trade-off.&lt;/p&gt;
 
 &lt;p&gt;In Java you can solve this by using a
 &lt;a href=&quot;http://docs.oracle.com/javase/6/docs/api/java/util/concurrent/locks/ReentrantReadWriteLock.html&quot;&gt;ReentrantReadWriteLock&lt;/a&gt;.
@@ -224,12 +217,13 @@ This is a pair of 2 locks that you can acquire, one for reads and one
 for writes. So by using it you can ensure that you can have multiple
 threads reading from your datastructure, but when you want to make
 writes then you acquire the &lt;code&gt;writeLock()&lt;/code&gt;, which blocks every other
-thread from reading or writing. And this is perfectly acceptable for a
-cache.&lt;/p&gt;
+threads that synchronize on the same lock from both reading or
+writing, until the writeLock gets released. And this is perfectly
+acceptable for a cache.&lt;/p&gt;
 
 &lt;p&gt;However when using an immutable Map, you don't need a
-&lt;code&gt;ReentrantReadWriteLock&lt;/code&gt;. Our original code can just use a plain lock
-on writes:&lt;/p&gt;
+&lt;code&gt;ReentrantReadWriteLock&lt;/code&gt;. Our original code can just use a simple
+mutex only on writes:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SafeCache&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;nd&quot;&gt;@volatile&lt;/span&gt;
@@ -271,20 +265,20 @@ in Java. Checkout the
 &lt;a href=&quot;https://code.google.com/p/guava-libraries/wiki/ImmutableCollectionsExplained&quot;&gt;immutable collections&lt;/a&gt;
 from &lt;a href=&quot;https://code.google.com/p/guava-libraries/&quot;&gt;Google's Guava&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h2&gt;Non-blocking Results :: Futures&lt;/h2&gt;
+&lt;h2&gt;Non-blocking Results : Futures&lt;/h2&gt;
 
 &lt;p&gt;When people talk about parallelism and concurrency on top of Scala,
-they talk about Actors and &lt;a href=&quot;http://akka.io/&quot;&gt;Akka&lt;/a&gt;. Akka is great
-btw. So let's make the above calls non-blocking.&lt;/p&gt;
+they talk about Actors and &lt;a href=&quot;http://akka.io/&quot;&gt;Akka&lt;/a&gt;. Akka is great for
+actors-based concurrency, but that's not what I want to talk about.&lt;/p&gt;
+
+&lt;p&gt;In our case I want to make the call to &lt;code&gt;apply()&lt;/code&gt; non-blocking, after
+all we might deal with potentially expensive computations here.&lt;/p&gt;
 
 &lt;p&gt;Akka provides
 &lt;a href=&quot;http://doc.akka.io/docs/akka/2.0.1/scala/futures.html&quot;&gt;Futures and Promises&lt;/a&gt;
 which is a very light and very composable way of specifying concurrent
 operations. These are soon to be integrated within the Scala standard
 library (in version 2.10).&lt;/p&gt;
-
-&lt;p&gt;So I want to modify our &lt;code&gt;apply()&lt;/code&gt; method to be non-blocking. After
-all, we are dealing with potentially expensive computations here.&lt;/p&gt;
 
 &lt;p&gt;First, we'll use these imports from Akka:&lt;/p&gt;
 
@@ -323,11 +317,11 @@ all, we are dealing with potentially expensive computations here.&lt;/p&gt;
 &lt;/div&gt;
 
 
-&lt;p&gt;So the differences are:&lt;/p&gt;
+&lt;p&gt;The differences are:&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;instead of processing the value and storing the result, we are
-instead creating and storing a Future reference&lt;/li&gt;
+creating and storing a Future reference&lt;/li&gt;
 &lt;li&gt;the constructor of our class now takes an implicit parameter that
 references an &lt;code&gt;ExecutionContext&lt;/code&gt;, under which these Futures will get
 executed (think of Futures as Thread instances, with the
@@ -368,12 +362,10 @@ ExecutionContext being responsible for starting those threads)&lt;/li&gt;
 that these objects behave like collections, responding to filter, map
 and flatMap. So these objects are composable.&lt;/p&gt;
 
-&lt;p&gt;Here's something you can do for instance:&lt;/p&gt;
+&lt;p&gt;Here's something you can do:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;  &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;responses&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fill&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nextInt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;cachedFuture&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nextInt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;writes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;incrementAndGet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
       &lt;span class=&quot;nc&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
       &lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nextInt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
@@ -419,12 +411,13 @@ integers.&lt;/p&gt;
 
 
 &lt;p&gt;This is just a small and dumb example, but the possibilities for
-composing concurrent tasks are awesome. And btw, this API is also
+composing concurrent tasks are awesome.  And this API is also
 available for Java:
 &lt;a href=&quot;http://doc.akka.io/docs/akka/2.0.2/java/futures.html&quot;&gt;Futures (Java)&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;In fact everything I described is possible within Java. But I love how
-easy and intuitive Scala makes this.&lt;/p&gt;
+&lt;p&gt;Everything I described is possible within Java and Java 8 should make
+things more interesting. But I love how easy and intuitive Scala makes
+this.&lt;/p&gt;
 </content>
  </entry>
  
