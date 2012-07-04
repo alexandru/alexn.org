@@ -17,12 +17,11 @@ Java, should you need to. I'm now a fan.
 
 ## Syntactic Sugar
 
-So let's say that you've got a web service that calls out to other web
-services, or does something else expensive, like calculating the
-digits of PI or something and you want to cache the returned results
-in a map of some sort.
+Say that we've got a web service that calls out to other web services,
+or does something else expensive (like calculating the digits of PI
+:)) and you want to cache the returned results in a map of some sort.
 
-Our client-side usage of this class will be something like this:
+Our client-side usage of this class will be like:
 
 {% highlight scala %}
 val cache = new Cache
@@ -36,7 +35,7 @@ val value = cache("some-key-here") {
 }
 {% endhighlight %}
 
-First, let's implement a naive version in Scala:
+First, let's implement a naive version:
 
 {% highlight scala %}
 class NaiveCache {
@@ -54,22 +53,14 @@ class NaiveCache {
 }
 {% endhighlight %}
 
-So this looks pretty simple. We've got a Map that stores the results
-and an `apply` method that takes as input a Key and a function
-`process()` that returns the value of some computation. Straight off
-the bat we are using these features of Scala:
+This looks pretty simple. We've got a Map that stores the results and
+an `apply` method that takes as input a Key and a function `process()`
+that returns the value of some computation.
 
-- function currying, for making the calls to `apply()` look as if they
-  are built-in statements
-- pattern matching on the result of `map.get`, which returns an
-  [Option](http://www.scala-lang.org/api/current/index.html#scala.Option),
-  which is a much nicer way in Scala for dealing with Null references
-- local type inference
-
-But I don't like the fact that this function returns Any reference,
-because we are in a static language and I hate casting, which in this
-case is totally unnecessary. The right return type of `apply()` could
-be inferred from its parameters. So let's fix that by adding a generic
+But it's not OK that this function returns Any reference, because we
+are in a static language and I hate casting, which in this case is
+totally unnecessary. The right return type of `apply()` could be
+inferred from its parameters. So we'll fix that by adding a generic
 variable:
 
 {% highlight scala %}
@@ -91,15 +82,14 @@ class NaiveCache {
 }
 {% endhighlight %}
 
-So we've added a generic type T to our `apply()` which is inferred at
-the call-site from `process()`. There's also something else going on
-in there ... we still want our map to hold anything, however in order
-to do that:
+We've added the generic type T to our `apply()` which is inferred at
+the call-site from `process()`. We still want our map to hold
+anything, however in order to do that:
 
 1. when we fetch the value from our map, we need to cast it to T in
    order to prevent compiler errors
 2. if we do that, but then we call our `apply()` method with the same
-   key but with different `process()` arguments, then we can end up
+   key but with a different `process()`, then we can end up
    with `ClassCastExceptions`, so to prevent it we need to make the
    return type of `process()` part of our key
 
@@ -108,10 +98,10 @@ erased at compile-time and so aren't available at runtime. Scala has
 the same behavior, however in Scala we can specify that we want the
 [Manifest](http://www.scala-lang.org/api/current/index.html#scala.reflect.Manifest)
 for our type T, which will give us access to the erasure of T at
-runtime. We can use the name of type T in composing our key. Pretty
-neat huh?
+runtime. Thus we can use the name of type T in composing our key. 
 
-So these will now work with no cast exceptions:
+So these will now work with no cast exceptions, because the 2 calls to
+cache will work on 2 different keys:
 
 {% highlight scala %}
 // key will be ... some-string::String
@@ -124,7 +114,7 @@ val value2: Int = cache("some-string") { 92 }
 ## Concurrency
 
 I also mentioned concurrency. Can instances of this class be used in a
-multi-threaded context?
+multi-threaded context safely?
 
 Yes definitely, with maybe a small adjustment to our map
 declaration. It's better if we marked our map as being `@volatile`,
@@ -141,18 +131,22 @@ class NaiveCache {
   //...
 {% endhighlight %}
 
-It's not all roses here btw, because between fetching the key from the
-map and updating the map with a new value, we can have a race
-condition, so in case of multiple threads pounding on this cache you
-can end up with waisted resources from threads doing duplicate work,
-although this may be acceptable for a cache.
+Something is a little off. Between fetching the key from the map and
+updating the map with a new value, we can have a race problem, so in
+case of multiple threads pounding on this cache you can end up with
+waisted resources from threads doing duplicate work, although this may
+be acceptable for a cache.
 
-**But we've got no freaking locking anywhere!**
+The advantages of this implementation are:
+
+- simple to understand
+- no locking anywhere, for anything; the logic is completely non-blocking
+- our cache never gets into an inconsistent state
 
 Try doing that with a `java.util.HashMap`. The difference here is that
 this Map is completely immutable. Its internal state can never be
-corrupted by multiple threads reading or writing it because on every
-write a new Map is created and the reference to the old one gets
+corrupted by multiple threads reading and writing to it because on
+every write a new Map is created and the reference to the old one gets
 replaced. Replacing that reference is also an atomic operation.
 
 So this means:
@@ -162,12 +156,11 @@ So this means:
 - we've got no lock contention to speak of 
 - we've got no deadlocks possible
 
-But lets say you want to fix the race condition that results in
-waisted resources. Many developers would just use the Java Monitor
-Pattern and just `synchronize` the whole `apply()` method. But this
-means that multiple threads won't be able to read from this cache in
-parallel, which in the case of a cache I don't think it's an
-acceptable trade-off.
+But say you want to fix the race condition that results in duplicate
+effort. Many developers would just use the Java Monitor Pattern and
+`synchronize` the whole `apply()` method. But this means that multiple
+threads won't be able to read from this cache in parallel, which in
+the case of a cache I don't think it's an acceptable trade-off.
 
 In Java you can solve this by using a
 [ReentrantReadWriteLock](http://docs.oracle.com/javase/6/docs/api/java/util/concurrent/locks/ReentrantReadWriteLock.html).
@@ -175,12 +168,13 @@ This is a pair of 2 locks that you can acquire, one for reads and one
 for writes. So by using it you can ensure that you can have multiple
 threads reading from your datastructure, but when you want to make
 writes then you acquire the `writeLock()`, which blocks every other
-thread from reading or writing. And this is perfectly acceptable for a
-cache.
+threads that synchronize on the same lock from both reading or
+writing, until the writeLock gets released. And this is perfectly
+acceptable for a cache.
 
 However when using an immutable Map, you don't need a
-`ReentrantReadWriteLock`. Our original code can just use a plain lock
-on writes:
+`ReentrantReadWriteLock`. Our original code can just use a simple
+mutex only on writes:
 
 {% highlight scala %}
 class SafeCache {
@@ -221,20 +215,20 @@ in Java. Checkout the
 [immutable collections](https://code.google.com/p/guava-libraries/wiki/ImmutableCollectionsExplained)
 from [Google's Guava](https://code.google.com/p/guava-libraries/).
 
-## Non-blocking Results :: Futures
+## Non-blocking Results : Futures
 
 When people talk about parallelism and concurrency on top of Scala,
-they talk about Actors and [Akka](http://akka.io/). Akka is great
-btw. So let's make the above calls non-blocking.
+they talk about Actors and [Akka](http://akka.io/). Akka is great for
+actors-based concurrency, but that's not what I want to talk about. 
+
+In our case I want to make the call to `apply()` non-blocking, after
+all we might deal with potentially expensive computations here.
 
 Akka provides
 [Futures and Promises](http://doc.akka.io/docs/akka/2.0.1/scala/futures.html)
 which is a very light and very composable way of specifying concurrent
 operations. These are soon to be integrated within the Scala standard
 library (in version 2.10).
-
-So I want to modify our `apply()` method to be non-blocking. After
-all, we are dealing with potentially expensive computations here.
 
 First, we'll use these imports from Akka:
 
@@ -312,11 +306,10 @@ This example isn't much, however the greatest thing about Futures is
 that these objects behave like collections, responding to filter, map
 and flatMap. So these objects are composable.
 
-Here's something you can do for instance:
+Here's something you can do:
 
 {% highlight scala %}
   val responses = List.fill(10000) {
-    val r = random.nextInt(1000)
     cachedFuture(random.nextInt(1000).toString) {
       Thread.sleep(100)
       random.nextInt(1000)
@@ -360,9 +353,10 @@ Did I mention that futures are collections that respond to `filter`,
 {% endhighlight %}
 
 This is just a small and dumb example, but the possibilities for
-composing concurrent tasks are awesome. And btw, this API is also
+composing concurrent tasks are awesome.  And this API is also
 available for Java:
-[Futures (Java)](http://doc.akka.io/docs/akka/2.0.2/java/futures.html). 
+[Futures (Java)](http://doc.akka.io/docs/akka/2.0.2/java/futures.html).
 
-In fact everything I described is possible within Java. But I love how
-easy and intuitive Scala makes this.
+Everything I described is possible within Java and Java 8 should make
+things more interesting. But I love how easy and intuitive Scala makes
+this.

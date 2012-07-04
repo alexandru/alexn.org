@@ -21,7 +21,7 @@ assets_domains:
 permalink: /blog/:year/:month/:day/:title.html
 
 source: ./source
-destination: ./build
+destination: ./build/html
 plugins: ./source/_plugins
 
 expires:
