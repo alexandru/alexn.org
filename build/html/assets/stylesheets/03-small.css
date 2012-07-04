@@ -1,0 +1,10 @@
+@media only screen and (max-width: 600px) {
+    body #main ul.posts li time, body #main ol.posts li time {
+	float: none;
+	clear: both;
+    }
+    body #main ul.posts li .wrapper, body #main ol.posts li .wrapper {
+	float: none;
+	clear: both;
+    }
+}
