@@ -4,7 +4,7 @@
  <title>Bionic Spirit</title>
  <link href="http://bionicspirit.com/rss" rel="self"/>
  <link href="http://bionicspirit.com/" />
- <updated>2012-08-07T11:03:58+03:00</updated>
+ <updated>2012-11-01T17:26:34+02:00</updated>
 
  <author>
    <name>Bionic Spirit</name>
@@ -12,6 +12,540 @@
    <uri>http://bionicspirit.com</uri>
  </author>
 
+ 
+ 
+ <entry>
+   <title>On Scala versus other languages</title>
+   <link href="http://bionicspirit.com/blog/2012/11/01/scala-and-clojure.html"/>
+   <updated>2012-11-01T00:00:00+02:00</updated>
+   <id>http://bionicspirit.com/blog/2012/11/01/scala-and-clojure</id>
+
+   <author>
+     <name>Bionic Spirit</name>
+     <email>contact@bionicspirit.com</email>
+     <uri>http://bionicspirit.com</uri>
+   </author>
+
+   <rights type="text">
+     Copyright 2012 Alexandru Nedelcu.
+     Some rights reserved (CC BY-NC 3.0)
+     License: http://creativecommons.org/licenses/by-nc/3.0/
+   </rights>
+
+   
+   <category scheme="http://bionicspirit.com/tags/" term="Languages" label="Languages" />
+   
+   <category scheme="http://bionicspirit.com/tags/" term="Scala" label="Scala" />
+   
+   <category scheme="http://bionicspirit.com/tags/" term="Clojure" label="Clojure" />
+   
+   <category scheme="http://bionicspirit.com/tags/" term="Java" label="Java" />
+   
+
+   <content type="html">&lt;p&gt;I've been following the excelent Coursera course on
+&lt;a href=&quot;https://www.coursera.org/course/progfun&quot;&gt;Functional Programming Principles in Scala&lt;/a&gt;
+led by Martin Odersky. This was not my first encounter with Scala as
+I've been using it including for my day job. In parallel, because I
+felt the need for a Javascript replacement, I've been learning Clojure
+too, because of the excelent ClojureScript.&lt;/p&gt;
+
+&lt;p&gt;I've fallen in love with both and I can't really pick a
+favorite. However other developers tend to be grossly polarized on
+this issue, with lots of inaccurate opinions flying around, so for
+what is worth this is my analysis on why you should learn and use one
+of them, if not both.&lt;/p&gt;
+
+&lt;p&gt;This article is about Scala, a sequel on what makes Clojure great will
+follow when I have the time for it.&lt;/p&gt;
+
+&lt;h2&gt;Functional Programming for the Win&lt;/h2&gt;
+
+&lt;p&gt;It's not a silver bullet, but on the whole it's awesome. You really
+have to experience it, while leaving aside the preconceptions and
+biases you've been building up by honing those imperative skills for
+years. Students learn functional programing more easily, because they
+are fresh, otherwise the learning experience is a little painful.&lt;/p&gt;
+
+&lt;p&gt;We need some definitions though. On functional programming:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;deals with computation by evaluating functions with
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Referential_transparency_(computer_science&quot;&gt;referential transparency&lt;/a&gt;)
+as a property (i.e. functions behave like mathematical functions,
+for the same input you must always get the same output)&lt;/li&gt;
+&lt;li&gt;the final output of a computation is composed out of multiple
+transformations of your input data, instead of building that
+solution by mutating state&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;A functional programming language is one that:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;treats functions as first-class objects, meaning that dealing with
+higher-order functions is not only possible, but comfortable&lt;/li&gt;
+&lt;li&gt;gives you the tools needed for &lt;em&gt;composing&lt;/em&gt; functions and types&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;By that definition languages like Ruby and Javascript can be
+considered decent functional languages and they are. However I would
+also add:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;has a rich collection of immutable/persistent data-structures (in
+general if you want to assess the viability of any programming
+language, it's perfectly characterized by its basic primitives and
+data-structures; e.g. think of C++, Java, or Javascript)&lt;/li&gt;
+&lt;li&gt;exposes a type-system that deals efficiently with the
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Expression_problem&quot;&gt;expression problem&lt;/a&gt;;
+Rich Hickey calls this &quot;&lt;em&gt;polymorphism a la carte&lt;/em&gt;&quot;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;You can also go to the extreme of specifying that all side-effects
+must be modeled with monadic types, but that's a little too much IMHO,
+as only one mostly-mainstream language fits that bill (Haskell).&lt;/p&gt;
+
+&lt;h2&gt;Polymorphism a la Carte&lt;/h2&gt;
+
+&lt;p&gt;This is a term that I've been hearing from Rich Hickey, when he talks
+about open type-systems, referring primarily to Clojure's Protocols
+and Haskell's Type-Classes.&lt;/p&gt;
+
+&lt;p&gt;These mechanisms for polymorphisms are good solutions for dealing with
+the expression problem being in stark contrast with Object-Oriented
+Programming as we've come to know it from Java and C++.&lt;/p&gt;
+
+&lt;p&gt;OOP is often a closed type-system, especially as used in static
+languages. Adding new classes into an existing hierarchy, adding new
+functions that operate on the whole hierarchy, adding new abstract
+members to interfaces, making built-in types to behave in a certain
+way - all of these use-cases are cumbersome.&lt;/p&gt;
+
+&lt;p&gt;Haskell deals with it through
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Type_class&quot;&gt;Type Classes&lt;/a&gt;. Clojure deals
+with this through
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Multiple_dispatch&quot;&gt;multi-methods&lt;/a&gt; and
+protocols, protocols being the dynamic equivalent for type-classes,
+but more on that later.&lt;/p&gt;
+
+&lt;h3&gt;Yes Virginia, Scala has Type-Classes&lt;/h3&gt;
+
+&lt;p&gt;So what's a type class? It's like an interface in Java, except that
+you can make any existing type conform to it without modifying the
+implementation of that type.&lt;/p&gt;
+
+&lt;p&gt;As an example, what if we wanted a generic function that can add
+things up ... you know, like a &lt;code&gt;foldLeft()&lt;/code&gt;, but rather than
+specifying how to fold, you want for each type to know how to do that.&lt;/p&gt;
+
+&lt;p&gt;There are several problems with doing this in Java:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;there is no interface defined for &quot;&lt;code&gt;+&lt;/code&gt;&quot; on types that support addition
+(like integers, BigInteger, BigDecimal, floating-point numbers,
+strings, etc...)&lt;/li&gt;
+&lt;li&gt;we need to start from some &lt;em&gt;zero&lt;/em&gt; (the list of elements you want to
+fold could be empty)&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;Well, you can define a type-class, like so:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;k&quot;&gt;trait&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CanFold&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;-T&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elem&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;R&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;zero&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;R&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;But wait, isn't this just a simple Java-like interface? Well yes, yes
+it is. That's the awesome thing about Scala - in Scala every instance
+is an object and every type is a class.&lt;/p&gt;
+
+&lt;p&gt;So what makes this interface a type-class? Let's look at how we'll
+implement our &lt;code&gt;sum()&lt;/code&gt; function that uses this:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;A&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;B&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;](&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Traversable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;implicit&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;adder&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;CanFold&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;A&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;B&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;B&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 
+  &lt;span class=&quot;n&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;foldLeft&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;adder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zero&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;adder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;So if the Scala compiler can find an implicit &lt;code&gt;CanFold&lt;/code&gt; in scope
+that's defined for type A, then it uses it to return a type B. This is
+awesomeness on multiple levels:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;the implicit defined in scope for type A are establishing the return
+type B&lt;/li&gt;
+&lt;li&gt;you can define a CanFold for any type you want, integers, strings,
+lists, whatever&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;Implicits are also scoped so you have to import them. If you want
+default implicits for certain types (globally available) you have to
+define them in the companion object of trait &lt;code&gt;CanFold&lt;/code&gt;, like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;k&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CanFold&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// default implementation for integers&lt;/span&gt;
+  
+  &lt;span class=&quot;k&quot;&gt;implicit&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CanFoldInts&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CanFold&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;Long&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Long&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;zero&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;And usage is as expected:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Nil&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//=&amp;gt; Long = 6&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;I'm not going to lie to you as this stuff gets hard to learn and while
+learning how to do this, you'll end-up pulling your hair out wishing
+for dynamic typing where all of this is not a concern. However you
+should distinguish between &lt;em&gt;hard&lt;/em&gt; and &lt;em&gt;complex&lt;/em&gt; (the former is
+relative and subjective, the later is absolute and objective).&lt;/p&gt;
+
+&lt;p&gt;One issue with our implementation is when you want to provide a
+default implementation for base types. That's why we've made the type
+parameter T &lt;em&gt;contravariant&lt;/em&gt; in the &lt;code&gt;CanFold[-T,R]&lt;/code&gt; definition. What
+contravariance means is precisely this:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;B&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inherits&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;B&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subtype&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;B&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&amp;lt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;then&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;CanFold&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;A&lt;/span&gt;, &lt;span class=&quot;k&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subtype&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CanFold&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;B&lt;/span&gt;, &lt;span class=&quot;k&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; 
+&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CanFold&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;A&lt;/span&gt;,&lt;span class=&quot;k&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&amp;lt;:&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CanFold&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;B&lt;/span&gt;,&lt;span class=&quot;k&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;This allows us to define a CanFold for any Traversable and it will
+work for any Seq / Vector / List and so on.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;k&quot;&gt;implicit&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CanFoldSeqs&lt;/span&gt; 
+&lt;span class=&quot;k&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CanFold&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Traversable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;Traversable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Traversable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Traversable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;zero&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Traversable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;So this can sum up any kind of &lt;code&gt;Traversable&lt;/code&gt;. The problem is that it
+loses the type parameter in the process:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Nil&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//=&amp;gt; Traversable[Any] = List(1, 2, 3, 4, 5)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;And the reason for why I mentioned this is hard is because after
+pulling my hair out, I had to
+&lt;a href=&quot;http://stackoverflow.com/questions/13176697/problems-with-contravariance-in-scala&quot;&gt;ask on StackOverflow&lt;/a&gt;
+on how to get a &lt;code&gt;Traversable[Int]&lt;/code&gt; back. So instead of a concrete
+implicit object, you can provide an implicit def that can do the right
+thing, helping the compiler to see the type embedded in that
+container:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;k&quot;&gt;implicit&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CanFoldSeqs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CanFold&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Traversable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;Traversable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Traversable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Traversable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;zero&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Traversable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Nil&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//=&amp;gt; Traversable[Int] = List(1, 2, 3, 4, 5)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;h3&gt;On Scala's Awesomeness&lt;/h3&gt;
+
+&lt;p&gt;So what does the above buy you anyway. The following are some examples
+from Scala's awesome collections library.&lt;/p&gt;
+
+&lt;p&gt;You can sum things up in Lists, as long as you have an implementation
+of type-class &lt;code&gt;Numeric[T]&lt;/code&gt; in scope:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//=&amp;gt; Int = 10&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;You can sort things, as long as you have an implementation of
+type-class &lt;code&gt;Ordering[T]&lt;/code&gt; in scope:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;d&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;c&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;e&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;a&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;b&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sorted&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//=&amp;gt; List[java.lang.String] = List(a, b, c, d, e)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;A collection will always do the right thing, returning the same kind
+of collection when doing a &lt;code&gt;map()&lt;/code&gt; or a &lt;code&gt;flatMap()&lt;/code&gt; or a &lt;code&gt;filter()&lt;/code&gt;
+over it. For instance to revert the keys and values of a Map:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//=&amp;gt; scala.collection.immutable.Map[Int,Int] = Map(2 -&amp;gt; 1, 4 -&amp;gt; 3)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;However, if the function you give to &lt;code&gt;map()&lt;/code&gt; above does not return a
+pair, then the result is converted to an iterable:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//=&amp;gt; scala.collection.immutable.Iterable[Int] = List(4, 8)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Even more awesome than this, take for example the &lt;code&gt;BitSet&lt;/code&gt; which is a
+compressed &lt;code&gt;Set&lt;/code&gt; of integers (so it's optimized for storing integers):&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;collection.immutable.BitSet&lt;/span&gt;
+
+&lt;span class=&quot;nc&quot;&gt;BitSet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//=&amp;gt; BitSet = BitSet(3, 4, 5, 6)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Mapping over it still returns a BitSet, as expected. However, look at
+what happens when you do this:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;nc&quot;&gt;BitSet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;number &amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//=&amp;gt; Set[java.lang.String] = Set(number 1, number 2, number 3, number 4)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Again, it did the right thing, because you can't store Strings in a
+BitSet, as BitSets are for integers. So it returned a plain Set of
+strings. How is this possible, you may ask?&lt;/p&gt;
+
+&lt;p&gt;The answer is in the
+&lt;a href=&quot;http://www.scala-lang.org/api/current/scala/collection/generic/CanBuildFrom.html&quot;&gt;CanBuildFrom&lt;/a&gt;
+pattern. The signature of &lt;code&gt;map()&lt;/code&gt; used above is this one:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;B&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;That&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;](&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;B&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;implicit&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bf&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;CanBuildFrom&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;BitSet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;B&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;That&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;That&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;So, similar to my example with &lt;code&gt;CanFold&lt;/code&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;the compiler takes types A and B from the function &lt;code&gt;f()&lt;/code&gt; that's provided as an argument&lt;/li&gt;
+&lt;li&gt;searches for an implicit in scope of type &lt;code&gt;CanBuildFrom[A, B, _]&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;the return type is established as the third type parameter of the implicit param that is used&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;What's great is that the provided implicits for &lt;code&gt;CanBuildFrom&lt;/code&gt; can all
+be overridden by your own implementations (type-classes biach).&lt;/p&gt;
+
+&lt;h3&gt;Is this complex?&lt;/h3&gt;
+
+&lt;p&gt;I mentioned above that this stuff is not complex, it's just
+hard. Scala does have some complexities when it comes to really
+advanced use-cases, as can be seen in this article:
+&lt;a href=&quot;http://yz.mit.edu/wp/true-scala-complexity/&quot;&gt;True Scala Complexity&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;It's worth mentioning however that, as Martin Odersky noted in the
+HackerNews thread of that article, the author tries to accomplish
+something that's not possible in most languages out there (probably
+none) and a solution is possible (albeit with small limitations).&lt;/p&gt;
+
+&lt;h3&gt;Scala versus Haskell&lt;/h3&gt;
+
+&lt;p&gt;Scala's static type-system is less expressive than that of Haskell. In
+particular Haskell supports
+&lt;a href=&quot;https://en.wikibooks.org/wiki/Haskell/Polymorphism#Higher_rank_types&quot;&gt;rank-2 polymorphism&lt;/a&gt;,
+while Scala only rank-1. So Scala does not win many points on Haskell,
+but it definitely wins on this one:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flatMap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Option&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//=&amp;gt; List[Int] = List(1, 2, 3, 4, 5)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Doing the above in Haskell (using the &lt;code&gt;bind&lt;/code&gt; operator) triggers a
+compile-time error, because the return type of the mapping function is
+expected to be of type &lt;code&gt;List&lt;/code&gt; and the &lt;code&gt;Maybe&lt;/code&gt; type (the equivalent of
+&lt;code&gt;Option&lt;/code&gt;) is not a &lt;code&gt;List&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Option&lt;/code&gt; in Scala is not a collection, but it is &lt;em&gt;viewable&lt;/em&gt; as a
+collection of either 0 or 1 elements. As a consequence, because of
+good design decisions, the monadic types defined in Scala's collection
+library are more composable. It's also worth pointing out that Scala's
+collections library is so awesome precisely because OOP plays a part
+and there are cases where doing similar things in Haskell require
+experimental GHC extensions.&lt;/p&gt;
+
+&lt;h3&gt;Scala versus F#/Ocaml&lt;/h3&gt;
+
+&lt;p&gt;For people thinking that F# or Ocaml are better than Scala, I invite
+them to provide a solution for the &lt;code&gt;CanFold&lt;/code&gt; problem I outlined above.&lt;/p&gt;
+
+&lt;p&gt;This is weirdly implemented in F# as it follows the (really screwed)
+C# conventions of defining &quot;&lt;code&gt;+&lt;/code&gt;&quot; as static functions on classes, so
+even if you know that a T is an Integer, you can't sum 2 Integers
+because the compiler does not know that there exists a static method
+for it that does &lt;code&gt;T + T&lt;/code&gt;, as OOP interfaces only apply to instances,
+not classes themselves. Take a look at the signature for &lt;code&gt;List.sum&lt;/code&gt; in
+F#:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;ocaml&quot;&gt;&lt;span class=&quot;nn&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;requires&lt;/span&gt; 
+  &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;member&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(+)&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;member&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Zero&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;First of all, this is bad from all perspectives, as it uses the
+(really screwed) notion of &quot;&lt;em&gt;static methods&lt;/em&gt;&quot; that should have never
+happened, mixing it with the notion of OOP interfaces. This is fucked
+up actually. It's also not a type-class as it is &lt;em&gt;not open&lt;/em&gt; - you
+cannot modify a built-in type to have the required static members,
+being the same problem you get with classic OOP inheritance of
+interfaces.&lt;/p&gt;
+
+&lt;p&gt;The right way to do this in Ocaml/SML would be to explicitly pass a
+dictionary of implementations around, as described here:
+&lt;a href=&quot;http://okmij.org/ftp/ML/ML.html#typeclass&quot;&gt;Typeclass overloading and bounded polymorphism in ML&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;By contrast to F# in Scala there is no such thing as &quot;&lt;em&gt;static
+methods&lt;/em&gt;&quot;, &quot;&lt;code&gt;+&lt;/code&gt;&quot; operations being plain polymorphic instance
+methods. You also do not have 2 type-systems in the same language, as
+Scala follows the &quot;&lt;em&gt;uniform access principle&lt;/em&gt;&quot;. Type-classes and
+algebraic data-types are still modeled by means of OOP classes and
+objects. The code is indeed more verbose, but it reduces complexity a
+lot because a big part of learning Ocaml is learning when OOP is
+appropriate, or not, as you have to pick from the get-go and combining
+approaches is very cumbersome. Granted Ocaml at the very least
+improves on classic OOP by giving you &lt;em&gt;structural typing&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Take for instance the definition of a List. A List can be defined as
+an algebraic data-type, being either an Empty List, or a Tuple of 2
+elements, the head and the tail, right?&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;k&quot;&gt;sealed&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;abstract&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;+T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Pair&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;+t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;](&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Nil&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Nothing&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;One difference should immediately be noticeable, our &lt;code&gt;List&lt;/code&gt; has
+covariant behavior, meaning that a &lt;code&gt;List[Any]&lt;/code&gt; is a supertype for
+&lt;code&gt;List[String]&lt;/code&gt;. Arrays in Java have the same behavior and this leads
+to lots of gotchas, but if our List is immutable, then this is not a
+problem. For instance this gives you polymorphic behavior without
+needing type parameters or higher-kinded types:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Any&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Pair&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Nil&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;However, that's not efficient. A much better approach is to make
+length polymorphic (in the OOP sense), after all &lt;code&gt;length()&lt;/code&gt; is a
+defining property of Lists, so there's no reason for why it shouldn't
+be there:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;k&quot;&gt;sealed&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;abstract&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;+T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Pair&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;+t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;](&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;override&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Now, isn't that nice? It works for lazy lists too. You just have to
+make the &lt;code&gt;length&lt;/code&gt; definition a &lt;code&gt;lazy val&lt;/code&gt; and presto. And you didn't
+have to choose, picking the design that makes sense for the operation
+in question.&lt;/p&gt;
+
+&lt;h2&gt;On Static-type Systems&lt;/h2&gt;
+
+&lt;p&gt;Static versus dynamic is what polarizes developers most in separate
+camps. It's like a never-ending flamewar, with lots of religiosity
+flying around.&lt;/p&gt;
+
+&lt;p&gt;At its core, a static type system helps you by providing proof at
+compile-time that the types you're using behave as you expect them to
+behave. This is good, because you need all the help you can get and
+static typing can eliminate a lot of errors.&lt;/p&gt;
+
+&lt;p&gt;This is a doubly-edged sword though. By definition a static type
+system will reject pieces of code that are perfectly correct. Also,
+it's not a silver bullet, as Rich Hickey said in his excelent
+&lt;a href=&quot;http://www.infoq.com/presentations/Simple-Made-Easy&quot;&gt;Simple Made Easy&lt;/a&gt;
+talk (paraphrasing): &quot;&lt;em&gt;What's the common thing that all bugs in the
+wild share? They passed the type-checker, they passed all the
+tests!&lt;/em&gt;&quot;&lt;/p&gt;
+
+&lt;p&gt;I've seen opinions that &quot;&lt;em&gt;structural typing&lt;/em&gt;&quot; (Go, Scala) or
+&quot;&lt;em&gt;type-inference&lt;/em&gt;&quot; (Ocaml, Haskell, Scala), are as good as &quot;&lt;em&gt;duck
+typing&lt;/em&gt;&quot;. That couldn't be further from the truth - the real power of
+duck typing comes from the ability to create / modify types and
+functions on the fly at runtime. In other words you can make shit up
+and as long as it's correct, then it works. In contrast, a static type
+system actively rejects pieces of code if it can't prove that the
+types you're using support the computation you're trying to do, so no
+matter how smart the type system is, you'll always end up in lots of
+instances where you have to spoon-feed the compiler to allow you to do
+what &lt;em&gt;you mean&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;This is not to say that static typing is bad. Well, it is bad in
+languages where the type system is designed to help the IDE and not
+the developer (e.g. Java, Delphi, Visual Basic). Otherwise, especially
+in combination with referential transparency, it really eliminates a
+whole class of errors.&lt;/p&gt;
+
+&lt;p&gt;Here we define &lt;em&gt;an error&lt;/em&gt; as being a incorrect state of the
+computation or corrupted output that takes the developers by
+surprise. An exceptional state that's being controlled is not an
+error. This is why Haskell makes such a big fuss out of dealing with
+side-effects by means of monadic types - because it makes you think
+about exceptional state and deal with it.&lt;/p&gt;
+
+&lt;p&gt;Thinking of Scala versus Clojure versus Haskell, in regards to its
+static-type system Scala sits somewhere in the middle between Clojure
+and Haskell. This is both good and bad. On one hand Scala does not
+have the same (static) expressive capabilities of Haskell, being a
+poor substitute for it. On the other hand you can drill holes in that
+static-type system to make it do what you want, which I think is a
+good trade-off.&lt;/p&gt;
+
+&lt;p&gt;I personally lean towards dynamic type systems, however the tradeoffs
+I end up making in Scala are worth it for the extra type safety it
+brings. On the other hand with Clojure, because of its support for
+multi-methods and protocols and macros, is a dynamic language that's
+more expressive than most other dynamic languages, especially the
+mainstream ones, like Python, Ruby, Perl, Javascript or PHP.&lt;/p&gt;
+
+&lt;p&gt;But more on that in a sequel ...&lt;/p&gt;
+</content>
+ </entry>
+ 
  
  
  <entry>
