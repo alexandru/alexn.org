@@ -71,7 +71,7 @@ class Redirects < BaseMiddleware
     ext  = File.extname(path)
     path += '/' if ext == '' and ! path.end_with?('/')
 
-    if redirect = CONFIG['redirects'].find{|x| path == x['from']}
+    if CONFIG['redirects'] and redirect = CONFIG['redirects'].find{|x| path == x['from']}
       new_location = redirect['to']
       new_location = request.base_url + new_location \
         unless new_location.start_with?("http")
