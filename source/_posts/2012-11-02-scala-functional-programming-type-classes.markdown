@@ -529,7 +529,7 @@ model something like this in a static language ...
 This is just a small and insignificant example of course, like most
 examples I'm giving here, but to me properly done OOP (where every
 type is modeled with classes and every value is some kind of object)
-just feels right ... I like the notion of "*turtles all the way
+just feels right ... I like this principle of "*turtles all the way
 down*", even if you could probably point to things that aren't
 "turtles", but this also happens in languages that are the epitome of
 kick-ass turtles-recursion, like Scheme or Smalltalk.
