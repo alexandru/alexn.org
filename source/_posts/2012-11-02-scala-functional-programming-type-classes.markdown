@@ -926,11 +926,11 @@ It's enough to say that Scala doesn't restrict you in any way:
 * [Software transactional memory](http://nbronson.github.com/scala-stm/), as in Clojure
 * [Parallel collections](http://docs.scala-lang.org/overviews/parallel-collections/overview.html)
 * [Async/await](http://doc.akka.io/docs/akka/snapshot/scala/dataflow.html)
-  as in C#, though it requires a compiler plugin
+  as in C#, though it requires a compiler plugin  
 * The awesome Java NIO, along with Netty, Mina and the whole ecosystem
   for async I/O (you don't know what pleasure feels like until you
-  wrap Async-Http-Client in Akka Promises handled by an Akka Actor,
-  then combine future responses in for-comprehensions)
+  wrap [Async-Http-Client](https://github.com/ning/async-http-client)
+  in Akka Promises which you can combine in for-comprehensions)
 
 Basically Scala has it all. This may seem like a curse, but what other
 languages define as built-in / hard to change / hard to evolve
@@ -995,7 +995,7 @@ the eBook straight from [Manning](http://www.manning.com/suereth/).
 
 <div class="clear"></div>
 
-## The End?
+## The End, Finally
 
 A sequel on what makes Clojure great will follow when I have the time
 or patience for it (or once I finish reading the
