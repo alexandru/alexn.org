@@ -4,7 +4,7 @@
  <title>Bionic Spirit</title>
  <link href="http://bionicspirit.com/rss" rel="self"/>
  <link href="http://bionicspirit.com/" />
- <updated>2012-11-02T10:51:50+02:00</updated>
+ <updated>2012-11-02T11:29:38+02:00</updated>
 
  <author>
    <name>Bionic Spirit</name>
@@ -412,15 +412,16 @@ I've been told)&lt;/p&gt;
 
 &lt;p&gt;If you want a lazy
 &lt;a href=&quot;http://www.scala-lang.org/api/current/scala/collection/Iterator.html&quot;&gt;Iterator&lt;/a&gt;
-(like if you want to wrap JDBC result-sets), you only need to wrap the
-JDBC result-set in an Iterator by implementing &lt;code&gt;next()&lt;/code&gt; and
-&lt;code&gt;hasNext&lt;/code&gt;. You then get &lt;code&gt;filter()&lt;/code&gt;/&lt;code&gt;map()&lt;/code&gt;/&lt;code&gt;flatMap()&lt;/code&gt; for free, but
-with a twist - Iterators are lazy and can only be traversed
-once. Applying filter/map/flatMap will not traverse the Iterator,
-being lazy operations. To convert this into a lazy sequence that also
-memoizes (stores) the results for multiple traversals, you only need
-to do &lt;code&gt;iterator.toStream&lt;/code&gt;, or to get all the results at once
-&lt;code&gt;iterator.toList&lt;/code&gt;.&lt;/p&gt;
+(like
+&lt;a href=&quot;https://github.com/alexandru/shifter/blob/master/db/src/main/scala/shifter/db/Sql.scala#L83&quot;&gt;if you want to wrap JDBC result-sets&lt;/a&gt;),
+you only need to wrap the JDBC result-set in an Iterator by
+implementing &lt;code&gt;next()&lt;/code&gt; and &lt;code&gt;hasNext&lt;/code&gt;. You then get
+&lt;code&gt;filter()&lt;/code&gt;/&lt;code&gt;map()&lt;/code&gt;/&lt;code&gt;flatMap()&lt;/code&gt; for free, but with a twist - Iterators
+are lazy and can only be traversed once. Applying filter/map/flatMap
+will not traverse the Iterator, being lazy operations. To convert this
+into a lazy sequence that also memoizes (stores) the results for
+multiple traversals, you only need to do &lt;code&gt;iterator.toStream&lt;/code&gt;, or to
+get all the results at once &lt;code&gt;iterator.toList&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://www.scala-lang.org/api/current/scala/collection/immutable/Stream.html&quot;&gt;Streams&lt;/a&gt;
 in Scala are lazy sequences. You can easily implement infinite lists
@@ -862,6 +863,62 @@ for-comprehensions)&lt;/li&gt;
 &lt;p&gt;Basically Scala has it all. This may seem like a curse, but what other
 languages define as built-in / hard to change / hard to evolve
 features, Scala defines as libraries. So there are definitely upsides ;-)&lt;/p&gt;
+
+&lt;h2&gt;13. Learning Resources&lt;/h2&gt;
+
+&lt;p&gt;I've found the following to be good resources for learning Scala (note
+that Amazon links have my affiliate tag, but if you want the eBook
+version don't buy from Amazon, prefer buying directly from the
+publisher, as you'll get both a DRM-free Kindle version and a PDF):&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://www.coursera.org/course/progfun&quot;&gt;Functional Programming Principles in Scala&lt;/a&gt;&lt;/strong&gt;,
+already mentioned, is an excelent course provided by Coursera / EPFL,
+taught by Martin Odersky. The course is almost over, but the material
+will be left online, which means you can follow the lectures and do
+the assignments and I'm pretty sure many students that attended will
+remain on that forum for answering questions.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;http://twitter.github.com/scala_school/&quot;&gt;Scala School&lt;/a&gt;&lt;/strong&gt; - a freely
+available online tutorial by Twitter, which is very friendly to
+newbies. I've read it and it's pretty good.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;http://docs.scala-lang.org/&quot;&gt;Scala Documentation Project&lt;/a&gt;&lt;/strong&gt; -
+definitely checkout this website, as they aggregate everything good
+here. If you want to learn more about Scala's library, especially the
+collections, this is the place to learn from.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.amazon.com/gp/product/B004Z1FTXS/ref=as_li_ss_il?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=B004Z1FTXS&amp;linkCode=as2&amp;tag=bionicspirit-20&quot;&gt;&lt;img class=&quot;left&quot; src=&quot;http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&amp;ASIN=B004Z1FTXS&amp;Format=_SL110_&amp;ID=AsinImage&amp;MarketPlace=US&amp;ServiceVersion=20070822&amp;WS=1&amp;tag=alexanedel-20&quot; /&gt;&lt;/a&gt;
+&lt;a href=&quot;http://www.amazon.com/gp/product/B004Z1FTXS/ref=as_li_ss_il?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=B004Z1FTXS&amp;linkCode=as2&amp;tag=bionicspirit-20&quot;&gt;&lt;b&gt;Programming in Scala&lt;/b&gt;&lt;/a&gt;
+by Martin Odersky is a good book on programming, not just Scala - many
+of the exercises in
+&lt;a href=&quot;http://mitpress.mit.edu/sicp/&quot;&gt;Structure and Interpretation of Computer Programs&lt;/a&gt;
+are also present in this book, giving you the Scala-approach for
+solving those problems, which is good.&lt;/p&gt;
+
+&lt;div class=&quot;clear&quot;&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a href=&quot;http://www.amazon.com/gp/product/0321774094/ref=as_li_ss_il?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=0321774094&amp;linkCode=as2&amp;tag=bionicspirit-20&quot;&gt;&lt;img class=&quot;left&quot; src=&quot;http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&amp;ASIN=0321774094&amp;Format=_SL110_&amp;ID=AsinImage&amp;MarketPlace=US&amp;ServiceVersion=20070822&amp;WS=1&amp;tag=alexanedel-20&quot; &gt;&lt;/a&gt;
+&lt;a href=&quot;http://www.amazon.com/gp/product/0321774094/ref=as_li_ss_il?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=0321774094&amp;linkCode=as2&amp;tag=bionicspirit-20&quot;&gt;&lt;b&gt;Scala for the Impatient&lt;/b&gt;&lt;/a&gt;
+by Cay S. Horstmann, is a good pragmatic book on Scala (not so much on
+functional programming), but it's for developers experienced in other
+languages, so it's fast-paced while not scaring you away with endless
+discussions on types (like I just did). The PDF for the first part (out of 3) is
+available from the
+&lt;a href=&quot;http://typesafe.com/resources/free-books&quot;&gt;Typesafe website&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;clear&quot;&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a href=&quot;http://www.amazon.com/gp/product/1935182706/ref=as_li_ss_il?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=1935182706&amp;linkCode=as2&amp;tag=bionicspirit-20&quot;&gt;&lt;img class=&quot;left&quot; border=&quot;0&quot; src=&quot;http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&amp;ASIN=1935182706&amp;Format=_SL110_&amp;ID=AsinImage&amp;MarketPlace=US&amp;ServiceVersion=20070822&amp;WS=1&amp;tag=bionicspirit-20&quot; &gt;&lt;/a&gt;
+&lt;a href=&quot;http://www.amazon.com/gp/product/1935182706/ref=as_li_ss_il?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=1935182706&amp;linkCode=as2&amp;tag=bionicspirit-20&quot;&gt;&lt;b&gt;Scala in Depth&lt;/b&gt;&lt;/a&gt;
+Joshua Suereth D. - this is an advanced book on Scala, with many
+insights into how functional idioms work in it. I've yet to finish
+reading, as it's not really an easy lecture. But it's a good book. Get
+the eBook straight from &lt;a href=&quot;http://www.manning.com/suereth/&quot;&gt;Manning&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;clear&quot;&gt;&lt;/div&gt;
+
 
 &lt;h2&gt;The End?&lt;/h2&gt;
 
