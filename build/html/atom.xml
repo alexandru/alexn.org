@@ -4,7 +4,7 @@
  <title>Bionic Spirit</title>
  <link href="http://bionicspirit.com/rss" rel="self"/>
  <link href="http://bionicspirit.com/" />
- <updated>2012-11-02T12:16:23+02:00</updated>
+ <updated>2012-11-02T13:11:03+02:00</updated>
 
  <author>
    <name>Bionic Spirit</name>
@@ -53,6 +53,9 @@ too, because of the excelent ClojureScript.&lt;/p&gt;
 what is worth this document represents my (rookie) experience with
 Scala, being complete yack shaving on my part, or you could call it
 the intellectual masturbation of a fool.&lt;/p&gt;
+
+&lt;p&gt;UPDATE: as if the article wasn't long enough, I've added to it some
+more stuff :-)&lt;/p&gt;
 
 &lt;h2&gt;1. Functional Programming for the Win&lt;/h2&gt;
 
@@ -469,7 +472,70 @@ Hacker News thread of that article, the author tries to accomplish
 something that's not possible in most languages out there, while a
 solution is still possible in Scala (albeit with small limitations).&lt;/p&gt;
 
-&lt;h2&gt;7. Scala versus Haskell&lt;/h2&gt;
+&lt;h2&gt;7. Are OOP Features Getting in the Way?&lt;/h2&gt;
+
+&lt;p&gt;I happen to disagree and I actually love the blend of OOP with
+functional features. Martin Odersky claims that OOP is orthogonal to
+functional programming. But if you pay attention, you'll notice it's
+not only orthogonal, but complementary in an elegant way.&lt;/p&gt;
+
+&lt;p&gt;I'm indicating below instances where I think OOP helps, but as a clear
+example of what the combination can do, consider Scala's
+&lt;a href=&quot;http://www.scala-lang.org/api/current/scala/collection/immutable/Set.html&quot;&gt;Set&lt;/a&gt;. A
+&lt;code&gt;Set[T]&lt;/code&gt; can be viewed as a function that takes a parameter of type T
+and returns either True if the value is in the Set, or False
+otherwise. This means you can do this:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;primaryColors&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;red&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;green&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;blue&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;colors&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;red&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;purple&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;yellow&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;vanilla&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;white&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;black&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;blue&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;colors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;primaryColors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;This is possible because our set is in fact a subtype of
+&lt;code&gt;Function1[Int, Boolean]&lt;/code&gt;, so you can pass it to any higher-order
+function that expects that signature.&lt;/p&gt;
+
+&lt;p&gt;But the similarity goes deeper than simple resemblance and syntactic
+sugar. If you remember from school, mathematical Sets can be perfectly
+described by what is called a
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Indicator_function&quot;&gt;characteristic function&lt;/a&gt;,
+so Sets are interchangeable with functions in mathematics.&lt;/p&gt;
+
+&lt;p&gt;In mathematics operations on Sets like &lt;em&gt;unions&lt;/em&gt;, &lt;em&gt;intersections&lt;/em&gt;,
+&lt;em&gt;complements&lt;/em&gt;, &lt;em&gt;Cartesian products&lt;/em&gt; and so on can be perfectly
+described (or replaced) with operations on functions and that's
+exactly what
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Boolean_algebra&quot;&gt;boolean algebra&lt;/a&gt; is
+about.&lt;/p&gt;
+
+&lt;p&gt;And I don't know how Haskell handles this for &lt;code&gt;Data.Set&lt;/code&gt;, or if it
+handles it at all, but OOP subtyping seems like the easiest way to
+model something like this in a static language ...&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;for one, the hierarchy is simple to understand, simple to model -
+you just inherit from &lt;code&gt;Function1[-T, +R]&lt;/code&gt; - done&lt;/li&gt;
+&lt;li&gt;downcasting to a function is something OOP simply does - you just
+pass your object to something that expects a function - done&lt;/li&gt;
+&lt;li&gt;functions are &lt;em&gt;contravariant&lt;/em&gt; in their parameters and &lt;em&gt;covariant&lt;/em&gt; in
+their parameter type - this is not something easily done without OOP
+and without the language being completely dynamic - a Set is a bad
+example, as Sets in Scala are invariant, however you can probably
+think of useful usecases for where you'd want this for your own
+types that behave as functions&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;This is just a small and insignificant example of course, like most
+examples I'm giving here, but to me properly done OOP (where every
+type is modeled with classes and every value is some kind of object)
+just feels right.&lt;/p&gt;
+
+&lt;h2&gt;8. Scala versus Haskell&lt;/h2&gt;
 
 &lt;p&gt;Scala's static type-system is sometimes less expressive than that of
 Haskell. In particular Haskell supports
@@ -522,7 +588,7 @@ in Haskell is not for mortals. Scala is more predictable, being strict
 and lazy when needed. It also has at its disposal the awesome JVM
 ecosystem for profiling and monitoring.&lt;/p&gt;
 
-&lt;h2&gt;8. Scala versus F# / Ocaml&lt;/h2&gt;
+&lt;h2&gt;9. Scala versus F# / Ocaml&lt;/h2&gt;
 
 &lt;p&gt;F# is good if you want to use C# 2020. But F# has rough edges
 inherited from Ocaml, while it has not inherited all the benefits. F#
@@ -683,7 +749,7 @@ issues that Scala does really well. Ocaml is great, however I
 personally find it limiting and awkward at the edges of the 2 type
 systems it contains.&lt;/p&gt;
 
-&lt;h2&gt;9. Static-type versus Dynamic-type Systems&lt;/h2&gt;
+&lt;h2&gt;10. Static-type versus Dynamic-type Systems&lt;/h2&gt;
 
 &lt;p&gt;Static versus dynamic is what polarizes developers most in separate
 camps. It's like a never-ending flamewar, with healthy dosages of
@@ -743,7 +809,7 @@ multi-methods and protocols and macros, is a dynamic language that's
 more expressive than most other languages, including dynamic ones,
 especially the mainstream, like Python, Ruby, Perl, Javascript or PHP.&lt;/p&gt;
 
-&lt;h2&gt;10. Performance&lt;/h2&gt;
+&lt;h2&gt;11. Performance&lt;/h2&gt;
 
 &lt;p&gt;I don't have any experience or proof on this, just personal feelings :-)&lt;/p&gt;
 
@@ -780,7 +846,7 @@ is workable (or so I've heard)&lt;/li&gt;
 &lt;/ul&gt;
 
 
-&lt;h2&gt;11. Tools of the Trade&lt;/h2&gt;
+&lt;h2&gt;12. Tools of the Trade&lt;/h2&gt;
 
 &lt;p&gt;I have a love/hate relationship with SBT, the defacto builds manager
 for Scala, the replacement for Maven, the slayer of XML files.&lt;/p&gt;
@@ -838,7 +904,7 @@ what you get by picking other functional languages, except maybe F#.&lt;/p&gt;
 classpath reloading tricks that you can use with Java. Nothing's
 stopping you, as every tool meant for the JVM also works with Scala.&lt;/p&gt;
 
-&lt;h2&gt;12. Concurrency and Parallelism&lt;/h2&gt;
+&lt;h2&gt;13. Concurrency and Parallelism&lt;/h2&gt;
 
 &lt;p&gt;It's enough to say that Scala doesn't restrict you in any way:&lt;/p&gt;
 
@@ -864,7 +930,7 @@ for-comprehensions)&lt;/li&gt;
 languages define as built-in / hard to change / hard to evolve
 features, Scala defines as libraries. So there are definitely upsides ;-)&lt;/p&gt;
 
-&lt;h2&gt;13. Learning Resources&lt;/h2&gt;
+&lt;h2&gt;14. Learning Resources&lt;/h2&gt;
 
 &lt;p&gt;I've found the following to be good resources for learning Scala (note
 that Amazon links have my affiliate tag, but if you want the eBook

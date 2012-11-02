@@ -75,6 +75,9 @@ what is worth this document represents my (rookie) experience with
 Scala, being complete yack shaving on my part, or you could call it
 the intellectual masturbation of a fool.</p>
 
+<p>UPDATE: as if the article wasn't long enough, I've added to it some
+more stuff :-)</p>
+
 <h2>1. Functional Programming for the Win</h2>
 
 <p>It's not a silver bullet, but on the whole it's awesome. You really
@@ -490,7 +493,70 @@ Hacker News thread of that article, the author tries to accomplish
 something that's not possible in most languages out there, while a
 solution is still possible in Scala (albeit with small limitations).</p>
 
-<h2>7. Scala versus Haskell</h2>
+<h2>7. Are OOP Features Getting in the Way?</h2>
+
+<p>I happen to disagree and I actually love the blend of OOP with
+functional features. Martin Odersky claims that OOP is orthogonal to
+functional programming. But if you pay attention, you'll notice it's
+not only orthogonal, but complementary in an elegant way.</p>
+
+<p>I'm indicating below instances where I think OOP helps, but as a clear
+example of what the combination can do, consider Scala's
+<a href="http://www.scala-lang.org/api/current/scala/collection/immutable/Set.html">Set</a>. A
+<code>Set[T]</code> can be viewed as a function that takes a parameter of type T
+and returns either True if the value is in the Set, or False
+otherwise. This means you can do this:</p>
+
+<div class="highlight"><pre><code class="scala"><span class="k">val</span> <span class="n">primaryColors</span> <span class="k">=</span> <span class="nc">Set</span><span class="o">(</span><span class="s">&quot;red&quot;</span><span class="o">,</span> <span class="s">&quot;green&quot;</span><span class="o">,</span> <span class="s">&quot;blue&quot;</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="n">colors</span> <span class="k">=</span> <span class="nc">List</span><span class="o">(</span><span class="s">&quot;red&quot;</span><span class="o">,</span> <span class="s">&quot;purple&quot;</span><span class="o">,</span> <span class="s">&quot;yellow&quot;</span><span class="o">,</span> <span class="s">&quot;vanilla&quot;</span><span class="o">,</span> <span class="s">&quot;white&quot;</span><span class="o">,</span> <span class="s">&quot;black&quot;</span><span class="o">,</span> <span class="s">&quot;blue&quot;</span><span class="o">)</span>
+
+<span class="n">colors</span><span class="o">.</span><span class="n">filter</span><span class="o">(</span><span class="n">primaryColors</span><span class="o">)</span>
+</code></pre>
+</div>
+
+
+<p>This is possible because our set is in fact a subtype of
+<code>Function1[Int, Boolean]</code>, so you can pass it to any higher-order
+function that expects that signature.</p>
+
+<p>But the similarity goes deeper than simple resemblance and syntactic
+sugar. If you remember from school, mathematical Sets can be perfectly
+described by what is called a
+<a href="http://en.wikipedia.org/wiki/Indicator_function">characteristic function</a>,
+so Sets are interchangeable with functions in mathematics.</p>
+
+<p>In mathematics operations on Sets like <em>unions</em>, <em>intersections</em>,
+<em>complements</em>, <em>Cartesian products</em> and so on can be perfectly
+described (or replaced) with operations on functions and that's
+exactly what
+<a href="http://en.wikipedia.org/wiki/Boolean_algebra">boolean algebra</a> is
+about.</p>
+
+<p>And I don't know how Haskell handles this for <code>Data.Set</code>, or if it
+handles it at all, but OOP subtyping seems like the easiest way to
+model something like this in a static language ...</p>
+
+<ul>
+<li>for one, the hierarchy is simple to understand, simple to model -
+you just inherit from <code>Function1[-T, +R]</code> - done</li>
+<li>downcasting to a function is something OOP simply does - you just
+pass your object to something that expects a function - done</li>
+<li>functions are <em>contravariant</em> in their parameters and <em>covariant</em> in
+their parameter type - this is not something easily done without OOP
+and without the language being completely dynamic - a Set is a bad
+example, as Sets in Scala are invariant, however you can probably
+think of useful usecases for where you'd want this for your own
+types that behave as functions</li>
+</ul>
+
+
+<p>This is just a small and insignificant example of course, like most
+examples I'm giving here, but to me properly done OOP (where every
+type is modeled with classes and every value is some kind of object)
+just feels right.</p>
+
+<h2>8. Scala versus Haskell</h2>
 
 <p>Scala's static type-system is sometimes less expressive than that of
 Haskell. In particular Haskell supports
@@ -543,7 +609,7 @@ in Haskell is not for mortals. Scala is more predictable, being strict
 and lazy when needed. It also has at its disposal the awesome JVM
 ecosystem for profiling and monitoring.</p>
 
-<h2>8. Scala versus F# / Ocaml</h2>
+<h2>9. Scala versus F# / Ocaml</h2>
 
 <p>F# is good if you want to use C# 2020. But F# has rough edges
 inherited from Ocaml, while it has not inherited all the benefits. F#
@@ -704,7 +770,7 @@ issues that Scala does really well. Ocaml is great, however I
 personally find it limiting and awkward at the edges of the 2 type
 systems it contains.</p>
 
-<h2>9. Static-type versus Dynamic-type Systems</h2>
+<h2>10. Static-type versus Dynamic-type Systems</h2>
 
 <p>Static versus dynamic is what polarizes developers most in separate
 camps. It's like a never-ending flamewar, with healthy dosages of
@@ -764,7 +830,7 @@ multi-methods and protocols and macros, is a dynamic language that's
 more expressive than most other languages, including dynamic ones,
 especially the mainstream, like Python, Ruby, Perl, Javascript or PHP.</p>
 
-<h2>10. Performance</h2>
+<h2>11. Performance</h2>
 
 <p>I don't have any experience or proof on this, just personal feelings :-)</p>
 
@@ -801,7 +867,7 @@ is workable (or so I've heard)</li>
 </ul>
 
 
-<h2>11. Tools of the Trade</h2>
+<h2>12. Tools of the Trade</h2>
 
 <p>I have a love/hate relationship with SBT, the defacto builds manager
 for Scala, the replacement for Maven, the slayer of XML files.</p>
@@ -859,7 +925,7 @@ what you get by picking other functional languages, except maybe F#.</p>
 classpath reloading tricks that you can use with Java. Nothing's
 stopping you, as every tool meant for the JVM also works with Scala.</p>
 
-<h2>12. Concurrency and Parallelism</h2>
+<h2>13. Concurrency and Parallelism</h2>
 
 <p>It's enough to say that Scala doesn't restrict you in any way:</p>
 
@@ -885,7 +951,7 @@ for-comprehensions)</li>
 languages define as built-in / hard to change / hard to evolve
 features, Scala defines as libraries. So there are definitely upsides ;-)</p>
 
-<h2>13. Learning Resources</h2>
+<h2>14. Learning Resources</h2>
 
 <p>I've found the following to be good resources for learning Scala (note
 that Amazon links have my affiliate tag, but if you want the eBook
