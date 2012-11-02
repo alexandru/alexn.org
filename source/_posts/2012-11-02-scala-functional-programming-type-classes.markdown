@@ -74,7 +74,7 @@ as only one mostly-mainstream language fits that bill (Haskell).
 
 Yes it is. You only need to follow the excelent (I mentioned above)
 [Coursera course](https://www.coursera.org/course/progfun) and solve
-the assignments to realize that Scala is indeed a very functional
+the assignments to realize that Scala is indeed a very FP
 language. The course was a little short, but a follow-up is
 planned. Now move along ...
 
