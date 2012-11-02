@@ -20,6 +20,9 @@ what is worth this document represents my (rookie) experience with
 Scala, being complete yack shaving on my part, or you could call it
 the intellectual masturbation of a fool.
 
+UPDATE: as if the article wasn't long enough, I've added to it some
+more stuff :-)
+
 ## 1. Functional Programming for the Win
 
 It's not a silver bullet, but on the whole it's awesome. You really
@@ -397,7 +400,66 @@ Hacker News thread of that article, the author tries to accomplish
 something that's not possible in most languages out there, while a
 solution is still possible in Scala (albeit with small limitations).
 
-## 7. Scala versus Haskell
+## 7. Are OOP Features Getting in the Way?
+
+I happen to disagree and I actually love the blend of OOP with
+functional features. Martin Odersky claims that OOP is orthogonal to
+functional programming. But if you pay attention, you'll notice it's
+not only orthogonal, but complementary in an elegant way.
+
+I'm indicating below instances where I think OOP helps, but as a clear
+example of what the combination can do, consider Scala's
+[Set](http://www.scala-lang.org/api/current/scala/collection/immutable/Set.html). A
+`Set[T]` can be viewed as a function that takes a parameter of type T
+and returns either True if the value is in the Set, or False
+otherwise. This means you can do this:
+
+{% highlight scala %}
+val primaryColors = Set("red", "green", "blue")
+
+val colors = List("red", "purple", "yellow", "vanilla", "white", "black", "blue")
+
+colors.filter(primaryColors)
+{% endhighlight %}
+
+This is possible because our set is in fact a subtype of
+`Function1[Int, Boolean]`, so you can pass it to any higher-order
+function that expects that signature.
+
+But the similarity goes deeper than simple resemblance and syntactic
+sugar. If you remember from school, mathematical Sets can be perfectly
+described by what is called a
+[characteristic function](http://en.wikipedia.org/wiki/Indicator_function),
+so Sets are interchangeable with functions in mathematics.
+
+In mathematics operations on Sets like *unions*, *intersections*,
+*complements*, *Cartesian products* and so on can be perfectly
+described (or replaced) with operations on functions and that's
+exactly what
+[boolean algebra](http://en.wikipedia.org/wiki/Boolean_algebra) is
+about.
+
+And I don't know how Haskell handles this for `Data.Set`, or if it
+handles it at all, but OOP subtyping seems like the easiest way to
+model something like this in a static language ...
+
+* for one, the hierarchy is simple to understand, simple to model -
+  you just inherit from `Function1[-T, +R]` - done
+* downcasting to a function is something OOP simply does - you just
+  pass your object to something that expects a function - done
+* functions are *contravariant* in their parameters and *covariant* in
+  their parameter type - this is not something easily done without OOP
+  and without the language being completely dynamic - a Set is a bad
+  example, as Sets in Scala are invariant, however you can probably
+  think of useful usecases for where you'd want this for your own
+  types that behave as functions
+
+This is just a small and insignificant example of course, like most
+examples I'm giving here, but to me properly done OOP (where every
+type is modeled with classes and every value is some kind of object)
+just feels right.
+
+## 8. Scala versus Haskell
 
 Scala's static type-system is sometimes less expressive than that of
 Haskell. In particular Haskell supports
@@ -449,7 +511,7 @@ in Haskell is not for mortals. Scala is more predictable, being strict
 and lazy when needed. It also has at its disposal the awesome JVM
 ecosystem for profiling and monitoring.
 
-## 8. Scala versus F# / Ocaml
+## 9. Scala versus F# / Ocaml
 
 F# is good if you want to use C# 2020. But F# has rough edges
 inherited from Ocaml, while it has not inherited all the benefits. F#
@@ -604,7 +666,7 @@ issues that Scala does really well. Ocaml is great, however I
 personally find it limiting and awkward at the edges of the 2 type
 systems it contains. 
 
-## 9. Static-type versus Dynamic-type Systems
+## 10. Static-type versus Dynamic-type Systems
 
 Static versus dynamic is what polarizes developers most in separate
 camps. It's like a never-ending flamewar, with healthy dosages of
@@ -664,7 +726,7 @@ multi-methods and protocols and macros, is a dynamic language that's
 more expressive than most other languages, including dynamic ones,
 especially the mainstream, like Python, Ruby, Perl, Javascript or PHP.
 
-## 10. Performance
+## 11. Performance
 
 I don't have any experience or proof on this, just personal feelings :-)
 
@@ -698,7 +760,7 @@ consider:
   of Android, as Android does not have a JVM - but even there, Scala
   is workable (or so I've heard)
 
-## 11. Tools of the Trade
+## 12. Tools of the Trade
 
 I have a love/hate relationship with SBT, the defacto builds manager
 for Scala, the replacement for Maven, the slayer of XML files.
@@ -753,7 +815,7 @@ With Scala you can use all the profiling and monitoring tools and
 classpath reloading tricks that you can use with Java. Nothing's
 stopping you, as every tool meant for the JVM also works with Scala.
 
-## 12. Concurrency and Parallelism
+## 13. Concurrency and Parallelism
 
 It's enough to say that Scala doesn't restrict you in any way:
 
@@ -776,7 +838,7 @@ Basically Scala has it all. This may seem like a curse, but what other
 languages define as built-in / hard to change / hard to evolve
 features, Scala defines as libraries. So there are definitely upsides ;-)
 
-## 13. Learning Resources
+## 14. Learning Resources
 
 I've found the following to be good resources for learning Scala (note
 that Amazon links have my affiliate tag, but if you want the eBook
