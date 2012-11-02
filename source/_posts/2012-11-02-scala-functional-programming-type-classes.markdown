@@ -708,16 +708,39 @@ case class Pair[+T](head: T, tail: List[T]) extends List[T] {
   override val length = 1 + tail.length
 }
 
-final case object Nil extends List[Nothing] {
+case object Nil extends List[Nothing] {
   override val length = 0
 }
 {% endhighlight %}
 
-Now, isn't that nice? It works for lazy lists too. You just have to
-make the `length()` definition on `Pair` a `lazy val` and presto. And
-you didn't have to make choices for the internal representation of
-Lists, picking the design that makes sense for the operation in
-question.
+Now, isn't that nice? Now what would it take to turn this into a lazy
+list?
+
+{% highlight scala %}
+case class Pair[+T](head: T, tail: () => List[T]) extends List[T] {
+  override lazy val length = 1 + tail().length
+}
+{% endhighlight %}
+
+You can see how `length` hasn't changed for either `List[T]` or for
+`Nil`, just for `Pair`, which makes it a good candidate for OOP.
+
+So why not model this with OOP in Ocaml? Because for algebraic
+data-types, the compiler helps you, like this:
+
+{% highlight scala %}
+def sum(list: List[Int]): Int = list match { 
+   case Pair(head, tail) => head + sum(tail) 
+   //-> oops, infinite loop
+}
+
+//-> output from the compiler ...
+warning: match is not exhaustive!
+missing combination            Nil
+
+       def sum(list: List[Int]): Int = list match {
+	                                   ^
+{% endhighlight %}
 
 Did I mention Scala also has structural typing if you want it? Yes it
 can (albeit, without the awesome type-inferencing that Ocaml is
