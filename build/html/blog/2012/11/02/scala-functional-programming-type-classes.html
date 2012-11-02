@@ -831,9 +831,8 @@ list?</p>
 
 
 <p>You can see how <code>length</code> hasn't changed for either <code>List[T]</code> or for
-<code>Nil</code>, just for <code>Pair</code>, which makes it a good candidate for OOP.</p>
-
-<p>So why not model this with OOP in Ocaml? Because for algebraic
+<code>Nil</code>, just for <code>Pair</code>, which makes it a good candidate for OOP. So
+why not model this with OOP in Ocaml? Because for algebraic
 data-types, the compiler helps you, like this:</p>
 
 <div class="highlight"><pre><code class="scala"><span class="k">def</span> <span class="n">sum</span><span class="o">(</span><span class="n">list</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">list</span> <span class="k">match</span> <span class="o">{</span> 

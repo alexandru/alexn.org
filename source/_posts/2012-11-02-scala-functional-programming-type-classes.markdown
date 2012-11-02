@@ -723,9 +723,8 @@ case class Pair[+T](head: T, tail: () => List[T]) extends List[T] {
 {% endhighlight %}
 
 You can see how `length` hasn't changed for either `List[T]` or for
-`Nil`, just for `Pair`, which makes it a good candidate for OOP.
-
-So why not model this with OOP in Ocaml? Because for algebraic
+`Nil`, just for `Pair`, which makes it a good candidate for OOP. So
+why not model this with OOP in Ocaml? Because for algebraic
 data-types, the compiler helps you, like this:
 
 {% highlight scala %}
