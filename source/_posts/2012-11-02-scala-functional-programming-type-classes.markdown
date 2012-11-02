@@ -822,7 +822,7 @@ available from the
 
 <a href="http://www.amazon.com/gp/product/1935182706/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=1935182706&linkCode=as2&tag=bionicspirit-20"><img class="left" border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=1935182706&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=bionicspirit-20" ></a>
 <a href="http://www.amazon.com/gp/product/1935182706/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=1935182706&linkCode=as2&tag=bionicspirit-20"><b>Scala in Depth</b></a>
-Joshua Suereth D. - this is an advanced book on Scala, with many
+by Joshua Suereth D. - this is an advanced book on Scala, with many
 insights into how functional idioms work in it. I've yet to finish
 reading, as it's not really an easy lecture. But it's a good book. Get
 the eBook straight from [Manning](http://www.manning.com/suereth/).
