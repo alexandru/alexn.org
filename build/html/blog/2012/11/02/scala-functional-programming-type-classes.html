@@ -314,6 +314,55 @@ is difficult to do, even in Haskell, because sub-typing is involved,
 although doing it in Clojure is easy because you simply do not care
 about the returned types.</p>
 
+<p><strong>NOTE: the above code is not bullet-proof, as conflicts can happen</strong></p>
+
+<p>Say in addition to a CanFold[Traversable,_] you also define something
+for Sets (which are also traversable) ...</p>
+
+<div class="highlight"><pre><code class="scala"><span class="k">implicit</span> <span class="k">def</span> <span class="nc">CanFoldSets</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">CanFold</span><span class="o">[</span><span class="kt">Set</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span>, <span class="kt">Set</span><span class="o">[</span><span class="kt">A</span><span class="o">]]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">sum</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Set</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span> <span class="n">y</span><span class="k">:</span> <span class="kt">Set</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span> <span class="k">=</span> <span class="n">x</span> <span class="o">++</span> <span class="n">y</span>
+  <span class="k">def</span> <span class="n">zero</span> <span class="k">=</span> <span class="nc">Set</span><span class="o">.</span><span class="n">empty</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span>
+<span class="o">}</span>
+
+<span class="n">sum</span><span class="o">(</span><span class="nc">Set</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">)</span> <span class="o">::</span> <span class="nc">Set</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span><span class="mi">4</span><span class="o">)</span> <span class="o">::</span> <span class="nc">Nil</span><span class="o">)</span>
+</code></pre>
+</div>
+
+
+<p>This will generate a conflict error and I'm still looking for a
+solution that makes the compiler use the most specific type it can
+find, while still keeping that nice contra-variance we've got going
+(hey, I'm just getting started). The error message looks like this:</p>
+
+<div class="highlight"><pre><code class="sh">both method CanFoldSeqs in object ...
+and method CanFoldSets in object ...
+match expected <span class="nb">type </span>CanFold<span class="o">[</span>Set<span class="o">[</span>Int<span class="o">]</span>, B<span class="o">]</span>
+</code></pre>
+</div>
+
+
+<p>That's not bad at all as far as error messages go. For now, you just
+avoid being too general and in case you want to override the default
+behavior in the current scope, you can shadow the conflicting
+definitions:</p>
+
+<div class="highlight"><pre><code class="scala"><span class="o">{</span> 
+  <span class="c1">// shadowing the more general definition </span>
+  <span class="c1">// (notice the block, representing its own scope, </span>
+  <span class="c1">//  so shadowing is local)</span>
+  <span class="k">def</span> <span class="nc">CanFoldSeqs</span> <span class="k">=</span> <span class="kc">null</span>
+
+  <span class="c1">// this now works</span>
+  <span class="n">sum</span><span class="o">(</span><span class="nc">Set</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">)</span> <span class="o">::</span> <span class="nc">Set</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span><span class="mi">4</span><span class="o">)</span> <span class="o">::</span> <span class="nc">Nil</span><span class="o">)</span>
+  <span class="c1">//=&gt; Set[Int] = Set(1, 2, 3, 4)</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+
+<p>In essence, this is heavy stuff already. Good design can make for
+kick-ass libraries though.</p>
+
 <h2>5. Scala's Collections Library is Awesome</h2>
 
 <p>So what does the above buy you anyway? The following are some examples

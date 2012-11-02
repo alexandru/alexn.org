@@ -236,6 +236,52 @@ is difficult to do, even in Haskell, because sub-typing is involved,
 although doing it in Clojure is easy because you simply do not care
 about the returned types.
 
+**NOTE: the above code is not bullet-proof, as conflicts can happen**
+
+Say in addition to a CanFold[Traversable,_] you also define something
+for Sets (which are also traversable) ...
+
+{% highlight scala %}
+implicit def CanFoldSets[A] = new CanFold[Set[A], Set[A]] {
+  def sum(x: Set[A], y: Set[A]) = x ++ y
+  def zero = Set.empty[A]
+}
+
+sum(Set(1,2) :: Set(3,4) :: Nil)
+{% endhighlight %}
+
+This will generate a conflict error and I'm still looking for a
+solution that makes the compiler use the most specific type it can
+find, while still keeping that nice contra-variance we've got going
+(hey, I'm just getting started). The error message looks like this:
+
+{% highlight sh %}
+both method CanFoldSeqs in object ...
+and method CanFoldSets in object ...
+match expected type CanFold[Set[Int], B]
+{% endhighlight %}
+
+That's not bad at all as far as error messages go. For now, you just
+avoid being too general and in case you want to override the default
+behavior in the current scope, you can shadow the conflicting
+definitions:
+
+{% highlight scala %}
+{ 
+  // shadowing the more general definition 
+  // (notice the block, representing its own scope, 
+  //  so shadowing is local)
+  def CanFoldSeqs = null
+
+  // this now works
+  sum(Set(1,2) :: Set(3,4) :: Nil)
+  //=> Set[Int] = Set(1, 2, 3, 4)
+}
+{% endhighlight %}
+
+In essence, this is heavy stuff already. Good design can make for
+kick-ass libraries though.
+
 ## 5. Scala's Collections Library is Awesome
 
 So what does the above buy you anyway? The following are some examples
