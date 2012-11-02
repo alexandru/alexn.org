@@ -4,7 +4,7 @@
  <title>Bionic Spirit</title>
  <link href="http://bionicspirit.com/rss" rel="self"/>
  <link href="http://bionicspirit.com/" />
- <updated>2012-11-02T03:29:44+02:00</updated>
+ <updated>2012-11-02T10:51:50+02:00</updated>
 
  <author>
    <name>Bionic Spirit</name>
@@ -358,9 +358,9 @@ strings. How is this possible, you may ask?&lt;/p&gt;
 
 &lt;p&gt;The answer is in the
 &lt;a href=&quot;http://www.scala-lang.org/api/current/scala/collection/generic/CanBuildFrom.html&quot;&gt;CanBuildFrom&lt;/a&gt;
-pattern. The signature of &lt;code&gt;map()&lt;/code&gt; used above is this one:&lt;/p&gt;
+pattern. The signature of &lt;code&gt;map()&lt;/code&gt; used above is a bit of a mouthful:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;B&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;That&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;](&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;B&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;implicit&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bf&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;CanBuildFrom&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;BitSet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;B&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;That&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;That&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;B&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;That&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;](&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;B&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;implicit&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bf&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;CanBuildFrom&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;BitSet&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;B&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;That&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;That&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -368,16 +368,41 @@ pattern. The signature of &lt;code&gt;map()&lt;/code&gt; used above is this one:
 &lt;p&gt;So, similar to my example with &lt;code&gt;CanFold&lt;/code&gt;:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;the compiler takes types A and B from the mapping function &lt;code&gt;f: (A) =&amp;gt; B&lt;/code&gt; that's provided as an argument&lt;/li&gt;
-&lt;li&gt;searches for an implicit in scope of type &lt;code&gt;CanBuildFrom[A, B, _]&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;the return type is established as the third type parameter of the implicit param that is used&lt;/li&gt;
+&lt;li&gt;the compiler takes type B from the mapping function &lt;code&gt;f: (Int) =&amp;gt; B&lt;/code&gt; that's provided as an argument&lt;/li&gt;
+&lt;li&gt;searches for an implicit in scope of type &lt;code&gt;CanBuildFrom[BitSet, B, _]&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;the return type is established as the third type parameter of the implicit that is used&lt;/li&gt;
 &lt;li&gt;the actual building of the result is externalized; the BitSet does
 not need to know how to build Sets of Strings&lt;/li&gt;
 &lt;/ul&gt;
 
 
-&lt;p&gt;What's great is that the provided implicits for &lt;code&gt;CanBuildFrom&lt;/code&gt; can be
-overridden by your own implementations. You can also provide
+&lt;p&gt;So basically, if you define your own types like so:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;People&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Traversable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Person&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* yada yada... */&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Person&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Then if you want the mapping (or flatMapping) of a BitSet to return a
+&lt;code&gt;People&lt;/code&gt; collection in case the function returns &lt;code&gt;Person&lt;/code&gt;, then you
+have to implement an implicit object of this type:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;nc&quot;&gt;CanBuildFrom&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;BitSet&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;Person&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;People&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;And then this will work:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;nc&quot;&gt;BitSet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Person&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//=&amp;gt; People = People(Person(1), Person(2), Person(3), Person(4))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;So what's great is that the provided implicits for &lt;code&gt;CanBuildFrom&lt;/code&gt; can
+be overridden by your own implementations and you can provide
 CanBuildFrom implementations for your own types, etc...&lt;/p&gt;
 
 &lt;p&gt;(as a side note, Clojure cannot do conversions based on the given
@@ -466,6 +491,14 @@ expected to be of type &lt;code&gt;List&lt;/code&gt; and the &lt;code&gt;Maybe&l
 collection of either 0 or 1 elements. As a consequence, because of
 good design decisions, the monadic types defined in Scala's collection
 library are more composable.&lt;/p&gt;
+
+&lt;p&gt;EDIT: this example is simple and shallow. As pointed out in the
+comments, it's easy to make the conversion by yourself, however I'm
+talking about the design choices of Scala's library and the
+awesomeness of implicits. As a result, the standard monadic types
+provided by Scala (all collections, Futures, Promises, everything that
+has a filter/map/flatMap, etc...) are inherently more composable and
+friendlier.&lt;/p&gt;
 
 &lt;p&gt;It's also worth pointing out that Scala's collections library is so
 awesome precisely because OOP plays a part and there are cases where

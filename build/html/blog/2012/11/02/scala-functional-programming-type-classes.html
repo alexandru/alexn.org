@@ -379,9 +379,9 @@ strings. How is this possible, you may ask?</p>
 
 <p>The answer is in the
 <a href="http://www.scala-lang.org/api/current/scala/collection/generic/CanBuildFrom.html">CanBuildFrom</a>
-pattern. The signature of <code>map()</code> used above is this one:</p>
+pattern. The signature of <code>map()</code> used above is a bit of a mouthful:</p>
 
-<div class="highlight"><pre><code class="scala"><span class="k">def</span> <span class="n">map</span><span class="o">[</span><span class="kt">B</span>, <span class="kt">That</span><span class="o">](</span><span class="n">f</span><span class="k">:</span> <span class="o">(</span><span class="kt">A</span><span class="o">)</span> <span class="o">=&gt;</span> <span class="n">B</span><span class="o">)(</span><span class="k">implicit</span> <span class="n">bf</span><span class="k">:</span> <span class="kt">CanBuildFrom</span><span class="o">[</span><span class="kt">BitSet</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span>, <span class="kt">B</span>, <span class="kt">That</span><span class="o">])</span><span class="k">:</span> <span class="kt">That</span>
+<div class="highlight"><pre><code class="scala"><span class="k">def</span> <span class="n">map</span><span class="o">[</span><span class="kt">B</span>, <span class="kt">That</span><span class="o">](</span><span class="n">f</span><span class="k">:</span> <span class="o">(</span><span class="kt">Int</span><span class="o">)</span> <span class="o">=&gt;</span> <span class="n">B</span><span class="o">)(</span><span class="k">implicit</span> <span class="n">bf</span><span class="k">:</span> <span class="kt">CanBuildFrom</span><span class="o">[</span><span class="kt">BitSet</span>, <span class="kt">B</span>, <span class="kt">That</span><span class="o">])</span><span class="k">:</span> <span class="kt">That</span>
 </code></pre>
 </div>
 
@@ -389,16 +389,41 @@ pattern. The signature of <code>map()</code> used above is this one:</p>
 <p>So, similar to my example with <code>CanFold</code>:</p>
 
 <ul>
-<li>the compiler takes types A and B from the mapping function <code>f: (A) =&gt; B</code> that's provided as an argument</li>
-<li>searches for an implicit in scope of type <code>CanBuildFrom[A, B, _]</code></li>
-<li>the return type is established as the third type parameter of the implicit param that is used</li>
+<li>the compiler takes type B from the mapping function <code>f: (Int) =&gt; B</code> that's provided as an argument</li>
+<li>searches for an implicit in scope of type <code>CanBuildFrom[BitSet, B, _]</code></li>
+<li>the return type is established as the third type parameter of the implicit that is used</li>
 <li>the actual building of the result is externalized; the BitSet does
 not need to know how to build Sets of Strings</li>
 </ul>
 
 
-<p>What's great is that the provided implicits for <code>CanBuildFrom</code> can be
-overridden by your own implementations. You can also provide
+<p>So basically, if you define your own types like so:</p>
+
+<div class="highlight"><pre><code class="scala"><span class="k">class</span> <span class="nc">People</span> <span class="k">extends</span> <span class="nc">Traversable</span><span class="o">[</span><span class="kt">Person</span><span class="o">]</span> <span class="o">{</span> <span class="cm">/* yada yada... */</span> <span class="o">}</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">Person</span><span class="o">(</span><span class="n">id</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span>
+</code></pre>
+</div>
+
+
+<p>Then if you want the mapping (or flatMapping) of a BitSet to return a
+<code>People</code> collection in case the function returns <code>Person</code>, then you
+have to implement an implicit object of this type:</p>
+
+<div class="highlight"><pre><code class="scala"><span class="nc">CanBuildFrom</span><span class="o">[</span><span class="kt">BitSet</span>, <span class="kt">Person</span>, <span class="kt">People</span><span class="o">]</span>
+</code></pre>
+</div>
+
+
+<p>And then this will work:</p>
+
+<div class="highlight"><pre><code class="scala"><span class="nc">BitSet</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">3</span><span class="o">,</span><span class="mi">4</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="n">x</span> <span class="k">=&gt;</span> <span class="nc">Person</span><span class="o">(</span><span class="n">x</span><span class="o">))</span>
+<span class="c1">//=&gt; People = People(Person(1), Person(2), Person(3), Person(4))</span>
+</code></pre>
+</div>
+
+
+<p>So what's great is that the provided implicits for <code>CanBuildFrom</code> can
+be overridden by your own implementations and you can provide
 CanBuildFrom implementations for your own types, etc...</p>
 
 <p>(as a side note, Clojure cannot do conversions based on the given
@@ -487,6 +512,14 @@ expected to be of type <code>List</code> and the <code>Maybe</code> type (the eq
 collection of either 0 or 1 elements. As a consequence, because of
 good design decisions, the monadic types defined in Scala's collection
 library are more composable.</p>
+
+<p>EDIT: this example is simple and shallow. As pointed out in the
+comments, it's easy to make the conversion by yourself, however I'm
+talking about the design choices of Scala's library and the
+awesomeness of implicits. As a result, the standard monadic types
+provided by Scala (all collections, Futures, Promises, everything that
+has a filter/map/flatMap, etc...) are inherently more composable and
+friendlier.</p>
 
 <p>It's also worth pointing out that Scala's collections library is so
 awesome precisely because OOP plays a part and there are cases where
