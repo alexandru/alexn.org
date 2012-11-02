@@ -837,7 +837,7 @@ data-types, the compiler helps you, like this:</p>
 
 <div class="highlight"><pre><code class="scala"><span class="k">def</span> <span class="n">sum</span><span class="o">(</span><span class="n">list</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">list</span> <span class="k">match</span> <span class="o">{</span> 
    <span class="k">case</span> <span class="nc">Pair</span><span class="o">(</span><span class="n">head</span><span class="o">,</span> <span class="n">tail</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">head</span> <span class="o">+</span> <span class="n">sum</span><span class="o">(</span><span class="n">tail</span><span class="o">)</span> 
-   <span class="c1">//-&gt; oops, infinite loop</span>
+   <span class="c1">//-&gt; oops, no termination</span>
 <span class="o">}</span>
 
 <span class="c1">//-&gt; output from the compiler ...</span>
