@@ -4,7 +4,7 @@
  <title>Bionic Spirit</title>
  <link href="http://bionicspirit.com/rss" rel="self"/>
  <link href="http://bionicspirit.com/" />
- <updated>2012-11-02T15:05:35+02:00</updated>
+ <updated>2012-11-02T15:30:33+02:00</updated>
 
  <author>
    <name>Bionic Spirit</name>
@@ -569,7 +569,7 @@ otherwise. This means you can do this:&lt;/p&gt;
 
 
 &lt;p&gt;This is possible because our set is in fact a subtype of
-&lt;code&gt;Function1[Int, Boolean]&lt;/code&gt;, so you can pass it to any higher-order
+&lt;code&gt;Function1[String, Boolean]&lt;/code&gt;, so you can pass it to any higher-order
 function that expects that signature.&lt;/p&gt;
 
 &lt;p&gt;But the similarity goes deeper than simple resemblance and syntactic

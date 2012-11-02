@@ -492,7 +492,7 @@ colors.filter(primaryColors)
 {% endhighlight %}
 
 This is possible because our set is in fact a subtype of
-`Function1[Int, Boolean]`, so you can pass it to any higher-order
+`Function1[String, Boolean]`, so you can pass it to any higher-order
 function that expects that signature.
 
 But the similarity goes deeper than simple resemblance and syntactic
