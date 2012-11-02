@@ -925,11 +925,10 @@ It's enough to say that Scala doesn't restrict you in any way:
   are properly implemented as monadic types
 * [Software transactional memory](http://nbronson.github.com/scala-stm/), as in Clojure
 * [Parallel collections](http://docs.scala-lang.org/overviews/parallel-collections/overview.html)
-* [Async/await](http://doc.akka.io/docs/akka/snapshot/scala/dataflow.html)
-  as in C#, though it requires a compiler plugin  
+* [Async/await as in C#](http://doc.akka.io/docs/akka/snapshot/scala/dataflow.html), though it requires a compiler plugin  
 * The awesome Java NIO, along with Netty, Mina and the whole ecosystem
   for async I/O (you don't know what pleasure feels like until you
-  wrap [Async-Http-Client](https://github.com/ning/async-http-client)
+  wrap [Async-Http-Client](https://github.com/AsyncHttpClient/async-http-client)
   in Akka Promises which you can combine in for-comprehensions)
 
 Basically Scala has it all. This may seem like a curse, but what other
