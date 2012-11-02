@@ -4,7 +4,7 @@
  <title>Bionic Spirit</title>
  <link href="http://bionicspirit.com/rss" rel="self"/>
  <link href="http://bionicspirit.com/" />
- <updated>2012-11-02T15:31:11+02:00</updated>
+ <updated>2012-11-02T15:40:36+02:00</updated>
 
  <author>
    <name>Bionic Spirit</name>
@@ -579,11 +579,13 @@ described by what is called a
 so Sets are interchangeable with functions in mathematics.&lt;/p&gt;
 
 &lt;p&gt;This means operations on Sets like &lt;em&gt;unions&lt;/em&gt;, &lt;em&gt;intersections&lt;/em&gt;,
-&lt;em&gt;complements&lt;/em&gt;, &lt;em&gt;Cartesian products&lt;/em&gt; and so on can be perfectly
-described (or replaced) with operations on functions and that's
-exactly what
+&lt;em&gt;complements&lt;/em&gt;, &lt;em&gt;Cartesian products&lt;/em&gt; and so on can be replaced with
+operations on functions and that's exactly what
 &lt;a href=&quot;http://en.wikipedia.org/wiki/Boolean_algebra&quot;&gt;boolean algebra&lt;/a&gt; is
-about.&lt;/p&gt;
+about. In mathematical terms, these mathematical structures (sets and
+functions that take an argument and return 0/1) are equivalent
+(indistinguishable) because there exists an isomorphism between them,
+savvy? :-)&lt;/p&gt;
 
 &lt;p&gt;And I don't know how Haskell handles this for &lt;code&gt;Data.Set&lt;/code&gt;, or if it
 handles it at all, but OOP subtyping seems like the easiest way to
@@ -607,7 +609,10 @@ behave as functions&lt;/li&gt;
 &lt;p&gt;This is just a small and insignificant example of course, like most
 examples I'm giving here, but to me properly done OOP (where every
 type is modeled with classes and every value is some kind of object)
-just feels right.&lt;/p&gt;
+just feels right ... I like the notion of &quot;&lt;em&gt;turtles all the way
+down&lt;/em&gt;&quot;, even if you could probably point to things that aren't
+&quot;turtles&quot;, but this also happens in languages that are the epitome of
+kick-ass turtles-recursion, like Scheme or Smalltalk.&lt;/p&gt;
 
 &lt;h2&gt;8. Scala versus Haskell&lt;/h2&gt;
 
