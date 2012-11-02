@@ -762,7 +762,7 @@ def using[A, B <: Closeable](closable: B)(f: B => A): A =
 This comparisson isn't really fair btw, because I've been fixating on
 issues that Scala does really well. Ocaml is great, however I
 personally find it limiting and awkward at the edges of the 2 type
-systems it contains. 
+systems it contains. Or maybe I'm just a spoiled brat.
 
 ## 10. Static-type versus Dynamic-type Systems
 
