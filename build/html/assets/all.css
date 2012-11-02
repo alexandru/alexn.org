@@ -184,6 +184,10 @@ body #main {
     float: right;
     margin-left: 10px;
     margin-bottom: 10px; }
+  body #main img.left, body #main img.frame-left {
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px; }
   body #main img.center, body #main img.frame-center {
     display: block;
     margin: auto; }
