@@ -923,12 +923,12 @@ It's enough to say that Scala doesn't restrict you in any way:
   are properly implemented as monadic types
 * [Software transactional memory](http://nbronson.github.com/scala-stm/), as in Clojure
 * [Parallel collections](http://docs.scala-lang.org/overviews/parallel-collections/overview.html)
-* The awesome Java NIO, along with Netty, Mina and an entire ecosystem
-  built around these libraries for async I/O (you don't know what
-  pleasure feels like until you wrap Async-Http-Client in Akka
-  Promises handled by an Akka Actor, then use responses in
-  for-comprehensions)
-* You can even do async/await as in C#, but it requires a compiler plugin
+* [Async/await](http://doc.akka.io/docs/akka/snapshot/scala/dataflow.html)
+  as in C#, though it requires a compiler plugin
+* The awesome Java NIO, along with Netty, Mina and the whole ecosystem
+  for async I/O (you don't know what pleasure feels like until you
+  wrap Async-Http-Client in Akka Promises handled by an Akka Actor,
+  then combine future responses in for-comprehensions)
 
 Basically Scala has it all. This may seem like a curse, but what other
 languages define as built-in / hard to change / hard to evolve
