@@ -496,7 +496,7 @@ This is possible because our set is in fact a subtype of
 function that expects that signature.
 
 But the similarity goes deeper than simple resemblance and syntactic
-sugar. If you remember from school, mathematical Sets can be perfectly
+sugar. If you remember from school, a mathematical Set can be perfectly
 described by what is called a
 [characteristic function](http://en.wikipedia.org/wiki/Indicator_function),
 so Sets are interchangeable with functions in mathematics.
