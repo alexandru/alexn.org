@@ -669,13 +669,15 @@ In Ocaml:
 type 'a my_list = Nil | List of 'a * 'a my_list
 {% endhighlight %}
 
-Elegant and simple. And in Scala:
+Extremely elegant and simple. And in Scala:
 
 {% highlight scala %}
 sealed abstract class List[+T]
 case class Pair[+t](head: T, tail: List[T]) extends List[T]
 case object Nil extends List[Nothing]
 {% endhighlight %}
+
+What a mouthful.
 
 One difference should immediately be noticeable, our `List` has
 covariant behavior, meaning that a `List[String]` is also a

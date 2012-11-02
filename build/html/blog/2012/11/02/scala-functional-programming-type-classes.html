@@ -773,7 +773,7 @@ tail, right?</p>
 </div>
 
 
-<p>Elegant and simple. And in Scala:</p>
+<p>Extremely elegant and simple. And in Scala:</p>
 
 <div class="highlight"><pre><code class="scala"><span class="k">sealed</span> <span class="k">abstract</span> <span class="k">class</span> <span class="nc">List</span><span class="o">[</span><span class="kt">+T</span><span class="o">]</span>
 <span class="nc">case</span> <span class="k">class</span> <span class="nc">Pair</span><span class="o">[</span><span class="kt">+t</span><span class="o">](</span><span class="n">head</span><span class="k">:</span> <span class="kt">T</span><span class="o">,</span> <span class="n">tail</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">T</span><span class="o">])</span> <span class="k">extends</span> <span class="nc">List</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span>
@@ -781,6 +781,8 @@ tail, right?</p>
 </code></pre>
 </div>
 
+
+<p>What a mouthful.</p>
 
 <p>One difference should immediately be noticeable, our <code>List</code> has
 covariant behavior, meaning that a <code>List[String]</code> is also a
