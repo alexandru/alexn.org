@@ -4,7 +4,7 @@
  <title>Bionic Spirit</title>
  <link href="http://bionicspirit.com/rss" rel="self"/>
  <link href="http://bionicspirit.com/" />
- <updated>2012-11-02T18:14:42+02:00</updated>
+ <updated>2012-11-02T18:23:01+02:00</updated>
 
  <author>
    <name>Bionic Spirit</name>
@@ -596,12 +596,12 @@ you just inherit from &lt;br /&gt; &lt;code&gt;Function1[-T, +R]&lt;/code&gt; - 
 &lt;li&gt;downcasting to a function is something OOP simply does - you just
 pass your object to something that expects a function - done&lt;/li&gt;
 &lt;li&gt;functions are &lt;em&gt;contravariant&lt;/em&gt; in their parameters and &lt;em&gt;covariant&lt;/em&gt; in
-their return type - this is not something easily done without OOP OR
-without the language being completely dynamic (such that
-co/contra-variance does not matter) - a Set is a bad example, as
-Sets in Scala are invariant, however you can probably think of
-useful usecases for where you'd want this for your own types that
-behave as functions&lt;/li&gt;
+their return type (in OOP at least) - this is not something easily
+done without OOP OR without the language being completely dynamic
+(such that co/contra-variance does not matter) - a Set is a bad
+example, as Sets in Scala are invariant, however you can probably
+think of useful usecases for where you'd want this for your own
+types that behave as functions&lt;/li&gt;
 &lt;/ul&gt;
 
 
