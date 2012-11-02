@@ -600,11 +600,13 @@ described by what is called a
 so Sets are interchangeable with functions in mathematics.</p>
 
 <p>This means operations on Sets like <em>unions</em>, <em>intersections</em>,
-<em>complements</em>, <em>Cartesian products</em> and so on can be perfectly
-described (or replaced) with operations on functions and that's
-exactly what
+<em>complements</em>, <em>Cartesian products</em> and so on can be replaced with
+operations on functions and that's exactly what
 <a href="http://en.wikipedia.org/wiki/Boolean_algebra">boolean algebra</a> is
-about.</p>
+about. In mathematical terms, these mathematical structures (sets and
+functions that take an argument and return 0/1) are equivalent
+(indistinguishable) because there exists an isomorphism between them,
+savvy? :-)</p>
 
 <p>And I don't know how Haskell handles this for <code>Data.Set</code>, or if it
 handles it at all, but OOP subtyping seems like the easiest way to
@@ -628,7 +630,10 @@ behave as functions</li>
 <p>This is just a small and insignificant example of course, like most
 examples I'm giving here, but to me properly done OOP (where every
 type is modeled with classes and every value is some kind of object)
-just feels right.</p>
+just feels right ... I like the notion of "<em>turtles all the way
+down</em>", even if you could probably point to things that aren't
+"turtles", but this also happens in languages that are the epitome of
+kick-ass turtles-recursion, like Scheme or Smalltalk.</p>
 
 <h2>8. Scala versus Haskell</h2>
 
