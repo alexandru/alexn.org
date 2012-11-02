@@ -4,7 +4,7 @@
  <title>Bionic Spirit</title>
  <link href="http://bionicspirit.com/rss" rel="self"/>
  <link href="http://bionicspirit.com/" />
- <updated>2012-11-02T19:04:52+02:00</updated>
+ <updated>2012-11-02T19:06:53+02:00</updated>
 
  <author>
    <name>Bionic Spirit</name>
@@ -1025,8 +1025,8 @@ are properly implemented as monadic types&lt;/li&gt;
 as in C#, though it requires a compiler plugin&lt;/li&gt;
 &lt;li&gt;The awesome Java NIO, along with Netty, Mina and the whole ecosystem
 for async I/O (you don't know what pleasure feels like until you
-wrap Async-Http-Client in Akka Promises handled by an Akka Actor,
-then combine future responses in for-comprehensions)&lt;/li&gt;
+wrap &lt;a href=&quot;https://github.com/ning/async-http-client&quot;&gt;Async-Http-Client&lt;/a&gt;
+in Akka Promises which you can combine in for-comprehensions)&lt;/li&gt;
 &lt;/ul&gt;
 
 
