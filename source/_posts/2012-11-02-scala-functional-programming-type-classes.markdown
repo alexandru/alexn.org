@@ -899,7 +899,7 @@ It's enough to say that Scala doesn't restrict you in any way:
 * [Futures and Promises](http://doc.akka.io/docs/akka/2.0.1/scala/futures.html),
   which in contrast to other languages (* cough * javascript / jquery * cough *) 
   are properly implemented as monadic types
-* [Software transaction memory](http://nbronson.github.com/scala-stm/), as in Clojure
+* [Software transactional memory](http://nbronson.github.com/scala-stm/), as in Clojure
 * [Parallel collections](http://docs.scala-lang.org/overviews/parallel-collections/overview.html)
 * The awesome Java NIO, along with Netty, Mina and an entire ecosystem
   built around these libraries for async I/O (you don't know what
