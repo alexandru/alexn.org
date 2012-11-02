@@ -432,7 +432,7 @@ described by what is called a
 [characteristic function](http://en.wikipedia.org/wiki/Indicator_function),
 so Sets are interchangeable with functions in mathematics.
 
-In mathematics operations on Sets like *unions*, *intersections*,
+This means operations on Sets like *unions*, *intersections*,
 *complements*, *Cartesian products* and so on can be perfectly
 described (or replaced) with operations on functions and that's
 exactly what
