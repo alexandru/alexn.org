@@ -295,22 +295,44 @@ strings. How is this possible, you may ask?
 
 The answer is in the
 [CanBuildFrom](http://www.scala-lang.org/api/current/scala/collection/generic/CanBuildFrom.html)
-pattern. The signature of `map()` used above is this one:
+pattern. The signature of `map()` used above is a bit of a mouthful:
 
 {% highlight scala %}
-def map[B, That](f: (A) => B)(implicit bf: CanBuildFrom[BitSet[A], B, That]): That
+def map[B, That](f: (Int) => B)(implicit bf: CanBuildFrom[BitSet, B, That]): That
 {% endhighlight %}
 
 So, similar to my example with `CanFold`:
 
-- the compiler takes types A and B from the mapping function `f: (A) => B` that's provided as an argument
-- searches for an implicit in scope of type `CanBuildFrom[A, B, _]`
-- the return type is established as the third type parameter of the implicit param that is used
+- the compiler takes type B from the mapping function `f: (Int) => B` that's provided as an argument
+- searches for an implicit in scope of type `CanBuildFrom[BitSet, B, _]`
+- the return type is established as the third type parameter of the implicit that is used
 - the actual building of the result is externalized; the BitSet does
   not need to know how to build Sets of Strings
 
-What's great is that the provided implicits for `CanBuildFrom` can be
-overridden by your own implementations. You can also provide
+So basically, if you define your own types like so:
+
+{% highlight scala %}
+class People extends Traversable[Person] { /* yada yada... */ }
+case class Person(id: Int)
+{% endhighlight %}
+
+Then if you want the mapping (or flatMapping) of a BitSet to return a
+`People` collection in case the function returns `Person`, then you
+have to implement an implicit object of this type:
+
+{% highlight scala %}
+CanBuildFrom[BitSet, Person, People]
+{% endhighlight %}
+
+And then this will work:
+
+{% highlight scala %}
+BitSet(1,2,3,4).map(x => Person(x))
+//=> People = People(Person(1), Person(2), Person(3), Person(4))
+{% endhighlight %}
+
+So what's great is that the provided implicits for `CanBuildFrom` can
+be overridden by your own implementations and you can provide
 CanBuildFrom implementations for your own types, etc...
 
 (as a side note, Clojure cannot do conversions based on the given
@@ -396,6 +418,14 @@ expected to be of type `List` and the `Maybe` type (the equivalent of
 collection of either 0 or 1 elements. As a consequence, because of
 good design decisions, the monadic types defined in Scala's collection
 library are more composable. 
+
+EDIT: this example is simple and shallow. As pointed out in the
+comments, it's easy to make the conversion by yourself, however I'm
+talking about the design choices of Scala's library and the
+awesomeness of implicits. As a result, the standard monadic types
+provided by Scala (all collections, Futures, Promises, everything that
+has a filter/map/flatMap, etc...) are inherently more composable and
+friendlier.
 
 It's also worth pointing out that Scala's collections library is so
 awesome precisely because OOP plays a part and there are cases where
