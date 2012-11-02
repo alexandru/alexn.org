@@ -368,7 +368,7 @@ sequentially:
 import math._
 
 def isPrime(n: Int) = {
-  val range = 2 to abs(sqrt(n)).toInt
+  val range = 2 to sqrt(abs(n)).toInt
   ! range.exists(x => n % x == 0)
 }
 {% endhighlight %}
@@ -378,7 +378,7 @@ calculate it by putting those extra cores at work:
 
 {% highlight scala %}
 def isPrime(n: Int) = {
-  val range = 2 to abs(sqrt(n)).toInt
+  val range = 2 to sqrt(abs(n)).toInt
   ! range.par.exists(x => n % x == 0)
 }
 {% endhighlight %}
