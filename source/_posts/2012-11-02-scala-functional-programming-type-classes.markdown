@@ -705,11 +705,11 @@ sealed abstract class List[+T] {
 }
 
 case class Pair[+T](head: T, tail: List[T]) extends List[T] {
-  override val length = 1 + tail.length
+  val length = 1 + tail.length
 }
 
 case object Nil extends List[Nothing] {
-  override val length = 0
+  val length = 0
 }
 {% endhighlight %}
 
@@ -718,7 +718,7 @@ list?
 
 {% highlight scala %}
 case class Pair[+T](head: T, tail: () => List[T]) extends List[T] {
-  override lazy val length = 1 + tail().length
+  lazy val length = 1 + tail().length
 }
 {% endhighlight %}
 
