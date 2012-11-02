@@ -20,8 +20,8 @@ what is worth this document represents my (rookie) experience with
 Scala, being complete yack shaving on my part, or you could call it
 the intellectual masturbation of a fool.
 
-UPDATE: as if the article wasn't long enough, I've added to it some
-more stuff :-)
+**UPDATE:** as if the article wasn't long enough, I've added to it some
+more stuff (like a couple of times :-)
 
 ## 1. Functional Programming for the Win
 
