@@ -279,7 +279,29 @@ definitions:
 }
 {% endhighlight %}
 
-In essence, this is heavy stuff already. Good design can make for
+Another solution that `CanBuildFrom` uses is to define implicits on
+multiple levels, such that some implicits take priority over others,
+likes so:
+
+{% highlight scala %}
+trait LowLevelImplicits {
+  implicit def CanFoldSeqs[A] = new CanFold[Traversable[A], Traversable[A]] {
+    def sum(x: Traversable[A], y: Traversable[A]) = x ++ y
+    def zero = Traversable()
+  }
+}
+
+object CanFold extends LowLevelImplicits {
+  // higher precedence over the above
+  implicit def CanFoldSets[A] = new CanFold[Set[A], Set[A]] {
+    def sum(x: Set[A], y: Set[A]) = x ++ y
+    def zero = Set.empty[A]
+  }
+}
+{% endhighlight %}
+
+And yeah, it will do the right thing. A little ugly though. In
+essence, this is heavy stuff already. Good design can make for
 kick-ass libraries though.
 
 ## 5. Scala's Collections Library is Awesome
