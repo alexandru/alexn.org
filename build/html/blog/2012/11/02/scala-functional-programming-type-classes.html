@@ -822,7 +822,7 @@ be there:</p>
 </div>
 
 
-<p>Now, isn't that nice? Now what would it take to turn this into a lazy
+<p>Now, isn't that nice? What would it take to turn this into a lazy
 list?</p>
 
 <div class="highlight"><pre><code class="scala"><span class="k">case</span> <span class="k">class</span> <span class="nc">Pair</span><span class="o">[</span><span class="kt">+T</span><span class="o">](</span><span class="n">head</span><span class="k">:</span> <span class="kt">T</span><span class="o">,</span> <span class="n">tail</span><span class="k">:</span> <span class="o">()</span> <span class="o">=&gt;</span> <span class="nc">List</span><span class="o">[</span><span class="kt">T</span><span class="o">])</span> <span class="k">extends</span> <span class="nc">List</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="o">{</span>

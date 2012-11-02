@@ -715,7 +715,7 @@ case object Nil extends List[Nothing] {
 }
 {% endhighlight %}
 
-Now, isn't that nice? Now what would it take to turn this into a lazy
+Now, isn't that nice? What would it take to turn this into a lazy
 list?
 
 {% highlight scala %}
