@@ -76,7 +76,7 @@ Yes it is. You only need to follow the excelent (I mentioned above)
 [Coursera course](https://www.coursera.org/course/progfun) and solve
 the assignments to realize that Scala is indeed a very functional
 language. The course was a little short, but a follow-up is
-planned. Now move along
+planned. Now move along ...
 
 ## 3. Polymorphism À la Carte
 
@@ -300,9 +300,10 @@ object CanFold extends LowLevelImplicits {
 }
 {% endhighlight %}
 
-And yeah, it will do the right thing. A little ugly though. In
-essence, this is heavy stuff already. Good design can make for
-kick-ass libraries though.
+And yeah, it will do the right thing. A little ugly though, as it
+means you have to have specific knowledge about how these implicits
+are prioritized. In essence, this is heavy stuff already and a little
+complex too. Good design can make for kick-ass libraries though.
 
 ## 5. Scala's Collections Library is Awesome
 
