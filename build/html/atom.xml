@@ -4,7 +4,7 @@
  <title>Bionic Spirit</title>
  <link href="http://bionicspirit.com/rss" rel="self"/>
  <link href="http://bionicspirit.com/" />
- <updated>2012-11-02T17:56:57+02:00</updated>
+ <updated>2012-11-02T17:58:01+02:00</updated>
 
  <author>
    <name>Bionic Spirit</name>
@@ -831,7 +831,7 @@ data-types, the compiler helps you, like this:&lt;/p&gt;
 
 &lt;p&gt;Did I mention Scala also has structural typing if you want it? Yes it
 can (albeit, without the awesome type-inferencing that Ocaml is
-capable of):&lt;/p&gt;
+capable of and it's mostly based on runtime reflection):&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;scala&quot;&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Closeable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Unit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 

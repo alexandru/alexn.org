@@ -743,7 +743,7 @@ missing combination            Nil
 
 Did I mention Scala also has structural typing if you want it? Yes it
 can (albeit, without the awesome type-inferencing that Ocaml is
-capable of):
+capable of and it's mostly based on runtime reflection):
 
 {% highlight scala %}
 type Closeable = { def close():Unit }
