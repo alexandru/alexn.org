@@ -458,7 +458,7 @@ sequentially:</p>
 <div class="highlight"><pre><code class="scala"><span class="k">import</span> <span class="nn">math._</span>
 
 <span class="k">def</span> <span class="n">isPrime</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
-  <span class="k">val</span> <span class="n">range</span> <span class="k">=</span> <span class="mi">2</span> <span class="n">to</span> <span class="n">abs</span><span class="o">(</span><span class="n">sqrt</span><span class="o">(</span><span class="n">n</span><span class="o">)).</span><span class="n">toInt</span>
+  <span class="k">val</span> <span class="n">range</span> <span class="k">=</span> <span class="mi">2</span> <span class="n">to</span> <span class="n">sqrt</span><span class="o">(</span><span class="n">abs</span><span class="o">(</span><span class="n">n</span><span class="o">)).</span><span class="n">toInt</span>
   <span class="o">!</span> <span class="n">range</span><span class="o">.</span><span class="n">exists</span><span class="o">(</span><span class="n">x</span> <span class="k">=&gt;</span> <span class="n">n</span> <span class="o">%</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
 <span class="o">}</span>
 </code></pre>
@@ -469,7 +469,7 @@ sequentially:</p>
 calculate it by putting those extra cores at work:</p>
 
 <div class="highlight"><pre><code class="scala"><span class="k">def</span> <span class="n">isPrime</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
-  <span class="k">val</span> <span class="n">range</span> <span class="k">=</span> <span class="mi">2</span> <span class="n">to</span> <span class="n">abs</span><span class="o">(</span><span class="n">sqrt</span><span class="o">(</span><span class="n">n</span><span class="o">)).</span><span class="n">toInt</span>
+  <span class="k">val</span> <span class="n">range</span> <span class="k">=</span> <span class="mi">2</span> <span class="n">to</span> <span class="n">sqrt</span><span class="o">(</span><span class="n">abs</span><span class="o">(</span><span class="n">n</span><span class="o">)).</span><span class="n">toInt</span>
   <span class="o">!</span> <span class="n">range</span><span class="o">.</span><span class="n">par</span><span class="o">.</span><span class="n">exists</span><span class="o">(</span><span class="n">x</span> <span class="k">=&gt;</span> <span class="n">n</span> <span class="o">%</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
 <span class="o">}</span>
 </code></pre>
