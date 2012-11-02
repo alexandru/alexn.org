@@ -187,9 +187,8 @@ parameter T *contravariant* in the `CanFold[-T,R]` definition. What
 contravariance means is precisely this:
 
 {% highlight scala %}
-if B inherits from A, as in B is a subtype of A (i.e. B <: A), then
-CanFold[A, _] is a subtype of CanFold[B, _] 
-(i.e. CanFold[A,_] <: CanFold[B,_])
+if B inherits from A (i.e. B <: A), then
+CanFold[A, _] inherits from CanFold[B, _] (i.e. CanFold[A,_] <: CanFold[B,_])
 {% endhighlight %}
 
 This allows us to define a CanFold for any Traversable and it will
