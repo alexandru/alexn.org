@@ -813,18 +813,43 @@ be there:</p>
   <span class="k">override</span> <span class="k">val</span> <span class="n">length</span> <span class="k">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">tail</span><span class="o">.</span><span class="n">length</span>
 <span class="o">}</span>
 
-<span class="k">final</span> <span class="k">case</span> <span class="k">object</span> <span class="nc">Nil</span> <span class="k">extends</span> <span class="nc">List</span><span class="o">[</span><span class="kt">Nothing</span><span class="o">]</span> <span class="o">{</span>
+<span class="k">case</span> <span class="k">object</span> <span class="nc">Nil</span> <span class="k">extends</span> <span class="nc">List</span><span class="o">[</span><span class="kt">Nothing</span><span class="o">]</span> <span class="o">{</span>
   <span class="k">override</span> <span class="k">val</span> <span class="n">length</span> <span class="k">=</span> <span class="mi">0</span>
 <span class="o">}</span>
 </code></pre>
 </div>
 
 
-<p>Now, isn't that nice? It works for lazy lists too. You just have to
-make the <code>length()</code> definition on <code>Pair</code> a <code>lazy val</code> and presto. And
-you didn't have to make choices for the internal representation of
-Lists, picking the design that makes sense for the operation in
-question.</p>
+<p>Now, isn't that nice? Now what would it take to turn this into a lazy
+list?</p>
+
+<div class="highlight"><pre><code class="scala"><span class="k">case</span> <span class="k">class</span> <span class="nc">Pair</span><span class="o">[</span><span class="kt">+T</span><span class="o">](</span><span class="n">head</span><span class="k">:</span> <span class="kt">T</span><span class="o">,</span> <span class="n">tail</span><span class="k">:</span> <span class="o">()</span> <span class="o">=&gt;</span> <span class="nc">List</span><span class="o">[</span><span class="kt">T</span><span class="o">])</span> <span class="k">extends</span> <span class="nc">List</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">override</span> <span class="k">lazy</span> <span class="k">val</span> <span class="n">length</span> <span class="k">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">tail</span><span class="o">().</span><span class="n">length</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+
+<p>You can see how <code>length</code> hasn't changed for either <code>List[T]</code> or for
+<code>Nil</code>, just for <code>Pair</code>, which makes it a good candidate for OOP.</p>
+
+<p>So why not model this with OOP in Ocaml? Because for algebraic
+data-types, the compiler helps you, like this:</p>
+
+<div class="highlight"><pre><code class="scala"><span class="k">def</span> <span class="n">sum</span><span class="o">(</span><span class="n">list</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">list</span> <span class="k">match</span> <span class="o">{</span> 
+   <span class="k">case</span> <span class="nc">Pair</span><span class="o">(</span><span class="n">head</span><span class="o">,</span> <span class="n">tail</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">head</span> <span class="o">+</span> <span class="n">sum</span><span class="o">(</span><span class="n">tail</span><span class="o">)</span> 
+   <span class="c1">//-&gt; oops, infinite loop</span>
+<span class="o">}</span>
+
+<span class="c1">//-&gt; output from the compiler ...</span>
+<span class="n">warning</span><span class="k">:</span> <span class="kt">match</span> <span class="kt">is</span> <span class="kt">not</span> <span class="kt">exhaustive!</span>
+<span class="n">missing</span> <span class="n">combination</span>            <span class="nc">Nil</span>
+
+       <span class="k">def</span> <span class="n">sum</span><span class="o">(</span><span class="n">list</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">list</span> <span class="k">match</span> <span class="o">{</span>
+                                       <span class="o">^</span>
+</code></pre>
+</div>
+
 
 <p>Did I mention Scala also has structural typing if you want it? Yes it
 can (albeit, without the awesome type-inferencing that Ocaml is
