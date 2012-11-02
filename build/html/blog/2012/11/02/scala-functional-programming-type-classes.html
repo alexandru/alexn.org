@@ -543,11 +543,12 @@ you just inherit from <code>Function1[-T, +R]</code> - done</li>
 <li>downcasting to a function is something OOP simply does - you just
 pass your object to something that expects a function - done</li>
 <li>functions are <em>contravariant</em> in their parameters and <em>covariant</em> in
-their parameter type - this is not something easily done without OOP
-and without the language being completely dynamic - a Set is a bad
-example, as Sets in Scala are invariant, however you can probably
-think of useful usecases for where you'd want this for your own
-types that behave as functions</li>
+their return type - this is not something easily done without OOP OR
+without the language being completely dynamic (such that
+co/contra-variance does not matter) - a Set is a bad example, as
+Sets in Scala are invariant, however you can probably think of
+useful usecases for where you'd want this for your own types that
+behave as functions</li>
 </ul>
 
 
