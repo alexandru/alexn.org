@@ -730,7 +730,7 @@ data-types, the compiler helps you, like this:
 {% highlight scala %}
 def sum(list: List[Int]): Int = list match { 
    case Pair(head, tail) => head + sum(tail) 
-   //-> oops, infinite loop
+   //-> oops, no termination
 }
 
 //-> output from the compiler ...
