@@ -4,7 +4,7 @@
  <title>Bionic Spirit</title>
  <link href="http://bionicspirit.com/rss" rel="self"/>
  <link href="http://bionicspirit.com/" />
- <updated>2012-11-04T14:37:04+02:00</updated>
+ <updated>2012-11-04T14:39:08+02:00</updated>
 
  <author>
    <name>Bionic Spirit</name>
@@ -592,7 +592,7 @@ model something like this in a static language ...&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;for one, the hierarchy is simple to understand, simple to model, as subtyping is something that OOP simply does -
-you just inherit from &lt;br /&gt; &lt;code&gt;Function1[-T, +R]&lt;/code&gt; - and you're done&lt;/li&gt;
+you just inherit from &lt;code&gt;Function1[-T, +R]&lt;/code&gt; - and you're done&lt;/li&gt;
 &lt;li&gt;downcasting to a function is something OOP simply does - you just
 pass your object to something that expects a function and you can forget the original type of that value&lt;/li&gt;
 &lt;/ul&gt;

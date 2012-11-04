@@ -514,7 +514,7 @@ handles it at all, but OOP subtyping seems like the easiest way to
 model something like this in a static language ...
 
 * for one, the hierarchy is simple to understand, simple to model, as subtyping is something that OOP simply does -
-  you just inherit from <br /> `Function1[-T, +R]` - and you're done
+  you just inherit from `Function1[-T, +R]` - and you're done
 * downcasting to a function is something OOP simply does - you just
   pass your object to something that expects a function and you can forget the original type of that value   
 
