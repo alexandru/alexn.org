@@ -513,17 +513,10 @@ And I don't know how Haskell handles this for `Data.Set`, or if it
 handles it at all, but OOP subtyping seems like the easiest way to
 model something like this in a static language ...
 
-* for one, the hierarchy is simple to understand, simple to model -
-  you just inherit from <br /> `Function1[-T, +R]` - done
+* for one, the hierarchy is simple to understand, simple to model, as subtyping is something that OOP simply does -
+  you just inherit from <br /> `Function1[-T, +R]` - and you're done
 * downcasting to a function is something OOP simply does - you just
-  pass your object to something that expects a function - done    
-* functions are *contravariant* in their parameters and *covariant* in
-  their return type (in OOP at least) - this is not something easily
-  done without OOP OR without the language being completely dynamic
-  (such that co/contra-variance does not matter) - a Set is a bad
-  example, as Sets in Scala are invariant, however you can probably
-  think of useful usecases for where you'd want this for your own
-  types that behave as functions
+  pass your object to something that expects a function and you can forget the original type of that value   
 
 This is just a small and insignificant example of course, like most
 examples I'm giving here, but to me properly done OOP (where every
