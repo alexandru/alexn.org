@@ -8,12 +8,12 @@ tags:
   - Java  
 ---
 
-I've been following the excelent Coursera course on
+I've been following the excellent Coursera course on
 [Functional Programming Principles in Scala](https://www.coursera.org/course/progfun)
 led by Martin Odersky. This was not my first encounter with Scala as
 I've been using it including for my day job. In parallel, because I
 felt the need for a Javascript replacement, I've been learning Clojure
-too, because of the excelent ClojureScript.
+too, because of the excellent ClojureScript.
 
 I've fallen in love with both and I can't really pick a favorite. For
 what is worth this document represents my (rookie) experience with
@@ -72,7 +72,7 @@ as only one mostly-mainstream language fits that bill (Haskell).
 
 ## 2. Is Scala a Functional Programming Language?
 
-Yes it is. You only need to follow the excelent (I mentioned above)
+Yes it is. You only need to follow the excellent (I mentioned above)
 [Coursera course](https://www.coursera.org/course/progfun) and solve
 the assignments to realize that Scala is indeed a very FP
 language. The course was a little short, but a follow-up is
@@ -771,7 +771,7 @@ eliminate a lot of errors.
 
 This is a doubly-edged sword though. By definition a static type
 system will reject pieces of code that are perfectly correct. Also,
-it's not a silver bullet, as Rich Hickey said in his excelent
+it's not a silver bullet, as Rich Hickey said in his excellent
 [Simple Made Easy](http://www.infoq.com/presentations/Simple-Made-Easy)
 talk: "*What's the common thing that all bugs in the wild share? They
 passed the type-checker, they passed all the tests!*"
@@ -936,7 +936,7 @@ version don't buy from Amazon, prefer buying directly from the
 publisher, as you'll get both a DRM-free Kindle version and a PDF):
 
 **[Functional Programming Principles in Scala](https://www.coursera.org/course/progfun)**,
-already mentioned, is an excelent course provided by Coursera / EPFL,
+already mentioned, is an excellent course provided by Coursera / EPFL,
 taught by Martin Odersky. The course is almost over, but the material
 will be left online, which means you can follow the lectures and do
 the assignments and I'm pretty sure many students that attended will
