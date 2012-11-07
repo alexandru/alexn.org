@@ -4,7 +4,7 @@
  <title>Bionic Spirit</title>
  <link href="http://bionicspirit.com/rss" rel="self"/>
  <link href="http://bionicspirit.com/" />
- <updated>2012-11-07T14:17:39+02:00</updated>
+ <updated>2012-11-07T14:20:52+02:00</updated>
 
  <author>
    <name>Bionic Spirit</name>
@@ -42,7 +42,9 @@
    <category scheme="http://bionicspirit.com/tags/" term="Web" label="Web" />
    
 
-   <content type="html">&lt;p&gt;Client-side Javascript development can be quite overwhelming, even for
+   <content type="html">&lt;p&gt;&lt;img class=&quot;right&quot; src=&quot;/assets/photos/javascript_logo.jpg&quot; style=&quot;float: right; margin-left: 10px; margin-bottom: 10px;&quot; align=&quot;right&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Client-side Javascript development can be quite overwhelming, even for
 senior developers. I'm describing here what I did in a recent piece of
 client-side functionality to keep my sanity. This interface I'm
 talking about is served on mobile-phones, so it must be pretty
@@ -157,7 +159,7 @@ easier. Brunch can also run your tests and you can use something like
 
 &lt;p&gt;This doesn't mean that Backbone and data flows with something like Q
 can't be used together. I can certainly see myself working with
-Backbone.&lt;/p&gt;
+Backbone for larger projects.&lt;/p&gt;
 
 &lt;h2&gt;Going Mobile&lt;/h2&gt;
 
