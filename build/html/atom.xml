@@ -4,7 +4,7 @@
  <title>Bionic Spirit</title>
  <link href="http://bionicspirit.com/rss" rel="self"/>
  <link href="http://bionicspirit.com/" />
- <updated>2012-11-07T13:55:54+02:00</updated>
+ <updated>2012-11-07T13:56:58+02:00</updated>
 
  <author>
    <name>Bionic Spirit</name>
@@ -181,7 +181,9 @@ browser that has jQuery already cached, but in a fresh
 &lt;a href=&quot;http://developer.android.com/reference/android/webkit/WebView.html&quot;&gt;WebView&lt;/a&gt;
 it's really big for normal 3G connections. My final JS file that gets
 downloaded only has 20KB of gzipped JS, in total, including the
-libraries I mentioned and it won't grow over 30KB.&lt;/p&gt;
+libraries I mentioned and it won't grow over 30KB. In combination with
+a CDN like &lt;a href=&quot;http://aws.amazon.com/cloudfront/&quot;&gt;CloudFront&lt;/a&gt; that's
+still reasonable.&lt;/p&gt;
 
 &lt;p&gt;The ideal would be to use something like the
 &lt;a href=&quot;https://developers.google.com/closure/&quot;&gt;Google Closure&lt;/a&gt; compiler,
