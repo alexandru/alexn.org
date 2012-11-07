@@ -118,11 +118,11 @@ so don't use it, just wrap jQuery's ajax calls in a Q promise.
 Also, the great thing about preferring small functions with
 referential transparency that compose is that testing becomes so much
 easier. Brunch can also run your tests and you can use something like
-[Chai](http://chaijs.com/) for your writing those tests.
+[Chai](http://chaijs.com/) or other helpers for testing nirvana.
 
 This doesn't mean that Backbone and data flows with something like Q
 can't be used together. I can certainly see myself working with
-Backbone.
+Backbone for larger projects.
 
 ## Going Mobile
 
