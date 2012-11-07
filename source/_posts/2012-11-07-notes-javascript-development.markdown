@@ -8,6 +8,8 @@ tags:
   - Web
 ---
 
+{% img right /assets/photos/javascript_logo.jpg %}
+
 Client-side Javascript development can be quite overwhelming, even for
 senior developers. I'm describing here what I did in a recent piece of
 client-side functionality to keep my sanity. This interface I'm
