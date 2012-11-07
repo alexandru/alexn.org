@@ -3,6 +3,7 @@ layout: post
 title: "On Scala, Functional Programming and Type-Classes"
 tags:
   - Languages
+  - Functional
   - Scala
   - Clojure
   - Java  
