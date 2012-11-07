@@ -143,7 +143,7 @@ browser that has jQuery already cached, but in a fresh
 [WebView](http://developer.android.com/reference/android/webkit/WebView.html)
 it's really big for normal 3G connections. My final JS file that gets
 downloaded only has 20KB of gzipped JS, in total, including the
-libraries I mentioned.
+libraries I mentioned and it won't grow over 30KB.
 
 The ideal would be to use something like the
 [Google Closure](https://developers.google.com/closure/) compiler,
