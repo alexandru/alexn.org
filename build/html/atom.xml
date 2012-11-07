@@ -4,7 +4,7 @@
  <title>Bionic Spirit</title>
  <link href="http://bionicspirit.com/rss" rel="self"/>
  <link href="http://bionicspirit.com/" />
- <updated>2012-11-07T13:56:58+02:00</updated>
+ <updated>2012-11-07T14:17:39+02:00</updated>
 
  <author>
    <name>Bionic Spirit</name>
@@ -153,7 +153,7 @@ so don't use it, just wrap jQuery's ajax calls in a Q promise.&lt;/p&gt;
 &lt;p&gt;Also, the great thing about preferring small functions with
 referential transparency that compose is that testing becomes so much
 easier. Brunch can also run your tests and you can use something like
-&lt;a href=&quot;http://chaijs.com/&quot;&gt;Chai&lt;/a&gt; for your writing those tests.&lt;/p&gt;
+&lt;a href=&quot;http://chaijs.com/&quot;&gt;Chai&lt;/a&gt; or other helpers for testing nirvana.&lt;/p&gt;
 
 &lt;p&gt;This doesn't mean that Backbone and data flows with something like Q
 can't be used together. I can certainly see myself working with
