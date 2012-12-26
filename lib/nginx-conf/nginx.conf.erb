@@ -1,53 +1,35 @@
-worker_processes  1;
-daemon off;
+server {
+    listen       80;
+    #server_name  vm.bionicspirit.com;
 
-events {
-    worker_connections  1024;
-}
+    charset utf-8;
 
+    location / {
+        root   <%= ENV["BIONICSPIRIT_ROOT"] %>/build/html;
+        index  index.html index.htm;
+	log_not_found off;
 
-http {
-    include       mime.types;
-    default_type  application/octet-stream;
-    sendfile      on;
-    keepalive_timeout  65;
-
-    gzip on;
-    gzip_disable "msie6";
-
-    server {
-        listen       80;
-        server_name  vm.bionicspirit.com;
-
-        charset utf-8;
-
-        location / {
-            root   <%= ENV["BIONICSPIRIT_ROOT"] %>;
-            index  index.html index.htm;
-     	    log_not_found off;
-
-            if ($host != 'vm.bionicspirit.com') {
-                rewrite  ^/(.*)$  http://vm.bionicspirit.com/$1  permanent;
-            }
-
-            rewrite  ^/rss/?$  http://feeds.feedburner.com/bionicspirit redirect;
-            rewrite ^/docs/dialer.html$ /blog/2009/02/20/tips-for-creating-voip-dialer.html permanent;
-            rewrite  ^/TheBuzzEngine/?$  /projects/TheBuzzEngine/ permanent;
-            rewrite  ^/crossdomain-requests-js/?$  /projects/crossdomain-requests-js/ permanent;
-            rewrite  ^/ro.rss/?$  /rss permanent;
-            rewrite  ^/blog/2011/10/26/a-fi-parinte-2.html$  http://aiuto.ro/blog/2011/10/26/a-fi-parinte-2.html permanent;
-            rewrite  ^/blog/2011/10/25/a-fi-parinte-1.html$  http://aiuto.ro/blog/2011/10/25/a-fi-parinte-1.html permanent;
-
-            expires 2h;
+        if ($host != 'vm.bionicspirit.com') {
+            rewrite  ^/(.*)$  http://vm.bionicspirit.com/$1  permanent;
         }
 
-	location /assets/ {
-	    root html;
-	    expires max;
-     	    log_not_found off;
-  	}
+        rewrite  ^/rss/?$  http://feeds.feedburner.com/bionicspirit redirect;
+        rewrite ^/docs/dialer.html$ /blog/2009/02/20/tips-for-creating-voip-dialer.html permanent;
+        rewrite  ^/TheBuzzEngine/?$  /projects/TheBuzzEngine/ permanent;
+        rewrite  ^/crossdomain-requests-js/?$  /projects/crossdomain-requests-js/ permanent;
+        rewrite  ^/ro.rss/?$  /rss permanent;
+        rewrite  ^/blog/2011/10/26/a-fi-parinte-2.html$  http://aiuto.ro/blog/2011/10/26/a-fi-parinte-2.html permanent;
+        rewrite  ^/blog/2011/10/25/a-fi-parinte-1.html$  http://aiuto.ro/blog/2011/10/25/a-fi-parinte-1.html permanent;
 
-
-        error_page  404              /pages/404.html;
+        expires 2h;
     }
+
+    location /assets/ {
+        root html;
+	expires max;
+     	log_not_found off;
+    }
+
+
+    error_page  404              /pages/404.html;
 }
