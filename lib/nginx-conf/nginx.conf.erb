@@ -16,18 +16,18 @@ http {
     gzip_disable "msie6";
 
     server {
-        listen       <%= ENV['PORT'] %>;
-        server_name  localhost;
+        listen       80;
+        server_name  vm.bionicspirit.com;
 
         charset utf-8;
 
         location / {
-            root   html;
+            root   <%= ENV["BIONICSPIRIT_ROOT"] %>;
             index  index.html index.htm;
      	    log_not_found off;
 
-            if ($host != 'bionicspirit.com') {
-                rewrite  ^/(.*)$  http://bionicspirit.com/$1  permanent;
+            if ($host != 'vm.bionicspirit.com') {
+                rewrite  ^/(.*)$  http://vm.bionicspirit.com/$1  permanent;
             }
 
             rewrite  ^/rss/?$  http://feeds.feedburner.com/bionicspirit redirect;
