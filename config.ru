@@ -175,4 +175,3 @@ use Fancy404NotFound
 #end
 
 run Application.new(PUBLIC)
-
