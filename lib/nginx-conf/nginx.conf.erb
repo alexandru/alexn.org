@@ -13,15 +13,6 @@ http {
 
     server {
         listen       <%= ENV['PORT'] %>;
-        server_name  alexn.org *.alexn.org bionicspirit.com vm.bionicspirit.com;
-
-	location / {
-            rewrite  ^/(.*)$  https://www.bionicspirit.com/$1  permanent;
-    	}
-    }
-
-    server {
-        listen       <%= ENV['PORT'] %>;
         server_name  www.bionicspirit.com;
 
         charset utf-8;
