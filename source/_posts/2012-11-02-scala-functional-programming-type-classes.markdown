@@ -958,7 +958,7 @@ stuck, you can view a solution which is often idiomatic. See also this
 [GitHub project](https://github.com/etorreborre/s99) that gives you a
 complete test-suite, to spare you of the effort.
 
-<a href="http://www.amazon.com/gp/product/B004Z1FTXS/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=B004Z1FTXS&linkCode=as2&tag=bionicspirit-20"><img class="left" src="/assets/photos/programming-scala.jpg" /></a>
+<a href="http://www.amazon.com/gp/product/B004Z1FTXS/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=B004Z1FTXS&linkCode=as2&tag=bionicspirit-20"><img class="left" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=B004Z1FTXS&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=alexanedel-20" /></a>
 <a href="http://www.amazon.com/gp/product/B004Z1FTXS/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=B004Z1FTXS&linkCode=as2&tag=bionicspirit-20"><b>Programming in Scala</b></a> 
 by Martin Odersky is a good book on programming, not just Scala - many
 of the exercises in
@@ -968,7 +968,7 @@ solving those problems, which is good.
 
 <div class="clear"></div>
 
-<a href="http://www.amazon.com/gp/product/0321774094/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=0321774094&linkCode=as2&tag=bionicspirit-20"><img class="left" src="/assets/photos/scala-impatient.jpg" ></a>
+<a href="http://www.amazon.com/gp/product/0321774094/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=0321774094&linkCode=as2&tag=bionicspirit-20"><img class="left" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=0321774094&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=alexanedel-20" ></a>
 <a href="http://www.amazon.com/gp/product/0321774094/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=0321774094&linkCode=as2&tag=bionicspirit-20"><b>Scala for the Impatient</b></a>
 by Cay S. Horstmann, is a good pragmatic book on Scala (not so much on
 functional programming), but it's for developers experienced in other
@@ -979,7 +979,7 @@ available from the
 
 <div class="clear"></div>
 
-<a href="http://www.amazon.com/gp/product/1935182706/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=1935182706&linkCode=as2&tag=bionicspirit-20"><img class="left" border="0" src="/assets/photos/scala-depth.jpg" ></a>
+<a href="http://www.amazon.com/gp/product/1935182706/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=1935182706&linkCode=as2&tag=bionicspirit-20"><img class="left" border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=1935182706&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=bionicspirit-20" ></a>
 <a href="http://www.amazon.com/gp/product/1935182706/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=1935182706&linkCode=as2&tag=bionicspirit-20"><b>Scala in Depth</b></a>
 by Joshua Suereth D. - this is an advanced book on Scala, with many
 insights into how functional idioms work in it. I've yet to finish
