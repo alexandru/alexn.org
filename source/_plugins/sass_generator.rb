@@ -45,12 +45,19 @@ module Jekyll
         fh.write(all_content)
       end
 
+      all_css = dest.join('assets', "all.css")
+      all_css.dirname.mkpath unless all_css.dirname.exist?
+      File.open(all_css, 'w') do |fh|
+        fh.write(all_content)
+      end
+
       digest_name = "all-" + Digest::MD5.hexdigest(all_content)[0,9] + ".css"
       digest_css = dest.join("assets", digest_name)
       File.open(digest_css, 'w') do |fh|
         fh.write(all_content)
       end
 
+      site.static_files << Jekyll::AllCSSFile.new(site, site.dest, 'assets', "all.css")
       site.static_files << Jekyll::AllCSSFile.new(site, site.dest, 'assets', "all-v2.css")
       site.static_files << Jekyll::AllCSSFile.new(site, site.dest, 'assets', digest_name)
     end    
