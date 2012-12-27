@@ -34,10 +34,6 @@ http {
             index  index.html index.htm;
      	    log_not_found off;
 
-            if ($host != 'bionicspirit.com') {
-                rewrite  ^/(.*)$  http://bionicspirit.com/$1  permanent;
-            }
-
             rewrite  ^/rss/?$  http://feeds.feedburner.com/bionicspirit redirect;
             rewrite ^/docs/dialer.html$ /blog/2009/02/20/tips-for-creating-voip-dialer.html permanent;
             rewrite  ^/TheBuzzEngine/?$  /projects/TheBuzzEngine/ permanent;
