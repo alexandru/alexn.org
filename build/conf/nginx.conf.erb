@@ -27,11 +27,11 @@ http {
             index  index.html index.htm;
      	    log_not_found off;
 
-            rewrite  ^/rss/?$  /atom.xml permanent;
-            rewrite ^/docs/dialer.html$ /blog/2009/02/20/tips-for-creating-voip-dialer.html permanent;
-            rewrite  ^/TheBuzzEngine/?$  /projects/TheBuzzEngine/ permanent;
-            rewrite  ^/crossdomain-requests-js/?$  /projects/crossdomain-requests-js/ permanent;
-            rewrite  ^/ro.rss/?$  /atom.xml permanent;
+            rewrite  ^/rss/?$  https://www.bionicspirit.com/atom.xml permanent;
+            rewrite ^/docs/dialer.html$ https://www.bionicspirit.com/blog/2009/02/20/tips-for-creating-voip-dialer.html permanent;
+            rewrite  ^/TheBuzzEngine/?$  https://www.bionicspirit.com/projects/TheBuzzEngine/ permanent;
+            rewrite  ^/crossdomain-requests-js/?$  https://www.bionicspirit.com/projects/crossdomain-requests-js/ permanent;
+            rewrite  ^/ro.rss/?$  https://www.bionicspirit.com/rss permanent;
             rewrite  ^/blog/2011/10/26/a-fi-parinte-2.html$  http://aiuto.ro/blog/2011/10/26/a-fi-parinte-2.html permanent;
             rewrite  ^/blog/2011/10/25/a-fi-parinte-1.html$  http://aiuto.ro/blog/2011/10/25/a-fi-parinte-1.html permanent;
 
