@@ -392,7 +392,7 @@ and flatMap. So these objects are composable.</p>
     <span class="o">}</span>
   <span class="o">}</span>
 
-  <span class="k">val</span> <span class="n">futureSum</span> <span class="k">=</span> <span class="nc">Future</span><span class="o">.</span><span class="n">sequence</span><span class="o">(</span><span class="n">responses</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="n">_</span><span class="o">.</span><span class="n">sum</span><span class="o">)</span>
+  <span class="k">val</span> <span class="n">futureSum</span> <span class="k">=</span> <span class="nc">Future</span><span class="o">.</span><span class="n">sequence</span><span class="o">(</span><span class="n">responses</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">sum</span><span class="o">)</span>
   
   <span class="n">println</span><span class="o">(</span><span class="nc">Await</span><span class="o">.</span><span class="n">result</span><span class="o">(</span><span class="n">futureSum</span><span class="o">,</span> <span class="mi">10</span> <span class="n">seconds</span><span class="o">))</span>
 </code></pre>
