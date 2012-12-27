@@ -192,7 +192,7 @@ body #main {
     display: block;
     margin: auto; }
   body #main img.frame-right, body #main img.frame-center {
-    border: 0.5em solid #FFFFFF;
+    border: 0.5em solid white;
     border-radius: 0.3em 0.3em 0.3em 0.3em;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15); }
   body #main ul.posts, body #main ol.posts {
@@ -266,7 +266,7 @@ body #main {
     body #main article footer {
       padding-top: 20px; }
       body #main article footer #amazon-book {
-        border-top: 2px solid #C69AA1;
+        border-top: 2px solid #c69aa1;
         padding-top: 10px;
         padding-bottom: 10px; }
         body #main article footer #amazon-book a {
@@ -334,7 +334,7 @@ body #footer-container footer {
       border: 0; }
 
 body #main article footer #other-articles, body #main article footer #email-subscription {
-  border-top: 2px solid #C69AA1; }
+  border-top: 2px solid #c69aa1; }
   body #main article footer #other-articles h2, body #main article footer #email-subscription h2 {
     color: #A66C75;
     margin: 0;
@@ -357,14 +357,14 @@ body #main article footer #email-subscription {
 
 #contributions {
   position: relative;
-  border-top: 2px solid #C69AA1;
+  border-top: 2px solid #c69aa1;
   padding-top: 10px; }
   #contributions h2 {
     margin-top: 0;
     color: #A66C75; }
   #contributions #share {
     margin-bottom: 10px;
-    border-bottom: 1px solid #C69AA1; }
+    border-bottom: 1px solid #c69aa1; }
 
 #email-subscription form input, #email-subscription form button {
   padding: 4px; }
