@@ -1,54 +1,42 @@
-worker_processes  4;
-daemon off;
+server {
+    server_name  alexn.org *.alexn.org;
 
-events {
-    worker_connections  2048;
+    location / {
+        rewrite  ^/(.*)$  https://bionicspirit.com/$1  permanent;
+    }
 }
 
-http {
-    include       mime.types;
-    default_type  application/octet-stream;
-    sendfile      on;
+server {
+    listen 80 default_server;
+    listen 443 default_server ssl;
 
-    keepalive_timeout  30;
+    server_name bionicspirit.com www.bionicspirit.com;
 
-    gzip on;
-    gzip_disable "msie6";
-    gzip_vary on;
-    gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript image/x-icon;
+    charset utf-8;
 
-    server {
-        listen       <%= ENV['PORT'] %>;
-        server_name  *.bionicspirit.com alexn.org *.alexn.org;
-        rewrite  ^/(.*)$  http://bionicspirit.com/$1  permanent;
-    }
+    location / {
+        root   <%= ENV["BIONICSPIRIT_ROOT"] %>/build/html;
+        index  index.html index.htm;
+	log_not_found off;
 
-    server {
-        listen       <%= ENV['PORT'] %>;
-        server_name  bionicspirit.com;
-
-        charset utf-8;
-
-        location / {
-            root   html;
-            index  index.html index.htm;
-     	    log_not_found off;
-
-            rewrite  ^/rss/?$  http://feeds.feedburner.com/bionicspirit redirect;
-            rewrite ^/docs/dialer.html$ /blog/2009/02/20/tips-for-creating-voip-dialer.html permanent;
-            rewrite  ^/TheBuzzEngine/?$  /projects/TheBuzzEngine/ permanent;
-            rewrite  ^/crossdomain-requests-js/?$  /projects/crossdomain-requests-js/ permanent;
-            rewrite  ^/ro.rss/?$  /rss permanent;
-
-            expires 2h;
+        if ($host != 'bionicspirit.com') {
+            rewrite  ^/(.*)$  https://bionicspirit.com/$1  permanent;
         }
 
-	location /assets/ {
-	    root html;
-	    expires max;
-     	    log_not_found off;
-  	}
+        rewrite  ^/rss/?$  https://feeds.feedburner.com/bionicspirit redirect;
+        rewrite ^/docs/dialer.html$ /blog/2009/02/20/tips-for-creating-voip-dialer.html permanent;
+        rewrite  ^/TheBuzzEngine/?$  /projects/TheBuzzEngine/ permanent;
+        rewrite  ^/crossdomain-requests-js/?$  /projects/crossdomain-requests-js/ permanent;
+        rewrite  ^/ro.rss/?$  /rss permanent;
 
-        error_page  404              /pages/404.html;
+        expires 2h;
     }
+
+    location /assets/ {
+        root <%= ENV["BIONICSPIRIT_ROOT"] %>/build/html;
+	expires max;
+     	log_not_found off;
+    }
+
+    error_page  404  /pages/404.html;
 }

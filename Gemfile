@@ -4,6 +4,7 @@ gem 'rack'
 gem 'mime-types'
 
 group :development do
+  gem 'rake'
   gem 'jekyll'
   gem 'rdiscount'
   gem 'hpricot'
