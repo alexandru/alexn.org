@@ -22,8 +22,6 @@
   <link href="https://plus.google.com/112639155372207976835/" rel="publisher">
   {% endif %}
   <!-- END: Google+ / Facebook optimations -->
-
-  {% include google-analytics.html %}
 </head>
 <body>
   <div id="header-container">
@@ -66,21 +64,6 @@
     </footer>
   </div>
 
-
-  <!--[if lt IE 7 ]>
-  <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js"></script>
-  <script>window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})})</script>
-  <![endif]-->
-
-  <script type="text/javascript">
-    function recordOutboundLink(link, category, action) {
-      try {
-        var myTracker=_gat._getTrackerByName();
-	_gaq.push(['myTracker._trackEvent', ' + category + ', ' + action + ']);
-	setTimeout('document.location = "' + link.href + '"', 100);
-      }catch(err){}
-    }    
-  </script>
 </body>
 </html>
 
