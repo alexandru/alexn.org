@@ -9,9 +9,7 @@ server {
 
 server {
     listen 443 default_server ssl;
-    keepalive_timeout 70;
-
-    server_name  bionicspirit.com vm.bionicspirit.com;
+    server_name bionicspirit.com;
 
     charset utf-8;
 
@@ -39,5 +37,5 @@ server {
      	log_not_found off;
     }
 
-    error_page  404              /pages/404.html;
+    error_page  404  /pages/404.html;
 }
