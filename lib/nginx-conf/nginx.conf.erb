@@ -1,23 +1,28 @@
-worker_processes  1;
+worker_processes  4;
 daemon off;
 
 events {
-    worker_connections  1024;
+    worker_connections  2048;
 }
-
 
 http {
     include       mime.types;
     default_type  application/octet-stream;
     sendfile      on;
-    keepalive_timeout  65;
-
-    gzip on;
-    gzip_disable "msie6";
+    keepalive_timeout  30;
 
     server {
         listen       <%= ENV['PORT'] %>;
-        server_name  localhost;
+        server_name  alexn.org *.alexn.org bionicspirit.com vm.bionicspirit.com;
+
+	location / {
+            rewrite  ^/(.*)$  https://www.bionicspirit.com/$1  permanent;
+    	}
+    }
+
+    server {
+        listen       <%= ENV['PORT'] %>;
+        server_name  www.bionicspirit.com;
 
         charset utf-8;
 
@@ -25,10 +30,6 @@ http {
             root   html;
             index  index.html index.htm;
      	    log_not_found off;
-
-            if ($host != 'bionicspirit.com') {
-                rewrite  ^/(.*)$  http://bionicspirit.com/$1  permanent;
-            }
 
             rewrite  ^/rss/?$  http://feeds.feedburner.com/bionicspirit redirect;
             rewrite ^/docs/dialer.html$ /blog/2009/02/20/tips-for-creating-voip-dialer.html permanent;
@@ -38,7 +39,7 @@ http {
             rewrite  ^/blog/2011/10/26/a-fi-parinte-2.html$  http://aiuto.ro/blog/2011/10/26/a-fi-parinte-2.html permanent;
             rewrite  ^/blog/2011/10/25/a-fi-parinte-1.html$  http://aiuto.ro/blog/2011/10/25/a-fi-parinte-1.html permanent;
 
-            expires 2h;
+            expires 24h;
         }
 
 	location /assets/ {
@@ -46,7 +47,6 @@ http {
 	    expires max;
      	    log_not_found off;
   	}
-
 
         error_page  404              /pages/404.html;
     }
