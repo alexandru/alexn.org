@@ -1,5 +1,4 @@
 require 'bundler/setup'
-require 'erb'
 require 'yaml'
 
 include Rake::DSL
@@ -11,18 +10,6 @@ task :compile do
 
   sh "mkdir -p build/conf"
   sh "cp lib/nginx-conf/* build/conf/"
-
-  Dir.entries("build/conf/").find_all{|x| x =~ /\.erb$/}.each do |erb_file|
-    erb_path = "build/conf/#{erb_file}"
-    erb_destination = erb_path.gsub(/\.erb$/, "")
-    content = File.read(erb_path)
-    template = ERB.new content
-    File.open(erb_destination, "w") do |fh|
-      fh.write(template.result)
-    end
-    sh "rm #{erb_path}"
-    puts "Processed #{erb_destination}"
-  end
 end
 
 namespace :deploy do
