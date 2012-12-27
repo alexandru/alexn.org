@@ -21,7 +21,7 @@ layout: nil
    <title>{{ post.title }}</title>
    <link href="https://{{ site.site_domain }}{{ post.url }}"/>
    <updated>{{ post.date | date_to_xmlschema }}</updated>
-   <id>https://{{ site.site_domain }}{{ post.id }}</id>
+   <id>http://bionicspirit.com{{ post.id }}</id>
 
    <author>
      <name>Bionic Spirit</name>
