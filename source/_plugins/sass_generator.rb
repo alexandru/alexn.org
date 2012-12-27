@@ -39,12 +39,6 @@ module Jekyll
         all_content << content
       end      
 
-      all_css = dest.join('assets', "all-v2.css")
-      all_css.dirname.mkpath unless all_css.dirname.exist?
-      File.open(all_css, 'w') do |fh|
-        fh.write(all_content)
-      end
-
       all_css = dest.join('assets', "all.css")
       all_css.dirname.mkpath unless all_css.dirname.exist?
       File.open(all_css, 'w') do |fh|
@@ -58,7 +52,6 @@ module Jekyll
       end
 
       site.static_files << Jekyll::AllCSSFile.new(site, site.dest, 'assets', "all.css")
-      site.static_files << Jekyll::AllCSSFile.new(site, site.dest, 'assets', "all-v2.css")
       site.static_files << Jekyll::AllCSSFile.new(site, site.dest, 'assets', digest_name)
     end    
   end
@@ -68,9 +61,9 @@ module Jekyll
     end
 
     def render(context)
-      return '/assets/all-v2.css' # unless context['site']['build_type'] == 'production' and context['site']['css_hash'] == true
-      
-      #path = File.join(File.dirname(__FILE__), '..', '..', 'build', 'assets', 'all-v2.css')
+      return '/assets/all.css' unless context['site']['build_type'] == 'production' and context['site']['css_hash'] == true
+      path = File.join(File.dirname(__FILE__), '..', '..', 'build', 'assets', 'all.css')
+      return Utils.wrap_assets_link("/assets/all.css?v=2", context['site'])
       #css = File.exists?(path) ? File.read(path) : Time.now.strftime("%Y%m%d")
       #Utils.wrap_assets_link("/assets/all-" + Digest::MD5.hexdigest(css)[0,9] + ".css", context['site'])
     end
