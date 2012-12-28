@@ -11,7 +11,7 @@ layout: nil
 
  <author>
    <name>Alexandru Nedelcu</name>
-   <uri>https://www.bionicspirit.com</uri>
+   <uri>https://bionicspirit.com</uri>
  </author>
 
  {% for post in site.posts %}
@@ -24,7 +24,7 @@ layout: nil
 
    <author>
      <name>Alexandru Nedelcu</name>
-     <uri>https://www.bionicspirit.com</uri>
+     <uri>https://bionicspirit.com</uri>
    </author>
 
    <rights type="text">
@@ -34,7 +34,7 @@ layout: nil
    </rights>
 
    {% for tag in post.tags %}
-   <category scheme="https://www.bionicspirit.com/tags/" term="{{ tag }}" label="{{ tag }}" />
+   <category scheme="https://bionicspirit.com/tags/" term="{{ tag }}" label="{{ tag }}" />
    {% endfor %}
 
    <content type="html">{{ post.content | xml_escape }}</content>
