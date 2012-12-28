@@ -18,7 +18,14 @@ http {
 
     server {
         listen       <%= ENV['PORT'] %>;
-        server_name  www.bionicspirit.com;
+        server_name  bionicspirit.herokuapp.com;    
+
+	rewrite ^(.*) https://bionicspirit.com$1 permanent;
+    }
+
+    server {
+        listen       <%= ENV['PORT'] %>;
+        server_name  bionicspirit.com www.bionicspirit.com;
 
         charset utf-8;
 
