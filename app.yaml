@@ -12,6 +12,12 @@ handlers:
   http_headers:
     X-Url-Handler: mainpage
 
+- url: /rss/?
+  script: engine.main.app
+
+- url: /docs/dialer.html
+  script: engine.main.app
+
 - url: /(.+/)
   static_files: website/build/\1index.html
   upload: website/build/(.+/)index.html
@@ -34,5 +40,5 @@ handlers:
     X-Url-Handler: static-files
 
 libraries:
-- name: webapp2
-  version: "2.5.2"
+- name: django
+  version: "1.4"
