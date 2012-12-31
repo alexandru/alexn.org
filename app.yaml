@@ -12,12 +12,6 @@ handlers:
   http_headers:
     X-Url-Handler: mainpage
 
-- url: /rss/?
-  script: main.redirects
-
-- url: /docs/dialer.html
-  script: main.redirects
-
 - url: /(.+/)
   static_files: website/build/\1index.html
   upload: website/build/(.+/)index.html
