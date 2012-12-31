@@ -18,16 +18,6 @@ layout: nil
     <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
   </url>
 
-  <url>
-    <loc>http://{{ site.site_domain }}/projects/TheBuzzEngine/</loc>
-    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
-  </url>
-
-  <url>
-    <loc>http://{{ site.site_domain }}/projects/crossdomain-requests-js/</loc>
-    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
-  </url>
-
   {% for post in site.posts %}
   {% unless post.is_draft %}  
   <url>
