@@ -12,17 +12,20 @@
   </div>
 
   <footer>
-    <!--
     <div id="other-articles">
       <h2>Other Articles</h2>
 
       <ul class="posts">
-	{% for post in site.related_posts limit:5 %}
-	{% include render-post-link.html %}
-	{% endfor %}
+	<% page_articles.find_all{|x| !x.data.archive}[0..5].each_with_index do |article, i| %>	
+	<li> 
+	  <time datetime="<%= article.date.strftime("%Y-%m-%d") %>">
+	    <%= article.date.strftime("%Y-%m-%d") %> &raquo;
+	  </time>
+	  <a href="<%= article.url %>" rel="prefetch related"><%= article.title %></a>
+	</li>      
+	<% end %>
       </ul>
     </div>
-    -->
   </footer>
 </article>
 <% end %>

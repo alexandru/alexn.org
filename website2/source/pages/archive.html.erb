@@ -1,8 +1,12 @@
-<article id="home">
-  <h1><%= @website.description %></h1>
+---
+title: Archive
+---
+
+<article id="archive">
+  <h1>Archive, Raw and Unfiltered</h1>
 
   <ol class="posts">
-    <% page_articles.find_all{|x| !x.data.archive}.each_with_index do |article, i| %>	
+    <% page_articles.each_with_index do |article, i| %>	
     <li> 
       <time datetime="<%= article.date.strftime("%Y-%m-%d") %>">
 	<%= article.date.strftime("%Y-%m-%d") %> &raquo;
@@ -12,5 +16,3 @@
     <% end %>
   </ol>  
 </article>
-
-

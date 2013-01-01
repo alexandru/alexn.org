@@ -1,48 +1,73 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <!-- Use title if it's in the page YAML frontmatter -->
-        <title><%= data.page.title || @website.title %></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
+<html lang="en" <% if is_blog_article? %>itemscope itemtype="http://schema.org/Article"<% end %>>
+<head>
+  <% if current_article && current_article.title %>
+    <title><%= current_article.title %></title>
+  <% else %>
+    <title><%= @website.title %></title>
+  <% end %>
 
-	<link rel="stylesheet" href="<%= asset_path 'css', 'all.css' %>">
-	<script type="text/javascript" src="<%= asset_path 'js', 'vendor/modernizr-2.6.1.min' %>"></script>
-    </head>
-    <body>
-        <!--[if lt IE 7]>
-            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
-        <![endif]-->
+  <meta charset="utf-8">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
 
-        <%= yield %>
+  <link rel="canonical" href="<%= @website.root_url %><%= current_page.url %>">
 
-	<script type="text/javascript">
-	  document.write(
-	    "<script src=\"" +
-            ("__proto__" in {} 
-               ? "<%= asset_path 'js', 'vendor/zepto.min.js' %>" 
-               : "<%= asset_path 'js', 'vendor/jquery-1.8.0.min.js' %>") +
-            "\"><\/script>")
-	</script>
-        <script src="<%= asset_path 'js', 'all.js' %>"></script>
+  <link rel="alternate"  href="/atom.xml" title="Alexandru Nedelcu" type="application/atom+xml">  
+  <link rel="stylesheet" href="<%= asset_path 'css', 'fonts/droid-serif' %>" type="text/css">  
+  <link rel="stylesheet" href="<%= asset_path 'css', 'all' %>" type="text/css">
 
-        <!-- Google Analytics -->
-        <script type="text/javascript" async id="ganalitycs">
-          var _gaq = _gaq || [];
-          _gaq.push(['_setAccount', 'UA-27605864-1']);
-          _gaq.push(['_setDomainName', 'bionicspirit.com']);
-          _gaq.push(['_trackPageview']);
-        
-          (function() {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementById('ganalitycs'); s.parentNode.insertBefore(ga, s);
-          })();        
-        </script>
-    </body>
+  <!-- Google+ / Facebook optimations -->
+  <link rel="image_src" href="/img/picture_alex.jpg">
+  <!-- not really sure about this -->
+  <link href="https://plus.google.com/112639155372207976835/" rel="publisher">
+  <% if is_blog_article? %>
+  <link href="https://plus.google.com/112639155372207976835/" rel="author">
+  <% end %>
+  <!-- END: Google+ / Facebook optimations -->
+</head>
+<body>
+  <div id="header-container">
+    <header>
+      <h1 id="title"><%= @website.title %></h1>
+
+      <nav>
+	  <a href="/">bionicspirit.com</a>
+	  <a class="extra" href="/pages/archive.html">archive</a>
+	  <a class="extra" href="/pages/about.html">about</a>
+	  <a href="https://github.com/alexandru" class="github" title="Fork me on GitHub"><span>Fork me on GitHub</span></a>
+      </nav>
+    </header>
+  </div>
+
+  <div id="main-container">
+    <div id="main">
+      <%= yield %>
+    </div>
+  </div>
+
+  <div id="footer-container">
+    <footer>
+      <div class="contact">
+	&copy; <%= DateTime.now.strftime("%Y") %> Alexandru Nedelcu
+	<br />
+	Some rights reserved (<a href="http://creativecommons.org/licenses/by-nc/3.0/" rel="license">CC BY-NC 3.0</a>)
+    <!--sse-->
+	<br />
+	<a href="mailto:contact@bionicspirit.com">contact@bionicspirit.com</a>
+    <!--/sse-->
+      </div>
+
+      <div class="rss">
+	<a href="https://twitter.com/alex_ndc" target="_blank" title="Follow me on Twitter (@alex_ndc)">
+	  <img src="/img/twitter.png" alt="Follow me on Twitter (@alex_ndc)" />
+	</a>
+      </div>
+    </footer>
+  </div>
+
+
+  <%= partial("layouts/google-analytics") %>
+</body>
 </html>
