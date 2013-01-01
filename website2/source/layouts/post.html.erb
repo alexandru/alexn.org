@@ -1,0 +1,28 @@
+<% wrap_layout :layout do %>
+<article id="post">
+  <header>
+    <h1 itemprop="name"><%= current_page.title %></h1>
+    <div id="meta">
+      <div class="post-date">Published: <%= current_page.date.strftime("%b %d, %Y") %></div>
+    </div>
+  </header>
+
+  <div id="content">
+    <%= yield %>
+  </div>
+
+  <footer>
+    <!--
+    <div id="other-articles">
+      <h2>Other Articles</h2>
+
+      <ul class="posts">
+	{% for post in site.related_posts limit:5 %}
+	{% include render-post-link.html %}
+	{% endfor %}
+      </ul>
+    </div>
+    -->
+  </footer>
+</article>
+<% end %>
