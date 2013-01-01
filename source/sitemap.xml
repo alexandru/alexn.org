@@ -1,0 +1,39 @@
+---
+layout: nil
+---
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>http://{{ site.site_domain }}/</loc>
+    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+  </url>
+
+  <url>
+    <loc>http://{{ site.site_domain }}/pages/about.html</loc>
+    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+  </url>
+
+  <url>
+    <loc>http://{{ site.site_domain }}/pages/resume.html</loc>
+    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+  </url>
+
+  <url>
+    <loc>http://{{ site.site_domain }}/projects/TheBuzzEngine/</loc>
+    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+  </url>
+
+  <url>
+    <loc>http://{{ site.site_domain }}/projects/crossdomain-requests-js/</loc>
+    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+  </url>
+
+  {% for post in site.posts %}
+  {% unless post.is_draft %}  
+  <url>
+    <loc>http://{{ site.site_domain }}{{ post.url }}</loc>
+    <lastmod>{{ post.date | date_to_xmlschema }}</lastmod>
+  </url>
+  {% endunless %}
+  {% endfor %}  
+</urlset>
