@@ -96,10 +96,13 @@ set :js_dir, 'js'
 
 set :images_dir, 'img'
 
+activate :syntax
+
+set :markdown_engine, :redcarpet
+set :markdown, :fenced_code_blocks => true, :smartypants => true
+
 # Build-specific configuration
 configure :build do
-  set :markdown_engine, :redcarpet
-
   # For example, change the Compass output style for deployment
   activate :minify_css
 
