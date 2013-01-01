@@ -1,6 +1,6 @@
 server {
-    listen 80 default_server;
-    server_name  alexn.org *.alexn.org bionicspirit.com *.bionicspirit.com;
+    listen 80;
+    server_name  alexn.org *.alexn.org bionicspirit.com;
 
     location / {
         rewrite  ^/(.*)$  https://bionicspirit.com/$1  permanent;
@@ -8,8 +8,10 @@ server {
 }
 
 server {
+    list 80 default_server;
+
     listen 443 default_server ssl;
-    server_name bionicspirit.com;
+    server_name www.bionicspirit.com;
     charset utf-8;
 
     location / {
