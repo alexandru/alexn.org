@@ -1,5 +1,4 @@
 server {
-    listen 80 default_server;
     listen 443 default_server ssl;
 
     server_name www.bionicspirit.com;
@@ -29,7 +28,7 @@ server {
 }
 
 server {
-    listen 80;
+    listen 80 default_server;
     server_name  alexn.org *.alexn.org bionicspirit.com *.bionicspirit.com;
 
     location / {
