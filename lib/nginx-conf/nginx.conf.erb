@@ -1,13 +1,4 @@
 server {
-    listen 80;
-    server_name  alexn.org *.alexn.org bionicspirit.com;
-
-    location / {
-        rewrite  ^/(.*)$  https://www.bionicspirit.com/$1  permanent;
-    }
-}
-
-server {
     listen 80 default_server;
     listen 443 default_server ssl;
 
@@ -36,3 +27,13 @@ server {
 
     error_page  404  /pages/404.html;
 }
+
+server {
+    listen 80;
+    server_name  alexn.org *.alexn.org bionicspirit.com *.bionicspirit.com;
+
+    location / {
+        rewrite  ^/(.*)$  https://www.bionicspirit.com/$1  permanent;
+    }
+}
+
