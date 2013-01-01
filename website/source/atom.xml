@@ -1,0 +1,44 @@
+---
+layout: nil
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+ <id>http://bionicspirit.com/</id>
+ <title>{{ site.blog_title }}</title>
+ <link href="https://{{ site.site_domain }}/atom.xml" rel="self"/>
+ <link href="https://{{ site.site_domain }}/" />
+ <updated>{{ site.time | date_to_xmlschema }}</updated>
+
+ <author>
+   <name>Alexandru Nedelcu</name>
+   <uri>https://www.bionicspirit.com</uri>
+ </author>
+
+ {% for post in site.posts %}
+ {% unless post.is_draft or post.archive %}
+ <entry>
+   <title>{{ post.title }}</title>
+   <link href="https://{{ site.site_domain }}{{ post.url }}"/>
+   <updated>{{ post.date | date_to_xmlschema }}</updated>
+   <id>http://bionicspirit.com{{ post.id }}</id>
+
+   <author>
+     <name>Alexandru Nedelcu</name>
+     <uri>https://www.bionicspirit.com</uri>
+   </author>
+
+   <rights type="text">
+     Copyright {{ post.date | date:"%Y" }} Alexandru Nedelcu.
+     Some rights reserved (CC BY-NC 3.0)
+     License: http://creativecommons.org/licenses/by-nc/3.0/
+   </rights>
+
+   {% for tag in post.tags %}
+   <category scheme="https://{{ site.site_domain }}/tags/" term="{{ tag }}" label="{{ tag }}" />
+   {% endfor %}
+
+   <content type="html">{{ post.content | xml_escape }}</content>
+ </entry>
+ {% endunless %}
+ {% endfor %}
+</feed>

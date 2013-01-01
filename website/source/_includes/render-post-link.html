@@ -1,0 +1,6 @@
+{% unless post.is_draft %}
+<li> 
+  <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_string }} &raquo;</time>
+  <a href="{{ post.url }}" rel="prefetch related">{{ post.title }}</a>
+</li>
+{% endunless %}
