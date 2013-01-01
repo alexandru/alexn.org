@@ -1,0 +1,27 @@
+blog_title: "Bionic Spirit"
+blog_description: "Building Stuff, Having Fun, Craving Profit"
+tag_title_prefix: "Category: "
+
+markdown: rdiscount
+pygments: true
+site_domain: bionicspirit.com
+build_type: production
+css_hash: true
+
+# my CDN domains
+assets_domains: 
+  # cloudfront
+  #- d2fo8u6if66r8r.cloudfront.net
+  #- bionicspirit.com
+  
+  #
+  # gae (bionicspirit-cdn-1)
+  #- bionicspirit-cdn-1.appspot.com
+  #- bionicspirit-cdn-1.appspot.com
+
+permalink: /blog/:year/:month/:day/:title.html
+
+source: ./source
+destination: ./build/html
+plugins: ./source/_plugins
+

@@ -1,0 +1,36 @@
+server {
+    listen 80 default_server;
+    server_name  alexn.org *.alexn.org bionicspirit.com *.bionicspirit.com;
+
+    location / {
+        rewrite  ^/(.*)$  https://bionicspirit.com/$1  permanent;
+    }
+}
+
+server {
+    listen 443 default_server ssl;
+    server_name bionicspirit.com;
+    charset utf-8;
+
+    location / {
+        root   <%= ENV["BIONICSPIRIT_ROOT"] %>/build/html;
+        index  index.html index.htm;
+	log_not_found off;
+
+        rewrite  ^/rss/?$  https://feeds.feedburner.com/bionicspirit redirect;
+        rewrite ^/docs/dialer.html$ /blog/2009/02/20/tips-for-creating-voip-dialer.html permanent;
+        rewrite  ^/TheBuzzEngine/?$  /projects/TheBuzzEngine/ permanent;
+        rewrite  ^/crossdomain-requests-js/?$  /projects/crossdomain-requests-js/ permanent;
+        rewrite  ^/ro.rss/?$  /rss permanent;
+
+        expires 24h;
+    }
+
+    location /assets/ {
+        root <%= ENV["BIONICSPIRIT_ROOT"] %>/build/html;
+	expires max;
+     	log_not_found off;
+    }
+
+    error_page  404  /pages/404.html;
+}
