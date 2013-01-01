@@ -1,0 +1,64 @@
+blog_title: "Bionic Spirit"
+blog_description: "Building Stuff, Having Fun, Craving Profit"
+tag_title_prefix: "Category: "
+
+markdown: rdiscount
+pygments: true
+site_domain: www.bionicspirit.com
+build_type: production
+css_hash: true
+
+# my CDN domains
+assets_domains: 
+  # cloudfront
+  #- d2fo8u6if66r8r.cloudfront.net
+  #- bionicspirit.com
+  
+  #
+  # gae (bionicspirit-cdn-1)
+  #- bionicspirit-cdn-1.appspot.com
+  #- bionicspirit-cdn-1.appspot.com
+
+permalink: /blog/:year/:month/:day/:title.html
+
+source: ./source
+destination: ./build
+plugins: ./source/_plugins
+
+expires:
+  html: 3600 # one hour
+  assets: 1314000 # one year
+
+redirects:
+  - from: /rss/
+    to: http://feeds.feedburner.com/bionicspirit
+    type: 302
+
+  - from: /docs/dialer.html
+    to: /blog/2009/02/20/tips-for-creating-voip-dialer.html
+    type: 301
+
+  - from: /TheBuzzEngine/
+    to: /projects/TheBuzzEngine/
+    type: 301
+
+  - from: /crossdomain-requests-js/
+    to: /projects/crossdomain-requests-js/
+    type: 301
+
+  - from: /ro.rss
+    to: /rss
+    type: 301
+
+  - from: /blog/2011/10/25/a-fi-parinte-1.html
+    to: /pages/a-fi-parinte.html
+    type: 301
+
+  - from: /blog/2011/10/26/a-fi-parinte-2.html
+    to: /pages/a-fi-parinte.html
+    type: 301
+
+  - from: /blog/2009/12/03/catalyst-form-handler-tutorial.html
+    to: "http://www.catalystframework.org/calendar/2009/3"
+    type: 301
+
