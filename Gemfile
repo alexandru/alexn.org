@@ -1,9 +1,8 @@
-source 'http://rubygems.org'
+source :rubygems
 
-group :development do
-  gem 'jekyll'
-  gem 'rdiscount'
-  gem 'hpricot'
-  gem 'liquid', '2.2.2'
-  gem 'sass'
-end
+gem "middleman"
+gem "middleman-blog"
+gem "middleman-smusher"
+gem "middleman-syntax"
+
+gem 'redcarpet'
