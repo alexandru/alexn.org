@@ -21,7 +21,7 @@ activate :blog do |blog|
   # blog.prefix = "blog"
   blog.permalink = "blog/:year/:month/:day/:title.html"
   blog.sources = "blog/:year-:month-:day-:title.html"
-  blog.taglink = "tags/:tag.html"
+  blog.taglink = "blog/tags/:tag.html"
   blog.layout = "post"
   # blog.summary_separator = /(READMORE)/
   # blog.summary_length = 250
@@ -38,7 +38,7 @@ activate :blog do |blog|
   # blog.page_link = "page/:num"
 end
 
-page "/feed.xml", :layout => false
+page "/atom.xml", :layout => false
 
 
 ###
@@ -90,11 +90,11 @@ page "/feed.xml", :layout => false
 #   end
 # end
 
-set :css_dir, 'css'
+set :css_dir, 'assets/css'
 
-set :js_dir, 'js'
+set :js_dir, 'assets/js'
 
-set :images_dir, 'img'
+set :images_dir, 'assets/img'
 
 activate :syntax
 

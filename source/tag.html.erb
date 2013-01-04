@@ -2,6 +2,8 @@
 pageable: true
 per_page: 12
 ---
+<article id="tags">
+
 <h1>Articles tagged '<%= tagname %>'</h1>
 
 <% if paginate %>
@@ -12,14 +14,21 @@ per_page: 12
   <% end %>
 <% end %>
 
-<ul>
+<ol class="posts">
   <% page_articles.each_with_index do |article, i| %>
-    <li><%= link_to article.title, article %> <span><%= article.date.strftime('%b %e') %></span></li>
+    <li> 
+      <time datetime="<%= article.date.strftime("%Y-%m-%d") %>">
+	<%= article.date.strftime("%Y-%m-%d") %> &raquo;
+      </time>
+      <a href="<%= article.url %>" rel="prefetch related"><%= article.title %></a>
+    </li>      
   <% end %>
-</ul>
+</ol>
 
 <% if paginate %>
   <% if next_page %>
     <p><%= link_to 'Next page', next_page %></p>
   <% end %>
 <% end %>
+
+</article>

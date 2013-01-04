@@ -14,12 +14,12 @@
 
   <link rel="canonical" href="<%= @website.root_url %><%= current_page.url %>">
 
-  <link rel="alternate"  href="/atom.xml" title="Alexandru Nedelcu" type="application/atom+xml">  
-  <link rel="stylesheet" href="<%= asset_path 'css', 'fonts/droid-serif' %>" type="text/css">  
-  <link rel="stylesheet" href="<%= asset_path 'css', 'all' %>" type="text/css">
+  <link rel="alternate"  href="/atom.xml" title="Alexandru Nedelcu" type="application/atom+xml">
+  <%= stylesheet_link_tag "fonts/droid-serif" %>
+  <%= stylesheet_link_tag "all" %>
 
   <!-- Google+ / Facebook optimations -->
-  <link rel="image_src" href="/img/picture_alex.jpg">
+  <link rel="image_src" href="<%= asset_path 'jpg', '/img/picture_alex' %>">
   <!-- not really sure about this -->
   <link href="https://plus.google.com/112639155372207976835/" rel="publisher">
   <% if is_blog_article? %>
@@ -61,12 +61,11 @@
 
       <div class="rss">
 	<a href="https://twitter.com/alex_ndc" target="_blank" title="Follow me on Twitter (@alex_ndc)">
-	  <img src="/img/twitter.png" alt="Follow me on Twitter (@alex_ndc)" />
+	  <%= image_tag "twitter.png", :alt => "Follow me on Twitter (@alex_ndc)" %>
 	</a>
       </div>
     </footer>
   </div>
-
 
   <%= partial("layouts/google-analytics") %>
 </body>
