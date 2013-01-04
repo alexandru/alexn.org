@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc><%= @website.root_url %>/</loc>
+    <lastmod><%= blog.articles.first.date.to_time.iso8601 %></lastmod>
+  </url>
+
+  <url>
+    <loc><%= @website.root_url %>/pages/about.html</loc>
+    <lastmod><%= blog.articles.first.date.to_time.iso8601 %></lastmod>
+  </url>
+
+  <% page_articles.each_with_index do |article, i| %>
+  <url>
+    <loc><%= @website.root_url %><%= article.url %></loc>
+    <lastmod><%= blog.articles.first.date.to_time.iso8601 %></lastmod>
+  </url>
+  <% end %>
+</urlset>
