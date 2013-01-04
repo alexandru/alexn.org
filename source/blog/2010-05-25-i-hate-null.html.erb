@@ -1,0 +1,175 @@
+---
+title: I hate NULL and all its variants!
+archive: true
+tags:
+  - Python
+  - Monads
+---
+
+<p>
+  How many times have you had a chain of methods like this (example
+  showing <a target="_blank" href="http://www.crummy.com/software/BeautifulSoup/">BeautifulSoup</a>
+  in action) ...
+</p>
+
+<% code("python") do %>
+soup.find('table', {'class':'search-params'})\
+    .findParent('form')\    
+    .find('td', {'class': 'elem'})\    
+    .find('input')\    
+    .get('name')
+<% end %>
+
+<p>
+  BeautifulSoup is not JQuery, and when it doesn't find an element on
+  find actions, it just returns None or an empty list. Then you get a
+  beautiful index error or a method not available on NoneType kind of
+  error, with the result being that the error itself doesn't say
+  anything useful about what happened (except the source-code line
+  number) ... whereas in the case above I would probably prefer a
+  WebUIError or something.
+</p>
+
+<p>
+  And really, most of the time I just want the result of such an
+  expression to be None, in case one method invocation fails, and I do
+  not think that having a try/except block for every line of code that
+  does something interesting is ideal.
+</p>
+
+<p>
+  Fortunately Python is dynamic, and you can come up with something
+  resembling the <a target="_blank" href="http://en.wikipedia.org/wiki/Monad_(functional_programming)#Maybe_monad">Maybe
+  monad</a>. Here's one way to do it ...
+</p>
+
+<ol>
+  <li>instead of sending invocations to your initial object /
+  collection (in my case a BeautifulSoup object used for querying),
+  you're sending them to a proxy</li>
+ 
+  <li>for each invocation type you want, the proxy stores the
+  invocation types into a list</li>
+
+  <li>when you want to execute the resulting expression, you iterate
+  through that list actually invoking those actions, keeping an
+  intermediate result</li>
+
+  <li>if at any point that intermediate result becomes None (or
+  something that evaluates to False) or an exception is thrown, then
+  you can either invoke some handler (specializing the exception
+  thrown) or you can return None</li>
+
+</ol>
+
+<p>There are 3 types of invocations I needed to work with BeautifulSoup ...</p>
+
+<ol>
+  <li>attribute access (overridden with __getattr__)</li>
+  <li>method invocation (overridden with __call__)</li>
+  <li>indexer (overridden with __getitem__ and __setitem__)</li>
+</ol>
+
+<p>My proxy implementation starts something like this ...</p>
+
+<% code("python") do %>
+class Proxy(object):        
+    def __init__(self, instance, on_error_callback = None, _chain=None, _memo=None):
+        self._wrapped_inst = instance
+        self._chain = _chain or []
+        self._on_error_callback = on_error_callback
+        self._memo = _memo or []
+
+    def __getattr__(self, name):        
+        return self._new_proxy(ProxyAttribute(name))            
+
+    def __call__(self, *args, **kwargs):        
+        return self._new_proxy(ProxyInvoke(args, kwargs))
+<% end %>
+
+<p>
+  As you can see, there's an <i>instance</i> of an object getting
+  wrapped (<i>_wrapped_instance</i>), there's a <i>_chain</i> of
+  expressions memorized, there's an <i>_on_error_callback</i> that gets
+  executed in case of error, and there's a <i>_memo</i> that keeps the
+  result of the last execution (libraries like BeautifulSoup are slow).
+</p>
+
+<p>
+  Of course, I'm getting fancy, because I want <a target="_blank" href="http://en.wikipedia.org/wiki/Memoization">memoization</a> and
+  because in order to prevent the proxy getting into an inconsistent
+  state, when adding a new invocation type to the <i>_chain</i> I'm
+  taking a page from functional programming by creating a new proxy
+  object (making the proxy somewhat immutable).
+</p>
+
+<p>
+  So I override <i>__getattr__</i> and <i>__call__</i> and
+  <i>__getitem__</i> and <i>__setitem__. </i>For example on
+  <i>__getattr__</i> I add to <i>_chain</i> an instance of a
+  <i>ProxyAttribute</i>, which looks something like this ...
+</p>
+
+<% code("python") do %>
+class ProxyAttribute(object):
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return "." + self.name
+        
+    def do(self, obj):
+        return getattr(obj, self.name)
+<% end %>
+
+<p>
+  And when I want the result of such invocation, if the intermediate
+  result is stored in <i>obj</i>, then it would look like ...
+</p>
+
+<% code("python") do %>
+obj = proxy_attribute_instance.do(obj)
+<% end %>
+
+<p>Now, for how it would look in practice ...</p>
+
+<% code("python") do %>
+def handler_soup_error(**kwargs):    
+     raise WebUIError("Web interface specification changed")
+
+soup = Proxy(BeautifulSoup(document), handler_soup_error)
+
+soup.find('table', {'class':'search-params'}).findParent('form')\    
+    .find('td', {'class': 'elem'})\    
+    .find('input')\    
+    .get('name')\    
+    .do()
+<% end %>
+
+<p>
+  So at the actual call site, the only difference is that <i>do()</i>
+  call. If the error handler wouldn't be specified, the result returned
+  would be None. Simple as that.
+</p>
+
+<p>
+  I also needed an utility, because I want to capture a partial
+  evaluation to not rerun it for multiple special cases (like in the
+  above case capturing all "td" elements) ...
+</p>
+
+<% code("python") do %>
+all_td_elems = soup.find('table', {'class':'search-params'})\    
+    .findParent('form')\    
+    .find('td', {'class': 'elem'})\    
+    .do_cache() # not an inspiring name unfortunately
+
+    # and then resume with the same behavior ...
+    all_td_elements.find('input').get('name').do()
+<% end %>
+
+<p>
+  Yeah, it's just a small hack, but it's so damn useful sometimes.
+  The source code is posted here: 
+  <a target="_blank" href="http://code.google.com/p/useful-snippets/source/browse/trunk/proxy.py">http://code.google.com/p/useful-snippets/source/browse/trunk/proxy.py</a>
+</p>
