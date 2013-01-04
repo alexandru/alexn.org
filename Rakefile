@@ -1,10 +1,11 @@
 task :rebuild do
   sh("bundle exec middleman build -c")
+  sh("rm -rf build2 && cp -rf build build2")
 
-  Dir["build/**/*"].each do |fpath|
+  Dir["build2/**/*"].each do |fpath|
     next if File.directory?(fpath)
     extension = File.extname(fpath)[1..-1].downcase
-    s3path = fpath.sub(/^[\/]?build\//, "")
+    s3path = fpath.sub(/^[\/]?build2\//, "")
     mimesetting = ""
 
     if extension =~ /s?css/
@@ -38,7 +39,7 @@ task :rebuild do
       exit(1)
     end
 
-    if compress      
+    if compress && false
       sh("gzip -9 #{fpath} && mv #{fpath}.gz #{fpath}") 
       extra = "--add-header \"Content-Encoding: gzip\""
     else
@@ -53,6 +54,8 @@ task :rebuild do
 
     sh("s3cmd --config=.s3cfg put #{fpath} s3://www.bionicspirit.com/#{s3path} --acl-public --add-header \"Cache-Control: public, max-age=#{expires}\" #{extra} #{mimesetting}")
   end
+
+  sh("rm -rf build2/")
 end
 
 task :sync do
