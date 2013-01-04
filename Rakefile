@@ -12,10 +12,10 @@ task :rebuild do
     if extension =~ /s?css/
       mimesetting = "-m text/css"
       compress = true
-    elsif fpath == "js"
+    elsif extension == "js"
       mimesetting = "-m text/javascript"
       compress = true
-    elsif fpath =~ /html?/
+    elsif extension =~ /html?/
       mimesetting = "-m text/html"
       compress = true
     elsif fpath =~ /atom.xml/
