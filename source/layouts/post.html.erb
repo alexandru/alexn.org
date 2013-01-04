@@ -3,7 +3,7 @@
   <header>
     <h1 itemprop="name"><%= current_page.title %></h1>
     <div id="meta">
-      <div class="post-date">Published: <%= current_page.date.strftime("%b %d, %Y") %></div>
+      <div class="post-date"><%= current_page.date.strftime("%b %d, %Y") %></div>
     </div>
   </header>
 
@@ -13,10 +13,10 @@
 
   <footer>
     <div id="other-articles">
-      <h2>Other Articles</h2>
+      <h2>Recent Articles</h2>
 
       <ul class="posts">
-	<% page_articles.find_all{|x| !x.data.archive}[0..5].each_with_index do |article, i| %>	
+	<% page_articles.find_all{|x| !x.data.archive && x.url != current_page.url}[0..6].each_with_index do |article, i| %>	
 	<li> 
 	  <time datetime="<%= article.date.strftime("%Y-%m-%d") %>">
 	    <%= article.date.strftime("%Y-%m-%d") %> &raquo;

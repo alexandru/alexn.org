@@ -1,6 +1,8 @@
 ---
 pageable: true
 ---
+<article id="calendar">
+
 <h1>Archive for
   <% case page_type
      when 'day' %>
@@ -20,14 +22,21 @@ pageable: true
   <% end %>
 <% end %>
 
-<ul>
+<ol class="posts">
   <% page_articles.each_with_index do |article, i| %>
-    <li><%= link_to article.title, article %> <span><%= article.date.strftime('%b %e') %></span></li>
+    <li> 
+      <time datetime="<%= article.date.strftime("%Y-%m-%d") %>">
+	<%= article.date.strftime("%Y-%m-%d") %> &raquo;
+      </time>
+      <a href="<%= article.url %>" rel="prefetch related"><%= article.title %></a>
+    </li>      
   <% end %>
-</ul>
+</ol>
 
 <% if paginate %>
   <% if next_page %>
     <p><%= link_to 'Next page', next_page %></p>
   <% end %>
 <% end %>
+
+</article>
