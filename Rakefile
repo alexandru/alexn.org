@@ -39,7 +39,7 @@ task :rebuild do
       exit(1)
     end
 
-    if compress && false
+    if compress 
       sh("gzip -9 #{fpath} && mv #{fpath}.gz #{fpath}") 
       extra = "--add-header \"Content-Encoding: gzip\""
     else
@@ -58,6 +58,3 @@ task :rebuild do
   sh("rm -rf build2/")
 end
 
-task :sync do
-  sh("s3cmd --config=.s3cfg sync build/ s3://www.bionicspirit.com/ --acl-public --add-header \"Cache-Control: public, max-age=86400\"")
-end
