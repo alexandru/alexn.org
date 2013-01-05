@@ -42,3 +42,18 @@ handlers:
 libraries:
 - name: django
   version: "1.4"
+
+skip_files:
+- ^(.*/)?app\.yaml
+- ^(.*/)?app\.yml
+- ^(.*/)?index\.yaml
+- ^(.*/)?index\.yml
+- ^(.*/)?#.*#
+- ^(.*/)?.*~
+- ^(.*/)?.*\.py[co]
+- ^(.*/)?.*/RCS/.*
+- ^(.*/)?\..*
+- ^(.*/)?.*\.bak$
+- ^/?website/source/.*$
+- ^/?website/Gemfile*$
+- ^/?website/Rakefile*$
