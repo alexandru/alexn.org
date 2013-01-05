@@ -15,7 +15,6 @@
   <link rel="canonical" href="<%= @website.root_url %><%= current_page.url %>">
 
   <link rel="alternate"  href="/atom.xml" title="Alexandru Nedelcu" type="application/atom+xml">
-  <%= stylesheet_link_tag "fonts/droid-serif" %>
   <%= stylesheet_link_tag "all" %>
 
   <!-- Google+ / Facebook optimations -->
@@ -65,6 +64,7 @@
     </footer>
   </div>
 
-  <%= partial("layouts/google-analytics") %>
+  <%= partial("layouts/font-loader") %>
+  <%= partial("layouts/google-analytics") %>  
 </body>
 </html>
