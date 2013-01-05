@@ -117,6 +117,12 @@ configure :build do
 
   activate :gzip
 
+  activate :asset_host
+
+  set :asset_host do |asset|
+    "http://cdn%d.bionicspirit.com" % (asset.hash % 2 + 1)
+  end
+
   # Compress PNGs after build
   # First: gem install middleman-smusher
   # require "middleman-smusher"
