@@ -1,0 +1,93 @@
+---
+title: "UX Tip: Outside the US, Don't Require Postal Codes"
+archive: true
+tags:
+  - Web
+  - Design
+  - UX
+---
+
+<%= image_tag "ireland.png", :class => "right" %>
+
+<p>
+  I have this annoyance with US-centric UIs that started to bug me
+  even on a product I'm working on and I didn't notice it until I
+  tested the user experience for other countries. Many apps developed
+  primarily for US customers are making the postal code (zipcode in US
+  parlance) mandatory and this is a pain in the ass, let me explain
+  why.
+</p>
+
+<p>
+  You see, postal codes are useful for sorting the mail to be
+  delivered. And in the rest of the world (well, not all, most of it)
+  postal codes haven't transcended their primary use-case. In many
+  countries this code is not even required for sending a letter. This
+  is because either the sorting of letters / packages is still done
+  manually, or because the system in place has some other means of
+  efficiently sorting the mail which precludes the usage of postal
+  codes.
+</p>
+
+<p>
+  I live in Eastern Europe. Down here nobody knows their postal
+  code. Nobody even cares about it. Nobody uses it anywhere, not even
+  when sending letters or postcards, even though the postal office
+  would thank you if you did.
+</p>
+
+<p>
+  My postal code is not written on my ID card, which is EU-compliant
+  and with which I can travel anywhere inside EU, without needing a
+  passport. It isn't on any legally binding contract I ever
+  signed. This code for me is just an optional formality.
+</p>
+
+<p>
+  So when US-centric forms ask me for my postal code, <b>I have to
+  either look it up, or I end-up providing a fake one</b>, as
+  the postal office or anybody else doesn't really care about
+  correctness or the presence of it. And I never bother to remember it
+  as I changed addresses a couple of times. My address on Amazon has a
+  fake postal code. The packages are arriving just fine, straight at
+  my doorstep.
+</p>
+
+<%= image_tag "taxi.jpg", :class => "right" %>
+
+<p>
+  Besides forms for filling out addresses, one other important
+  use-case is as a cheap way of getting a location. In the US
+  everybody and their dog knows their zipcode. When getting a taxi,
+  the driver asks you for the destination zipcode. He then proceeds to
+  enter it on his GPS device. And all is well and everybody is happy.
+</p>
+
+<p>
+  This model has been copied in web applications. Many web apps ask
+  users for their zipcode, to infer their locations. This works for
+  businesses too, as it's a lot cheaper to give customers a
+  zipcode. However, this is basically useless in many parts of the
+  world.
+</p>
+
+<p>
+  <b>Ireland doesn't even have postal codes</b>. Few countries have
+  postal codes databases with geo location available that you can rely
+  on. Asking for the postal code is the exception, rather than the
+  norm. GPS systems are configured to work with street name and
+  number. It's not optimal, true, but that's how it is. And in a web
+  app if you're interested in the user's city to get a search radius,
+  then ask for the user's city.
+</p>
+
+<p>
+  I would go even further - I would simply NOT show a postal code
+  field outside the US, even if optional, unless delivery of packages
+  by mail is involved and the country's postal office is known to
+  delay packages without one provided. Because many users are simply
+  going to feel compelled to answer it and that's just bad user
+  experience.
+</p>
+
+
