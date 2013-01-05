@@ -1,5 +1,6 @@
 require 'ostruct'
 
+
 ###
 # Site-wide settings
 ###
