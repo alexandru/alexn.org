@@ -52,7 +52,7 @@ task :rebuild do
       expires = 22896000
     end
 
-    sh("s3cmd --config=.s3cfg put #{fpath} s3://www.bionicspirit.com/#{s3path} --acl-public --add-header \"Cache-Control: public, max-age=#{expires}\" #{extra} #{mimesetting}")
+    sh("s3cmd --config=./.s3cfg put #{fpath} s3://www.bionicspirit.com/#{s3path} --acl-public --add-header \"Cache-Control: public, max-age=#{expires}\" #{extra} #{mimesetting}")
   end
 
   sh("rm -rf build2/")
