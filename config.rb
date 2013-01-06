@@ -8,7 +8,7 @@ require 'ostruct'
   :title => "Bionic Spirit",
   :description => "Building Stuff, Having Fun, Craving Profit",
   :domain => "www.bionicspirit.com",
-  :root_url => "https://www.bionicspirit.com"
+  :root_url => "http://www.bionicspirit.com"
 })
 
 ###
@@ -116,6 +116,8 @@ configure :build do
 
   # Use relative URLs
   activate :relative_assets
+
+  activate :gzip
 
   # Compress PNGs after build
   # First: gem install middleman-smusher
