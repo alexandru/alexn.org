@@ -8,7 +8,7 @@ require 'ostruct'
   :title => "Bionic Spirit",
   :description => "Building Stuff, Having Fun, Craving Profit",
   :domain => "www.bionicspirit.com",
-  :root_url => "https://www.bionicspirit.com"
+  :root_url => "http://www.bionicspirit.com"
 })
 
 ###
