@@ -1,0 +1,11 @@
+expires:
+  html: 3600 # one hour
+  assets: 1314000 # one year
+
+redirects:
+  - from: /rss/
+    to: /atom.xml
+    type: 301
+  - from: /docs/dialer.html
+    to: /blog/2009/02/20/tips-for-creating-voip-dialer.html
+    type: 301
