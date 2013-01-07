@@ -32,7 +32,7 @@
       <h1 id="title"><%= @website.title %></h1>
 
       <nav>
-	  <a href="/">bionicspirit.com</a>
+	  <a href="/"><%= @website.domain %></a>
 	  <a class="extra" href="/pages/archive.html">archive</a>
 	  <a class="extra" href="/pages/about.html">about</a>
 	  <a href="https://github.com/alexandru" class="github" title="Fork me on GitHub"><span>Fork me on GitHub</span></a>
@@ -54,7 +54,7 @@
 	Some rights reserved (<a href="http://creativecommons.org/licenses/by-nc/3.0/" rel="license">CC BY-NC 3.0</a>)
     <!--sse-->
 	<br />
-	contact [at] bionicspirit (dot) com
+	contact [at...] <%= @website.domain %>
     <!--/sse-->
       </div>
 

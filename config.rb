@@ -1,15 +1,11 @@
 require 'ostruct'
+require 'yaml'
 
 ###
 # Site-wide settings
 ###
 
-@website = OpenStruct.new({
-  :title => "Bionic Spirit",
-  :description => "Building Stuff, Having Fun, Craving Profit",
-  :domain => "www.bionicspirit.com",
-  :root_url => "https://www.bionicspirit.com"
-})
+@website = OpenStruct.new(YAML::load_file(File.dirname(__FILE__) + "/config.yaml")[:website])
 
 ###
 # Blog settings
