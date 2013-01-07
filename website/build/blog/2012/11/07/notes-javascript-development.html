@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/Article">
+<head>
+  
+    <title>Notes On Javascript Client-side Development</title>
+  
+
+  <meta charset="utf-8">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <link rel="canonical" href="https://www.bionicspirit.com/blog/2012/11/07/notes-javascript-development.html">
+
+  <link rel="alternate"  href="/atom.xml" title="Alexandru Nedelcu" type="application/atom+xml">
+  <link href="../../../../assets/css/all-aa1a19d2.css" media="screen" rel="stylesheet" type="text/css" />
+
+  <!-- Google+ / Facebook optimations -->
+  <link rel="image_src" href="../../../../img/picture_alex.jpg">
+  <!-- not really sure about this -->
+  <link href="https://plus.google.com/112639155372207976835/" rel="publisher">
+  <link href="https://plus.google.com/112639155372207976835/" rel="author">
+  <!-- END: Google+ / Facebook optimations -->
+
+  <!-- Google Analytics -->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27605864-1']);
+  _gaq.push(['_setDomainName', 'bionicspirit.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+  
+</head>
+<body>
+  <div id="header-container">
+    <header>
+      <h1 id="title">Bionic Spirit</h1>
+
+      <nav>
+	  <a href="/">bionicspirit.com</a>
+	  <a class="extra" href="/pages/archive.html">archive</a>
+	  <a class="extra" href="/pages/about.html">about</a>
+	  <a href="https://github.com/alexandru" class="github" title="Fork me on GitHub"><span>Fork me on GitHub</span></a>
+      </nav>
+    </header>
+  </div>
+
+  <div id="main-container">
+    <div id="main">
+      <article id="post">
+  <header>
+    <h1 itemprop="name">Notes On Javascript Client-side Development</h1>
+    <div id="meta">
+      <div class="post-date">Nov 07, 2012</div>
+    </div>
+  </header>
+
+  <div id="content">
+    <p><img class="right" supported_extensions="[&quot;.png&quot;, &quot;.jpg&quot;, &quot;.jpeg&quot;, &quot;.bmp&quot;, &quot;.gif&quot;]" alt="" width="230" height="194" src="../../../../assets/img/javascript_logo-19c4522c.jpg" />
+Client-side Javascript development can be quite overwhelming, even for
+senior developers. I&#39;m describing here what I did in a recent piece of
+client-side functionality to keep my sanity. This interface I&#39;m
+talking about is served on mobile-phones, so it must be pretty
+bloat-free, adding salt over injury.</p>
+
+<h2>Dealing with modules, packaging and minifying</h2>
+
+<p>This is probably my biggest gripe with Javascript, that you can&#39;t
+simply <code>require(&quot;some.namespace&quot;)</code> without extra glue and tricks. This
+is a limitation of the browser, as such operations would have to be
+executed asynchronously, requiring tedious callbacks and because of
+bandwidth constraints you may want to serve everything in a single
+optimized and gzipped JS.</p>
+
+<p><strong><a href="http://brunch.io/">Brunch.io</a></strong> is an awesome tool that helps you
+do that. You split your project in multiple files, then Brunch can do
+the assembling for you. To have modules in your project (splitting it
+in several files), Brunch works with the
+<a href="http://wiki.commonjs.org/wiki/Modules/1.1">CommonJS modules</a>
+interface. All that means is that your Javascript files will end-up
+looking like this:</p>
+<div class="highlight"><pre><span class="c1">// for importing another module</span>
+<span class="nx">utils</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;path/to/utils&quot;</span><span class="p">)</span>
+
+<span class="kd">function</span> <span class="nx">generateRandomString</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">userAgent</span> <span class="o">=</span> <span class="nx">navigator</span><span class="p">.</span><span class="nx">userAgent</span> 
+    <span class="kd">var</span> <span class="nx">rnd</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100000000</span>
+    <span class="k">return</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">md5</span><span class="p">(</span><span class="nx">userAgent</span> <span class="o">+</span> <span class="nx">rnd</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// exporting function for consumption from other modules</span>
+<span class="nx">modules</span><span class="p">.</span><span class="kr">export</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">generateRandomString</span><span class="o">:</span> <span class="nx">generateRandomString</span>
+<span class="p">}</span>
+</pre></div>
+<p>Building changes and seeing them in your browser works really fast, as
+Brunch can watch for changes in real-time and also exposes a built-in
+server. So Brunch can take care of packaging for all your modules in a
+single JS file, also minimizing for production if you want. The
+workflow is pretty sweat, the configuration simple.</p>
+
+<h2>Dealing with Javascript&#39;s Syntax Quirks</h2>
+
+<p>Javascript is a capable language exposed by an awful syntax and
+plagued by incompatibilities - did you know that placing extra commas
+or other punctuation will cause syntax errors in older browsers? So
+it&#39;s not just about API incompatibilities, the syntax itself can lead
+to surprises.</p>
+
+<p>Brunch can be configured to check your code with
+<a href="http://www.jshint.com/">JSHint</a>, which is a Linter that can check for
+syntax errors and you can use it to force upon yourself and your team
+certain best practices. It has a lot of
+<a href="http://www.jshint.com/docs/">configuration options</a> and for instance
+it can trigger errors on uninitialized variables and other
+tremendously useful stuff.</p>
+
+<p>I&#39;ve used <a href="http://coffeescript.org/">CoffeeScript</a> as Brunch can work
+with any language, with the proper plugin. I preferred CoffeeScript
+because I develop in a more functional style and CoffeeScript has a
+lighter syntax for anonymous functions, plus some other fixes to
+Javascript, like &ldquo;class&rdquo; or the fat-arrow that binds the defined
+function to the current <code>this</code> (tremendously useful). I coupled
+CoffeeScript with <a href="http://www.coffeelint.org/">CoffeeLint</a> and for
+instance I disabled the implicit braces when declaring object
+literals, as I hate that syntax and don&#39;t want to get sucked into
+it. What I really wanted however was
+<a href="http://www.typescriptlang.org/">TypeScript</a>, which is like
+Javascript, but with nice add-ons. Unfortunately it&#39;s too immature and
+so
+<a href="https://twitter.com/brunch/status/253571565923467264">it isn&#39;t included by Brunch&#39;s authors yet</a>,
+but it probably will be at some point. </p>
+
+<h2>Dealing with Async Events</h2>
+
+<p>Many people use <a href="http://backbonejs.org/">Backbone.js</a> or things based
+on it. What Backbone gives you, besides a structure for your app with
+controllers and models, it also gives you a foundation for using the
+<a href="http://en.wikipedia.org/wiki/Observer_pattern">Observer pattern</a>. So
+your app initiates events that produce data and in response to user
+actions or new data, you have to update stuff.</p>
+
+<p>However my use-case was simple (the interface can be described by a
+state-machine, without many things going on as far as the UI is
+concerned). And <em>I absolutely hate</em> this consumer/producer model with
+listeners, because I can&#39;t really wrap my head around it even for the
+simplest of examples, as this model was really designed for usage
+inside an IDE, where you can right-click on components and see all the
+registered listeners for certain events.</p>
+
+<p><strong><a href="https://github.com/kriskowal/q">The Q library</a></strong> - is one library
+I&#39;m using for dealing with <em>future</em> responses (a promise for a
+response that may be available at a later time) and for avoiding the
+<a href="http://calculist.org/blog/2011/12/14/why-coroutines-wont-work-on-the-web/">Pyramid of Doom</a>.</p>
+
+<p>You see, many people choose something like Backbone because it makes
+asynchronicity easier to deal with. I chose against it by building
+small functions that compose, binding them together with Q. Works
+great for small projects, even if the asynchronous calls are difficult
+to compose, because working with promises makes that easy - note that
+<a href="https://gist.github.com/3889970">jQuery&#39;s implementation is broken</a>,
+so don&#39;t use it, just wrap jQuery&#39;s ajax calls in a Q promise.</p>
+
+<p>Also, the great thing about preferring small functions with
+referential transparency that compose is that testing becomes so much
+easier. Brunch can also run your tests and you can use something like
+<a href="http://chaijs.com/">Chai</a> or other helpers for testing nirvana.</p>
+
+<p>This doesn&#39;t mean that Backbone and data flows with something like Q
+can&#39;t be used together. I can certainly see myself working with
+Backbone for larger projects.</p>
+
+<h2>Going Mobile</h2>
+
+<p>Other libraries I&#39;m using are:</p>
+
+<ul>
+<li><a href="http://underscorejs.org/">Underscore.js</a>, which provides much
+needed API additions, some of which are available in latest versions
+of JS, but not on older browsers. You definitely need this if you
+like to program in a more functional style<br></li>
+<li><a href="http://zeptojs.com/">Zepto</a> instead of jQuery, because this
+interface is served on mobile phones and jQuery is pretty
+bloated. I&#39;ll also probably switch to
+<a href="http://www.jqmobi.com/">jqMobi</a> because it&#39;s even lighter.</li>
+</ul>
+
+<p>In regards to jQuery alternatives, well jQuery adds like 33KB of
+gzipped Javascript to my download. This may not be an issue in a
+browser that has jQuery already cached, but in a fresh
+<a href="http://developer.android.com/reference/android/webkit/WebView.html">WebView</a>
+it&#39;s really big for normal 3G connections. My final JS file that gets
+downloaded only has 20KB of gzipped JS, in total, including the
+libraries I mentioned and it won&#39;t grow over 30KB. In combination with
+a CDN like <a href="http://aws.amazon.com/cloudfront/">CloudFront</a> that&#39;s
+still reasonable.</p>
+
+<p>The ideal would be to use something like the
+<a href="https://developers.google.com/closure/">Google Closure</a> compiler,
+which can do tree-shaking, getting rid of pieces of code you don&#39;t
+need. However, the code has to follow the Closure conventions,
+otherwise it will behave no better than a normal minifier and
+libraries like jQuery don&#39;t follow them. That&#39;s why I have high hopes
+for <a href="http://www.typescriptlang.org/">TypeScript</a>, because it has a
+built-in dependency system and you can annotate with types even
+outside libraries, so a tree-shaker could work for popular libraries
+if there&#39;s enough interest, even if the library in question does not
+follow any conventions. I also thought about using
+<a href="https://github.com/clojure/clojurescript">ClojureScript</a>, which emits
+Closure-compatible Javascript, but I&#39;m not familiar enough with the
+language, so maybe some other day :-)</p>
+
+<h2>As a conclusion</h2>
+
+<p>Keep things simple and work with tools provided by the Node.js
+community, because that&#39;s where the real action is.</p>
+
+  </div>
+
+  <footer>
+    <div id="other-articles">
+      <h2>Recent Articles</h2>
+
+      <ul class="posts">
+		
+	<li> 
+	  <time datetime="2012-11-02">
+	    2012-11-02 &raquo;
+	  </time>
+	  <a href="/blog/2012/11/02/scala-functional-programming-type-classes.html" rel="prefetch related">On Scala, Functional Programming and Type-Classes</a>
+	</li>      
+		
+	<li> 
+	  <time datetime="2012-07-02">
+	    2012-07-02 &raquo;
+	  </time>
+	  <a href="/blog/2012/07/02/love-scala.html" rel="prefetch related">Things I Love About Scala</a>
+	</li>      
+		
+	<li> 
+	  <time datetime="2012-02-09">
+	    2012-02-09 &raquo;
+	  </time>
+	  <a href="/blog/2012/02/09/howto-build-naive-bayes-classifier.html" rel="prefetch related">How To Build a Naive Bayes Classifier</a>
+	</li>      
+		
+	<li> 
+	  <time datetime="2012-01-16">
+	    2012-01-16 &raquo;
+	  </time>
+	  <a href="/blog/2012/01/16/cosine-similarity-euclidean-distance.html" rel="prefetch related">Data Mining: Finding Similar Items and Users</a>
+	</li>      
+		
+	<li> 
+	  <time datetime="2012-01-05">
+	    2012-01-05 &raquo;
+	  </time>
+	  <a href="/blog/2012/01/05/blogging-for-hackers.html" rel="prefetch related">Blogging Platform for Hackers</a>
+	</li>      
+		
+	<li> 
+	  <time datetime="2011-12-15">
+	    2011-12-15 &raquo;
+	  </time>
+	  <a href="/blog/2011/12/15/crawling-the-android-marketplace-155200-apps.html" rel="prefetch related">Crawling the Android Marketplace</a>
+	</li>      
+		
+	<li> 
+	  <time datetime="2011-11-29">
+	    2011-11-29 &raquo;
+	  </time>
+	  <a href="/blog/2011/11/29/earning-money-as-an-amazon-affiliate.html" rel="prefetch related">Earning Money as an Amazon Affiliate</a>
+	</li>      
+	
+      </ul>
+    </div>
+
+    <div id="contributions">
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">	
+	var disqus_shortname = 'alexnorg';
+	var disqus_url = 'http://bionicspirit.com/blog/2012/11/07/notes-javascript-development.html';
+
+	/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function() {
+	var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </footer>
+</article>
+
+    </div>
+  </div>
+
+  <div id="footer-container">
+    <footer>
+      <div class="contact">
+	&copy; 2013 Alexandru Nedelcu
+	<br />
+	Some rights reserved (<a href="http://creativecommons.org/licenses/by-nc/3.0/" rel="license">CC BY-NC 3.0</a>)
+    <!--sse-->
+	<br />
+	contact [at-] bionicspirit (-dot) com
+    <!--/sse-->
+      </div>
+
+      <div class="rss">
+	<a href="https://twitter.com/alex_ndc" target="_blank" title="Follow me on Twitter (@alex_ndc)">
+	  <img alt="Follow me on Twitter (@alex_ndc)" supported_extensions="[&quot;.png&quot;, &quot;.jpg&quot;, &quot;.jpeg&quot;, &quot;.bmp&quot;, &quot;.gif&quot;]" width="32" height="32" src="../../../../assets/img/twitter-2856d310.png" />
+	</a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

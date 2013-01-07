@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/Article">
+<head>
+  
+    <title>Things I Love About Scala</title>
+  
+
+  <meta charset="utf-8">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <link rel="canonical" href="https://www.bionicspirit.com/blog/2012/07/02/love-scala.html">
+
+  <link rel="alternate"  href="/atom.xml" title="Alexandru Nedelcu" type="application/atom+xml">
+  <link href="../../../../assets/css/all-aa1a19d2.css" media="screen" rel="stylesheet" type="text/css" />
+
+  <!-- Google+ / Facebook optimations -->
+  <link rel="image_src" href="../../../../img/picture_alex.jpg">
+  <!-- not really sure about this -->
+  <link href="https://plus.google.com/112639155372207976835/" rel="publisher">
+  <link href="https://plus.google.com/112639155372207976835/" rel="author">
+  <!-- END: Google+ / Facebook optimations -->
+
+  <!-- Google Analytics -->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27605864-1']);
+  _gaq.push(['_setDomainName', 'bionicspirit.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+  
+</head>
+<body>
+  <div id="header-container">
+    <header>
+      <h1 id="title">Bionic Spirit</h1>
+
+      <nav>
+	  <a href="/">bionicspirit.com</a>
+	  <a class="extra" href="/pages/archive.html">archive</a>
+	  <a class="extra" href="/pages/about.html">about</a>
+	  <a href="https://github.com/alexandru" class="github" title="Fork me on GitHub"><span>Fork me on GitHub</span></a>
+      </nav>
+    </header>
+  </div>
+
+  <div id="main-container">
+    <div id="main">
+      <article id="post">
+  <header>
+    <h1 itemprop="name">Things I Love About Scala</h1>
+    <div id="meta">
+      <div class="post-date">Jul 02, 2012</div>
+    </div>
+  </header>
+
+  <div id="content">
+    <p>Scala makes development in a static language productive and
+concurrency easy, while allowing you to tap into the power of the JVM,
+giving you access to the same concurrency primitives available for
+Java, should you need to. I&#39;m now a fan.</p>
+
+<!-- more -->
+
+<h2>Syntactic Sugar</h2>
+
+<p>Say that we&#39;ve got a web service that calls out to other web services,
+or does something else expensive (like calculating the digits of PI
+:)) and you want to cache the returned results in a map of some sort.</p>
+
+<p>Our client-side usage of this class will be like:</p>
+<div class="highlight"><pre><span class="k">val</span> <span class="n">cache</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Cache</span>
+
+<span class="k">val</span> <span class="n">value</span> <span class="k">=</span> <span class="n">cache</span><span class="o">(</span><span class="s">&quot;some-key-here&quot;</span><span class="o">)</span> <span class="o">{</span>
+  <span class="c1">// do something expensive ...</span>
+  <span class="nc">Thread</span><span class="o">.</span><span class="n">sleep</span><span class="o">(</span><span class="mi">100</span><span class="o">)</span>
+
+  <span class="c1">// returns result</span>
+  <span class="s">&quot;Hello world!&quot;</span>
+<span class="o">}</span>
+</pre></div>
+<p>First, let&#39;s implement a naive version:</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">NaiveCache</span> <span class="o">{</span>
+  <span class="k">private</span><span class="o">[</span><span class="kt">this</span><span class="o">]</span> <span class="k">var</span> <span class="n">map</span> <span class="k">=</span> <span class="nc">Map</span><span class="o">.</span><span class="n">empty</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Any</span><span class="o">]</span>
+
+  <span class="k">def</span> <span class="n">apply</span><span class="o">(</span><span class="n">key</span><span class="k">:</span> <span class="kt">String</span><span class="o">)(</span><span class="n">process</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="nc">Any</span><span class="o">)</span><span class="k">:</span> <span class="kt">Any</span> <span class="o">=</span> 
+    <span class="n">map</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="n">key</span><span class="o">)</span> <span class="k">match</span> <span class="o">{</span>
+      <span class="k">case</span> <span class="nc">Some</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">value</span>
+      <span class="k">case</span> <span class="nc">None</span> <span class="k">=&gt;</span> <span class="o">{</span>
+        <span class="k">val</span> <span class="n">value</span> <span class="k">=</span> <span class="n">process</span>
+        <span class="n">map</span> <span class="k">=</span> <span class="n">map</span> <span class="o">+</span> <span class="o">(</span><span class="n">fullKey</span> <span class="o">-&gt;</span> <span class="n">value</span><span class="o">)</span>
+        <span class="n">value</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<p>This looks pretty simple. We&#39;ve got a Map that stores the results and
+an <code>apply</code> method that takes as input a Key and a function <code>process()</code>
+that returns the value of some computation.</p>
+
+<p>But it&#39;s not OK that this function returns Any reference, because we
+are in a static language and I hate casting, which in this case is
+totally unnecessary. The right return type of <code>apply()</code> could be
+inferred from its parameters. So we&#39;ll fix that by adding a generic
+variable:</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">NaiveCache</span> <span class="o">{</span>
+  <span class="k">private</span><span class="o">[</span><span class="kt">this</span><span class="o">]</span> <span class="k">var</span> <span class="n">map</span> <span class="k">=</span> <span class="nc">Map</span><span class="o">.</span><span class="n">empty</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Any</span><span class="o">]</span>
+
+  <span class="k">def</span> <span class="n">apply</span><span class="o">[</span><span class="kt">T:</span> <span class="kt">Manifest</span><span class="o">](</span><span class="n">key</span><span class="k">:</span> <span class="kt">String</span><span class="o">)(</span><span class="n">process</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="n">T</span><span class="o">)</span><span class="k">:</span> <span class="kt">T</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="k">val</span> <span class="n">fullKey</span> <span class="k">=</span> <span class="n">key</span> <span class="o">+</span> <span class="s">&quot;::&quot;</span> <span class="o">+</span> <span class="n">manifest</span><span class="o">[</span><span class="kt">T</span><span class="o">].</span><span class="n">toString</span>
+
+    <span class="n">map</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="n">fullKey</span><span class="o">)</span> <span class="k">match</span> <span class="o">{</span>
+      <span class="k">case</span> <span class="nc">Some</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">value</span><span class="o">.</span><span class="n">asInstanceOf</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span>
+      <span class="k">case</span> <span class="nc">None</span> <span class="k">=&gt;</span> <span class="o">{</span>
+        <span class="k">val</span> <span class="n">value</span> <span class="k">=</span> <span class="n">process</span>
+        <span class="n">map</span> <span class="k">=</span> <span class="n">map</span> <span class="o">+</span> <span class="o">(</span><span class="n">fullKey</span> <span class="o">-&gt;</span> <span class="n">value</span><span class="o">)</span>
+        <span class="n">value</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<p>We&#39;ve added the generic type T to our <code>apply()</code> which is inferred at
+the call-site from <code>process()</code>. We still want our map to hold
+anything, however in order to do that:</p>
+
+<ol>
+<li>when we fetch the value from our map, we need to cast it to T in
+order to prevent compiler errors</li>
+<li>if we do that, but then we call our <code>apply()</code> method with the same
+key but with a different <code>process()</code>, then we can end up
+with <code>ClassCastExceptions</code>, so to prevent it we need to make the
+return type of <code>process()</code> part of our key</li>
+</ol>
+
+<p>In Java this is hard to do, because in Java the generic types get
+erased at compile-time and so aren&#39;t available at runtime. Scala has
+the same behavior, however in Scala we can specify that we want the
+<a href="http://www.scala-lang.org/api/current/index.html#scala.reflect.Manifest">Manifest</a>
+for our type T, which will give us access to the erasure of T at
+runtime. Thus we can use the name of type T in composing our key. </p>
+
+<p>So these will now work with no cast exceptions, because the 2 calls to
+cache will work on 2 different keys:</p>
+<div class="highlight"><pre><span class="c1">// key will be ... some-string::String</span>
+<span class="k">val</span> <span class="n">value1</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="n">cache</span><span class="o">(</span><span class="s">&quot;some-string&quot;</span><span class="o">)</span> <span class="o">{</span> <span class="s">&quot;Hello world!&quot;</span> <span class="o">}</span>
+
+<span class="c1">// key will be ... some-string::Int</span>
+<span class="k">val</span> <span class="n">value2</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">cache</span><span class="o">(</span><span class="s">&quot;some-string&quot;</span><span class="o">)</span> <span class="o">{</span> <span class="mi">92</span> <span class="o">}</span>
+</pre></div>
+<h2>Concurrency</h2>
+
+<p>I also mentioned concurrency. Can instances of this class be used in a
+multi-threaded context safely?</p>
+
+<p>Yes definitely, with maybe a small adjustment to our map
+declaration. It&#39;s better if we marked our map as being <code>@volatile</code>,
+because when writing a value to a volatile variable, the write creates
+a memory fence that ensures the value will get published to other
+threads immediately (instead of being cached in a processor registry
+or something):</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">NaiveCache</span> <span class="o">{</span>
+  <span class="nd">@volatile</span>
+  <span class="k">private</span><span class="o">[</span><span class="kt">this</span><span class="o">]</span> <span class="k">var</span> <span class="n">map</span> <span class="k">=</span> <span class="nc">Map</span><span class="o">.</span><span class="n">empty</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Any</span><span class="o">]</span>
+
+  <span class="c1">//...</span>
+</pre></div>
+<p>Something is a little off. Between fetching the key from the map and
+updating the map with a new value, we can have a race problem, so in
+case of multiple threads pounding on this cache you can end up with
+waisted resources from threads doing duplicate work, although this may
+be acceptable for a cache.</p>
+
+<p>The advantages of this implementation are:</p>
+
+<ul>
+<li>simple to understand</li>
+<li>no locking anywhere, for anything; the logic is completely non-blocking</li>
+<li>our cache never gets into an inconsistent state</li>
+</ul>
+
+<p>Try doing that with a <code>java.util.HashMap</code>. The difference here is that
+this Map is completely immutable. Its internal state can never be
+corrupted by multiple threads reading and writing to it because on
+every write a new Map is created and the reference to the old one gets
+replaced. Replacing that reference is also an atomic operation.</p>
+
+<p>So this means:</p>
+
+<ul>
+<li>we&#39;ve got no lock overhead (only a volatile variable that&#39;s much
+cheaper than a synchronization block)</li>
+<li>we&#39;ve got no lock contention to speak of </li>
+<li>we&#39;ve got no deadlocks possible</li>
+</ul>
+
+<p>But say you want to fix the race condition that results in duplicate
+effort. Many developers would just use the Java Monitor Pattern and
+<code>synchronize</code> the whole <code>apply()</code> method. But this means that multiple
+threads won&#39;t be able to read from this cache in parallel, which in
+the case of a cache I don&#39;t think it&#39;s an acceptable trade-off.</p>
+
+<p>In Java you can solve this by using a
+<a href="http://docs.oracle.com/javase/6/docs/api/java/util/concurrent/locks/ReentrantReadWriteLock.html">ReentrantReadWriteLock</a>.
+This is a pair of 2 locks that you can acquire, one for reads and one
+for writes. So by using it you can ensure that you can have multiple
+threads reading from your datastructure, but when you want to make
+writes then you acquire the <code>writeLock()</code>, which blocks every other
+threads that synchronize on the same lock from both reading or
+writing, until the writeLock gets released. And this is perfectly
+acceptable for a cache.</p>
+
+<p>However when using an immutable Map, you don&#39;t need a
+<code>ReentrantReadWriteLock</code>. Our original code can just use a simple
+mutex only on writes:</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">SafeCache</span> <span class="o">{</span>
+  <span class="nd">@volatile</span>
+  <span class="k">private</span><span class="o">[</span><span class="kt">this</span><span class="o">]</span> <span class="k">var</span> <span class="n">map</span> <span class="k">=</span> <span class="nc">Map</span><span class="o">.</span><span class="n">empty</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Any</span><span class="o">]</span>
+  <span class="k">private</span><span class="o">[</span><span class="kt">this</span><span class="o">]</span> <span class="k">val</span> <span class="n">lock</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">AnyRef</span>
+
+  <span class="k">def</span> <span class="n">apply</span><span class="o">[</span><span class="kt">T:</span> <span class="kt">Manifest</span><span class="o">](</span><span class="n">key</span><span class="k">:</span> <span class="kt">String</span><span class="o">)(</span><span class="n">process</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="n">T</span><span class="o">)</span><span class="k">:</span> <span class="kt">T</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="k">val</span> <span class="n">fullKey</span> <span class="k">=</span> <span class="n">key</span> <span class="o">+</span> <span class="s">&quot;::&quot;</span> <span class="o">+</span> <span class="n">manifest</span><span class="o">[</span><span class="kt">T</span><span class="o">].</span><span class="n">toString</span>
+
+    <span class="n">map</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="n">fullKey</span><span class="o">)</span> <span class="k">match</span> <span class="o">{</span>
+      <span class="k">case</span> <span class="nc">Some</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="k">=&gt;</span> 
+        <span class="n">value</span><span class="o">.</span><span class="n">asInstanceOf</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span>
+
+      <span class="k">case</span> <span class="nc">None</span> <span class="k">=&gt;</span> <span class="n">lock</span><span class="o">.</span><span class="n">synchronized</span> <span class="o">{</span>    
+        <span class="c1">// we can have a race condition here, so if the key is already</span>
+        <span class="c1">// present when the lock is acquired, then do nothing else</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="n">contains</span><span class="o">(</span><span class="n">fullKey</span><span class="o">))</span>
+          <span class="k">return</span> <span class="n">apply</span><span class="o">(</span><span class="n">key</span><span class="o">)(</span><span class="n">process</span><span class="o">)</span>
+
+        <span class="k">val</span> <span class="n">value</span> <span class="k">=</span> <span class="n">process</span>
+        <span class="n">map</span> <span class="o">+=</span> <span class="o">(</span><span class="n">fullKey</span> <span class="o">-&gt;</span> <span class="n">value</span><span class="o">)</span>
+        <span class="n">value</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<p>Interesting to note that reading is still completely
+non-blocking. This would be in contrast with using a
+<code>ReentrantReadWriteLock</code>, which would block all reads from happening
+when a thread acquires the <code>writeLock()</code>.</p>
+
+<p>Aren&#39;t immutable data-structures great? And you can do the same thing
+in Java. Checkout the
+<a href="https://code.google.com/p/guava-libraries/wiki/ImmutableCollectionsExplained">immutable collections</a>
+from <a href="https://code.google.com/p/guava-libraries/">Google&#39;s Guava</a>.</p>
+
+<h2>Non-blocking Results : Futures</h2>
+
+<p>When people talk about parallelism and concurrency on top of Scala,
+they talk about Actors and <a href="http://akka.io/">Akka</a>. Akka is great for
+actors-based concurrency, but that&#39;s not what I want to talk about. </p>
+
+<p>In our case I want to make the call to <code>apply()</code> non-blocking, after
+all we might deal with potentially expensive computations here.</p>
+
+<p>Akka provides
+<a href="http://doc.akka.io/docs/akka/2.0.1/scala/futures.html">Futures and Promises</a>
+which is a very light and very composable way of specifying concurrent
+operations. These are soon to be integrated within the Scala standard
+library (in version 2.10).</p>
+
+<p>First, we&#39;ll use these imports from Akka:</p>
+<div class="highlight"><pre><span class="k">import</span> <span class="nn">akka.dispatch.</span><span class="o">{</span><span class="nc">ExecutionContext</span><span class="o">,</span> <span class="nc">Await</span><span class="o">,</span> <span class="nc">Future</span><span class="o">}</span>
+<span class="k">import</span> <span class="nn">akka.util.duration._</span>
+</pre></div>
+<p>Then our class now becomes:</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">CachedFuture</span><span class="o">(</span><span class="k">implicit</span> <span class="k">val</span> <span class="n">ec</span><span class="k">:</span> <span class="kt">ExecutionContext</span><span class="o">)</span> <span class="o">{</span>
+  <span class="nd">@volatile</span>
+  <span class="k">private</span><span class="o">[</span><span class="kt">this</span><span class="o">]</span> <span class="k">var</span> <span class="n">map</span> <span class="k">=</span> <span class="nc">Map</span><span class="o">.</span><span class="n">empty</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Future</span><span class="o">[</span><span class="kt">Any</span><span class="o">]]</span>
+  <span class="k">private</span><span class="o">[</span><span class="kt">this</span><span class="o">]</span> <span class="k">val</span> <span class="n">lock</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">AnyRef</span>
+
+  <span class="k">def</span> <span class="n">apply</span><span class="o">[</span><span class="kt">T:</span> <span class="kt">Manifest</span><span class="o">](</span><span class="n">key</span><span class="k">:</span> <span class="kt">String</span><span class="o">)(</span><span class="n">process</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="n">T</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="k">val</span> <span class="n">fullKey</span> <span class="k">=</span> <span class="n">key</span> <span class="o">+</span> <span class="s">&quot;::&quot;</span> <span class="o">+</span> <span class="n">manifest</span><span class="o">[</span><span class="kt">T</span><span class="o">].</span><span class="n">toString</span>
+
+    <span class="n">map</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="n">fullKey</span><span class="o">)</span> <span class="k">match</span> <span class="o">{</span>
+      <span class="k">case</span> <span class="nc">Some</span><span class="o">(</span><span class="n">future</span><span class="o">)</span> <span class="k">=&gt;</span> 
+        <span class="n">future</span><span class="o">.</span><span class="n">asInstanceOf</span><span class="o">[</span><span class="kt">Future</span><span class="o">[</span><span class="kt">T</span><span class="o">]]</span>
+
+      <span class="k">case</span> <span class="nc">None</span> <span class="k">=&gt;</span> <span class="n">lock</span><span class="o">.</span><span class="n">synchronized</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="n">contains</span><span class="o">(</span><span class="n">fullKey</span><span class="o">))</span>
+          <span class="k">return</span> <span class="n">apply</span><span class="o">(</span><span class="n">key</span><span class="o">)(</span><span class="n">process</span><span class="o">)</span>
+
+        <span class="k">val</span> <span class="n">future</span> <span class="k">=</span> <span class="nc">Future</span><span class="o">(</span><span class="n">process</span><span class="o">)</span>
+        <span class="n">map</span> <span class="o">+=</span> <span class="o">(</span><span class="n">fullKey</span> <span class="o">-&gt;</span> <span class="n">future</span><span class="o">)</span>
+        <span class="n">future</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<p>The differences are:</p>
+
+<ul>
+<li>instead of processing the value and storing the result, we are
+creating and storing a Future reference<br></li>
+<li>the constructor of our class now takes an implicit parameter that
+references an <code>ExecutionContext</code>, under which these Futures will get
+executed (think of Futures as Thread instances, with the
+ExecutionContext being responsible for starting those threads)</li>
+</ul>
+
+<p>Here&#39;s a main method for testing:</p>
+<div class="highlight"><pre><span class="k">object</span> <span class="nc">Main</span> <span class="k">extends</span> <span class="nc">App</span> <span class="o">{</span>
+  <span class="k">implicit</span> <span class="k">val</span> <span class="n">ec</span> <span class="k">=</span> <span class="nc">ExecutionContext</span><span class="o">.</span><span class="n">fromExecutorService</span><span class="o">(</span>
+    <span class="nc">Executors</span><span class="o">.</span><span class="n">newCachedThreadPool</span><span class="o">())</span>
+
+  <span class="k">val</span> <span class="n">cachedFuture</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">CachedFuture</span>
+
+  <span class="c1">// this is now non-blocking</span>
+  <span class="k">val</span> <span class="n">future</span> <span class="k">=</span> <span class="n">cachedFuture</span><span class="o">(</span><span class="s">&quot;some-key&quot;</span><span class="o">)</span> <span class="o">{</span>
+     <span class="nc">Thread</span><span class="o">.</span><span class="n">sleep</span><span class="o">(</span><span class="mi">100</span><span class="o">)</span>
+     <span class="s">&quot;Hello world!&quot;</span>
+  <span class="o">}</span>
+
+  <span class="c1">// we now block for a result</span>
+  <span class="k">val</span> <span class="n">greeting</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="nc">Await</span><span class="o">.</span><span class="n">result</span><span class="o">(</span><span class="n">future</span><span class="o">,</span> <span class="mf">3.</span><span class="n">seconds</span><span class="o">)</span>
+
+  <span class="n">println</span><span class="o">(</span><span class="n">greeting</span><span class="o">)</span>
+
+  <span class="c1">// the threads created by the execution context above are foreground</span>
+  <span class="c1">// threads, so they&#39;ll block the main thread from exiting (you can fix this,</span>
+  <span class="c1">// but I chose not to for simplicity)</span>
+
+  <span class="n">ec</span><span class="o">.</span><span class="n">shutdown</span><span class="o">()</span>
+<span class="o">}</span>
+</pre></div>
+<p>This example isn&#39;t much, however the greatest thing about Futures is
+that these objects behave like collections, responding to filter, map
+and flatMap. So these objects are composable.</p>
+
+<p>Here&#39;s something you can do:</p>
+<div class="highlight"><pre>  <span class="k">val</span> <span class="n">responses</span> <span class="k">=</span> <span class="nc">List</span><span class="o">.</span><span class="n">fill</span><span class="o">(</span><span class="mi">10000</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">cachedFuture</span><span class="o">(</span><span class="n">random</span><span class="o">.</span><span class="n">nextInt</span><span class="o">(</span><span class="mi">1000</span><span class="o">).</span><span class="n">toString</span><span class="o">)</span> <span class="o">{</span>
+      <span class="nc">Thread</span><span class="o">.</span><span class="n">sleep</span><span class="o">(</span><span class="mi">100</span><span class="o">)</span>
+      <span class="n">random</span><span class="o">.</span><span class="n">nextInt</span><span class="o">(</span><span class="mi">1000</span><span class="o">)</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="k">val</span> <span class="n">futureSum</span> <span class="k">=</span> <span class="nc">Future</span><span class="o">.</span><span class="n">sequence</span><span class="o">(</span><span class="n">responses</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">sum</span><span class="o">)</span>
+
+  <span class="n">println</span><span class="o">(</span><span class="nc">Await</span><span class="o">.</span><span class="n">result</span><span class="o">(</span><span class="n">futureSum</span><span class="o">,</span> <span class="mi">10</span> <span class="n">seconds</span><span class="o">))</span>
+</pre></div>
+<p>We are creating 10,000 (cached) futures, that return random integers
+from 0 to 1000.</p>
+
+<p>We then create another future that&#39;s the combination of those 10,000
+futures we&#39;ve created, with its result being a List of Integers. Well,
+after we apply map on it, the result will be the sum of those 10,000
+integers.</p>
+
+<p>And then we block until the result is available.</p>
+
+<p>Did I mention that futures are collections that respond to <code>filter</code>,
+<code>map</code> and <code>flatMap</code>? This means you can also do something like this:</p>
+<div class="highlight"><pre>  <span class="k">val</span> <span class="n">word1</span> <span class="k">=</span> <span class="n">cachedFuture</span><span class="o">(</span><span class="s">&quot;word-1&quot;</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">Thread</span><span class="o">.</span><span class="n">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">)</span>
+    <span class="s">&quot;Hello&quot;</span>
+  <span class="o">}</span>
+  <span class="k">val</span> <span class="n">word2</span> <span class="k">=</span> <span class="n">cachedFuture</span><span class="o">(</span><span class="s">&quot;word-2&quot;</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">Thread</span><span class="o">.</span><span class="n">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">)</span>
+    <span class="s">&quot;World!&quot;</span>
+  <span class="o">}</span>
+
+  <span class="k">val</span> <span class="n">concatenate</span> <span class="k">=</span> <span class="k">for</span> <span class="o">{</span>
+    <span class="n">w1</span> <span class="k">&lt;-</span> <span class="n">word1</span>
+    <span class="n">w2</span> <span class="k">&lt;-</span> <span class="n">word2</span>
+  <span class="o">}</span> <span class="k">yield</span> <span class="n">w1</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">w2</span>
+
+  <span class="n">println</span><span class="o">(</span><span class="nc">Await</span><span class="o">.</span><span class="n">result</span><span class="o">(</span><span class="n">concatenate</span><span class="o">,</span> <span class="mf">2.</span><span class="n">seconds</span><span class="o">))</span>
+</pre></div>
+<p>This is just a small and dumb example, but the possibilities for
+composing concurrent tasks are awesome.  And this API is also
+available for Java:
+<a href="http://doc.akka.io/docs/akka/2.0.2/java/futures.html">Futures (Java)</a>.</p>
+
+<p>Everything I described is possible within Java and Java 8 should make
+things more interesting. But I love how easy and intuitive Scala makes
+this.</p>
+
+  </div>
+
+  <footer>
+    <div id="other-articles">
+      <h2>Recent Articles</h2>
+
+      <ul class="posts">
+		
+	<li> 
+	  <time datetime="2012-11-07">
+	    2012-11-07 &raquo;
+	  </time>
+	  <a href="/blog/2012/11/07/notes-javascript-development.html" rel="prefetch related">Notes On Javascript Client-side Development</a>
+	</li>      
+		
+	<li> 
+	  <time datetime="2012-11-02">
+	    2012-11-02 &raquo;
+	  </time>
+	  <a href="/blog/2012/11/02/scala-functional-programming-type-classes.html" rel="prefetch related">On Scala, Functional Programming and Type-Classes</a>
+	</li>      
+		
+	<li> 
+	  <time datetime="2012-02-09">
+	    2012-02-09 &raquo;
+	  </time>
+	  <a href="/blog/2012/02/09/howto-build-naive-bayes-classifier.html" rel="prefetch related">How To Build a Naive Bayes Classifier</a>
+	</li>      
+		
+	<li> 
+	  <time datetime="2012-01-16">
+	    2012-01-16 &raquo;
+	  </time>
+	  <a href="/blog/2012/01/16/cosine-similarity-euclidean-distance.html" rel="prefetch related">Data Mining: Finding Similar Items and Users</a>
+	</li>      
+		
+	<li> 
+	  <time datetime="2012-01-05">
+	    2012-01-05 &raquo;
+	  </time>
+	  <a href="/blog/2012/01/05/blogging-for-hackers.html" rel="prefetch related">Blogging Platform for Hackers</a>
+	</li>      
+		
+	<li> 
+	  <time datetime="2011-12-15">
+	    2011-12-15 &raquo;
+	  </time>
+	  <a href="/blog/2011/12/15/crawling-the-android-marketplace-155200-apps.html" rel="prefetch related">Crawling the Android Marketplace</a>
+	</li>      
+		
+	<li> 
+	  <time datetime="2011-11-29">
+	    2011-11-29 &raquo;
+	  </time>
+	  <a href="/blog/2011/11/29/earning-money-as-an-amazon-affiliate.html" rel="prefetch related">Earning Money as an Amazon Affiliate</a>
+	</li>      
+	
+      </ul>
+    </div>
+
+    <div id="contributions">
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">	
+	var disqus_shortname = 'alexnorg';
+	var disqus_url = 'http://bionicspirit.com/blog/2012/07/02/love-scala.html';
+
+	/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function() {
+	var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </footer>
+</article>
+
+    </div>
+  </div>
+
+  <div id="footer-container">
+    <footer>
+      <div class="contact">
+	&copy; 2013 Alexandru Nedelcu
+	<br />
+	Some rights reserved (<a href="http://creativecommons.org/licenses/by-nc/3.0/" rel="license">CC BY-NC 3.0</a>)
+    <!--sse-->
+	<br />
+	contact [at-] bionicspirit (-dot) com
+    <!--/sse-->
+      </div>
+
+      <div class="rss">
+	<a href="https://twitter.com/alex_ndc" target="_blank" title="Follow me on Twitter (@alex_ndc)">
+	  <img alt="Follow me on Twitter (@alex_ndc)" supported_extensions="[&quot;.png&quot;, &quot;.jpg&quot;, &quot;.jpeg&quot;, &quot;.bmp&quot;, &quot;.gif&quot;]" width="32" height="32" src="../../../../assets/img/twitter-2856d310.png" />
+	</a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
