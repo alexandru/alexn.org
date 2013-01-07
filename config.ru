@@ -7,8 +7,6 @@
 
 require 'yaml'
 require 'mime/types'
-require "dalli"
-require "rack-cache"
 
 # main configuration file, also used by Jekyll
 CONFIG = YAML::load_file(File.join(File.dirname(__FILE__), 'rack-config.yaml'))
@@ -168,15 +166,6 @@ end
 # the actual Rack configuration, using 
 # the middleware defined above
 #
-
-# Defined in ENV on Heroku. To try locally, start memcached and uncomment:
-# ENV["MEMCACHE_SERVERS"] = "localhost"
-if memcache_servers = ENV["MEMCACHE_SERVERS"]
-  use Rack::Cache,
-    verbose: true,
-    metastore:   "memcached://#{memcache_servers}",
-    entitystore: "memcached://#{memcache_servers}"
-end
 
 use Redirects
 use PathCorrections
