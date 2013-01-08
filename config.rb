@@ -106,8 +106,6 @@ configure :build do
   # Minify Javascript on build
   activate :minify_javascript
 
-  activate :minify_html
-
   activate :asset_hash
 
   # Enable cache buster
