@@ -10,7 +10,7 @@
    <name>Alexandru Nedelcu</name>
  </author>
 
- <% blog.articles.find_all{|x| !x.data.archive}[0...5].each do |article| %>
+ <% blog.articles.find_all{|x| !x.data.archive}.each do |article| %>
  <entry>
    <id><%= @website.id + article.url %></id>
    <title><%= article.title %></title>
