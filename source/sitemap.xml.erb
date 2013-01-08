@@ -10,6 +10,11 @@
     <lastmod><%= blog.articles.first.date.to_time.iso8601 %></lastmod>
   </url>
 
+  <url>
+    <loc><%= @website.root_url %>/pages/subscribe.html</loc>
+    <lastmod><%= blog.articles.first.date.to_time.iso8601 %></lastmod>
+  </url>
+
   <% page_articles.each_with_index do |article, i| %>
   <url>
     <loc><%= @website.root_url %><%= article.url %></loc>
