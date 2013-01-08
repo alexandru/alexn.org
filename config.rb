@@ -1,5 +1,6 @@
 require 'ostruct'
 require 'yaml'
+require "lib/helpers"
 
 ###
 # Site-wide settings
@@ -11,7 +12,7 @@ require 'yaml'
 # Blog settings
 ###
 
-# Time.zone = "UTC"
+Time.zone = "Europe/Bucharest"
 
 activate :blog do |blog|
   # blog.prefix = "blog"

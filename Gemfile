@@ -12,4 +12,3 @@ gem "builder", "~> 3.0.0"
 gem 'redcarpet'
 
 gem 'rack', "1.4.1"
-
