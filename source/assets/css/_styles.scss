@@ -56,8 +56,7 @@ html, body {
 /* RESET */
 
 body {
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-    font-weight: 300;
+    font-family: "Open Sans", sans-serif; 
 
     font-size: $body-font-size;
     line-height: $body-line-height;
@@ -168,6 +167,7 @@ body #main {
 
     h2 {
 	font-size: $header-1-size - 30;
+	line-height: 130%;
     }
     h3 {
 	font-size: $header-1-size - 60;    
@@ -237,9 +237,6 @@ body #main {
 
     article {
 	padding-bottom: $vertical-padding;
-	h2, h3 {
-	    margin-top: $vertical-padding + $vertical-padding / 2;
-	} 
     }
 
     article#home {
