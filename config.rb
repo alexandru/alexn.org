@@ -37,6 +37,7 @@ end
 
 page "/atom.xml", :layout => false
 page "/sitemap.xml", :layout => false
+page "/utils/password.html", :layout => false
 
 ###
 # Compass
@@ -118,7 +119,6 @@ configure :build do
   # First: gem install middleman-smusher
   # require "middleman-smusher"
   # activate :smusher
-
 
   # Or use a different image path
   # set :http_path, "/Content/images/"
