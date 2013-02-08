@@ -9,6 +9,13 @@
 
   <div id="content">
     <%= yield %>
+
+    <div class="sharethis" style="padding-top: 10px; text-align: right;">
+      <div class="g-plusone" data-size="medium"></div>
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="alex_ndc">Tweet</a>
+
+      <%= javascript_include_tag "sharethis" %>
+    </div>
   </div>
 
   <footer>
