@@ -1,13 +1,13 @@
 <article id="home">
   <h1><%= @website.description %></h1>
 
-  <ol class="posts">
+  <ol class="posts" itemscope itemtype="http://schema.org/Blog">
     <% page_articles.find_all{|x| !x.data.archive}.each_with_index do |article, i| %>	
-    <li> 
-      <time datetime="<%= article.date.strftime("%Y-%m-%d") %>">
+    <li itemprop="blogPosts" itemscope itemtype="http://schema.org/BlogPosting"> 
+      <time datetime="<%= article.date.strftime("%Y-%m-%d") %>" itemprop="dateCreated">
 	<%= article.date.strftime("%Y-%m-%d") %> &raquo;
       </time>
-      <a href="<%= article.url %>" rel="prefetch related"><%= article.title %></a>
+      <a href="<%= article.url %>" itemprop="url" rel="prefetch related"><%= article.title %></a>
     </li>      
     <% end %>
   </ol>  

@@ -1,13 +1,13 @@
 <% wrap_layout :layout do %>
-<article id="post">
+<article id="post" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     <h1 itemprop="name"><%= current_page.title %></h1>
     <div id="meta">
-      <div class="post-date"><%= current_page.date.strftime("%b %d, %Y") %></div>
+      <time class="post-date" itemprop="dateCreated" datetime="<%= current_page.date.strftime('%Y-%m-%d') %>"><%= current_page.date.strftime("%b %d, %Y") %></time>
     </div>
   </header>
 
-  <div id="content">
+  <div id="content" itemprop="articleBody">
     <%= yield %>
 
     <div class="sharethis" style="padding-top: 10px; text-align: right;">
