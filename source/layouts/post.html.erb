@@ -3,14 +3,18 @@
   <header>
     <h1 itemprop="name"><%= current_page.title %></h1>
     <div id="meta">
-      <time class="post-date" itemprop="dateCreated" datetime="<%= current_page.date.strftime('%Y-%m-%d') %>"><%= current_page.date.strftime("%b %d, %Y") %></time>
-    </div>
+      <time class="post-date" itemprop="dateCreated" datetime="<%= current_page.date.strftime('%Y-%m-%d') %>"><%= current_page.date.strftime("%b %d, %Y") %></time>      
+    </div>    
   </header>
 
   <div id="content" itemprop="articleBody">
     <%= yield %>
 
-    <div class="sharethis" style="padding-top: 10px; text-align: right;">
+    <div class="authorship" itemprop="author" itemscope itemtype="http://schema.org/Person">
+      Written by <a href="https://plus.google.com/112639155372207976835/" itemprop="url" rel="author">Alexandru Nedelcu</a>
+    </div>
+
+    <div class="sharethis">
       <div class="g-plusone" data-size="medium"></div>
       <a href="https://twitter.com/share" class="twitter-share-button" data-via="alex_ndc">Tweet</a>
 

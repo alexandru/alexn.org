@@ -299,6 +299,22 @@ body #main {
 		-moz-border-radius: 10px;
 		border-radius: 10px;
 	    }
+
+	    .authorship {
+		font-size: 80%;
+		margin-top: $vertical-padding * 2;
+		float: left;
+		line-height: 10%;
+		color: #444444;
+		a {
+		    text-decoration: none;
+		}
+	    }
+
+	    .sharethis {
+		margin-top: $vertical-padding * 2; 
+		text-align: right;
+	    }
 	}
 
 	/* terminal */
