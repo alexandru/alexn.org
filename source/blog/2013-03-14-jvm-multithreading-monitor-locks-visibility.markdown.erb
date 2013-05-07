@@ -1,5 +1,5 @@
 ---
-title: "JVM Multithreading p.1: Monitor Locks and Visibility"
+title: "JVM Multithreading: Monitor Locks and Visibility"
 tags:
   - Languages
   - Functional
@@ -244,7 +244,7 @@ an external lock that protects both at all times.
 Code that's thread-safe through synchronization based on locks is
 **not composable**.
 
-## The Problem of Visibility
+<h2 id="visibility>The Problem of Visibility</h2>
 
 When speaking of multithreading, the most obvious problem is the
 inconsistency of shared mutable state when being changed and read by

@@ -2,6 +2,7 @@
 <article id="post" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     <h1 itemprop="name"><%= current_page.title %></h1>
+
     <div id="meta">
       <time class="post-date" itemprop="dateCreated" datetime="<%= current_page.date.strftime('%Y-%m-%d') %>"><%= current_page.date.strftime("%b %d, %Y") %></time>      
     </div>    
