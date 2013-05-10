@@ -18,10 +18,9 @@ in concurrent code, however `AtomicReference` also supports the atomic
 [Compare-and-Swap](http://en.wikipedia.org/wiki/Compare-and-swap)
 operation (CAS for short), which is the pillar of all non-blocking
 data-structures and algorithms built on top of the JVM, including
-complex ones like the
-[ConcurrentLinkedQueue](http://docs.oracle.com/javase/6/docs/api/java/util/concurrent/ConcurrentLinkedQueue.html),
-an implementation based on the
-[Michael-Scott non-blocking queues](http://www.cs.rochester.edu/u/michael/PODC96.html). 
+complex ones like the `ConcurrentLinkedQueue`, an implementation based
+on the
+[Michael-Scott non-blocking queues](http://www.cs.rochester.edu/u/michael/PODC96.html).
 
 However, the interface provided leaves something to be desired:
 
@@ -30,15 +29,15 @@ However, the interface provided leaves something to be desired:
   code it can be replaced with something much better, as we'll see
   
 * the classes from the `java.util.concurrent.atomic` package do not
-  implement a common interface, so you can't use for instance an
+  implement a common interface, so you can't use an
   [AtomicInteger](http://docs.oracle.com/javase/6/docs/api/java/util/concurrent/atomic/AtomicInteger.html)
   in place of an `AtomicReference`
   
-* `AtomicInteger` and `AtomicLong` provide `incrementAndGet` for
-  instance, which is really useful in practice for keeping track of
-  things in non-blocking counters, but why should that be available
-  only for Ints and Longs?  Floats, Doubles, BigInt, BigDecimal and
-  all kinds of numbers can be incremented too
+* `AtomicInteger` and `AtomicLong` provide `incrementAndGet`, which is
+  really useful in practice for keeping track of things in
+  non-blocking counters, but why should that be available only for
+  Ints and Longs?  Floats, Doubles, BigInt, BigDecimal and all kinds
+  of numbers can be incremented too
   
 This is a simple and working example of how Scala can improve your
 code tremendously. And I'm basically describing the implementation of
@@ -63,8 +62,8 @@ object Ref {
 }
 ```
 
-So lets provide a generic implementation that for now just
-delegates to our inner `AtomicReference`:
+With a generic implementation that for now just delegates to our inner
+`AtomicReference`:
 
 ```scala
 class RefAny[T](initial: T) extends Ref[T] {
@@ -178,7 +177,7 @@ And lo and behold, this stuff works for any kind of number, not just
 Ints and Longs:
 
 ```scala
-scala> val ref = shifter.concurrency.atomic.Ref(BigInt(1))
+scala> val ref = Ref(BigInt(1))
 ref: Ref[scala.math.BigInt] = Ref(1)
 
 scala> ref.incrementAndGet
@@ -189,7 +188,7 @@ Best of all, if we try doing this on things that aren't numbers, then
 it fails with a compile-time error:
 
 ```scala
-scala> val ref = shifter.concurrency.atomic.Ref("hello")
+scala> val ref = Ref("hello")
 ref: Ref[String] = Ref(hello)
 
 scala> ref.incrementAndGet
