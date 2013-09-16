@@ -2,7 +2,7 @@
   <h1><%= @website.description %></h1>
 
   <ol class="posts" itemscope itemtype="http://schema.org/Blog">
-    <% page_articles.find_all{|x| !x.data.archive}.each_with_index do |article, i| %>	
+    <% page_articles.each_with_index do |article, i| %>	
     <li itemprop="blogPosts" itemscope itemtype="http://schema.org/BlogPosting"> 
       <time datetime="<%= article.date.strftime("%Y-%m-%d") %>" itemprop="dateCreated">
 	<%= article.date.strftime("%Y-%m-%d") %> &raquo;
