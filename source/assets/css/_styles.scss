@@ -179,6 +179,30 @@ body #main {
 	margin-bottom: 10px;
     }
 
+    div.image-right {
+	display: block;
+	float: right;
+	margin-left: 10px;
+	margin-bottom: 10px;
+
+	img {
+	    display: block;
+	}
+
+	span {
+	    display: block;
+	    text-align: center;
+	    font-size: 80%;
+	    color: #666;
+
+	    a {
+		color: #647F90;
+		text-decoration: none;
+	    }
+	}
+    }
+
+
     img.right, img.frame-right {
 	float: right; margin-left: 10px; margin-bottom: 10px;
     }
