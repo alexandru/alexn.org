@@ -1,12 +1,12 @@
 require 'ostruct'
 require 'yaml'
-require "lib/helpers"
+require "config/lib/helpers"
 
 ###
 # Site-wide settings
 ###
 
-@website = OpenStruct.new(YAML::load_file(File.dirname(__FILE__) + "/config.yaml")[:website])
+@website = OpenStruct.new(YAML::load_file(File.dirname(__FILE__) + "/config/config.yaml")[:website])
 
 ###
 # Blog settings
