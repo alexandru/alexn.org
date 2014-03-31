@@ -39,6 +39,9 @@ However, the interface provided leaves something to be desired:
   Ints and Longs?  Floats, Doubles, BigInt, BigDecimal and all kinds
   of numbers can be incremented too
 
+**IMPORTANT UPDATE (March 31, 2014):** The content of this article is slightly obsolete, though
+still has pedagogical value. For an up to date article on my Atomic references, checkout the wiki page maintained for project [Monifu](https://github.com/alexandru/monifu/): [Atomic References](https://github.com/alexandru/monifu/blob/master/docs/atomic.md)  
+
 <!-- read more -->
   
 This is a simple and working example of how Scala can improve your
@@ -285,10 +288,10 @@ compiler. Clearly this adds some overhead in the generated .class
 files and it might not do what you think it does, so use it only if
 you really need it. 
 
-As I was saying in the beginning, make sure to also:
+As I was saying in the beginning, make sure to also (**links update March 31, 2014**):
 
-* see the code in [my GitHub repo](https://github.com/alexandru/shifter/blob/master/core/src/main/scala/shifter/concurrency/atomic/Ref.scala)
-* checkout the [API docs](http://shifter.bionicspirit.com/api/current/core/#shifter.concurrency.atomic.package)
+* see the code in [project Monifu](https://github.com/alexandru/monifu)
+* checkout the [API docs](http://www.monifu.org/monifu-core/current/api/#monifu.concurrent.atomic.package)
 
 Also, you may be interested in using
 **[scala-stm](http://nbronson.github.io/scala-stm/)**, a library for
