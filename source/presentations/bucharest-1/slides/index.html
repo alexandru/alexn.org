@@ -1,0 +1,1270 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Building Higher-Order Abstractions with Scala</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Scala</h1>
+					<h2>Building Higher-Level Abstractions</h2>
+					<img src="images/scala-256.png" style="border:0; background-color: transparent; box-shadow: none;" />
+					<p style="font-size:110%;">
+						Alexandru Nedelcu
+					</p>
+          <p>Software Engineer @ <a href="http://eloquentix.com">eloquentix.com</a></p>
+					<p>
+						<a href="https://bionicspirit.com/">bionicspirit.com</a> -
+						<a href="http://twitter.com/alex_ndc">@alex_ndc</a>
+					</p>
+				</section>
+
+        <section>
+          <h2>Functional Programming</h2>
+        </section>
+
+        <section>
+          <pre><code data-trim class="scala" style="max-height: 500px;">
+class BankAccount(val id: String, totalAmount: BigDecimal) {
+  private[this] var _totalAmount = totalAmount
+  def statement = _totalAmount
+
+  def withdraw(amount: BigDecimal): Boolean = {
+    if (_totalAmount >= amount) {    
+      _totalAmount = _totalAmount - amount
+      true
+    }
+    else
+      false
+  }
+
+  def deposit(amount: BigDecimal): Unit = {
+    _totalAmount = _totalAmount + amount
+  }
+}
+          </code></pre>         
+        </section>
+
+        <section>
+          <h2>Should a == b?</h2>
+
+          <pre><code data-trim class="scala">
+val a = new BankAccount("Alex", 10000.0)
+val b = new BankAccount("Alex", 10000.0)
+          </code></pre>
+
+          <pre><code data-trim class="scala">
+a == b //=> false (with the default equals)
+          </code></pre>          
+
+          <aside class="notes">
+            a == b &lt;=&gt; a.equals(b)
+          </aside>
+        </section>
+
+        <section>
+          <h2>Mutability introduces an implicit input parameter: Time</h2>
+          <br><br><br>
+          <h3>
+            \[\begin{aligned}
+            a_{t_i} == b_{t_j} 
+            \end{aligned} \]
+          </h3>
+
+          <aside class="notes">
+            Comportamentul obiectelor mutabile depinde de momentul in timp
+            la care metodele sunt apelate.
+          </aside>
+        </section>
+
+        <section>
+          <h2>Object Identity</h2>
+          <p>
+            2 mutable objects can only be equal if you're talking about the same memory location
+          </p>
+        </section>
+
+        <section>
+          <h3>Structural Equality cannot work for <br> mutable objects</h3>
+          
+          <p><pre><code data-trim class="scala" style="max-height: 600px">
+class BankAccount(val id: String, totalAmount: BigDecimal) {
+  private[this] var _totalAmount = totalAmount
+  def statement = _totalAmount
+
+  def withdraw(amount: BigDecimal): Boolean = 
+    if (_totalAmount >= amount) {    
+      _totalAmount = _totalAmount - amount
+      true
+    }
+    else
+      false
+
+  def deposit(amount: BigDecimal): Unit = {
+    _totalAmount = _totalAmount + amount
+  }
+
+  // BROKEN !!!!
+  def equals(o: AnyRef) = o match {
+    case other: BankAccount => 
+      id == other.id &amp;&amp; totalAmount &amp;&amp; other.totalAmount
+    case _ =>
+      false
+  }
+}
+          </code></pre></p>
+
+          <aside class="notes">
+            <ul>
+              <li>Pattern matching - un switch pe steroizi</li>
+              <li>Ganditi-va la HashSet.</li>
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h2>What is Mutability?</h2>
+          <p>
+            <blockquote cite="Martin Odersky">
+              An object is mutable if its (functional) behavior depends on its history<br>-- Martin Odersky
+            </blockquote>         
+
+            <aside class="notes">
+              Citat din Reactive Programming, de pe Coursera.
+            </aside> 
+          </p>
+        </section>
+
+        <section>
+          <h2>What does this mean?</h2>
+          <br>
+          <p style="font-size: 150%">
+            \[\begin{aligned}
+            x = x + y
+            \end{aligned} \]
+          </p>
+
+          <aside class="notes">
+            Din punct de vedere matematic?
+          </aside>
+        </section>
+
+        <section>
+          <p style="font-size: 200%">
+            \[\begin{aligned}
+            x_{t_i} = x_{t_{i - a}} + y_{t_{i - b}}
+            \end{aligned} \]
+          </p>          
+          <p>
+            <br><br><br>
+            With mutability, time is implicit in everything
+          </p>
+
+          <aside class="notes">
+            Mentioneaza problemele de multi-threading.
+          </aside>
+        </section>
+
+        <section>
+          <h2>The Ideal</h2>
+
+          <p>
+            <img src="images/blackbox-1.png" />
+          </p> 
+
+          <ul>
+            <li>encapsulation</li>
+            <li>composability</li>
+            <li>reusability</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Reality</h2>
+
+          <img src="images/blackbox-2.png" />
+        </section>
+
+        <section>
+          <h2>What is Functional Programming?</h2>
+
+          <aside class="notes">
+            Intreaba-i !!!!
+          </aside>
+        </section>
+
+        <section>
+          <h2>What is Functional Programming?</h2>
+
+          <p>
+            <blockquote cite="wikipedia.org/wiki/Functional_programming" style="text-align: left; width: 80%; padding: 10%;">
+              ... emphasizes on functions that produce results that depend only on their inputs and not on the program state—i.e. pure mathematical functions
+            </blockquote>
+            <small>
+              <a href="https://en.wikipedia.org/wiki/Functional_programming">wikipedia.org/wiki/Functional_programming</a>
+            </small>
+          </p>
+        </section>
+
+        <section>
+          <h2>What is Functional Programming?</h2>
+
+          <p>
+            <br>
+            <blockquote>
+              ... emphasizes on components that <br> <strong>deal with time</strong>.
+            </blockquote>
+          </p>
+        </section>
+
+        <section>
+          <h2>Going Immutable</h2>
+          <pre><code data-trim class="scala" style="max-height: 500px;">
+class BankAccount(val id: String, val statement: BigDecimal) {
+  def withdraw(amount: BigDecimal): (Boolean, BankAccount) = 
+    if (statement >= amount)
+      (true, new BankAccount(id, statement - amount))
+    else
+      (false, this)
+
+  def deposit(amount: BigDecimal): BankAccount = 
+    new BankAccount(id, statement + amount)
+
+  override def equals(ref: AnyRef) = ref match {
+    case other: BankAccount if other =>
+      id == other.id &amp;&amp; statement == other.statement
+    case _ =>
+      false
+  }
+
+  override def hashCode = 
+    31 * id.hashCode + statement.hashCode
+}
+          </code></pre>          
+        </section>
+
+        <section>
+          <h2>Going Immutable</h2>
+          <p>Tip: use case classes + vals</p>
+
+          <pre><code data-trim class="scala" style="max-height: 500px;">
+/**
+ * Notes:
+ * - case classes are meant for defining immutable objects
+ * - id, statement are final and public
+ * - case classes come with structural equals and hashCode
+ */          
+case class BankAccount(id: String, statement: BigDecimal) {
+  def withdraw(amount: BigDecimal) = 
+    if (statement >= amount)
+      (true, BankAccount(id, statement - amount))
+    else
+      (false, this)
+
+  def deposit(amount: BigDecimal) = 
+    BankAccount(id, statement + amount)
+}
+          </code></pre>          
+        </section>
+
+        <section>
+          <h3>No need to hide private mutable state</h3>
+          <pre><code data-trim class="scala" style="max-height: 500px;">  
+case class BankAccount(id: String, statement: BigDecimal)
+
+object BankAccount {
+  def withdraw(amount: BigDecimal)(account: BankAccount) =
+    if (account.statement >= amount)
+      (true, BankAccount(account.id, account.statement - amount))
+    else
+      (false, account)
+
+  def deposit(amount: BigDecimal)(account: BankAccount) =
+    BankAccount(account.id, account.statement + amount)  
+}
+          </code></pre>
+
+          <pre><code data-trim class="scala" style="max-height: 500px;">  
+val myAccount = BankAccount("Alex", 10000.0)
+
+BankAccount.withdraw(1000)(myAccount)
+//=> (true, BankAccount(Alex,9000.0))
+
+BankAccount.withdraw(1000)(myAccount)
+//=> (true, BankAccount(Alex,9000.0))
+
+BankAccount.withdraw(12000)(myAccount)
+//=> (false, BankAccount(Alex,10000.0))
+          </code></pre>          
+        </section>
+
+        <section>
+          <h3>Algebraic Data Types</h3>
+
+          <pre><code data-trim class="scala" style="max-height: 500px;">  
+sealed trait Transaction { 
+  def timestamp: DateTime
+}
+
+case class Withdraw(amount: BigDecimal, timestamp: DateTime) 
+  extends Transaction 
+case class Deposit(amount: BigDecimal, timestamp: DateTime) 
+  extends Transaction
+          </code></pre>
+
+          <pre><code data-trim class="scala" style="max-height: 500px;">  
+val t: Transaction = Withdraw(1000, DateTime.now)
+
+val transactionAmount = t match { 
+  case Withdraw(amount, _) => amount
+}
+//=> &lt;console&gt;:13: warning: match may not be exhaustive.
+//=> It would fail on the following input: Deposit(_, _)
+//=>               t match {
+//=>               ^
+          </code></pre>
+
+          <aside class="notes">
+            Compara cu Ocaml
+          </aside>            
+        </section>        
+
+        <section>
+          <h3>Handling time explicitly</h3>
+          <pre><code data-trim class="scala" style="max-height: 600px;">
+case class BankAccount(id: String, transactions: Seq[Transaction]) {
+  lazy val lastStatement = {
+    var result = 0.0
+    for (transaction &lt;- transactions)
+      transaction match {
+        case Withdraw(amount, _) =>
+          result = result - amount
+        case Deposit(amount, _) =>
+          result = result + amount
+      }
+    result
+  }
+
+  def statement(now: DateTime) = {
+    var result = 0.0
+    for (transaction &lt;- transactions)
+      if (transaction.timestamp &lt;= now)
+        transaction match {
+          case Withdraw(amount, _) =>
+            result = result - amount
+          case Deposit(amount, _) =>
+            result = result + amount
+        }
+    result
+  }
+}            
+          </code></pre>
+
+          <aside class="notes">
+            <ul>
+              <li>Descrie lazy val</li>
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h3>Using the Scala Collections API</h3>
+
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+sealed trait Transaction { 
+  def timestamp: DateTime
+  def asBigDecimal = this match {
+    case Withdraw(amount, _) => -amount
+    case Deposit(amount, _) => amount
+  }
+}
+
+// ....           
+case class BankAccount(id: String, transactions: Seq[Transaction]) {
+  lazy val lastStatement = 
+    transactions.map(_.asBigDecimal).sum
+
+  def statement(now: DateTime) = 
+    transactions
+      .filter(_.timestamp &lt;= now)
+      .map(_.asBigDecimal).sum
+}            
+          </code></pre>     
+
+          <aside class="notes">
+            Descrie: view()
+          </aside>     
+        </section>
+
+        <section>
+          <h2>Atomic References</h2>
+
+          <pre><code data-trim class="scala" style="max-height: 700px;"> 
+import java.util.concurrent.atomic.AtomicReference
+
+class MutableBankAccount(account: BankAccount) {
+  private[this] val ref = new AtomicReference(account)
+
+  def deposit(amount: BigDecimal): Unit = 
+    while (true) {
+      val current = ref.get
+      val update = current.deposit(amount)
+      if (ref.compareAndSet(current, update))
+        return
+    }
+
+  def withdraw(amount: BigDecimal): Boolean = {
+    while (true) {
+      val current = ref.get
+      if (current.statement &gt;= amount) {
+        val (success, newAccount) = current.withdraw(amount)
+        if (ref.compareAndSet(expect=current, update=newAccount))
+          return success        
+      }
+      else
+        return false
+    }
+  }
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Atomic References</h2>
+
+          <p>Self tail-recursive functions</p>
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+import java.util.concurrent.atomic.AtomicReference
+
+class MutableBankAccount(account: BankAccount) {
+  private[this] val ref = new AtomicReference(account)  
+
+  @tailrec
+  def deposit(amount: BigDecimal): Unit = {
+    val current = ref.get
+    val update = current.deposit(amount)
+    if (!ref.compareAndSet(current, update))
+      deposit(amount)
+  }
+
+  @tailrec
+  def withdraw(amount: BigDecimal): Boolean = {
+    val current = ref.get
+    val (success, update) = current.withdraw(amount)
+    if (!ref.compareAndSet(current, update))
+      withdraw(amount)
+    else
+      success
+  }
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Decoupling Algorithms from Data</h2>
+
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+object BankAccount {
+  def deposit(amount: BigDecimal, now: DateTime)(account: BankAccount) = {
+    val transactions = account.transactions :+ Deposit(amount, now)
+    BankAccount(account.id, transactions)
+  }
+
+  def withdraw(amount: BigDecimal, now: DateTime)(account: BankAccount) = {
+    if (account.statement(now) >= amount) {
+      val transactions = account.transactions :+ Withdraw(amount, now)
+      (true, BankAccount(account.id, transactions))
+    }
+    else
+      (false, account)
+  }
+}
+          </code></pre>
+
+          <p>
+            Rich Hickey calls the mixture between algorithms and data <i>complecting</i> (i.e. the opposite of simple).<br>
+            Do watch his <a href="http://www.infoq.com/presentations/Simple-Made-Easy">Simple Made Easy</a>
+            presentation.
+          </p>
+        </section>
+
+        <section>
+          <h2>Working with Concurrency and Paralelism</h2>
+        </section>
+
+        <section>
+          <h2>Atomic References</h2>
+
+          <p>Common pattern - transformAndGet</p>
+
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+final class Atomic[S] (initialValue: S) {
+  def get: S = ???
+  def compareAndSet(expected: S, updated: S): Boolean = ???
+
+  @tailrec
+  def transformAndGet(f: T => T): T = {
+    val current = ref.get()
+    val update = f(current)
+    if (!ref.compareAndSet(current, update))
+      transformAndGet(f)
+    else
+      update
+  }
+}
+          </code></pre>
+
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+val account = Atomic(BankAccount("Alex"))          
+// deposits 1000
+account.transformAndGet(BankAccount.deposit(1000))
+//=> res: BankAccount = BankAccount(Alex,List(Deposit(1000.0,2014-05-13)))         
+          </code></pre>
+        </section>                 
+
+        <section>
+          <h2>Atomic References</h2>
+
+          <p>Common pattern - transformAndExtract</p>
+
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+final class Atomic[S] {
+  def get: S = ???
+  def compareAndSet(expected: S, updated: S): Boolean = ???
+
+  @tailrec
+  def transformAndExtract(f: S => (A, S)): A = {
+    val current = get
+    val (result, update) = f(current)
+
+    if (!compareAndSet(current, update))
+      transformAndExtract(f)
+    else
+      result
+  }
+}
+          </code></pre>
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+val account = Atomic(BankAccount("Alex"))
+// withdraws, returning `true` on success or `false` on failure
+account.transformAndExtract(BankAccount.withdraw(11000.0))
+//=> res: Boolean = false
+          </code></pre>
+        </section>        
+
+        <section>
+          <h2>Atomic References</h2>
+          <h3>Non-Blocking Algorithms FTW!</h3>
+
+          <p>
+            <i>Non-blocking</i> means that no matter what thread gets 
+            interrupted by the system's scheduler, the other threads can still make 
+            progress, or in other words there is no thread that can hold up system-wide
+            progress.
+          </p>
+        </section> 
+
+        <section>
+          <h2>Atomic References</h2>
+          <h3>A Concurrent, Non-blocking Queue</h3>
+
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+import scala.collections.immutable.Queue
+
+val queue = new Atomic(Queue.empty[String])
+
+queue.transform(_.enqueue("Hello, "))
+queue.transform(_.enqueue("world!"))
+
+queue.transformAndExtract(_.dequeue)
+//=> res: String = "Hello, "
+
+queue.transformAndExtract(_.dequeue)
+//=> res: String = "world!"
+          </code></pre>
+
+          <h4>Homework</h4>
+          <p>
+            <small>
+              Compare the simplicity of this with the famous algorithm
+              for non-blocking concurrent queues by 
+              <a href="http://www.cs.rochester.edu/research/synchronization/pseudocode/queues.html">Maged M. Michael and Michael L. Scott</a>, also implemented in Java's own <a href="http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ConcurrentLinkedQueue.html">ConcurrentLinkedQueue</a>.
+            </small>
+          </p>
+        </section>    
+
+        <section>
+          <h2>Atomic References</h2>
+          <p>Any immutable data-structure can become <br>a mutable non-blocking data-structure</p>
+
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+import scala.collections.immutable.Map
+
+val cache = new Atomic(Map.empty[String, Any])
+
+cache.transform(_.updated("username", "Alex"))
+
+cache.get.get("username")
+//=> Some("Alex")
+
+// removal
+cache.transform(m => m - "username")
+          </code></pre>
+        </section>               
+
+        <section>
+          <h2>Atomic References</h2>
+          <h3>Non-Blocking Algorithms FTW!</h3>
+
+          <p>
+            Atomic references can be used to generate non-blocking lock-free behavior by wrapping any immutable object.
+          </p>
+          <p>
+            <br>
+            This includes any Scala immutable data-structure - List, Vector, Queue, Map, Set, Stream, etc...
+          </p>
+        </section>      
+
+        <section>
+          <h2>Futures and Promises</h2>
+        </section>
+
+        <section>
+          <h2>I/O Latencies</h2>
+          <img src="images/latencies.png" style="border:0; background-color: transparent; box-shadow: none;" />
+        </section>
+
+        <section>
+          Going asynchronous ...
+        </section>
+
+        <section>
+          <h2>java.util.concurrent.Future</h2>
+
+          <pre><code data-trim class="java" style="max-height: 600px;"> 
+public interface Future&lt;V&gt; {
+  boolean cancel(boolean);
+  boolean isCanceled();
+  boolean isDone();
+
+  V get();
+  V get(long, TimeUnit);
+}
+          </code></pre>
+
+          <p style="text-align: left; margin-left: 100px;">
+            Problems:
+            <ol style="float: none; display: block; margin-left: 100px; list-style-position:inside;">
+              <li>blocking</li>
+              <li>non-composable</li>
+            </ol>
+          </p>
+        </section>
+
+        <section>
+          <h2>Scala's Future</h2>
+
+          <p>Developed as part of Akka and integrated in <br>Scala's standard library since 2.10.0</p>
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+trait Future[+T] extends Awaitable[T] {
+  abstract def isCompleted: Boolean
+  abstract def onComplete[U](func: Try[T] => U)(implicit ec: ExecutionContext): Unit
+
+  // ....
+}          
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Scala's Future</h2>
+
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+import concurrent.ExecutionContext.Implicits.global
+import concurrent.Future
+
+val f: Future[String] = Future {
+  "Hello, world!"
+}
+
+f.onComplete {
+  case Success(value) =>
+    println(value)
+  case Failure(ex) =>
+    System.err.println(ex.getMessage)
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Scala's Future</h2>
+          <p>Blocking for the Result</p>
+
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+import concurrent.ExecutionContext.Implicits.global
+import concurrent.{Future, Await}
+import concurrent.duration._
+
+val f: Future[String] = Future {
+  "Hello, world!"
+}
+
+val result = Await.result(f, 10.seconds)
+println(result)
+          </code></pre>
+        </section>     
+
+
+        <section>
+          <h2>Future.foreach</h2>          
+
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+import concurrent.ExecutionContext.Implicits.global
+import concurrent.{Future, Await}
+import concurrent.duration._
+
+val f: Future[String] = Future {
+  "Hello, world!"
+}
+
+f.foreach { value => println(value) }
+          </code></pre>
+        </section>     
+
+        <section>
+          <h2>Future.foreach</h2>          
+
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+import concurrent.ExecutionContext.Implicits.global
+import concurrent.{Future, Await}
+import concurrent.duration._
+
+def squareRoot(x: BigDecimal) = Future {
+  math.sqrt(x)
+}
+
+for (value &lt;- squareRoot(4)) println(value)
+//=> 2
+          </code></pre>
+        </section>          
+
+        <section>
+          <h2>Future.map</h2>          
+
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+import concurrent.ExecutionContext.Implicits.global
+import concurrent.{Future, Await}
+import concurrent.duration._
+
+def squareRoot(x: BigDecimal) = Future {
+  math.sqrt(x)
+}
+
+val plus2 = squareRoot(4).map(x => x + 2)
+//=> Future(4.0)
+          </code></pre>
+        </section>   
+
+        <section>
+          <h2>Future.map</h2>          
+
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+import concurrent.ExecutionContext.Implicits.global
+import concurrent.{Future, Await}
+import concurrent.duration._
+
+def squareRoot(x: BigDecimal) = Future {
+  math.sqrt(x)
+}
+
+val plus2 = for (value &lt;- squareRoot(4)) yield value + 2
+//=> Future(4.0)
+          </code></pre>
+        </section>      
+
+        <section>
+          <h2>What's a Monad?</h2>
+        </section>
+
+        <section>
+          <h2>On Monads</h2>
+
+          <ul>
+            <li>Just a very abstract <i>design pattern</i></li>
+            <li>A Monad is a context</li>
+            <li>Allows you to keep the context while operating on values</li>
+            <li>
+              Allows you to avoid dealing with <i>side-effects</i> 
+              when specifying data transformations
+            </li>
+          </ul>
+        </section>                     
+
+        <section>
+          <h2>Future[T] is a Monad</h2>
+
+          <ul>
+            <li>It's a container</li>
+            <li>It's a context</li>
+            <li>You can operate on Future values without pulling them out of their context</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>A Monad must implement ...</h2>
+
+          <ul>
+            <li>a constructor</li>
+            <li>map[U](f: T => U): M[U]</li>
+            <li>
+              Either of:
+              <ol>
+                <li>flatten()</li>
+                <li>flatMap[U](f: T => M[U]): M[U]</li>
+              </ol>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Future.flatMap</h2>
+          <p>
+            Example using <a href="https://github.com/alexandru/shade">Shade</a>, my own Memcached client,
+            built on top of SpyMemcached, exposing a Future-enabled API.
+          </p>
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+val client = shade.Memcached(Configuration("127.0.0.1:11211"), global)
+
+val future = 
+  client.get[String]("username") flatMap {
+    case Some(value) =>
+      Future.successful("Hello, " + value + "!")
+
+    case None =>
+      client.set("username", "Alex", 30.seconds) map { _ =>
+        "Hello, anonymous!"
+      }
+  }
+          </code></pre>          
+        </section>
+
+       <section>
+          <h2>Scala-Async</h2>
+          <p>
+            The C# Async functionality, implemented in Scala <a href="https://github.com/scala/async">a library</a>.
+          </p>
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+val client = shade.Memcached(Configuration("127.0.0.1:11211"), global)
+
+val future = async {
+  val value = await(client.get[String]("username"))
+
+  value match {
+    case Some(value) => 
+      "Hello, " + value + "!"
+
+    case None =>
+      await(client.set("username", "Alex", 30.seconds))
+      "Hello, anonymous!"
+  }
+}
+          </code></pre>          
+        </section>        
+
+        <section>
+          <h2>Asynchronous Queue</h2>
+
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+final class AsyncQueue[T](elems: T*) {
+ 
+  def offer(elem: T): Unit = ???
+  
+  def poll(): Future[T] = ???
+
+}
+          </code></pre>          
+        </section>
+
+        <section>
+          <h2>Asynchronous Queue (offer)</h2>
+
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+final class AsyncQueue[T](elems: T*) {
+  private[this] case class State(
+    elements: Queue[T], 
+    promises: Queue[Promise[T]]
+  )
+
+  private[this] val state = 
+    Atomic(State(Queue(elems : _*), Queue.empty))
+
+  def offer(elem: T): Unit = {
+    val p = state.transformAndExtract {
+      case State(elements, promises) =>
+        if (promises.nonEmpty) {
+          val (p, q) = promises.dequeue
+          (Some(p), State(elements, q))
+        }
+        else
+          (None, State(elements.enqueue(elem), promises))
+    }
+
+    p.foreach(_.success(elem))
+  }
+  // ...
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Asynchronous Queue (poll)</h2>
+
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+final class AsyncQueue[T](elems: T*) {
+  private[this] case class State(
+    elements: Queue[T], 
+    promises: Queue[Promise[T]]
+  )
+
+  private[this] val state = 
+    Atomic(State(Queue(elems : _*), Queue.empty))
+
+  def poll(): Future[T] =
+    state.transformAndExtract {
+      case State(elements, promises) =>
+        if (elements.nonEmpty) {
+          val (e, newQ) = elements.dequeue
+          (Future.successful(e), State(newQ, promises))
+        }
+        else {
+          val p = Promise[T]()
+          (p.future, State(elements, promises.enqueue(p)))
+        }
+    }
+  // ...
+}
+          </code></pre>
+        </section>     
+
+        <section>
+          <h2>Asynchronous Semaphore</h2>
+
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+final class AsyncSemaphore(limit: Int)(implicit ec: ExecutionContext) {
+
+  def acquire[T](f: => Future[T]): Future[T] = ???
+
+}          
+          </code></pre>
+
+          <p>Can be used to asynchonously limit <br/>the number of requests done in parallel</p>
+
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+val semaphore = new AsyncSemaphore(30)
+
+// ...
+semaphore.acquire {
+  WS.url("http://google.com").get()
+}
+          </code></pre>
+        </section>   
+
+        <section>
+          <h2>Asynchronous Semaphore</h2>
+
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+final class AsyncSemaphore(limit: Int)(implicit ec: ExecutionContext) {
+  private[this] val queue = {
+    val elems = for (i &lt;- 0 until limit) yield ()
+    AsyncQueue(elems :_*)
+  }
+
+  def acquire[T](f: => Future[T])(implicit ec: ExecutionContext): Future[T] =
+    queue.poll().flatMap { _ =>
+      f.onComplete { _ => queue.offer(()) }
+      f
+    }
+}          
+          </code></pre>
+        </section>
+
+        <!-- Monifu -->
+
+        <section>
+          <h2>Streams</h2>  
+        </section>
+
+        <section>
+          <h2>Streams</h2>
+          <br>
+          <br>
+
+          <h3>The Iterator</h3>
+
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+trait Iterator[+T] {
+  def hasNext(): Boolean
+
+  def next(): T
+}          
+          </code></pre>
+
+          <h3>The Iterable</h3>
+
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+trait Iterable[+T] {
+  def iterator(): Iterator[T]
+}          
+          </code></pre>
+        </section>
+
+        <section>
+          <i>Iterable.iterator</i> is the <i>side-effectful</i> function that we can use to build combinators.
+
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+trait Iterable[+T] { self =>
+  def iterator(): Iterator[T]
+
+  def map[U](f: T => U) =
+    new Iterable[U] {
+      def iterator() = {
+        val source = self.iterator()
+        new Iterator[U] {
+          def hasNext() = source.hasNext()
+          def next() = f(source.next())
+        }
+      }
+    }
+}                     
+          </code></pre>
+
+          <p>Usage:</p>
+
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+Iterable(1,2,3).map(_ * 2).foreach(x => println(x))
+//=> 2
+//=> 4
+//=> 6
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>The problem with <i>Iterator</i></h2>
+
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+trait Iterator[+T] {
+  def hasNext(): Boolean
+
+  def next(): T
+}          
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>The problem with <i>Iterator</i></h2>
+
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+trait Iterator[+T] {
+  def hasNext(): Boolean
+
+  def next(): T
+}          
+          </code></pre>
+
+          <p>
+            Usage is blocking - blocks the current thread, waiting for the next element.
+          </p>
+        </section>  
+
+        <section>
+          <h2>Lets fix it!</h2>
+          <br>
+          <h2>() => Try[Option[T]]</h2>          
+        </section>
+
+        <section>
+          <h2>Lets fix it - by reversing the arrow!</h2>
+          <br>
+
+          <h2>Try[Option[T]] => ()</h2>          
+        </section>                
+
+        <section>
+          <h2>Introducing Rx - Reactive Streams</h2>
+
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+trait Observer[-T] {
+  def onNext(elem: T): Unit
+
+  def onError(ex: Throwable): Unit
+
+  def onComplete(): Unit
+}         
+
+trait Observable[+T] {
+  def subscribe(o: Observer[T]): Unit
+} 
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Introducing Rx - Reactive Streams</h2>
+
+          <p>Introducing back-pressure by signaling demand with <i>Future[T]</i></p>
+
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+trait Observer[-T] {
+  def onNext(elem: T): Future[T]
+
+  def onError(ex: Throwable): Unit
+
+  def onComplete(): Unit
+}         
+
+trait Observable[+T] {
+  def subscribe(o: Observer[T]): Unit
+} 
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Introducing Rx - Reactive Streams</h2>
+
+          <p>We can then define our operators / combinators</p>
+
+          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+trait Observable[+T] { self =>
+  def subscribe(o: Observer[T]): Unit
+
+  def map[U](f: T => U): Observable[U] = 
+    new Observable[U] {
+      def subscribe(o: Observer[U]) = 
+        self.subscribe(new Observer[T] {
+          def onNext(elem: T) = o.onNext(f(elem))
+          def onError(ex: Throwable) = o.onError(ex)
+          def onComplete() = o.onComplete()
+        })
+    }
+} 
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Project Monifu</h2>
+
+          <h3>Reactive Streams, Atomic References ...</h3>
+
+          <p>
+            <a href="https://github.com/monifu/monifu">github.com/monifu/monifu</a>
+          </p>
+
+          <p>
+            Shameless plug :-)
+          </p>
+        </section>        
+
+				<section>
+					<h2>Resources for Getting Started</h2>
+
+          <ol>
+            <li>
+              <a href="http://www.horstmann.com/scala/index.html">Scala for the Impatient</a>, by Cay Horstmann - a book for beginners
+            </li>
+            <li>
+              <a href="http://www.manning.com/bjarnason/">Functional Programming in Scala</a>, by Paul Chiusano and Rúnar Bjarnason
+                -- one of the best books on functional programming out there
+            </li>
+            <li>
+              <a href="https://www.coursera.org/course/progfun">Coursera's Functional Programming Course</a>, taught by Martin Odersky
+            </li>
+            <li>
+              <a href="https://www.bionicspirit.com/blog/2013/05/13/getting-started-with-scala.html">Other Resources</a> -- a blog post I wrote
+            </li>
+          </ol>
+				</section>
+
+        <section>
+          <h1>The End?</h1>
+
+          <p>PS: We are Hiring @ <a href="http://www.eloquentix.com/#/">eloquentix.com</a></p>
+        </section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+        transitionSpeed: "fast",
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+        math: {
+          mathjax: 'https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js'
+        },
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/math/math.js', async: true }
+				]
+			});
+
+		</script>
+	</body>
+</html>
