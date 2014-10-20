@@ -547,7 +547,7 @@ nothing more.
 
 Come up with your own freaking namespace for your utilities.
 
-## 3. Concurrent, Parallelism and Performance
+## 3. Concurrency, Parallelism and Performance
 
 ### 3.1. SHOULD avoid concurrency like the plague it is
 
@@ -581,24 +581,20 @@ Scala's Futures and Promises are good because:
   `ExecutionContext`, this execution context efficiently multiplexes
   between few threads by default (the number of threads in the
   thread-pool is often directly proportional to the number of CPU cores
-  you have) the model is inherently simple and easy to use
+  you have)
+- the model is inherently simple and easy to use
 
-Futures and Promises are bad because:
-
-- the execution context does not have enough information about
-  continuations happening, so it cannot schedule things efficiently -
-  there's no processor affinity to speak of, with continuations
-  trashing cache locality amongst other undesired effects
-- they signal only one value from the producer to the consumer and
-  that's it - if you need a stream or bi-directional communications, a
-  Future might not be the best abstraction
+Futures and Promises are bad because they signal only one value from
+the producer to the consumer and that's it - if you need a stream or
+bi-directional communications, a Future might not be the best
+abstraction.
 
 Akka Actors are good because:
 
 - they make bidirectional communications over asynchronous boundaries
   easy - for example WebSocket is a prime candidate for actors
 - with Akka's Actors you can easily model state machines (see
-  context.become or FSM)
+  `context.become`)
 - the processing of messages has a strong guarantee of
   non-concurrency - messages are processed one by one, so there's no
   need to worry about concurrency issues while in the context of an
@@ -629,7 +625,7 @@ Rx and Iteratees - see Play's
   consumers - with an `Observable`/`Enumerator` being a channel that doesn't
   care what listeners it has (think about a stream of data like a river
   of information - the river doesn't care about who drinks from it)
-- depending on implementation, they address back pressure concerns by
+- depending on implementation, they address back-pressure concerns by
   default, with consumers signaling demand to the producer and the
   producer insuring that it doesn't send more data than the consumer can
   chew on
@@ -847,23 +843,23 @@ the same soccer game on the same stadium at the same time (reads), but
 100,000 people cannot all use the same bathroom (writes). In a
 multi-threading scenario, prefer single producer / multi consumer
 scenarios. This has the effect of avoiding contention and performance
-in a multi-threaded scenario. An app does not scale vertically with
-multiple producers pounding on the same resource, because Amdahl's
-Law.
+problems. An app does not scale vertically with multiple producers
+pounding on the same resource, because Amdahl's Law.
 
 Checkout [LMAX Disruptor](https://lmax-exchange.github.io/disruptor/).
 
 ### 3.12. MUST be mindful of the garbage collector and how unnecessary allocations can kill performance
 
 Don't over allocate resources, unless you need to. We want to avoid
-micro optimizations, but always be a mindful about the effects
+micro optimizations, but always be mindful about the effects
 allocations can have on your system.
 
 In the
 [words of Martin Thomson](http://www.infoq.com/presentations/top-10-performance-myths),
 if you stress the garbage collector, you'll increase the latency on
-stop-the-world freezes, with the garbage collector acting like a GIL
-and thus limiting performance and vertical scalability.
+stop-the-world freezes and the number of such occurrences, with the
+garbage collector acting like a GIL and thus limiting performance and
+vertical scalability.
 
 Example:
 
@@ -898,6 +894,22 @@ someCollection.collect {
    x.name
 }
 ```
+
+A generic example that often pops up, exemplifying useless traversals
+and operators that could be compressed:
+
+```scala
+collection.filter(bySomething).map(toSomethingElse).filter(again).headOption
+```
+
+Also, take notice of your requirements and use the data-structure
+suitable for your use-case. You want to build a stack? That's a
+`List`. You want to index a list? That's a `Vector`. You want to
+append to the end of a list? That's again a `Vector`. You want to push
+to the front and pull from the back? That's a `Queue`. You have a set
+of things and want to check for membership? That's a `Set`. You have a
+list of things that you want to keep ordered? That's a
+`SortedSet`. This isn't rocket science, just computer science 101.
 
 We are not talking about extreme micro optimizations here, we aren't
 even talking about something that's Scala, or FP, or JVM specific
