@@ -13,7 +13,7 @@ tags:
 
 What follows is a list of best practices I compiled for my colleagues,
 advice sprung from the painful experience coming naturally from
-dealing with other people's code :-) 
+dealing with other people's code :-)
 
 Defining a list of best practices is always hard. I like to think that
 we are defining a protocol of communication, because we are. Therefore
@@ -33,7 +33,7 @@ Always try to understand the reasons behind a rule, don't
 cargo-cult. Following advice blindly leads to the worst hairballs
 imaginable.
 
-## 1. General Advice 
+## 1. General Advice
 
 ### 1.1. MUST NOT use "return"
 
@@ -50,7 +50,7 @@ it does. For example in a Play controller, try doing this:
 def action = Action { request =>
   if (someInvalidationOf(request))
     return BadRequest("bad")
-    
+
  Ok("all ok")
 }
 ```
@@ -111,45 +111,60 @@ than what happens when doing manual memory management.
 
 ### 1.3. SHOULD NOT update a `var` using loops or conditions
 
-It's a mistake that most Java developpers do when they come to Scala. Example :
+It's a mistake that most Java developpers do when they come to Scala. Example:
 
 ```scala
 var sum = 0
-elements.foreach(elem => sum += elem.value)
+for (elem <- elements) {
+  sum += elem.value
+}
 ```
 
 This kind of mutable counter should be avoided. Instead, this kind of code must be prefered :
 
 ```scala
-val sum = elements.foldLeft(0)( (x,y) => x+y ) 
+val sum = elements.foldLeft(0)((acc, e) => acc + e.value)
 ```
-In the same spirit, you should never update a partial result with a condition. Example : 
+
+Or even better, know thy standard library and always prefer to
+use the built-in functions:
 
 ```scala
-def computeResult(x) = {
-  var result = compteResult(x)
-  if(needToAddTwo){
+val sum = elements.map(_.value).sum
+```
+
+In the same spirit, you should never update a partial result with a condition.
+Example:
+
+
+```scala
+def compute(x) = {
+  var result = resultFrom(x)
+
+  if(needToAddTwo) {
     result += 2
   }
   else {
   	result += 1
   }
 
-  result  
+  result
 }
 ```
 
-Respecting immutability, the code will be more readable and less error-prone : 
+Remember, prefer expressions and immutability. The code will be more readable
+and less error-prone, since it makes the branches more explicit and that's
+a good thing:
 
 ```scala
 def computeResult(x) = {
-  if(needToAddTwo){
-    compteResult(x) +2
-  }
-  else {
-  	compteResult(x) +1 
-  }
+  val r = resultFrom(x)
+  if (needToAddTwo)
+    r + 2
+  else
+  	r + 1
 }
+```
 
 ### 1.4. SHOULD NOT define useless traits
 
@@ -198,7 +213,7 @@ not be. Lets take this example:
 ```scala
 trait DBService {
   def getAssets: Future[Seq[(AssetConfig, AssetPersistedState)]]
-  
+
   def persistFlexValue(flex: FlexValue): Future[Unit]
 }
 ```
@@ -332,7 +347,7 @@ Never, never, never do this:
 
 ```scala
 try {
- something() 
+ something()
 } catch {
  case ex: Throwable =>
    blaBla()
@@ -369,10 +384,10 @@ you. Nullable values that happen in function definitions are not
 documented in those definitions. So avoid doing this:
 
 ```scala
-def hello(name: String) = 
-  if (name != null) 
-    println(s"Hello, $name") 
-  else 
+def hello(name: String) =
+  if (name != null)
+    println(s"Hello, $name")
+  else
     println("Hello, anonymous")
 ```
 
@@ -410,7 +425,7 @@ Combining multiple options is also easy:
 val name: Option[String] = ???
 val age: Option[Int] = ???
 
-for (n <- name; a <- age) 
+for (n <- name; a <- age)
   println(s"Name: $n, age: $a")
 ```
 
@@ -442,7 +457,7 @@ if (json.isInstanceOf[String])
   doSomethingWithString(json.asInstanceOf[String])
 else if (json.isInstanceOf[Map])
   doSomethingWithMap(json.asInstanceOf[Map])
-else 
+else
   ???
 ```
 
@@ -485,7 +500,7 @@ because:
 4. it doesn't make a difference between GMT and UTC
 5. years are expressed as 2 digits instead of 4
 
-Always use Joda-Time. 
+Always use Joda-Time.
 
 ### 1.12. MUST serialize dates as either Unix timestamp, or as ISO 8601
 
@@ -735,9 +750,9 @@ def addOne(x: Int) = Future(x + 1)
 
 def multiply(x: Int, y: Int) = Future {
   val a = addOne(x)
-  val b = addOne(y) 
+  val b = addOne(y)
   val result = for (r1 <- a; r2 <- b) yield r1 * r2
-  
+
   // this will dead-lock
   Await.result(result, Duration.Inf)
 }
@@ -843,7 +858,7 @@ class SomeActor extends Actor {
   private var counter = 0
   private val scheduler = context.system.scheduler
     .schedule(3.seconds, 3.seconds, self, Tick)
- 
+
   def receive = {
     case Tick =>
       counter += 1
