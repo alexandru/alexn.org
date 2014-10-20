@@ -109,7 +109,49 @@ So there you have it - a public API exposing a mutable data-structure
 is an abomination of nature, leading to problems that can be worse
 than what happens when doing manual memory management.
 
-### 1.3. SHOULD NOT define useless traits
+### 1.3. SHOULD NOT update a `var` using loops or conditions
+
+It's a mistake that most Java developpers do when they come to Scala. Example :
+
+```scala
+var sum = 0
+elements.foreach(elem => sum += elem.value)
+```
+
+This kind of mutable counter should be avoided. Instead, this kind of code must be prefered :
+
+```scala
+val sum = elements.foldLeft(0)( (x,y) => x+y ) 
+```
+In the same spirit, you should never update a partial result with a condition. Example : 
+
+```scala
+def computeResult(x) = {
+  var result = compteResult(x)
+  if(needToAddTwo){
+    result += 2
+  }
+  else {
+  	result += 1
+  }
+
+  result  
+}
+```
+
+Respecting immutability, the code will be more readable and less error-prone : 
+
+```scala
+def computeResult(x) = {
+  if(needToAddTwo){
+    compteResult(x) +2
+  }
+  else {
+  	compteResult(x) +1 
+  }
+}
+
+### 1.4. SHOULD NOT define useless traits
 
 There was this Java Best Practice that said "*program to an interface,
 not to an implementation*", a best practice that has been cargo-culted
@@ -186,7 +228,7 @@ object AssetsObservable {
 See, I do not need to mock an entire `DBService` in order to test the
 above.
 
-### 1.4. MUST NOT use "var" inside a case class
+### 1.5. MUST NOT use "var" inside a case class
 
 Case classes are syntactic sugar for defining classes in which - all
 constructor arguments are public and immutable and thus part of the
@@ -209,7 +251,7 @@ not change according to the object's history). Case classes are for
 strictly immutable things. If you need to mutate stuff, don't use case
 classes.
 
-### 1.5. SHOULD NOT declare abstract "val" or "var" or "lazy val" members
+### 1.6. SHOULD NOT declare abstract "val" or "var" or "lazy val" members
 
 It's a bad practice to declare abstract vals or vars or lazy vals in
 abstract classes or traits. Do not do this:
@@ -263,7 +305,7 @@ otherwise decent way of fixing such a sample.
 There's no good reason to impose on inheritors the way a value should
 get initialized. `def` is generic so use `def` instead.
 
-### 1.6. MUST NOT Throw Exceptions for Validations of User Input or Flow Control
+### 1.7. MUST NOT Throw Exceptions for Validations of User Input or Flow Control
 
 Two reasons:
 
@@ -284,7 +326,7 @@ As an appeal to authority, it's reasonable to reference
 [Functional Programming with Scala](http://www.manning.com/bjarnason/),
 chapter 4.
 
-### 1.7. MUST NOT catch Throwable when catching Exceptions
+### 1.8. MUST NOT catch Throwable when catching Exceptions
 
 Never, never, never do this:
 
@@ -319,7 +361,7 @@ try {
 }
 ```
 
-### 1.8. MUST NOT use "null"
+### 1.9. MUST NOT use "null"
 
 You must avoid using `null`. Prefer Scala's `Option[T]` instead. Null
 values are error prone, because the compiler cannot protect
@@ -385,7 +427,7 @@ list.flatMap(x => Some(x).filter(_ % 2 == 0))
 Also, never, ever use `option.get`. That's just sloppy engineering and
 defeats the purpose of using Option.
 
-### 1.9. SHOULD NOT use Any or AnyRef or isInstanceOf / asInstanceOf
+### 1.11. SHOULD NOT use Any or AnyRef or isInstanceOf / asInstanceOf
 
 Avoid using Any or AnyRef or explicit casting, unless you've got a
 really good reason for it. Scala is a language that derives value from
@@ -445,7 +487,7 @@ because:
 
 Always use Joda-Time. 
 
-### 1.11. MUST serialize dates as either Unix timestamp, or as ISO 8601
+### 1.12. MUST serialize dates as either Unix timestamp, or as ISO 8601
 
 Unix timestamps, provided that we are talking about the number of
 seconds or milliseconds since 1970-01-01 00:00:00 UTC (with emphasis
@@ -456,7 +498,7 @@ is a decent serialization format supported by most libraries.
 Avoid anything else and also when storing dates without a timezone
 attached (like in MySQL), always express that info in UTC.
 
-### 1.12. MUST NOT use magic values
+### 1.13. MUST NOT use magic values
 
 Although not uncommon in other languages to use "magic" (special)
 values like `-1` to signal particular outcomes, in Scala there are a
@@ -471,7 +513,7 @@ Don't do this:
 val index = list.find(someTest).getOrElse(-1)
 ```
 
-### 1.13. SHOULD NOT use "var" as shared state
+### 1.14. SHOULD NOT use "var" as shared state
 
 Avoid using "var" at least when speaking about shared mutable
 state. Because if you do have shared state expressed as vars, you'd
