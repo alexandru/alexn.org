@@ -13,7 +13,7 @@ tags:
 
 What follows is a list of best practices I compiled for my colleagues,
 advice sprung from the painful experience coming naturally from
-dealing with other people's code.
+dealing with other people's code :-) 
 
 Defining a list of best practices is always hard. I like to think that
 we are defining a protocol of communication, because we are. Therefore
@@ -22,14 +22,18 @@ this document uses keywords defined in
 between rules that should never be broken and those that can be broken
 if you know what you're doing.
 
+This list is also far from complete.
+
 ### 0.1. MUST NOT follow advice blindly
 
 This should be the first rule of any document that describes best
 practices.
 
-Always try to understand the reasons behind a rule, don't cargo-cult.
+Always try to understand the reasons behind a rule, don't
+cargo-cult. Following advice blindly leads to the worst hairballs
+imaginable.
 
-## 1. General Advice on the Language
+## 1. General Advice 
 
 ### 1.1. MUST NOT use "return"
 
@@ -179,7 +183,8 @@ object AssetsObservable {
 }
 ```
 
-See, I do not need to mock a `DBService` in order to test the above.
+See, I do not need to mock an entire `DBService` in order to test the
+above.
 
 ### 1.4. MUST NOT use "var" inside a case class
 
