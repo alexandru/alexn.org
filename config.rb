@@ -106,13 +106,17 @@ configure :build do
   # activate :minify_html
 
   activate :asset_hash
+  activate :asset_host
+  
+  set :asset_host do |asset|
+    "//d2uy8r9dr9sdps.cloudfront.net".to_s
+  end
 
   # Enable cache buster
   # activate :cache_buster
 
   # Use relative URLs
-  activate :relative_assets
-
+  # activate :relative_assets
   activate :gzip  
 
   # Compress PNGs after build
