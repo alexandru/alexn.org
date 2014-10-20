@@ -120,20 +120,21 @@ for (elem <- elements) {
 }
 ```
 
-This kind of mutable counter should be avoided. Instead, this kind of code must be prefered :
+Avoid doing this, prefer the available operators instead, like `foldLeft`:
 
 ```scala
 val sum = elements.foldLeft(0)((acc, e) => acc + e.value)
 ```
 
 Or even better, know thy standard library and always prefer to
-use the built-in functions:
+use the built-in functions - the more expressive you go, the less bugs
+you'll have:
 
 ```scala
 val sum = elements.map(_.value).sum
 ```
 
-In the same spirit, you should never update a partial result with a condition.
+In the same spirit, you shouldn't update a partial result with a condition.
 Example:
 
 
@@ -152,7 +153,7 @@ def compute(x) = {
 }
 ```
 
-Remember, prefer expressions and immutability. The code will be more readable
+Prefer expressions and immutability. The code will be more readable
 and less error-prone, since it makes the branches more explicit and that's
 a good thing:
 
@@ -165,6 +166,10 @@ def computeResult(x) = {
   	r + 1
 }
 ```
+
+And you know, as soon as the branches get too complex, just as was said in the
+discussion on `return`, that's a sign that the *code smells* and is in need
+of refactoring, which is a good thing.
 
 ### 1.4. SHOULD NOT define useless traits
 
