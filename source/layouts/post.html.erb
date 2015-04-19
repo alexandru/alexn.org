@@ -4,15 +4,15 @@
     <h1 itemprop="name"><%= current_page.title %></h1>
 
     <div id="meta">
-      <time class="post-date" itemprop="dateCreated" datetime="<%= current_page.date.strftime('%Y-%m-%d') %>"><%= current_page.date.strftime("%b %d, %Y") %></time>      
-    </div>    
+      <time class="post-date" itemprop="dateCreated" datetime="<%= current_page.date.strftime('%Y-%m-%d') %>"><%= current_page.date.strftime("%b %d, %Y") %></time>
+    </div>
   </header>
 
   <div id="content" itemprop="articleBody">
     <%= yield %>
 
     <div class="authorship" itemprop="author" itemscope itemtype="http://schema.org/Person">
-      Written by <a href="https://plus.google.com/+AlexandruNedelcu" itemprop="url" rel="author">Alexandru Nedelcu</a>
+      Written by <a href="https://plus.google.com/100610935317470985670" itemprop="url" rel="author">Alexandru Nedelcu</a>
     </div>
 
     <div class="sharethis">
@@ -28,20 +28,20 @@
       <h2>Recent Articles</h2>
 
       <ul class="posts">
-	<% page_articles.find_all{|x| !x.data.archive && x.url != current_page.url}[0..6].each_with_index do |article, i| %>	
-	<li> 
+	<% page_articles.find_all{|x| !x.data.archive && x.url != current_page.url}[0..6].each_with_index do |article, i| %>
+	<li>
 	  <time datetime="<%= article.date.strftime("%Y-%m-%d") %>">
 	    <%= article.date.strftime("%Y-%m-%d") %> &raquo;
 	  </time>
 	  <a href="<%= article.url %>" rel="prefetch related"><%= article.title %></a>
-	</li>      
+	</li>
 	<% end %>
       </ul>
     </div>
 
     <div id="contributions">
       <div id="disqus_thread"></div>
-      <script type="text/javascript">  
+      <script type="text/javascript">
 	var disqus_shortname = 'alexnorg';
 	var disqus_url = '<%= @website.id + current_page.url %>';
 
