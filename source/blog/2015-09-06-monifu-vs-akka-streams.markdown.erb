@@ -50,10 +50,10 @@ by Monifu: [code](https://github.com/monifu/monifu-sample) /
 I am biased, I admit. But personally I find the design of Akka Streams
 to be *conceptually ugly*.
 
-Mathias was kind to release his comparisson
+Mathias was kind to release his comparison
 [on GitHub](https://github.com/sirthias/rs-comparison), containing the
 same problem solved with Akka Streams, RxJava and Reactor and I think
-this provides a good starting point for a comparisson.  So lets take
+this provides a good starting point for a comparison.  So lets take
 Mathias's own
 [sample for Akka Streams](https://github.com/alexandru/rs-comparison/blob/master/src/main/scala/swave/rsc/AkkaPi.scala)
 and compare it with my
@@ -137,7 +137,8 @@ Here's Monifu's version, doing the same thing.
 
 ```scala
 // Monifu sample
-Observable.fromIterator(new RandomDoubleValueGenerator())
+val source = Observable
+  .fromIterator(new RandomDoubleValueGenerator())
   .buffer(2)
   .map { case Seq(x, y) ⇒ Point(x, y) }
   .share() // shares the data-source
