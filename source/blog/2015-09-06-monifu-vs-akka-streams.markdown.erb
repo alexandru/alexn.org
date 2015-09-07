@@ -104,7 +104,7 @@ concurrent operator, but this is just for comparing apples with apples
 ;-)
 
 So why is the code for Akka Streams looking so complicated? Well
-that's because of its design, but lets come back to that latter.
+that's because of its design, but lets come back to that later.
 In the Akka Streams sample, here's how the original data-source is
 being split in two streams (`filterInner` and `filterOuter`) and then
 merged:
@@ -321,7 +321,7 @@ The precursors of Akka Streams have been
 [Play's Iteratees](https://www.playframework.com/documentation/2.4.x/Iteratees)
 and the
 [Akka I/O Pipeline](http://doc.akka.io/docs/akka/2.2.0/scala/io-codec.html),
-the former on its way to deprecation, the later already
+the former on its way to deprecation, the latter already
 deprecated. Unfortunately I'm seeing the same mistakes: implementation
 hard to read, conceptualy very complicated, while exposing custom
 binary operators in the hope of forming a DSL that will somehow fix
