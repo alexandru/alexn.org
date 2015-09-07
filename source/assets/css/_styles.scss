@@ -16,7 +16,7 @@ $vertical-padding: 20px;
    MIXINS
 */
 
-@mixin tags-base {		    
+@mixin tags-base {
     color: #5A80A4;
 
     a {
@@ -56,7 +56,7 @@ html, body {
 /* RESET */
 
 body {
-    font-family: "Open Sans", sans-serif; 
+    font-family: "Open Sans", sans-serif;
 
     font-size: $body-font-size;
     line-height: $body-line-height;
@@ -85,7 +85,7 @@ body {
 	    clear: both;
 	    visibility: hidden;
 	}
-    }    
+    }
 }
 
 body > #header-container {
@@ -107,14 +107,14 @@ body > #header-container {
 	}
 
 	nav {
-	    a.github {		
+	    a.github {
 		position: absolute;
 		top: 0;
 		right: 0;
 		width: 149px;
 		height: 149px;
 		background-image: url(/assets/img/fork.png);
-		
+
 		span {
 		    display: none;
 		}
@@ -136,7 +136,7 @@ body > #header-container {
     }
 }
 
-body #main {    
+body #main {
     @include container-wrapper;
 
     padding-bottom: 0;
@@ -153,7 +153,7 @@ body #main {
 
 	margin-top: $vertical-padding;
 	margin-bottom: $vertical-padding;
-	
+
 	color: lighten($heading-color, 10%);
 	text-align: left;
     }
@@ -170,7 +170,7 @@ body #main {
 	line-height: 130%;
     }
     h3 {
-	font-size: $header-1-size - 60;    
+	font-size: $header-1-size - 60;
     }
 
     img.normal {
@@ -215,14 +215,20 @@ body #main {
     	display: block; margin: auto;
     }
 
+    img.max {
+      width:100%;
+      max-width:$max-width;
+      height: auto;
+    }
+
     img.with-space {
-    	display: block; 
+    	display: block;
 	margin-top: $vertical-padding;
 	margin-bottom: $vertical-padding;
     }
 
     img.frame-right, img.frame-center {
-	border: 0.5em solid #FFFFFF;	
+	border: 0.5em solid #FFFFFF;
 	border-radius: 0.3em 0.3em 0.3em 0.3em;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
     }
@@ -239,15 +245,15 @@ body #main {
 
 	    a {
 		text-decoration: none;
-		&:hover { 
-		    text-decoration: underline; 
+		&:hover {
+		    text-decoration: underline;
 		}
 	    }
 
 	    time {
 		color: #888;
 		font-family: Monaco, "Courier New", monospace;
-		font-size: 80%;		    
+		font-size: 80%;
 		margin-right: 5px;
 	    }
 	}
@@ -276,7 +282,7 @@ body #main {
     article#post header h1 {
 	margin-bottom: 0;
     }
-    
+
     article#archive {
 	ul, ol {
 	    margin-top: $vertical-padding;
@@ -305,11 +311,11 @@ body #main {
 
 		li {
 		    margin-bottom: $vertical-padding / 2;
-		    padding-left: 15px;		
+		    padding-left: 15px;
 		    background-image: url(/assets/img/round-bullet.gif);
 		    background-repeat: no-repeat;
 		    background-position: 0 9px;
-		}		    
+		}
 	    }
 
 	    .highlight {
@@ -336,7 +342,7 @@ body #main {
 	    }
 
 	    .sharethis {
-		margin-top: $vertical-padding * 2; 
+		margin-top: $vertical-padding * 2;
 		text-align: right;
 	    }
 	}
@@ -360,7 +366,7 @@ body #main {
 	#meta {
 	    margin-top: $vertical-padding / 2;
 	    margin-bottom: $vertical-padding + $vertical-padding / 2;
-	    font-size: 100%;	
+	    font-size: 100%;
 	    color: #7A6062;
 	}
 
@@ -401,7 +407,7 @@ body #main {
 		    .desc, .disclaimer {
 			font-size: 90%;
 			color: #444;
-		    } 
+		    }
 		    .disclaimer {
 			color: #666;
 			margin-bottom: 5px;
@@ -445,14 +451,14 @@ body #footer-container footer {
     .rss {
 	margin-right: 0;
 	float: right;
-	margin-right: -0.2em; 
+	margin-right: -0.2em;
 	a {
 	    text-decoration: none;
 	    display: block;
-	    float: right; 
+	    float: right;
 	}
 	img {
-	    border: 0; 
+	    border: 0;
 	}
     }
 }
@@ -469,7 +475,7 @@ body #main article footer #other-articles, body #main article footer #email-subs
 	padding-bottom: $vertical-padding;
 	font-size: 140%;
     }
-    
+
     ul {
 	margin: 0;
 	padding: 0;
@@ -492,7 +498,7 @@ body #main article footer #email-subscription {
 #contributions {
     position: relative;
     border-top: 2px solid #C69AA1;
-    padding-top: 10px;    
+    padding-top: 10px;
 
     h2 {
 	margin-top: 0;
@@ -507,7 +513,7 @@ body #main article footer #email-subscription {
 
 
 #email-subscription form input, #email-subscription form button {
-    padding: 4px; 
+    padding: 4px;
 }
 
 #about {

@@ -32,19 +32,23 @@ recently
 [Akka Streams](http://doc.akka.io/docs/akka-stream-and-http-experimental/current/).
 
 The library I've been working on is named
-**[Monifu](https://github.com/monifu/monifu)**, has just
+**[Monifu](https://github.com/monifu/monifu)**. It has just
 reached 1.0-RC1, it is built on idiomatic Scala principles, is
 cross-compiled to [Scala.js](http://www.scala-js.org/), is freaking
 awesome and even though it is inspired by Rx, compared to other Rx
 implementations, it was designed from scratch to deal with
 back-pressure. It's also implementing the 1.0 version of the
 [Reactive Streams](http://www.reactive-streams.org/) protocol for
-interoperability.
+interoperability. Checkout this cool sample of client/server
+communications, where both the server-side and the browser-side is handled
+by Monifu: [code](https://github.com/monifu/monifu-sample) /
+[demo](http://monifu-sample.herokuapp.com/)
+(that's a free Heroku node, go easy on it :-)).
 
 ## Code
 
 I am biased, I admit. But personally I find the design of Akka Streams
-to be *conceptually ugly*. 
+to be *conceptually ugly*.
 
 Mathias was kind to release his comparisson
 [on GitHub](https://github.com/sirthias/rs-comparison), containing the
@@ -100,7 +104,7 @@ concurrent operator, but this is just for comparing apples with apples
 ;-)
 
 So why is the code for Akka Streams looking so complicated? Well
-that's because of its design, but lets come back to that later.
+that's because of its design, but lets come back to that latter.
 In the Akka Streams sample, here's how the original data-source is
 being split in two streams (`filterInner` and `filterOuter`) and then
 merged:
@@ -193,8 +197,7 @@ whatever that is, with the tasks being executed by actors. I think
 that's a design mistake. One reason for why Scala's `Future` and
 `ExecutionContext` are great is precisely because they model only
 asynchronous computations, but are completely oblivious to how the
-required asynchronous execution happens (versus other platforms and
-libraries that are complecting the notion of threads in the mix). This
+required asynchronous execution happens. This
 is why `Future` works on top of Scala.js without problems.
 
 And again, I'm biased, but Monifu's own implementation is conceptually
@@ -241,7 +244,7 @@ I've left the best part of Monifu for last. Here's running the Monifu
 sample:
 
 ```
-[info] Running swave.rsc.MonifuPi 
+[info] Running swave.rsc.MonifuPi
 
 After  1,909,713 samples π is approximated as 3.14102
 After  4,132,610 samples π is approximated as 3.14240
@@ -279,7 +282,7 @@ After  2,826,297 samples π is approximated as 3.14148
 Here's RxJava (RxScala):
 
 ```
-[info] Running swave.rsc.RxScalaPi 
+[info] Running swave.rsc.RxScalaPi
 
 After    804,127 samples π is approximated as 3.11240
 After  1,747,146 samples π is approximated as 3.12848
@@ -295,17 +298,21 @@ After  9,625,207 samples π is approximated as 3.14393
 [success] Total time: 12 s, completed Sep 6, 2015 2:54:55 PM
 ```
 
+The results:
+
+<%= image_tag "2015/bench.png", :class => "center max" %>
+
 So my Monifu sample is consistently beating Akka Streams by at least a
-factor of 7 and RxJava/RxScala by a factor of 2.
+**factor of 7** and RxJava/RxScala by a **factor of 2**.
 
 The difference is so large that either Akka Streams has some serious
 improvements to achieve, or I'm doing something terribly wrong,
 because this is Monifu's out-of-the-box behavior, as in I haven't even
 attempted to fine tune the buffers or the scheduler for this sample.
 
-But yes, Monifu was built for both ease of use and performance. 
+But yes, Monifu was built for both ease of use and performance.
 
-### Conclusion
+## Conclusion
 
 Again, I'm biased, since I'm the author of an alternative, so take
 this conclusion for what it is.
@@ -322,3 +329,18 @@ this complexity. And I'm all for wheel reinvention when it's done for
 the right reasons, but I find this model to be inferior to an evolved
 Rx (such as Monifu) and this is just one other design heading towards
 deprecation.
+
+If you're interested in Monifu, there's still some work to be done.
+It's at release candidate for version 1.0, meaning that we're done breaking the
+API and a very functional core is ready. Monifu has been developed in
+paralel to its usage in production for the past year, should be fairly
+solid and has very good test coverage as testament to that, but bugs may
+still happen, since a lot of work went on this past month.
+Documentation is sadly a work in progress and for now only the
+[API documentation](http://monifu.org/api/current/) is up to date. But we're
+marching towards a 1.0 release you can rely on, which should be available
+in about two weeks from now (if everything goes well). Checkout the
+[GitHub repo](https://github.com/monifu/monifu), join
+[our chat channel](https://gitter.im/monifu/monifu) and give us feedback.
+
+Cheers,
