@@ -99,7 +99,7 @@ data-source is being started that generates a tick over every second
 and that data-source is being `zipped` with our source. Events emitted
 by our source are dropped as long as the tick is silent and then when
 the tick event happens we emit whatever we've got. Using `zip` for
-sampling is actually very inneficient, as `zip` is a fundamentally
+sampling is actually very inefficient, as `zip` is a fundamentally
 concurrent operator, but this is just for comparing apples with apples
 ;-)
 
@@ -333,7 +333,7 @@ deprecation.
 If you're interested in Monifu, there's still some work to be done.
 It's at release candidate for version 1.0, meaning that we're done breaking the
 API and a very functional core is ready. Monifu has been developed in
-paralel to its usage in production for the past year, should be fairly
+parallel to its usage in production for the past year, should be fairly
 solid and has very good test coverage as testament to that, but bugs may
 still happen, since a lot of work went on this past month.
 Documentation is sadly a work in progress and for now only the
