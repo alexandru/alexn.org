@@ -313,7 +313,7 @@ attempted to fine tune the buffers or the scheduler for this sample.
 
 But yes, Monifu was built for both ease of use and performance.
 
-## Conclusion
+## Final Words
 
 Again, I'm biased, since I'm the author of an alternative, so take
 this conclusion for what it is.
@@ -343,5 +343,20 @@ marching towards a 1.0 release you can rely on, which should be available
 in about two weeks from now (if everything goes well). Checkout the
 [GitHub repo](https://github.com/monifu/monifu), join
 [our chat channel](https://gitter.im/monifu/monifu) and give us feedback.
+
+### Update (Sep 8, 8:00 AM)
+
+Some interesting questions happened on
+[the reddit thread](https://www.reddit.com/r/scala/comments/3jymvw/monifu_vs_akka_streams/).
+To dispel some myths:
+
+1. currently Akka Streams does no more parallelism than Monifu does
+2. in our sample Monifu is not single-threaded
+3. in our sample Monifu parallelizes the portion that it can, which
+   is the processing of `filterInner` and `filterOuter`, plus execution
+   is jumping threads, because Monifu as a matter of policy never keeps
+   a single thread occupied for too long
+4. you can't parallelize concurrent operations, that being an oxymoron,
+   which is why I'm dumbfounded by claims of parallelism
 
 Cheers,
