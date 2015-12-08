@@ -340,11 +340,6 @@ body #main {
 		    text-decoration: none;
 		}
 	    }
-
-	    .sharethis {
-		margin-top: $vertical-padding * 2;
-		text-align: right;
-	    }
 	}
 
 	/* terminal */
@@ -443,6 +438,7 @@ body #footer-container footer {
 	float: left;
 	margin-right: 3em;
 	margin-top: 5px;
+  padding-top: 8px;
 	a {
 	    color: #8085C1;
 	}

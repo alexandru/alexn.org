@@ -12,14 +12,7 @@
     <%= yield %>
 
     <div class="authorship" itemprop="author" itemscope itemtype="http://schema.org/Person">
-      Written by <a href="https://plus.google.com/+AlexandruNedelcu" itemprop="url" rel="author">Alexandru Nedelcu</a>
-    </div>
-
-    <div class="sharethis">
-      <div class="g-plusone" data-size="medium"></div>
-      <a href="https://twitter.com/share" class="twitter-share-button" data-via="alex_ndc">Tweet</a>
-
-      <%= javascript_include_tag "sharethis" %>
+      Written by <a href="https://www.bionicspirit.com/pages/about.html" itemprop="url" rel="author">Alexandru Nedelcu</a>
     </div>
   </div>
 
@@ -28,33 +21,35 @@
       <h2>Recent Articles</h2>
 
       <ul class="posts">
-	<% page_articles.find_all{|x| !x.data.archive && x.url != current_page.url}[0..6].each_with_index do |article, i| %>
-	<li>
-	  <time datetime="<%= article.date.strftime("%Y-%m-%d") %>">
-	    <%= article.date.strftime("%Y-%m-%d") %> &raquo;
-	  </time>
-	  <a href="<%= article.url %>" rel="prefetch related"><%= article.title %></a>
-	</li>
-	<% end %>
+      	<% page_articles.find_all{|x| !x.data.archive && x.url != current_page.url}[0..6].each_with_index do |article, i| %>
+      	<li>
+      	  <time datetime="<%= article.date.strftime("%Y-%m-%d") %>">
+      	    <%= article.date.strftime("%Y-%m-%d") %> &raquo;
+      	  </time>
+      	  <a href="<%= article.url %>" rel="prefetch related"><%= article.title %></a>
+      	</li>
+      	<% end %>
       </ul>
     </div>
 
+    <!-- Disabling Disqus due to privacy concerns, thinking of an alternative -->
+    <!--
     <div id="contributions">
       <div id="disqus_thread"></div>
       <script type="text/javascript">
-	var disqus_shortname = 'alexnorg';
-	var disqus_url = '<%= @website.id + current_page.url %>';
+    	var disqus_shortname = 'alexnorg';
+    	var disqus_url = '<%= @website.id + current_page.url %>';
 
-	/* * * DON'T EDIT BELOW THIS LINE * * */
-	(function() {
-	var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-	dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
-	(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-	})();
+    	/* * * DON'T EDIT BELOW THIS LINE * * */
+    	(function() {
+    	var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    	dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+    	(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    	})();
       </script>
       <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </div>
-
+    -->
   </footer>
 </article>
 <% end %>

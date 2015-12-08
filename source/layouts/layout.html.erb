@@ -13,14 +13,10 @@
   <link rel="canonical" href="<%= @website.root_url %><%= current_page.url %>">
   <link rel="alternate"  href="/atom.xml" title="Bionic Spirit" type="application/atom+xml">
 
-  <link href='//fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400' rel='stylesheet' type='text/css'>
+  <%= stylesheet_link_tag "fonts" %>
   <%= stylesheet_link_tag "all" %>
 
-  <!-- Google+ -->
-  <link href="https://plus.google.com/+AlexandruNedelcu" rel="publisher">
-  <!-- END: Google+ -->
-
-  <%= partial("layouts/google-analytics") %>
+  <link href="https://github.com/alexandru" rel="publisher">
 </head>
 <body>
   <div id="header-container">
@@ -28,9 +24,9 @@
       <h1 id="title"><%= @website.title %></h1>
 
       <nav>
-	  <a href="/"><%= @website.domain %></a>
-	  <a class="extra" href="/pages/about.html">about</a>
-	  <a href="https://github.com/alexandru" class="github" title="Fork me on GitHub"><span>Fork me on GitHub</span></a>
+    	  <a href="/"><%= @website.domain %></a>
+    	  <a class="extra" href="/pages/about.html">about</a>
+    	  <a href="https://github.com/alexandru" class="github" title="Fork me on GitHub"><span>Fork me on GitHub</span></a>
       </nav>
     </header>
   </div>
@@ -44,9 +40,8 @@
   <div id="footer-container">
     <footer>
       <div class="contact">
-        <br />
       	&copy; <%= DateTime.now.strftime("%Y") %> Alexandru Nedelcu
-      	<br />
+      	<br>
       	Some rights reserved (<a href="http://creativecommons.org/licenses/by-nc/3.0/" rel="license">CC BY-NC 3.0</a>)
       </div>
 
