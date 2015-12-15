@@ -103,11 +103,11 @@ set :markdown, :fenced_code_blocks => true, :smartypants => true
 configure :build do
   activate :minify_css
   activate :minify_javascript
+
   # activate :minify_html
+  # activate :asset_hash
 
-  activate :asset_hash
-
-  #activate :asset_host  
+  #activate :asset_host
   #set :asset_host do |asset|
   #  "//d2uy8r9dr9sdps.cloudfront.net".to_s
   #end
@@ -117,7 +117,7 @@ configure :build do
 
   # Use relative URLs
   # activate :relative_assets
-  activate :gzip  
+  activate :gzip
 
   # Compress PNGs after build
   # First: gem install middleman-smusher

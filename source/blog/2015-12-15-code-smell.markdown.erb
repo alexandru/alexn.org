@@ -1,0 +1,259 @@
+---
+title: "Mocks, Stubs, Dependency Injection and Integration Tests are Code Smell"
+tags:
+  - Functional
+  - Code
+  - Scala
+  - Rx
+---
+
+I'm a man of strong opinions and I truly believe that when we are doing
+[mocking, stubbing](http://www.martinfowler.com/articles/mocksArentStubs.html),
+[dependency injection](https://en.wikipedia.org/wiki/Dependency_injection)
+and integration testing, that represents a clear signal for code
+smell, as in code that sucks as a symptom of a bigger problem, one of
+design. The lumping together of these practices is not an accident,
+these being related.
+
+Lets take an example. Often in our components we've got dependencies,
+other components only slightly related and on which we depend for
+producing the desired output. Things like database access, for both
+reads and writes. In true Java spirit, lets build our noun:
+
+```scala
+trait DBService {
+  def readItemConfig(uuid: UUID): Option[ItemConfig]
+  def saveItemConfig(uuid: UUID, config: ItemConfig): Unit
+
+  def readDatapoints(item: UUID, offset: Int, count: Int): Seq[Datapoint]
+  def persistDatapoint(item: UUID, dp: Datapoint): Unit
+}
+```
+
+This interface is reasonably abstract, meaning we aren't leaking too
+many underlying storage details. Well, we are assuming synchronous
+responses and the datapoints are read in batches instead of a nice
+stream, but those are details that can be corrected and the interface
+works for a text file, PostgreSQL, MongoDB or what have you. So now we
+can depend on it:
+
+```scala
+class ItemActor(db: DBService) extends Actor {
+  def receive = {
+    case Init(uuid) =>
+      for (cfg <- db.readItemConfig(uuid))
+        context.become(active(cfg))
+  }
+
+  def active(cfg: ItemConfig): Receive = ???
+}
+```
+
+Of course, if you've got masochistic tendencies, you might prefer
+[the Cake pattern](https://github.com/alexandru/scala-best-practices/blob/master/sections/3-architecture.md#31-should-not-use-the-cake-pattern),
+being the same thing, only much worse, because now you've got garbage
+enhanced by global state and polymorphic superpowers, sucking as much
+as Guice, only at compile-time:
+
+```scala
+trait ItemActorComponentImpl {
+  self: DBServiceComponent =>
+
+  class ItemActor extends Actor {
+    def receive = {
+      case Init(uuid) =>
+        for (cfg <- dbService.readItemConfig(uuid))
+          context.become(active(cfg))
+    }
+
+    def active(cfg: ItemConfig): Receive = ???
+  }
+}
+```
+
+I personally can't stand that, being the epitome of good intentions
+gone wrong. But back to our point, if we want to test this actor, we'd
+have to mock or stub our `DBService`, right?
+
+Well, here's *the problem* mate: until now this actor only depends on
+`DBService.readItemConfig`, yet we have to mock or stub the entire
+interface of `DBService`. And having to mock or stub things unrelated
+to testing this functionality should indicate that this code is too
+*tightly coupled*. Right there your nose should reject the air emanated
+from this code, because it's common sense that often save us, too bad
+we stopped listening to our senses.
+
+OK, OK, lets fix this somewhat using a common Java "best practice", by
+splitting this interface into smaller modules. Our `DBService`
+interface does too much, or so it appears.
+
+```scala
+trait ItemConfigsRepository {
+  def read(uuid: UUID): Option[ItemConfig]
+  def save(uuid: UUID, config: ItemConfig): Unit
+}
+
+trait DatapointsRepository {
+  def readList(item: UUID, offset: Int, count: Int): Seq[Datapoint]
+  def persist(item: UUID, dp: Datapoint): Unit
+}
+```
+
+That feels better, right? By splitting functionality in smaller units
+of finer-grained stuff, this should ameliorate our dependency
+woes, right? Wrong, now we've got two problems:
+
+```scala
+class ItemActor
+  (icsRepo: ItemConfigsRepository, dpsRepo: DatapointsRepository)
+  extends Actor {
+  
+  def receive = {
+    case Init(uuid) =>
+      for (cfg <- icsRepo.read(uuid))
+        context.become(active(cfg, State.empty))
+  }
+
+  def active(cfg: ItemConfig, state: State): Receive = {
+    case Signal(value) =>
+      val newState = state.evolve(value)
+      dpsRepo.persist(cfg.uuid, state.powerOutput)
+      context.become(active(cfg, newState))
+  }
+}
+```
+
+BAM, more dependencies, more garbage, more mocks and stubs. Does this
+ring a bell? And Cake makes it worse btw. Speaking of actors, it's a
+really, really bad idea to test actors directly, arguably a symptom of
+the same problem, but I digress. Anyway, how can this be, our
+interfaces are abstract and split in small units, yet what are we
+doing wrong?
+
+Maybe this isn't so bad, right? I mean surely we can stub the
+dependencies that aren't actually used and be done with it, everybody
+else is doing it. Oh, except when you've got more to add unrelated to
+the actual business logic, like persisting more stuff:
+
+```scala
+  def active(cfg: ItemConfig, state: State): Receive = {
+    case Signal(value) =>
+      val newState = state.evolve(value)
+      dpsRepo.persist(cfg.uuid, state.powerOutput)
+      dpsRepo.persist(cfg.uuid, state.basepoint) // <-- here
+      context.become(active(cfg, newState))
+  }
+```
+
+So now with mocks, your tests are broken even though the business
+logic hasn't changed, whereas with stubs that ignore those calls, both
+of those calls might as well not exist. Both outcomes are wrong. 
+
+Here we are having a side-effect, which is persisting values in the
+database in response to that `State` being evolved when receiving
+`Signal` values.
+
+<%= image_tag "2015/skunk.jpg", :class => "right", :width => "300", :style => "border: 1px solid #eee" %>
+
+Yet we have a non-obvious *implementation leak*. From the point of
+view of this actor, those persistence calls are just signals that a
+state change happened and that we could do (but not necessarily)
+something *in response*, but the actor should not care at all that
+what we are doing is actual persistence in a database repository, or
+sending values over an akka remoting connection, or over web-socket,
+or dumping some logs on disk. These concerns should be totally outside
+of our component and all we should be testing is if our component is
+signaling stuff to the outside world. We tried fixing `DBService` but
+in fact our Actor is broken.
+
+Meet the famous and underused
+[Observer pattern](https://en.wikipedia.org/wiki/Observer_pattern). And
+it's sibling on steroids [ReactiveX](http://reactivex.io/). Here's the
+sample above using [Monifu](https://github.com/monifu/monifu):
+
+```scala
+class ItemActor(output: Channel[Signal])
+  extends Actor {
+
+  def receive = {
+    case cfg: ItemConfig =>
+      context.become(active(cfg, State.empty))
+  }
+
+  def active(cfg: ItemConfig, state: State): Receive = {
+    case Signal(value) =>
+      val newState = state.evolve(value)
+      output.pushNext(newState)
+      context.become(active(cfg, newState))
+      
+    case cfg: ItemConfig =>
+      context.become(active(cfg, state))
+  }
+}
+
+// ...
+// in a galaxy far, far away
+
+dbConfigSource.subscribe { config =>
+  actor ! itemConfig
+}
+
+output.subscribe { signal =>
+  dbService.persist(signal.uuid, signal.powerOutput)
+  dbService.persist(signal.uuid, signal.basepoint)
+}
+```
+
+In other words:
+
+- dependency injection, mocking and stubbing is meant for hiding
+  garbage under the rug
+- for writes, you don't have to sprinkle your side-effecting calls all
+  over the place, when you can decouple those concerns by implementing
+  signaling by means of the Observer pattern
+- for reads you can have components that *push* those configurations
+  into your component and the actual wiring is very often not worth
+  testing, because ...
+- testing has diminishing returns: math formulas, the whiles and the
+  ifs and the decision making are very important, but the interaction
+  with external components or systems? Not so much, especially because
+  you end up testing other people's libraries and frameworks,
+  essentially duplicating functionality and generally not worth the
+  trouble
+- integration testing is like meat eating - it's not that meat eating
+  is bad for you per se, but rather the fact that by eating meat
+  you're not eating enough vegetables. You see, we have a finite
+  budget and by doing integration testing it means that you're not
+  doing something else. And people that do integration testing in
+  their code are often the people that gave up on refactoring and unit
+  testing their convoluted and tightly coupled code
+- mocks and stubs are a definite sign that your components are too
+  tightly coupled and that your business logic is mixed with
+  side-effects of short term value involving third-party components
+  and systems. It's usually a sign that you need to clean up your mess
+- testing Akka actors is horrible because of their asynchronous nature
+  and that's a good thing, because it makes you realize that actors
+  are about communication and that you don't care about communication
+  in your unit tests, so you'd better not have business logic in them ;-)
+- your DBService can always fail for reasons outside of your control,
+  so instead of testing DBService, your effort is much better spent in
+  making your own component more resilient to failure and in improving
+  logging, because when it comes to external systems, testing the
+  happy path is worthless, being the edge cases that get you
+- personally I dislike very much tests that pretend to test things,
+  but have zero value - writing unit tests is just a means to an end,
+  take time and have to be maintained, so don't burden your team with
+  fragile tests that don't test anything of value, because that's not
+  why you've been hired
+
+And that's my opinion on the subject. Unfortunately I don't have
+comments on this blog anymore, as I realized that Disqus is a privacy
+concern, along with Google Analytics, Twitter's Tweet and Facebook's
+Like, so I pulled them out and a replacement is in progress. As I
+said, in me the opinions are strong :-)
+
+Also see the list of
+[best practices](https://github.com/alexandru/scala-best-practices) I
+initiated that's free of Javaisms.
+
+Cheers,
