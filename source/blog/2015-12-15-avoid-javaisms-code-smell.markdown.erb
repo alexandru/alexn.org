@@ -209,6 +209,81 @@ output.subscribe { signal =>
 }
 ```
 
+OK, I know that Akka actors are cool and all, this is not about you
+using or not Akka actors. So lets implement the Observer pattern on
+top of Akka actors to see how that looks like:
+
+```scala
+class MyActor extends Actor with LazyLogging {
+  def receive = active(State.empty, Set.empty)
+
+  def active(state: State, subscribers: Set[ActorRef]): Receive = {
+    case "register" =>
+      val ref = sender()
+      if (!subscribers.contains(ref)) {
+        context.watch(ref)
+        context.become(active(state, subscribers + ref))
+      }
+
+    case Terminated(ref) =>
+      context.unwatch(ref)
+      context.become(active(state, subscribers - sender))
+
+    case Signal(value) =>
+      val newState = state.evolve(value)      
+      for (subscriber <- subscribers) {
+        for (event <- newState.events)
+          subscriber ! event
+      }
+
+      context.become(active(newState, subscribers))
+  }
+}
+```
+
+It has been my general opinion that actors should
+[mutate their state with context.become](https://github.com/alexandru/scala-best-practices/blob/master/sections/5-actors.md#52-should-mutate-state-in-actors-only-with-contextbecome)
+and one reason is because that enables us to separate the business
+logic from the actor and leave the actor to handle just the
+communication side. Should the above actor be tested? Maybe, if you've
+got time, but it really isn't a priority, because it doesn't contain
+business logic. Let's go deeper. The business logic, exposed by
+`newState = state.evolve` would be something like this:
+
+```scala
+case class Event(value: Int)
+
+case class State
+  (value: Int, lastEvent: Int, events: Seq[Event]) {
+
+  def evolve(newValue: Int): State = {
+    if (math.abs(newValue - lastEvent) > 100)
+      State(newValue, newValue, Seq(Event(newValue)))
+    else
+      copy(value = newValue)
+  }
+
+  def popEvents: (Seq[Event], State) = 
+    (events, copy(events = Seq.empty))
+}
+
+object State {
+  val empty = State(0, 0, Seq.empty)
+}
+```
+
+M'kay, so this does have business logic that would be valuable for
+testing. AND we are modeling the side-effects in a pure way, by saying
+on each `evolve` "*here's a bunch of signals to emit Bob, I don't care
+how you do it or who reads them*".
+
+Does this code have any dependencies whatsoever? No, it's pure and can
+be tested in total isolation and for things that actually matter, you
+know, unit testing. This is the essence of functional programming and
+(I hope) of Scala. Because whenever you're using
+[Mockito](http://mockito.org/) it means that you're not doing the
+above.
+
 In other words:
 
 - dependency injection, mocking and stubbing is meant for hiding
