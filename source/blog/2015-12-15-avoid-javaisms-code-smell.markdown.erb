@@ -1,5 +1,5 @@
 ---
-title: "Mocks, Stubs, Dependency Injection and Integration Tests are Code Smell"
+title: "Avoid Javaisms: Mocks, Stubs, DI is Code Smell"
 tags:
   - Functional
   - Code
@@ -7,17 +7,20 @@ tags:
   - Rx
 ---
 
-I'm a man of strong opinions and I truly believe that when we are doing
+<%= image_tag "2015/skunk.jpg", :class => "right", :width => "300", :style => "border: 1px solid #eee" %>
+
+I'm a man of strong opinions and I truly believe that when we are
+doing
 [mocking, stubbing](http://www.martinfowler.com/articles/mocksArentStubs.html),
 [dependency injection](https://en.wikipedia.org/wiki/Dependency_injection)
-and integration testing, that represents a clear signal for code
-smell, as in code that sucks as a symptom of a bigger problem, one of
-design. The lumping together of these practices is not an accident,
-these being related.
+and integration testing, such practices represent clear signals for
+code smell, meaning code that sucks as a symptom of a bigger problem,
+one of design. The lumping together of these practices is not an
+accident, as they are related.
 
-Lets take an example. Often in our components we've got dependencies,
+Let's take an example. Often in our components we've got dependencies,
 other components only slightly related and on which we depend for
-producing the desired output. Things like database access, for both
+producing the desired effects. Things like database access, for both
 reads and writes. In true Java spirit, lets build our noun:
 
 ```scala
@@ -79,13 +82,13 @@ Well, here's *the problem* mate: until now this actor only depends on
 `DBService.readItemConfig`, yet we have to mock or stub the entire
 interface of `DBService`. And having to mock or stub things unrelated
 to testing this functionality should indicate that this code is too
-*tightly coupled*. Right there your nose should reject the air emanated
-from this code, because it's common sense that often save us, too bad
-we stopped listening to our senses.
+*tightly coupled*. Right there your nose should reject the air
+emanated from this code and it's common sense that often save us,
+even though we often can't place our finger on the problem.
 
 OK, OK, lets fix this somewhat using a common Java "best practice", by
 splitting this interface into smaller modules. Our `DBService`
-interface does too much, or so it appears.
+interface does too much, or so the popular wisdom would say.
 
 ```scala
 trait ItemConfigsRepository {
@@ -101,7 +104,7 @@ trait DatapointsRepository {
 
 That feels better, right? By splitting functionality in smaller units
 of finer-grained stuff, this should ameliorate our dependency
-woes, right? Wrong, now we've got two problems:
+woes. Wrong! Now we've got two problems:
 
 ```scala
 class ItemActor
@@ -124,16 +127,20 @@ class ItemActor
 ```
 
 BAM, more dependencies, more garbage, more mocks and stubs. Does this
-ring a bell? And Cake makes it worse btw. Speaking of actors, it's a
-really, really bad idea to test actors directly, arguably a symptom of
-the same problem, but I digress. Anyway, how can this be, our
-interfaces are abstract and split in small units, yet what are we
-doing wrong?
+ring a bell? Cake makes it worse btw. But anyway, now we can see that
+our solution with `ItemConfigsRepository` doesn't work, as `readItem`
+is often not used in the same place as `writeItem`, so our action had
+an opposite effect of what we wanted.
+
+How can this be, our interfaces are abstract and split in small units
+according to best practices, yet what are we doing wrong?
 
 Maybe this isn't so bad, right? I mean surely we can stub the
 dependencies that aren't actually used and be done with it, everybody
-else is doing it. Oh, except when you've got more to add unrelated to
-the actual business logic, like persisting more stuff:
+else is doing it. And look, we've got dependency injection to deal
+with all the constructor annoyances. Oh, except when you've got more
+to add, things unrelated to the actual business logic, like persisting
+more stuff:
 
 ```scala
   def active(cfg: ItemConfig, state: State): Receive = {
@@ -153,8 +160,6 @@ Here we are having a side-effect, which is persisting values in the
 database in response to that `State` being evolved when receiving
 `Signal` values.
 
-<%= image_tag "2015/skunk.jpg", :class => "right", :width => "300", :style => "border: 1px solid #eee" %>
-
 Yet we have a non-obvious *implementation leak*. From the point of
 view of this actor, those persistence calls are just signals that a
 state change happened and that we could do (but not necessarily)
@@ -168,7 +173,7 @@ in fact our Actor is broken.
 
 Meet the famous and underused
 [Observer pattern](https://en.wikipedia.org/wiki/Observer_pattern). And
-it's sibling on steroids [ReactiveX](http://reactivex.io/). Here's the
+its sibling on steroids [ReactiveX](http://reactivex.io/). Here's the
 sample above using [Monifu](https://github.com/monifu/monifu):
 
 ```scala
@@ -246,11 +251,9 @@ In other words:
   fragile tests that don't test anything of value, because that's not
   why you've been hired
 
-And that's my opinion on the subject. Unfortunately I don't have
-comments on this blog anymore, as I realized that Disqus is a privacy
-concern, along with Google Analytics, Twitter's Tweet and Facebook's
-Like, so I pulled them out and a replacement is in progress. As I
-said, in me the opinions are strong :-)
+Pain is good. Mocks, stubs, DI, integration tests are about avoiding
+pain by fixing the symptoms rather than the disease. Don't treat the
+symptoms, treat the disease.
 
 Also see the list of
 [best practices](https://github.com/alexandru/scala-best-practices) I
