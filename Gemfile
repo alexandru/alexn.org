@@ -11,4 +11,5 @@ gem "middleman-minify-html"
 #gem 'rack', "1.4.1"
 
 gem 'redcarpet'
+gem 'fastimage'
 

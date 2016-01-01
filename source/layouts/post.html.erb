@@ -1,10 +1,33 @@
 <% wrap_layout :layout do %>
 <article id="post" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
-    <h1 itemprop="name"><%= current_page.title %></h1>
+    <h1 itemprop="headline"><%= current_page.title %></h1>
 
     <div id="meta">
-      <time class="post-date" itemprop="dateCreated" datetime="<%= current_page.date.strftime('%Y-%m-%d') %>"><%= current_page.date.strftime("%b %d, %Y") %></time>
+      <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<%= @website.root_url %><%= current_page.url %>"/>
+      <meta itemprop="datePublished" content="<%= current_page.date.strftime('%Y-%m-%d') %>"/>
+      <meta itemprop="dateModified" content="<%= current_page.date.strftime('%Y-%m-%d') %>"/>
+
+      <time class="post-date" itemprop="dateCreated" datetime="<%= current_page.date.strftime('%Y-%m-%d') %>">
+        <%= current_page.date.strftime("%b %d, %Y") %>
+      </time>
+
+      <% with_image_url(current_article.body, true) do |image_url, width, height| %>
+        <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+          <meta itemprop="url" content="<%= image_url %>">
+          <% if width %><meta itemprop="width" content="<%= width %>"><% end %>
+          <% if height %><meta itemprop="height" content="<%= height %>"><% end %>
+        </div>
+      <% end %>
+
+      <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+        <meta itemprop="name" content="Alexandru Nedelcu">
+        <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+          <meta itemprop="url" content="<%= @website.root_url %>/assets/img/alex-big-version-72ppi.jpg">
+          <meta itemprop="width" content="585">
+          <meta itemprop="height" content="585">
+        </div>
+      </div>
     </div>
   </header>
 
@@ -12,7 +35,9 @@
     <%= yield %>
 
     <div class="authorship" itemprop="author" itemscope itemtype="http://schema.org/Person">
-      Written by <a href="https://www.bionicspirit.com/pages/about.html" itemprop="url" rel="author">Alexandru Nedelcu</a>
+      <meta itemprop="name" content="Alexandru Nedelcu">
+      Written by <a href="https://plus.google.com/+AlexandruNedelcu" itemprop="url" rel="author">
+        Alexandru Nedelcu</a>
     </div>
   </div>
 

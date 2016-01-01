@@ -42,6 +42,8 @@ GEM
     erubis (2.7.0)
     excon (0.45.4)
     execjs (2.6.0)
+    fastimage (1.8.1)
+      addressable (~> 2.3, >= 2.3.5)
     ffi (1.9.10)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
@@ -266,6 +268,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  fastimage
   middleman
   middleman-blog
   middleman-minify-html

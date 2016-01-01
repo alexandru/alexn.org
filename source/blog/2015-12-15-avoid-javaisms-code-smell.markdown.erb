@@ -1,5 +1,10 @@
 ---
 title: "Avoid Javaisms: Mocks, Stubs, DI is Code Smell"
+clean_summary:
+  Such practices represent clear signals for code smell, meaning code
+  that sucks as a symptom of a bigger problem, one of design. The
+  lumping together of these practices is not an accident, as they are
+  related.
 tags:
   - Functional
   - Code
@@ -214,7 +219,7 @@ using or not Akka actors. So lets implement the Observer pattern on
 top of Akka actors to see how that looks like:
 
 ```scala
-class MyActor extends Actor with LazyLogging {
+class MyActor extends Actor {
   def receive = active(State.empty, Set.empty)
 
   def active(state: State, subscribers: Set[ActorRef]): Receive = {
