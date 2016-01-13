@@ -52,7 +52,7 @@
           <p>Software Engineer @ <a href="http://eloquentix.com">eloquentix.com</a></p>
 					<p>
 						<a href="https://bionicspirit.com/">bionicspirit.com</a> -
-						<a href="http://twitter.com/alex_ndc">@alex_ndc</a>
+						<a href="http://twitter.com/alexelcu">@alexelcu</a>
 					</p>
 				</section>
 
@@ -67,7 +67,7 @@ class BankAccount(val id: String, totalAmount: BigDecimal) {
   def statement = _totalAmount
 
   def withdraw(amount: BigDecimal): Boolean = {
-    if (_totalAmount >= amount) {    
+    if (_totalAmount >= amount) {
       _totalAmount = _totalAmount - amount
       true
     }
@@ -79,7 +79,7 @@ class BankAccount(val id: String, totalAmount: BigDecimal) {
     _totalAmount = _totalAmount + amount
   }
 }
-          </code></pre>         
+          </code></pre>
         </section>
 
         <section>
@@ -92,7 +92,7 @@ val b = new BankAccount("Alex", 10000.0)
 
           <pre><code data-trim class="scala">
 a == b //=> false (with the default equals)
-          </code></pre>          
+          </code></pre>
 
           <aside class="notes">
             a == b &lt;=&gt; a.equals(b)
@@ -104,7 +104,7 @@ a == b //=> false (with the default equals)
           <br><br><br>
           <h3>
             \[\begin{aligned}
-            a_{t_i} == b_{t_j} 
+            a_{t_i} == b_{t_j}
             \end{aligned} \]
           </h3>
 
@@ -123,14 +123,14 @@ a == b //=> false (with the default equals)
 
         <section>
           <h3>Structural Equality cannot work for <br> mutable objects</h3>
-          
+
           <p><pre><code data-trim class="scala" style="max-height: 600px">
 class BankAccount(val id: String, totalAmount: BigDecimal) {
   private[this] var _totalAmount = totalAmount
   def statement = _totalAmount
 
-  def withdraw(amount: BigDecimal): Boolean = 
-    if (_totalAmount >= amount) {    
+  def withdraw(amount: BigDecimal): Boolean =
+    if (_totalAmount >= amount) {
       _totalAmount = _totalAmount - amount
       true
     }
@@ -143,7 +143,7 @@ class BankAccount(val id: String, totalAmount: BigDecimal) {
 
   // BROKEN !!!!
   def equals(o: AnyRef) = o match {
-    case other: BankAccount => 
+    case other: BankAccount =>
       id == other.id &amp;&amp; totalAmount &amp;&amp; other.totalAmount
     case _ =>
       false
@@ -164,11 +164,11 @@ class BankAccount(val id: String, totalAmount: BigDecimal) {
           <p>
             <blockquote cite="Martin Odersky">
               An object is mutable if its (functional) behavior depends on its history<br>-- Martin Odersky
-            </blockquote>         
+            </blockquote>
 
             <aside class="notes">
               Citat din Reactive Programming, de pe Coursera.
-            </aside> 
+            </aside>
           </p>
         </section>
 
@@ -191,7 +191,7 @@ class BankAccount(val id: String, totalAmount: BigDecimal) {
             \[\begin{aligned}
             x_{t_i} = x_{t_{i - a}} + y_{t_{i - b}}
             \end{aligned} \]
-          </p>          
+          </p>
           <p>
             <br><br><br>
             With mutability, time is implicit in everything
@@ -207,7 +207,7 @@ class BankAccount(val id: String, totalAmount: BigDecimal) {
 
           <p>
             <img src="images/blackbox-1.png" />
-          </p> 
+          </p>
 
           <ul>
             <li>encapsulation</li>
@@ -258,13 +258,13 @@ class BankAccount(val id: String, totalAmount: BigDecimal) {
           <h2>Going Immutable</h2>
           <pre><code data-trim class="scala" style="max-height: 500px;">
 class BankAccount(val id: String, val statement: BigDecimal) {
-  def withdraw(amount: BigDecimal): (Boolean, BankAccount) = 
+  def withdraw(amount: BigDecimal): (Boolean, BankAccount) =
     if (statement >= amount)
       (true, new BankAccount(id, statement - amount))
     else
       (false, this)
 
-  def deposit(amount: BigDecimal): BankAccount = 
+  def deposit(amount: BigDecimal): BankAccount =
     new BankAccount(id, statement + amount)
 
   override def equals(ref: AnyRef) = ref match {
@@ -274,10 +274,10 @@ class BankAccount(val id: String, val statement: BigDecimal) {
       false
   }
 
-  override def hashCode = 
+  override def hashCode =
     31 * id.hashCode + statement.hashCode
 }
-          </code></pre>          
+          </code></pre>
         </section>
 
         <section>
@@ -290,23 +290,23 @@ class BankAccount(val id: String, val statement: BigDecimal) {
  * - case classes are meant for defining immutable objects
  * - id, statement are final and public
  * - case classes come with structural equals and hashCode
- */          
+ */
 case class BankAccount(id: String, statement: BigDecimal) {
-  def withdraw(amount: BigDecimal) = 
+  def withdraw(amount: BigDecimal) =
     if (statement >= amount)
       (true, BankAccount(id, statement - amount))
     else
       (false, this)
 
-  def deposit(amount: BigDecimal) = 
+  def deposit(amount: BigDecimal) =
     BankAccount(id, statement + amount)
 }
-          </code></pre>          
+          </code></pre>
         </section>
 
         <section>
           <h3>No need to hide private mutable state</h3>
-          <pre><code data-trim class="scala" style="max-height: 500px;">  
+          <pre><code data-trim class="scala" style="max-height: 500px;">
 case class BankAccount(id: String, statement: BigDecimal)
 
 object BankAccount {
@@ -317,11 +317,11 @@ object BankAccount {
       (false, account)
 
   def deposit(amount: BigDecimal)(account: BankAccount) =
-    BankAccount(account.id, account.statement + amount)  
+    BankAccount(account.id, account.statement + amount)
 }
           </code></pre>
 
-          <pre><code data-trim class="scala" style="max-height: 500px;">  
+          <pre><code data-trim class="scala" style="max-height: 500px;">
 val myAccount = BankAccount("Alex", 10000.0)
 
 BankAccount.withdraw(1000)(myAccount)
@@ -332,27 +332,27 @@ BankAccount.withdraw(1000)(myAccount)
 
 BankAccount.withdraw(12000)(myAccount)
 //=> (false, BankAccount(Alex,10000.0))
-          </code></pre>          
+          </code></pre>
         </section>
 
         <section>
           <h3>Algebraic Data Types</h3>
 
-          <pre><code data-trim class="scala" style="max-height: 500px;">  
-sealed trait Transaction { 
+          <pre><code data-trim class="scala" style="max-height: 500px;">
+sealed trait Transaction {
   def timestamp: DateTime
 }
 
-case class Withdraw(amount: BigDecimal, timestamp: DateTime) 
-  extends Transaction 
-case class Deposit(amount: BigDecimal, timestamp: DateTime) 
+case class Withdraw(amount: BigDecimal, timestamp: DateTime)
+  extends Transaction
+case class Deposit(amount: BigDecimal, timestamp: DateTime)
   extends Transaction
           </code></pre>
 
-          <pre><code data-trim class="scala" style="max-height: 500px;">  
+          <pre><code data-trim class="scala" style="max-height: 500px;">
 val t: Transaction = Withdraw(1000, DateTime.now)
 
-val transactionAmount = t match { 
+val transactionAmount = t match {
   case Withdraw(amount, _) => amount
 }
 //=> &lt;console&gt;:13: warning: match may not be exhaustive.
@@ -363,8 +363,8 @@ val transactionAmount = t match {
 
           <aside class="notes">
             Compara cu Ocaml
-          </aside>            
-        </section>        
+          </aside>
+        </section>
 
         <section>
           <h3>Handling time explicitly</h3>
@@ -394,7 +394,7 @@ case class BankAccount(id: String, transactions: Seq[Transaction]) {
         }
     result
   }
-}            
+}
           </code></pre>
 
           <aside class="notes">
@@ -407,8 +407,8 @@ case class BankAccount(id: String, transactions: Seq[Transaction]) {
         <section>
           <h3>Using the Scala Collections API</h3>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
-sealed trait Transaction { 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
+sealed trait Transaction {
   def timestamp: DateTime
   def asBigDecimal = this match {
     case Withdraw(amount, _) => -amount
@@ -416,33 +416,33 @@ sealed trait Transaction {
   }
 }
 
-// ....           
+// ....
 case class BankAccount(id: String, transactions: Seq[Transaction]) {
-  lazy val lastStatement = 
+  lazy val lastStatement =
     transactions.map(_.asBigDecimal).sum
 
-  def statement(now: DateTime) = 
+  def statement(now: DateTime) =
     transactions
       .filter(_.timestamp &lt;= now)
       .map(_.asBigDecimal).sum
-}            
-          </code></pre>     
+}
+          </code></pre>
 
           <aside class="notes">
             Descrie: view()
-          </aside>     
+          </aside>
         </section>
 
         <section>
           <h2>Atomic References</h2>
 
-          <pre><code data-trim class="scala" style="max-height: 700px;"> 
+          <pre><code data-trim class="scala" style="max-height: 700px;">
 import java.util.concurrent.atomic.AtomicReference
 
 class MutableBankAccount(account: BankAccount) {
   private[this] val ref = new AtomicReference(account)
 
-  def deposit(amount: BigDecimal): Unit = 
+  def deposit(amount: BigDecimal): Unit =
     while (true) {
       val current = ref.get
       val update = current.deposit(amount)
@@ -456,7 +456,7 @@ class MutableBankAccount(account: BankAccount) {
       if (current.statement &gt;= amount) {
         val (success, newAccount) = current.withdraw(amount)
         if (ref.compareAndSet(expect=current, update=newAccount))
-          return success        
+          return success
       }
       else
         return false
@@ -470,11 +470,11 @@ class MutableBankAccount(account: BankAccount) {
           <h2>Atomic References</h2>
 
           <p>Self tail-recursive functions</p>
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 import java.util.concurrent.atomic.AtomicReference
 
 class MutableBankAccount(account: BankAccount) {
-  private[this] val ref = new AtomicReference(account)  
+  private[this] val ref = new AtomicReference(account)
 
   @tailrec
   def deposit(amount: BigDecimal): Unit = {
@@ -500,7 +500,7 @@ class MutableBankAccount(account: BankAccount) {
         <section>
           <h2>Decoupling Algorithms from Data</h2>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 object BankAccount {
   def deposit(amount: BigDecimal, now: DateTime)(account: BankAccount) = {
     val transactions = account.transactions :+ Deposit(amount, now)
@@ -534,7 +534,7 @@ object BankAccount {
 
           <p>Common pattern - transformAndGet</p>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 final class Atomic[S] (initialValue: S) {
   def get: S = ???
   def compareAndSet(expected: S, updated: S): Boolean = ???
@@ -551,20 +551,20 @@ final class Atomic[S] (initialValue: S) {
 }
           </code></pre>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
-val account = Atomic(BankAccount("Alex"))          
+          <pre><code data-trim class="scala" style="max-height: 600px;">
+val account = Atomic(BankAccount("Alex"))
 // deposits 1000
 account.transformAndGet(BankAccount.deposit(1000))
-//=> res: BankAccount = BankAccount(Alex,List(Deposit(1000.0,2014-05-13)))         
+//=> res: BankAccount = BankAccount(Alex,List(Deposit(1000.0,2014-05-13)))
           </code></pre>
-        </section>                 
+        </section>
 
         <section>
           <h2>Atomic References</h2>
 
           <p>Common pattern - transformAndExtract</p>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 final class Atomic[S] {
   def get: S = ???
   def compareAndSet(expected: S, updated: S): Boolean = ???
@@ -581,31 +581,31 @@ final class Atomic[S] {
   }
 }
           </code></pre>
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 val account = Atomic(BankAccount("Alex"))
 // withdraws, returning `true` on success or `false` on failure
 account.transformAndExtract(BankAccount.withdraw(11000.0))
 //=> res: Boolean = false
           </code></pre>
-        </section>        
+        </section>
 
         <section>
           <h2>Atomic References</h2>
           <h3>Non-Blocking Algorithms FTW!</h3>
 
           <p>
-            <i>Non-blocking</i> means that no matter what thread gets 
-            interrupted by the system's scheduler, the other threads can still make 
+            <i>Non-blocking</i> means that no matter what thread gets
+            interrupted by the system's scheduler, the other threads can still make
             progress, or in other words there is no thread that can hold up system-wide
             progress.
           </p>
-        </section> 
+        </section>
 
         <section>
           <h2>Atomic References</h2>
           <h3>A Concurrent, Non-blocking Queue</h3>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 import scala.collections.immutable.Queue
 
 val queue = new Atomic(Queue.empty[String])
@@ -624,17 +624,17 @@ queue.transformAndExtract(_.dequeue)
           <p>
             <small>
               Compare the simplicity of this with the famous algorithm
-              for non-blocking concurrent queues by 
+              for non-blocking concurrent queues by
               <a href="http://www.cs.rochester.edu/research/synchronization/pseudocode/queues.html">Maged M. Michael and Michael L. Scott</a>, also implemented in Java's own <a href="http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ConcurrentLinkedQueue.html">ConcurrentLinkedQueue</a>.
             </small>
           </p>
-        </section>    
+        </section>
 
         <section>
           <h2>Atomic References</h2>
           <p>Any immutable data-structure can become <br>a mutable non-blocking data-structure</p>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 import scala.collections.immutable.Map
 
 val cache = new Atomic(Map.empty[String, Any])
@@ -647,7 +647,7 @@ cache.get.get("username")
 // removal
 cache.transform(m => m - "username")
           </code></pre>
-        </section>               
+        </section>
 
         <section>
           <h2>Atomic References</h2>
@@ -660,7 +660,7 @@ cache.transform(m => m - "username")
             <br>
             This includes any Scala immutable data-structure - List, Vector, Queue, Map, Set, Stream, etc...
           </p>
-        </section>      
+        </section>
 
         <section>
           <h2>Futures and Promises</h2>
@@ -678,7 +678,7 @@ cache.transform(m => m - "username")
         <section>
           <h2>java.util.concurrent.Future</h2>
 
-          <pre><code data-trim class="java" style="max-height: 600px;"> 
+          <pre><code data-trim class="java" style="max-height: 600px;">
 public interface Future&lt;V&gt; {
   boolean cancel(boolean);
   boolean isCanceled();
@@ -702,20 +702,20 @@ public interface Future&lt;V&gt; {
           <h2>Scala's Future</h2>
 
           <p>Developed as part of Akka and integrated in <br>Scala's standard library since 2.10.0</p>
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 trait Future[+T] extends Awaitable[T] {
   abstract def isCompleted: Boolean
   abstract def onComplete[U](func: Try[T] => U)(implicit ec: ExecutionContext): Unit
 
   // ....
-}          
+}
           </code></pre>
         </section>
 
         <section>
           <h2>Scala's Future</h2>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 import concurrent.ExecutionContext.Implicits.global
 import concurrent.Future
 
@@ -736,7 +736,7 @@ f.onComplete {
           <h2>Scala's Future</h2>
           <p>Blocking for the Result</p>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 import concurrent.ExecutionContext.Implicits.global
 import concurrent.{Future, Await}
 import concurrent.duration._
@@ -748,13 +748,13 @@ val f: Future[String] = Future {
 val result = Await.result(f, 10.seconds)
 println(result)
           </code></pre>
-        </section>     
+        </section>
 
 
         <section>
-          <h2>Future.foreach</h2>          
+          <h2>Future.foreach</h2>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 import concurrent.ExecutionContext.Implicits.global
 import concurrent.{Future, Await}
 import concurrent.duration._
@@ -765,12 +765,12 @@ val f: Future[String] = Future {
 
 f.foreach { value => println(value) }
           </code></pre>
-        </section>     
+        </section>
 
         <section>
-          <h2>Future.foreach</h2>          
+          <h2>Future.foreach</h2>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 import concurrent.ExecutionContext.Implicits.global
 import concurrent.{Future, Await}
 import concurrent.duration._
@@ -782,12 +782,12 @@ def squareRoot(x: BigDecimal) = Future {
 for (value &lt;- squareRoot(4)) println(value)
 //=> 2
           </code></pre>
-        </section>          
+        </section>
 
         <section>
-          <h2>Future.map</h2>          
+          <h2>Future.map</h2>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 import concurrent.ExecutionContext.Implicits.global
 import concurrent.{Future, Await}
 import concurrent.duration._
@@ -799,12 +799,12 @@ def squareRoot(x: BigDecimal) = Future {
 val plus2 = squareRoot(4).map(x => x + 2)
 //=> Future(4.0)
           </code></pre>
-        </section>   
+        </section>
 
         <section>
-          <h2>Future.map</h2>          
+          <h2>Future.map</h2>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 import concurrent.ExecutionContext.Implicits.global
 import concurrent.{Future, Await}
 import concurrent.duration._
@@ -816,7 +816,7 @@ def squareRoot(x: BigDecimal) = Future {
 val plus2 = for (value &lt;- squareRoot(4)) yield value + 2
 //=> Future(4.0)
           </code></pre>
-        </section>      
+        </section>
 
         <section>
           <h2>What's a Monad?</h2>
@@ -830,11 +830,11 @@ val plus2 = for (value &lt;- squareRoot(4)) yield value + 2
             <li>A Monad is a context</li>
             <li>Allows you to keep the context while operating on values</li>
             <li>
-              Allows you to avoid dealing with <i>side-effects</i> 
+              Allows you to avoid dealing with <i>side-effects</i>
               when specifying data transformations
             </li>
           </ul>
-        </section>                     
+        </section>
 
         <section>
           <h2>Future[T] is a Monad</h2>
@@ -868,10 +868,10 @@ val plus2 = for (value &lt;- squareRoot(4)) yield value + 2
             Example using <a href="https://github.com/alexandru/shade">Shade</a>, my own Memcached client,
             built on top of SpyMemcached, exposing a Future-enabled API.
           </p>
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 val client = shade.Memcached(Configuration("127.0.0.1:11211"), global)
 
-val future = 
+val future =
   client.get[String]("username") flatMap {
     case Some(value) =>
       Future.successful("Hello, " + value + "!")
@@ -881,7 +881,7 @@ val future =
         "Hello, anonymous!"
       }
   }
-          </code></pre>          
+          </code></pre>
         </section>
 
        <section>
@@ -889,14 +889,14 @@ val future =
           <p>
             The C# Async functionality, implemented in Scala <a href="https://github.com/scala/async">a library</a>.
           </p>
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 val client = shade.Memcached(Configuration("127.0.0.1:11211"), global)
 
 val future = async {
   val value = await(client.get[String]("username"))
 
   value match {
-    case Some(value) => 
+    case Some(value) =>
       "Hello, " + value + "!"
 
     case None =>
@@ -904,34 +904,34 @@ val future = async {
       "Hello, anonymous!"
   }
 }
-          </code></pre>          
-        </section>        
+          </code></pre>
+        </section>
 
         <section>
           <h2>Asynchronous Queue</h2>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 final class AsyncQueue[T](elems: T*) {
- 
+
   def offer(elem: T): Unit = ???
-  
+
   def poll(): Future[T] = ???
 
 }
-          </code></pre>          
+          </code></pre>
         </section>
 
         <section>
           <h2>Asynchronous Queue (offer)</h2>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 final class AsyncQueue[T](elems: T*) {
   private[this] case class State(
-    elements: Queue[T], 
+    elements: Queue[T],
     promises: Queue[Promise[T]]
   )
 
-  private[this] val state = 
+  private[this] val state =
     Atomic(State(Queue(elems : _*), Queue.empty))
 
   def offer(elem: T): Unit = {
@@ -955,14 +955,14 @@ final class AsyncQueue[T](elems: T*) {
         <section>
           <h2>Asynchronous Queue (poll)</h2>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 final class AsyncQueue[T](elems: T*) {
   private[this] case class State(
-    elements: Queue[T], 
+    elements: Queue[T],
     promises: Queue[Promise[T]]
   )
 
-  private[this] val state = 
+  private[this] val state =
     Atomic(State(Queue(elems : _*), Queue.empty))
 
   def poll(): Future[T] =
@@ -980,22 +980,22 @@ final class AsyncQueue[T](elems: T*) {
   // ...
 }
           </code></pre>
-        </section>     
+        </section>
 
         <section>
           <h2>Asynchronous Semaphore</h2>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 final class AsyncSemaphore(limit: Int)(implicit ec: ExecutionContext) {
 
   def acquire[T](f: => Future[T]): Future[T] = ???
 
-}          
+}
           </code></pre>
 
           <p>Can be used to asynchonously limit <br/>the number of requests done in parallel</p>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 val semaphore = new AsyncSemaphore(30)
 
 // ...
@@ -1003,12 +1003,12 @@ semaphore.acquire {
   WS.url("http://google.com").get()
 }
           </code></pre>
-        </section>   
+        </section>
 
         <section>
           <h2>Asynchronous Semaphore</h2>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 final class AsyncSemaphore(limit: Int)(implicit ec: ExecutionContext) {
   private[this] val queue = {
     val elems = for (i &lt;- 0 until limit) yield ()
@@ -1020,14 +1020,14 @@ final class AsyncSemaphore(limit: Int)(implicit ec: ExecutionContext) {
       f.onComplete { _ => queue.offer(()) }
       f
     }
-}          
+}
           </code></pre>
         </section>
 
         <!-- Monifu -->
 
         <section>
-          <h2>Streams</h2>  
+          <h2>Streams</h2>
         </section>
 
         <section>
@@ -1037,27 +1037,27 @@ final class AsyncSemaphore(limit: Int)(implicit ec: ExecutionContext) {
 
           <h3>The Iterator</h3>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 trait Iterator[+T] {
   def hasNext(): Boolean
 
   def next(): T
-}          
+}
           </code></pre>
 
           <h3>The Iterable</h3>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 trait Iterable[+T] {
   def iterator(): Iterator[T]
-}          
+}
           </code></pre>
         </section>
 
         <section>
           <i>Iterable.iterator</i> is the <i>side-effectful</i> function that we can use to build combinators.
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 trait Iterable[+T] { self =>
   def iterator(): Iterator[T]
 
@@ -1071,12 +1071,12 @@ trait Iterable[+T] { self =>
         }
       }
     }
-}                     
+}
           </code></pre>
 
           <p>Usage:</p>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 Iterable(1,2,3).map(_ * 2).foreach(x => println(x))
 //=> 2
 //=> 4
@@ -1087,59 +1087,59 @@ Iterable(1,2,3).map(_ * 2).foreach(x => println(x))
         <section>
           <h2>The problem with <i>Iterator</i></h2>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 trait Iterator[+T] {
   def hasNext(): Boolean
 
   def next(): T
-}          
+}
           </code></pre>
         </section>
 
         <section>
           <h2>The problem with <i>Iterator</i></h2>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 trait Iterator[+T] {
   def hasNext(): Boolean
 
   def next(): T
-}          
+}
           </code></pre>
 
           <p>
             Usage is blocking - blocks the current thread, waiting for the next element.
           </p>
-        </section>  
+        </section>
 
         <section>
           <h2>Lets fix it!</h2>
           <br>
-          <h2>() => Try[Option[T]]</h2>          
+          <h2>() => Try[Option[T]]</h2>
         </section>
 
         <section>
           <h2>Lets fix it - by reversing the arrow!</h2>
           <br>
 
-          <h2>Try[Option[T]] => ()</h2>          
-        </section>                
+          <h2>Try[Option[T]] => ()</h2>
+        </section>
 
         <section>
           <h2>Introducing Rx - Reactive Streams</h2>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 trait Observer[-T] {
   def onNext(elem: T): Unit
 
   def onError(ex: Throwable): Unit
 
   def onComplete(): Unit
-}         
+}
 
 trait Observable[+T] {
   def subscribe(o: Observer[T]): Unit
-} 
+}
           </code></pre>
         </section>
 
@@ -1148,18 +1148,18 @@ trait Observable[+T] {
 
           <p>Introducing back-pressure by signaling demand with <i>Future[T]</i></p>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 trait Observer[-T] {
   def onNext(elem: T): Future[T]
 
   def onError(ex: Throwable): Unit
 
   def onComplete(): Unit
-}         
+}
 
 trait Observable[+T] {
   def subscribe(o: Observer[T]): Unit
-} 
+}
           </code></pre>
         </section>
 
@@ -1168,20 +1168,20 @@ trait Observable[+T] {
 
           <p>We can then define our operators / combinators</p>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 trait Observable[+T] { self =>
   def subscribe(o: Observer[T]): Unit
 
-  def map[U](f: T => U): Observable[U] = 
+  def map[U](f: T => U): Observable[U] =
     new Observable[U] {
-      def subscribe(o: Observer[U]) = 
+      def subscribe(o: Observer[U]) =
         self.subscribe(new Observer[T] {
           def onNext(elem: T) = o.onNext(f(elem))
           def onError(ex: Throwable) = o.onError(ex)
           def onComplete() = o.onComplete()
         })
     }
-} 
+}
           </code></pre>
         </section>
 
@@ -1197,7 +1197,7 @@ trait Observable[+T] { self =>
           <p>
             Shameless plug :-)
           </p>
-        </section>        
+        </section>
 
 				<section>
 					<h2>Resources for Getting Started</h2>

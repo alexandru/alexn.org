@@ -52,7 +52,7 @@
           <p>Software Engineer @ <a href="http://eloquentix.com">eloquentix.com</a></p>
 					<p>
 						<a href="https://bionicspirit.com/">bionicspirit.com</a> -
-						<a href="http://twitter.com/alex_ndc">@alex_ndc</a>
+						<a href="http://twitter.com/alexelcu">@alexelcu</a>
 					</p>
 				</section>
 
@@ -67,7 +67,7 @@ class BankAccount(val id: String, totalAmount: Double) {
   def statement = _totalAmount
 
   def withdraw(amount: Double): Boolean = {
-    if (_totalAmount >= amount) {    
+    if (_totalAmount >= amount) {
       _totalAmount = _totalAmount - amount
       true
     }
@@ -79,7 +79,7 @@ class BankAccount(val id: String, totalAmount: Double) {
     _totalAmount = _totalAmount + amount
   }
 }
-          </code></pre>         
+          </code></pre>
         </section>
 
         <section>
@@ -92,7 +92,7 @@ val b = new BankAccount("Alex", 10000.0)
 
           <pre><code data-trim class="scala">
 a == b //=> false (with the default equals)
-          </code></pre>          
+          </code></pre>
 
           <aside class="notes">
             a == b &lt;=&gt; a.equals(b)
@@ -104,7 +104,7 @@ a == b //=> false (with the default equals)
           <br><br><br>
           <h3>
             \[\begin{aligned}
-            a_{t_i} == b_{t_j} 
+            a_{t_i} == b_{t_j}
             \end{aligned} \]
           </h3>
 
@@ -123,14 +123,14 @@ a == b //=> false (with the default equals)
 
         <section>
           <h3>Structural Equality cannot work for <br> mutable objects</h3>
-          
+
           <p><pre><code data-trim class="scala" style="max-height: 600px">
 class BankAccount(val id: String, totalAmount: Double) {
   private[this] var _totalAmount = totalAmount
   def statement = _totalAmount
 
-  def withdraw(amount: Double): Boolean = 
-    if (_totalAmount >= amount) {    
+  def withdraw(amount: Double): Boolean =
+    if (_totalAmount >= amount) {
       _totalAmount = _totalAmount - amount
       true
     }
@@ -143,7 +143,7 @@ class BankAccount(val id: String, totalAmount: Double) {
 
   // BROKEN !!!!
   def equals(o: AnyRef) = o match {
-    case other: BankAccount if other != null => 
+    case other: BankAccount if other != null =>
       id == other.id &amp;&amp; totalAmount &amp;&amp; other.totalAmount
     case _ =>
       false
@@ -164,11 +164,11 @@ class BankAccount(val id: String, totalAmount: Double) {
           <p>
             <blockquote cite="Martin Odersky">
               An object is mutable if its (functional) behavior depends on its history<br>-- Martin Odersky
-            </blockquote>         
+            </blockquote>
 
             <aside class="notes">
               Citat din Reactive Programming, de pe Coursera.
-            </aside> 
+            </aside>
           </p>
         </section>
 
@@ -191,7 +191,7 @@ class BankAccount(val id: String, totalAmount: Double) {
             \[\begin{aligned}
             x_{t_i} = x_{t_{i - a}} + y_{t_{i - b}}
             \end{aligned} \]
-          </p>          
+          </p>
           <p>
             <br><br><br>
             With mutability, time is implicit in everything
@@ -207,7 +207,7 @@ class BankAccount(val id: String, totalAmount: Double) {
 
           <p>
             <img src="images/blackbox-1.png" />
-          </p> 
+          </p>
 
           <ul>
             <li>encapsulation</li>
@@ -258,13 +258,13 @@ class BankAccount(val id: String, totalAmount: Double) {
           <h2>Going Immutable</h2>
           <pre><code data-trim class="scala" style="max-height: 500px;">
 class BankAccount(val id: String, val statement: Double) {
-  def withdraw(amount: Double): (Boolean, BankAccount) = 
+  def withdraw(amount: Double): (Boolean, BankAccount) =
     if (statement >= amount)
       (true, new BankAccount(id, statement - amount))
     else
       (false, this)
 
-  def deposit(amount: Double): BankAccount = 
+  def deposit(amount: Double): BankAccount =
     new BankAccount(id, statement + amount)
 
   override def equals(ref: AnyRef) = ref match {
@@ -274,10 +274,10 @@ class BankAccount(val id: String, val statement: Double) {
       false
   }
 
-  override def hashCode = 
+  override def hashCode =
     31 * id.hashCode + statement.hashCode
 }
-          </code></pre>          
+          </code></pre>
         </section>
 
         <section>
@@ -290,23 +290,23 @@ class BankAccount(val id: String, val statement: Double) {
  * - case classes are meant for defining immutable objects
  * - id, statement are final and public
  * - case classes come with structural equals and hashCode
- */          
+ */
 case class BankAccount(id: String, statement: Double) {
-  def withdraw(amount: Double) = 
+  def withdraw(amount: Double) =
     if (statement >= amount)
       (true, BankAccount(id, statement - amount))
     else
       (false, this)
 
-  def deposit(amount: Double) = 
+  def deposit(amount: Double) =
     BankAccount(id, statement + amount)
 }
-          </code></pre>          
+          </code></pre>
         </section>
 
         <section>
           <h3>No need to hide private mutable state</h3>
-          <pre><code data-trim class="scala" style="max-height: 500px;">  
+          <pre><code data-trim class="scala" style="max-height: 500px;">
 case class BankAccount(id: String, statement: Double)
 
 object BankAccount {
@@ -317,11 +317,11 @@ object BankAccount {
       (false, account)
 
   def deposit(amount: Double)(account: BankAccount) =
-    BankAccount(account.id, account.statement + amount)  
+    BankAccount(account.id, account.statement + amount)
 }
           </code></pre>
 
-          <pre><code data-trim class="scala" style="max-height: 500px;">  
+          <pre><code data-trim class="scala" style="max-height: 500px;">
 val myAccount = BankAccount("Alex", 10000.0)
 
 BankAccount.withdraw(1000)(myAccount)
@@ -332,27 +332,27 @@ BankAccount.withdraw(1000)(myAccount)
 
 BankAccount.withdraw(12000)(myAccount)
 //=> (false, BankAccount(Alex,10000.0))
-          </code></pre>          
+          </code></pre>
         </section>
 
         <section>
           <h3>Algebraic Data Types</h3>
 
-          <pre><code data-trim class="scala" style="max-height: 500px;">  
-sealed trait Transaction { 
+          <pre><code data-trim class="scala" style="max-height: 500px;">
+sealed trait Transaction {
   def timestamp: DateTime
 }
 
-case class Withdraw(amount: Double, timestamp: DateTime) 
-  extends Transaction 
-case class Deposit(amount: Double, timestamp: DateTime) 
+case class Withdraw(amount: Double, timestamp: DateTime)
+  extends Transaction
+case class Deposit(amount: Double, timestamp: DateTime)
   extends Transaction
           </code></pre>
 
-          <pre><code data-trim class="scala" style="max-height: 500px;">  
+          <pre><code data-trim class="scala" style="max-height: 500px;">
 val t: Transaction = Withdraw(1000, DateTime.now)
 
-val transactionAmount = t match { 
+val transactionAmount = t match {
   case Withdraw(amount, _) => amount
 }
 //=> &lt;console&gt;:13: warning: match may not be exhaustive.
@@ -363,8 +363,8 @@ val transactionAmount = t match {
 
           <aside class="notes">
             Compara cu Ocaml
-          </aside>            
-        </section>        
+          </aside>
+        </section>
 
         <section>
           <h3>Handling time explicitly</h3>
@@ -394,7 +394,7 @@ case class BankAccount(id: String, transactions: Seq[Transaction]) {
         }
     result
   }
-}            
+}
           </code></pre>
 
           <aside class="notes">
@@ -407,8 +407,8 @@ case class BankAccount(id: String, transactions: Seq[Transaction]) {
         <section>
           <h3>Using the Scala Collections API</h3>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
-sealed trait Transaction { 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
+sealed trait Transaction {
   def timestamp: DateTime
   def asDouble = this match {
     case Withdraw(amount, _) => -amount
@@ -416,33 +416,33 @@ sealed trait Transaction {
   }
 }
 
-// ....           
+// ....
 case class BankAccount(id: String, transactions: Seq[Transaction]) {
-  lazy val lastStatement = 
+  lazy val lastStatement =
     transactions.view.map(_.asDouble).sum
 
-  def statement(now: DateTime) = 
+  def statement(now: DateTime) =
     transactions.view
       .filter(_.timestamp &lt;= now)
       .map(_.asDouble).sum
-}            
-          </code></pre>     
+}
+          </code></pre>
 
           <aside class="notes">
             Descrie: view()
-          </aside>     
+          </aside>
         </section>
 
         <section>
           <h2>Atomic References</h2>
 
-          <pre><code data-trim class="scala" style="max-height: 700px;"> 
+          <pre><code data-trim class="scala" style="max-height: 700px;">
 import java.util.concurrent.atomic.AtomicReference
 
 class MutableBankAccount(account: BankAccount) {
   private[this] val ref = new AtomicReference(account)
 
-  def deposit(amount: Double): Unit = 
+  def deposit(amount: Double): Unit =
     while (true) {
       val current = ref.get
       val update = current.deposit(amount)
@@ -456,7 +456,7 @@ class MutableBankAccount(account: BankAccount) {
       if (current.statement &gt;= amount) {
         val (success, newAccount) = current.withdraw(amount)
         if (ref.compareAndSet(expect=current, update=newAccount))
-          return success        
+          return success
       }
       else
         return false
@@ -470,11 +470,11 @@ class MutableBankAccount(account: BankAccount) {
           <h2>Atomic References</h2>
 
           <p>Self tail-recursive functions</p>
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 import java.util.concurrent.atomic.AtomicReference
 
 class MutableBankAccount(account: BankAccount) {
-  private[this] val ref = new AtomicReference(account)  
+  private[this] val ref = new AtomicReference(account)
 
   @tailrec
   def deposit(amount: Double): Unit = {
@@ -500,7 +500,7 @@ class MutableBankAccount(account: BankAccount) {
         <section>
           <h2>Decoupling Algorithms from Data</h2>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 object BankAccount {
   def deposit(amount: Double, now: DateTime)(account: BankAccount) = {
     val transactions = account.transactions :+ Deposit(amount, now)
@@ -534,7 +534,7 @@ object BankAccount {
 
           <p>Common pattern - transformAndGet</p>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 final class Atomic[S] (initialValue: S) {
   def get: S = ???
   def compareAndSet(expected: S, updated: S): Boolean = ???
@@ -551,20 +551,20 @@ final class Atomic[S] (initialValue: S) {
 }
           </code></pre>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
-val account = Atomic(BankAccount("Alex"))          
+          <pre><code data-trim class="scala" style="max-height: 600px;">
+val account = Atomic(BankAccount("Alex"))
 // deposits 1000
 account.transformAndGet(BankAccount.deposit(1000))
-//=> res: BankAccount = BankAccount(Alex,List(Deposit(1000.0,2014-05-13)))         
+//=> res: BankAccount = BankAccount(Alex,List(Deposit(1000.0,2014-05-13)))
           </code></pre>
-        </section>                 
+        </section>
 
         <section>
           <h2>Atomic References</h2>
 
           <p>Common pattern - transformAndExtract</p>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 final class Atomic[S] {
   def get: S = ???
   def compareAndSet(expected: S, updated: S): Boolean = ???
@@ -581,19 +581,19 @@ final class Atomic[S] {
   }
 }
           </code></pre>
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 val account = Atomic(BankAccount("Alex"))
 // withdraws, returning `true` on success or `false` on failure
 account.transformAndExtract(BankAccount.withdraw(11000.0))
 //=> res: Boolean = false
           </code></pre>
-        </section>         
+        </section>
 
         <section>
           <h2>Atomic References</h2>
           <h3>A Concurrent, Non-blocking Queue</h3>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 import scala.collections.immutable.Queue
 
 val queue = new Atomic(Queue.empty[String])
@@ -612,17 +612,17 @@ queue.transformAndExtract(_.dequeue)
           <p>
             <small>
               Compare the simplicity of this with the famous algorithm
-              for non-blocking concurrent queues by 
+              for non-blocking concurrent queues by
               <a href="http://www.cs.rochester.edu/research/synchronization/pseudocode/queues.html">Maged M. Michael and Michael L. Scott</a>, also implemented in Java's own <a href="http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ConcurrentLinkedQueue.html">ConcurrentLinkedQueue</a>.
             </small>
           </p>
-        </section>    
+        </section>
 
         <section>
           <h2>Atomic References</h2>
           <p>Any immutable data-structure can become <br>a mutable non-blocking data-structure</p>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 import scala.collections.immutable.Map
 
 val cache = new Atomic(Map.empty[String, Any])
@@ -635,19 +635,19 @@ cache.get.get("username")
 // removal
 cache.transform(m => m - "username")
           </code></pre>
-        </section>               
+        </section>
 
         <section>
           <h2>Atomic References</h2>
           <h3>Non-Blocking Algorithms FTW!</h3>
 
           <p>
-            <i>Non-blocking</i> means that no matter what thread gets 
-            interrupted by the system's scheduler, the other threads can still make 
+            <i>Non-blocking</i> means that no matter what thread gets
+            interrupted by the system's scheduler, the other threads can still make
             progress, or in other words there is no thread that can hold up system-wide
             progress.
           </p>
-        </section>          
+        </section>
 
         <section>
           <h2>Atomic References</h2>
@@ -660,7 +660,7 @@ cache.transform(m => m - "username")
             <br>
             This includes any Scala immutable data-structure - List, Vector, Queue, Map, Set, Stream, etc...
           </p>
-        </section>      
+        </section>
 
         <section>
           <h2>Atomic References</h2>
@@ -674,7 +674,7 @@ cache.transform(m => m - "username")
           <p>
             Shameless plug :-)
           </p>
-        </section>            
+        </section>
 
         <section>
           <h2>Futures and Promises</h2>
@@ -692,7 +692,7 @@ cache.transform(m => m - "username")
         <section>
           <h2>java.util.concurrent.Future</h2>
 
-          <pre><code data-trim class="java" style="max-height: 600px;"> 
+          <pre><code data-trim class="java" style="max-height: 600px;">
 public interface Future&lt;V&gt; {
   boolean cancel(boolean);
   boolean isCanceled();
@@ -716,20 +716,20 @@ public interface Future&lt;V&gt; {
           <h2>Scala's Future</h2>
 
           <p>Developed as part of Akka and integrated in <br>Scala's standard library since 2.10.0</p>
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 trait Future[+T] extends Awaitable[T] {
   abstract def isCompleted: Boolean
   abstract def onComplete[U](func: Try[T] => U)(implicit ec: ExecutionContext): Unit
 
   // ....
-}          
+}
           </code></pre>
         </section>
 
         <section>
           <h2>Scala's Future</h2>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 import concurrent.ExecutionContext.Implicits.global
 import concurrent.Future
 
@@ -750,7 +750,7 @@ f.onComplete {
           <h2>Scala's Future</h2>
           <p>Blocking for the Result</p>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 import concurrent.ExecutionContext.Implicits.global
 import concurrent.{Future, Await}
 import concurrent.duration._
@@ -762,13 +762,13 @@ val f: Future[String] = Future {
 val result = Await.result(f, 10.seconds)
 println(result)
           </code></pre>
-        </section>     
+        </section>
 
 
         <section>
-          <h2>Future.foreach</h2>          
+          <h2>Future.foreach</h2>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 import concurrent.ExecutionContext.Implicits.global
 import concurrent.{Future, Await}
 import concurrent.duration._
@@ -779,12 +779,12 @@ val f: Future[String] = Future {
 
 f.foreach { value => println(value) }
           </code></pre>
-        </section>     
+        </section>
 
         <section>
-          <h2>Future.foreach</h2>          
+          <h2>Future.foreach</h2>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 import concurrent.ExecutionContext.Implicits.global
 import concurrent.{Future, Await}
 import concurrent.duration._
@@ -796,12 +796,12 @@ def squareRoot(x: Double) = Future {
 for (value &lt;- squareRoot(4)) println(value)
 //=> 2
           </code></pre>
-        </section>          
+        </section>
 
         <section>
-          <h2>Future.map</h2>          
+          <h2>Future.map</h2>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 import concurrent.ExecutionContext.Implicits.global
 import concurrent.{Future, Await}
 import concurrent.duration._
@@ -813,12 +813,12 @@ def squareRoot(x: Double) = Future {
 val plus2 = squareRoot(4).map(x => x + 2)
 //=> Future(4.0)
           </code></pre>
-        </section>   
+        </section>
 
         <section>
-          <h2>Future.map</h2>          
+          <h2>Future.map</h2>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 import concurrent.ExecutionContext.Implicits.global
 import concurrent.{Future, Await}
 import concurrent.duration._
@@ -830,7 +830,7 @@ def squareRoot(x: Double) = Future {
 val plus2 = for (value &lt;- squareRoot(4)) yield value + 2
 //=> Future(4.0)
           </code></pre>
-        </section>      
+        </section>
 
         <section>
           <h2>On Monads</h2>
@@ -840,7 +840,7 @@ val plus2 = for (value &lt;- squareRoot(4)) yield value + 2
             <li>A Monad is a context</li>
             <li>Allows you to keep the context while operating on values</li>
           </ul>
-        </section>                     
+        </section>
 
         <section>
           <h2>Future[T] is a Monad</h2>
@@ -874,10 +874,10 @@ val plus2 = for (value &lt;- squareRoot(4)) yield value + 2
             Example using <a href="https://github.com/alexandru/shade">Shade</a>, my own Memcached client,
             built on top of SpyMemcached, exposing a Future-enabled API.
           </p>
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 val client = shade.Memcached(Configuration("127.0.0.1:11211"), global)
 
-val future = 
+val future =
   client.get[String]("username") flatMap {
     case Some(value) =>
       Future.successful("Hello, " + value + "!")
@@ -887,7 +887,7 @@ val future =
         "Hello, anonymous!"
       }
   }
-          </code></pre>          
+          </code></pre>
         </section>
 
        <section>
@@ -895,14 +895,14 @@ val future =
           <p>
             The C# Async functionality, implemented in Scala <a href="https://github.com/scala/async">a library</a>.
           </p>
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 val client = shade.Memcached(Configuration("127.0.0.1:11211"), global)
 
 val future = async {
   val value = await(client.get[String]("username"))
 
   value match {
-    case Some(value) => 
+    case Some(value) =>
       "Hello, " + value + "!"
 
     case None =>
@@ -910,20 +910,20 @@ val future = async {
       "Hello, anonymous!"
   }
 }
-          </code></pre>          
-        </section>        
+          </code></pre>
+        </section>
 
         <section>
           <h2>Asynchronous Queue (offer)</h2>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 final class AsyncQueue[T](elems: T*) {
   private[this] case class State(
-    elements: Queue[T], 
+    elements: Queue[T],
     promises: Queue[Promise[T]]
   )
 
-  private[this] val state = 
+  private[this] val state =
     Atomic(State(Queue(elems : _*), Queue.empty))
 
   def offer(elem: T): Unit = {
@@ -947,14 +947,14 @@ final class AsyncQueue[T](elems: T*) {
         <section>
           <h2>Asynchronous Queue (poll)</h2>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 final class AsyncQueue[T](elems: T*) {
   private[this] case class State(
-    elements: Queue[T], 
+    elements: Queue[T],
     promises: Queue[Promise[T]]
   )
 
-  private[this] val state = 
+  private[this] val state =
     Atomic(State(Queue(elems : _*), Queue.empty))
 
   def poll(): Future[T] =
@@ -972,12 +972,12 @@ final class AsyncQueue[T](elems: T*) {
   // ...
 }
           </code></pre>
-        </section>     
+        </section>
 
         <section>
           <h2>Asynchronous Semaphore</h2>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 final class AsyncSemaphore private (limit: Int) {
   private[this] val queue = {
     val elems = for (i &lt;- 0 until limit) yield ()
@@ -989,15 +989,15 @@ final class AsyncSemaphore private (limit: Int) {
       f.onComplete { _ => queue.offer(()) }
       f
     }
-}          
+}
           </code></pre>
-        </section>   
+        </section>
 
         <section>
           <h2>Asynchronous Semaphore</h2>
 
           <p>Can be used to asynchonously limit <br/>the number of requests done in parallel</p>
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 val semaphore = new AsyncSemaphore(30)
 
 // ...
@@ -1005,7 +1005,7 @@ semaphore.acquire {
   WS.url("http://google.com").get()
 }
           </code></pre>
-        </section>           
+        </section>
 
         <section>
           <h2>Immutable Data-Structures</h2>
@@ -1018,8 +1018,8 @@ semaphore.acquire {
         <section>
           <h2>Immutable List</h2>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
-sealed trait List[+T] 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
+sealed trait List[+T]
 case class Cons[+T](head: T, tail: List[T]) extends List[T]
 case object Nil extends List[Nothing]
           </code></pre>
@@ -1029,7 +1029,7 @@ case object Nil extends List[Nothing]
           <h2>Immutable List</h2>
           <p>The cons operator ...</p>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 sealed trait List[+T] {
   def ::[U >: T](value: U): List[U] =
     Cons(value, this)
@@ -1041,20 +1041,20 @@ case object Nil extends List[Nothing]
 
           <p>Usage ...</p>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
-val list = 1 :: 2 :: 3 :: 4 :: 5 :: Nil          
-          </code></pre>          
-        </section>        
+          <pre><code data-trim class="scala" style="max-height: 600px;">
+val list = 1 :: 2 :: 3 :: 4 :: 5 :: Nil
+          </code></pre>
+        </section>
 
         <section>
           <h2>Immutable List :: foreach()</h2>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 sealed trait List[+T] {
   def foreach(f: T => Unit): Unit = {
     @tailrec
     def loop(lst: List[T]): Unit = lst match {
-      case Cons(head, tail) => 
+      case Cons(head, tail) =>
         f(head); loop(tail)
       case Nil =>
         ()
@@ -1065,23 +1065,23 @@ sealed trait List[+T] {
 }
           </code></pre>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
-val list = 1 :: 2 :: 3 :: 4 :: 5 :: Nil       
+          <pre><code data-trim class="scala" style="max-height: 600px;">
+val list = 1 :: 2 :: 3 :: 4 :: 5 :: Nil
 
 for (elem &lt;- list) {
   println(elem)
 }
-          </code></pre>          
-        </section>   
+          </code></pre>
+        </section>
 
         <section>
           <h2>Immutable List :: map()</h2>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 sealed trait List[+T] {
   def reverse: List[T] = {
     @tailrec
-    def loop(lst: List[T], acc: List[T]): List[T] = 
+    def loop(lst: List[T], acc: List[T]): List[T] =
       lst match {
         case Cons(head, tail) => loop(tail, head :: acc)
         case Nil => acc
@@ -1101,17 +1101,17 @@ sealed trait List[+T] {
 }
           </code></pre>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
-val list = 1 :: 2 :: 3 :: 4 :: 5 :: Nil       
+          <pre><code data-trim class="scala" style="max-height: 600px;">
+val list = 1 :: 2 :: 3 :: 4 :: 5 :: Nil
 list.map(_ * 2)
 // => List(2, 4, 6, 8, 10)
-          </code></pre>          
-        </section>       
+          </code></pre>
+        </section>
 
         <section>
           <h2>Immutable List :: ++</h2>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 sealed trait List[+T] {
   def ++[U >: T](other: List[U]) = {
     @tailrec
@@ -1125,17 +1125,17 @@ sealed trait List[+T] {
 }
           </code></pre>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
-val list = 1 :: 2 :: 3 :: 4 :: 5 :: Nil       
+          <pre><code data-trim class="scala" style="max-height: 600px;">
+val list = 1 :: 2 :: 3 :: 4 :: 5 :: Nil
 list.map(_ * 2)
 // => List(2, 4, 6, 8, 10)
-          </code></pre>          
-        </section>                         
+          </code></pre>
+        </section>
 
         <section>
           <h2>Immutable List :: flatMap()</h2>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 sealed trait List[+T] {
   def flatMap[U](f: T => List[U]): List[U] = {
     @tailrec
@@ -1149,7 +1149,7 @@ sealed trait List[+T] {
 }
           </code></pre>
 
-          <pre><code data-trim class="scala" style="max-height: 600px;"> 
+          <pre><code data-trim class="scala" style="max-height: 600px;">
 val list = List(2, 4)
 
 // using map produces a list of lists
@@ -1159,13 +1159,13 @@ list.map(x => List(x - 1, x, x + 1))
 // using flatMap, flattens the final list
 list.flatMap(x => List(x - 1, x, x + 1))
 // => List(1, 2, 3, 3, 4, 5)
-          </code></pre>          
-        </section>                
+          </code></pre>
+        </section>
 
         <section>
           <h3>Implicits - Makes Scala Unique</h3>
           <pre><code data-trim class="scala" style="max-height: 500px;">
-def doSomething(implicit x: Int) = 
+def doSomething(implicit x: Int) =
   println(s"$x given")
 
 // works like a normal function
@@ -1203,7 +1203,7 @@ trait Numeric[T] extends Ordering[T] {
 
   // ...
 }
-          </code></pre>        
+          </code></pre>
         </section>
 
         <section>
@@ -1213,33 +1213,33 @@ trait Numeric[T] extends Ordering[T] {
 
           <pre><code data-trim class="scala" style="max-height: 500px;">
 def sum[T](numbers: Seq[T])(implicit ev: Numeric[T]): T =
-  numbers.foldLeft(ev.zero)((acc, elem) => ev.plus(acc, elem))          
+  numbers.foldLeft(ev.zero)((acc, elem) => ev.plus(acc, elem))
           </code></pre>
 
           <p>
             <br>
-            <small>Because type-classes are so useful, for specifying generic restrictions they've got 
+            <small>Because type-classes are so useful, for specifying generic restrictions they've got
             a shortcut <br>(you're witnessing <i>context bounds</i>):</small>
           </p>
 
           <pre><code data-trim class="scala" style="max-height: 500px;">
 def sum[T : Numeric](numbers: Seq[T]): T = {
   val ev = implicitly[Numeric[T]]
-  numbers.foldLeft(ev.zero)((acc, elem) => ev.plus(acc, elem))  
+  numbers.foldLeft(ev.zero)((acc, elem) => ev.plus(acc, elem))
 }
 
 def max[T : Ordering](elems: Seq[T]): T = {
   val ev = implicitly[Numeric[T]]
   elems.reduce((a,b) => if (ev.compare(a,b) &gt; 0) a else b)
 }
-          </code></pre>          
+          </code></pre>
         </section>
 
         <section>
           <h3>List.sum</h3>
 
           <pre><code data-trim class="scala" style="max-height: 500px;">
-sealed trait List[+T] {          
+sealed trait List[+T] {
   def sum[U >: T](implicit ev: Numeric[U]): U =
     foldLeft(ev.zero)((acc, e) => ev.plus(acc,e))
 
@@ -1248,7 +1248,7 @@ sealed trait List[+T] {
           </code></pre>
 
           <pre><code data-trim class="scala" style="max-height: 500px;">
-val list = List(1,2,3,4,5,6,7,8,9,10)          
+val list = List(1,2,3,4,5,6,7,8,9,10)
 list.sum
 //=> res: Int = 55
           </code></pre>
@@ -1258,7 +1258,7 @@ list.sum
           <h3>List.max</h3>
 
           <pre><code data-trim class="scala" style="max-height: 500px;">
-sealed trait List[+T] {          
+sealed trait List[+T] {
   def max[U >: T](implicit ev: Ordering[U]): U
 }
 
@@ -1274,11 +1274,11 @@ case object Nil extends List[Nothing] {
           </code></pre>
 
           <pre><code data-trim class="scala" style="max-height: 500px;">
-val list = List(1,2,3,4,10,6,7,8,9,5)          
+val list = List(1,2,3,4,10,6,7,8,9,5)
 list.max
 //=> res: Int = 10
           </code></pre>
-        </section>        
+        </section>
 
         <section>
           <h2>Immutable/Persistent Collections <br>are Awesome!</h2>
