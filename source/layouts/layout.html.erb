@@ -22,9 +22,9 @@
     <meta name="twitter:description" content="<%= h current_article.tags.join(', ') %>" />
     <% end %>
   <% else %>
-    <title><%= @website.title %></title>
-    <meta name="twitter:title" content="<%= @website.title %>" />
-    <meta name="twitter:description" content="Building Stuff, Having Fun, Craving Profit" />
+    <title><%= current_page.data.title || @website.title %></title>
+    <meta name="twitter:title" content="<%= current_page.data.title || @website.title %>" />
+    <meta name="twitter:description" content="<%= current_page.data.description || @website.description %>" />
     <meta name="twitter:image" content="<%= @website.root_url %>/assets/img/alex-big-version-72ppi.jpg" />
   <% end %>
 
@@ -41,7 +41,7 @@
 
       <nav>
     	  <a href="/"><%= @website.domain %></a>
-    	  <a class="extra" href="/pages/about.html">about</a>
+    	  <a class="extra" href="/about.html">about</a>
     	  <a href="https://github.com/alexandru" class="github" title="Fork me on GitHub"><span>Fork me on GitHub</span></a>
       </nav>
     </header>
@@ -63,7 +63,8 @@
 
       <div class="rss">
       	<a href="https://twitter.com/alexelcu" target="_blank" title="Follow me on Twitter (@alexelcu)">
-      	  <%= image_tag "twitter.png", :alt => "Follow me on Twitter (@alexelcu)" %>
+      	  <%= image_tag "twitter-logo.png", :width => 60, :height => 60,
+              :alt => "Follow me on Twitter (@alexelcu)" %>
       	</a>
       </div>
     </footer>

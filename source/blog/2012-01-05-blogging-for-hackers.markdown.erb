@@ -23,7 +23,7 @@ I'm showing you how to:
 You could just skip this article and browse the source code of my
 blog:
 
-* [github.com/alexandru/bionicspirit.com](https://github.com/alexandru/bionicspirit.com)
+* [github.com/alexandru/alexn.org](https://github.com/alexandru/alexn.org)
 
 Forget about Wordpress or Blogger. Hacking your own stuff is much more
 fun. Also, make sure to read
@@ -437,7 +437,7 @@ class PingService(webapp2.RequestHandler):
   def get(self):
       self.response.headers['Content-Type'] = 'text/plain'
 
-      url = "http://bionicspirit.com/ping"
+      url = "http://alexn.org/ping"
       try:
           result = urlfetch.fetch(url, deadline=30)
           self.response.out.write('HTTP %d - %s' % 
@@ -453,7 +453,7 @@ minutes, you also need a *cron.yaml* file ...
 
 ```yaml
 cron:
-- description: ping bionicspirit.com to wake it up
+- description: ping alexn.org to wake it up
   url: /tasks/ping
   schedule: every 4 minutes
 ```
@@ -468,7 +468,7 @@ appcfg.py update .
 
 To see it working on this blog, here are the requests:
 
-* Heroku URL getting requested: [http://bionicspirit.com/ping](http://bionicspirit.com/ping)
+* Heroku URL getting requested: [http://alexn.org/ping](http://alexn.org/ping)
 * GAE Cron Job getting executed: [http://assets-bionicspirit.appspot.com/tasks/ping](http://assets-bionicspirit.appspot.com/tasks/ping)
 
 ## Extra Tip - CloudFlare

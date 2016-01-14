@@ -1,2 +1,2 @@
-The source-code of my personal blog: [bionicspirit.com](http://www.bionicspirit.com)
+The source-code of my personal blog: [alexn.org](http://www.alexn.org)
 

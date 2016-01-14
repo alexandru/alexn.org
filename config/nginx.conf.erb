@@ -29,7 +29,7 @@ http {
 
 	upstream app_server {
 		server unix:/tmp/nginx.socket fail_timeout=0;
- 	} 	
+ 	}
 
 	server {
 		listen <%= ENV["PORT"] %>;
@@ -53,6 +53,6 @@ http {
 		    log_not_found off;
 		}
 
-		error_page 404 /pages/404.html;
+		error_page 404 /404.html;
 	}
 }
