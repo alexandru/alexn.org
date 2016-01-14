@@ -1,5 +1,6 @@
 ---
-title: "HTTP 404 - Page Not Found"
+title: "HTTP 404 - Page Not Found!"
+description: "The page your looking for does not exist, or might have been moved."
 ---
 
 <article id="page404">
@@ -13,14 +14,13 @@ title: "HTTP 404 - Page Not Found"
   <h2>Recent Articles</h2>
 
   <ol class="posts">
-    <% page_articles.find_all{|x| !x.data.archive}[0..5].each_with_index do |article, i| %>	
-    <li> 
+    <% page_articles.find_all{|x| !x.data.archive}[0..5].each_with_index do |article, i| %>
+    <li>
       <time datetime="<%= article.date.strftime("%Y-%m-%d") %>">
 	<%= article.date.strftime("%Y-%m-%d") %> &raquo;
       </time>
       <a href="<%= article.url %>" rel="prefetch related"><%= article.title %></a>
-    </li>      
+    </li>
     <% end %>
   </ol>
 </article>
-

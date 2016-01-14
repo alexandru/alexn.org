@@ -126,7 +126,7 @@ body > #header-container {
           text-decoration: underline;
         }
         &.extra {
-          color: #fff;
+          color: #fdd;
           margin-left: 1em;
         }
       }
@@ -232,13 +232,14 @@ body #main {
   }
 
   ul.elsewhere {
-    list-style: none;
     padding: 0;
     margin: 0;
 
-    li:before {
-      content: "» ";
-      color: #888;
+    li { list-style-type: none; }
+
+    li > div.note {
+      font-size: 80%;
+      color: gray;
     }
 
     a {
@@ -291,8 +292,21 @@ body #main {
     padding-bottom: $vertical-padding / 2;
     margin-bottom: $vertical-padding;
 
-    h1 { display: none; }
-    h2 { font-size: 120%; }
+    h1 {
+      margin: 0 0 $vertical-padding;
+      font-size: 140%;
+      padding: 0;
+    }
+
+    h2 {
+      font-size: 110%;
+      padding: 0;
+      margin: $vertical-padding 0;
+    }
+
+    div.description {
+      max-width: $max-width - 200px;
+    }
   }
 
   article#post header h1 {
@@ -515,15 +529,6 @@ body #main article footer #email-subscription {
 
 #email-subscription form input, #email-subscription form button {
   padding: 4px;
-}
-
-#about {
-  ul {
-    margin-left: 10px;
-    li {
-      list-style: none;
-    }
-  }
 }
 
 #resume .enumeration p b {
