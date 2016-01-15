@@ -3,17 +3,20 @@ image: /assets/img/logo.png
 ---
 
 <article id="home">
-  <%= image_tag "logo.png", :width => "150", :class => "right", :title => "Bionic Spirit", :alt => "Bionic Spirit" %>
+  <%= image_tag "logo.png", :width => "150", :class => "right", :title => "Bionic Spirit",
+    :alt => "Bionic Spirit", :itemprop => "primaryImageOfPage" %>
 
   <h2>Articles</h2>
 
-  <ol class="posts" itemscope itemtype="http://schema.org/Blog">
+  <ol class="posts">
     <% page_articles.each_with_index do |article, i| %>
-    <li itemprop="blogPosts" itemscope itemtype="http://schema.org/BlogPosting">
-      <time datetime="<%= article.date.strftime("%Y-%m-%d") %>" itemprop="dateCreated">
+    <li>
+      <time datetime="<%= article.date.strftime("%Y-%m-%d") %>">
          <%= article.date.strftime("%Y-%m-%d") %> &raquo;
       </time>
-      <a href="<%= article.url %>" itemprop="url" rel="prefetch related"><%= article.title %></a>
+      <a href="<%= article.url %>" rel="prefetch related" itemprop="relatedLink">
+        <%= article.title %>
+      </a>
     </li>
     <% end %>
   </ol>
@@ -22,18 +25,18 @@ image: /assets/img/logo.png
 
   <ul class="bullets">
     <li>
-      <a href="https://monix.io">Monix</a>: reactive programming for Scala and Scala.js
+      <a itemprop="relatedLink" href="https://monix.io">Monix</a>: reactive programming for Scala and Scala.js
     </li>
     <li>
-      <a href="https://gist.github.com/alexandru/55a6038c2fe61025d555">Task</a>:
+      <a itemprop="relatedLink" href="https://gist.github.com/alexandru/55a6038c2fe61025d555">Task</a>:
       A diverging design from Future and Scalaz Task
     </li>
     <li>
-      <a href="https://github.com/alexandru/scala-best-practices">Scala Best Practices</a>:
+      <a itemprop="relatedLink" href="https://github.com/alexandru/scala-best-practices">Scala Best Practices</a>:
       an open effort to establish the standard
     </li>
     <li>
-      <a href="https://github.com/alexandru/shade">Shade</a>: a Memcached client for Scala
+      <a itemprop="relatedLink" href="https://github.com/alexandru/shade">Shade</a>: a Memcached client for Scala
     </li>
   </ul>
 </article>

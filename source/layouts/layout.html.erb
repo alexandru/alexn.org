@@ -45,15 +45,21 @@
     <header>
       <h1 id="title"><%= @website.title %></h1>
 
+      <meta itemprop="lastReviewed" content="<%= Time.now.strftime('%Y-%m-%d') %>"/>
+      <div itemprop="reviewedBy" itemscope itemtype="https://schema.org/Person">
+        <meta itemprop="name" content="Alexandru Nedelcu">
+        <meta itemprop="url" content="https://plus.google.com/+AlexandruNedelcu">
+      </div>
+
       <div class="github-fork-ribbon-wrapper right">
         <div class="github-fork-ribbon">
-          <a href="https://github.com/alexandru">Fork me on GitHub</a>
+          <a href="https://github.com/alexandru" itemprop="relatedLink">Fork me on GitHub</a>
         </div>
       </div>
 
       <nav>
     	  <a href="/"><%= @website.domain %></a>
-    	  <a class="extra" href="/about.html">about</a>
+    	  <a class="extra" href="/about.html" itemprop="significantLink">about</a>
       </nav>
     </header>
   </div>
