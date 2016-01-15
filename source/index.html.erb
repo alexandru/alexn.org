@@ -1,16 +1,26 @@
+---
+image: /assets/img/logo.png
+---
+
 <article id="home">
-  <h1><%= @website.title %></h1>
+  <%= image_tag "logo.png", :width => "150", :class => "right", :title => "Bionic Spirit", :alt => "Bionic Spirit" %>
 
-  <%= image_tag "picture_alex.jpg", :width => "150", :class => "right",
-    :title => "Alexandru Nedelcu", :alt => "Alexandru Nedelcu" %>
+  <h2>Articles</h2>
 
-  <div class="description">
-    <%= @website.description %>
-  </div>
+  <ol class="posts" itemscope itemtype="http://schema.org/Blog">
+    <% page_articles.each_with_index do |article, i| %>
+    <li itemprop="blogPosts" itemscope itemtype="http://schema.org/BlogPosting">
+      <time datetime="<%= article.date.strftime("%Y-%m-%d") %>" itemprop="dateCreated">
+         <%= article.date.strftime("%Y-%m-%d") %> &raquo;
+      </time>
+      <a href="<%= article.url %>" itemprop="url" rel="prefetch related"><%= article.title %></a>
+    </li>
+    <% end %>
+  </ol>
 
   <h2>Noteworthy Projects</h2>
 
-  <ul class="elsewhere">
+  <ul class="bullets">
     <li>
       <a href="https://monix.io">Monix</a>: reactive programming for Scala and Scala.js
     </li>
@@ -26,39 +36,4 @@
       <a href="https://github.com/alexandru/shade">Shade</a>: a Memcached client for Scala
     </li>
   </ul>
-
-  <h2>Articles</h2>
-
-  <ol class="posts" itemscope itemtype="http://schema.org/Blog">
-    <% page_articles.each_with_index do |article, i| %>
-    <li itemprop="blogPosts" itemscope itemtype="http://schema.org/BlogPosting">
-      <time datetime="<%= article.date.strftime("%Y-%m-%d") %>" itemprop="dateCreated">
-         <%= article.date.strftime("%Y-%m-%d") %> &raquo;
-      </time>
-      <a href="<%= article.url %>" itemprop="url" rel="prefetch related"><%= article.title %></a>
-    </li>
-    <% end %>
-  </ol>
-
-  <h2>Elsewhere</h2>
-
-  <ul class="elsewhere">
-    <li><a href="https://github.com/alexandru/" target="_blank" rel="me">GitHub (alexandru)</a></li>
-    <li><a href="https://twitter.com/alexelcu/" rel="me">Twitter (@alexelcu)</a></li>
-    <li><a href="https://www.linkedin.com/in/alexandrunedelcu" rel="me">LinkedIn</a></li>
-    <li><a href="https://plus.google.com/+AlexandruNedelcu" rel="me">Google+</a></li>
-  </ul>
-
-  <!--sse-->
-  <h2>Contact</h2>
-
-  <ul class="elsewhere">
-    <li>
-      Email: <i>throwaway160114@alexn.org</i>
-      <div class="note">
-        The address is changed periodically to avoid spam.
-      </div>
-    </li>
-  </ul>
-  <!--/sse-->
 </article>

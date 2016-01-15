@@ -7,7 +7,7 @@ def with_image_url(html, want_dimensions)
   if img
     url = img["src"]
   else
-    url = "/assets/img/alex-big-version-72ppi.jpg"
+    url = "/assets/img/logo.png"
   end
 
   # trying to find width and height

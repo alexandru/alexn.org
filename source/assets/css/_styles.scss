@@ -100,24 +100,16 @@ body > #header-container {
     font-size: 120%;
     background-color: #000;
 
+    .github-fork-ribbon a {
+      text-decoration: none;
+      color: #fff;
+    }
+
     h1 {
       display: none;
     }
 
     nav {
-      a.github {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 149px;
-        height: 149px;
-        background-image: url(../img/fork.png);
-
-        span {
-          display: none;
-        }
-      }
-
       a {
         color: #FF9999;
         text-decoration: none;
@@ -125,8 +117,9 @@ body > #header-container {
         &:hover {
           text-decoration: underline;
         }
+
         &.extra {
-          color: #fdd;
+          color: #fff;
           margin-left: 1em;
         }
       }
@@ -231,19 +224,12 @@ body #main {
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
   }
 
-  ul.elsewhere {
-    padding: 0;
-    margin: 0;
+  ul.bullets {
+    list-style-type: none;
+    a { text-decoration: none; }
 
-    li { list-style-type: none; }
-
-    li > div.note {
-      font-size: 80%;
-      color: gray;
-    }
-
-    a {
-      text-decoration: none;
+    li {
+      padding-bottom: $vertical-padding / 4;
     }
   }
 
@@ -293,19 +279,25 @@ body #main {
     margin-bottom: $vertical-padding;
 
     h1 {
-      margin: 0 0 $vertical-padding;
-      font-size: 140%;
       padding: 0;
+      margin: 0 0 $vertical-padding;
     }
 
     h2 {
-      font-size: 110%;
+      font-size: 130%;
       padding: 0;
-      margin: $vertical-padding 0;
+      margin: $vertical-padding 0 $vertical-padding/2;
     }
+  }
 
+  article#about {
     div.description {
       max-width: $max-width - 200px;
+    }
+
+    div.note {
+      font-size: 80%;
+      color: gray;
     }
   }
 
