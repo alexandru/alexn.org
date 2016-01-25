@@ -8,4 +8,17 @@
     float: none;
     clear: both;
   }
+
+  body #home h2 {
+    clear: both;
+  }
+
+  body article#about #picture {
+    width: 150px !important;
+    height: 150px  !important;
+  }
+
+  body article#home #picture {
+    display: none;
+  }
 }

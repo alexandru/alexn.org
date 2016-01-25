@@ -12,6 +12,10 @@
         <%= current_page.date.strftime("%b %d, %Y") %>
       </time>
 
+      <span class="twitter-link">
+        • <a href="https://twitter.com/alexelcu">@alexelcu</a>
+      </span>
+
       <% with_image_url(current_article.body, true) do |image_url, width, height| %>
         <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="<%= image_url %>">
@@ -36,7 +40,7 @@
 
     <div class="authorship" itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Alexandru Nedelcu">
-      Written by <a href="https://plus.google.com/+AlexandruNedelcu" itemprop="url" rel="author">
+      Written by <a href="https://plus.google.com/+AlexandruNedelcu/about" itemprop="url" rel="author">
         Alexandru Nedelcu</a>
     </div>
   </div>

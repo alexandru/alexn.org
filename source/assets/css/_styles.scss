@@ -119,8 +119,12 @@ body > #header-container {
         }
 
         &.extra {
-          color: #fff;
+          color: #ddd;
           margin-left: 1em;
+        }
+
+        &.extra:hover {
+          color: #fff;
         }
       }
     }
@@ -278,9 +282,22 @@ body #main {
     padding-bottom: $vertical-padding / 2;
     margin-bottom: $vertical-padding;
 
-    h1 {
+    h2 {
+      font-size: 130%;
       padding: 0;
-      margin: 0 0 $vertical-padding;
+      margin: $vertical-padding 0 $vertical-padding/2;
+    }
+
+    #picture {
+      width: 150px;
+      height: 150px;
+    }
+  }
+
+  article#about {
+    h1 {
+      margin-top: 0;
+      margin-bottom: $vertical-padding;
     }
 
     h2 {
@@ -288,11 +305,16 @@ body #main {
       padding: 0;
       margin: $vertical-padding 0 $vertical-padding/2;
     }
-  }
 
-  article#about {
     div.description {
-      max-width: $max-width - 200px;
+      max-width: $max-width - 250px;
+    }
+
+    #picture {
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      width: 200px;
+      height: 200px;
     }
 
     div.note {
@@ -381,6 +403,11 @@ body #main {
       margin-bottom: $vertical-padding + $vertical-padding / 2;
       font-size: 100%;
       color: #7A6062;
+
+      a {
+        color: #60627A;
+        text-decoration: none;
+      }
     }
 
     footer {
