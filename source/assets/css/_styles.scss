@@ -603,3 +603,12 @@ body #main article footer #email-subscription {
   background-color: #fafafa;
   font-family: monospace;
 }
+
+table.benchmark {
+  border: 1px solid #aaa;
+
+  td, th {
+    padding: 10px;
+    border: 1px solid #eee;
+  }
+}
