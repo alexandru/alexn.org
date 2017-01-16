@@ -41,7 +41,7 @@ while (cursor.hasNext) {
 You could say that `hasNext` is not supposed to move the internal
 cursor / pointer / index and thus it shouldn't be side-effecting, but
 that's not true, because in many cases the only way to know if there
-is a next element to be served is to trigger a read.
+is a next element to be served is to trigger a side-effecting read.
 
 And so the problem is that both `hasNext` and `next()` are side-effecting and
 in my opinion the result of the wrong method is getting cached. When you work with
