@@ -219,14 +219,14 @@ Or more specifically:
 2. assume that the protocol is set in stone
 
 But `Iterator` is a fine example of an OOP interface because you can add
-restrictions on it. Lo and behold how OOP inheritance is supposed to work:
+restrictions to it. Lo and behold how OOP inheritance is supposed to work:
 
 ```scala
-trait ClosableIterable[+A] extends Iterable[+A] {
+trait CloseableIterable[+A] extends Iterable[+A] {
   def iterator: ClosableIterator[A]
 }
 
-trait ClosableIterator[+A] extends Iterator[A] with AutoCloseable {
+trait CloseableIterator[+A] extends Iterator[A] with AutoCloseable {
   /** Closes this resource, relinquishing any underlying resources. */
   def close(): Unit
 }
