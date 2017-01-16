@@ -130,11 +130,14 @@ class IteratorFromStream(in: InputStream, chunkSize: Int)
 
   def moveNext(): Boolean = {
     val len = in.read(buffer)
-    if (len >= 0)
+    if (len >= 0) {
       chunk = util.Arrays.copyOf(buffer, len)
+      true
+    }
     else {
       chunk = null
       in.close()
+      false
     }
   }
 
@@ -257,7 +260,7 @@ to file handles, network sockets or other resources that need to be disposed
 when terminated early.
 
 So rookies (because of problem 2 above) end up doing crap like this,
-ending with a connection leak:
+creating a possible connection leak:
 
 ```scala
 iterator.take(100)
