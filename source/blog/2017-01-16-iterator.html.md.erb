@@ -259,8 +259,8 @@ The `Iterator` interface alone is not enough to expose streams linked
 to file handles, network sockets or other resources that need to be disposed
 when terminated early.
 
-So rookies (because of problem 2 above) end up doing crap like this,
-creating a possible connection leak:
+So rookies (also because of problem 2 above) can end up with unconsumed iterators,
+creating possible connection leaks, because it's easy:
 
 ```scala
 iterator.take(100)
@@ -277,4 +277,4 @@ However I don't view this as being a problem because:
 
 Having a `ClosableIterator` in the standard library wouldn't be bad though,
 however given the very complex inheritance hierarchy and the traversable
-grandparents, I'm afraid to ask for it.
+grandparents, I'm afraid to wish for it.
