@@ -16,9 +16,9 @@
       <meta name="twitter:image" content="<%= image_url %>" />
     <% end %>
     <meta name="twitter:title" content="<%= h current_article.title %>" />
-    <% if current_article.metadata[:page]['clean_summary'] %>
-    <meta name="twitter:description" content="<%= h current_article.metadata[:page]['clean_summary'] %>" />
-    <meta name="description" content="<%= h current_article.metadata[:page]['clean_summary'] %>" />
+    <% if current_page.data['clean_summary'] %>
+    <meta name="twitter:description" content="<%= h current_page.data.clean_summary %>" />
+    <meta name="description" content="<%= h current_page.data.clean_summary %>" />
     <% else %>
     <meta name="twitter:description" content="<%= h current_article.tags.join(', ') %>" />
     <meta name="description" content="<%= h current_article.tags.join(', ') %>" />
