@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
  <id><%= website.id %>/</id>
- <title><%= website.title %></title>
- <description><%= website.description %></description>
+ <title type="text"><%= website.title %></title>
+ <subtitle type="text"><%= website.description %></subtitle>
  <link href="<%= website.root_url %>/atom.xml" rel="self"/>
  <link href="<%= website.root_url%>/" />
  <updated><%= Time.now.iso8601 %></updated>
