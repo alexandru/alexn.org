@@ -381,6 +381,19 @@ body #main {
           text-decoration: none;
         }
       }
+
+      code {
+        color: #a12617;
+        background-color: #f9f9f9;
+        border-radius: 3px;
+      }
+
+      pre code {
+        background-color: transparent;
+        color: initial;
+        border-radius: initial;
+        padding: initial;
+      }
     }
 
     /* terminal */
