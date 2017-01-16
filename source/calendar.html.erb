@@ -24,12 +24,12 @@ pageable: true
 
 <ol class="posts">
   <% page_articles.each_with_index do |article, i| %>
-    <li> 
+    <li>
       <time datetime="<%= article.date.strftime("%Y-%m-%d") %>">
 	<%= article.date.strftime("%Y-%m-%d") %> &raquo;
       </time>
       <a href="<%= article.url %>" rel="prefetch related"><%= article.title %></a>
-    </li>      
+    </li>
   <% end %>
 </ol>
 

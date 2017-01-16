@@ -3,12 +3,6 @@ require 'yaml'
 require "config/lib/helpers"
 
 ###
-# Site-wide settings
-###
-
-@website = OpenStruct.new(YAML::load_file(File.dirname(__FILE__) + "/config/config.yaml")[:website])
-
-###
 # Blog settings
 ###
 
@@ -118,12 +112,13 @@ configure :build do
   # Use relative URLs
   # activate :relative_assets
   activate :gzip
+end
 
-  # Compress PNGs after build
-  # First: gem install middleman-smusher
-  require "middleman-smusher"
-  activate :smusher
-
-  # Or use a different image path
-  # set :http_path, "/Content/images/"
+# Fixes error: Comparison of String with :current_path failed
+begin
+  warn_level = $VERBOSE
+  $VERBOSE = nil
+  Tilt::SYMBOL_ARRAY_SORTABLE = false
+ensure
+  $VERBOSE = warn_level
 end

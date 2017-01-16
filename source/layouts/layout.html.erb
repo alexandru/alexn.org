@@ -4,7 +4,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width,initial-scale=1">
 
-  <link rel="canonical" href="<%= @website.root_url %><%= current_page.url %>">
+  <link rel="canonical" href="<%= website.root_url %><%= current_page.url %>">
   <link rel="alternate" href="/atom.xml" title="Atom feed" type="application/atom+xml">
 
   <meta name="twitter:card" content="summary" />
@@ -24,11 +24,11 @@
     <meta name="description" content="<%= h current_article.tags.join(', ') %>" />
     <% end %>
   <% else %>
-    <title><%= current_page.data.title || @website.title %></title>
-    <meta name="twitter:title" content="<%= current_page.data.title || @website.title %>" />
-    <meta name="twitter:description" content="<%= current_page.data.description || @website.description %>" />
-    <meta name="description" content="<%= current_page.data.description || @website.description %>" />
-    <meta name="twitter:image" content="<%= @website.root_url %><%= current_page.data.image || '/assets/img/logo.png' %>" />
+    <title><%= current_page.data.title || website.title %></title>
+    <meta name="twitter:title" content="<%= current_page.data.title || website.title %>" />
+    <meta name="twitter:description" content="<%= current_page.data.description || website.description %>" />
+    <meta name="description" content="<%= current_page.data.description || website.description %>" />
+    <meta name="twitter:image" content="<%= website.root_url %><%= current_page.data.image || '/assets/img/logo.png' %>" />
   <% end %>
 
   <%= stylesheet_link_tag "fonts" %>
@@ -43,7 +43,7 @@
 <body>
   <div id="header-container">
     <header>
-      <h1 id="title"><%= @website.title %></h1>
+      <h1 id="title"><%= website.title %></h1>
 
       <meta itemprop="lastReviewed" content="<%= Time.now.strftime('%Y-%m-%d') %>"/>
       <div itemprop="reviewedBy" itemscope itemtype="https://schema.org/Person">
@@ -58,7 +58,7 @@
       </div>
 
       <nav>
-    	  <a href="/"><%= @website.title %></a>
+    	  <a href="/"><%= website.title %></a>
     	  <a class="extra" href="/about.html" itemprop="significantLink">About</a>
       </nav>
     </header>

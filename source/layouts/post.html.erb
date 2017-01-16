@@ -4,7 +4,7 @@
     <h1 itemprop="headline"><%= current_page.title %></h1>
 
     <div id="meta">
-      <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<%= @website.root_url %><%= current_page.url %>"/>
+      <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<%= website.root_url %><%= current_page.url %>"/>
       <meta itemprop="datePublished" content="<%= current_page.date.strftime('%Y-%m-%d') %>"/>
       <meta itemprop="dateModified" content="<%= current_page.date.strftime('%Y-%m-%d') %>"/>
 
@@ -27,7 +27,7 @@
       <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
         <meta itemprop="name" content="Alexandru Nedelcu">
         <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-          <meta itemprop="url" content="<%= @website.root_url %>/assets/img/alex-big-version-72ppi.jpg">
+          <meta itemprop="url" content="<%= website.root_url %>/assets/img/alex-big-version-72ppi.jpg">
           <meta itemprop="width" content="585">
           <meta itemprop="height" content="585">
         </div>
@@ -65,7 +65,7 @@
       <div id="disqus_thread"></div>
       <script type="text/javascript">
     	var disqus_shortname = 'alexnorg';
-    	var disqus_url = '<%= @website.id + current_page.url %>';
+    	var disqus_url = '<%= website.id + current_page.url %>';
 
     	/* * * DON'T EDIT BELOW THIS LINE * * */
     	(function() {

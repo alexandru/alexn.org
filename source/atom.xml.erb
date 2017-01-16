@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
- <id><%= @website.id %>/</id>
- <title><%= @website.title %></title>
- <description><%= @website.description %></description>
- <link href="<%= @website.root_url %>/atom.xml" rel="self"/>
- <link href="<%= @website.root_url%>/" />
+ <id><%= website.id %>/</id>
+ <title><%= website.title %></title>
+ <description><%= website.description %></description>
+ <link href="<%= website.root_url %>/atom.xml" rel="self"/>
+ <link href="<%= website.root_url%>/" />
  <updated><%= Time.now.iso8601 %></updated>
 
  <author>
@@ -14,9 +14,9 @@
 
  <% blog.articles.find_all{|x| !x.data.archive}.each do |article| %>
  <entry>
-   <id><%= @website.id + article.url %></id>
+   <id><%= website.id + article.url %></id>
    <title><%= article.title %></title>
-   <link href="<%= @website.root_url + article.url %>?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication"/>
+   <link href="<%= website.root_url + article.url %>?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication"/>
    <published><%= article.date.to_time.iso8601 %></published>
    <updated><%= article.date.to_time.iso8601 %></updated>
 
@@ -38,7 +38,7 @@
    <content type="html"><![CDATA[
    <%= rss_summary_of article.body %>
 
-   <p><a rel="full-article" href="<%= @website.root_url %><%= article.url %>?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication"><b>Read This Article &raquo;</b></a></p>
+   <p><a rel="full-article" href="<%= website.root_url %><%= article.url %>?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication"><b>Read This Article &raquo;</b></a></p>
    ]]></content>
  </entry>
  <% end %>

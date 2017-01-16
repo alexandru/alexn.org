@@ -1,6 +1,11 @@
 require "nokogiri"
 require 'fastimage'
 
+def website
+  @website_ref = @website_ref || OpenStruct.new(YAML::load_file(File.dirname(__FILE__) + "/../config.yaml")[:website])
+  @website_ref
+end
+
 def with_image_url(html, want_dimensions)
   doc = Nokogiri::HTML(html)
   img = doc.css("img").first
@@ -27,7 +32,7 @@ def with_image_url(html, want_dimensions)
     end
   end
 
-  url = @website.root_url + url unless url.start_with?("http")
+  url = website.root_url + url unless url.start_with?("http")
   if want_dimensions
     yield(url, width, height)
   else
