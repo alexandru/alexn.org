@@ -223,7 +223,7 @@ restrictions to it. Lo and behold how OOP inheritance is supposed to work:
 
 ```scala
 trait CloseableIterable[+A] extends Iterable[+A] {
-  def iterator: ClosableIterator[A]
+  def iterator: CloseableIterator[A]
 }
 
 trait CloseableIterator[+A] extends Iterator[A] with AutoCloseable {
@@ -269,12 +269,12 @@ iterator.take(100)
 However I don't view this as being a problem because:
 
 1. we don't need to do resource handling everywhere
-2. as demonstrated in the sample with `ClosableIterator` above, you can build
+2. as demonstrated in the sample with `CloseableIterator` above, you can build
    proper resource handling on top of `Iterator`
 3. doing I/O by means of an `Iterator` is often a bad idea, given
    that `Iterator` is not capable of asynchronous boundaries, with
    I/O operations often being asynchronous
 
-Having a `ClosableIterator` in the standard library wouldn't be bad though,
+Having a `CloseableIterator` in the standard library wouldn't be bad though,
 however given the very complex inheritance hierarchy and the traversable
 grandparents, I'm afraid to wish for it.
