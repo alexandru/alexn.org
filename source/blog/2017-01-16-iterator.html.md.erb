@@ -150,6 +150,10 @@ class IteratorFromStream(in: InputStream, chunkSize: Int)
 
 Notice how this *simplifies* things on the implementation side as well.
 
+**UPDATE:** M.Odersky points out in the comments that the standard library has a
+[BufferedIterator](http://www.scala-lang.org/api/current/scala/collection/BufferedIterator.html)
+implementation that caches the current `head` and can be used for convenience.
+
 ## Problem 2: Iterator comes with operations attached
 
 At the beginning I gave you a simplified `Iterator` definition, however I lied.
@@ -222,7 +226,7 @@ But `Iterator` is a fine example of an OOP interface because you can add
 restrictions to it. Lo and behold how OOP inheritance is supposed to work:
 
 ```scala
-trait CloseableIterable[+A] extends Iterable[+A] {
+trait CloseableIterable[+A] extends Iterable[A] {
   def iterator: CloseableIterator[A]
 }
 
@@ -247,11 +251,14 @@ notice C#'s [IEnumerator](https://msdn.microsoft.com/en-us/library/system.collec
 Instead, for C# at least, you can import
 [Ix.NET](https://github.com/Reactive-Extensions/Rx.NET) in your project,
 which gives you a bunch of extension methods you can work with, no strings attached.
-Heck, Scala could use [type-classes](http://typelevel.org/cats/) which are
+Scala could also use [type-classes](http://typelevel.org/cats/) which are
 much better than extension methods. But instead what currently happens in
 Scala's collection library can be seen as *inheritance hell*.
 
 Not everything needs `map` and `flatMap` on it.
+
+**UPDATE:** there is now an issue for discussing this at
+[collection-strawman/issues/#17](https://github.com/scala/collection-strawman/issues/17).
 
 ## Non-problem: early termination & resource handling
 
