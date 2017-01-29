@@ -89,9 +89,9 @@ set :js_dir, 'assets/js'
 set :images_dir, 'assets/img'
 
 activate :syntax
-
-set :markdown_engine, :redcarpet
-set :markdown, :fenced_code_blocks => true, :smartypants => true
+set :markdown_engine, :kramdown
+set :markdown, :syntax_highlighter => :rouge, :input => "GFM", :hard_wrap => false
+# set :markdown, :fenced_code_blocks => true, :smartypants => true
 
 # Build-specific configuration
 configure :build do

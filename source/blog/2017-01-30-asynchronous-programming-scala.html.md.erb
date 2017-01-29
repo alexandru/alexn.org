@@ -1,0 +1,1057 @@
+---
+title: "Asynchronous Programming and Scala"
+clean_summary:
+  Asynchrony is everywhere and it subsumes concurrency. Here's what you can do.
+tags:
+  - Code
+  - Scala
+  - Asynchrony
+  - Concurrency
+  - Programming
+---
+
+Asynchrony is everywhere and it subsumes concurrency. This article
+explains what asynchronous processing is and its challenges.
+
+## Table of Contents
+
+- [1. Introduction](#h1)
+- [2. The Big Illusion](#h2)
+- [3. Callback Hell](#h3)
+  - [3.1. Sequencing (Purgatory of Side-effects)](#h3-1)
+  - [3.2. Parallelism (Limbo of Nondeterminism)](#h3-2)
+  - [3.3. Recursivity (Wrath of StackOverflow)](#h3-3)
+- [4. Futures and Promises](#h4)
+  - [4.1. Sequencing](#h4-1)
+  - [4.2. Parallelism](#h4-2)
+  - [4.3. Recursivity](#h4-3)
+  - [4.4. Performance Considerations](#h4-4)
+- [5. Task, Scala's IO Monad](#h5)
+  - [5.1. Sequencing](#h5-1)
+  - [5.2. Parallelism](#h5-2)
+  - [5.3. Recursivity](#h5-3)
+- [6. Functional Programming and Type-classes](#h6)
+  - [6.1. Monad (Sequencing and Recursivity)](#h6-1)
+  - [6.2. Applicative (Parallelism)](#h6-2)
+  - [6.3. Can We Define a Type-class for Async Evaluation?](#h6-3)
+- [7. Picking the Right Tool](#h7)
+
+## <a href="#h1" name="h1">1.</a> Introduction
+
+As a concept it is more general than *multithreading*, although some
+people confuse the two. If you're looking for a relationship, you
+could say:
+
+```scala
+Multithreading <: Asynchrony
+```
+
+We can represent asynchronous computations with a type:
+
+```scala
+type Async[A] = (Try[A] => Unit) => Unit
+```
+
+If it looks ugly with those `Unit` return types, that's because
+asynchrony is ugly. An asynchronous computation is any task, thread,
+process, node somewhere on the network that:
+
+1. executes outside of your program's main flow or from the point of
+   view of the caller, it doesn't execute on the current call-stack
+2. receives a callback that will get called once the result is
+   finished processing
+3. it provides no guarantee about when the result is signaled, no
+   guarantee that a result will be signaled at all
+
+It's important to note asynchrony subsumes *concurrency*, but not
+necessarily *multithreading*. Remember that in Javascript the majority
+of all I/O actions (input or output) are asynchronous and even heavy
+business logic is made asynchronous (with `setTimeout` based scheduling)
+in order to keep the interface responsive. But no kernel-level
+multithreading is involved, Javascript being an N:1 multithreaded
+platform.
+
+Introducing asynchrony into your program means you'll have concurrency
+problems because you never know when asynchronous computations will be
+finished, so *composing* the results of multiple asynchronous
+computations running at the same time means you have to do
+synchronization, as you can no longer rely on ordering. And not
+relying on an order is a recipe for *nondeterminism*.
+
+<p class='extra-info' markdown='1'>
+[Wikipedia says](https://en.wikipedia.org/wiki/Nondeterministic_algorithm):
+a *nondeterministic* algorithm is an algorithm that, even for the same
+input, can exhibit different behaviors on different runs, as opposed
+to a *deterministic* algorithm ... A *concurrent* algorithm can perform
+differently on different runs due to a race condition.
+</p>
+
+<%= image_tag "2017/nondet.png", :class => "max-border", :width => "775" %>
+
+The astute reader could notice that the type in question can be seen *everywhere*,
+with some modifications depending on use-case and contract:
+
+- in the [Observer pattern](https://en.wikipedia.org/wiki/Observer_pattern)
+  from the [Gang of Four](https://en.wikipedia.org/wiki/Design_Patterns)
+- in Scala's [Future](http://www.scala-lang.org/api/current/scala/concurrent/Future.html),
+  which is defined by its abstract `onComplete` method
+- in Java's [ExecutorService.submit(Callable)](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ExecutorService.html#submit-java.util.concurrent.Callable-)
+- in Javascript's [EventTarget.addEventListener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener)
+- in [Akka](http://akka.io/) actors, although there the given callback
+  is replaced by the `sender()` reference
+- in the Monix [Task.Async](https://github.com/monix/monix/blob/v2.2.1/monix-eval/shared/src/main/scala/monix/eval/Task.scala#L1253) definition
+- in the Monix [Observable](https://monix.io/api/2.2/monix/reactive/Observable.html)
+  and [Observer](https://monix.io/api/2.2/monix/reactive/Observer.html) pair
+- in the [Reactive Streams](http://www.reactive-streams.org/reactive-streams-1.0.0-javadoc/) specification
+
+What do all of these abstractions have in common? They provide ways to
+deal with asynchrony, some more successful than others.
+
+## <a href="#h2" name="h2">2.</a> The Big Illusion
+
+We like to pretend that we can describe functions that can convert
+asynchronous results to synchronous ones:
+
+```scala
+def await[A](fa: Async[A]): A
+```
+
+Fact of the matter is that we can't pretend that asynchronous
+processes are equivalent with normal functions. If you need a lesson
+in history for why we can't pretend that, you only need to take a look
+at why CORBA failed.
+
+With asynchronous processes we have the following very common
+[fallacies of distributed computing](https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing):
+
+1. The network is reliable
+2. Latency is zero
+3. Bandwidth is infinite
+4. The network is secure
+5. Topology doesn't change
+6. There is one administrator
+7. Transport cost is zero
+8. The network is homogeneous
+
+None of them are true of course. Which means code gets written with
+little error handling for network failures, ignorance of network
+latency or packet loss, ignorance of bandwidth limits and in general
+ignorance of the ensuing nondeterminism.
+
+People have tried to cope with this by:
+
+- callbacks, callbacks everywhere, equivalent to basically ignoring
+  the problem, as it happens in Javascript, which leads to the well
+  known effect of *callback hell*, paid for with the sweat and blood
+  of programmers that constantly imagine having chosen a different
+  life path
+- blocking threads, on top of
+  [1:1 (kernel-level) multithreading](https://en.wikipedia.org/wiki/Thread_(computing)#1:1_.28kernel-level_threading.29)
+  platforms
+- [first-class continuations](https://en.wikipedia.org/wiki/Continuation),
+  implemented for example by Scheme in
+  [call/cc](https://en.wikipedia.org/wiki/Call-with-current-continuation),
+  being the ability to save the execution state at any point and
+  return to that point at a later point in the program
+- The `async` / `await` language extension from C#, also implemented in
+  the [scala-async](https://github.com/scala/async) library, but also in the
+  [latest ECMAScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)
+- [Green threads](https://en.wikipedia.org/wiki/Green_threads)
+  managed by the runtime, possibly in combination with
+  [M:N multithreading](https://en.wikipedia.org/wiki/Thread_(computing)#M:N_.28hybrid_threading.29),
+  to simulate blocking for asynchronous actions; examples including
+  Golang but also Haskell
+- The [actor model](https://en.wikipedia.org/wiki/Actor_model) as implemented in Erlang or Akka,
+  or CSP such as in [Clojure's core.async](https://github.com/clojure/core.async) or in Golang
+- Monads being used for ordering and composition, such as Haskell's
+  [Async](https://hackage.haskell.org/package/async-2.1.1/docs/Control-Concurrent-Async.html) type
+  in combination with the [IO](https://wiki.haskell.org/IO_inside) type, or
+  [F# asynchronous workflows](https://docs.microsoft.com/en-us/dotnet/articles/fsharp/language-reference/asynchronous-workflows),
+  or [Scala's Futures and Promises](http://docs.scala-lang.org/overviews/core/futures.html),
+  or the [Monix Task](https://monix.io/docs/2x/eval/task.html)
+  or the [Scalaz Task](https://github.com/scalaz/scalaz/blob/scalaz-seven/concurrent/src/main/scala/scalaz/concurrent/Task.scala),
+  etc, etc.
+
+If there are so many solutions, that's because none of them is
+suitable as a general purpose mechanism for dealing with asynchrony.
+The [no silver bullet](https://en.wikipedia.org/wiki/No_Silver_Bullet)
+dilemma is relevant here, with memory management and concurrency being
+the biggest problems that we face as software developers.
+
+<p class='extra-info' markdown='1'>
+**WARNING - personal pinion and rant:** People like to boast about M:N
+platforms like Golang, however I prefer 1:1 multithreaded platforms,
+like the JVM or dotNET.
+<br/><br/>
+Because you can build M:N multithreading on top of 1:1 given enough
+expressiveness in the programming language (e.g. Scala's Futures and
+Promises are one such example), but if that M:N runtime starts being
+unsuitable for your usecase, then you can't fix it or replace it
+without replacing the platform. And yes, most M:N platforms are broken
+in one way or another.
+<br/><br/>
+Indeed learning about all the possible solutions and making choices is
+freaking painful, but it is much less painful than making uninformed
+choices, with the TOOWTDI and "worse is better" mentalities being in
+this case very harmful. And people complaining about the difficulty of
+learning a new and expressive language like Scala or Haskell are
+missing the point, because if they have to deal with concurrency, then
+learning a new programming language is going to be the least of their
+problems. I know people that have quit the software industry because
+of the shift to concurrency.
+</p>
+
+## <a href="#h3" name="h3">3.</a> Callback and Multithreading Hell
+
+Lets build an artificial example made to illustrate our challenges.
+Say we need to initiate two asynchronous processes and combine their
+result.
+
+First lets define a function that executes stuff asynchronously:
+
+```scala
+import scala.concurrent.ExecutionContext.global
+
+type Async[A] = (A => Unit) => Unit
+
+def timesTwo(n: Int): Async[Int] =
+  onFinish => {
+    global.execute(new Runnable {
+      def run(): Unit = {
+        val result = n * 2
+        onFinish(result)
+      }
+    })
+  }
+
+// Usage
+timesTwo(20) { result => println(s"Result: $result") }
+//=> Result: 40
+```
+
+### <a href="#h3-1" name="h3-1">3.1.</a> Sequencing (Purgatory of Side-effects)
+
+Lets combine two asynchronous results, with the execution happening
+one after another, in a neat sequence:
+
+```scala
+def timesFour(n: Int): Async[Int] =
+  onFinish => {
+    timesTwo(n) { a =>
+      timesTwo(n) { b =>
+        // Combining the two results
+        onFinish(a + b)
+      }
+    }
+  }
+
+// Usage
+timesFour(20) { result => println(s"Result: $result") }
+//=> Result: 40
+```
+
+Looks simple, but we are only combining two results, one after
+another. If you want to avoid feeling pain, then stop reading this
+article right now 😜
+
+### <a href="#h3-2" name="h3-2">3.2.</a> Parallelism (Limbo of Nondeterminism)
+
+The second call we made above is not dependent on the first call,
+therefore it can run in parallel. On the JVM we can run CPU-bound
+tasks in parallel, but this is relevant for Javascript as well, as we
+could be making Ajax requests or talking with web workers.
+
+Unfortunately here things can get a little complicated. First of all
+the naive way to do it is wrong:
+
+```scala
+// REALLY BAD SAMPLE
+
+def timesFourInParallel(n: Int): Async[Int] =
+  onFinish => {
+    var cacheA = 0
+
+    timesTwo(n) { a => cacheA = a }
+
+    timesTwo(n) { b =>
+      // Combining the two results
+      onFinish(cacheA + b)
+    }
+  }
+
+timesFourInParallel(20) { result => println(s"Result: $result") }
+//=> Result: 80
+
+timesFourInParallel(20) { result => println(s"Result: $result") }
+//=> Result: 40
+```
+
+This right here is an example showing *nondeterminism* in action. We
+get *no ordering guarantees* about which one finishes first, so if we
+want parallel processing, we need to model a mini state machine for
+doing synchronization.
+
+First, we define our ADT describing the state-machine:
+
+```scala
+sealed trait State
+
+object State {
+  case object Start extends State
+  final case class WaitForA(b: Int) extends State
+  final case class WaitForB(a: Int) extends State
+}
+```
+
+And then we can evolve this state machine asynchronously:
+
+```scala
+// BAD SAMPLE FOR THE JVM (only works for Javascript)
+
+def timesFourInParallel(n: Int): Async[Int] = {
+  onFinish => {
+    import State._
+    var state: State = Start
+
+    timesTwo(n) { a =>
+      state match {
+        case Start =>
+          state = WaitForB(a)
+        case WaitForA(b) =>
+          onFinish(a + b)
+        case WaitForB(_) =>
+          throw new IllegalStateException(state.toString)
+      }
+    }
+
+    timesTwo(n) { b =>
+      state match {
+        case Start =>
+          state = WaitForA(b)
+        case WaitForB(a) =>
+          onFinish(a + b)
+        case WaitForA(_) =>
+          throw new IllegalStateException(state.toString)
+      }
+    }
+  }
+}
+```
+
+To better visualize what we're dealing with, here's the state machine:
+
+<div class="max-border">
+  <%= image_tag "2017/callback-hell-stm.png", :align => "center", :width => 300 %>
+</div>
+
+But wait, we aren't over because the JVM has true 1:1 multi-threading, which means
+we get to enjoy *shared memory concurrency* and thus access to that `state` has to
+be synchronized.
+
+One solution is to use `synchronize` blocks, also called *intrinsic locks*:
+
+```scala
+// We need a common reference to act as our monitor
+val lock = new AnyRef
+var state: State = Start
+
+timesTwo(n) { a =>
+  lock.synchronize {
+    state match {
+      case Start =>
+        state = WaitForB(a)
+      case WaitForA(b) =>
+        onFinish(a + b)
+      case WaitForB(_) =>
+        throw new IllegalStateException(state.toString)
+    }
+  }
+}
+
+//...
+```
+
+Such high-level locks protect resources (such as our `state`) from
+being accessed in parallel by multiple threads. But I personally
+prefer to avoid high-level locks because the kernel's scheduler can
+freeze any thread for any reason, including threads that hold locks,
+freezing a thread holding a lock means that other threads will be
+unable to make progress and if you want to guarantee constant progress
+(e.g. soft real-time characteristics), then
+[non-blocking](https://en.wikipedia.org/wiki/Non-blocking_algorithm)
+logic is preferred when possible.
+
+So an alternative is to use an
+[AtomicReference](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicReference.html),
+which is perfect for this case:
+
+```scala
+// CORRECT VERSION FOR JVM
+
+import scala.annotation.tailrec
+import java.util.concurrent.atomic.AtomicReference
+
+def timesFourInParallel(n: Int): Async[Int] = {
+  onFinish => {
+    import State._
+    val state = new AtomicReference[State](Start)
+
+    @tailrec def onValueA(a: Int): Unit =
+      state.get match {
+        case Start =>
+          if (!state.compareAndSet(Start, WaitForB(a)))
+            onValueA(a) // retry
+        case WaitForA(b) =>
+          onFinish(a + b)
+        case WaitForB(_) =>
+          throw new IllegalStateException(state.toString)
+      }
+
+    timesTwo(n)(onValueA)
+
+    @tailrec def onValueB(b: Int): Unit =
+      state.get match {
+        case Start =>
+          if (!state.compareAndSet(Start, WaitForA(b)))
+            onValueB(b) // retry
+        case WaitForB(a) =>
+          onFinish(a + b)
+        case WaitForA(_) =>
+          throw new IllegalStateException(state.toString)
+      }
+
+    timesTwo(n)(onValueB)
+  }
+}
+```
+
+Are you getting pumped? Lets take it up a notch 😝
+
+### <a href="#h3-3" name="h3-3">3.3.</a> Recursivity (Wrath of StackOverflow)
+
+What if I were to tell you that the above `onFinish` call is
+stack-unsafe and if you aren't going to force an *asynchronous
+boundary* when calling it, then your program will blow up with
+a `StackOverflowError`?
+
+But you shouldn't take my word for it. Lets first define the above
+operation in a generic way:
+
+```scala
+import scala.annotation.tailrec
+import java.util.concurrent.atomic.AtomicReference
+
+type Async[+A] = (A => Unit) => Unit
+
+def mapBoth[A,B,R](fa: Async[A], fb: Async[B])(f: (A,B) => R): Async[R] = {
+  // Defines the state machine
+  sealed trait State[+A,+B]
+  // Initial state
+  case object Start extends State[Nothing, Nothing]
+  // We got a B, waiting for an A
+  final case class WaitForA[+B](b: B) extends State[Nothing,B]
+  // We got a A, waiting for a B
+  final case class WaitForB[+A](a: A) extends State[A,Nothing]
+
+  onFinish => {
+    import State._
+    val state = new AtomicReference[State[A,B]](Start)
+
+    @tailrec def onValueA(a: A): Unit =
+      state.get match {
+        case Start =>
+          if (!state.compareAndSet(Start, WaitForB(a)))
+            onValueA(a) // retry
+        case WaitForA(b) =>
+          onFinish(f(a,b))
+        case WaitForB(_) =>
+          throw new IllegalStateException(state.toString)
+      }
+
+    @tailrec def onValueB(b: B): Unit =
+      state.get match {
+        case Start =>
+          if (!state.compareAndSet(Start, WaitForA(b)))
+            onValueB(b) // retry
+        case WaitForB(a) =>
+          onFinish(f(a,b))
+        case WaitForA(_) =>
+          throw new IllegalStateException(state.toString)
+      }
+
+    fa(onValueA)
+    fb(onValueB)
+  }
+}
+```
+
+And now we can define an operation similar to Scala's `Future.sequence`,
+because our will is strong and our courage immensurable 😇
+
+```scala
+def sequence[A](list: List[Async[A]]): Async[List[A]] = {
+  @tailrec def loop(list: List[Async[A]], acc: Async[List[A]]): Async[List[A]] =
+    list match {
+      case Nil =>
+        onFinish => acc(r => onFinish(r.reverse))
+      case x :: xs =>
+        val update = mapBoth(x, acc)(_ :: _)
+        loop(xs, update)
+    }
+
+  val empty: Async[List[A]] = _(Nil)
+  loop(list, empty)
+}
+
+// Invocation
+sequence(List(timesTwo(10), timesTwo(20), timesTwo(30))) { r =>
+  println(s"Result: $r")
+}
+//=> Result: List(20, 40, 60)
+```
+
+Oh, you really think we are done?
+
+```scala
+val list = 0.until(10000).map(timesTwo).toList
+sequence(list)(r => println(s"Sum: ${r.sum}"))
+```
+
+Which will yield:
+
+```
+java.lang.StackOverflowError
+  at java.util.concurrent.ForkJoinPool.externalPush(ForkJoinPool.java:2414)
+  at java.util.concurrent.ForkJoinPool.execute(ForkJoinPool.java:2630)
+  at scala.concurrent.impl.ExecutionContextImpl$$anon$3.execute(ExecutionContextImpl.scala:131)
+  at scala.concurrent.impl.ExecutionContextImpl.execute(ExecutionContextImpl.scala:20)
+  at .$anonfun$timesTwo$1(<pastie>:27)
+  at .$anonfun$timesTwo$1$adapted(<pastie>:26)
+  at .$anonfun$mapBoth$1(<pastie>:66)
+  at .$anonfun$mapBoth$1$adapted(<pastie>:40)
+  at .$anonfun$mapBoth$1(<pastie>:67)
+  at .$anonfun$mapBoth$1$adapted(<pastie>:40)
+  at .$anonfun$mapBoth$1(<pastie>:67)
+  at .$anonfun$mapBoth$1$adapted(<pastie>:40)
+  at .$anonfun$mapBoth$1(<pastie>:67)
+```
+
+As I said, that `onFinish` call being made without a *forced async
+boundary* can lead to a stack-overflow error. On top of Javascript
+this can be solved by scheduling it with `setTimeout` and on top of
+the JVM you need a thread-pool or a Scala `ExecutionContext`.
+
+Are you feeling the fire yet? 🔥
+
+## <a href="#h4" name="h4">4.</a> Futures and Promises
+
+The `scala.concurrent.Future` describes strictly evaluated
+asynchronous computations, being similar to our `Async` type used
+above.
+
+<p class='extra-info' markdown='1'>
+[Wikipedia says](https://en.wikipedia.org/wiki/Futures_and_promises):
+Future and Promise are constructs used for synchronizing program
+execution in some concurrent programming languages. They describe an
+object that acts as a proxy for a result that is initially unknown,
+usually because the computation of its value is yet incomplete.
+</p>
+
+<p class='extra-info' markdown='1'>
+**Author's Rant:** The `docs.scala-lang.org` article on
+[Futures and Promises](http://docs.scala-lang.org/overviews/core/futures.html) currently
+says that "*Futures provide a way to reason about performing many
+operations in parallel– in an efficient and non-blocking way*", but
+that is misleading, a source of confusion.
+<br/><br/>
+The `Future` type describes *asynchrony* and not parallelism. Yes, you
+can do things in parallel with it, but it's not meant only for
+parallelism (async != parallelism) and for people looking into ways to
+use their CPU capacity to its fullest, working with `Future` can prove
+to be expensive and unwise, because in certain cases it has performance
+issues, see [section 4.4](#h4-4).
+</p>
+
+The `Future` is an interface defined by 2 primary operations, along with
+many combinators defined based on those primary operations:
+
+```scala
+import scala.util.Try
+import scala.concurrent.ExecutionContext
+
+trait Future[+T] {
+  // abstract
+  def value: Option[Try[T]]
+
+  // abstract
+  def onComplete(f: Try[T] => Unit)(implicit ec: ExecutionContext): Unit
+
+  // Transforms values
+  def map[U](f: T => U)(implicit ec: ExecutionContext): Future[U] = ???
+  // Sequencing ;-)
+  def flatMap[U](f: T => Future[U])(implicit ec: ExecutionContext): Future[U] = ???
+  // ...
+}
+```
+
+The properties of `Future`:
+
+- [Eagerly evaluated](https://en.wikipedia.org/wiki/Eager_evaluation)
+  (strict and not lazy), meaning that when the caller of a function
+  receives a `Future` reference, whatever asynchronous process that
+  should complete it has probably started already.
+- [Memoized](https://en.wikipedia.org/wiki/Memoization) (cached),
+  since being eagerly evaluated means that it behaves like a normal
+  value instead of a function and the final result needs to be
+  available to all listeners. The purpose of the `value` property is
+  to return that memoized result or `None` if it isn't complete
+  yet. Goes without saying that calling its `def value` yields a
+  non-deterministic result.
+- Streams a single result and it shows because of the memoization
+  applied. So when listeners are registered for completion, they'll
+  only get called once at most.
+
+Explanatory notes about the `ExecutionContext`:
+
+- The `ExecutionContext` manages asynchronous execution and although
+  you can view it as a thread-pool, it's not necessarily a thread-pool
+  (because async != multithreading or parallelism).
+- The `onComplete` is basically our `Async` type defined above,
+  however it takes an `ExecutionContext` because all completion
+  callbacks need to be called asynchronously.  
+- All combinators and utilities are built on top of `onComplete`,
+  therefore all combinators and utilities must also take an
+  `ExecutionContext` parameter.
+
+If you don't understand why that `ExecutionContext` is needed in all
+those signatures, go back and re-read [section 3.3](#h3-3) and don't
+come back until you do.
+
+### <a href="#h4-1" name="h4-1">4.1.</a> Sequencing
+
+Lets redefine our function from [section 3](#h3) in terms of `Future`:
+
+```scala
+import scala.concurrent.{Future, ExecutionContext}
+
+def timesTwo(n: Int)(implicit ec: ExecutionContext): Future[Int] =
+  Future(n * 2)
+
+// Usage
+{
+  import scala.concurrent.ExecutionContext.Implicits.global
+
+  timesTwo(20).onComplete { result => println(s"Result: $result") }
+  //=> Result: Success(40)
+}
+```
+
+Easy enough, the `Future.apply` builder executes the given computation
+on the given `ExecutionContext`. So on the JVM, assuming the `global`
+execution context, it's going to run on a different thread.
+
+Now to do sequencing like in [section 3.1](#h3-1):
+
+```scala
+def timesFour(n: Int)(implicit ec: ExecutionContext): Future[Int] =
+  for (a <- timesTwo(n); b <- timesTwo(n)) yield a + b
+
+// Usage
+{
+  import scala.concurrent.ExecutionContext.Implicits.global
+
+  timesFour(20).onComplete { result => println(s"Result: $result") }
+  //=> Result: Success(80)
+}
+```
+
+Easy enough. That "*for comprehension*" magic right there is
+translated to nothing more than calls to `flatMap` and `map`, being
+literally equivalent with:
+
+```scala
+def timesFour(n: Int)(implicit ec: ExecutionContext): Future[Int] =
+  timesTwo(n).flatMap { a =>
+    timesTwo(n).map { b =>
+      a + b
+    }
+  }
+```
+
+And if you import [scala-async](https://github.com/scala/async) in
+your project, then you can do it like:
+
+```scala
+import scala.async.Async.{async, await}
+
+def timesFour(n: Int)(implicit ec: ExecutionContext): Future[Int] =
+  async {
+    val a = await(timesTwo(a))
+    val b = await(timesTwo(b))
+    a + b
+  }
+```
+
+The `scala-async` library is powered by macros and will translate your
+code to something equivalent to `flatMap` and `map` calls. So in other
+words `await` does not block threads, even though it gives the
+illusion that it does.
+
+This looks great actually, unfortunately it has many limitations.  The
+library *cannot rewrite* your code in case the `await` is inside an
+anonymous function and unfortunately Scala code is usually full of
+such expressions. This does not work:
+
+```scala
+// BAD SAMPLE
+def sum(list: List[Future[Int]])(implicit ec; ExecutionContext): Future[Int] =
+  async {
+    var sum = 0
+    // Nope, not going to work because "for" is translated to "foreach"
+    for (f <- list) {
+      sum += await(f)
+    }
+  }
+```
+
+This approach gives the illusion of having *first-class
+continuations*, but these continuations are unfortunately not first
+class, being just a compiler-managed rewrite of the code. And yes,
+this restriction applies to C# and ECMAScript as well. Which is a
+pity, because it means `async` code will not be heavy on FP.
+
+Remember my rant from above about the no silver bullet? 😞
+
+### <a href="#h4-2" name="h4-2">4.2.</a> Parallelism
+
+Just as in [section 3.2](#h3-2) those two function calls are
+independent of each other, which means that we can call them in
+parallel. With `Future` this is easier, though to its evaluation
+semantics it can be a little confusing for beginners:
+
+```scala
+def timesFourInParallel(n: Int)(implicit ec: ExecutionContext): Future[Int] = {
+  // Future is eagerly evaluated, so this will trigger the
+  // execution of both before the composition happens
+  val fa = timesTwo(n)
+  val fb = timesTwo(n)
+
+  for (a <- fa; b <- fb) yield a + b
+  // fa.flatMap(a => fb.map(b => a + b))
+}
+```
+
+It can be a little confusing and it catches beginners
+off-guard. Because of its execution model, in order to execute things
+in parallel, you simply have to initialize those future references
+before the composition by means of `flatMap`.
+
+An alterantive would be to use `Future.sequence`, which works for
+arbitrary collections:
+
+```scala
+def timesFourInParallel(n: Int)(implicit ec: ExecutionContext): Future[Int] =
+  Future.sequence(timesTwo(n) :: timesTwo(n) :: Nil).map(_.sum)
+```
+
+This too can catch beginners by surprise, because those futures are
+going to be executed in parallel only if the collection given to
+`sequence` is strict (like Scala's `Stream` or some `Iterator`). And
+the name is sort of a misnomer obviously.
+
+### <a href="#h4-3" name="h4-3">4.3.</a> Recursivity
+
+The `Future` type is entirely safe for recursive operations (because
+of the reliance on the `ExecutionContext` for executing callbacks). So
+retrying the sample in [section 3.3](#h3-3):
+
+```scala
+def mapBoth[A,B,R](fa: Future[A], fb: Future[B])(f: (A,B) => R)
+  (implicit ec: ExecutionContext): Future[R] = {
+
+  for (a <- fa; b <- fb) yield f(a,b)
+}
+
+def sequence[A](list: List[Future[A]])
+  (implicit ec: ExecutionContext): Future[List[A]] = {
+
+  val seed = Future.successful(List.empty[A])
+  list.foldLeft(seed)((acc,f) => for (l <- acc; a <- f) yield a :: l)
+    .map(_.reverse)
+}
+
+// Invocation
+{
+  import scala.concurrent.ExecutionContext.Implicits.global
+
+  sequence(List(timesTwo(10), timesTwo(20), timesTwo(30))).foreach(println)
+  // => List(20, 40, 60)
+}
+```
+
+
+And this time we get no `StackOverflowError`:
+
+```scala
+val list = 0.until(10000).map(timesTwo).toList
+sequence(list).foreach(r => println(s"Sum: ${r.sum}"))
+//=> Sum: 99990000
+```
+
+### <a href="#4-4" name="h4-4">4.4.</a> Performance Considerations
+
+The trouble with `Future` is that each call to `onComplete` will use
+an `ExecutionContext` for execution and in general this means that a
+`Runnable` is sent in a thread-pool, thus forking a (logical) thread.
+If you have CPU-bounded tasks, this implementation detail is actually
+a disaster for performance because jumping threads means
+[context switches](https://en.wikipedia.org/wiki/Context_switch),
+along with the CPU
+[cache locality](https://en.wikipedia.org/wiki/Locality_of_reference)
+being destroyed. Of course, the implementation does have certain optimizations,
+like the `flatMap` implementation using an internal execution context that's
+trampolined, in order to avoid forks when chaining those internal
+callbacks, but it's not enough and benchmarking doesn't lie.
+
+Also due to it being memoized means that upon completion the
+implementation is forced to execute at least one
+`AtomicReference.compareAndSet` per producer, plus one `compareAndSet`
+call per listener registered before the `Future` is complete. And such
+calls are quite expensive, all because we need memoization that plays
+well with multithreading.
+
+In other words if you want to exploit your CPU to its fullest for CPU-bound
+tasks, then working with futures and promises is not such a good idea.
+
+If you want to see how Scala's `Future` implementation compares with
+`Task`, see the following
+[recent benchmark](https://github.com/rossabaker/benchmarks/pull/4):
+
+```
+[info] Benchmark                   (size)   Mode  Cnt     Score     Error  Units
+[info] FlatMap.fs2Apply             10000  thrpt   20   291.459 ±   6.321  ops/s
+[info] FlatMap.fs2Delay             10000  thrpt   20  2606.864 ±  26.442  ops/s
+[info] FlatMap.fs2Now               10000  thrpt   20  3867.300 ± 541.241  ops/s
+[info] FlatMap.futureApply          10000  thrpt   20   212.691 ±   9.508  ops/s
+[info] FlatMap.futureSuccessful     10000  thrpt   20   418.736 ±  29.121  ops/s
+[info] FlatMap.futureTrampolineEc   10000  thrpt   20   423.647 ±   8.543  ops/s
+[info] FlatMap.monixApply           10000  thrpt   20   399.916 ±  15.858  ops/s
+[info] FlatMap.monixDelay           10000  thrpt   20  4994.156 ±  40.014  ops/s
+[info] FlatMap.monixNow             10000  thrpt   20  6253.182 ±  53.388  ops/s
+[info] FlatMap.scalazApply          10000  thrpt   20   188.387 ±   2.989  ops/s
+[info] FlatMap.scalazDelay          10000  thrpt   20  1794.680 ±  24.173  ops/s
+[info] FlatMap.scalazNow            10000  thrpt   20  2041.300 ± 128.729  ops/s
+```
+
+As you can see the [Monix Task](https://monix.io/docs/2x/eval/task.html) destroys
+Scala's `Future` for CPU-bound tasks.
+
+<p class='extra-info' markdown='1'>
+**NOTE:** this benchmark is limited, there are still use-cases where
+usage of `Future` is faster (e.g. the Monix [Observer](https://monix.io/docs/2x/reactive/observers.html)
+uses `Future` for back-pressure for a good reason) and performance is
+often not relevant, like when doing I/O, in which case throughput
+will not be CPU-bound.
+</p>
+
+## <a href="#h5" name="h5">5.</a> Task, Scala's IO Monad
+
+`Task` is a data type for controlling possibly lazy & asynchronous computations,
+useful for controlling side-effects, avoiding nondeterminism and callback-hell.
+
+The [Monix](https://monix.io/) library provides a very sophisticated
+[Task](https://monix.io/docs/2x/eval/task.html) implementation, inspired by the
+[Task in Scalaz](https://github.com/scalaz/scalaz/blob/scalaz-seven/concurrent/src/main/scala/scalaz/concurrent/Task.scala).
+Same concept, different implementation.
+
+<p class='extra-info' markdown='1'>
+The `Task` type is also inspired by [Haskell's IO monad](https://wiki.haskell.org/IO_inside),
+being in this author's opinion the true `IO` type for Scala.
+<br/><br/>
+This is a matter of debate, as Scalaz also exposes a separate `IO` type
+that only deals with synchronous execution. The Scalaz `IO` is not async, which
+means that it doesn't tell the whole story, because on top of the JVM you need
+to represent async computations somehow. In Haskell on the other hand you have
+the `Async` type which is converted to `IO`, possibly managed by the runtime
+(green-threads and all).
+<br/><br/>
+On the JVM, with the Scalaz implementation, we can't represent async
+computations with `IO` and without blocking threads on evaluation, which is
+something to avoid, because
+[blocking threads is error prone](https://monix.io/docs/2x/best-practices/blocking.html).
+</p>
+
+In summary the `Task` type:
+
+- models lazy & asynchronous evaluation
+- models a producer pushing only one value to one or multiple consumers
+- it is lazily evaluated, so compared with `Future` it doesn’t trigger the execution, or any effects until `runAsync`
+- it is not memoized by default on evaluation, but the Monix `Task` can be
+- doesn’t necessarily execute on another logical thread
+
+Specific to the Monix implementation:
+
+- allows for cancelling of a running computation
+- never blocks any threads in its implementation
+- does not expose any API calls that can block threads
+- all async operations are stack safe
+
+A visual representation of where `Task` sits in the design space:
+
+|                    |        Eager        |            Lazy            |
+|:------------------:|:-------------------:|:--------------------------:|
+| **Synchronous**    |          A          |           () => A          |
+|                    |                     | [Coeval[A]](https://monix.io/docs/2x/eval/coeval.html), [IO[A]](https://github.com/scalaz/scalaz/blob/scalaz-seven/effect/src/main/scala/scalaz/effect/IO.scala) |
+| **Asynchronous**   | (A => Unit) => Unit |    (A => Unit) => Unit     |
+|                    |      Future[A]      |         [Task[A]](https://monix.io/docs/2x/eval/task.html) |
+
+### <A href="#h5-1" name="h5-1">5.1.</a> Sequencing
+
+Redefining our function from [section 3](#h3) in terms of `Task`:
+
+```scala
+import monix.eval.Task
+
+def timesTwo(n: Int): Task[Int] =
+  Task(n * 2)
+
+// Usage
+{
+  // Our ExecutionContext needed on evaluation
+  import monix.execution.Scheduler.Implicits.global
+
+  timesTwo(20).foreach { result => println(s"Result: $result") }
+  //=> Result: 40
+}
+```
+
+The code seems to be almost the same as the `Future` version in
+[section 4.1](#h4-1), the only difference is that our `timesTwo`
+function no longer takes an `ExecutionContext` as a parameter.
+This is because `Task` references are lazy, being like functions,
+so nothing gets printed until the call to `foreach` which forces
+the evaluation to happen. It is there that we need a
+[Scheduler](https://monix.io/docs/2x/execution/scheduler.html),
+which is Monix's enhanced `ExecutionContext`.
+
+Now to do sequencing like in [section 3.1](#h3-1):
+
+```scala
+def timesFour(n: Int): Task[Int] =
+  for (a <- timesTwo(n); b <- timesTwo(n)) yield a + b
+
+// Usage
+{
+  // Our ExecutionContext needed on evaluation
+  import monix.execution.Scheduler.Implicits.global
+
+  timesFour(20).foreach { result => println(s"Result: $result") }
+  //=> Result: 80
+}
+```
+
+And just like with the `Future` type, that "*for comprehension*" magic
+is translated by the Scala compiler to nothing more than calls to
+`flatMap` and `map`, literally equivalent with:
+
+```scala
+def timesFour(n: Int): Task[Int] =
+  timesTwo(n).flatMap { a =>
+    timesTwo(n).map { b => a + b }
+  }
+```
+
+### <a href="#h5-2" name="h5-2">5.2.</a> Parallelism
+
+The story for `Task` and parallelism is better than with `Future`, because
+`Task` allows fine-grained control when forking tasks, while trying
+to execute transformations (e.g. `map`, `flatMap`) on the current thread
+and call-stack, thus preserving cache locality and avoiding context
+switches for what is in essence sequential work.
+
+But first, translating the sample using `Future` does not work:
+
+```scala
+// BAD SAMPLE (for achieving parallelism, as this will be sequential)
+def timesFour(n: Int): Task[Int] = {
+  // Will not trigger execution b/c Task is lazy
+  val fa = timesTwo(n)
+  val fb = timesTwo(n)
+  // Evaluation will be sequential b/c of laziness
+  for (a <- fa; b <- fb) yield a + b
+}
+```
+
+In order to achieve parallelism `Task` requires you to be explicit about it:
+
+```scala
+def timesFour(n: Int): Task[Int] =
+  Task.mapBoth(timesTwo(n), timesTwo(n))(_ + _)
+```
+
+Oh, does `mapBoth` seem familiar? If those two tasks fork threads on
+execution, then they will get executed in parallel as `mapBoth` starts
+them both at the same time.
+
+### <a href="#h5-3" name="h5-3">5.3.</a> Recursivity
+
+`Task` is recursive and stack-safe (in `flatMap`) and incredibly efficient, being powered
+by an internal trampoline. You can checkout this cool paper by Rúnar Bjarnason on
+[Stackless Scala with Free Monads](http://blog.higher-order.com/assets/trampolines.pdf)
+for getting a hint on how `Task` got implemented so efficiently.
+
+The `sequence` implementation looks similar with the one for `Future`
+in [section 4.3](#h4-3), except that you can see the laziness in
+the signature of `sequence`:
+
+```scala
+def sequence[A](list: List[Task[A]]): Task[List[A]] = {
+  val seed = Task.now(List.empty[A])
+  list.foldLeft(seed)((acc,f) => for (l <- acc; a <- f) yield a :: l)
+    .map(_.reverse)
+}
+
+// Invocation
+{
+  // Our ExecutionContext needed on evaluation
+  import monix.execution.Scheduler.Implicits.global
+
+  sequence(List(timesTwo(10), timesTwo(20), timesTwo(30))).foreach(println)
+  // => List(20, 40, 60)
+}
+```
+
+## <a href="#h6" name="h6">6.</a> Functional Programming and Type-classes
+
+### <a href="#h6-1" name="h6-1">6.1.</a> Monad (Sequencing and Recursivity)
+
+### <a href="#h6-2" name="h6-2">6.2.</a> Applicative (Parallelism)
+
+### <a href="#h6-3" name="h6-3">6.3.</a> Can We Define a Type-class for Async Evaluation?
+
+## <a href="#h7" name="h7">7.</a> Picking the Right Tool
+
+Some abstractions are more general purpose than others and personally
+I think the mantra of "*picking the right tool for the job*" is
+overused to defend poor choices.
+
+That said, there's this wonderful presentation by Rúnar Bjarnason called
+[Constraints Liberate, Liberties Constrain](https://www.youtube.com/watch?v=GqmsQeSzMdw)
+that really drives the point home with concurrency abstractions at least.
+
+As said, there is no silver bullet that can be generally applied for dealing with concurrency.
+The more high-level the abstraction, the less scope it has in solving issues. But the less scope
+and power it has, the simpler and more composable the model is.
+For example many developers in the Scala community are overusing Akka Actors -
+which is a great library, but not when misapplied. Like don't use an
+Akka `Actor` when a `Future` or a `Task` would do. Ditto for other abstractions,
+like the `Observable` pattern in Monix and ReactiveX.
+
+Also learn by heart these 2 very simple rules:
+
+1. avoid dealing with callbacks, threads and locks, because they are very error
+   prone and not composable at all
+2. avoid concurrency like the plague it is
+
+And let me tell you, concurrency gurus are first of all experts in
+avoiding concurrency 💀

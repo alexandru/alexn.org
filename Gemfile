@@ -6,5 +6,6 @@ gem "middleman-syntax"
 gem "middleman-minify-html"
 
 gem 'nokogiri'
-gem 'redcarpet'
+gem 'kramdown'
+gem 'rouge'
 gem 'fastimage'
