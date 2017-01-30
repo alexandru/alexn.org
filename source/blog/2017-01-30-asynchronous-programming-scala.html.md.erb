@@ -179,7 +179,7 @@ dilemma is relevant here, with memory management and concurrency being
 the biggest problems that we face as software developers.
 
 <p class='extra-info' markdown='1'>
-**WARNING - personal pinion and rant:** People like to boast about M:N
+**WARNING - personal opinion and rant:** People like to boast about M:N
 platforms like Golang, however I prefer 1:1 multithreaded platforms,
 like the JVM or dotNET.
 <br/><br/>
@@ -201,13 +201,13 @@ problems. I know people that have quit the software industry because
 of the shift to concurrency.
 </p>
 
-## <a href="#h3" name="h3">3.</a> Callback and Multithreading Hell
+## <a href="#h3" name="h3">3.</a> Callback Hell
 
-Lets build an artificial example made to illustrate our challenges.
+Let's build an artificial example made to illustrate our challenges.
 Say we need to initiate two asynchronous processes and combine their
 result.
 
-First lets define a function that executes stuff asynchronously:
+First let's define a function that executes stuff asynchronously:
 
 ```scala
 import scala.concurrent.ExecutionContext.global
@@ -231,7 +231,7 @@ timesTwo(20) { result => println(s"Result: $result") }
 
 ### <a href="#h3-1" name="h3-1">3.1.</a> Sequencing (Purgatory of Side-effects)
 
-Lets combine two asynchronous results, with the execution happening
+Let's combine two asynchronous results, with the execution happening
 one after another, in a neat sequence:
 
 ```scala
@@ -250,9 +250,24 @@ timesFour(20) { result => println(s"Result: $result") }
 //=> Result: 40
 ```
 
-Looks simple, but we are only combining two results, one after
-another. If you want to avoid feeling pain, then stop reading this
-article right now 😜
+Looks simple now, but we are only combining two results, one after another.
+
+The big problem however is that *asynchrony infects everything it touches*.
+Let's assume for  the sake of argument that we start with a pure function:
+
+```scala
+def timesFour(n: Int): Int = n * 4
+```
+
+But then your enterprise architect, after hearing about these Enterprise JavaBeans and
+a lap dance, decides that you should depend on this asynchronous `timesTwo`
+function. And now our `timesFour` implementation changes from a pure mathematical
+function to a side-effectful one and we have no choice in the matter.
+And without a well grown `Async` type, we are forced to deal with side-effectful
+callbacks for the whole pipeline. And blocking for the result won't help,
+as you're just hiding the problem, see [section 2](#h2) for why.
+
+But wait, things are about to get worse 😷
 
 ### <a href="#h3-2" name="h3-2">3.2.</a> Parallelism (Limbo of Nondeterminism)
 
@@ -425,17 +440,24 @@ def timesFourInParallel(n: Int): Async[Int] = {
 }
 ```
 
-Are you getting pumped? Lets take it up a notch 😝
+<p class='extra-info' markdown='1'>
+**PRO-TIP:** if you want code that cross-compiles to Javascript / Scala.js,
+along with performance tweaks and cool utilities for manipulating atomic references,
+try the [Atomic](https://monix.io/docs/2x/execution/atomic.html) type
+from [Monix](https://monix.io/).
+</p>
+
+Are you getting pumped? Let's take it up a notch 😝
 
 ### <a href="#h3-3" name="h3-3">3.3.</a> Recursivity (Wrath of StackOverflow)
 
 What if I were to tell you that the above `onFinish` call is
 stack-unsafe and if you aren't going to force an *asynchronous
-boundary* when calling it, then your program will blow up with
-a `StackOverflowError`?
+boundary* when calling it, then your program can blow up
+with a `StackOverflowError`?
 
-But you shouldn't take my word for it. Lets first define the above
-operation in a generic way:
+You shouldn't take my word for it. Let's first have some fun and
+define the above operation in a generic way:
 
 ```scala
 import scala.annotation.tailrec
@@ -629,7 +651,7 @@ come back until you do.
 
 ### <a href="#h4-1" name="h4-1">4.1.</a> Sequencing
 
-Lets redefine our function from [section 3](#h3) in terms of `Future`:
+Let's redefine our function from [section 3](#h3) in terms of `Future`:
 
 ```scala
 import scala.concurrent.{Future, ExecutionContext}
@@ -726,8 +748,8 @@ Remember my rant from above about the no silver bullet? 😞
 
 Just as in [section 3.2](#h3-2) those two function calls are
 independent of each other, which means that we can call them in
-parallel. With `Future` this is easier, though to its evaluation
-semantics it can be a little confusing for beginners:
+parallel. With `Future` this is easier, although its evaluation
+semantics can be a little confusing for beginners:
 
 ```scala
 def timesFourInParallel(n: Int)(implicit ec: ExecutionContext): Future[Int] = {
@@ -744,9 +766,9 @@ def timesFourInParallel(n: Int)(implicit ec: ExecutionContext): Future[Int] = {
 It can be a little confusing and it catches beginners
 off-guard. Because of its execution model, in order to execute things
 in parallel, you simply have to initialize those future references
-before the composition by means of `flatMap`.
+before the composition happens.
 
-An alterantive would be to use `Future.sequence`, which works for
+An alternative would be to use `Future.sequence`, which works for
 arbitrary collections:
 
 ```scala
@@ -756,7 +778,7 @@ def timesFourInParallel(n: Int)(implicit ec: ExecutionContext): Future[Int] =
 
 This too can catch beginners by surprise, because those futures are
 going to be executed in parallel only if the collection given to
-`sequence` is strict (like Scala's `Stream` or some `Iterator`). And
+`sequence` is strict (not like Scala's `Stream` or some `Iterator`). And
 the name is sort of a misnomer obviously.
 
 ### <a href="#h4-3" name="h4-3">4.3.</a> Recursivity
@@ -1023,11 +1045,255 @@ def sequence[A](list: List[Task[A]]): Task[List[A]] = {
 
 ## <a href="#h6" name="h6">6.</a> Functional Programming and Type-classes
 
+Can we build interfaces that abstract over such types as `Task`, `Future`,
+`Coeval`, `Eval`, `IO`, `Id`, `Observable` and others?
+
+Yes we can, we've already seen that `flatMap` describes sequencing, while
+`mapBoth` describes parallelism. But we can't describe them with classic
+OOP interfaces, for one because due to the covariance and contravariance rules of
+`Function1` parameters we'd lose type info in `flatMap` (unless you use
+F-bounded polymorphic types, which are more suitable for implementation reuse and
+aren't available in other OOP languages),
+but also because we need to describe a data constructor that can't be a
+method (i.e. OOP subtyping applies to instances and not whole classes).
+
+Fortunately Scala is one of the very few languages capable of higher kinded
+types and with the ability to encode
+[type-classes](https://en.wikipedia.org/wiki/Type_class), which means we've got
+everything needed to port concepts from Haskell 😄
+
+<p class='extra-info' markdown='1'>
+**Author's Rant:** The dreaded `Monad`, `Applicative` and `Functor` words
+strike fear in the hearts of the unfaithful, having given rise to the belief
+that they are  "academic" notions disconnected from real-world concerns,
+with book authors going to great length to avoid using these words, which
+includes Scala's API documentation and official tutorials.
+<br/><br/>
+But this is a disservice to both the Scala language and its users.
+In other languages they are only design patterns that are hard to explain
+primarily because they can't be expressed as types. You can count the
+languages having this expressive capability with one hand. And users suffer
+because in case of trouble they don't know how to search for existing
+literature on the subject, having been deprived of learning
+the correct jargon.
+<br/><br/>
+I also feel this is a flavor of
+[anti-intellectualism](https://en.wikipedia.org/wiki/Anti-intellectualism),
+as usual born out of fear of the unknown. You can see it coming from people
+that really know what they are doing, as none of us is immune. For example Java's
+[Optional](https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html)
+type violates the functor laws (e.g. `opt.map(f).map(g) != opt.map(f andThen g)`),
+in Swift `5 == Some(5)` which is preposterous and good luck explaining to
+people that `Some(null)` actually makes sense for as long as `null` is a valid
+value of `AnyRef` and because otherwise you can't define `Applicative[Option]`.
+</p>
+
 ### <a href="#h6-1" name="h6-1">6.1.</a> Monad (Sequencing and Recursivity)
+
+This article is not about explaining Monads. There are other great articles
+for that. But if you're looking to build an intuition, here's another one: in the
+context of data types such as `Future` or `Task`, Monads describe sequencing
+of operations and is the *only reliable* way to ensure ordering.
+
+> "*Observation: programmers doing concurrency with imperative languages
+> are tripped by the unchallenged belief that ";" defines sequencing.*"
+> -- [Aleksey Shipilëv](https://twitter.com/shipilev/status/822004316605206529)
+
+A simple encoding of the `Monad` type in Scala:
+
+```scala
+// We shouldn't need to do this :-(
+import scala.language.higherKinds
+
+trait Monad[F[_]] {
+  /** Constructor (said to lift a value `A` in the `F[A]`
+    * monadic context). Also part of `Applicative`, see below.
+    */
+  def pure[A](a: A): F[A]
+
+  /** FTW */
+  def flatMap[A,B](fa: F[A])(f: A => F[B]): F[B]
+}
+```
+
+And providing an implementation for `Future`:
+
+```scala
+import scala.concurrent._
+
+// Supplying an instance for Future isn't clean, ExecutionContext needed
+class FutureMonad(implicit ec: ExecutionContext)
+  extends Monad[Future] {
+
+  def pure[A](a: A): Future[A] =
+    Future.successful(a)
+
+  def flatMap[A,B](fa: Future[A])(f: A => Future[B]): Future[B] =
+    fa.flatMap(f)
+}
+
+object FutureMonad {
+  implicit def instance(implicit ec: ExecutionContext): FutureMonad =
+    new FutureMonad
+}
+```
+
+This is really powerful stuff. We can now describe a generic function
+that works with `Task`, `Future`, `IO`, whatever, although it would be
+great if the `flatMap` operation is stack-safe:
+
+```scala
+/** Calculates the N-th number in a Fibonacci series. */
+def fib[F[_]](n: Int)(implicit F: Monad[F]): F[BigInt] = {
+  def loop(n: Int, a: BigInt, b: BigInt): F[BigInt] =
+    F.flatMap(F.pure(n)) { n =>
+      if (n <= 1) F.pure(b)
+      else loop(n - 1, b, a + b)
+    }
+
+  loop(n, BigInt(0), BigInt(1))
+}
+
+// Usage:
+{
+  // Needed in scope
+  import FutureMonad.instance
+  import scala.concurrent.ExecutionContext.Implicits.global
+
+  // Invocation
+  fib[Future](40).foreach(r => println(s"Result: $r"))
+  //=> Result: 102334155
+}
+```
+
+<p class='extra-info' markdown='1'>
+**PRO-TIP:** this is just a toy example. For getting serious,
+see [Typelevel's Cats](http://typelevel.org/cats/)
+</p>
 
 ### <a href="#h6-2" name="h6-2">6.2.</a> Applicative (Parallelism)
 
+Monads define sequencing of operations, but sometimes we want to compose
+the results of computations that are independent of each other,
+that can be evaluated at the same time, possibly in parallel.
+There's also a case to be made that applicatives are more composable
+than monads 😏
+
+Let's expand our mini Typeclassopedia to put on your wall:
+
+```scala
+trait Functor[F[_]] {
+  /** I hope we are all familiar with this one. */
+  def map[A,B](fa: F[A])(f: A => B): F[B]
+}
+
+trait Applicative[F[_]] extends Functor[F] {
+  /** Constructor (lifts a value `A` in the `F[A]` applicative context). */
+  def pure[A](a: A): F[A]
+
+  /** Maps over two references at the same time.
+    *
+    * In other implementations the applicative operation is `ap`,
+    * but `map2` is easier to understand.
+    */
+  def map2[A,B,R](fa: F[A], fb: F[B])(f: (A,B) => R): F[R]
+}
+
+trait Monad[F[_]] extends Applicative[F] {
+  def flatMap[A,B](fa: F[A])(f: A => F[B]): F[B]
+}
+```
+
+And to expand our `Future` implementation:
+
+```scala
+// Supplying an instance for Future isn't clean, ExecutionContext needed
+class FutureMonad(implicit ec: ExecutionContext)
+  extends Monad[Future] {
+
+  def pure[A](a: A): Future[A] =
+    Future.successful(a)
+
+  def flatMap[A,B](fa: Future[A])(f: A => Future[B]): Future[B] =
+    fa.flatMap(f)
+
+  def map2[A,B,R](fa: Future[A], fb: Future[B])(f: (A,B) => R): Future[R] =
+    // For Future there's no point in supplying an implementation that's
+    // not based on flatMap, but that's not the case for Task ;-)
+    for (a <- fa; b <- fb) yield f(a,b)
+}
+
+object FutureMonad {
+  implicit def instance(implicit ec: ExecutionContext): FutureMonad =
+    new FutureMonad
+}
+```
+
+So we can now define generic functions based on `Applicative` which is going
+to work for `Future`, `Task`, etc:
+
+```scala
+def sequence[F[_], A](list: List[F[A]])
+  (implicit F: Applicative[F]): F[List[A]] = {
+
+  val seed = F.pure(List.empty[A])
+  val r = list.foldLeft(seed)((acc,e) => F.map2(acc,e)((l,a) => a :: l))
+  F.map(r)(_.reverse)
+}
+```
+
+<p class='extra-info' markdown='1'>
+**PRO-TIP:** worth repeating, this is just a toy example. For getting serious,
+see [Typelevel's Cats](http://typelevel.org/cats/)
+</p>
+
 ### <a href="#h6-3" name="h6-3">6.3.</a> Can We Define a Type-class for Async Evaluation?
+
+Missing from above is a way to actually trigger an evaluation and
+get a value out. Thinking of Scala's `Future`, we want a way to abstract
+over `onComplete`. Thinking of Monix's `Task` we want to abstract over `runAsync`.
+Thinking of Haskell's and Scalaz's `IO`, we want a way to abstract over
+`unsafePerformIO`.
+
+The [FS2](https://github.com/functional-streams-for-scala/fs2/) library has
+defined a type-class called [Effect](https://github.com/functional-streams-for-scala/fs2/blob/series/1.0/core/shared/src/main/scala/fs2/util/Effect.scala) that goes like this (simplified):
+
+```scala
+trait Effect[F[_]] extends Monad[F] {
+  def unsafeRunAsync[A](fa: F[A])(cb: Try[A] => Unit): Unit
+}
+```
+
+This looks like our initial `Async` type, very much similar with
+`Future.onComplete`, with `Task.runAsync` and could be applied to
+`IO.unsafePerformIO`.
+
+However, this is not a real type-class because:
+
+1. it is lawless and while that's not enough to disqualify it (after all,
+   useful lawless type-classes like `Show` exist), the bigger problem is ...
+2. as shown in [section 3.3](#h3-3), in order to avoid the Wrath of `StackOverflowError`,
+   we need some sort of execution context or thread-pool that can execute tasks
+   asynchronously without blowing up the stack
+
+And such an execution context is different from implementation to implementation.
+Java will use `Executor`, the Scala `Future` uses `ExecutionContext`, Monix
+uses `Scheduler` which is an enhanced `ExecutionContext`, FS2 and Scalaz
+use `Strategy` which wraps an `Executor` for forking threads and don't inject
+a context when their `unsafePerformIO` or `runAsync` gets called
+(which is why many of the Scalaz combinators are in fact unsafe), etc.
+
+We could apply the same strategy as with `Future`, to build the type-class
+instance by taking a `implicit whatever: Context` from the scope. But that's
+a little awkward and inefficient. It's also telling that we can't define
+`flatMap` only in terms of `Effect.unsafePerformIO`, not without that
+execution context. And if we can't do it, then the type should probably
+not inherit from `Monad` because it's not necessarily a `Monad`.
+
+So I'm personally not sure - if you have suggestions for what should be
+introduced in [Cats](http://typelevel.org/cats), I'd love to hear them.
+
+I do hope you enjoyed this thought experiment, designing things is fun 😎
 
 ## <a href="#h7" name="h7">7.</a> Picking the Right Tool
 
@@ -1053,5 +1319,5 @@ Also learn by heart these 2 very simple rules:
    prone and not composable at all
 2. avoid concurrency like the plague it is
 
-And let me tell you, concurrency gurus are first of all experts in
+And let me tell you, concurrency experts are first of all experts in
 avoiding concurrency 💀

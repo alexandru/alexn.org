@@ -238,6 +238,11 @@ body #main {
     border-radius: 0.3em 0.3em 0.3em 0.3em;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
     text-align: center;
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
   }
 
   img.with-space {
@@ -434,6 +439,23 @@ body #main {
       tbody tr:nth-child(odd) td,
       tbody tr:nth-child(odd) th {
         background-color: #f9f9f9;
+      }
+
+      /* Quotes */
+      blockquote {
+        padding: .5rem 1rem;
+        margin: .8rem 0;
+        color: #7a7a7a;
+        border-left: .25rem solid #e5e5e5;
+      }
+      blockquote p:last-child {
+        margin-bottom: 0;
+      }
+      @media (min-width: 30em) {
+        blockquote {
+          padding-right: 5rem;
+          padding-left: 1.25rem;
+        }
       }
     }
 
