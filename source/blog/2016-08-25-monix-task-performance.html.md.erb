@@ -58,70 +58,20 @@ So for synchronous tasks (that evaluate immediately), and note here
 that Scala's `Future` is not applicable since `Future` is not
 trampolined:
 
-<table class="benchmark" border=1 cellpadding=10>
-  <tr>
-    <th>Source</th>
-    <th>Type</th>
-    <th>Operation</th>
-    <th>Score</th>
-    <th>Error</th>
-    <th>Units</th>
-  </tr>
-  <tr>
-    <td>Monix</td>
-    <td>Sync</td>
-    <td>Sequence</td>
-    <td>6716.906</td>
-    <td>157.947</td>
-    <td>ops/s</td>
-  </tr>
-  <tr>
-    <td>Scalaz</td>
-    <td>Sync</td>
-    <td>Sequence</td>
-    <td>3518.888</td>
-    <td>167.148</td>
-    <td>ops/s</td>
-  </tr>
-  <tr>
-</table>
+| Source | Type | Operation | Score | Error | Units |
+|--------|------|-----------|-------|-------|-------|
+| Monix | Sync | Sequence | 6716.906 | 157.947 | ops/s |
+| Scalaz | Sync | Sequence | 3518.888 | 167.148 | ops/s |
+{: class=benchmark border=1 cellpadding=10}
 
 And for tasks that fork threads on execution:
 
-<table class="benchmark" border=1 cellpadding=10>
-  <tr>
-    <th>Source</th>
-    <th>Type</th>
-    <th>Operation</th>
-    <th>Score</th>
-    <th>Error</th>
-    <th>Units</th>
-  </tr>
-  <tr>
-    <td>Monix</td>
-    <td>Forked</td>
-    <td>Sequence</td>
-    <td>2044.624</td>
-    <td>24.852</td>
-    <td>ops/s</td>
-  </tr>
-  <tr>
-    <td>Scalaz</td>
-    <td>Forked</td>
-    <td>Sequence</td>
-    <td>1090.355</td>
-    <td>15.851</td>
-    <td>ops/s</td>
-  </tr>
-  <tr>
-    <td>S.Future</td>
-    <td>Forked</td>
-    <td>Sequence</td>
-    <td>1753.614</td>
-    <td>20.871</td>
-    <td>ops/s</td>
-  </tr>
-</table>
+| Source | Type | Operation | Score | Error | Units |
+|--------|------|-----------|-------|-------|-------|
+| Monix | Forked | Sequence | 2044.624 | 24.852 | ops/s |
+| Scalaz | Forked | Sequence | 1090.355 | 15.851 | ops/s |
+| S.Future | Forked | Sequence | 1753.614 | 20.871 | ops/s |
+{: class=benchmark border=1 cellpadding=10}
 
 As you can see, the Monix `Task` has twice the throughput of Scalaz
 and fares quite better compared with Scala's standard `Future`.
@@ -140,77 +90,21 @@ then they get executed in parallel.
 
 For synchronous/immediate tasks the numbers are:
 
-<table class="benchmark" border=1 cellpadding=10>
-  <tr>
-    <th>Source</th>
-    <th>Type</th>
-    <th>Operation</th>
-    <th>Score</th>
-    <th>Error</th>
-    <th>Units</th>
-  </tr>
-  <tr>
-    <td>Monix</td>
-    <td>Sync</td>
-    <td>Gather</td>
-    <td>3800.559</td>
-    <td>341.509</td>
-    <td>ops/s</td>
-  </tr>
-  <tr>
-    <td>Scalaz</td>
-    <td>Sync</td>
-    <td>Gather</td>
-    <td>2152.441</td>
-    <td>13.569</td>
-    <td>ops/s</td>
-  </tr>
-  <tr>
-    <td>S.Future</td>
-    <td>Forked</td>
-    <td>Sequence</td>
-    <td>1753.614</td>
-    <td>20.871</td>
-    <td>ops/s</td>
-  </tr>
-</table>
+| Source | Type | Operation | Score | Error | Units |
+|--------|------|-----------|-------|-------|-------|
+| Monix | Sync | Gather | 3800.559 | 341.509 | ops/s |
+| Scalaz | Sync | Gather | 2152.441 | 13.569 | ops/s |
+| S.Future | Forked | Sequence | 1753.614 | 20.871 | ops/s |
+{: class=benchmark border=1 cellpadding=10}
 
 And for forked tasks:
 
-<table class="benchmark" border=1 cellpadding=10>
-  <tr>
-    <th>Source</th>
-    <th>Type</th>
-    <th>Operation</th>
-    <th>Score</th>
-    <th>Error</th>
-    <th>Units</th>
-  </tr>
-  <tr>
-    <td>Monix</td>
-    <td>Forked</td>
-    <td>Gather</td>
-    <td>1396.797</td>
-    <td>17.098</td>
-    <td>ops/s</td>
-  </tr>
-  <tr>
-    <td>Scalaz</td>
-    <td>Forked</td>
-    <td>Gather</td>
-    <td>1014.452</td>
-    <td>13.569</td>
-    <td>ops/s</td>
-  </tr>
-  <tr>
-    <td>S.Future</td>
-    <td>Forked</td>
-    <td>Sequence</td>
-    <td>1753.614</td>
-    <td>20.871</td>
-    <td>ops/s</td>
-  </tr>
-</table>
+| Source | Type | Operation | Score | Error | Units |
+|--------|------|-----------|-------|-------|-------|
+| Monix | Forked | Gather | 1396.797 | 17.098 | ops/s |
+| Scalaz | Forked | Gather | 1014.452 | 13.569 | ops/s |
+| S.Future | Forked | Sequence | 1753.614 | 20.871 | ops/s |
+{: class=benchmark border=1 cellpadding=10}
 
 Including the results of `Future.sequence` as well, because `Future`
 has strict evaluation and it can be used to execute futures in
@@ -233,77 +127,21 @@ you don't care about order.
 
 For synchronous/immediate tasks:
 
-<table class="benchmark" border=1 cellpadding=10>
-  <tr>
-    <th>Source</th>
-    <th>Type</th>
-    <th>Operation</th>
-    <th>Score</th>
-    <th>Error</th>
-    <th>Units</th>
-  </tr>
-  <tr>
-    <td>Monix</td>
-    <td>Sync</td>
-    <td>Unordered</td>
-    <td>5654.462</td>
-    <td>150.792</td>
-    <td>ops/s</td>
-  </tr>
-  <tr>
-    <td>Scalaz</td>
-    <td>Sync</td>
-    <td>Unordered</td>
-    <td>3340.645</td>
-    <td>244.145</td>
-    <td>ops/s</td>
-  </tr>
-  <tr>
-    <td>S.Future</td>
-    <td>Forked</td>
-    <td>Sequence</td>
-    <td>1753.614</td>
-    <td>20.871</td>
-    <td>ops/s</td>
-  </tr>
-</table>
+| Source | Type | Operation | Score | Error | Units |
+|--------|------|-----------|-------|-------|-------|
+| Monix | Sync | Unordered | 5654.462 | 150.792 | ops/s |
+| Scalaz | Sync | Unordered | 3340.645 | 244.145 | ops/s |
+| S.Future | Forked | Sequence | 1753.614 | 20.871 | ops/s |
+{: class=benchmark border=1 cellpadding=10}
 
 For forked tasks:
 
-<table class="benchmark" border=1 cellpadding=10>
-  <tr>
-    <th>Source</th>
-    <th>Type</th>
-    <th>Operation</th>
-    <th>Score</th>
-    <th>Error</th>
-    <th>Units</th>
-  </tr>
-  <tr>
-    <td>Monix</td>
-    <td>Forked</td>
-    <td>Unordered</td>
-    <td>1658.055</td>
-    <td>12.114</td>
-    <td>ops/s</td>
-  </tr>
-  <tr>
-    <td>Scalaz</td>
-    <td>Forked</td>
-    <td>Unordered</td>
-    <td>1657.454</td>
-    <td>35.218</td>
-    <td>ops/s</td>
-  </tr>
-  <tr>
-    <td>S.Future</td>
-    <td>Forked</td>
-    <td>Sequence</td>
-    <td>1753.614</td>
-    <td>20.871</td>
-    <td>ops/s</td>
-  </tr>
-</table>
+| Source | Type | Operation | Score | Error | Units |
+|--------|------|-----------|-------|-------|-------|
+| Monix | Forked | Unordered | 1658.055 | 12.114 | ops/s |
+| Scalaz | Forked | Unordered | 1657.454 | 35.218 | ops/s |
+| S.Future | Forked | Sequence | 1753.614 | 20.871 | ops/s |
+{: class=benchmark border=1 cellpadding=10}
 
 Again, performance is really good for synchronous tasks, whereas for
 forked tasks it evens out with the performance of `Future.sequence`.
@@ -312,7 +150,7 @@ forked tasks it evens out with the performance of `Future.sequence`.
 
 ```
 [info] # Run complete. Total time: 00:04:28
-[info] 
+[info]
 [info] Benchmark                              Mode  Cnt     Score     Error  Units
 [info] TaskGatherBenchmark.gatherMonixA      thrpt   10  1396.797 ±  17.098  ops/s
 [info] TaskGatherBenchmark.gatherMonixS      thrpt   10  3800.559 ± 341.509  ops/s
