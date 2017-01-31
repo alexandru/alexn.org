@@ -154,7 +154,7 @@ People have tried to cope with this by:
   being the ability to save the execution state at any point and
   return to that point at a later point in the program
 - The `async` / `await` language extension from C#, also implemented in
-  the [scala-async](https://github.com/scala/async) library, but also in the
+  the [scala-async](https://github.com/scala/async) library and in the
   [latest ECMAScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)
 - [Green threads](https://en.wikipedia.org/wiki/Green_threads)
   managed by the runtime, possibly in combination with
@@ -162,7 +162,8 @@ People have tried to cope with this by:
   to simulate blocking for asynchronous actions; examples including
   Golang but also Haskell
 - The [actor model](https://en.wikipedia.org/wiki/Actor_model) as implemented in Erlang or Akka,
-  or CSP such as in [Clojure's core.async](https://github.com/clojure/core.async) or in Golang
+  or [CSP](https://en.wikipedia.org/wiki/Communicating_sequential_processes) such as
+  in [Clojure's core.async](https://github.com/clojure/core.async) or in Golang
 - Monads being used for ordering and composition, such as Haskell's
   [Async](https://hackage.haskell.org/package/async-2.1.1/docs/Control-Concurrent-Async.html) type
   in combination with the [IO](https://wiki.haskell.org/IO_inside) type, or
@@ -185,7 +186,7 @@ like the JVM or dotNET.
 <br/><br/>
 Because you can build M:N multithreading on top of 1:1 given enough
 expressiveness in the programming language (e.g. Scala's Futures and
-Promises are one such example), but if that M:N runtime starts being
+Promises, Task, Clojure's core.async, etc), but if that M:N runtime starts being
 unsuitable for your usecase, then you can't fix it or replace it
 without replacing the platform. And yes, most M:N platforms are broken
 in one way or another.
@@ -193,7 +194,7 @@ in one way or another.
 Indeed learning about all the possible solutions and making choices is
 freaking painful, but it is much less painful than making uninformed
 choices, with the TOOWTDI and "worse is better" mentalities being in
-this case very harmful. And people complaining about the difficulty of
+this case actively harmful. People complaining about the difficulty of
 learning a new and expressive language like Scala or Haskell are
 missing the point, because if they have to deal with concurrency, then
 learning a new programming language is going to be the least of their
@@ -277,7 +278,7 @@ tasks in parallel, but this is relevant for Javascript as well, as we
 could be making Ajax requests or talking with web workers.
 
 Unfortunately here things can get a little complicated. First of all
-the naive way to do it is wrong:
+the naive way to do it is terribly wrong:
 
 ```scala
 // REALLY BAD SAMPLE
@@ -309,13 +310,14 @@ doing synchronization.
 First, we define our ADT describing the state-machine:
 
 ```scala
+// Defines the state machine
 sealed trait State
-
-object State {
-  case object Start extends State
-  final case class WaitForA(b: Int) extends State
-  final case class WaitForB(a: Int) extends State
-}
+// Initial state
+case object Start extends State
+// We got a B, waiting for an A
+final case class WaitForA(b: Int) extends State
+// We got a A, waiting for a B
+final case class WaitForB(a: Int) extends State
 ```
 
 And then we can evolve this state machine asynchronously:
@@ -325,7 +327,6 @@ And then we can evolve this state machine asynchronously:
 
 def timesFourInParallel(n: Int): Async[Int] = {
   onFinish => {
-    import State._
     var state: State = Start
 
     timesTwo(n) { a =>
@@ -335,6 +336,7 @@ def timesFourInParallel(n: Int): Async[Int] = {
         case WaitForA(b) =>
           onFinish(a + b)
         case WaitForB(_) =>
+          // Can't be caught b/c async, hopefully it gets reported
           throw new IllegalStateException(state.toString)
       }
     }
@@ -346,6 +348,7 @@ def timesFourInParallel(n: Int): Async[Int] = {
         case WaitForB(a) =>
           onFinish(a + b)
         case WaitForA(_) =>
+          // Can't be caught b/c async, hopefully it gets reported
           throw new IllegalStateException(state.toString)
       }
     }
@@ -363,7 +366,7 @@ But wait, we aren't over because the JVM has true 1:1 multi-threading, which mea
 we get to enjoy *shared memory concurrency* and thus access to that `state` has to
 be synchronized.
 
-One solution is to use `synchronize` blocks, also called *intrinsic locks*:
+One solution is to use `synchronized` blocks, also called *intrinsic locks*:
 
 ```scala
 // We need a common reference to act as our monitor
@@ -371,13 +374,14 @@ val lock = new AnyRef
 var state: State = Start
 
 timesTwo(n) { a =>
-  lock.synchronize {
+  lock.synchronized {
     state match {
       case Start =>
         state = WaitForB(a)
       case WaitForA(b) =>
         onFinish(a + b)
       case WaitForB(_) =>
+        // Can't be caught b/c async, hopefully it gets reported
         throw new IllegalStateException(state.toString)
     }
   }
@@ -408,7 +412,6 @@ import java.util.concurrent.atomic.AtomicReference
 
 def timesFourInParallel(n: Int): Async[Int] = {
   onFinish => {
-    import State._
     val state = new AtomicReference[State](Start)
 
     @tailrec def onValueA(a: Int): Unit =
@@ -419,6 +422,7 @@ def timesFourInParallel(n: Int): Async[Int] = {
         case WaitForA(b) =>
           onFinish(a + b)
         case WaitForB(_) =>
+          // Can't be caught b/c async, hopefully it gets reported
           throw new IllegalStateException(state.toString)
       }
 
@@ -432,6 +436,7 @@ def timesFourInParallel(n: Int): Async[Int] = {
         case WaitForB(a) =>
           onFinish(a + b)
         case WaitForA(_) =>
+          // Can't be caught b/c async, hopefully it gets reported
           throw new IllegalStateException(state.toString)
       }
 
@@ -476,7 +481,6 @@ def mapBoth[A,B,R](fa: Async[A], fb: Async[B])(f: (A,B) => R): Async[R] = {
   final case class WaitForB[+A](a: A) extends State[A,Nothing]
 
   onFinish => {
-    import State._
     val state = new AtomicReference[State[A,B]](Start)
 
     @tailrec def onValueA(a: A): Unit =
@@ -487,6 +491,7 @@ def mapBoth[A,B,R](fa: Async[A], fb: Async[B])(f: (A,B) => R): Async[R] = {
         case WaitForA(b) =>
           onFinish(f(a,b))
         case WaitForB(_) =>
+          // Can't be caught b/c async, hopefully it gets reported
           throw new IllegalStateException(state.toString)
       }
 
@@ -498,6 +503,7 @@ def mapBoth[A,B,R](fa: Async[A], fb: Async[B])(f: (A,B) => R): Async[R] = {
         case WaitForB(a) =>
           onFinish(f(a,b))
         case WaitForA(_) =>
+          // Can't be caught b/c async, hopefully it gets reported
           throw new IllegalStateException(state.toString)
       }
 
@@ -539,7 +545,8 @@ val list = 0.until(10000).map(timesTwo).toList
 sequence(list)(r => println(s"Sum: ${r.sum}"))
 ```
 
-Which will yield:
+Behold the glorious memory error that will probably crash your program in production,
+being considered a fatal error that Scala's `NonFatal` does not catch:
 
 ```
 java.lang.StackOverflowError
@@ -1045,7 +1052,19 @@ def sequence[A](list: List[Task[A]]): Task[List[A]] = {
 
 ## <a href="#h6" name="h6">6.</a> Functional Programming and Type-classes
 
-Can we build interfaces that abstract over such types as `Task`, `Future`,
+When working with well grown functions such as `map`, `flatMap` and `mapBoth`,
+we no longer care that underlying it all is an "`(A => Unit) => Unit`", because these
+functions are, assuming lawfulness, pure and referentially transparent.
+This means we can reason about them and their result, divorced from their
+surrounding context.
+
+This is the great achievement of Haskell's `IO`. Haskell does not "fake" side-effects,
+as functions returning `IO` values are literally pure, the side-effects being
+pushed at the edges of the program where they belong. And we can say the same
+thing about `Task`. Well, for `Future` it's more complicated given its eager
+nature, but working with `Future` is not bad either.
+
+And can we build interfaces that abstract over such types as `Task`, `Future`,
 `Coeval`, `Eval`, `IO`, `Id`, `Observable` and others?
 
 Yes we can, we've already seen that `flatMap` describes sequencing, while
