@@ -32,7 +32,7 @@ automatically deploys packages on Maven Central:
    as a suffix is the Git commit hash; these hashed versions are like
    snapshot releases, but better because people can rely on them to
    remain in Maven Central and thus less volatile
-   
+
 After you read this article, you can use the setup of these projects
 for inspiration:
 
@@ -40,21 +40,21 @@ for inspiration:
 - [github.com/monix/monix](https://github.com/monix/monix/)
 
 **WARNING:** with this process you'll have to
-trust [Travis-ci.org](https://travis-ci.org/) with your GPG private
+trust [Travis-ci.org](https://travis-ci.org/) with your PGP private
 key for signing the published binaries. If that's an acceptable risk
 or not, that's up to you. See below.
 
-## Generating a GPG Key
+## Generating a PGP Key Pair
 
 For deployments to Sonatype / Maven Central the built packages need to
-be signed. If you don't have an existing GPG key, one can be easily
+be signed. If you don't have an existing PGP key, one can be easily
 generated.
 
-**WARNING:** do not give out your personal GPG private key that you
-use to sign emails or for online transactions. Generate a special GPG
+**WARNING:** do not give out your personal PGP private key that you
+use to sign emails or for online transactions. Generate a special PGP
 key pair just for your project.
 
-I'm currently using a MacOS machine, so for managing GPG
+I'm currently using a MacOS machine, so for managing PGP
 keys I'm using the open source [GPG Suite](https://gpgtools.org/),
 coming with a nice GUI interface.
 
@@ -62,7 +62,7 @@ As far as I know GPG comes installed by default on all major Linux
 operating systems and for Windows checkout this
 [download page on gnupg.org](https://www.gnupg.org/download/index.en.html).
 
-With the GPG command line tools installed you can generate a GPG key pair
+With the GPG command line tools installed you can generate a PGP key pair
 like this:
 
 ```
@@ -73,7 +73,7 @@ Steps:
 
 - accept the default `RSA` for the kind of key
 - enter the desired key size, the bigger the better, so enter `4096`
-- for expiration, I prefered a key that doesn't expire, although this might not be wise
+- for expiration, I preferred a key that doesn't expire, although this might not be wise
 - for an email address, enter a valid one
 - I recommend encrypting your private key with a generous passphrase
   that you then store in 1Password / LastPass ;-)
@@ -96,8 +96,8 @@ gpg -a --export-secret-keys 2673B174C4071B0E >> my-key.asc
 I also keep these in 1Password btw.
 
 To configure SBT to sign your packages with a key living in the
-project's repository you'll need a GPG key ring. Such a key ring is
-basically a database of multiple GPG keys. You need to have one to
+project's repository you'll need a PGP key ring. Such a key ring is
+basically a database of multiple PGP keys. You need to have one to
 keep in the repository of your project. Normally these keys are kept
 in:
 
@@ -126,7 +126,7 @@ gpg --no-default-keyring \
 The `my-key.asc` file is the one that you've created in the previous step.
 
 After you create these files, make sure to delete any junk from
-`$PROJECT/project/.gnupg`, so verify the newly created files with 
+`$PROJECT/project/.gnupg`, so verify the newly created files with
 `git status`.
 
 NOTE: check the newly created files, because the `gpg` command line
@@ -141,7 +141,7 @@ Curently in [monix.io](https://monix.io) I'm using the following plugins:
 - [sbt-pgp](https://github.com/sbt/sbt-pgp) for signing packages with PGP
 - [sbt-git](https://github.com/sbt/sbt-git) for making use of Git from
   SBT, relevant here if you want to do Git-enabled version hashes
-- [sbt-sonatype](https://github.com/xerial/sbt-sonatype) for automatically 
+- [sbt-sonatype](https://github.com/xerial/sbt-sonatype) for automatically
   publishing artifacts to Maven Central
 
 For PGP the configuration is as follows:
@@ -159,7 +159,7 @@ Explanation:
 - `useGpg := false` says that we do not want to use the GPG tools
   installed on your computer, but rather the implementation that
   `sbt-pgp` ships with; in my experience this is a must, otherwise
-  depending on the GPG tools you have, you won't be able to make it 
+  depending on the GPG tools you have, you won't be able to make it
   use a different pgp ring
 - `usePgpKeyHex` forces a certain key to be used for signing by
   specifying its key
@@ -167,9 +167,9 @@ Explanation:
   that contains the key you want, instead of the default one which is
   usually `$HOME/.gnupg/pubring.gpg` and `$HOME/.gnupg/secring.gpg`
 - `pgpPassphrase` is a GPG passphrase for the used key, that's taken
-  from the env variable named `PGP_PASS`; Travis has the ability to 
+  from the env variable named `PGP_PASS`; Travis has the ability to
   set such env variables to be available in your build
-  
+
 For publishing to Sonatype, we'll need these settings:
 
 ```scala
@@ -220,7 +220,7 @@ TIP, to find out the ID of a license type, see this cool list:
 
 You'll need those two environment variables set in Travis's settings,
 more details below.
-  
+
 And then to enable Git versioning for snapshots (e.g. `3.0.0-9d94d3d`)
 you can do:
 
@@ -317,7 +317,7 @@ version = nil
 unless branch =~ /^v(\d+\.\d+\.\d+)$/ ||
   (branch == "snapshot" && ENV['TRAVIS_PULL_REQUEST'] == 'false')
 
-  puts "Only deploying docs on the `publish` branch, or for version tags " +
+  puts "Only triggering deployment on the `snapshot` branch, or for version tags " +
        "and not for pull requests or other branches, exiting!"
   exit 0
 else
@@ -350,7 +350,7 @@ $ git push
 
 As a final step we need to set the following environment variables in Travis:
 
-- `PGP_PASS`: the passphrase we used to encrypt our private GPG key
+- `PGP_PASS`: the passphrase we used to encrypt our private PGP key
 - `SONATYPE_USER`: a user to login to Sonatype, used by SBT to publish and deploy releases on Sonatype
 - `SONATYPE_PASS`: a password to login to Sonatype, used by SBT to publish and deploy releases on Sonatype
 
@@ -403,8 +403,8 @@ env:
   - secure: YVx2BSSsqF7LdYTwinf6o8nqJiYL9FeFA...
 ```
 
-Now this can be commited in your repository and Travis will take care
-of decripting those values.
+Now this can be committed in your repository and Travis will take care
+of decrypting those values.
 
 ## Publishing
 
@@ -429,7 +429,7 @@ I've written this document while preparing the Shade project for
 automatic deployments. So here's for inspiration:
 
 - [commits in monix/shade](https://github.com/monix/shade/compare/1c373f8714e92b48a8bb2337158f61e5650d260a...d712897f122642835cbcd32d159e917c59e7685c)
-- [snapshot release sample](https://travis-ci.org/monix/shade/jobs/265215531) 
+- [snapshot release sample](https://travis-ci.org/monix/shade/jobs/265215531)
   (that published `1.10.0-d712897` on Maven Central)
 - [release of v1.10.0](https://travis-ci.org/monix/shade/jobs/265221087)
   (that published the final `1.10.0` on Maven Central)
