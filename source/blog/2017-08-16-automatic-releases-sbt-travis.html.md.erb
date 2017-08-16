@@ -172,6 +172,15 @@ credentials += Credentials(
   sys.env.getOrElse("SONATYPE_USER", ""),
   sys.env.getOrElse("SONATYPE_PASS", "")
 )
+
+isSnapshot := version.value endsWith "SNAPSHOT"
+
+publishTo := Some(
+  if (isSnapshot.value)
+    Opts.resolver.sonatypeSnapshots
+  else
+    Opts.resolver.sonatypeStaging
+)
 ```
 
 You'll need those two environment variables set in Travis's settings,
