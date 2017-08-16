@@ -183,6 +183,32 @@ publishTo := Some(
 )
 ```
 
+In addition to these options, for Sonatype we also need the required
+artifact info (e.g. license, homepage, authors). Here's what I have
+for Shade, adjust accordingly:
+
+```scala
+licenses := Seq("MIT" -> url("https://opensource.org/licenses/MIT"))
+homepage := Some(url("https://github.com/monix/shade"))
+
+scmInfo := Some(
+  ScmInfo(
+    url("https://github.com/monix/shade"),
+    "scm:git@github.com:monix/shade.git"
+  ))
+
+developers := List(
+  Developer(
+    id="alexelcu",
+    name="Alexandru Nedelcu",
+    email="noreply@alexn.org",
+    url=url("https://alexn.org")
+  ))
+```
+
+TIP, to find out the ID of a license type, see this cool list:
+[spdx.org/licenses/](https://spdx.org/licenses/).
+
 You'll need those two environment variables set in Travis's settings,
 more details below.
   
