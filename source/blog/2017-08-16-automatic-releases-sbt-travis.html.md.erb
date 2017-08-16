@@ -36,8 +36,8 @@ automatically deploys packages on Maven Central:
 After you read this article, you can use the setup of these projects
 for inspiration:
 
-- [github.com/monix/monix](https://github.com/monix/monix/)
 - [github.com/monix/shade](https://github.com/monix/shade/)
+- [github.com/monix/monix](https://github.com/monix/monix/)
 
 ## Generating a GPG Key
 
@@ -413,6 +413,17 @@ $ git push --set-upstream origin snapshot
 
 If everything goes well, we should have a new hashed version published,
 but watch the output of Travis for any problems.
+
+## Extra Resources
+
+I've written this document while preparing the Shade project for
+automatic deployments. So here's for inspiration:
+
+- [commits in monix/shade](https://github.com/monix/shade/compare/1c373f8714e92b48a8bb2337158f61e5650d260a...d712897f122642835cbcd32d159e917c59e7685c)
+- [snapshot release sample](https://travis-ci.org/monix/shade/jobs/265215531) 
+  (that published `1.10.0-d712897` on Maven Central)
+- [release of v1.10.0](https://travis-ci.org/monix/shade/jobs/265221087)
+  (that published the final `1.10.0` on Maven Central)
 
 ## In Closing
 
