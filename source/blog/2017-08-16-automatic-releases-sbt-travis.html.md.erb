@@ -161,6 +161,21 @@ Explanation:
   from the env variable named `PGP_PASS`; Travis has the ability to 
   set such env variables to be available in your build
   
+For publishing to Sonatype, we'll need these settings:
+
+```scala
+// For Sonatype
+credentials += Credentials(
+  "Sonatype Nexus Repository Manager",
+  "oss.sonatype.org",
+  sys.env.getOrElse("SONATYPE_USER", ""),
+  sys.env.getOrElse("SONATYPE_PASS", "")
+)
+```
+
+You'll need those two environment variables set in Travis's settings,
+more details below.
+  
 And then to enable Git versioning for snapshots (e.g. `3.0.0-9d94d3d`)
 you can do:
 
