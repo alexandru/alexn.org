@@ -164,7 +164,8 @@ Explanation:
 For publishing to Sonatype, we'll need these settings:
 
 ```scala
-// For Sonatype
+sonatypeProfileName := organization.value
+
 credentials += Credentials(
   "Sonatype Nexus Repository Manager",
   "oss.sonatype.org",
