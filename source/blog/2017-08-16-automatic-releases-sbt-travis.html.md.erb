@@ -321,6 +321,47 @@ Here's a screenshot of how my setup currently looks like:
 
 <%= image_tag "2017/travis-env-vars.png", :class => "max" %>
 
+### Alternative Env with Travis Encryption
+
+As an alternative to setting those environment variables in Travis's
+UI, you can use Travis's mechanism for encrypting stuff to set these
+values in `.travis.yml`. See
+the [Encryption Keys](https://docs.travis-ci.com/user/encryption-keys)
+document.
+
+First install the `travis` command line tool:
+
+```
+$ gem install travis
+```
+
+And then do the following, replacing `xxxxx` with your key:
+
+```
+$ travis encrypt 'PGP_PASS=xxxxx' --add
+
+$ travis encrypt 'SONATYPE_USER=xxxxx' --add
+
+$ travis encrypt 'SONATYPE_PASS=xxxxx' --add
+```
+
+NOTE: if your env values have special chars, they might need to be
+escaped for Bash to not trigger any errors. See document above.
+
+These commands will modify your `.travis.yml` file, adding a section
+that resembles the following:
+
+```
+env:
+  global:
+  - secure: GRdfKNrJn/zqjaDWE+16HCfuCSf/wsDpL...
+  - secure: SPSIblLKFVns7pVY1x3SEs4/16htY5HUz...
+  - secure: YVx2BSSsqF7LdYTwinf6o8nqJiYL9FeFA...
+```
+
+Now this can be commited in your repository and Travis will take care
+of decripting those values.
+
 ## Publishing
 
 For publishing hashed snapshot versions, we need a `snapshot` branch,
