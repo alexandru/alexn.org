@@ -24,6 +24,7 @@
 
     <% with_image_url(current_article.body, false) do |image_url| %>
       <meta name="og:image" content="<%= image_url %>" />
+      <meta name="og:image:secure_url" content="<%= image_url %>" />
       <meta name="twitter:image" content="<%= image_url %>" />
     <% end %>
 
@@ -48,6 +49,7 @@
     <meta name="description" content="<%= current_page.data.description || website.description %>" />
     
     <meta name="og:image" content="<%= website.root_url %><%= current_page.data.image || '/assets/img/logo.png' %>" />
+    <meta name="og:image:secure_url" content="<%= website.root_url %><%= current_page.data.image || '/assets/img/logo.png' %>" />
     <meta name="twitter:image" content="<%= website.root_url %><%= current_page.data.image || '/assets/img/logo.png' %>" />
   <% end %>
 
