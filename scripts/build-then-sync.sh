@@ -4,7 +4,7 @@ cd `dirname $0`/..
 
 bundle exec middleman build
 mkdir -p $HOME/.ssh
-cp misc/travis_rsa $HOME/.ssh
+cp scripts/travis_rsa $HOME/.ssh
 chmod -R go-rwx $HOME/.ssh
 
 rsync --delete-excluded -Pacv \
