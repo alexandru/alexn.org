@@ -131,7 +131,7 @@ This `IO` is a port of [Monix](https://monix.io/)'s
 In [PR #57](https://github.com/funfix/funfix/pull/57) I've also
 fixed the memory leak for `Future`, doing the same tricks that 
 Scala's [Future](http://www.scala-lang.org/api/2.12.3/scala/concurrent/Future.html)
-is doing.
+is doing. Now released in [v6.2.0](https://github.com/funfix/funfix/releases/tag/v6.2.0).
 
 And note that this is harder to do for Funfix's `Future` due to also
 having to deal with chains of `Cancelable` references, which can
