@@ -130,8 +130,12 @@ Describing functions like this one is really fun too:
 ```typescript
 function map<A, B>(list: List<A>, f: (a: A) => B): List<B> {
   if (list instanceof Cons) {
-    const cons = list as Cons<A>
-    return new Cons(f(cons.head), () => cons.tail().then(xs => map(xs, f)))
+    try {
+      const cons = list as Cons<A>
+      return new Cons(f(cons.head), () => cons.tail().then(xs => map(xs, f)))
+    } catch (e) {
+      return new Nil(e)
+    }
   } else {
     return list
   }
