@@ -100,9 +100,9 @@ any, goes out the window.
 You cannot describe any functional programming algorithm involving loops without tail recursion. 
 If folds are used, then folds are described with tail recursion as well.
 
-As a JS developer using JS's `Promise`, you may be familiar with it, but being primarily a Scala / Haskell developer, I find this behavior really, really surprising, especially since it can be fixed.
+An example of a use-case is the processing of really long / infinite streams of events, for which it's really natural to describe algorithms using tail recursions and for which you can't really work with imperative, mutation-based loops.
 
-An example of a use-case is processing of really long / infinite streams of events, for which it's really natural to describe algorithms using tail recursions and for which you can't really work with imperative, mutation-based loops.
+Imagine reading chunks of data from a file and describing them with a data structure like this:
 
 ```typescript
 type Task<A> = () => Promise<A>
@@ -112,7 +112,7 @@ interface List<A>
 class Cons<A> implements List<A> { 
   constructor(
     public readonly head: A, 
-    public readonly rest: Task<List<A>>) {}
+    public readonly tail: Task<List<A>>) {}
 }
 
 class Nil implements List<A> {
@@ -120,13 +120,21 @@ class Nil implements List<A> {
 }
 ```
 
-This data structure is really cheap and effective, being a lazy, asynchronous, referentially transparent stream. As an exercise to the reader, try describing this function:
+This structure is really cheap and effective, being a lazy, asynchronous, referentially transparent stream.
+Describing functions like this one is really fun too:
 
 ```typescript
-function map<A, B>(list: List<A>, f: (a: A) => B): List<B>
+function map<A, B>(list: List<A>, f: (a: A) => B): List<B> {
+  if (list instanceof Cons) {
+    const cons = list as Cons<A>
+    return new Cons(f(cons.head), () => cons.tail().then(xs => map(xs, f)))
+  } else {
+    return list
+  }
+}
 ```
 
-HINT: if that `Promise` implementation wouldn't leak, then it would be really easy to do.
+But ALAS, with the `Promise` implementation leaking, this doesn't work ;-)
 
 ## Funfix
 
