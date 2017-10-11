@@ -32,6 +32,10 @@ function loop(n) {
 loop(0).catch(console.error)
 ```
 
+It takes a while to fill GBs of heap, plus Node is less conservative, the GC eventually
+freezing the process trying to recover memory, so give it a few seconds. Chrome
+will crash it faster.
+
 This is equivalent with this `async` function:
 
 ```typescript
