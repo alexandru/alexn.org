@@ -44,7 +44,7 @@ async function loop(n) {
   if (i % 1000 == 0) console.log(i)
 
   // Recursive call
-  return await loop(n + 1)
+  return loop(n + 1)
 }
 ```
 
