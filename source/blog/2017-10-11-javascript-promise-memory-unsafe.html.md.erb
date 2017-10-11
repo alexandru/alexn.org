@@ -15,11 +15,11 @@ This piece of code will leak memory and eventually crash your Node.js process or
 ```typescript
 // Tested on Node.js 7.10, Firefox 57 and Chrome 61
 //
-// Usage of `setImmediate` is to prove that we have 
+// Usage of `setTimeout` is to prove that we have 
 // async boundaries, can be removed.
 
 function signal(i) {
-  return new Promise(cb => setImmediate(() => cb(i)))
+  return new Promise(cb => setTimeout(() => cb(i)))
 }
 
 function loop(n) {
@@ -109,7 +109,7 @@ This piece of code powered by `Future` does not leak:
 import { Future } from "funfix"
 
 function loop(n) {
-  return Future.eval(() => n).flatMap(i => {
+  return Future.of(() => n).flatMap(i => {
     if (i % 1000 == 0) console.log(i)
     return loop(n + 1)
   })
