@@ -99,6 +99,10 @@ any, goes out the window.
 
 You cannot describe any functional programming algorithm involving loops without tail recursion. 
 If folds are used, then folds are described with tail recursion as well.
+If you're into theory, that's because:
+
+1. any loop can be described with a tail recursion
+2. you can't have immutability of the state you're evolving without it
 
 An example of a use-case is the processing of really long / infinite streams of events, for which it's really natural to describe algorithms using tail recursions and for which you can't really work with imperative, mutation-based loops.
 
