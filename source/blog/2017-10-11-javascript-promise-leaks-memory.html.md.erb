@@ -307,11 +307,12 @@ of functional programming.
 Yes, it's true that `Promise` is not a useful monadic type for doing FP,
 since it does not suspend side effects (which is why you should 
 use [IO](https://funfix.org/api/effect/classes/io.html)), but that's 
-beside the point.
+beside the point, plus for the FP purists out there, you can always
+suspend it in a thunk, assuming that it doesn't leak in `then` chains.
 
 This is also why I fear standardization by committee in general. Along with 
 the totally awkward `then` signature that can't be safely described with 
 TypeScript's or Flow's types, this is another example of how standard 
 solutions can be harmful, because by being pushed as a standard, it makes
 it hard for alternatives to exist, since most people are just going to
-use the standard.
+use the standard implementation.
