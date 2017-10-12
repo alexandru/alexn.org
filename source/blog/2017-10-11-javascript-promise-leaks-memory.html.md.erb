@@ -10,7 +10,8 @@ tags:
   - Functional
 ---
 
-This piece of code will leak memory and eventually crash your Node.js process or browser:
+This piece of code will leak memory and eventually crash your Node.js 
+process or browser:
 
 ```typescript
 // Tested on Node.js 7.10, Firefox 57 and Chrome 61
@@ -54,7 +55,7 @@ at the moment of writing JavaScript does not do
 [tail calls optimizations](https://en.wikipedia.org/wiki/Tail_call)
 (until everybody implements ECMAScript 6 fully at least).
 
-But before you jump to conclusions, this has NOTHING to do with JavaScript's
+But before you jump to conclusions, this has nothing to do with JavaScript's
 lack of TCO support. This is because in our recursive function it's
 not JavaScript's [call stack](https://en.wikipedia.org/wiki/Call_stack) 
 that's managing that loop, but rather the `Promise` implementation. 
@@ -69,14 +70,22 @@ and in such a case eliminate frames in the `then` chain being created.
 
 ## The Spec is The Problem
 
-Relevant links to known issues on GitHub:
+<a href="https://funfix.org">
+  <%= image_tag "2017/then.png", :class => "right", :width => "200" %>
+</a>
 
-1. Node.js issue, being closed because the spec is the problem:
-  [Memory leaks in loops with Promise](https://github.com/nodejs/node/issues/6673)
-2. Promise/A+ spec issue, still open, since 2014: 
-   [Chain of never resolved promises create memory leaks](https://github.com/promises-aplus/promises-spec/issues/179)
+We're talking of the [Promise/A+ specification](https://promisesaplus.com/).
+Relevant links to known issues on GitHub, explaining why:
 
-## Functional Programming You Say?
+1. Node.js issue, now closed:
+   **[node/#6673](https://github.com/nodejs/node/issues/6673)**
+2. Promise/A+ spec issue, open since 2014: 
+   **[promises-spec/#179](https://github.com/promises-aplus/promises-spec/issues/179)**
+
+As you'll see, there are some reasonable arguments for why the `Promise`
+implementation is allowed to leak memory. But I can't agree.
+
+## The Non-leaky Solution
 
 The solution, if you insist on using JavaScript's `Promise`, is to work 
 with non-recursive functions:
@@ -93,9 +102,80 @@ async function loop(n) {
 ```
 
 But at this point any semblance of functional programming, if you ever had
-any, goes out the window.
+any, goes out the window, see below.
 
-### Concrete Use-cases
+## Common Objections
+
+Gathering feedback from people, here are the objects I've heard:
+
+### 1. Is This Normal?
+
+No, if you judge this implementation, relative to other `Promise` / `Future`
+implementations in the industry
+
+Here are the implementations that I know about that DO NOT leak memory:
+
+1. [Bluebird](http://bluebirdjs.com/docs/getting-started.html), probably 
+   the most popular non-standard `Promise` implementation for JavaScript
+2. [Scala](https://www.scala-lang.org/)'s standard 
+   [Future](http://www.scala-lang.org/api/2.12.3/scala/concurrent/Future.html),
+   in the wild since 2013; the fix for the leaky `flatMap`
+   chains was added by [Rich Dougherty](https://twitter.com/richdougherty)
+   in [this PR](https://github.com/scala/scala/pull/2674), inspired 
+   by Twitter's `Future` implementation
+3. Twitter's [Future](https://twitter.github.io/util/docs/com/twitter/util/Future.html),
+   which is used in all of Twitter's backend infrastructure, being integrated
+   in [Finagle](https://twitter.github.io/finagle/)
+4. [Trane.io](http://trane.io/), a Java Future implementation providing a `TailRec`
+   builder meant precissely for this use-case
+
+Interestingly, complaints for Scala's `Future` happened due to usage of
+Play's [Iteratees](https://www.playframework.com/documentation/2.6.x/Iteratees),
+with which people have been modeling stream processing.
+
+### 2. But It Does Unlimited Chaining of Promises, Right?
+
+Yes, that's why it's leaking memory.
+
+No, the implementation should not chain promises like that and an alternative 
+implementation is possible, as evidenced by the implementations mentioned
+that don't leak.
+
+### 3. That Sample Does Not Use the Return Value
+
+The sample is kept simple for didactic purposes, however:
+
+1. you can easily imagine a loop that processes a very long stream of data,
+   aggregating information along the way, returning a result later
+2. the script does do error handling and without that inner 
+   `return` then the `.catch(console.error)` would have no effect
+
+### 4. You Don't Understand How Promises Work
+
+I do. Given that I've been attacked with this argument, I apologize 
+for the appeal to authority that I'm about to make.
+
+Data types for dealing with *asynchrony* have been a hobby of mine since
+2012, I've been authoring no less than 3 projects in which I implemented 
+Promise-like data types:
+
+- [Monix](https://monix.io/), which implements `Task`, one of the best ports
+  of Haskell's `IO`, along with a complementary `CancelableFuture` and 
+  what I think is the best back-pressured Rx `Observable` implementations 
+  in existence
+- [Funfix](https://github.com/funfix/funfix), a JavaScript library for FP,
+  delivering a `Future` and an `IO` implementation, see below
+- have contributed to [cats-effect](https://github.com/typelevel/cats-effect), 
+  a more conservative `IO` port
+
+<p class='extra-info' markdown='1'>
+Bonus — see my [presentation from Scala Days](https://www.youtube.com/watch?v=wi97X8_JQUk)!
+</p>
+
+My work, both good or bad, has followed a certain pattern, which is why I do 
+understand promises, I do understand what one solution is, hence this article.
+
+## Use-cases
 
 You cannot describe any functional programming algorithm involving loops without tail recursion. 
 If folds are used, then folds are described with tail recursion as well.
@@ -124,10 +204,8 @@ class Nil implements List<A> {
 }
 ```
 
-<p class='extra-info' markdown='1'>
 Sample is using TypeScript (could be Flow) for making it clear what the types are.
 You can work with plain JavaScript of course.
-</p>
 
 This structure is really cheap and effective, being a lazy, asynchronous, referentially transparent stream.
 Describing functions like this one is really fun too:
@@ -155,7 +233,7 @@ But ALAS, with the `Promise` implementation leaking, this doesn't work ;-)
   <%= image_tag "funfix-1024.png", :class => "right", :width => "200" %>
 </a>
 
-As a shameless plug I've been working on [Funfix](https://funfix.org/),
+I've been building a new project, [Funfix](https://funfix.org/),
 a JavaScript library for functional programming (capital FP), supporting 
 [TypeScript](https://www.typescriptlang.org/) and [Flow](https://flow.org/)
 types out of the box.
@@ -165,6 +243,13 @@ eager `Promise` alternative that's safe, cancellable and filled with goodies,
 along with [IO&lt;A&gt;](https://funfix.org/api/effect/classes/io.html), a lazy, lawful,
 cancellable data type for handling all kinds of side effects, inspired by Haskell,
 the two being complementary.
+
+<p class='extra-info' markdown='1'>
+**Author's Rant —** in response to this article I've been called a scumbag
+for "*shameless self promotion*".<br><br>
+I'm building stuff that I share with the world and I like talking about 
+it on my personal blog. I'm not going to apologize for it.
+</p>
 
 This piece of code powered by `Future` does not leak:
 
@@ -200,7 +285,7 @@ This `IO` is a port of [Monix](https://monix.io/)'s
 [Task](https://monix.io/docs/2x/eval/task.html), being a better
 `IO` than Haskell's `IO` due to its cancellable nature ;-)
 
-In [PR #57](https://github.com/funfix/funfix/pull/57) I've also
+In [this PR](https://github.com/funfix/funfix/pull/57) I've also
 fixed the memory leak for `Future`, doing the same tricks that 
 Scala's [Future](http://www.scala-lang.org/api/2.12.3/scala/concurrent/Future.html)
 is doing. Now released in [v6.2.0](https://github.com/funfix/funfix/releases/tag/v6.2.0).
@@ -223,8 +308,6 @@ beside the point.
 This is also why I fear standardization by committee in general. Along with 
 the totally awkward `then` signature that can't be safely described with 
 TypeScript's or Flow's types, this is another example of how standard 
-solutions can do harm.
-
-I was once asked about whether JavaScript should also have a standard 
-`Option` (`Maybe`) data type. I said no, because if it ever happens,
-it will probably be broken.
+solutions can be harmful, because by being pushed as a standard, it makes
+it hard for alternatives to exist, since most people are just going to
+use the standard.
