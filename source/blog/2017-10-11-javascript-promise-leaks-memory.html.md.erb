@@ -216,7 +216,7 @@ And describing transformation functions like this one is really fun too:
 
 ```typescript
 function map<A, B>(list: List<A>, f: (a: A) => B): List<B> {
-  if (list instanceof Cons) {
+  if (list instanceof Next) {
     try {
       const cons = list as Next<A>
       return new Next(f(cons.head), () => cons.next().then(xs => map(xs, f)))
@@ -229,7 +229,7 @@ function map<A, B>(list: List<A>, f: (a: A) => B): List<B> {
 }
 ```
 
-But ALAS, with the `Promise` implementation leaking, this doesn't work ;-)
+Alas, with the `Promise` implementation leaking, this doesn't work ;-)
 
 ## Funfix
 
