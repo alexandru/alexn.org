@@ -198,7 +198,9 @@ My work, good or bad, has followed a certain pattern, which is why I do
 understand promises, I do understand at least two solutions to this, hence 
 this article.
 
-## Use-cases
+### 6. No Use-cases, This is a Niche
+
+Is functional programming a niche?
 
 You cannot describe any functional programming algorithm involving loops 
 without tail recursions. If folds are used, then folds are described with 
@@ -207,7 +209,9 @@ tail recursions as well. That's because:
 1. any loop can be described with a tail recursion
 2. you can't have immutability of the state you're evolving without it
 
-An example of a use-case is the processing of really long / infinite streams of events, for which it's really natural to describe algorithms using tail recursions and for which you can't really work with imperative, mutation-based loops.
+An example of a use-case is the processing of really long / infinite streams of 
+events, for which it's really natural to describe algorithms using tail recursions 
+and for which you can't really work with imperative, mutation-based loops.
 
 Imagine reading chunks of data from a file and describing them with a data structure like this:
 
