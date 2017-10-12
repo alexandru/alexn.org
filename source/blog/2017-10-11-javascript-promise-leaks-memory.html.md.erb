@@ -192,14 +192,14 @@ Imagine reading chunks of data from a file and describing them with a data struc
 ```typescript
 interface List<A>
 
-class Cons<A> implements List<A> { 
+class Next<A> implements List<A> { 
   constructor(
     public readonly head: A, 
     public readonly next: () => Promise<List<A>>
   ) {}
 }
 
-class Nil implements List<A> {
+class Halt implements List<A> {
   constructor(public readonly error?: any) {}
 }
 ```
@@ -218,10 +218,10 @@ And describing transformation functions like this one is really fun too:
 function map<A, B>(list: List<A>, f: (a: A) => B): List<B> {
   if (list instanceof Cons) {
     try {
-      const cons = list as Cons<A>
-      return new Cons(f(cons.head), () => cons.next().then(xs => map(xs, f)))
+      const cons = list as Next<A>
+      return new Next(f(cons.head), () => cons.next().then(xs => map(xs, f)))
     } catch (e) {
-      return new Nil(e)
+      return new Halt(e)
     }
   } else {
     return list
