@@ -181,6 +181,22 @@ My work, good or bad, has followed a certain pattern, which is why I do
 understand promises, I do understand at least two solutions to this, hence 
 this article.
 
+### 5. That's the Equivalent of a Stack Overflow
+
+I've mentioned this above, but just to set your mind at rest on this point,
+proper Tail-Calls Optimizations are coming, being part of ECMAScript, see:
+
+- [ECMAScript specification](http://www.ecma-international.org/ecma-262/6.0/#sec-tail-position-calls)
+- [ECMAScript 6 Proper Tail Calls in WebKit](https://webkit.org/blog/6240/ecmascript-6-proper-tail-calls-in-webkit/)
+
+You can't rely on it yet, but you can rest assured that in the future,
+if that sample would be synchronous, it would not trigger a stack overflow.
+
+Therefore, given that asynchronous calls are by definition processes / events
+happening independently of the current call stack / run loop, this behavior
+is actually surprising, since one of the reasons to go async is to escape
+the limitations of the call stack.
+
 ## Use-cases
 
 You cannot describe any functional programming algorithm involving loops 
