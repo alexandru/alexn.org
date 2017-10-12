@@ -128,6 +128,8 @@ Here are the implementations that I know about that DO NOT leak memory:
    in [Finagle](https://twitter.github.io/finagle/)
 4. [Trane.io](http://trane.io/), a Java Future implementation providing a `TailRec`
    builder meant precissely for this use-case
+5. My very own Funfix [Future](https://funfix.org/api/exec/classes/future.html)
+   and Monix [CancelableFuture](https://monix.io/api/3.0/monix/execution/CancelableFuture.html)
 
 Interestingly, complaints for Scala's `Future` happened due to usage of
 Play's [Iteratees](https://www.playframework.com/documentation/2.6.x/Iteratees),
