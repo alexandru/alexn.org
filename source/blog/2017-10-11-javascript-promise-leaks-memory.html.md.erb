@@ -155,7 +155,24 @@ The sample is kept simple for didactic purposes, however:
 2. the script does do error handling and without that inner 
    `return`, the `.catch(console.error)` would have no effect
 
-### 4. You Don't Understand How Promises Work
+### 4. That's the Equivalent of a Stack Overflow
+
+Yes, I've mentioned this above, but just to set your mind at rest on this point,
+proper Tail-Calls Optimizations are coming for normal call sites, being part of 
+ECMAScript, see:
+
+- [ECMAScript specification](http://www.ecma-international.org/ecma-262/6.0/#sec-tail-position-calls)
+- [ECMAScript 6 Proper Tail Calls in WebKit](https://webkit.org/blog/6240/ecmascript-6-proper-tail-calls-in-webkit/)
+
+You can't rely on it yet, but you can rest assured that in the future
+if that sample would be synchronous, it would not trigger a stack overflow.
+
+Therefore, given that asynchronous calls are by definition processes / events
+happening independently of the current call stack / run loop, this behavior
+is actually surprising, since one of the reasons to go async is to escape
+the limitations of the call stack.
+
+### 5. You Don't Understand How Promises Work
 
 I do. Given that I've been attacked with this argument, I apologize 
 for the appeal to authority that I'm about to make.
@@ -180,23 +197,6 @@ Bonus — see my [presentation from Scala Days](https://www.youtube.com/watch?v=
 My work, good or bad, has followed a certain pattern, which is why I do 
 understand promises, I do understand at least two solutions to this, hence 
 this article.
-
-### 5. That's the Equivalent of a Stack Overflow
-
-Yes, I've mentioned this above, but just to set your mind at rest on this point,
-proper Tail-Calls Optimizations are coming for normal call sites, being part of 
-ECMAScript, see:
-
-- [ECMAScript specification](http://www.ecma-international.org/ecma-262/6.0/#sec-tail-position-calls)
-- [ECMAScript 6 Proper Tail Calls in WebKit](https://webkit.org/blog/6240/ecmascript-6-proper-tail-calls-in-webkit/)
-
-You can't rely on it yet, but you can rest assured that in the future
-if that sample would be synchronous, it would not trigger a stack overflow.
-
-Therefore, given that asynchronous calls are by definition processes / events
-happening independently of the current call stack / run loop, this behavior
-is actually surprising, since one of the reasons to go async is to escape
-the limitations of the call stack.
 
 ## Use-cases
 
