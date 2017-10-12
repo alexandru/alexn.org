@@ -135,13 +135,16 @@ Interestingly, complaints for Scala's `Future` happened due to usage of
 Play's [Iteratees](https://www.playframework.com/documentation/2.6.x/Iteratees),
 with which people have been modeling stream processing.
 
-### 2. But It Does Unlimited Chaining of Promises, Right?
+### 2. But It Does Unlimited Chaining of Promises
 
 Yes, that's why it's leaking memory.
 
 No, the implementation should not chain promises like that and an 
 alternative implementation is possible and well known, as evidenced by 
 the implementations mentioned that don't leak.
+
+The fault lies with the standard `Promise` implementation, not with
+the shown sample.
 
 ### 3. That Sample Does Not Use the Return Value
 
