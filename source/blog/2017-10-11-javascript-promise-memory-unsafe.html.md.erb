@@ -99,7 +99,7 @@ any, goes out the window.
 
 You cannot describe any functional programming algorithm involving loops without tail recursion. 
 If folds are used, then folds are described with tail recursion as well.
-If you're into theory, that's because:
+If you're into some theory, the explanation is that:
 
 1. any loop can be described with a tail recursion
 2. you can't have immutability of the state you're evolving without it
@@ -123,6 +123,11 @@ class Nil implements List<A> {
   constructor(public readonly error?: any) {}
 }
 ```
+
+<p class='extra-info' markdown='1'>
+Sample is using TypeScript (could be Flow) for making it clear what the types are.
+You can work with plain JavaScript of course.
+</p>
 
 This structure is really cheap and effective, being a lazy, asynchronous, referentially transparent stream.
 Describing functions like this one is really fun too:
