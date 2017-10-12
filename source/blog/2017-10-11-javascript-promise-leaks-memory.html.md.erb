@@ -195,7 +195,8 @@ interface List<A>
 class Cons<A> implements List<A> { 
   constructor(
     public readonly head: A, 
-    public readonly next: () => Promise<List<A>>) {}
+    public readonly next: () => Promise<List<A>>
+  ) {}
 }
 
 class Nil implements List<A> {
@@ -206,10 +207,12 @@ class Nil implements List<A> {
 Sample is using TypeScript (could be Flow) for making it clear what the types are.
 You can work with plain JavaScript of course.
 
-This structure is really cheap and effective, being a lazy, asynchronous, referentially transparent stream.
-And in fact it's really similar to JavaScript implementations of async iterators.
+This structure is really cheap and effective, being a lazy, asynchronous, 
+referentially transparent stream. And in fact it's really similar to JavaScript 
+implementations of async iterators, so yes, you are going to work with 
+something like this in the future, even if you don't like it ;-)
 
-Describing functions like this one is really fun too:
+And describing transformation functions like this one is really fun too:
 
 ```typescript
 function map<A, B>(list: List<A>, f: (a: A) => B): List<B> {
