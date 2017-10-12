@@ -180,8 +180,7 @@ this article.
 
 You cannot describe any functional programming algorithm involving loops 
 without tail recursions. If folds are used, then folds are described with 
-tail recursions as well. If you're into some theory, the explanation 
-is that:
+tail recursions as well. That's because:
 
 1. any loop can be described with a tail recursion
 2. you can't have immutability of the state you're evolving without it
@@ -191,14 +190,12 @@ An example of a use-case is the processing of really long / infinite streams of 
 Imagine reading chunks of data from a file and describing them with a data structure like this:
 
 ```typescript
-type Task<A> = () => Promise<A>
-
 interface List<A>
 
 class Cons<A> implements List<A> { 
   constructor(
     public readonly head: A, 
-    public readonly tail: Task<List<A>>) {}
+    public readonly next: () => Promise<List<A>>) {}
 }
 
 class Nil implements List<A> {
@@ -210,6 +207,8 @@ Sample is using TypeScript (could be Flow) for making it clear what the types ar
 You can work with plain JavaScript of course.
 
 This structure is really cheap and effective, being a lazy, asynchronous, referentially transparent stream.
+And in fact it's really similar to JavaScript implementations of async iterators.
+
 Describing functions like this one is really fun too:
 
 ```typescript
@@ -217,7 +216,7 @@ function map<A, B>(list: List<A>, f: (a: A) => B): List<B> {
   if (list instanceof Cons) {
     try {
       const cons = list as Cons<A>
-      return new Cons(f(cons.head), () => cons.tail().then(xs => map(xs, f)))
+      return new Cons(f(cons.head), () => cons.next().then(xs => map(xs, f)))
     } catch (e) {
       return new Nil(e)
     }
