@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Promise Tail-Rec Loop</title>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 10px;
+        font-size: 110%;
+      }
+      button {
+        font-weight: bold;
+        background: #aabbcc;
+        border: 1px solid #778899;
+        color: #334455;
+        border-radius: 5px;
+        font-size: 140%;
+      }
+    </style>
+  </head>
+  <body>
+    <p><b>Step 1</b> — Open the developer console to see the logged counter:</p>
+    <ul>
+      <li>
+        Chrome — click Menu -> More Tools -> Developer Tools -> Console <br>
+        (on Mac the developer tools can be accessed with ⌥⌘I)
+      </li>
+      <li>
+        Firefox — click Meny -> Web Developer -> Web Console <br>
+        (on Mac the console can be accessed with ⌥⌘K)
+      </li>
+    </ul>
+
+    <p><b>Step 2</b> — press the start button:</p>
+
+    <script>
+      function signal(i) {
+        return new Promise(cb => cb(i))
+      }
+
+      function loop(n) {
+        return signal(n).then(i => {
+          if (i % 1000 == 0) console.log(i)
+          return loop(n + 1)
+        })
+      }
+    </script>
+    <button onclick="loop(0).catch(console.error)">Start!</button>
+  </body>
+</html>
