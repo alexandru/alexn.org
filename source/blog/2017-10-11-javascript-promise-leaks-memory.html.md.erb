@@ -17,7 +17,8 @@ process or browser:
 // Tested on Node.js 7.10, Firefox 57 and Chrome 61
 //
 // Usage of `setImmediate` is to prove that we have
-// async boundaries, can be removed.
+// async boundaries, can be removed for browsers
+// not supporting it.
 
 function signal(i) {
   return new Promise(cb => setImmediate(() => cb(i)))
@@ -36,8 +37,7 @@ loop(0).catch(console.error)
 <a href="/assets/html/js-promise-leak.html" target="_blank"><b>→ Load Sample for Browser</b></a>
 
 It takes a while to fill GBs of heap, plus Node is less conservative, the GC eventually
-freezing the process trying to recover memory, so give it a few seconds. Chrome
-will crash it faster.
+freezing the process trying to recover memory, so give it a few seconds.
 
 This is equivalent with this `async` function:
 
