@@ -275,11 +275,11 @@ trait PureTestSuite extends minitest.api.AbstractTestSuite {
 
   def testIO(name: String)(f: => IO[Prop]): Unit = 
     ts.testAsync(name) {
-	  f.unsafeToFuture.map { result =>
-      val result = Test.check(config, f)
-      if (!result.passed) fail(Pretty.pretty(result))
-	  }
-	}
+      f.unsafeToFuture.map { result =>
+        val result = Test.check(config, f)
+        if (!result.passed) fail(Pretty.pretty(result))
+      }
+    }
 }
 ```
 
