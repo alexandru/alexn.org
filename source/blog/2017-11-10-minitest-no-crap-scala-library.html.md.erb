@@ -79,7 +79,7 @@ doesn't do macros for `assert`, but if it does, then that's a whole
 other can of worms:
 
 ```scala
-assert(x >= y)
+assert(x > y)
 ```
 
 **Fact:** most assertions that you need to do in testing are *equality
@@ -87,7 +87,7 @@ tests* and for that rare moment in which you need inequality tests, you
 can simply add a custom error message:
 
 ```scala
-assert(x >= y, s"$x >= $y")
+assert(x > y, s"$x > $y")
 ```
 
 Yes, it's repetitive, but I don't care, because this is such a rare
