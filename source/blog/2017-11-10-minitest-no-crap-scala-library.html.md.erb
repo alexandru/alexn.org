@@ -22,8 +22,17 @@ wasn't satisfied with any of the available alternatives.
 Then I found that [SBT](http://www.scala-sbt.org/) can do all the
 heavy lifting (e.g. running the tests, reporting, etc), exposing a
 nice [sbt/test-interface](https://github.com/sbt/test-interface) that
-you can integrate with it. All you need to do is to build your own
+you can integrate with. All you need to do is to build your own
 API on top. And so I did.
+
+<p class='extra-info' markdown='1'>
+**NOTE:** My opinions in this article disagree with the design 
+choices of popular testing libraries. I know that libraries like
+[ScalaTest](http://www.scalatest.org/) or 
+[Specs2](https://etorreborre.github.io/specs2/) are the way they
+are because people want them that way. And those are awesome
+projects, having awesome authors. They are just not for me.
+</p>
 
 ### Portability
 
@@ -102,7 +111,7 @@ almost never happens and if they are inclined to do that (like once in
 a million), then they can just learn programming. It's not like an
 English-like DSL is any closer to natural language.
 
-### Minimal Implementation
+### Minimal Implementation, Less is More
 
 Because the implementation is minimal, there's nothing that I can't
 fix in it, there's nothing that I can't implement should I need
@@ -132,6 +141,9 @@ All the asserts that you need:
 2. `assertEquals(received, expected)`: for equality testing with a
    nice error message
 3. `intercept`: for testing that exceptions are thrown
+4. `fail(reason?)`: fails the current test
+5. `ignore(reason?)`: ignores the current test
+6. `cancel(reason?)`: cancels the current test
 
 What you don't need:
 
@@ -169,6 +181,12 @@ object MySimpleSuite extends SimpleTestSuite {
     assertResult("hello world") {
       "hello" + " " + "world"
     }
+  }
+
+  test("should be ignored") {
+    if (Platform.isJS) ignore("Blocking not supported on top of JS")
+    val r = Await.result(Future(1), Duration.Inf)
+    assertEquals(r, 1)
   }
 }
 ```
@@ -232,7 +250,7 @@ object MyLawsTest extends SimpleTestSuite with Checkers {
 }
 ```
 
-That's all you need to know.
+That's everything!
 
 ## Common Complaints
 
@@ -269,7 +287,7 @@ trait PureTestSuite extends minitest.api.AbstractTestSuite {
   
   def test(name: String)(f: => Prop): Unit = 
     ts.test(name) {
-	  val result = Test.check(config, f)
+    val result = Test.check(config, f)
     if (!result.passed) fail(Pretty.pretty(result))
 	}
 
