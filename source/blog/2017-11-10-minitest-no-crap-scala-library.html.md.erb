@@ -290,9 +290,9 @@ trait PureTestSuite extends minitest.api.AbstractTestSuite {
   
   def test(name: String)(f: => Prop): Unit = 
     ts.test(name) {
-    val result = Test.check(config, f)
-    if (!result.passed) fail(Pretty.pretty(result))
-	}
+      val result = Test.check(config, f)
+      if (!result.passed) fail(Pretty.pretty(result))
+    }
 
   def testIO(name: String)(f: => IO[Prop]): Unit = 
     ts.testAsync(name) {
