@@ -270,20 +270,23 @@ trait PureTestSuite extends minitest.api.AbstractTestSuite {
   def test(name: String)(f: => Prop): Unit = 
     ts.test(name) {
 	  val result = Test.check(config, f)
-      if (!result.passed) fail(Pretty.pretty(result))
+    if (!result.passed) fail(Pretty.pretty(result))
 	}
 
   def testIO(name: String)(f: => IO[Prop]): Unit = 
     ts.testAsync(name) {
 	  f.unsafeToFuture.map { result =>
-  	    val result = Test.check(config, f)
-        if (!result.passed) fail(Pretty.pretty(result))
+      val result = Test.check(config, f)
+      if (!result.passed) fail(Pretty.pretty(result))
 	  }
 	}
 }
 ```
 
 There's your purely functional API in just a couple of lines of code.
+
+I don't want that in Monix though - the integration that we have with
+ScalaCheck is minimal and enough.
 
 ### It does not support Maven, CBT or others
 
