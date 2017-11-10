@@ -12,6 +12,8 @@ $max-width: 760px;
 $min-width: 480px;
 $vertical-padding: 20px;
 
+$small-and-down: "only screen and (max-width: #{$min-width})";
+
 /********
    MIXINS
 */
@@ -30,11 +32,15 @@ $vertical-padding: 20px;
 
 @mixin container-wrapper {
   margin: auto;
-  max-width: $max-width;
-  min-width: $min-width;
+  max-width: $max-width;  
   width: 97%;
   padding: $vertical-padding 1.5%;
   background-color: #fff;
+  box-sizing: border-box;
+
+  @media #{$small-and-down} {
+    padding: $vertical-padding 3%;
+  }
 }
 
 /********
@@ -275,6 +281,10 @@ body #main {
       display: block;
       padding-bottom: $vertical-padding / 4;
 
+      @media #{$small-and-down} {
+        padding-bottom: $vertical-padding; 
+      }
+
       a {
         text-decoration: none;
         &:hover {
@@ -287,6 +297,10 @@ body #main {
         font-family: Monaco, "Courier New", monospace;
         font-size: 80%;
         margin-right: 5px;
+
+        @media #{$small-and-down} {
+          display: block; 
+        }
       }
     }
 
