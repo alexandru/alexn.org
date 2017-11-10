@@ -64,8 +64,11 @@ which is what I was using.
 
 ### Say No to DSLs
 
-I do not want to write `3 shouldBe greaterThan(4)` or other such
-nonsense. Unit tests might be business driven, but so is software in
+I do not want to write `x shouldBe greaterThan(y)` or other such
+nonsense. I do not have the memory for that, I always forget the API
+and the IDE doesn't help much due to the implicit conversions going on.
+
+Unit tests might be business driven, but so is software in
 general, nothing makes tests a special snowflake to warrant the abuse
 of the programming language to make it look like English.
 
@@ -76,7 +79,7 @@ doesn't do macros for `assert`, but if it does, then that's a whole
 other can of worms:
 
 ```scala
-assert(3 > 4)
+assert(x >= y)
 ```
 
 **Fact:** most assertions that you need to do in testing are *equality
@@ -84,7 +87,7 @@ tests* and for that rare moment in which you need inequality tests, you
 can simply add a custom error message:
 
 ```scala
-assert(x > y, s"$x > $y")
+assert(x >= y, s"$x >= $y")
 ```
 
 Yes, it's repetitive, but I don't care, because this is such a rare
@@ -92,7 +95,7 @@ event that I don't want to optimize it with a special DSL or even with
 macros.
 
 Another thing that I absolutely hate are tests marked with English
-words like `it`, forcing you to phrase the test's description in a
+words like "`it`", forcing you to phrase the test's description in a
 certain way. I frequently end up with "sentences" that makes no sense:
 
 ```scala
