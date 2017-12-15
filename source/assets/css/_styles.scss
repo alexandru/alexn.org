@@ -609,7 +609,7 @@ body #main article footer #email-subscription {
 #contributions {
   position: relative;
   border-top: 2px solid #C69AA1;
-  padding-top: 10px;
+  padding-top: 10px;  
 
   h2 {
     margin-top: 0;
@@ -619,6 +619,14 @@ body #main article footer #email-subscription {
   #share {
     margin-bottom: $vertical-padding / 2;
     border-bottom: 1px solid #C69AA1;
+  }
+
+  div.isso-comment div.text {
+    font-size: 90%;
+  }
+
+  div.isso-postbox .textarea {
+    font-size: 90%;
   }
 }
 
