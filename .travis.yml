@@ -3,4 +3,4 @@ before_install:
 install:
 - bundle install
 script:
-- ./scripts/build-then-sync.sh
+- ./scripts/build

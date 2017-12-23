@@ -1,0 +1,41 @@
+#!/usr/bin/env ruby
+
+def exec(cmd)
+  abort("Error encountered, aborting") unless system(cmd)
+end
+
+puts "CI=#{ENV['CI']}"
+puts "TRAVIS_BRANCH=#{ENV['TRAVIS_BRANCH']}"
+puts "TRAVIS_TAG=#{ENV['TRAVIS_TAG']}"
+puts "TRAVIS_PULL_REQUEST=#{ENV['TRAVIS_PULL_REQUEST']}"
+puts "PUBLISH=#{ENV['PUBLISH']}"
+puts
+
+unless ENV['CI'] == 'true'
+  abort("ERROR: Not running on top of Travis, aborting!")
+end
+
+branch = if ENV["TRAVIS_TAG"] && !ENV["TRAVIS_TAG"].empty?
+  ENV["TRAVIS_TAG"]
+else
+  ENV['TRAVIS_BRANCH']
+end
+
+puts "Detected branch or tag: " + branch
+unless branch == "master" && ENV['TRAVIS_PULL_REQUEST'] == 'false'
+  puts "Only publishing on the `master` branch!"
+  exit 0
+end
+
+# Forcing a change to the root directory, if not there already
+Dir.chdir(File.absolute_path(File.join(File.dirname(__FILE__), "..")))
+
+exec("bundle exec middleman build")
+exec("mkdir -p #{ENV['HOME']}/.ssh")
+exec("cp scripts/travis_rsa #{ENV['HOME']}/.ssh")
+exec("chmod -R go-rwx #{ENV['HOME']}/.ssh")
+
+exec(
+  "rsync --delete-excluded -Pacv " +
+  "-e \"ssh -p 223 -o 'StrictHostKeyChecking no' -i #{ENV['HOME']}/.ssh/travis_rsa\" " +
+  "build/ alex@alexn.org:/var/www/alexn.org/")
