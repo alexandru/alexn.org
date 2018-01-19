@@ -17,8 +17,9 @@ the existence of [Traversable](http://www.scala-lang.org/api/2.12.1/scala/collec
 in the standard library, along with its variants like `TraversableLike` and `TraversableOnce`.
 Apparently this interface is missing in the new design and that's awesome.
 
-It's easy to make API mistakes, we all do it and it's important to learn from past mistakes,
-this document serving as a lesson for why `Traversable` is a bad idea.
+It's easy to make API mistakes, we all do it and it's important to
+learn from past mistakes, this document serving as a lesson for why
+`Traversable` is a bad idea.
 
 Claims:
 
@@ -149,3 +150,9 @@ which happens for megamorphic function calls in hot inner loops.
 
 So there you have it and I hope that along with the redesign we'll get rid
 of `Traversable`.
+
+<p class='extra-info' markdown='1'>
+My opinions have been highly influenced by the work of Erik Meijer,
+if you want to learn more checkout this presentation:
+[Contravariance is the Dual of Covariance Implies Iterable is the Dual of Observable](https://vimeo.com/98922027).
+</p>
