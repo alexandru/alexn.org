@@ -7,6 +7,7 @@ $heading-color: #340007;
 $h1-heading-color: #aa0000;
 $body-font-size: 16px;
 $body-line-height: 22px;
+$font-color: #333;
 $header-1-size: 180%;
 $max-width: 760px;
 $min-width: 480px;
@@ -55,6 +56,7 @@ html, body {
 
 body {
   font-family: "Open Sans", sans-serif;
+  color: $font-color;
 
   font-size: $body-font-size;
   line-height: $body-line-height;
@@ -222,6 +224,11 @@ body #main {
     width:100%;
     max-width:$max-width;
     height: auto;
+  }
+
+  img.border {
+    border-radius: 0.3em 0.3em 0.3em 0.3em;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
   }
 
   img.max-border {
