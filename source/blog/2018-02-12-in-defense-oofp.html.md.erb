@@ -23,7 +23,7 @@ debate around their redesign.
 
 - [1. Background](#h1)
   - [1.1. My Road to Scala](#h1-1)
-- [2. Criticims](#h2)
+- [2. Criticism](#h2)
   - [2.1. CanBuildFrom](#h2-1)
   - [2.2. Complex Hierarchy](#h2-2)
   - [2.3. Seq or Other Super-types](#h2-3)
@@ -55,7 +55,7 @@ upcoming changes on Scala's blog:
 1. [Scala 2.13 Collections Rework](http://www.scala-lang.org/blog/2017/02/28/collections-rework.html)
 2. [On Performance of the New Collections](http://www.scala-lang.org/blog/2018/02/09/collections-performance.html)
 
-It's now also receiving some criticims. This article represents my 
+It's now also receiving some criticism. This article represents my 
 2¢ on why I like this redesign and on why criticism of an
 OOP hierarchy are not warranted, even if you love FP.
 
@@ -140,14 +140,14 @@ There, that brings justice to everybody that complained for all these
 years.
 
 <p class='extra-info' markdown='1'>
-<b><u>TL;DR</u></b>: `CanBuildFrom` was a clever solution to an exagerated
+<b><u>TL;DR</u></b>: `CanBuildFrom` was a clever solution to an exaggerated
 problem, but you'll no longer have to worry about it. Beware of clever 
 solutions to problems you don't have!
 </p>
 
 ### <a href="#h2-2" name="h2-2">2.2.</a> Complex Hierarchy
 
-This is an awesome infographic, showing how complex the implemention is for 
+This is an awesome infographic, showing how complex the implementation is for 
 [List](https://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html), 
 by [Rob Norris](https://github.com/tpolecat):
 
@@ -256,7 +256,7 @@ This is actually a separate argument that does have merit:
 (<a href="https://twitter.com/fommil/status/962736382467813376" target="_blank">twitter.com/fommil</a>)
 
 > You do not need a top-down hierarchy of collections. They're ready
-> to break back compatiblity, so why not do it right like Spiewak's
+> to break back compatibility, so why not do it right like Spiewak's
 > suggestion 3 years ago? `Builder` and `IterableOnce` are symptoms of a
 > deeper problem: poor design choices.
 
@@ -275,7 +275,7 @@ def foo[F[_] : Foldable](is: F[Int]): MyThingy =
   implicitly[Foldable[F]].foldLeft(new MyThingy)(_ accumulate _)
 ```
 
-Ah, now we are getting somewhere. But astute should notice at this
+Ah, now we are getting somewhere. But the astute reader should notice at this
 point that this means exposure of an extra `F[_]` type parameter that
 you don't actually need.
    
@@ -555,7 +555,7 @@ case class NextBatch[F[_], Seq[_], A](
 
 That's better, right?
 
-Wrong - if you're passing that type-class instance arround, that's
+Wrong - if you're passing that type-class instance around, that's
 effectively a
 [vtable](https://en.wikipedia.org/wiki/Virtual_method_table) so
 congratulations, you have an OOP encoding with extra garbage.
@@ -576,7 +576,7 @@ and [Traverse](https://github.com/typelevel/cats/blob/v1.0.1/core/src/main/scala
 type-classes. This is understandable, because these type classes are
 really potent, really generic, great actually.
 
-Here's  Phil Freeman, the creator of the PureScript language:
+Here's  Phil Freeman's opinion, the creator of the PureScript language:
 
 > ES2018 will include a whole new language feature in order to
 > implement one instantiation of "traverse". I'll say it again - JS
@@ -609,7 +609,7 @@ The short answer - it works, but if that stream is too big, it will
 blow up your process because there's no back-pressure in that fold.
 But I digress.
 
-Iterating over arrays in our `NextBatch` might proove tricky but is
+Iterating over arrays in our `NextBatch` might prove tricky but is
 doable, for example in a `mapEval` implementation that needs to pop an
 item out of our `Array`, process that in the `F[_]` monadic context,
 then continue from where it left off:
@@ -746,7 +746,7 @@ instance, but what if we had some sort of
 which you then changed to a 
 [HAMT](https://en.wikipedia.org/wiki/Hash_array_mapped_trie).
 In that case our `Pointer` would be some sort of node with links
-to its neighbours, so is it wise exposing it like that? How
+to its neighbors, so is it wise exposing it like that? How
 is Haskell's binary compatibility anyway? Does it even support
 dynamic linking?
 
