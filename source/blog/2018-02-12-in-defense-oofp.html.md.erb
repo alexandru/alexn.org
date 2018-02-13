@@ -55,8 +55,8 @@ upcoming changes on Scala's blog:
 1. [Scala 2.13 Collections Rework](http://www.scala-lang.org/blog/2017/02/28/collections-rework.html)
 2. [On Performance of the New Collections](http://www.scala-lang.org/blog/2018/02/09/collections-performance.html)
 
-It's now also receiving some fair amount of criticims. This article
-represents my 2¢ on my I like this redesign and on why criticism of an
+It's now also receiving some criticims. This article represents my 
+2¢ on my I like this redesign and on why criticism of an
 OOP hierarchy are not warranted, even if you love FP.
 
 ### <a href="#h1-1" name="h1-1">1.1.</a> My Road to Scala
@@ -260,7 +260,7 @@ He goes on saying:
 > generic types that throw away this information is wrong, and very
 > very much an anti-pattern.
 
-I very much respect this opinion and knows from where he's coming
+I very much respect this opinion and I know from where he's coming
 from, however I strongly disagree with it.
 
 Choosing a collection type means committing to an implementation, it
@@ -451,11 +451,11 @@ def map[F[_], A](fa: Iterant[F, A])(f: A => B)
   def loop(current: Iterant[F, A]): Iterant[F, A] =
     current match {
       case Next(a, rest, stop) =>
-  	    Next(f(b), rest.map(loop), stop)
-	  case Suspend(rest, stop) =>
-	    Suspend(rest.map(loop), stop)
-	  case Halt(e) =>
-	    Halt(e)
+        Next(f(b), rest.map(loop), stop)
+      case Suspend(rest, stop) =>
+        Suspend(rest.map(loop), stop)
+      case Halt(e) =>
+        Halt(e)
     }
   loop(fa)
 }
@@ -769,7 +769,7 @@ object ArrayIterator extends IteratorTypeClass[Array] {
   def start[A](fa: Array[A]) = 0
   def next[A](fa: Array[A], cursor: Int) = 
     if (cursor >= fa.length) None
-	else Some((fa(cursor), cursor + 1))
+    else Some((fa(cursor), cursor + 1))
 }
 ```
 
@@ -911,7 +911,7 @@ is important for getting back a predictable result - after all, that ordering
 is important is implied by what this operator does.
 
 And note that all the implementation does is to care about traversal, via
-an `Iterator` loop and that is it.
+an `Iterator` loop.
 
 <p class='extra-info' markdown='1'>
 <b><u>TL;DR</u></b>: yes, there are perfectly valid use-cases for `Seq` as the input!
@@ -951,4 +951,6 @@ Here's a summary:
 - [5.2.](#h5-2) — yes, there are perfectly valid use-cases for `Seq` as
   the input
 
-Hope you enjoyed this ❤️
+So yes, there will be people out there, such as myself, genuinely enjoying the new collections.
+
+Thanks for reading ️❤️
