@@ -31,7 +31,7 @@ debate around their redesign.
 - [3. Constrained Parametric Polymorphism (Type-classes)](#h3)
 - [4. Case Study: Monix Iterant](#h4)
   - [4.1. Type-classes For Super Powers](#h4-1)
-  - [4.2. OOP Strikes Back](#h4-2)
+  - [4.2. Liskov Substitution Principle: OOP Strikes Back](#h4-2)
   - [4.3. Iterator vs Foldable and Traverse](#h4-3)
 - [5. Seq My Love](#h5)
   - [5.1. Seq on Return](#h5-1)
@@ -697,8 +697,8 @@ def mapEval[F[_], A](fa: Iterant[F, A])(f: A => F[B])
       case NextCursor(cursor, rest, stop) =>
         val eval = 
           if (cursor.hasNext) 
-		    rest.map(loop) 
-		  else
+            rest.map(loop) 
+          else
             f(batch.next()).flatMap { a =>
               Next(a, F.pure(loop(fa)), stop)
             }
