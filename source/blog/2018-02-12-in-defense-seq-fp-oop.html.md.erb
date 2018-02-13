@@ -1,7 +1,7 @@
 ---
 title: "In Defence of OOFP"
 clean_summary:
-  OOP versus Type Classes, as exemplified by the Scala collections redesign.
+  OOP versus Type Classes, exemplified and in defence of the Scala collections redesign.
 tags:
   - Functional
   - Programming
@@ -26,11 +26,15 @@ debate around their redesign.
   - [2.2. Complex Hierarchy](#h2-2)
   - [2.3. Seq or Other Super-types](#h2-3)
   - [2.4. Not Using Type-classes](#h2-4)
-- [3. Constrained Parametric Polymorphism](#h3)
+- [3. Constrained Parametric Polymorphism (Type-classes)](#h3)
 - [4. Case Study: Monix Iterant](#h4)
   - [4.1. Type-classes For Super Powers](#h4-1)
   - [4.2. OOP Strikes Back](#h4-2)
   - [4.3. Iterator vs Foldable and Traverse](#h4-3)
+- [5. Seq My Love](#h5)
+  - [5.1. Seq on Return](#h5-1)
+  - [5.2. Seq on Input](#h5-2)
+- [6. Conclusion](#h6)
   
 ## <a href="#h1" name="h1">1.</a> Background
 
@@ -312,8 +316,9 @@ than `Iterable`. Yes, that's because of `Iterator`'s side effecting,
 but highly efficient and flexible protocol. More on that below.
 
 <p class='extra-info' markdown='1'>
-<b><u>TL;DR</u></b>: type-classes are nice, playing well with parametric polymorphism,
-but which is better is highly debatable (more details below)
+<b><u>TL;DR</u></b>: type-classes are nice, playing well with
+parametric polymorphism, but which is better is highly debatable (more
+details below)
 </p>
 
 ## <a href="#h3" name="h3">3.</a> OOP vs Constrained Parametric Polymorphism (Type-classes)
@@ -706,13 +711,22 @@ def mapEval[F[_], A](fa: Iterant[F, A])(f: A => F[B])
 
 Can you do that with `Foldable` / `Traverse`? No, you can't!
 
+<p class='extra-info' markdown='1'>
+If a tree falls in a forest and no one is around to hear it, is that a
+<a href="https://en.wikipedia.org/wiki/Side_effect_(computer_science)"><i>side effect</i></a>?
+<br><br>
+The `Iterator` interface relies on side effects and is thus
+incompatible with functional programming. However if its mutation is
+properly suspended and encapsulated, such that <i>referential
+transparency</i> is preserved, then it really doesn't matter 😉
+</p>
+
 To work with type-classes and pure functions, our first intuition
 should be something like this:
 
 ```scala
-trait IteratorClass[F[_]] {
-
-  def next[A](fa: F[A]): Either[Throwable, Option[(A, F[A])]]
+trait IteratorTypeClass[F[_]] {
+  def next[A](fa: F[A]): Option[(A, F[A])]
 }
 ```
 
@@ -732,12 +746,207 @@ class:
   has linear O(N) time for `tail`, aka you can change your job now
 
 Yes, `Iterator` is efficient for all of them, so it wins by a wide
-margin. The above is actually horrible and why a type class like the
+margin. The above is actually horrible and why a type class like 
 that isn't popular, because it relies on `List`'s encoding to be
-efficient ;-)
+efficient 😉
+
+So that's not it. The pure type-class equivalent is actually this:
+
+```scala
+trait IteratorTypeClass[F[_]] {
+  type Pointer[T]
+  
+  def start[A](fa: F[A]): Pointer[A]
+  def next[A](fa: F[A], cursor: Pointer[A]): Option[(A, Pointer[A])]
+}
+
+// Sample instance for Array
+object ArrayIterator extends IteratorTypeClass[Array] {
+  type Pointer[T] = Int
+  
+  def start[A](fa: Array[A]) = 0
+  def next[A](fa: Array[A], cursor: Int) = 
+    if (cursor >= fa.length) None
+	else Some((fa(cursor), cursor + 1))
+}
+```
+
+But this will leak implementation details - not bad for our `Array`
+instance, but what if we had some sort of 
+[self-balancing tree](https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree)
+which you then changed to a 
+[HAMT](https://en.wikipedia.org/wiki/Hash_array_mapped_trie).
+In that case our `Pointer` would be some sort of node with links
+to its neighbours, so is it wise exposing it like that? How
+is Haskell's binary compatibility anyway? Does it even support
+dynamic linking?
 
 <p class='extra-info' markdown='1'>
-<b><u>TL;DR</u></b>: `Iterator` actually beats any pure, type-class based
-solution in both performance, flexibility or both! It's also
-lower-level, impure and error prone, but sorely needed.
+<b><u>TL;DR</u></b>: `Iterator` actually beats pure, type-class
+based solution in performance, flexibility or encapsulation! It's 
+also lower-level, impure and error prone, but sorely needed sometimes.
 </p>
+
+## <a href="#h5" name="h5">5.</a> Seq My Love
+
+I actually like
+[Seq](https://www.scala-lang.org/api/2.12.4/scala/collection/Seq.html)
+and have never regretted using it.
+
+Not everybody agrees and as mentioned in section 
+<a href="#h2-3">2.3.</a>, there are people advising against its usage:
+
+> You always care about the asymptotic properties of your data
+> structures. So there is never a case where Seq makes sense, even as
+> a concept!
+
+(<a href="https://twitter.com/djspiewak/status/962767948774457344" target="_blank">twitter.com/djspiewak</a>)
+
+Here's why I disagree ...
+
+### <a href="#h5-1" name="h5-1">5.1.</a> Seq on Return
+
+Returning `Seq` from a function gives you the freedom to change the
+implementation and this works well because:
+
+1. you preserve backwards binary compatibility
+2. users might only care to traverse it / fold it, which should be an
+   O(n) operation for any sequence
+   
+Real use-case from Monix, the
+[Observable.bufferSliding](https://github.com/monix/monix/blob/v3.0.0-M3/monix-reactive/shared/src/main/scala/monix/reactive/Observable.scala#L372)
+operator:
+
+```scala
+  /** Returns an observable that emits buffers of items it collects from
+    * the source observable. The resulting observable emits buffers
+    * every `skip` items, each containing `count` items.
+    *
+    * If the source observable completes, then the current buffer gets
+    * signaled downstream. If the source triggers an error then the
+    * current buffer is being dropped and the error gets propagated
+    * immediately.
+    *
+    * For `count` and `skip` there are 3 possibilities:
+    *
+    *  1. in case `skip == count`, then there are no items dropped and
+    *     no overlap, the call being equivalent to `buffer(count)`
+    *  1. in case `skip < count`, then overlap between buffers
+    *     happens, with the number of elements being repeated being
+    *     `count - skip`
+    *  1. in case `skip > count`, then `skip - count` elements start
+    *     getting dropped between windows
+    *
+    * @param count the maximum size of each buffer before it should
+    *        be emitted
+    * @param skip how many items emitted by the source observable should
+    *        be skipped before starting a new buffer. Note that when
+    *        skip and count are equal, this is the same operation as
+    *        `buffer(count)`
+    */
+  final def bufferSliding(count: Int, skip: Int): Observable[Seq[A]] =
+    liftByOperator(new BufferSlidingOperator(count, skip))
+```
+
+Facts:
+
+- [current version (3.0.0-M3)](https://github.com/monix/monix/blob/v3.0.0-M1/monix-reactive/shared/src/main/scala/monix/reactive/internal/operators/BufferSlidingOperator.scala#L43)
+  uses an [Array](https://www.scala-lang.org/api/2.12.4/scala/Array.html) 
+  as the internal buffer, emitting arrays 
+  [wrapped in Seq](https://www.scala-lang.org/api/2.12.4/scala/collection/mutable/WrappedArray.html)
+- [version 2.0.0](https://github.com/monix/monix/blob/v2.0.0/monix-reactive/shared/src/main/scala/monix/reactive/internal/operators/BufferSlidingOperator.scala#L41)
+  used a [ListBuffer](https://www.scala-lang.org/api/2.12.4/scala/collection/mutable/ListBuffer.html),
+  thus emitting `List` chunks
+  
+The change from `List` to `Array` was done:
+
+- without breaking backwards compatibility
+- with no consequence to the user, since these chunks are meant to be
+  <i>small and manageable</i>, so all the user cares about is being
+  able to traverse or fold them or to convert them into something else
+  
+NOTE - due to the
+[covariance](https://en.wikipedia.org/wiki/Covariance_and_contravariance_(computer_science))
+of return types, you're always allowed to override with a more
+specific type in implementing classes (e.g.  to go from `Seq` to
+`List`), and the Liskov substitution principle still applies.
+
+<p class='extra-info' markdown='1'>
+<b><u>TL;DR</u></b>: yes, there are perfectly valid use-cases for `Seq` as the return type!
+</p>
+
+### <a href="#h5-2" name="h5-2">5.2.</a> Seq on Input
+
+The necessity for `Seq` is the same as for
+[Foldable](https://github.com/typelevel/cats/blob/v1.0.1/core/src/main/scala/cats/Foldable.scala),
+the need to traverse a collection, aggregating its items into some final result.
+
+`Seq` also implies that items come in a
+[sequence](https://en.wikipedia.org/wiki/Sequence) in which order
+matters and repetition is allowed. For example a
+[Set](https://www.scala-lang.org/api/2.12.4/scala/collection/immutable/Set.html)
+shouldn't be a `Seq`, because `Set` does not allow repetition and has
+no ordering.
+
+So here's another real-world use-case, also from Monix, the
+[Observable.startWith](https://github.com/monix/monix/blob/v3.0.0-M3/monix-reactive/shared/src/main/scala/monix/reactive/Observable.scala#L2148)
+operator:
+
+```scala
+  /** Creates a new Observable that emits the given elements and then
+    * it also emits the events of the source (prepend operation).
+    */
+  final def startWith[B >: A](elems: Seq[B]): Observable[B] =
+    Observable.fromIterable(elems) ++ self
+```
+
+Here we might have used an
+[Iterator](https://www.scala-lang.org/api/2.12.4/scala/collection/Iterator.html),
+however the result wouldn't have been pure and we might have used an
+[Iterable](https://www.scala-lang.org/api/2.12.4/scala/collection/Iterable.html),
+but as the author of this operator I felt that the input being a sequence
+is important for getting back a predictable result - after all, that ordering
+is important is implied by what this operator does.
+
+And note that all the implementation does is to care about traversal, via
+an `Iterator` loop and that is it.
+
+<p class='extra-info' markdown='1'>
+<b><u>TL;DR</u></b>: yes, there are perfectly valid use-cases for `Seq` as the input!
+</p>
+
+## <a href="#h6" name="h6">6.</a> Conclusion
+
+Here's a summary:
+
+- [2.1.](#h2-1) — `CanBuildFrom` was a clever solution to an
+  exagerated problem, but you'll no longer have to worry about
+  it
+- [2.2.](#h2-2) — a complex OOP hierarchy, as clever as it may be,
+  brings with it complexity beyond reason and is counter-productive
+  for subtype polymorphism
+- [2.3.](#h2-3) — OOP interfaces might expose leaky operations that are
+  booby traps (e.g. `Seq` indexing), but this is not specific to OOP
+  interfaces, vigilance in design is always needed
+- [2.4.](#h2-4) — type-classes are nice, playing well with parametric
+  polymorphism, but which is better is highly debatable
+- [3.](#h3) with Scala you can actually pick and choose the best
+  approach - this can lead to choice paralysis however and lots of
+  drama
+- [4.1.](#h4-1) — constrained parametric polymorphism via type-classes
+  can give you super powers by effectively outsourcing the processing
+  to pluggable data types with various capabilities, the restrictions
+  being on the operations themselves
+- [4.2.](#h4-2) — with constrained parametric polymorphism you either
+  expose the data type as a type parameter, making types more
+  complicated and saying goodbye to heterogeneity, or you end up with
+  a shitty OOP substitute
+- [4.3.](#h4-3) — `Iterator` actually beats pure, type-class based
+  solution in performance, flexibility or encapsulation. It's also
+  lower-level, impure and error prone, but sorely needed sometimes
+- [5.1.](#h5-1) — yes, there are perfectly valid use-cases for `Seq` as
+  the return type
+- [5.2.](#h5-2) — yes, there are perfectly valid use-cases for `Seq` as
+  the input
+
+Hope you enjoyed this ❤️
