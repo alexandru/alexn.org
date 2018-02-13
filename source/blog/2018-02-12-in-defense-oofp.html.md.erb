@@ -216,41 +216,8 @@ def foo(is: Seq[Int]): MyThingy = {
 > it was, could you tell me the answer? No, you cannot, because it
 > depends on the runtime type of `is`!
 
-However this is a red herring. Because this is not the idiomatic way
-to iterate over a collection in either Java or Scala. Yes, `Seq`
-should probably not allow indexing, but that's a separate issue.
-
-The idiomatic method for iteration, depending on use case or
-preference, is either an
-[Iterator](https://www.scala-lang.org/api/2.12.4/scala/collection/Iterator.html)
-loop, or a
-[foldLeft](https://www.scala-lang.org/api/2.12.4/scala/collection/Seq.html#foldLeft[B](z:B)(op:(B,A)=%3EB):B)
-and in that case the asymptotic complexity is `O(n)` regardless of the
-data type that's implementing `Seq` (or otherwise it shouldn't be a
-`Seq`).
-
-```scala
-// the ugly version
-def foo(is: Seq[Int]): MyThingy = {
-  val t = new MyThingy
-  var cursor = is.iterator()
-  while (cursor.hasNext) {
-    t.accumulate(cursor.next())
-  }
-  t
-}
-
-// the simplified version:
-def foo(is: Seq[Int]): MyThingy = {
-  val t = new MyThingy
-  is.foreach(t.accumulate _)
-  t
-}
-
-// the pure version:
-def foo(is: Seq[Int]): MyThingy =
-  is.foldLeft(new MyThingy)((acc, e) => acc.accumulate(e))
-```
+This is a very good example showing a very frequent booby trap for
+beginners that aren't paying attention to their data structures.
 
 He goes on saying:
 
@@ -261,7 +228,7 @@ He goes on saying:
 > very much an anti-pattern.
 
 I very much respect this opinion and I know from where he's coming
-from, however I strongly disagree with it.
+from, however I disagree with it.
 
 Choosing a collection type means committing to an implementation, it
 means specializing, which is a bad idea in many cases. And arguing
