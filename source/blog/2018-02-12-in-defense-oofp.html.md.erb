@@ -273,8 +273,8 @@ To re-use the example above:
 ```scala
 import cats.Foldable
 
-def foo[F[_] : Foldable](is: F[Int]): MyThingy = 
-  implicitly[Foldable[F]].foldLeft(new MyThingy)(_ accumulate _)
+def foo[F[_] : Foldable](list: F[Int]): MyThingy = 
+  implicitly[Foldable[F]].foldLeft(list, new MyThingy)(_ accumulate _)
 ```
 
 Ah, now we are getting somewhere. But the astute reader should notice at this
@@ -325,7 +325,7 @@ import scala.math.Numeric
 def sum[F[_], A](list: F[A])
   (implicit F: Foldable[F], A: Numeric[A]): A = {
 
-  F.foldLeft(A.zero)(A.plus)
+  F.foldLeft(list, A.zero)(A.plus)
 }
 ```
 
