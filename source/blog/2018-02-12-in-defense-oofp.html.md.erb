@@ -625,7 +625,7 @@ def mapEval[F[_], A](fa: Iterant[F, A])(f: A => F[B])
           if (index >= batch.length) 
             rest.map(loop(0))
           else  
-            f(batch(index)).flatMap { a =>
+            f(batch(index)).map { a =>
               Next(a, F.pure(loop(index + 1)(fa)), stop)
             }
         Suspend(eval, stop)
@@ -666,7 +666,7 @@ def mapEval[F[_], A](fa: Iterant[F, A])(f: A => F[B])
           if (cursor.hasNext) 
             rest.map(loop) 
           else
-            f(batch.next()).flatMap { a =>
+            f(batch.next()).map { a =>
               Next(a, F.pure(loop(fa)), stop)
             }
         Suspend(eval, stop)
