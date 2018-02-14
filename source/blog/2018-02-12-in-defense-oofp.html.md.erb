@@ -279,7 +279,9 @@ def foo[F[_] : Foldable](is: F[Int]): MyThingy =
 
 Ah, now we are getting somewhere. But the astute reader should notice at this
 point that this means exposure of an extra `F[_]` type parameter that
-you don't actually need.
+you don't actually need with OOP — well, OK, this syntax heaviness is
+an artifact of the Scala language, as in Haskell this wouldn't be an 
+issue.
    
 Also, not clearly visible here is that type-classes such as `Foldable`
 or `Traversable`, while more generic are also strictly less capable
@@ -288,8 +290,8 @@ but highly efficient and flexible protocol. More on that below.
 
 <p class='extra-info' markdown='1'>
 <b><u>TL;DR</u></b>: type-classes are nice, playing well with
-parametric polymorphism, but which is better is highly debatable (more
-details below)
+parametric polymorphism, but in Scala the syntax is heavier than
+when using OOP, although this isn't an issue with Haskell
 </p>
 
 ## <a href="#h3" name="h3">3.</a> OOP vs Constrained Parametric Polymorphism (Type-classes)
@@ -899,8 +901,9 @@ Here's a summary:
 - [2.3.](#h2-3) — OOP interfaces might expose leaky operations that are
   booby traps (e.g. `Seq` indexing), but this is not specific to OOP
   interfaces, vigilance in design is always needed
-- [2.4.](#h2-4) — type-classes are nice, playing well with parametric
-  polymorphism, but which is better is highly debatable
+- [2.4.](#h2-4) — type-classes are nice, playing well with
+  parametric polymorphism, but in Scala the syntax is heavier than
+  when using OOP, although this isn't an issue with Haskell
 - [3.](#h3) with Scala you can actually pick and choose the best
   approach - this can lead to choice paralysis however and lots of
   drama
