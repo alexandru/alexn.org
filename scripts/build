@@ -17,6 +17,8 @@ unless ENV['CI'] == 'true'
   abort("ERROR: Not running on top of Travis, aborting!")
 end
 
+exec("bundle exec middleman build")
+
 branch = if ENV["TRAVIS_TAG"] && !ENV["TRAVIS_TAG"].empty?
   ENV["TRAVIS_TAG"]
 elsif ENV['TRAVIS_BRANCH']
