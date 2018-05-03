@@ -68,12 +68,13 @@ def rss_summary_of(html)
   }
 
   doc.css("img").each{|elem|
-    sep = elem["style"] !~ /;\s*$/ ? "; " : ""
-    if elem["width"] && elem["style"] !~ /width[:]/
-      elem["style"] += sep + "width: " + elem["width"] + "px; " 
-    end 
-    if elem["height"] && elem["style"] !~ /height[:]/
-      elem["style"] += sep + "height: " + elem["height"] + "px; "
+    style = elem["style"] || ""
+    sep = style !~ /;\s*$/ ? "; " : ""
+    if elem["width"] && style !~ /width[:]/
+      elem["style"] = style + sep + "width: " + elem["width"] + "px; "
+    end
+    if elem["height"] && style !~ /height[:]/
+      elem["style"] = style + sep + "height: " + elem["height"] + "px; "
     end
   }
 
