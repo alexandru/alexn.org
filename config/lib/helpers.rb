@@ -67,5 +67,15 @@ def rss_summary_of(html)
     elem["align"] = "left"
   }
 
+  doc.css("img").each{|elem|
+    sep = elem["style"] !~ /;\s*$/ ? "; " : ""
+    if elem["width"] && elem["style"] !~ /width[:]/
+      elem["style"] += sep + "width: " + elem["width"] + "px; " 
+    end 
+    if elem["height"] && elem["style"] !~ /height[:]/
+      elem["style"] += sep + "height: " + elem["height"] + "px; "
+    end
+  }
+
   doc.at_css("body").inner_html
 end
