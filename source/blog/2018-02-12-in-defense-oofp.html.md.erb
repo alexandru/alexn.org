@@ -12,10 +12,12 @@ tags:
   - FP
 ---
 
-This article is about OOP hierarchies, in comparisson with 
-[type classes](https://en.wikipedia.org/wiki/Type_class), using as 
+This article is about OOP hierarchies, in comparisson with
+[type classes](https://en.wikipedia.org/wiki/Type_class), using as
 example Scala's standard collections, which are involved in a recent
 debate around their redesign.
+
+<!-- read more -->
 
 <%= image_tag "2018/scala-spiral.png", :class => "right", :width => "100" %>
 
@@ -37,7 +39,7 @@ debate around their redesign.
   - [5.1. Seq on Return](#h5-1)
   - [5.2. Seq on Input](#h5-2)
 - [6. Conclusion](#h6)
-  
+
 ## <a href="#h1" name="h1">1.</a> Background
 
 Scala is a hybrid language, being at the same time its greatest
@@ -46,7 +48,7 @@ strength and weakness.
 The
 [collection-strawman](https://github.com/scala/collection-strawman)
 represents a redesign of Scala's standard collections, planned to be
-shipped in Scala 2.13, as part of a 
+shipped in Scala 2.13, as part of a
 [Scala Center proposal](https://github.com/scalacenter/advisoryboard/blob/master/proposals/007-collections.md).
 
 There are at the moment of writing two blog posts explaining the
@@ -57,7 +59,7 @@ upcoming changes on Scala's blog:
 3. [Scala 2.13 Collections Rework](http://www.scala-lang.org/blog/2017/02/28/collections-rework.html)
 4. [On Performance of the New Collections](http://www.scala-lang.org/blog/2018/02/09/collections-performance.html)
 
-It's now also receiving some criticism. This article represents my 
+It's now also receiving some criticism. This article represents my
 2¢ on why I like this redesign and on why criticism of an
 OOP hierarchy are not warranted, even if you love FP.
 
@@ -71,9 +73,9 @@ fresh air.
 
 Yes, I came to Scala in 2012 looking for a better OOP language and
 what I got was a great combination of Smalltalk-esque OOP features,
-mixed with an 
+mixed with an
 [actual FP culturre](https://alexn.org/blog/2017/10/15/functional-programming.html). I
-have an article about 
+have an article about
 [what I liked about it](https://alexn.org/blog/2012/11/02/scala-functional-programming-type-classes.html)
 written back then and to be honest, not much has changed.
 
@@ -89,7 +91,7 @@ here I'm doing my best to summarize it:
 
 ### <a href="#h2-1" name="h2-1">2.1.</a> CanBuildFrom
 
-Checkout this classic StackOverflow issue: 
+Checkout this classic StackOverflow issue:
 
 [Is the Scala 2.8 collections library a case of “the longest suicide note in history”?](https://stackoverflow.com/questions/1722726/is-the-scala-2-8-collections-library-a-case-of-the-longest-suicide-note-in-hist)
 
@@ -101,19 +103,19 @@ def map[B, That](f: A => B)(implicit bf: CanBuildFrom[Repr, B, That]): That
 ```
 
 The Scala core developers first tried to hide this signature, so if
-you'll take a look at the 
+you'll take a look at the
 [current ScalaDoc for List.map](https://www.scala-lang.org/api/current/scala/collection/immutable/List.html#map[B](f:A=%3EB):List[B]),
 you won't see it. But that's only a documentation trick, because
-the actual source-code (and your IDE) tells a different story, see 
+the actual source-code (and your IDE) tells a different story, see
 [List.scala#280](https://github.com/scala/scala/blob/v2.12.4/src/library/scala/collection/immutable/List.scala#L280).
 
-In essence `CanBuildFrom` is a clever abstraction, as 
+In essence `CanBuildFrom` is a clever abstraction, as
 [Martin Odersky](https://stackoverflow.com/a/1728140/3280) himself
-explains, however at this point we can all agree that its complexity 
+explains, however at this point we can all agree that its complexity
 is not justified. Not only because it is difficult to understand, but
 because it has historically created issues for people at the call-sites.
 
-Here's what Coda Hale [was writing](https://gist.github.com/anonymous/1406238) 
+Here's what Coda Hale [was writing](https://gist.github.com/anonymous/1406238)
 back in 2011:
 
 > Replacing a `scala.collection.mutable.HashMap` with a
@@ -130,7 +132,7 @@ And:
 > parameters, builder typeclasses, "operator overloading", return type
 > inference, etc. etc.
 
-But if you'll take a look at 
+But if you'll take a look at
 [List.scala in collection-strawman](https://github.com/scala/collection-strawman/blob/master/collections/src/main/scala/strawman/collection/immutable/List.scala#L214),
 that signature now looks like this:
 
@@ -143,14 +145,14 @@ years.
 
 <p class='extra-info' markdown='1'>
 <b><u>TL;DR</u></b>: `CanBuildFrom` was a clever solution to an exaggerated
-problem, but you'll no longer have to worry about it. Beware of clever 
+problem, but you'll no longer have to worry about it. Beware of clever
 solutions to problems you don't have!
 </p>
 
 ### <a href="#h2-2" name="h2-2">2.2.</a> Complex Hierarchy
 
-This is an awesome infographic, showing how complex the implementation is for 
-[List](https://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html), 
+This is an awesome infographic, showing how complex the implementation is for
+[List](https://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html),
 by [Rob Norris](https://github.com/tpolecat):
 
 <a href="/assets/img/2018/scala-list.jpg" target="_blank">
@@ -273,16 +275,16 @@ To re-use the example above:
 ```scala
 import cats.Foldable
 
-def foo[F[_] : Foldable](list: F[Int]): MyThingy = 
+def foo[F[_] : Foldable](list: F[Int]): MyThingy =
   implicitly[Foldable[F]].foldLeft(list, new MyThingy)(_ accumulate _)
 ```
 
 Ah, now we are getting somewhere. But the astute reader should notice at this
 point that this means exposure of an extra `F[_]` type parameter that
 you don't actually need with OOP — well, OK, this syntax heaviness is
-an artifact of the Scala language, as in Haskell this wouldn't be an 
+an artifact of the Scala language, as in Haskell this wouldn't be an
 issue.
-   
+
 Also, not clearly visible here is that type-classes such as `Foldable`
 or `Traversable`, while more generic are also strictly less capable
 than `Iterable`. Yes, that's because of `Iterator`'s side effecting,
@@ -332,18 +334,18 @@ def sum[F[_], A](list: F[A])
 (N.B. using `F` and `A` as the type names *and* as the name of the
 implicit parameters is nothing special, just a convention)
 
-Is this better? 
+Is this better?
 
 - **PRO:** describing `foldLeft` as a method on `F[_]` is no longer
   required, which makes `F[_]` data types more generic, more reusable;
   not very clear in this case, but if you're unfamiliar with
   type-class based design, trust me on this one
 - **CON:** this method makes `F[_]` clearly visible, exposing it at the
-  type system level - this is no longer subtyping, this is no longer the 
+  type system level - this is no longer subtyping, this is no longer the
   [Liskov substitution principle](https://en.wikipedia.org/wiki/Liskov_substitution_principle),
-  this is parametric polymorphism and it moves the dispatch cost at 
+  this is parametric polymorphism and it moves the dispatch cost at
   compile time, with both the good and the bad
-  
+
 <p class='extra-info' markdown='1'>
 <b><u>TL;DR</u></b>: With Scala you can actually pick and choose the best
 approach - this can lead to choice paralysis however and lots of drama!
@@ -382,10 +384,10 @@ sealed trait Iterant[F[_], A]
 
 case class Next[F[_], A](first: A, rest: F[Iterant[F, A]], stop: F[Unit])
   extends Iterant[F, A]
-  
+
 case class Suspend[F[_], A](rest: F[Iterant[F, A]], stop: F[Unit])
   extends Iterant[F, A]
-  
+
 case class Halt[F[_], A](error: Option[Throwable])
   extends ITerant[F, A]
 ```
@@ -440,7 +442,7 @@ thus it needs to have a
 [Functor](https://github.com/typelevel/cats/blob/v1.0.1/core/src/main/scala/cats/Functor.scala)
 instance, however our `map` is used in fact recursively and due to
 Scala being a strict language, if this `map` were to be strictly
-evaluated, then we'd 
+evaluated, then we'd
 [end up with a stack overflow](https://github.com/typelevel/cats-effect/issues/92).
 This is why we require `cats.effect.Sync`, which implies a `Functor`,
 because `Sync` now suspends evaluation in `map` by law.
@@ -492,8 +494,8 @@ arrays, then you're screwed in terms of throughput:
 
 ```scala
 case class NextBatch[F[_], A](
-  batch: Array[A], 
-  rest: F[Iterant[F, A]], 
+  batch: Array[A],
+  rest: F[Iterant[F, A]],
   stop: F[Unit])
   extends Iterant[F, A]
 ```
@@ -505,8 +507,8 @@ throughput, so might as well use Scala's
 
 ```scala
 case class NextBatch[F[_], A](
-  batch: Seq[A], 
-  rest: F[Iterant[F, A]], 
+  batch: Seq[A],
+  rest: F[Iterant[F, A]],
   stop: F[Unit])
   extends Iterant[F, A]
 ```
@@ -517,8 +519,8 @@ did with `F`:
 
 ```scala
 case class NextBatch[F[_], Seq[_], A](
-  batch: Seq[A], 
-  rest: F[Iterant[F, A]], 
+  batch: Seq[A],
+  rest: F[Iterant[F, A]],
   stop: F[Unit])
   extends Iterant[F, A]
 ```
@@ -529,8 +531,8 @@ Oh wait, this doesn't work, unless we'd expose `Seq[_]` in `Iterant` as well:
 sealed trait Iterant[F[_], Seq[_], A]
 
 case class NextBatch[F[_], Seq[_], A](
-  batch: Seq[A], 
-  rest: F[Iterant[F, A]], 
+  batch: Seq[A],
+  rest: F[Iterant[F, A]],
   stop: F[Unit])
   extends Iterant[F, Seq, A]
 ```
@@ -550,8 +552,8 @@ the type class restriction to be on the data structure itself:
 
 ```scala
 case class NextBatch[F[_], Seq[_], A](
-  batch: Seq[A], 
-  rest: F[Iterant[F, A]], 
+  batch: Seq[A],
+  rest: F[Iterant[F, A]],
   stop: F[Unit])
   (implicit Seq: Foldable[Seq])
   extends Iterant[F, A]
@@ -576,7 +578,7 @@ shitty OOP substitute!
 Many people are under the impression that you can substitute the classic
 [Iterator](https://www.scala-lang.org/api/2.12.4/scala/collection/Iterator.html)
 with the [Foldable](https://github.com/typelevel/cats/blob/v1.0.1/core/src/main/scala/cats/Foldable.scala)
-and [Traverse](https://github.com/typelevel/cats/blob/v1.0.1/core/src/main/scala/cats/Traverse.scala) 
+and [Traverse](https://github.com/typelevel/cats/blob/v1.0.1/core/src/main/scala/cats/Traverse.scala)
 type-classes. This is understandable, because these type classes are
 really potent, really generic, great actually.
 
@@ -604,7 +606,7 @@ So for example, how do you think this works?
 ```scala
 val ios: Iterable[IO[Int]] = ???
 
-ios.foldLeft(IO(0)) { (acc, elem) => 
+ios.foldLeft(IO(0)) { (acc, elem) =>
   for (a <- acc; e <- elem) yield a + e
 }
 ```
@@ -621,14 +623,14 @@ then continue from where it left off:
 ```scala
 def mapEval[F[_], A](fa: Iterant[F, A])(f: A => F[B])
   (implicit F: Sync[F]): Iterant[F, B] = {
- 
+
   def loop(index: Int)(fa: Iterant[F, A]): Iterant[F, B] =
     fa match {
       case NextBatch(batch, rest, stop) =>
-        val eval = 
-          if (index >= batch.length) 
+        val eval =
+          if (index >= batch.length)
             rest.map(loop(0))
-          else  
+          else
             f(batch(index)).map { a =>
               Next(a, F.pure(loop(index + 1)(fa)), stop)
             }
@@ -650,7 +652,7 @@ arrays, lists, vectors or what have you, the classic
 ```scala
 case class NextCursor[F[_], A](
   cursor: Iterator[A],
-  rest: F[Iterant[F, A]], 
+  rest: F[Iterant[F, A]],
   stop: F[Unit])
   extends Iterant[F, A]
 ```
@@ -660,21 +662,21 @@ And now we can express this:
 ```scala
 def mapEval[F[_], A](fa: Iterant[F, A])(f: A => F[B])
   (implicit F: Sync[F]): Iterant[F, B] = {
- 
+
   def loop(fa: Iterant[F, A]): Iterant[F, B] =
     fa match {
       case NextBatch(batch, rest, stop) =>
         loop(NextCursor(batch.iterator(), rest, stop))
       case NextCursor(cursor, rest, stop) =>
-        val eval = 
-          if (cursor.hasNext) 
-            rest.map(loop) 
+        val eval =
+          if (cursor.hasNext)
+            rest.map(loop)
           else
             f(batch.next()).map { a =>
               Next(a, F.pure(loop(fa)), stop)
             }
         Suspend(eval, stop)
-      case _ => 
+      case _ =>
         ???
     }
   // Suspends execution, because NextCursor is side-effectful ;-)
@@ -703,8 +705,8 @@ trait IteratorTypeClass[F[_]] {
 }
 ```
 
-This is a variation on the 
-[state monad](https://wiki.haskell.org/State_Monad), because yes, 
+This is a variation on the
+[state monad](https://wiki.haskell.org/State_Monad), because yes,
 we've got state to evolve.
 
 Here's the performance characteristics of such a decomposition
@@ -719,7 +721,7 @@ class:
   has linear O(N) time for `tail`, aka you can change your job now
 
 Yes, `Iterator` is efficient for all of them, so it wins by a wide
-margin. The above is actually horrible and why a type class like 
+margin. The above is actually horrible and why a type class like
 that isn't popular, because it relies on `List`'s encoding to be
 efficient 😉
 
@@ -728,7 +730,7 @@ So that's not it. The pure type-class equivalent is actually this:
 ```scala
 trait IteratorTypeClass[F[_]] {
   type Pointer[T]
-  
+
   def start[A](fa: F[A]): Pointer[A]
   def next[A](fa: F[A], cursor: Pointer[A]): Option[(A, Pointer[A])]
 }
@@ -736,18 +738,18 @@ trait IteratorTypeClass[F[_]] {
 // Sample instance for Array
 object ArrayIterator extends IteratorTypeClass[Array] {
   type Pointer[T] = Int
-  
+
   def start[A](fa: Array[A]) = 0
-  def next[A](fa: Array[A], cursor: Int) = 
+  def next[A](fa: Array[A], cursor: Int) =
     if (cursor >= fa.length) None
     else Some((fa(cursor), cursor + 1))
 }
 ```
 
 But this will leak implementation details - not bad for our `Array`
-instance, but what if we had some sort of 
+instance, but what if we had some sort of
 [self-balancing tree](https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree)
-which you then changed to a 
+which you then changed to a
 [HAMT](https://en.wikipedia.org/wiki/Hash_array_mapped_trie).
 In that case our `Pointer` would be some sort of node with links
 to its neighbors, so is it wise exposing it like that? How
@@ -756,7 +758,7 @@ dynamic linking?
 
 <p class='extra-info' markdown='1'>
 <b><u>TL;DR</u></b>: `Iterator` actually beats pure, type-class
-based solution in performance, flexibility or encapsulation! It's 
+based solution in performance, flexibility or encapsulation! It's
 also lower-level, impure and error prone, but sorely needed sometimes.
 </p>
 
@@ -766,7 +768,7 @@ I actually like
 [Seq](https://www.scala-lang.org/api/2.12.4/scala/collection/Seq.html)
 and have never regretted using it.
 
-Not everybody agrees and as mentioned in section 
+Not everybody agrees and as mentioned in section
 <a href="#h2-3">2.3.</a>, there are people advising against its usage:
 
 > You always care about the asymptotic properties of your data
@@ -785,7 +787,7 @@ implementation and this works well because:
 1. you preserve backwards binary compatibility
 2. users might only care to traverse it / fold it, which should be an
    O(n) operation for any sequence
-   
+
 Real use-case from Monix, the
 [Observable.bufferSliding](https://github.com/monix/monix/blob/v3.0.0-M3/monix-reactive/shared/src/main/scala/monix/reactive/Observable.scala#L372)
 operator:
@@ -824,13 +826,13 @@ final def bufferSliding(count: Int, skip: Int): Observable[Seq[A]] =
 Facts:
 
 - [current version (3.0.0-M3)](https://github.com/monix/monix/blob/v3.0.0-M1/monix-reactive/shared/src/main/scala/monix/reactive/internal/operators/BufferSlidingOperator.scala#L43)
-  uses an [Array](https://www.scala-lang.org/api/2.12.4/scala/Array.html) 
-  as the internal buffer, emitting arrays 
+  uses an [Array](https://www.scala-lang.org/api/2.12.4/scala/Array.html)
+  as the internal buffer, emitting arrays
   [wrapped in Seq](https://www.scala-lang.org/api/2.12.4/scala/collection/mutable/WrappedArray.html)
 - [version 2.0.0](https://github.com/monix/monix/blob/v2.0.0/monix-reactive/shared/src/main/scala/monix/reactive/internal/operators/BufferSlidingOperator.scala#L41)
   used a [ListBuffer](https://www.scala-lang.org/api/2.12.4/scala/collection/mutable/ListBuffer.html),
   thus emitting `List` chunks
-  
+
 The change from `List` to `Array` was done:
 
 - without breaking backwards compatibility
@@ -841,7 +843,7 @@ The change from `List` to `Array` was done:
 This is the infamous "*program to an interface, not to an implementation*"
 mantra that OOP developers like to repeat so much. You won't
 actually need this capability that often, but when you do, it's golden.
-  
+
 Also note that when using a super-type such as `Seq` in an interface, due to the
 [covariance](https://en.wikipedia.org/wiki/Covariance_and_contravariance_(computer_science))
 of return types, you're always allowed to override with a more
@@ -927,7 +929,7 @@ Here's a summary:
 - [5.2.](#h5-2) — there are perfectly valid use-cases for `Seq` as
   the input
 
-So yes, there will be people out there, such as myself, genuinely enjoying 
+So yes, there will be people out there, such as myself, genuinely enjoying
 Scala's OOP and the new collections.
 
 Thanks for reading ️❤️
