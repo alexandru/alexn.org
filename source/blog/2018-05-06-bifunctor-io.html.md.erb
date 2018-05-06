@@ -423,8 +423,8 @@ number in return, but it gives you an unexpected response - maybe it has a maxim
 of concurrent connections or something.
 
 When making requests to web services, wouldn't it be better to give them some slack?
-Wouldn't it be better to do retries with _exponential backoff_ a couple of times before crashing?
-Or maybe use utilities such as
+Wouldn't it be better to do retries with [exponential backoff](https://en.wikipedia.org/wiki/Exponential_backoff)
+a couple of times before crashing? Or maybe use utilities such as
 [TaskCircuitBreaker](https://monix.io/docs/3x/eval/circuit-breaker.html)? Of course it is. And in
 the environments I worked on, such instances are very frequent and the processes have to be really
 resilient to failure and resiliency is built-in only when having the assumption that
