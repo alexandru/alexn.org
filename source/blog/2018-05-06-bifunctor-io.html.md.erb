@@ -466,8 +466,10 @@ is eager to [prove you wrong](https://hillelwayne.com/post/theorem-prover-showdo
 
 I am not saying that the Bifunctor `IO[E, A]` is not useful.
 
-I'm pretty sure it will prove useful for some very specific use-cases, the same kind
-of use-cases for which `EitherT` is useful, except with a less orthogonal design.
+I'm pretty sure it will prove useful for some use-cases, the same kind of use-cases
+for which `EitherT` is useful, except with a less orthogonal design. Well you gain
+some performance in that process, although when you're using `EitherT` it's debatable
+whether it matters for those particular use cases.
 
 What I am saying is that:
 
