@@ -412,7 +412,7 @@ it means that handling of `Throwable` is out. So at this point there are about 3
 
 1. crash the process, which would be the default, naive implementation
 2. your thread crashes without making a sound, logging to a stderr that gets redirected to `/dev/null`
-3. use something like a custom Java's
+3. use something like a custom Java
    [Thread.UncaughtExceptionHandler](https://docs.oracle.com/javase/7/docs/api/java/lang/Thread.UncaughtExceptionHandler.html),
    or Scalaz's specific "fiber" error reporter to report such errors somewhere
 
