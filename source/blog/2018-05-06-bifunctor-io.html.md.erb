@@ -438,20 +438,20 @@ But the Bifunctor `IO` no longer does.
 In the words of [Daniel Spiewak](https://twitter.com/djspiewak), who initiated
 the Cats-Effect project:
 
-> _The JVM runtime is typed to a first order. Which happens to be exactly what the type
+> The JVM runtime is typed to a first order. Which happens to be exactly what the type
 > parameter of IO reflects. I'm not talking about code in general, just IO.
-> IO is the runtime, the runtime is IO._
+> IO is the runtime, the runtime is IO.
 
 ([link](https://twitter.com/djspiewak/status/983807277613236230))
 
-> _The whole purpose of IO as an abstraction is to control the runtime.
+> The whole purpose of IO as an abstraction is to control the runtime.
 > If you pretend that the runtime has a property which it does not, then that
-> control is weakened and can be corrupted (in this case, by uncontrolled crashes)._
+> control is weakened and can be corrupted (in this case, by uncontrolled crashes).
 
 ([link](https://twitter.com/djspiewak/status/983808880349073408))
 
-> _IO needs to reflect and describe the capabilities of the runtime, for good or for bad.
-> All it takes is an "innocent" throw to turn it all into a lie, and you can't prevent that._
+> IO needs to reflect and describe the capabilities of the runtime, for good or for bad.
+> All it takes is an "innocent" throw to turn it all into a lie, and you can't prevent that.
 
 ([link](https://twitter.com/djspiewak/status/983805298526699520))
 
