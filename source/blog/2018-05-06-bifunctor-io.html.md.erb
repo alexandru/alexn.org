@@ -31,6 +31,7 @@ shares the same problems as Java's Checked Exceptions.
   * [3. The Error Type is an Encapsulation Leak](#3-the-error-type-is-an-encapsulation-leak)
   * [4. It Pushes Complexity to the User](#4-it-pushes-complexity-to-the-user)
   * [5. The Bifunctor IO Doesn't Reflect the Runtime](#5-the-bifunctor-io-doesnt-reflect-the-runtime)
+- [IO Cannot Be an Alias of the Bifunctor IO](#io-cannot-be-an-alias-of-the-bifunctor-io)
 - [Final Words](#final-words)
 
 ## What is IO?
@@ -346,6 +347,9 @@ of `foo` you'll be faced with two choices:
    thus leave them with _unreachable code_ - which is something that some Java
    libraries are known to have done
 
+NOTE: there are cases in which *you want* to break binary compatibility in
+case the error type changes.  That is precisely the use case for which the
+Bifunctor IO or `EitherT` are recommended.
 
 ### 4. It Pushes Complexity to the User
 
@@ -463,6 +467,30 @@ and those that don't.
 
 If you're in the former camp, I think [Hillel Wayne](https://twitter.com/Hillelogram)
 is eager to [prove you wrong](https://hillelwayne.com/post/theorem-prover-showdown/) 😉
+
+## IO Cannot Be an Alias of the Bifunctor IO
+
+You might be temped to say that:
+
+```scala
+type IO[A] = BIO[Throwable, A]
+```
+
+This is not true and it gave birth to, what I like to call, the great
+"_No True Functor_" debate and fallacy 😜
+
+But details about it would take another article to explain.
+
+So it's enough to say that `cats.effect.IO` and `monix.eval.Task` has got you
+covered in all cases, whereas a Bifunctor `IO` needs to pretend that developers
+on top of the JVM can work only with total functions, on top of an environment
+that actively proves you wrong, thus applying the "*let it crash*" philosophy
+on top of a runtime that makes this really expensive to do so
+(i.e. the JVM is not Erlang).
+
+This is another great divide in mentality, although I can see the merits of
+the arguments on the other side. In such cases it's relevant by what kind
+of problems you got burned or not in the past I guess.
 
 ## Final Words
 
