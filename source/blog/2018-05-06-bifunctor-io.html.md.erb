@@ -45,7 +45,7 @@ sealed trait IO[+A] {
 ```
 
 What this means is that `IO` is like a thunk, like a function with
-zero parametters, that upon execution will finally produce an `A`
+zero parameters, that upon execution will finally produce an `A`
 value, if successful. The type also signals possible side effects that
 might happen upon execution, but since it behaves like a function
 (that hasn't been executed yet), when you are given an `IO` value you
@@ -107,7 +107,7 @@ sealed trait BIO[E, A] {
 ```
 
 Such a type parameterizes the error type in `E`. This is more or less like usage of
-`Either` to express the error, but as you shell see below, they aren't exactly
+`Either` to express the error, but as you shall see below, they aren't exactly
 equivalent:
 
 ```scala
@@ -278,7 +278,7 @@ you can actually do something about it, otherwise it's fine to live in
 blissful ignorance.
 
 Empirical evidence suggests that most checked exceptions in Java are
-either ignored or rethrown, forcing people to write catch blocks that
+either ignored or re-thrown, forcing people to write catch blocks that
 are meaningless and even error prone.
 
 You can even find some studies on handling of checked exceptions in
