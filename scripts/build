@@ -54,13 +54,6 @@ begin
     exec('git commit -m "docs: update gh-pages"')
     exec("git push --force --quiet \"https://#{ghToken}@#{repository}\" gh-pages:gh-pages")
   end
-
-  puts "Synchronizing to the alexn.org server!"
-
-  ssh_opts = '-e "ssh -i ./scripts/.ssh/id_ed25519_travis -oStrictHostKeyChecking=no"'
-  exec(
-    "rsync #{ssh_opts} --filter='P .*' --delete-excluded -Pacv --chown=synchronize:www-data " +
-    "build/ synchronize@vm.alexn.org:/var/www/alexn.org/")
 ensure
   exec("rm -rf \"#{destDir}\"")
 end

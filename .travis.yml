@@ -5,8 +5,3 @@ script:
 env:
   global:
     secure: ky8wcbMGKV0TLehC+6Dg0oYNXrDJGT7fng9sw+B4npE/60nfO6CdNQT0w77ieRA7xpnTvKGtPZte7CbEhlDgR42/r6ZrmAGpSZbbfbaa3x5alPveca3lnATBxKUVoP6wY8NXSEObA/Nn8G6R401eTppaUZo5zPfpU09qyS9HTMI=
-before_install:
-- openssl aes-256-cbc -K $encrypted_309efd0218b9_key -iv $encrypted_309efd0218b9_iv -in ./scripts/.ssh/id_ed25519_travis.enc -out ./scripts/.ssh/id_ed25519_travis -d
-- chmod -R go-rwx ./scripts/.ssh/
-after_script:
-- rm ./scripts/.ssh/id_ed25519_travis
