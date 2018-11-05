@@ -59,8 +59,7 @@
   <%= stylesheet_link_tag "ie-hacks" %>
   <![endif]-->
 
-  <!-- Google authorship -->
-  <link href="https://plus.google.com/+alexelcu" rel="publisher">
+   <%= javascript_include_tag "nocookies" %>
 </head>
 <body>
   <div id="header-container">
@@ -70,7 +69,7 @@
       <meta itemprop="lastReviewed" content="<%= Time.now.strftime('%Y-%m-%d') %>"/>
       <div itemprop="reviewedBy" itemscope itemtype="https://schema.org/Person">
         <meta itemprop="name" content="Alexandru Nedelcu">
-        <meta itemprop="url" content="https://plus.google.com/+alexelcu">
+        <meta itemprop="url" content="<%= website.root_url %>/about.html">
       </div>
 
       <div class="github-fork-ribbon-wrapper right">
@@ -108,15 +107,5 @@
       </div>
     </footer>
   </div>
-
-  <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-84530423-1', 'auto');
-    ga('set', 'anonymizeIp', true);
-    ga('send', 'pageview');
-  </script>
 </body>
 </html>
