@@ -632,8 +632,17 @@ body #main article footer #email-subscription {
     font-size: 90%;
   }
 
-  div.isso-postbox .textarea {
+  div.isso-postbox .textarea, .notification-section {
     font-size: 90%;
+  }
+
+  .notification-section input {
+      margin-right: 5px;
+  }
+
+  .avatar img {
+      max-width: 48px;
+      max-height: 48px;
   }
 }
 
