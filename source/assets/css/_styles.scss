@@ -560,11 +560,19 @@ body #footer-container footer {
   margin-top: 4px;
   padding: 5px 1.5%;
 
+  .links {
+    font-size: 120%;
+    margin-top: 5px;
+    padding-top: 8px;
+    a {
+      color: #8085C1;
+    }
+  }
   .contact {
-    float: left;
     margin-right: 3em;
     margin-top: 5px;
     padding-top: 8px;
+    margin-bottom: 5px;
     a {
       color: #8085C1;
     }
