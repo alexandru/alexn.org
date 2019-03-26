@@ -81,7 +81,7 @@
               data-isso-vote="true"
               data-vote-levels=""
               src="https://alexn.org/comments/alexn/js/embed.min.js"></script>
-      <section id="isso-thread" data-title="{{ page.title }}">
+      <section id="isso-thread" data-title="<%= current_page.data.title || website.title %>">
       </section>
     </div>
   </footer>
