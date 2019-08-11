@@ -21,7 +21,7 @@ Let's do an exercise ...
 
 ## The Anti-Pattern
 
-Given some piece of heavy logic, lets say you want to describe a function that can execute a block of code, along with some finalizer, something like this:
+Given some piece of heavy logic, let's say you want to describe a function that can execute a block of code, along with some finalizer, something like this:
 
 ```scala
 def guarantee[R](f: => R)(finalizer: => Unit): R =
