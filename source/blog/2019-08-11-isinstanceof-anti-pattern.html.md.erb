@@ -13,6 +13,12 @@ Let's do an exercise ...
 
 <!-- read more -->
 
+<p class='extra-info' markdown='1'>
+  When C# developers try Java, one primary complaint is about the lack of reification for Java's generics and by that they mean the ability to discriminate between different type parameters, so to differentiate between `List[Int]` and `List[String]` via `isInstanceOf` checks. Java and Scala do type erasure so a `List[String]` at runtime becomes a `List[Any]`.
+  <br><br>
+  Interestingly this complaint is not valid for Scala. Because of Scala's expressiveness, you shouldn't need to do `isInstanceOf` checks, unless it's for interoperability or for awkward micro optimizations that have no place in high level code. Reification is a runtime construct and Scala solves the associated use cases by moving all of that at compile time, via implicit parameters.
+</p>
+
 ## The Anti-Pattern
 
 Given some piece of heavy logic, lets say you want to describe a function that can execute a block of code, along with some finalizer, something like this:
@@ -253,6 +259,6 @@ guarantee { println("Executing!") } { println("Done!") }
 
 ## In conclusion
 
-Friends don't let friends use `isInstanceOf` checks, because Scala has better ways of handling such instances.
+Friends don't let friends use `isInstanceOf` checks, because Scala has better ways of handling the related use cases.
 
 Enjoy~
