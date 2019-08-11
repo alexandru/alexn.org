@@ -1,22 +1,21 @@
 ---
-title: "Scala's isInstanceOf Is An Anti Pattern"
+title: "Scala's isInstanceOf is an Anti-Pattern"
 clean_summary:
   Scala has a much better way of discriminating between types.
 tags:
   - Programming
   - Scala
-image: 2018/scala-spiral.png
 ---
 
-When you use `isInstanceOf[Class]` checks, that's an anti-pattern, as Scala has a much better way of discriminating between types. Scala has implicit parameters, by which you can describe [type classes](https://en.wikipedia.org/wiki/Type_class).
+When you use `isInstanceOf[Class]` checks, that's an anti-pattern, as Scala has a much better way of discriminating between types. Scala has implicit parameters, with which you can describe [type classes](https://en.wikipedia.org/wiki/Type_class).
 
-Let's do an illustrative example...
+Let's do an exercise ...
 
 <!-- read more -->
 
 ## The Anti-Pattern
 
-Given some piece of heavy logic, lets say you want to describe a function that can complete at the end, as a finalizer, so you write this:
+Given some piece of heavy logic, lets say you want to describe a function that can execute a block of code, along with some finalizer, something like this:
 
 ```scala
 def guarantee[R](f: => R)(finalizer: => Unit): R =

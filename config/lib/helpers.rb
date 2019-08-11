@@ -9,15 +9,17 @@ end
 def with_image_url(html, want_dimensions)
   doc = Nokogiri::HTML(html)
   img = doc.css("img").first
+  width = height = nil
+
   if img
     url = img["src"]
   else
-    url = "/assets/img/logo.png"
+    url = "/assets/img/alex-nedelcu-400-square.jpg"
+    width = height = 400
   end
 
   # trying to find width and height
-  width = height = nil
-  if want_dimensions
+  if want_dimensions and width == nil
     if url.start_with?("/")
       img_path = "./source" + url
     else
