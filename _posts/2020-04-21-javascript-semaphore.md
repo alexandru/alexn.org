@@ -91,11 +91,7 @@ export class AsyncSemaphore {
 
   async withLock<A>(f: () => Promise<A>): Promise<A> {
     await this._acquire()
-    try {
-      return await f()
-    } finally {
-      this._release()
-    }
+    return this._execWithRelease(f)
   }
 
   async withLockRunAndForget<A>(f: () => Promise<A>): Promise<void> {
