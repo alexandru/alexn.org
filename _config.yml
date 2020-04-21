@@ -2,7 +2,6 @@ title: Alexandru Nedelcu's Blog
 description: On programming and personal projects
 url: https://alexn.org
 baseurl: ""
-permalink: blog/:year/:month/:day/:title.html
 feed: https://feed.alexn.org/
 
 include: ["_redirects"]
@@ -18,6 +17,7 @@ defaults:
     scope:
       path: "_posts" # an empty string here means all files in the project
     values:
+      permalink: blog/:year/:month/:day/:title.html
       layout: post
       author: alexelcu
       has_comments: true
