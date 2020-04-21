@@ -20,7 +20,7 @@ No more. I dusted off my blog and will commence a regular posting schedule.
   This blog is about programming, but take note that I don't do just functional programming, or just Scala. Today's article is about [imperative, Promise-driven JavaScript]({% link _posts/2020-04-21-javascript-semaphore.md %}).
 </p>
 
-## Website Generation
+## Website Yak Shaving
 
 Like all professional software developers that want to write more, I started with yak shaving by updating my blog:
 
