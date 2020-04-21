@@ -5,7 +5,7 @@ tags:
   - Blogging
   - Personal
 description:
-  Status and updates.
+  Dusted off my website, with big plans ahead.
 ---
 
 <p class="intro withcap">
