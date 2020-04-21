@@ -7,7 +7,7 @@ function _gaLoad() {
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
   ga('create', '{{ site.google_analytics }}', {
-    'cookieName': '_gaPfiu',
+    'cookieName': '_gaAlexNOrg',
     'cookieExpires': 60 * 60 * 24 * 30 * 3  // 3 months, in seconds
   });
   ga('set', 'anonymizeIp', true);
@@ -19,7 +19,7 @@ function _gaLoad() {
       var it = $(elem);
       var href = it.attr('href');
 
-      if (href.match(/^https?[:]\/\//) && !href.match(/pfiu\.ro/)) {
+      if (href.match(/^https?[:]\/\//) && !href.match(/alexn\.org/)) {
         it.click(_gaEvent('general', 'click', 'external-link', href));
       } else if (href.match(/^#/)) {
         it.click(_gaEvent('general', 'click', 'page-anchor', href));
@@ -49,8 +49,9 @@ if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack || 'msTr
     ('msTrackingProtectionEnabled' in window.external && window.external.msTrackingProtectionEnabled());
 }
 if (!_doNotTrack) {
+  console.log("Analytics are loading.")
   _gaLoad();
 } else if (typeof(console) !== "undefined") {
-  console.log("Google Analytics is off due to Do Not Track setting!");
+  console.log("Analytics are off due to Do Not Track setting!");
 }
 </script>
