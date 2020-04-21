@@ -30,4 +30,6 @@ Like all professional software developers that want to write more, I started wit
 - Automatic thumbnails for Vimeo/YouTube videos, enabled for Twitter/Facebook cards; expect more videos soon
 - Integration of [MathJax](https://www.mathjax.org/){:rel="nofollow" target="_blank"} for math formulas
 
+{% include vimeo.html id=410356726 %}
+
 If you find anything broken, please let me know.
