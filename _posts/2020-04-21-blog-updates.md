@@ -30,11 +30,4 @@ Like all professional software developers that want to write more, I started wit
 - Automatic thumbnails for Vimeo/YouTube videos, enabled for Twitter/Facebook cards; expect more videos soon
 - Integration of [MathJax](https://www.mathjax.org/){:rel="nofollow" target="_blank"} for math formulas
 
-In addition to the above:
-
-- website is hosted by my own DigitalOcean VPS 
-- cached via Cloudflare
-- automatically built via GitHub Actions on pushes
-- with a "web hook" handling the refresh on my VPS, via [github-webhook-listener](https://github.com/alexandru/github-webhook-listener), another massive yak shave 🙂
-
 If you find anything broken, please let me know.
