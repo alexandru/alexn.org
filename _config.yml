@@ -7,11 +7,11 @@ permalink: blog/:year/:month/:day/:title.html
 feed: https://feed.alexn.org/
 
 include: ["_redirects"]
-# exclude: [
-#   "package.json",
-#   "package-lock.json",
-#   "vendor"
-# ]
+exclude: [
+  "scripts",
+  "package.json",
+  "package-lock.json",
+]
 
 defaults:
   -
