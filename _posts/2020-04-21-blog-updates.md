@@ -25,8 +25,8 @@ No more. I dusted off my blog and will commence a regular posting schedule.
 Like all professional software developers that want to write more, I started with yak shaving by updating my blog:
 
 - Migrated from [Middleman](https://middlemanapp.com/){:rel="nofollow" target="_blank"} to [Jekyll](https://jekyllrb.com/){:rel="nofollow" target="_blank"} for generating my static website
-- Changed the design from something homemade to modified [brianmaierjr/long-haul](https://github.com/brianmaierjr/long-haul){:rel="nofollow" target="_blank"}
-- Disabled comments, replaced widget with an email address — if you want to talk with me about my articles, we can do so in private; design should be responsive on mobile phones
+- Changed the design from something homemade to a modified [brianmaierjr/long-haul](https://github.com/brianmaierjr/long-haul){:rel="nofollow" target="_blank"}; design should be responsive on mobile phones
+- Disabled comments, replaced widget with an email address — if you want to talk with me about my articles, we can do so in private
 - Automatic thumbnails for Vimeo/YouTube videos, enabled for Twitter/Facebook cards; expect more videos soon
 - Integration of [MathJax](https://www.mathjax.org/){:rel="nofollow" target="_blank"} for math formulas
 
