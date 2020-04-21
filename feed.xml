@@ -25,12 +25,22 @@ permalink: /feed.xml
       <item>
         <title>{{ post.title | xml_escape }}</title>
         <description><![CDATA[
-          {% unless post.image_hide_in_post %}{% if post.image %}
+          {% unless post.image_hide_in_post %}
+          {% if post.image %}
           <a href="{{ post.url | absolute_url }}">
             <img src="{{ post.image | absolute_url }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
           </a>
           <br />
-          {% endif %}{% endunless %}
+          {% elsif post.vimeo %}
+          <a href="{{ post.url | absolute_url }}">
+            <img src="{{ post.vimeo | vimeo_thumb_link }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
+          </a>
+          {% elsif post.youtube %}
+          <a href="{{ post.url | absolute_url }}">
+            <img src="{{ post.youtube | youtube_thumb_link }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
+          </a>
+          {% endif %}
+          {% endunless -%}
           {% if post.description %}{{ post.description | markdownify | rss_process }}{% else %}{{ post.excerpt | strip_html | rss_process }}{% endif %}          
           <p>
             <a href="{{ post.url | absolute_url }}">Read article →</a>
