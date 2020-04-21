@@ -106,7 +106,7 @@
     <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ site.feed }}" />
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="{{ '/assets/css/style.css' | prepend: site.baseurl }}">
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | prepend: site.baseurl }}?{{ '/assets/css/style.css' | md5file }}">
     <!--[if IE 8]><link rel="stylesheet" href="{{ "/assets/css/ie.css" | prepend: site.baseurl }}"><![endif]-->
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
 
