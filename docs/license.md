@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Copyright & License
-description:  Some rights reserved. Attribution 3.0 Unported (CC BY 3.0) 
+description:  Some rights reserved. Attribution 4.0 International (CC BY 4.0) 
 date: 2020-04-22
 ---
 
