@@ -1,0 +1,133 @@
+---
+layout: default
+author: alexelcu
+---
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <h1 class="postTitle" itemprop="headline">{{ page.title }}</h1>
+  <p class="meta">
+    <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="{{ page.url | absolute_url }}"/>
+    {% if page.date %}<meta itemprop="datePublished" content="{{ page.date | date: '%Y-%m-%dT%H:%M:%S%z' }}"/>{% endif %}
+    {% capture minutes %}{% capture value %}{{ page.content | number_of_words | divided_by:180 }}{% endcapture %}{% if value == "0" %}1{% else %}{{ value }}{% endif %}{% endcapture %}
+    <time itemprop="dateCreated" datetime="{{ page.date | date: '%Y-%m-%dT%H:%M:%S%z' }}">{{ page.date | date_to_long_string }}</time>
+    | <nobr><span class="time">{{ minutes }}</span> {% if minutes == "1" %}minut{% else %}minute{% endif %}</nobr>
+  </p>
+
+  {% if page.image -%}
+    {% unless page.image_hide_in_post -%}
+    <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+      <meta itemprop="url" content="{{ page.image | absolute_url }}" />
+      <img src="{{ page.image | prepend: site.baseurl }}" alt="" />
+      {% if page.image_caption %}<figcaption itemprop="caption">{{ page.image_caption }}</figcaption>{% endif %}
+    </figure>
+    {% else %}
+    <div class="hidden" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+      <meta itemprop="url" content="{{ page.image | absolute_url }}" />
+      {% if page.image_caption -%}
+      <meta itemprop="caption" content="{{ page.image_caption | escape }}" />
+      {% endif %}
+    </div>
+    {% endunless %}
+  {% endif %}
+
+  <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+    <meta itemprop="name" content="{{ site.title }}">
+    <meta itemprop="url" content="{{ '/about.html' | absolute_url }}">
+    <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+      <meta itemprop="url" content="{{ '/assets/raw/logo-green.png' | absolute_url }}">
+    </div>
+  </div>
+  {% if page.author -%}
+    {% assign author_twitter = site.authors | map: page.author | map: "twitter" -%}
+    {% assign author_facebook = site.authors | map: page.author | map: "facebook" -%}
+    {% assign author_github = site.authors | map: page.author | map: "github" -%}
+    <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="{{ site.authors | map: page.author | map: 'name' }}" />
+      <meta itemprop="url" content="{{ '/about.html' | absolute_url }}#{{ page.author }}" />
+      {% if author_twitter -%}<meta itemprop="url" content="https://twitter.com/{{ author_twitter }}" />{% endif %}
+      {% if author_facebook -%}<meta itemprop="url" content="https://www.facebook.com/{{ author_facebook }}" />{% endif %}
+      {% if author_github -%}<meta itemprop="url" content="https://github.com/{{ author_github }}" />{% endif %}
+    </div>
+  {% endif %}
+
+  <div id="content" itemprop="articleBody">
+    {{ content }}
+  </div>
+
+  <div id="article-details">
+    {% if page.last_modified_at -%}
+      {% assign last_modified_at = page.last_modified_at -%}
+      {% assign date_action = "Updated" -%}
+    {% else -%}
+      {% assign last_modified_at = page.date -%}
+      {% assign date_action = "Published" -%}
+    {% endif %}
+    <time itemprop="dateModified" content="{{ last_modified_at | date: '%Y-%m-%dT%H:%M:%S%z' }}">
+        {{ date_action }}: {{ last_modified_at | date_to_long_string }}
+    </time>
+    {% if page.author %}
+      | Written by <a href="{{ '/about.html' | absolute_url }}#{{ page.author }}" itemprop="url" rel="author">{{ site.authors | map: page.author | map: 'name' }}</a>
+    {% endif %}
+
+    <div id="all-categories">
+      Tags:
+      {% for tag in page.tags %}
+        {% unless forloop.first %} | {% endunless %}
+        <a href="{{ tag | downcase | append: '/' | prepend: '/tag/' | prepend: site.baseurl }}" class="category">{{ tag | downcase }}</a>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% if site.related_posts %}
+  <div class="related">
+    <h2>Similar Articles</h2>
+    <div class="container">
+      {% assign num=4 %}
+      {% for related_post in site.related_posts limit:num %}
+        {% if related_post.url == page.url %}{% assign num=5 %}{% endif %}
+      {% endfor %}
+
+      {% for related_post in site.related_posts limit:num %}
+      {% unless related_post.url == page.url %}
+      <div class="item">
+        <a class="related-link" href="{{ site.baseurl }}{{ related_post.url }}">
+          {{ related_post.title }}
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            {% assign had_first_tag = false %}
+            {% for tag in related_post.tags %}
+              {% unless had_first_tag %}{% assign had_first_tag = true %}{% else %} | {% endunless -%}
+              <a href="{{ tag | downcase | prepend: '/tag/' | prepend: site.baseurl }}" class="tag">{{ tag | downcase }}</a>
+            {% endfor %}            
+          </div>
+          <time>{{ related_post.date | date_to_long_string }}</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      {% endunless %}
+      {% endfor %}
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  {% endif %}
+
+  {% comment %}
+  <!-- POST NAVIGATION -->
+  <div class="postNav clearfix">
+    {% if page.previous.url %}
+    <a class="prev{% if page.previous.image %} image{% endif %}" href="{{ page.previous.url | prepend: site.baseurl }}"><span>&laquo;&nbsp;{{ page.previous.title }}</span>
+      {% if page.previous.image %}
+      <img src="{{ site.baseurl }}{{ page.previous.image }}" alt="">
+      {% endif %}
+    </a>
+    {% endif %}
+    {% if page.next.url %}
+    <a class="next{% if page.next.image %} image{% endif %}" href="{{ page.next.url | prepend: site.baseurl }}"><span>{{ page.next.title }}&nbsp;&raquo;</span>
+      {% if page.next.image %}
+      <img src="{{ site.baseurl }}{{ page.next.image }}" alt="">
+      {% endif %}
+    </a>
+    {% endif %}
+  </div>
+  {% endcomment %}
+</article>

@@ -1,0 +1,110 @@
+title: alexn.org
+description: Blog about programming and personal projects
+
+url: https://alexn.org
+baseurl: ""
+permalink: blog/:year/:month/:day/:title.html
+feed: https://feed.alexn.org/
+
+include: ["_redirects"]
+# exclude: [
+#   "package.json",
+#   "package-lock.json",
+#   "vendor"
+# ]
+
+defaults:
+  -
+    scope:
+      path: "_posts" # an empty string here means all files in the project
+    values:
+      layout: post
+      author: alexelcu
+      has_comments: true
+
+sass:
+    style: compressed
+
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: code
+
+plugins:
+  - jekyll-paginate-v2
+  - jekyll-sitemap
+
+pagination:
+  enabled: true
+  per_page: 20
+  permalink: '/page/:num/'
+  title: ':title - pagina :num'
+  sort_reverse: true
+
+# thumbnails:
+#   x200:
+#     destination: assets/thumbs/x150
+#     resize: "x150"
+#     quality: "85"
+#     strip: true
+#     interlace: none
+#     colorspace: sRGB
+#     unsharp: "0.25x0.25+8+0.065"
+#     filter: "Triangle"
+#     dither: None
+#     posterize: 136
+#     define:
+#       - "filter:support=2"
+#       - "png:compression-strategy=1"
+#       - "png:compression-filter=5"
+#       - "png:compression-level=9"
+#       - "png:exclude-chunk=all"
+    
+autopages:
+  enabled: true
+  tags:
+    layouts:
+      - 'auto-tag.html'
+  categories:
+    enabled: false
+  collections:
+    enabled: false
+
+navigation:
+  - title: Home
+    url: /
+    id: /index.html
+  - title: About
+    url: /about.html
+    id: /about.html
+  - title: Subscribe
+    url: /subscribe.html
+    id: /subscribe.html
+
+authors:
+  alexelcu:
+    name: Alexandru Nedelcu
+    github: alexandru
+    twitter: alexelcu
+    facebook: alexelcu
+
+social:
+  # github: alexandru
+  # twitter: alexelcu
+  # facebook: alexelcu
+  email: website@m9.alexn.org
+
+google_analytics: "UA-84530423-1"
+
+assets:
+  destination: "/assets/compiled"
+  caching:
+    path: ".jekyll-cache/assets"
+    type: file # Possible values: memory, file
+    enabled: true
+  sources:
+    - assets/media

@@ -1,0 +1,18 @@
+---
+# CSS file for code snippets.
+---
+
+// Reset using Normalize
+@import "normalize";
+@import "modules/syntax";
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #343642;
+}
+
+body {
+  padding: 0 10px;
+  font-size: 120%;
+}

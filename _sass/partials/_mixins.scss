@@ -1,0 +1,19 @@
+/***************
+CLEAR AFTER FLOATS
+***************/
+
+@mixin clearfix {
+	transform: scale(1);
+	transform-origin: 0 0;
+
+  &:before, &:after {
+    content: "\0020";
+    display: block;
+    height: 0;
+    overflow: hidden;
+  }
+
+  &:after {
+    clear: both;
+  }
+}

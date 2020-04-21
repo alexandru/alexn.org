@@ -1,0 +1,34 @@
+---
+layout: default
+---
+<article class="post" itemscope itemtype="http://schema.org/Article">
+  <h1 class="postTitle" itemprop="headline">{{ page.title }}</h1>
+  <p class="meta">
+    <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="{{ page.url | absolute_url }}"/>
+    {% if page.date %}<meta itemprop="datePublished" content="{{ page.date | date: '%Y-%m-%dT%H:%M:%S%z' }}"/>{% endif %}
+    {% if page.last_modified_at -%}
+      {% assign last_modified_at = page.last_modified_at -%}
+      {% assign date_action = "Updated" -%}
+    {% elsif page.date -%}
+      {% assign last_modified_at = page.date -%}
+      {% assign date_action = "Published" -%}
+    {% endif %}
+    {% if last_modified_at %}
+    <time itemprop="dateModified" content="{{ last_modified_at | date: '%Y-%m-%dT%H:%M:%S%z' }}">
+      {{ date_action }}: {{ last_modified_at | date_to_long_string }}
+    </time>
+    {% endif %}
+  </p>
+
+  <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+    <meta itemprop="name" content="{{ site.title }}">
+    <meta itemprop="url" content="{{ '/about.html' | absolute_url }}">
+    <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+      <meta itemprop="url" content="{{ '/assets/raw/logo-green.png' | absolute_url }}">
+    </div>
+  </div>
+
+  <div id="content" itemprop="articleBody">
+    {{ content }}
+  </div>
+</article>

@@ -1,0 +1,271 @@
+/***************
+GLOBAL STYLES
+***************/
+
+@import "../config";
+
+body {
+  font-size: 125%;
+}
+
+.content {
+	padding-top: 0;
+	position: relative;
+	z-index: 1;
+}
+
+.container {
+  max-width: 880px;
+  margin-left: auto;
+  margin-right: auto;
+	padding: 0;
+}
+
+
+/***************
+HOMEPAGE STYLING
+***************/
+
+#home {
+	.posts, .pageTitle, .pagination, .archive_list {
+    width: $elementsWidth;
+		float: none;
+		margin: 0 auto 1.5em;
+	}
+
+	.pageTitle {
+		margin: 2rem auto 1em;
+	}
+}
+
+
+/***************
+HEADER STYLING
+***************/
+
+.header {
+	height: 7em;
+	position: relative;
+	padding-bottom: 0;
+
+	.container {
+		position: relative;
+		top: 50%;
+		transform: translateY(-50%);
+    max-width: 800px;
+		overflow: hidden;
+	}
+
+	h1 {
+		font-size: 3em;
+		line-height: 1;
+		letter-spacing: -3px;
+		padding-left: 0;
+	}
+
+	nav {
+		float: left;
+		clear: left;
+
+		ul {
+			margin: 0;
+			li {
+				display: inline;
+				line-height: 3em;
+				background: none;
+				padding: 0 5px;
+				border: none;
+
+				a {
+					color: white;
+					font-size: .9em;
+					text-decoration: none;
+					padding: 0 .25em;
+
+					&:hover {
+						color: darken(white, 20%);
+					}
+				}
+
+				&.current {
+					padding-bottom: .25em;
+					border-bottom: 4px solid rgba(255,255,255,.4);
+				}
+			}
+		}
+	}
+}
+
+
+/***************
+MENU STYLING
+***************/
+
+.js {
+
+	.nav-collapse {
+	  position: relative;
+	  max-height: none;
+
+		&.closed {
+		  max-height: none;
+		}
+
+		ul li a {
+			display: inline-block;
+		}
+	}
+}
+
+.nav-toggle {
+  display: none;
+}
+
+
+/***************
+POST STYLING
+***************/
+
+.post {
+	h1, h2, h3, h4, h5, h6, p, ul, ol, dl, .pageTitle, .content, .page-width {
+    width: $elementsWidth;
+		float: none;
+		margin: 0 auto 2rem;
+	}
+
+	h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+		margin: 1rem auto;
+	}
+
+	.pageTitle {
+		margin: 2rem auto 1em;
+	}
+
+	.featuredImage {
+		position: relative;
+		margin-top: 2rem;
+	}
+
+	.highlight {
+		font-size: .8em;
+		padding: 20px;
+	}
+
+	div.formula-code {
+		padding: 20px 10px;
+	}
+
+	blockquote {
+		font-size: 120%; // 20px / 16px
+		padding: 0;  
+	}	
+}
+
+
+/***************
+POST NAV STYLING
+***************/
+
+.postNav {
+
+	.prev, .next {
+		width: 50%;
+	}
+
+	.prev {
+		float: left;
+		text-align: left;
+	}
+
+	.next {
+		text-align: right;
+		float: right;
+	}
+}
+
+
+/***************
+FOOTER STYLES
+***************/
+
+.footer {
+	.container {
+		max-width: 880px;
+	}
+
+	.contributions {
+    width: $elementsWidth;
+		margin: 0 auto;
+	}
+
+	.bottom {
+		.container {
+			.copy::after {
+				content: "|";
+			}
+			.copy, .links {
+				display: inline;
+			}
+		}
+	}
+}
+
+
+/***************
+CONTACT PAGE STYLING
+***************/
+
+.contactContent {
+  max-width: 48%;
+  margin-right: 2%;
+  float: left;
+}
+
+#contact {
+	form {
+    max-width: 48%;
+    width: 48%;
+    float: right;
+    margin-right: 0;
+	}
+}
+
+// -------------------------------------------------
+// Customisations
+
+img.right {
+	float: right;
+}
+
+.post.about {
+	img.avatar {
+		width: 300px;
+	}
+}
+
+div.header {
+	nav {
+		text-shadow: 0px 0px 4px #000000;
+	}
+}
+
+#abonament {
+	form {
+		width: $elementsWidth;
+		margin: 0 auto 2rem;
+	}
+}
+
+.post {
+	div.related {
+		width: $elementsWidth;
+	}
+
+	#article-details {
+		width: $elementsWidth;
+	}
+
+	.formula-code, .highlight > pre.code > code {
+		font-size: 100%;
+	}
+}

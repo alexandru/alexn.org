@@ -1,0 +1,19 @@
+{% capture youtube %}{% if page.youtube %}{{ page.youtube }}{% else %}{{ include.id }}{% endif -%}{% endcapture -%}
+
+<figure class="video">
+  <div class="video-container">
+    <span class="embed-youtube" style="text-align:center; display: block;">
+      <iframe width="1100" height="619"
+              src="https://www.youtube-nocookie.com/embed/{{ youtube }}"
+              frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+    </span>
+  </div>
+  <figcaption>
+    <a href="https://www.youtube.com/watch?v={{ youtube }}" target="_blank">
+      {% if include.caption %}{{ include.caption }}{% else %}Link{% endif %}
+      (YouTube)
+    </a>
+  </figcaption>
+</figure>

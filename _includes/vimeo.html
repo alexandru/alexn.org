@@ -1,0 +1,15 @@
+{% capture vimeo %}{% if page.vimeo %}{{ page.vimeo }}{% else %}{{ include.id }}{% endif -%}{% endcapture -%}
+
+<figure class="video">
+  <div class="video-container">
+    <span class="embed-vimeo" style="text-align:center; display: block;">
+      <iframe src="https://player.vimeo.com/video/{{ vimeo }}" width="1100" height="619" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    </span>
+  </div>
+  <figcaption>
+    <a href="https://vimeo.com/{{ vimeo }}" target="_blank">
+      {% if include.caption %}{{ include.caption }}{% else %}Link{% endif %}
+      (Vimeo)
+    </a>
+  </figcaption>
+</figure>

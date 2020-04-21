@@ -1,0 +1,25 @@
+body {
+  font-size: 137.5%;
+}
+
+.container {
+  max-width: 990px;
+}
+
+.post {
+	.formula-code, .highlight > pre.code > code {
+		font-size: 110%;
+	}
+}
+
+.footer {
+	.container {
+		max-width: 990px;
+	}
+
+	.contributions {
+    #disqus_thread {
+			max-width: 1000px;
+		}
+	}
+}

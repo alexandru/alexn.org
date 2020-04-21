@@ -1,12 +1,15 @@
-source "https://rubygems.org"
+source 'http://rubygems.org'
 ruby "2.6.5"
 
-gem "middleman"
-gem "middleman-blog"
-gem "middleman-syntax"
-gem "middleman-minify-html"
-
+gem "jekyll", "~> 4.0.0"
+gem "jekyll-paginate-v2"
+gem "support-for"
 gem 'nokogiri'
-gem 'kramdown'
-gem 'rouge'
-gem 'fastimage'
+gem 'classifier-reborn'
+
+#gem "jekyll-assets", "~> 3.0.12", group: :jekyll_plugins
+#gem "sprockets", "~> 3.7"
+
+gem "image_optim"
+gem "mini_magick"
+gem 'jekyll-sitemap'

@@ -1,0 +1,4 @@
+<figure>
+  <img src="{{ include.image | prepend: site.baseurl }}" alt="" />
+  {% if page.image_caption %}<figcaption>{{ page.image_caption }}</figcaption>{% endif %}
+</figure>
