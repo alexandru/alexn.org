@@ -5,7 +5,7 @@
             <ul class="noList">
                 {% for link in site.navigation %}{% assign current = nil %}{% if page.url == link.id %}{% assign current = 'current' %}{% endif %}
                 <li class="element {% if forloop.first %}first{% endif %} {{ current }} {% if forloop.last %}last{% endif %}">
-                    <a href="{{ link.url | prepend: site.baseurl }}">{{ link.title }}</a>
+                    <a href="{{ link.url | prepend: site.baseurl }}">{{ link.title | xml_escape }}</a>
                 </li>
                 {% endfor %}
             </ul>

@@ -41,7 +41,7 @@ permalink: /feed.xml
           </a>
           {% endif %}
           {% endunless -%}
-          {% if post.description %}{{ post.description | markdownify | rss_process }}{% else %}{{ post.excerpt | strip_html | rss_process }}{% endif %}          
+          {% if post.description %}{{ post.description | markdownify | rss_process }}{% else %}{{ post.excerpt | strip_html | rss_process }}{% endif %}
           <p>
             <a href="{{ post.url | absolute_url }}">Read article →</a>
           </p>
