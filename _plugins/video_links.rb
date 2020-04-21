@@ -2,6 +2,8 @@ require 'net/http'
 
 module Jekyll
   module VideoLinks
+    @@_vimeo_cache = {}
+
     def vimeo_link(uid)
       "https://vimeo.com/#{uid}"
     end
@@ -39,6 +41,18 @@ module Jekyll
     end
     
     def get_vimeo_thumb_link(uid, min_width=1200, with_play=false)
+      key = "#{uid}-#{min_width}-#{with_play}"
+      if @@_vimeo_cache.has_key? key
+        return @@_vimeo_cache[key]
+      end
+
+      Jekyll.logger.info("             Vimeo: Fetching thumb link for #{uid}")
+      link = get_vimeo_thumb_link_raw(uid, min_width, with_play)
+      @@_vimeo_cache[key] = link
+      return link
+    end
+
+    def get_vimeo_thumb_link_raw(uid, min_width=1200, with_play=false)
       unless ENV['VIMEO_API_TOKEN']
         warn("WARNING — VIMEO_API_TOKEN not set, querying low-resolution thumbnail for https://vimeo.com/#{uid}")
         response = Net::HTTP.get URI("https://vimeo.com/api/v2/video/#{uid}.json")

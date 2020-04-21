@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+
+require 'tmpdir'
+
+def exec(cmd)
+  abort("Error encountered, aborting") unless system(cmd)
+end
+
+exec("bundle exec jekyll build")
+
+repository = "github.com/alexandru/alexn.org.git"
+ghToken = ENV['GITHUB_TOKEN']
+
+unless ghToken
+  puts "Missing GITHUB_TOKEN environment value!"
+  exit 1
+end
+
+destDir = Dir.mktmpdir
+begin
+  exec("rm -rf \"#{destDir}\"")
+  exec("git clone \"https://#{ghToken}@#{repository}\" \"#{destDir}\" -b gh-pages")
+  exec("rsync --filter='P .*' --delete-excluded -Pacv _site/ \"#{destDir}/\"")
+
+  Dir.chdir(destDir) do |path|
+    exec("git add .")
+    exec('git config user.name "Alexandru Nedelcu"')
+    exec('git config user.email "noreply@alexn.org"')
+    exec('git commit -m "docs: update gh-pages"')
+    exec("git push --force --quiet \"https://alexandru:#{ghToken}@#{repository}\" gh-pages:gh-pages")
+  end
+ensure
+  exec("rm -rf \"#{destDir}\"")
+end
