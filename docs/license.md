@@ -7,7 +7,7 @@ date: 2020-04-22
 
 Alexandru Nedelcu &copy; {{ site.time | date: '%Y' }}.
 
-Unless otherwise noted, all content is licensed under a [Creative Commons Attribution 3.0 Unported License](https://creativecommons.org/licenses/by/3.0/deed.en_US){:target="_blank"}.
+Unless otherwise noted, all content is licensed under an [Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/){:target="_blank"}.
 
 This means:
 
@@ -16,6 +16,6 @@ This means:
 3. must give attribution
 4. must not add additional restrictions
 
-Read the full text here: [legalcode.txt](https://creativecommons.org/licenses/by/3.0/legalcode.txt)
+Read the full text here: [legalcode.txt](https://creativecommons.org/licenses/by/4.0/legalcode.txt)
 
 {% include legal-contact.html %}
