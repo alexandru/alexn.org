@@ -3,16 +3,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <title>{% if page.title %}{{ page.title }}{% unless page.has_full_title %} &#8211; {{ site.title }}{% endunless %}{% else %}{{ site.title }} - {{ site.description }}{% endif -%}</title>
-    {% capture page_or_site_title %}{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif -%}{% endcapture %}
+    <title>{% if page.title %}{{ page.title | xml_escape }}{% unless page.has_full_title %} &#8211; {{ site.title }}{% endunless %}{% else %}{{ site.title | xml_escape }} - {{ site.description | xml_escape }}{% endif -%}</title>
+    {% capture page_or_site_title %}{% if page.title %}{{ page.title | xml_escape }}{% else %}{{ site.title | xml_escape }}{% endif -%}{% endcapture %}
 
     <!-- Open Graph Meta -->
-    <meta content="{{ site.title }}" property="og:site_name">
-    <meta content="{{ page_or_site_title }}" property="og:title">
+    <meta content="{{ site.title | xml_escape }}" property="og:site_name">
+    <meta content="{{ page_or_site_title | xml_escape }}" property="og:title">
     {% if page.description -%}
-      <meta content="{{ page.description }}" property="og:description">
+      <meta content="{{ page.description | markdownify | strip_html | xml_escape | strip }}" property="og:description">
     {% else %}
-      <meta content="{{ site.description }}" property="og:description">
+      <meta content="{{ site.description | markdownify | strip_html | xml_escape | strip }}" property="og:description">
     {% endif -%}
     {% if page.url -%}
       <meta content="{{ site.url }}{{ page.url }}" property="og:url">
@@ -89,9 +89,9 @@
       <meta name="twitter:url" content="{{ site.url }}{{ page.url }}">
     {% endif -%}
     {% if page.description -%}
-      <meta name="twitter:description" content="{{ page.description }}">
+      <meta name="twitter:description" content="{{ page.description | markdownify | strip_html | xml_escape | strip }}">
     {% else %}
-      <meta name="twitter:description" content="{{ site.description }}">
+      <meta name="twitter:description" content="{{ site.description | markdownify | strip_html | xml_escape | strip }}">
     {% endif -%}
 
     <!-- Favicon -->
@@ -103,7 +103,7 @@
     <meta name="msapplication-TileImage" content="{% link /assets/logo/270px.png %}" />
 
     <!-- Come and get me RSS readers -->
-    <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ site.feed }}" />
+    <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }}" href="{{ site.feed }}" />
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | prepend: site.baseurl }}?{{ 'now' | date: '%Y%m%d%H%M' }}">

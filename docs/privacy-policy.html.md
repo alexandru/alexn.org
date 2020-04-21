@@ -12,30 +12,4 @@ The `alexn.org` website uses Google Analytics, a service which transmits website
 
 You may opt out of this tracking at any time by activating the “Do Not Track” setting in your browser.
 
-<!--sse-->
-## Contact
-
-
-
-<div class="content">
-  <script>
-    (function () {
-      var lhs = "legal";
-      var rhs = "m9.alexn.org";
-      document.write("<a href=\"mailto");
-      document.write(":" + lhs + "@");
-      document.write(rhs);
-      document.write("\">" + lhs + "@" + rhs + "<\/a>");
-    })();
-  </script>
-  <noscript>
-    <em>Email address is protected by JavaScript, activate it to see it!</em>
-  </noscript>
-
-  <div class="small-note">
-    The address is changed periodically to avoid spam.
-  </div>
-</div>
-<!--/sse-->
-
-<br/>
+{% include legal-contact.html %}

@@ -2,7 +2,7 @@
 layout: default
 ---
 <article class="post" itemscope itemtype="http://schema.org/Article">
-  <h1 class="postTitle" itemprop="headline">{{ page.title }}</h1>
+  <h1 class="postTitle" itemprop="headline">{{ page.title | xml_escape }}</h1>
   <p class="meta">
     <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="{{ page.url | absolute_url }}"/>
     {% if page.date %}<meta itemprop="datePublished" content="{{ page.date | date: '%Y-%m-%dT%H:%M:%S%z' }}"/>{% endif %}
@@ -21,7 +21,7 @@ layout: default
   </p>
 
   <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-    <meta itemprop="name" content="{{ site.title }}">
+    <meta itemprop="name" content="{{ site.title | xml_escape }}">
     <meta itemprop="url" content="{{ '/about.html' | absolute_url }}">
     <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
       <meta itemprop="url" content="{{ '/assets/raw/logo-green.png' | absolute_url }}">

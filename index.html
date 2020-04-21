@@ -26,7 +26,7 @@ pagination:
       {% for post in paginator.posts offset:offset %}
       <div class="item">
         <a class="related-link" href="{{ site.baseurl }}{{ post.url }}">
-          {{ post.title }}
+          {{ post.title | xml_escape }}
         </a>
         <div class="related-meta">
           <div class="tags">
