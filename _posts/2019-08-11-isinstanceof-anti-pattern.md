@@ -5,7 +5,6 @@ description: >-
   Scala has implicit parameters, with which you can describe type classes.
 tags:
   - Best Of
-  - Programming
   - Scala
 image: /assets/media/articles/scala-instanceof-antipattern.png
 ---
