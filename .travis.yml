@@ -1,3 +1,6 @@
+language: ruby
+cache: bundler
+
 install:
   - bundle install
 script:
