@@ -3,7 +3,7 @@ layout: page
 title: Privacy Policy
 description: "The privacy policy for developed extensions and applications"
 date: 2017-01-16
-last_modified_at: 2019-01-12
+last_modified_at: 2020-04-21
 ---
 
 ## Analytics
