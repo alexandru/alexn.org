@@ -6,7 +6,7 @@ def exec(cmd)
   abort("Error encountered, aborting") unless system(cmd)
 end
 
-exec("bundle exec jekyll build")
+exec("bundle exec jekyll build --lsi")
 
 repository = "github.com/alexandru/alexn.org.git"
 ghToken = ENV['GITHUB_TOKEN']
