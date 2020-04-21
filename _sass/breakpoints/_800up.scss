@@ -48,6 +48,10 @@ HEADER STYLING
 	position: relative;
 	padding-bottom: 0;
 
+	.wide {
+		display: inline;
+	}
+
 	.container {
 		position: relative;
 		top: 50%;
@@ -57,7 +61,7 @@ HEADER STYLING
 	}
 
 	h1 {
-		font-size: 3em;
+		font-size: 2em;
 		line-height: 1;
 		letter-spacing: -3px;
 		padding-left: 0;
