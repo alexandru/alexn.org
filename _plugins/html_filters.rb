@@ -75,12 +75,6 @@ module Jekyll
       body ? doc.at_css("body").inner_html : ""
     end
   end
-
-  module MyFileFilters
-    def md5file(path)
-      puts site.static_files[path]
-    end
-  end
 end
 
 Liquid::Template.register_filter(Jekyll::MyDateFilter)
