@@ -4,7 +4,6 @@ date:   2012-01-16
 last_modified_at: 2019-12-28
 tags:
   - Best Of
-  - Programming
   - Algorithms
   - Mining
   - Ruby

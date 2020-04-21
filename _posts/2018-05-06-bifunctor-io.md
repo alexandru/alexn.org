@@ -4,7 +4,6 @@ description:
   Bifunctor IO is a hot topic in the Scala community. Herein I'm expressing my dislike for it, as it shares the problems of Java's Checked Exceptions.
 tags:
   - Best Of
-  - Programming
   - FP
   - Typelevel
   - Scala

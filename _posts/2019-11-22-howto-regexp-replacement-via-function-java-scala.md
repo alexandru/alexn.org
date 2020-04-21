@@ -4,7 +4,6 @@ description:
   Replace in strings via regexp, with the replacement being calculated
   via a function.
 tags:
-  - Programming
   - Scala
   - Ruby
 image: /assets/media/articles/scala-replace-all-function.png

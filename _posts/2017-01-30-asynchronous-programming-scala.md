@@ -5,7 +5,6 @@ tags:
   - Scala
   - Asynchrony
   - Concurrency
-  - Programming
 description:
   Asynchrony is everywhere and it subsumes concurrency. This article explains what asynchronous processing is and its challenges.
 image: /assets/media/articles/nondet.png

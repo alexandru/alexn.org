@@ -3,7 +3,6 @@ title: I hate NULL and all its variants!
 date:   2010-05-25
 last_modified_at: 2019-12-14
 tags:
-  - Programming
   - Rant
   - Python
 image: /assets/media/articles/beautiful-soup.png

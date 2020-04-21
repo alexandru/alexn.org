@@ -2,7 +2,6 @@
 title: "How I Use Flickr: For Backup"
 last_modified_at: 2019-12-15
 tags:
-  - Programming
   - Cloud
   - API
   - Ruby

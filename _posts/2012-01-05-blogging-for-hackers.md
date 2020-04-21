@@ -1,7 +1,7 @@
 ---
 title: "Blogging Platform for Hackers"
 tags:
-  - Publishing
+  - Blogging
   - Server
   - Cloud
   - Heroku

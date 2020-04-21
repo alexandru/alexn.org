@@ -1,7 +1,6 @@
 ---
 title: "Crawling the Android Marketplace"
 tags:
-  - Programming
   - Python
   - Android
   - Web

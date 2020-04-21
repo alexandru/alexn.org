@@ -2,7 +2,6 @@
 title: "In Defense of OOFP"
 tags:
   - Best Of
-  - Programming
   - OOP
   - FP
   - Haskell

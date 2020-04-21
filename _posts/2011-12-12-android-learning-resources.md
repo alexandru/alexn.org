@@ -3,7 +3,6 @@ title: "Android Learning Resources"
 tags:
   - Books
   - Android
-  - Programming
 image: /assets/media/articles/android-development.jpg
 last_modified_at: 2019-12-18
 description: >-

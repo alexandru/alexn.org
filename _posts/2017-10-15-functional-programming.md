@@ -5,7 +5,6 @@ description:
 tags:
   - Best Of
   - FP
-  - Programming
   - Haskell
   - Scala
   - JavaScript

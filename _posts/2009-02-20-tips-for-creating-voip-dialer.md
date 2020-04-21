@@ -4,7 +4,6 @@ date:   2009-02-20
 last_modified_at: 2019-12-14
 tags:
   - Best Of
-  - Programming
   - VoIP
   - FreeSWITCH
   - JavaScript
