@@ -6,32 +6,31 @@ date: 2017-01-16
 last_modified_at: 2019-01-12
 ---
 
-## Website Analytics
+## Analytics
 
 The `alexn.org` website uses Google Analytics, a service which transmits website traffic data to Google servers. Google Analytics does not identify individual users or associate your IP address with any other data held by Google. Reports provided by Google Analytics are used to help us understand website traffic and webpage usage.
 
 You may opt out of this tracking at any time by activating the “Do Not Track” setting in your browser.
 
-## Comments
-
-The `alexn.org` website uses [Isso](https://posativ.org/isso/) for commenting.
-
-When writing a comment, the author can provide his/her email address.
-If added, this email address is only used for receiving replies by email.
-And the author's name and optional website URL are only used for
-displaying the comments on the website.
-
-No data is shared with any third-party service, the commenting system
-is self hosted.
-
 <!--sse-->
 ## Contact
 
-If you wish to export or delete your commenting data,
-you can send a request to:
+
 
 <div class="content">
-  <a href="mailto:&#109;&#057;+&#108;&#101;&#103;&#097;&#108;&#064;&#097;&#108;&#101;&#120;&#110;&#046;&#111;&#114;&#103;">&#109;&#057;+&#108;&#101;&#103;&#097;&#108;&#064;&#097;&#108;&#101;&#120;&#110;&#046;&#111;&#114;&#103;</a>
+  <script>
+    (function () {
+      var lhs = "legal";
+      var rhs = "m9.alexn.org";
+      document.write("<a href=\"mailto");
+      document.write(":" + lhs + "@");
+      document.write(rhs);
+      document.write("\">" + lhs + "@" + rhs + "<\/a>");
+    })();
+  </script>
+  <noscript>
+    <em>Email address is protected by JavaScript, activate it to see it!</em>
+  </noscript>
 
   <div class="small-note">
     The address is changed periodically to avoid spam.
