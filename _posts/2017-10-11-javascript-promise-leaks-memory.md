@@ -21,7 +21,9 @@ image_hide_in_post: true
   - [4. That's the Equivalent of a Stack Overflow](#4-thats-the-equivalent-of-a-stack-overflow)
   - [5. You Don't Understand How Promises Work](#5-you-dont-understand-how-promises-work)
   - [6. No Use-cases, This is a Niche](#6-no-use-cases-this-is-a-niche)
-- [Funfix](#funfix)
+- [Alternatives](#alternatives)
+  - [Fluture](#fluture)
+  - [Funfix](#funfix)
 - [Final Words](#final-words)
 
 ## Introduction
@@ -278,13 +280,19 @@ function map<A, B>(list: List<A>, f: (a: A) => B): List<B> {
 
 Alas, with the `Promise` implementation leaking, this doesn't work ;-)
 
-## Funfix
+## Alternatives
 
-<figure>
-  <a href="https://funfix.org">
-    <img src="{% link /assets/media/articles/funfix-1024.png %}" />
-  </a>
-</figure>
+### Fluture
+
+Project Page: [github.com/fluture-js/Fluture](https://github.com/fluture-js/Fluture)
+
+This is the most popular `Promise` alternative that I know of.
+
+It isn't a direct replacement however because it has lazy behavior, being meant for suspending side effects. This is more like an `IO` data type. Which is cool, you should use something like it, but it's also apples vs oranges.
+
+I don't have enough experience with it, making this recommendation solely based on its popularity and I double checked that it indeed preserves stack safety.
+
+### Funfix
 
 I've been building a new project, [Funfix](https://funfix.org/),
 a JavaScript library for functional programming (capital FP), supporting
