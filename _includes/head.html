@@ -72,8 +72,10 @@
     <meta name="twitter:player:height" content="315">
     <meta name="twitter:image" content="{% if page.image %}{{ page.image | prepend: site.url }}{% else %}{{ page.youtube | youtube_thumb_link }}{% endif %}" />
     {% elsif page.image -%}
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image:src" content="{{ page.image | prepend: site.url }}">
     {% else %}
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:image:src" content="{{ '/assets/logo/800px.png' | prepend: site.url }}">
     {% endif -%}
   
