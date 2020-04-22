@@ -222,7 +222,9 @@ this article.
 
 ### 6. No Use-cases, This is a Niche
 
-Is functional programming a niche?
+Functional programming might be a niche, however more and more projects, 
+including at big companies such as Facebook, are now using an 
+[actual FP style]({% link _posts/2017-10-15-functional-programming.md %}).
 
 You cannot describe any functional programming algorithm involving loops
 without tail recursions. If folds are used, then folds are described with
