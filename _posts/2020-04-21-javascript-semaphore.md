@@ -41,7 +41,7 @@ for (let i = 0; i < 100000; i++) {
 
 But this will be very slow, taking ~2.8 hours to finish.
 
-On the other hand, if we try a naive solution via `Promise.race`, this can easily overwhelm your database and your script can crash with out of memory or out of available file handles errors:
+On the other hand, if we try a naive solution via `Promise.race`, this can easily overwhelm your database and your script can crash with "*out of memory*" or "*out of available file handles*" errors. This is also not adequate in case producing those items in the first place is an expensive process (e.g. going over an async iterator). We can certainly hold 100,000 items in memory, but talk about 100 million or more and things start to fall apart.
 
 ```typescript
 const promises: Promise<void>[] = []
@@ -68,7 +68,7 @@ console.log("Done!")
 
 Execution time will be ~1.7 minutes (compared with 2.8 hours for the first sample).
 
-The line with `withLockRunAndForget` only waits in case the semaphore doesn't have handles available. And when the loop is finished, we need `awaitTerminate` to wait for all active tasks to finish.
+The method `withLockRunAndForget` only waits in case the semaphore doesn't have handles available. And when the loop is finished, we need `awaitTerminate` to wait for all active tasks to finish.
 
 Implementation, which can be copy/pasted in your project:
 
@@ -158,4 +158,4 @@ export class AsyncSemaphore {
 }
 ```
 
-Enjoy.
+Enjoy~
