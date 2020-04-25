@@ -31,10 +31,20 @@ has_full_title: true
 
   <!--sse-->
   <div class="content">
-		Email:
-		<a href="javascript:window.location.href = 'mailto:' + ['website', 'm9.alexn.org'].join('@')">
-      website<!---@--->@<!----@-@---->m9.alexn.org
-    </a>
+    <script>
+      (function () {
+        var lhs = "y20+website";
+        var rhs = "alexn.org";
+        document.write("<a href=\"mailto");
+        document.write(":" + lhs + "@");
+        document.write(rhs);
+        document.write("\">" + lhs + "@" + rhs + "<\/a>");
+      })()
+    </script>
+    <noscript>
+      <em>Email address is protected by JavaScript, activate it to see it!</em>
+    </noscript>
+   
     <div class="small-note">
 			The address is changed periodically to avoid spam.
 		</div>
