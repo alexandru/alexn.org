@@ -99,7 +99,7 @@ MENU STYLING
 	}
 }
 
-.js .nav-collapse {
+.nav-collapse {
   clip: rect(0 0 0 0);
   max-height: 0;
   position: absolute;
@@ -110,6 +110,12 @@ MENU STYLING
   clear: both;
   width: 100%;
 }
+
+.no-js .nav-collapse {
+	position: relative;
+	max-height: none;
+}
+
 
 .nav-collapse.opened {
   max-height: 9999px;
@@ -189,13 +195,16 @@ PAGE STYLES
 HEADER STYLING
 ***************/
 
+.js .header {
+  height: 3em;
+}
+
 .header {
 	background-color: $header-color;
 	background-size: cover;
 	background-position: center center;
 	color: white;
 	padding: 0;
-	height: 3em;
 
 	.container {
 		padding: 0;
@@ -660,6 +669,12 @@ img.right {
 			height: 100%;
 		}
 	}
+}
+
+.no-js .video {
+  .video-container {
+    display: none;
+  }
 }
 
 .posts {
