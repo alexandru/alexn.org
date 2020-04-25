@@ -7,29 +7,23 @@ def exec(cmd)
 end
 
 puts "CI=#{ENV['CI']}"
-puts "TRAVIS_BRANCH=#{ENV['TRAVIS_BRANCH']}"
-puts "TRAVIS_TAG=#{ENV['TRAVIS_TAG']}"
-puts "TRAVIS_PULL_REQUEST=#{ENV['TRAVIS_PULL_REQUEST']}"
-puts "PUBLISH=#{ENV['PUBLISH']}"
-puts
+puts "CI_DEPLOY=#{ENV['CI_DEPLOY']}"
 
 unless ENV['CI'] == 'true'
-  abort("ERROR: Not running on top of Travis, aborting!")
+  abort("ERROR: Not running on top of CI, aborting!")
 end
 
-exec("bundle exec jekyll build --lsi")
+# Forcing a change to the root directory, if not there already
+Dir.chdir(File.absolute_path(File.join(File.dirname(__FILE__), "..")))
 
-branch = if ENV["TRAVIS_TAG"] && !ENV["TRAVIS_TAG"].empty?
-  ENV["TRAVIS_TAG"]
-elsif ENV['TRAVIS_BRANCH']
-  ENV['TRAVIS_BRANCH']
+if ENV['CI_DEPLOY'] == "true"
+  exec("bundle exec jekyll build --lsi")
 else
-  "<none>"
+  exec("bundle exec jekyll build")
 end
 
-puts "Detected branch or tag: " + branch
-unless branch == "master" && ENV['TRAVIS_PULL_REQUEST'] == 'false'
-  puts "Only publishing on the `master` branch!"
+unless ENV['CI_DEPLOY'] == "true"
+  puts "Skipping deployment, exiting!"
   exit 0
 end
 
