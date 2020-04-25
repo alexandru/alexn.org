@@ -10,7 +10,15 @@
               allowfullscreen></iframe>
     </span>
   </div>
+  <noscript>
+    <a href="{{ youtube | youtube_link }}" target="_blank">
+      <img src="{{ youtube | youtube_thumb_link }}" />
+    </a>
+  </noscript>
   <figcaption>
+    <noscript>
+      <em>JavaScript is disabled, embedding not possible, but you can still view this video on YouTube.</em><br>
+    </noscript>
     <a href="https://www.youtube.com/watch?v={{ youtube }}" target="_blank">
       {% if include.caption %}{{ include.caption }}{% else %}Link{% endif %}
       (YouTube)
