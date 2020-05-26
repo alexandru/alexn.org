@@ -16,7 +16,6 @@ GEM
     ffi (1.12.2)
     forwardable-extended (2.6.0)
     fspath (3.1.2)
-    gsl (2.1.0.3)
     http_parser.rb (0.6.0)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
@@ -69,8 +68,6 @@ GEM
     progress (3.5.2)
     public_suffix (4.0.4)
     rb-fsevent (0.10.3)
-    rb-gsl (1.16.0.6)
-      gsl
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rexml (3.2.4)
@@ -100,7 +97,6 @@ DEPENDENCIES
   jekyll-sitemap
   mini_magick
   nokogiri
-  rb-gsl
   support-for
 
 BUNDLED WITH
