@@ -73,7 +73,7 @@ Thus we can no longer ignore it.
 
 ### 1.1. Make only some warnings fatal (Scala 2.13)
 
-There's a new `-Wconf` flag in Scala 2.13.2 ([see PR](https://github.com/scala/scala/pull/8373)). With it we can still keep some warnings as warnings.
+There's a new `-Wconf` option in Scala 2.13.2 ([see PR](https://github.com/scala/scala/pull/8373)). With it we can still keep some warnings as warnings.
 
 Use-case: say you're upgrading an Akka project. It's going to have a ton of `@deprecated` warnings that you may not want to fix right now, but you still want to keep the exhaustiveness checks as errors.
 
