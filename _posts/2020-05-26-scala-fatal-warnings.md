@@ -228,6 +228,7 @@ You shouldn't stop at Scala's linting options. There are other sbt plugins avail
 
 - [Scalafix](https://github.com/scalacenter/scalafix) (this one can even rewrite the code for you 😉)
 - [Wartremover](https://github.com/wartremover/wartremover)
+- [Scapegoat](https://github.com/sksamuel/scapegoat)
 
 With these you could ban `null` or `Any` from your project, among other very useful options.
 

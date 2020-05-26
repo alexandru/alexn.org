@@ -26,7 +26,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          gem install bundler
+          sudo apt-get install libgsl-dev
+          gem install bundler rb-gsl
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
 
