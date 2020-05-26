@@ -209,7 +209,7 @@ scalacOptions += "-Wconf:any:warning-verbose"
 That error will then look like this:
 
 ```
-[error] .../Example.scala:10:5: [other-match-analysis @ size] match may not be exhaustive.
+[error] ... [other-match-analysis @ size] match may not be exhaustive.
 ```
 
 The category is "`other-match-analysis`", so we can silence it like this:
@@ -221,6 +221,10 @@ def size(list: List[_]): Int =
     case _ :: rest => 1 + size(rest)
   }
 ```
+
+<p class="info-bubble" markdown="1">
+  **NOTE:** for **forward compatibility** in older Scala versions, with the [Silencer plugin](#41-silencer-plugin-scala--213), coupled with [scala-library-compat](https://github.com/scala/scala-library-compat), you can use the new `@nowarn` annotation with older Scala versions, however only the `@nowarn("mat=<pattern>")` filtering is supported.
+</p>
 
 ## 5. Other linters
 
