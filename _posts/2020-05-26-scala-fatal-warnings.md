@@ -16,13 +16,14 @@ The Scala compiler has multiple linting options available and emits certain warn
 
 - [Best Practice: Stop Ignoring Warnings!](#best-practice-stop-ignoring-warnings)
 - [1. Activate -Xfatal-warnings](#1-activate--xfatal-warnings)
+  - [1.1. Make only some warnings fatal (Scala 2.13)](#11-make-only-some-warnings-fatal-scala-213)
 - [2. Activate All Linting Options](#2-activate-all-linting-options)
   - [2.1. Use the sbt-tpolecat plugin](#21-use-the-sbt-tpolecat-plugin)
-- [3. Exclude annoying linting warnings, project wide](#3-exclude-annoying-linting-warnings-project-wide)
-- [4. Silence warnings](#4-silence-warnings)
-  - [4.1. Silencer plugin (Scala < 2.13)](#41-silencer-plugin-scala--213)
-  - [4.2. Using @nowarn in Scala 2.13.2](#42-using-nowarn-in-scala-2132)
-- [5. Other linters](#5-other-linters)
+  - [2.2. Exclude annoying linting options, project wide](#22-exclude-annoying-linting-options-project-wide)
+- [3. Silence warnings locally](#3-silence-warnings-locally)
+  - [3.1. Silencer plugin (Scala < 2.13)](#31-silencer-plugin-scala--213)
+  - [3.2. Using @nowarn in Scala 2.13.2](#32-using-nowarn-in-scala-2132)
+- [4. Other linters](#4-other-linters)
 - [Final words](#final-words)
 
 ## Best Practice: Stop Ignoring Warnings!
@@ -69,6 +70,30 @@ Now if we try out the code above, we get an error like this:
 ```
 
 Thus we can no longer ignore it.
+
+### 1.1. Make only some warnings fatal (Scala 2.13)
+
+There's a new `-Wconf` flag in Scala 2.13.2 ([see PR](https://github.com/scala/scala/pull/8373)). With it we can still keep some warnings as warnings.
+
+Use-case: say you're upgrading an Akka project. It's going to have a ton of `@deprecated` warnings that you may not want to fix right now, but you still want to keep the exhaustiveness checks as errors.
+
+```scala
+scalacOptions ++= Seq(
+  // "-Xfatal-warnings",
+  "-Wconf:cat=deprecation:ws,any:e",
+)
+```
+
+What this does is to turn all warnings into errors, *except for deprecation* messages, which are still left as warnings. To break it down:
+
+- `cat=deprecation` refers to deprecation messages (classes/methods marked with `@deprecated` being called) and `:ws` says that for these warnings a "warning summary" should be shown
+- `any:e` says that for any other kind of warning, signal it via an error
+
+Run this in a terminal for more help:
+
+```sh
+scalac -Wconf:help
+```
 
 ## 2. Activate All Linting Options
 
@@ -135,7 +160,7 @@ Keeping that list of compiler options up to date is exhausting, new useful optio
 
 A better option is to include [sbt-tpolecat](https://github.com/DavidGregory084/sbt-tpolecat) in your project.
 
-## 3. Exclude annoying linting warnings, project wide
+### 2.2. Exclude annoying linting options, project wide
 
 Some linting options can trigger false positives that are too annoying. It's fine to remove them from your project, or from certain configurations (e.g. `Test`, `Console`).
 
@@ -153,14 +178,14 @@ scalacOptions in Compile ~= { options: Seq[String] =>
 }
 ```
 
-## 4. Silence warnings
+## 3. Silence warnings locally
 
 Sometimes you want to ignore a certain warning:
 
 - maybe it's a false positive
 - maybe you want something "unused", as a placeholder, etc
 
-### 4.1. Silencer plugin (Scala < 2.13)
+### 3.1. Silencer plugin (Scala < 2.13)
 
 You can use the [ghik/silencer](https://github.com/ghik/silencer) compiler plugin.
 
@@ -184,7 +209,7 @@ We can also silence the source files on a path using a compiler option in `build
 scalacOptions += "-P:silencer:pathFilters=.*[/]src_managed[/].*"
 ```
 
-### 4.2. Using @nowarn in Scala 2.13.2
+### 3.2. Using @nowarn in Scala 2.13.2
 
 Scala 2.13 has added the [@nowarn annotation for local suppression](https://github.com/scala/scala/pull/8373).
 
@@ -223,10 +248,10 @@ def size(list: List[_]): Int =
 ```
 
 <p class="info-bubble" markdown="1">
-  **NOTE:** for **forward compatibility** in older Scala versions, with the [Silencer plugin](#41-silencer-plugin-scala--213), coupled with [scala-library-compat](https://github.com/scala/scala-library-compat), you can use the new `@nowarn` annotation with older Scala versions, however only the `@nowarn("msg=<pattern>")` filtering is supported.
+  **NOTE:** for **forward compatibility** in older Scala versions, with the [Silencer plugin](#31-silencer-plugin-scala--213), coupled with [scala-library-compat](https://github.com/scala/scala-library-compat), you can use the new `@nowarn` annotation with older Scala versions, however only the `@nowarn("msg=<pattern>")` filtering is supported.
 </p>
 
-## 5. Other linters
+## 4. Other linters
 
 You shouldn't stop at Scala's linting options. There are other sbt plugins available that can enforce certain best practices. Off the top of my head:
 
