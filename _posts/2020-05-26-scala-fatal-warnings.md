@@ -169,7 +169,7 @@ For our sample above, if we want to silence that exhaustiveness check:
 ```scala
 import com.github.ghik.silencer.silent
 
-@silence("not.*?exhaustive")
+@silent("not.*?exhaustive")
 def size(list: List[_]): Int =
   list match {
     case _ :: rest => 1 + size(rest)
