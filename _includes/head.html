@@ -109,9 +109,8 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | prepend: site.baseurl }}?{{ 'now' | date: '%Y%m%d%H%M' }}">
+    <link rel="preload" as="style" href="{{ '/assets/css/style.css' | prepend: site.baseurl }}?{{ 'now' | date: '%Y%m%d%H%M' }}">
+    
     <!--[if IE 8]><link rel="stylesheet" href="{{ "/assets/css/ie.css" | prepend: site.baseurl }}"><![endif]-->
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
-
-    <!-- Modernizr -->
-    <script src="{% link /assets/js/modernizr.custom.15390.js %}" type="text/javascript"></script>
 </head>
