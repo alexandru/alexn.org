@@ -223,7 +223,7 @@ def size(list: List[_]): Int =
 ```
 
 <p class="info-bubble" markdown="1">
-  **NOTE:** for **forward compatibility** in older Scala versions, with the [Silencer plugin](#41-silencer-plugin-scala--213), coupled with [scala-library-compat](https://github.com/scala/scala-library-compat), you can use the new `@nowarn` annotation with older Scala versions, however only the `@nowarn("mat=<pattern>")` filtering is supported.
+  **NOTE:** for **forward compatibility** in older Scala versions, with the [Silencer plugin](#41-silencer-plugin-scala--213), coupled with [scala-library-compat](https://github.com/scala/scala-library-compat), you can use the new `@nowarn` annotation with older Scala versions, however only the `@nowarn("msg=<pattern>")` filtering is supported.
 </p>
 
 ## 5. Other linters
