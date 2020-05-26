@@ -1,15 +1,15 @@
 ---
 title: "Fatal Warnings and Linting in Scala"
 description:
-  Strengthen your code via `-Xfatal-warnings`, linting and piss off your colleagues.
+  Strengthen your code via `-Xfatal-warnings`, linting and piss off your colleagues with useful compiler errors.
 tags:
   - Scala
   - Code
-image: /assets/media/articles/scala.png
+image: /assets/media/articles/scala-xfatal-warnings.png
 ---
 
 <p class="intro withcap" markdown='1'>
-  The best best practices are those enforced by the build tools, as part of the build process. Don't annoy your colleagues in code reviews, let the build tools do that for your.
+  The best best practices are those enforced by the build tools, as part of the build process. Don't annoy your colleagues in code reviews, let the build tools do that for you.
 </p>
 
 The Scala compiler has multiple linting options available and emits certain warnings out of the box that would be more useful as errors. Let's see how we can rely on the Scala compiler to strengthen our code and piss off your colleagues with clean code requirements.
@@ -45,7 +45,7 @@ size(List(1,2,3))
 // scala.MatchError: List() (of class scala.collection.immutable.Nil$)
 ```
 
-It shouldn't be just a warning. Even if you're diligent, this warning can get lost in a sea of other warnings, like it often does.
+It shouldn't be just a warning. Even if you're diligent, this warning can get lost in a sea of other warnings, like it often does. And here we were lucky, because the runtime exception was triggered on the happy path, but our luck would eventually run out and end up with such exceptions in production.
 
 ## 1. Activate -Xfatal-warnings
 
