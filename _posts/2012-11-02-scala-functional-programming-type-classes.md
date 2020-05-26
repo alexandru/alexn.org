@@ -955,17 +955,16 @@ will be left online, which means you can follow the lectures and do
 the assignments and I'm pretty sure many students that attended will
 remain on that forum for answering questions.
 
-**[Scala School](http://twitter.github.com/scala_school/)** - a freely
+**[Scala School](http://twitter.github.com/scala_school/)**: a freely
 available online tutorial by Twitter, which is very friendly to
 newbies. I've read it and it's pretty good.
 
-**[Scala Documentation Project](http://docs.scala-lang.org/)** -
+**[Scala Documentation Project](http://docs.scala-lang.org/)**:
 definitely checkout this website, as they aggregate everything good
 here. If you want to learn more about Scala's library, especially the
 collections, this is the place to learn from.
 
-**[Ninety-Nine Scala Problems](http://aperiodic.net/phil/scala/s-99/)**
-- a collection of 99 problems to be solved with Scala. If you get
+**[Ninety-Nine Scala Problems](http://aperiodic.net/phil/scala/s-99/)**: a collection of 99 problems to be solved with Scala. If you get
 stuck, you can view a solution which is often idiomatic. See also this
 [GitHub project](https://github.com/etorreborre/s99) that gives you a
 complete test-suite, to spare you of the effort.
