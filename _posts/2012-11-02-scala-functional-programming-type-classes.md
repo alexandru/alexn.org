@@ -53,7 +53,7 @@ to unfamiliar grounds, so if you start, hang in there.
 We need some definitions though. Functional programming ...
 
 * deals with computation by evaluating functions with
-  [referential transparency](http://en.wikipedia.org/wiki/Referential_transparency_(computer_science)
+  [referential transparency](http://en.wikipedia.org/wiki/Referential_transparency_(computer_science))
   as a property (i.e. functions behave like mathematical functions,
   for the same input you must always get the same output)
 * the final output of a computation is composed out of multiple
