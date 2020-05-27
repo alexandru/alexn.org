@@ -17,10 +17,10 @@ The Scala compiler has multiple linting options available and emits certain warn
 - [Best Practice: Stop Ignoring Warnings!](#best-practice-stop-ignoring-warnings)
 - [1. Activate -Xfatal-warnings](#1-activate--xfatal-warnings)
   - [1.1. Make only some warnings fatal (Scala 2.13)](#11-make-only-some-warnings-fatal-scala-213)
-  - [1.2. Deactivate warnings in console](#12-deactivate-warnings-in-console)
 - [2. Activate All Linting Options](#2-activate-all-linting-options)
   - [2.1. Use the sbt-tpolecat plugin](#21-use-the-sbt-tpolecat-plugin)
-  - [2.2. Exclude annoying linting options, project wide](#22-exclude-annoying-linting-options-project-wide)
+  - [2.2. Exclude annoying linting options](#22-exclude-annoying-linting-options)
+  - [2.3. Relax the console configuration](#23-relax-the-console-configuration)
 - [3. Silence warnings locally](#3-silence-warnings-locally)
   - [3.1. Silencer plugin (Scala < 2.13)](#31-silencer-plugin-scala--213)
   - [3.2. Using @nowarn in Scala 2.13.2](#32-using-nowarn-in-scala-2132)
@@ -60,6 +60,10 @@ scalacOptions ++= Seq(
 )
 ```
 
+<p class="info-bubble" markdown="1">
+  **NOTE:** it's probably a good idea to exclude this from the `console` configuration, see [section 2.3](#23-relax-the-console-configuration).
+</p>
+
 Now if we try out the code above, we get an error like this:
 
 ```
@@ -95,32 +99,6 @@ Run this in a terminal for more help:
 ```sh
 scalac -Wconf:help
 ```
-
-### 1.2. Deactivate warnings in console
-
-When playing around in the console, it's a good idea to deactivate `Xfatal-warnings`, along with some of the more annoying warnings. 
-
-You could [use sbt-tpolecat](#21-use-the-sbt-tpolecat-plugin), or could add this to `build.sbt`:
-
-```scala
-val filterConsoleScalacOptions = { options: Seq[String] =>
-  options.filterNot(Set(
-    "-Werror",
-    "-Wdead-code",
-    "-Wunused:imports",
-    "-Ywarn-unused:imports",
-    "-Ywarn-unused-import",
-    "-Ywarn-dead-code",
-    "-Xfatal-warnings"
-  ))
-}
-
-// ...
-scalacOptions.in(Compile, console) ~= filterConsoleScalacOptions,
-scalacOptions.in(Test, console) ~= filterConsoleScalacOptions
-```
-
-Credit for this snippet: [DavidGregory084/sbt-tpolecat](https://github.com/DavidGregory084/sbt-tpolecat/blob/v0.1.11/src/main/scala/io/github/davidgregory084/TpolecatPlugin.scala#L109).
 
 ## 2. Activate All Linting Options
 
@@ -187,7 +165,7 @@ Keeping that list of compiler options up to date is exhausting, new useful optio
 
 A better option is to include [sbt-tpolecat](https://github.com/DavidGregory084/sbt-tpolecat) in your project.
 
-### 2.2. Exclude annoying linting options, project wide
+### 2.2. Exclude annoying linting options
 
 Some linting options can trigger false positives that are too annoying. It's fine to remove them from your project, or from certain configurations (e.g. `Test`, `Console`).
 
@@ -204,6 +182,32 @@ scalacOptions in Compile ~= { options: Seq[String] =>
   )
 }
 ```
+
+### 2.3. Relax the console configuration
+
+When playing around in the console, it's a good idea to deactivate `Xfatal-warnings`, along with some of the more annoying warnings. 
+
+You could [use sbt-tpolecat](#21-use-the-sbt-tpolecat-plugin), which already does this automatically, or you could add this to `build.sbt`:
+
+```scala
+val filterConsoleScalacOptions = { options: Seq[String] =>
+  options.filterNot(Set(
+    "-Xfatal-warnings",
+    "-Werror",
+    "-Wdead-code",
+    "-Wunused:imports",
+    "-Ywarn-unused:imports",
+    "-Ywarn-unused-import",
+    "-Ywarn-dead-code",
+  ))
+}
+
+// ...
+scalacOptions.in(Compile, console) ~= filterConsoleScalacOptions,
+scalacOptions.in(Test, console) ~= filterConsoleScalacOptions
+```
+
+Credit for this snippet: [DavidGregory084/sbt-tpolecat](https://github.com/DavidGregory084/sbt-tpolecat/blob/v0.1.11/src/main/scala/io/github/davidgregory084/TpolecatPlugin.scala#L109).
 
 ## 3. Silence warnings locally
 
