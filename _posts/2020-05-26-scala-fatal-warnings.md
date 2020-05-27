@@ -17,6 +17,7 @@ The Scala compiler has multiple linting options available and emits certain warn
 - [Best Practice: Stop Ignoring Warnings!](#best-practice-stop-ignoring-warnings)
 - [1. Activate -Xfatal-warnings](#1-activate--xfatal-warnings)
   - [1.1. Make only some warnings fatal (Scala 2.13)](#11-make-only-some-warnings-fatal-scala-213)
+  - [1.2. Deactivate warnings in console](#12-deactivate-warnings-in-console)
 - [2. Activate All Linting Options](#2-activate-all-linting-options)
   - [2.1. Use the sbt-tpolecat plugin](#21-use-the-sbt-tpolecat-plugin)
   - [2.2. Exclude annoying linting options, project wide](#22-exclude-annoying-linting-options-project-wide)
@@ -94,6 +95,32 @@ Run this in a terminal for more help:
 ```sh
 scalac -Wconf:help
 ```
+
+### 1.2. Deactivate warnings in console
+
+When playing around in the console, it's a good idea to deactivate `Xfatal-warnings`, along with some of the more annoying warnings. 
+
+You could [use sbt-tpolecat](#21-use-the-sbt-tpolecat-plugin), or could add this to `build.sbt`:
+
+```scala
+val filterConsoleScalacOptions = { options: Seq[String] =>
+  options.filterNot(Set(
+    "-Werror",
+    "-Wdead-code",
+    "-Wunused:imports",
+    "-Ywarn-unused:imports",
+    "-Ywarn-unused-import",
+    "-Ywarn-dead-code",
+    "-Xfatal-warnings"
+  ))
+}
+
+// ...
+scalacOptions.in(Compile, console) ~= filterConsoleScalacOptions,
+scalacOptions.in(Test, console) ~= filterConsoleScalacOptions
+```
+
+Credit for this snippet: [DavidGregory084/sbt-tpolecat](https://github.com/DavidGregory084/sbt-tpolecat/blob/v0.1.11/src/main/scala/io/github/davidgregory084/TpolecatPlugin.scala#L109).
 
 ## 2. Activate All Linting Options
 
