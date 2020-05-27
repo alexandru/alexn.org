@@ -5,6 +5,7 @@ gem "jekyll-paginate-v2"
 gem "support-for"
 gem 'nokogiri'
 gem 'classifier-reborn'
+gem 'rb-gsl'
 
 #gem "jekyll-assets", "~> 3.0.12", group: :jekyll_plugins
 #gem "sprockets", "~> 3.7"
