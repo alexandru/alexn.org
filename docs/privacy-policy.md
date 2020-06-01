@@ -10,7 +10,7 @@ last_modified_at: 2020-06-01
   This website does not track you via cookies or other personally identifiable information.
 </p>
 
-Currently no analytics are attempted. In the future a self-hosted solution might be installed, but with a setup meant to prevent your privacy.
+Currently no analytics are attempted. In the future a self-hosted solution might be installed, but with a setup meant to preserve your privacy.
 
 ## Email Newsletter
 
