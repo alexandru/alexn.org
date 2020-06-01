@@ -1,5 +1,5 @@
 ---
-title: "Akka &amp; Monix - Typelevel Summit, Oslo 2016"
+title: "Akka & Monix - Typelevel Summit, Oslo 2016"
 description:
   Presentation from Typelevel Summit, Oslo, 2016,
   about my experience in dealing with modeling behavior
@@ -15,7 +15,7 @@ youtube: CQxviYlAKaY
 
 {% include youtube.html ratio=56.25 %}
 
-**Akka &amp; Monix: Controlling Power Plants** -
+**Akka & Monix: Controlling Power Plants** -
 my presentation from the
 [Typelevel Summit, Oslo, 2016](http://typelevel.org/event/2016-05-summit-oslo/):
 

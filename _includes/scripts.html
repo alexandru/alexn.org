@@ -2,10 +2,5 @@
 <script async src="{% link /assets/js-managed/jquery/dist/jquery.slim.min.js %}" type="text/javascript"></script>
 <script async src="{% link /assets/js/dropcap.min.js %}" type="text/javascript"></script>
 <script async src="{% link /assets/js/responsive-nav.min.js %}" type="text/javascript"></script>
-<script async src="{% link /assets/js/scripts.js %}" type="text/javascript"></script>
+<script async src="{% link assets/js/scripts.js %}" type="text/javascript"></script>
 {% if page.mathjax -%}<script async src="{% link assets/js/load-mathjax.js %}"></script>{% endif %}
-
-{% if site.google_analytics %}{% include google_analytics.html %}{% endif %}
-
-<!-- Mailchimp -->
-<script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/5bffa2af025192a58345bd5dc/de267627a98b58f0427968f31.js");</script>
