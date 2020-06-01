@@ -14,6 +14,7 @@ input[type=text],input[type=email],input[type=phone],input[type=password],input[
 	height: $line-height;
 	width:300px;
 	margin-bottom: .5rem;
+	font-size: 100%;
 
 	&:focus {
 		border: 1px solid $primary-color;
@@ -35,6 +36,10 @@ form {
 		margin-bottom:$padding/2;
 	}
 
+	label {
+		color: #666;
+	}
+
 	// Notes go under the input fields
 	.note {
 		margin-top:5px;
@@ -46,9 +51,12 @@ form {
 		font-style: italic;
 	}
 
+	.asterisk {
+		color: darkred;
+	}
+
 	// Validation, add error class to the item div
 	.error {
-
 		// Validation reason
 		.reason {
 			margin-top:5px;
