@@ -6,7 +6,9 @@ date: 2017-01-16
 last_modified_at: 2020-04-21
 ---
 
-This website does not track you via cookies or other personally identifiable information.
+<p class="intro withcap">
+  This website does not track you via cookies or other personally identifiable information.
+</p>
 
 Currently no analytics are attempted. In the future a self-hosted solution might be installed, but with a setup meant to prevent your privacy.
 
