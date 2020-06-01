@@ -111,7 +111,7 @@
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | prepend: site.baseurl }}?{{ 'now' | date: '%Y%m%d%H%M' }}">
     <link rel="preload" as="style" href="{{ '/assets/css/style.css' | prepend: site.baseurl }}?{{ 'now' | date: '%Y%m%d%H%M' }}">
     <!-- Cookie consent bar -->
-    <link rel="stylesheet" type="text/css" href="{% link /assets/js-managed/cookieconsent/build/cookieconsent.min.css %}" />
+    <link rel="stylesheet" type="text/css" href="{% link /assets/js-managed/cookieconsent/build/cookieconsent.min.css %}?{{ 'now' | date: '%Y%m%d%H%M' }}" />
     
     <!--[if IE 8]><link rel="stylesheet" href="{{ "/assets/css/ie.css" | prepend: site.baseurl }}"><![endif]-->
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
