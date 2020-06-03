@@ -16,7 +16,7 @@
           data-isso-vote="true"
           data-vote-levels=""
           src="https://alexn.org/comments/alexn/js/embed.min.js"></script>
-  <section id="isso-thread" data-title="<%= current_page.data.title || website.title %>">
+  <section id="isso-thread" data-title="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
   </section>
 </div>
 
