@@ -19,3 +19,7 @@
     g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
   })();
 </script>
+<noscript>
+  {% capture page_name %}{% if page.title %}{{ page.title }}{% else %}Home{% endif -%}{% endcapture %}
+  <img src="https://ly.alexn.org/matomo.php?idsite=1&rec=1&action_name={{ page_name | url_encode }}" style="border:0" alt="" />
+</noscript>
