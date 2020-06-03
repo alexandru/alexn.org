@@ -10,7 +10,12 @@ last_modified_at: 2020-06-01
   This website does not collect personally identifiable information and no cookies are installed that could be used to track visitors.
 </p>
 
-Currently no analytics are attempted. In the future a self-hosted solution might be installed, but with a setup meant to preserve your privacy.
+## Analytics
+
+This website uses a self-hosted (first party) [Matomo](https://matomo.org/) instance for tracking users' visits, with these characteristics:
+
+1. no cookies are being set — and no cookies will be set in the future without explicit permission
+2. IPs are anonymized
 
 ## Email Newsletter
 
