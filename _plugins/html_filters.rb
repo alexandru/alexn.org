@@ -44,8 +44,8 @@ module Jekyll
         link + "?"
       end
 
-      l = l + "uc=rss"
-      l = l + "&uk=" + keyword if keyword
+      l = l + "pk_campaign=rss"
+      l = l + "&pk_kwd=" + keyword if keyword
       l
     end
 
