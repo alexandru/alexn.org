@@ -1,4 +1,4 @@
-<h2>Contribute</h2>
+<h2>Discuss</h2>
 
 <div id="contributions">
   <script data-isso="/comments/alexn/"
@@ -20,7 +20,36 @@
   </section>
 </div>
 
-<p>
+<div class="clearfix"></div>
+<hr/>
+
+<div>
+  If you wish to discus in private, emails are welcome:
+  <!--sse-->
+  <script>
+    (function () {
+      var lhs = "y20+comments";
+      var rhs = "alexn.org";
+      var subject = "{% if page.title %}{{ page.title | prepend: 'Comment on `' | append: '`' | uri_encode }}{% endif %}";
+      document.write("<a href=\"mailto");
+      document.write(":" + lhs + "@");
+      document.write(rhs);
+      if (subject) { document.write("?subject=" + subject); }
+      document.write("\">" + lhs + "@" + rhs + "<\/a>");
+    })()
+  </script>
+  <noscript>
+    <em>Email address is protected by JavaScript, activate it to see it!</em>
+  </noscript>
+  <!--/sse-->
+</div>
+
+<div class="clearfix"></div>
+<hr/>
+
+<h2>Contribute</h2>
+
+<div>
   If you noticed a typo, help me by submitting a pull request:
   <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/master/{{ page.path }}" target="_blank">Edit Page on GitHub</a>
-</p>
+</div>
