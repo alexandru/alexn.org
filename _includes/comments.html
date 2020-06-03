@@ -1,25 +1,24 @@
-<h2>Feedback?</h2>
+<h2>Comments?</h2>
 
-<p>
-  If you wish to discus this article, an email would be most welcome:
-  <!--sse-->
-  <script>
-    (function () {
-      var lhs = "y20+comments";
-      var rhs = "alexn.org";
-      var subject = "{% if page.title %}{{ page.title | prepend: 'Comment on `' | append: '`' | uri_encode }}{% endif %}";
-      document.write("<a href=\"mailto");
-      document.write(":" + lhs + "@");
-      document.write(rhs);
-      if (subject) { document.write("?subject=" + subject); }
-      document.write("\">" + lhs + "@" + rhs + "<\/a>");
-    })()
-  </script>
-  <noscript>
-    <em>Email address is protected by JavaScript, activate it to see it!</em>
-  </noscript>
-  <!--/sse-->
-</p>
+<div id="contributions">
+  <script data-isso="/comments/alexn/"
+          data-isso-css="true"
+          data-isso-lang="en"
+          data-isso-reply-to-self="true"
+          data-isso-require-author="true"
+          data-isso-require-email="false"
+          data-isso-reply-notifications="true"
+          data-isso-max-comments-top="10"
+          data-isso-max-comments-nested="5"
+          data-isso-reveal-on-click="5"
+          data-isso-gravatar="true"
+          data-isso-avatar="false"
+          data-isso-vote="true"
+          data-vote-levels=""
+          src="https://alexn.org/comments/alexn/js/embed.min.js"></script>
+  <section id="isso-thread" data-title="<%= current_page.data.title || website.title %>">
+  </section>
+</div>
 
 <p>
   If you noticed a typo, help me by submitting a pull request:
