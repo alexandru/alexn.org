@@ -37,6 +37,18 @@ module Jekyll
   module MyRSSFilter
     @@site = Jekyll.configuration({})
 
+    def rss_campaign_link(link, keyword)
+      l = if link.include? '?'
+        link + "&"
+      else
+        link + "?"
+      end
+
+      l = l + "uc=rss"
+      l = l + "&uk=" + keyword if keyword
+      l
+    end
+
     def rss_process(html)
       doc = Nokogiri::HTML(html)
 

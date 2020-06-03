@@ -26,27 +26,27 @@ layout: null
         <description><![CDATA[
           {% unless post.image_hide_in_post %}
           {% if post.image %}
-          <a href="{{ post.url | absolute_url }}">
+          <a href="{{ post.url | absolute_url | rss_campaign_link: 'image' }}">
             <img src="{{ post.image | absolute_url }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
           </a>
           <br />
           {% elsif post.vimeo %}
-          <a href="{{ post.url | absolute_url }}">
+          <a href="{{ post.url | absolute_url | rss_campaign_link: 'image' }}">
             <img src="{{ post.vimeo | vimeo_thumb_link }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
           </a>
           {% elsif post.youtube %}
-          <a href="{{ post.url | absolute_url }}">
+          <a href="{{ post.url | absolute_url | rss_campaign_link: 'image' }}">
             <img src="{{ post.youtube | youtube_thumb_link }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
           </a>
           {% endif %}
           {% endunless -%}
           {% if post.description %}{{ post.description | markdownify | rss_process }}{% else %}{{ post.excerpt | strip_html | rss_process }}{% endif %}
           <p>
-            <a href="{{ post.url | absolute_url }}">Read article →</a>
+            <a href="{{ post.url | absolute_url | rss_campaign_link: 'read-more' }}">Read article →</a>
           </p>
         ]]></description>
         <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
-        <link>{{ post.url | prepend: site.baseurl | prepend: site.url }}</link>
+        <link>{{ post.url | prepend: site.baseurl | prepend: site.url | rss_campaign_link: 'rss-link' | xml_escape }}</link>
         <guid isPermaLink="true">{{ post.url | prepend: site.baseurl | prepend: site.url }}</guid>
         {% if post.author %}
         {% assign author = site.authors | map: post.author | map: "name" %}
