@@ -1,5 +1,7 @@
 # Wiki
 
+My public notes, for personal use. I do not promise to keep these up to date, take this information with a grain of salt (PRs welcome).
+
 ## Documentation
 
 - [Check Domain's DNS Records](docs/check-domain-dns-records.md)

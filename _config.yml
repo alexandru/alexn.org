@@ -14,11 +14,12 @@ defaults:
       permalink: blog/:year/:month/:day/:title.html
       layout: post
       author: alexelcu
-      has_comments: true
+      has_contributions: true
   - scope:
       path: "wiki" # an empty string here means all files in the project
     values:
       layout: wiki
+      has_contributions: true
 
 sass:
   style: compressed
@@ -37,7 +38,8 @@ plugins:
   - jekyll-sitemap
   - jekyll-optional-front-matter
   - jekyll-relative-links
-  
+  - jekyll-last-modified-at
+
 titles_from_headings:
   enabled:     true
   strip_title: true
