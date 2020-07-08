@@ -36,7 +36,8 @@ plugins:
   - jekyll-paginate-v2
   - jekyll-sitemap
   - jekyll-optional-front-matter
-
+  - jekyll-relative-links
+  
 titles_from_headings:
   enabled:     true
   strip_title: true
