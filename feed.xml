@@ -27,7 +27,6 @@ layout: null
           {% if forloop.first %}
           <img src="https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=RSS+Feed" style="border:0" alt="" />
           {% endif %}
-          {% unless post.image_hide_in_post %}
           {% if post.image %}
           <a href="{{ post.url | absolute_url | rss_campaign_link: 'image' }}">
             <img src="{{ post.image | absolute_url }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
@@ -42,7 +41,6 @@ layout: null
             <img src="{{ post.youtube | youtube_thumb_link }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
           </a>
           {% endif %}
-          {% endunless -%}
           {% if post.description %}{{ post.description | markdownify | rss_process }}{% else %}{{ post.excerpt | strip_html | rss_process }}{% endif %}
           <p>
             <a href="{{ post.url | absolute_url | rss_campaign_link: 'read-more' }}">Read article →</a>

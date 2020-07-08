@@ -1,29 +1,27 @@
-title: Alexandru Nedelcu's Blog
+title: Alexandru Nedelcu
 description: On programming and personal projects
 url: https://alexn.org
 baseurl: ""
 feed: https://alexn.org/feed.xml
 
 include: ["_redirects"]
-exclude: [
-  "scripts",
-  "package.json",
-  "package-lock.json",
-  "vendor"
-]
+exclude: ["scripts", "package.json", "package-lock.json", "vendor"]
 
 defaults:
-  -
-    scope:
+  - scope:
       path: "_posts" # an empty string here means all files in the project
     values:
       permalink: blog/:year/:month/:day/:title.html
       layout: post
       author: alexelcu
       has_comments: true
+  - scope:
+      path: "wiki" # an empty string here means all files in the project
+    values:
+      layout: wiki
 
 sass:
-    style: compressed
+  style: compressed
 
 markdown: kramdown
 highlighter: rouge
@@ -37,12 +35,21 @@ kramdown:
 plugins:
   - jekyll-paginate-v2
   - jekyll-sitemap
+  - jekyll-optional-front-matter
+
+titles_from_headings:
+  enabled:     true
+  strip_title: true
+  collections: false
+
+optional_front_matter:
+  remove_originals: true
 
 pagination:
   enabled: true
   per_page: 20
-  permalink: '/page/:num/'
-  title: ':title - pagina :num'
+  permalink: "/page/:num/"
+  title: ":title - pagina :num"
   sort_reverse: true
 
 # thumbnails:
@@ -63,12 +70,12 @@ pagination:
 #       - "png:compression-filter=5"
 #       - "png:compression-level=9"
 #       - "png:exclude-chunk=all"
-    
+
 autopages:
   enabled: true
   tags:
     layouts:
-      - 'auto-tag.html'
+      - "auto-tag.html"
   categories:
     enabled: false
   collections:
@@ -78,6 +85,9 @@ navigation:
   - title: Home
     url: /
     id: /index.html
+  - title: Wiki
+    url: /wiki/
+    id: /wiki/
   - title: About
     url: /about.html
     id: /about.html
