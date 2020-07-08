@@ -15,11 +15,14 @@ defaults:
       layout: post
       author: alexelcu
       has_contributions: true
+      nav_id: /blog/
   - scope:
       path: "wiki" # an empty string here means all files in the project
     values:
       layout: wiki
       has_contributions: true
+      nav_id: /wiki/
+      description: Personal, volatile wiki documentation
 
 sass:
   style: compressed
@@ -85,9 +88,9 @@ autopages:
     enabled: false
 
 navigation:
-  - title: Home
+  - title: Blog
     url: /
-    id: /index.html
+    id: /blog/
   - title: Wiki
     url: /wiki/
     id: /wiki/
