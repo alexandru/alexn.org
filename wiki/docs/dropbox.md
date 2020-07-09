@@ -1,7 +1,7 @@
 # Dropbox
 
 - [Remove all shared links](#remove-all-shared-links)
-- [Screenshots](#screenshots)
+- [Screenshots Sync on MacOS](#screenshots-sync-on-macos)
   - [Solution 1: Configure MacOS's Screen Capture](#solution-1-configure-macoss-screen-capture)
   - [Solution 2: Sync via Script](#solution-2-sync-via-script)
 
@@ -18,9 +18,9 @@ $$("#links-list .mc-popover-trigger").forEach((n) => {
 });
 ```
 
-## Screenshots
+## Screenshots Sync on MacOS
 
-In case Dropbox's "Share Screenshots" option isn't working ...
+In case Dropbox's "Share Screenshots" option isn't working (since it periodically stops working), or in case you don't want to automatically share a link to synchronized screenshots ...
 
 ### Solution 1: Configure MacOS's Screen Capture
 
