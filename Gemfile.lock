@@ -87,8 +87,6 @@ GEM
     progress (3.5.2)
     public_suffix (4.0.5)
     rb-fsevent (0.10.4)
-    rb-gsl (1.16.0.6)
-      gsl
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rexml (3.2.4)
@@ -121,6 +119,7 @@ PLATFORMS
 
 DEPENDENCIES
   classifier-reborn
+  gsl
   image_optim
   jekyll (~> 4.1.1)
   jekyll-gist
@@ -132,7 +131,6 @@ DEPENDENCIES
   jekyll-titles-from-headings
   mini_magick
   nokogiri
-  rb-gsl
   support-for
   tzinfo (~> 1.2)
   tzinfo-data

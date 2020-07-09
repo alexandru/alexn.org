@@ -4,7 +4,7 @@ gem "jekyll", "~> 4.1.1"
 gem "support-for"
 gem 'nokogiri'
 gem 'classifier-reborn'
-gem 'rb-gsl'
+gem 'gsl'
 gem "mini_magick"
 gem "image_optim"
 
