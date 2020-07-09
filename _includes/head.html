@@ -3,7 +3,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <title>{% if page.title %}{{ page.title | xml_escape }}{% unless page.has_full_title %} &#8211; {{ site.title }}{% endunless %}{% else %}{{ site.title | xml_escape }} - {{ site.description | xml_escape }}{% endif -%}</title>
+    <title>{% if page.title %}{{ page.title | xml_escape }}{% unless page.has_full_title %} - {{ site.title }}{% endunless %}{% else %}{{ site.title | xml_escape }} - {{ site.description | xml_escape }}{% endif -%}</title>
     {% capture page_or_site_title %}{% if page.title %}{{ page.title | xml_escape }}{% else %}{{ site.title | xml_escape }}{% endif -%}{% endcapture %}
 
     <!-- Open Graph Meta -->
