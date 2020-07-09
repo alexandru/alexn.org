@@ -13,6 +13,7 @@ My public notes, for personal use (GitHub Gist replacement). This information is
 - [Debian Packages](docs/debian-packages-deb.md)
 - [Docker](docs/docker.md)
 - [Dropbox](docs/dropbox.md)
+- [Firefox](docs/firefox.md)
 - [Remove DRM from Ebooks](docs/dedrm-ebooks.md)
 
 ## Code Snippets
