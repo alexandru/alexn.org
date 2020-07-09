@@ -1,5 +1,5 @@
 ---
-has_contributions: false
+disable_comments: true
 ---
 # Wiki
 

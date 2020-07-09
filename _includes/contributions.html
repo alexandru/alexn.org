@@ -6,6 +6,7 @@
   <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/master/{{ page.path }}" target="_blank">Edit Page on GitHub</a>
 </p>
 
+{% unless page.disable_comments %}
 <h3 id="comments">Comments</h3>
 
 <script>
@@ -31,3 +32,4 @@
     </span>
   </div>
 </noscript>
+{% endunless %}
