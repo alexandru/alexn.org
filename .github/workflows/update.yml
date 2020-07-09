@@ -1,0 +1,32 @@
+name: update
+on:
+  repository_dispatch:
+
+jobs:
+  update:
+    if: github.event_name == 'Submodules Update'
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - name: git config
+        run: |
+          git config user.name "Alexandru Nedelcu"
+          git config user.email "noreply@alexn.org"
+        
+      - name: Update submodules
+        run: |
+          git submodule update --remote
+
+      - name: git commit
+        run: |
+          git add .
+          git commit -m "Update submodules"
+
+      - name: git push
+        run: |
+          git push --quiet "https://alexandru:$GH_TOKEN@github.com/alexandru/alexn.org.git" master:master
