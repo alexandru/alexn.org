@@ -8,6 +8,9 @@
 
 <h3 id="comments">Comments</h3>
 
+<script>
+  document.write('<div class="note">Be nice!<br><span class="extra">If you don\'t see the commenting widget, it might be blocked (see this <a href="https://github.com/utterance/utterances/issues/341" target="_blank">Privacy Badger issue</a>).</span></div>');
+</script>
 <script src="https://utteranc.es/client.js"
         repo="alexandru/alexn.org"
         issue-term="pathname"
@@ -16,3 +19,15 @@
         crossorigin="anonymous"
         async>
 </script>
+<noscript>
+  <div class="note">
+    <strong>Enable JavaScript to see comments!</strong>
+    <br>
+    <span class="extra">
+      Commenting widget is powered by GitHub's API and 
+      <a href="https://utteranc.es" target="_blank">utteranc.es</a>. This website does not
+      track visitors or log personally identifiable information, see our 
+      <a href="{% link docs/privacy-policy.md %}">privacy policy</a>.
+    </span>
+  </div>
+</noscript>

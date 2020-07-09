@@ -1,3 +1,6 @@
+---
+has_contributions: false
+---
 # Wiki
 
 My public notes, for personal use. I do not promise to keep these up to date, take this information with a grain of salt (PRs welcome).
