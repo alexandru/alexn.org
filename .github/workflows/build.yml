@@ -14,10 +14,10 @@ jobs:
         with:
           submodules: true
 
-      - name: Set up Ruby 2.6 (for microsite)
+      - name: Set up Ruby 2.7.1
         uses: actions/setup-ruby@v1
         with:
-          ruby-version: 2.6.x
+          ruby-version: 2.7.1
 
       - name: Cache Ruby Bundler
         uses: actions/cache@v2
