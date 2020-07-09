@@ -16,26 +16,26 @@ jobs:
         with:
           submodules: true
 
-      - name: Set up Ruby 2.6
+      - name: Set up Ruby 2.7.1
         uses: actions/setup-ruby@v1
         with:
-          ruby-version: 2.6.x
+          ruby-version: 2.7.1
 
       - name: Cache Ruby Bundler
         uses: actions/cache@v2
         with:
           path: vendor/bundle
-          key: v2-${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          key: v3-${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
-            v2-${{ runner.os }}-gems-
+            v3-${{ runner.os }}-gems-
 
       - name: Cache JavaScript (npm)
         uses: actions/cache@v2
         with:
           path: ~/.npm
-          key: v2-${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: v3-${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            v2-${{ runner.os }}-node-              
+            v3-${{ runner.os }}-node-              
               
       - name: Install dependencies
         run: |
