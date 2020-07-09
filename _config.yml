@@ -3,6 +3,7 @@ description: On programming and personal projects
 url: https://alexn.org
 baseurl: ""
 feed: https://alexn.org/feed.xml
+repo_edit: https://github.com/alexandru/alexn.org/blob/master/
 
 include: ["_redirects"]
 exclude: ["scripts", "package.json", "package-lock.json", "vendor"]
@@ -20,10 +21,15 @@ defaults:
       path: "wiki" # an empty string here means all files in the project
     values:
       layout: wiki
+      repo_edit: https://github.com/alexandru/wiki/blob/master/
+      repo_module: wiki/
       has_contributions: true
       nav_id: /wiki/
       description: Personal, volatile wiki documentation
-
+  - scope:
+      path: "wiki/readme.md"
+    values:
+      permalink: "wiki/index.html"
 sass:
   style: compressed
 
@@ -44,7 +50,7 @@ plugins:
   - jekyll-last-modified-at
 
 titles_from_headings:
-  enabled:     true
+  enabled: true
   strip_title: true
   collections: false
 

@@ -1,5 +1,6 @@
 name: deploy
 on:
+  repository_dispatch:
   push:
     branches:
       - master
@@ -9,7 +10,10 @@ jobs:
     runs-on: ubuntu-18.04
 
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: true
 
       - name: Set up Ruby 2.6
         uses: actions/setup-ruby@v1
