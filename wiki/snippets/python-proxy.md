@@ -1,6 +1,4 @@
----
-layout: snippet
----
+# Python Proxy Sample
 
 ```python
 class ProxyAttribute(object):

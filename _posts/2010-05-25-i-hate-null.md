@@ -107,4 +107,4 @@ all_td_elems = soup.find('table', {'class':'search-params'})\
     all_td_elements.find('input').get('name').do()
 ```
 
-Yeah, it's just a small hack, but it's so damn useful sometimes. Full source code is posted here: [python-proxy.py]({% link snippets/python-proxy.py.md %})
+Yeah, it's just a small hack, but it's so damn useful sometimes. Full source code is posted here: [python-proxy.py]({% link wiki/snippets/python-proxy.md %})
