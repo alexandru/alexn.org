@@ -23,7 +23,10 @@ defaults:
       has_contributions: true
       nav_id: /wiki/
       description: Personal, volatile wiki documentation
-
+  - scope:
+      path: "wiki/readme.md"
+    values:
+      permalink: "wiki/index.html"
 sass:
   style: compressed
 
@@ -44,7 +47,7 @@ plugins:
   - jekyll-last-modified-at
 
 titles_from_headings:
-  enabled:     true
+  enabled: true
   strip_title: true
   collections: false
 
