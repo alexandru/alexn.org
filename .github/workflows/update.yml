@@ -4,7 +4,6 @@ on:
 
 jobs:
   update:
-    if: github.event_name == 'Submodules Update'
     runs-on: ubuntu-20.04
 
     steps:
