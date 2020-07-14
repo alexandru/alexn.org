@@ -9,10 +9,10 @@ image: /assets/media/articles/scala-xfatal-warnings.png
 ---
 
 <p class="intro withcap" markdown='1'>
-  The best best practices are those enforced by the build tools, as part of the build process. Don't annoy your colleagues in code reviews, let the build tools do that for you.
+  The best practices are those enforced by the build tools, as part of the build process. Don't annoy your colleagues in code reviews; let the build tools do that for you.
 </p>
 
-The Scala compiler has multiple linting options available and emits certain warnings out of the box that would be more useful as errors. Let's see how we can rely on the Scala compiler to strengthen our code and piss off your colleagues with clean code requirements.
+The Scala compiler has multiple linting options available and emits some warnings out of the box that would be more useful as errors. Let's see how we can rely on the Scala compiler to strengthen our code and piss off your colleagues with clean code requirements.
 
 - [Best Practice: Stop Ignoring Warnings!](#best-practice-stop-ignoring-warnings)
 - [1. Activate -Xfatal-warnings](#1-activate--xfatal-warnings)
@@ -29,7 +29,7 @@ The Scala compiler has multiple linting options available and emits certain warn
 
 ## Best Practice: Stop Ignoring Warnings!
 
-Some of it might be noise, however in that noise some real gems might be missed, warnings that signal bugs. For example the compiler can do exhaustiveness checks when pattern matching:
+Some of it might be noise; however, in that noise, some real gems might be missed, warnings that signal bugs. For example, the compiler can do exhaustiveness checks when pattern matching:
 
 ```scala
 def size(list: List[_]): Int =
@@ -78,7 +78,7 @@ Thus we can no longer ignore it.
 
 ### 1.1. Make only some warnings fatal (Scala 2.13)
 
-There's a new `-Wconf` option in Scala 2.13.2 ([see PR](https://github.com/scala/scala/pull/8373)). With it we can still keep some warnings as warnings.
+There's a new `-Wconf` option in Scala 2.13.2 ([see PR](https://github.com/scala/scala/pull/8373)). With it, we can still keep some warnings as warnings.
 
 Use-case: say you're upgrading an Akka project. It's going to have a ton of `@deprecated` warnings that you may not want to fix right now, but you still want to keep the exhaustiveness checks as errors.
 
@@ -161,15 +161,15 @@ There are many useful options in there, from disallowing "adapted args", detecti
 
 ### 2.1. Use the sbt-tpolecat plugin
 
-Keeping that list of compiler options up to date is exhausting, new useful options get added all the time, others are deprecated and especially for libraries you have to deal with multiple Scala versions in the same project.
+Keeping that list of compiler options up to date is exhausting, new useful options get added all the time, others are deprecated, and especially for libraries, you have to deal with multiple Scala versions in the same project.
 
 A better option is to include [sbt-tpolecat](https://github.com/DavidGregory084/sbt-tpolecat) in your project.
 
 ### 2.2. Exclude annoying linting options
 
-Some linting options can trigger false positives that are too annoying. It's fine to remove them from your project, or from certain configurations (e.g. `Test`, `Console`).
+Some linting options can trigger false positives that are too annoying. It's fine to remove them from your project or specific configurations (e.g. `Test`, `Console`).
 
-For example I do not like the `-Wunused:privates` option, because it triggers an annoying false positive when defining (unused) default values in `case class` definitions.
+For example, I do not like the `-Wunused:privates` option because it triggers an annoying false positive when defining (unused) default values in `case class` definitions.
 
 If using `sbt-tpolecat`, as mentioned above, you can include something like this in your build definition:
 
@@ -214,7 +214,7 @@ Credit for this snippet: [DavidGregory084/sbt-tpolecat](https://github.com/David
 Sometimes you want to ignore a certain warning:
 
 - maybe it's a false positive
-- maybe you want something "unused", as a placeholder, etc
+- maybe you want something "unused", as a placeholder
 
 ### 3.1. Silencer plugin (Scala < 2.13)
 
@@ -232,7 +232,7 @@ def size(list: List[_]): Int =
   }
 ```
 
-The annotation can be given a regular expression that should match the warning being silenced.
+You can give via this annotation a regular expression that matches the warning being silenced.
 
 We can also silence the source files on a path using a compiler option in `build.sbt`:
 
@@ -291,12 +291,12 @@ You shouldn't stop at Scala's linting options. There are other sbt plugins avail
 - [Scapegoat](https://github.com/sksamuel/scapegoat)
 - [Scalastyle](https://github.com/scalastyle/scalastyle)
 
-With these you could ban `null` or `Any` from your project, among other very useful options.
+With these, you could ban `null` or `Any` from your project, among other beneficial options.
 
 Any useful plugins that I'm missing?
 
 ## Final words
 
-Scala is a static language, but sometimes it isn't static or opinionated enough. The more you can prove about your code at compile time, the less defects you can have at runtime.
+Scala is a static language, but sometimes it isn't static or opinionated enough. The more you can prove about your code at compile-time, the less defects you can have at runtime.
 
 Now go forth and annoy your colleagues with actually useful compiler errors!
