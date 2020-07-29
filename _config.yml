@@ -8,6 +8,8 @@ repo_edit: https://github.com/alexandru/alexn.org/blob/master/
 include: ["_redirects"]
 exclude: ["scripts", "package.json", "package-lock.json", "vendor"]
 
+collections_dir: collections
+
 defaults:
   - scope:
       path: "_posts" # an empty string here means all files in the project
@@ -31,9 +33,18 @@ defaults:
     values:
       permalink: "wiki/index.html"
   - scope:
-      path: "snippets"
+      path: "collections/_snippets"
     values:
       layout: snippet
+      require_front_matter: false
+
+collections:
+  posts:
+    permalink: /blog/:year/:month/:day/:title.html
+  snippets:
+    output: true
+    permalink: /snippets/:name
+
 sass:
   style: compressed
 
@@ -56,7 +67,7 @@ plugins:
 titles_from_headings:
   enabled: true
   strip_title: true
-  collections: false
+  collections: true
 
 optional_front_matter:
   remove_originals: true
