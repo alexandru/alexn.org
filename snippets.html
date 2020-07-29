@@ -1,0 +1,12 @@
+---
+permalink: /snippets/index.html
+layout: default
+---
+
+<ul>
+  {% for page in site.snippets %}
+  <li>
+    <a href="{{ page.url | absolute_url }}">{{ page.id }}</a>
+  </li>
+  {% endfor %}
+</ul>

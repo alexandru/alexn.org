@@ -8,11 +8,9 @@ repo_edit: https://github.com/alexandru/alexn.org/blob/master/
 include: ["_redirects"]
 exclude: ["scripts", "package.json", "package-lock.json", "vendor"]
 
-collections_dir: collections
-
 defaults:
   - scope:
-      path: "collections/_posts" # an empty string here means all files in the project
+      path: "_posts" # an empty string here means all files in the project
     values:
       permalink: blog/:year/:month/:day/:title.html
       layout: post
@@ -20,7 +18,7 @@ defaults:
       has_contributions: true
       nav_id: /blog/
   - scope:
-      path: "collections/_wiki" # an empty string here means all files in the project
+      path: "_wiki" # an empty string here means all files in the project
     values:
       layout: wiki
       repo_edit: https://github.com/alexandru/wiki/blob/master/
@@ -29,17 +27,18 @@ defaults:
       nav_id: /wiki/
       description: Personal, volatile wiki documentation
   - scope:
-      path: "collections/_wiki/readme.md"
+      path: "_wiki/readme.md"
     values:
       permalink: "wiki/index.html"
   - scope:
-      path: "collections/_snippets"
+      path: "_snippets"
     values:
       layout: snippet
 
 collections:
   posts:
     permalink: /blog/:year/:month/:day/:title.html
+    output: true
   snippets:
     output: true
   wiki:
