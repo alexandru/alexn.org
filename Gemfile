@@ -10,7 +10,7 @@ gem "image_optim"
 
 group :jekyll_plugins do
   gem "jekyll-paginate-v2"
-  gem 'jekyll-optional-front-matter'
+  # gem 'jekyll-optional-front-matter'
   gem 'jekyll-titles-from-headings'
   gem 'jekyll-relative-links'
   gem 'jekyll-gist'

@@ -12,7 +12,7 @@ collections_dir: collections
 
 defaults:
   - scope:
-      path: "_posts" # an empty string here means all files in the project
+      path: "collections/_posts" # an empty string here means all files in the project
     values:
       permalink: blog/:year/:month/:day/:title.html
       layout: post
@@ -20,7 +20,7 @@ defaults:
       has_contributions: true
       nav_id: /blog/
   - scope:
-      path: "wiki" # an empty string here means all files in the project
+      path: "collections/_wiki" # an empty string here means all files in the project
     values:
       layout: wiki
       repo_edit: https://github.com/alexandru/wiki/blob/master/
@@ -29,21 +29,21 @@ defaults:
       nav_id: /wiki/
       description: Personal, volatile wiki documentation
   - scope:
-      path: "wiki/readme.md"
+      path: "collections/_wiki/readme.md"
     values:
       permalink: "wiki/index.html"
   - scope:
       path: "collections/_snippets"
     values:
       layout: snippet
-      require_front_matter: false
 
 collections:
   posts:
     permalink: /blog/:year/:month/:day/:title.html
   snippets:
     output: true
-    require_front_matter: false
+  wiki:
+    output: true
 
 sass:
   style: compressed
@@ -60,7 +60,6 @@ kramdown:
 plugins:
   - jekyll-paginate-v2
   - jekyll-sitemap
-  - jekyll-optional-front-matter
   - jekyll-relative-links
   - jekyll-last-modified-at
 
@@ -70,7 +69,13 @@ titles_from_headings:
   collections: true
 
 optional_front_matter:
+  enabled: true
   remove_originals: true
+  collections: true
+
+relative_links:
+  enabled:     true
+  collections: true
 
 pagination:
   enabled: true
