@@ -7,13 +7,14 @@ GLOBAL STYLES
 
 html {
 	box-sizing: border-box;
-	background: $site-background;
+	background-color: #fefefe;
 }
 *, *:before, *:after {
   box-sizing: inherit;
 }
 
 body {
+	background: $site-background;
 	font-family: $serif;
 	line-height: 1.75;
 	font-size: 112.5%; // 18px base font size
@@ -363,6 +364,25 @@ POST STYLING
 			border-top: 1px solid darken(white, 5%);
 		}
 	}
+
+	.snippets {
+		ul {
+			margin-top: 1rem;
+		}
+
+		ul li time {
+			display: block;
+			font-weight: 300;
+			font-size: .9em;
+			color: lighten(black, 50%);
+		}
+	}
+}
+
+.post.snippet {
+	.postTitle {
+		font-size: 100%;
+	}
 }
 
 .post div.related {
@@ -570,6 +590,7 @@ FOOTER STYLING
 		font-size: .8em;
 		color: #656c7a;
 		border-top: 2px solid darken($color: #efefef, $amount: 2);
+		border-bottom: 2px solid darken($color: #efefef, $amount: 2);
 		padding: 1rem 0;
 
 		.container {
@@ -738,6 +759,7 @@ img.right {
 
 	.highlight {
 		line-height: 1.2;
+		border-radius: 0;
 
 		pre.code {
 			margin: 0 auto;

@@ -1,12 +1,17 @@
 ---
 permalink: /snippets/index.html
-layout: default
+layout: page
+title: Snippets
+disable_meta: true
 ---
 
-<ul>
-  {% for page in site.snippets %}
-  <li>
-    <a href="{{ page.url | absolute_url }}">{{ page.id }}</a>
-  </li>
-  {% endfor %}
-</ul>
+<div class="snippets">
+  <ul>
+    {% for page in site.snippets %}
+    <li>
+      <a href="{{ page.url | absolute_url }}">{{ page.title }}</a>
+      <time content="{{ page.last_modified_at | date: '%Y-%m-%dT%H:%M:%S%z' }}">Updated at: {{ page.last_modified_at | date_to_long_string }}</time>      
+    </li>
+    {% endfor %}
+  </ul>  
+</div>

@@ -1,4 +1,5 @@
 ---
+title: From Resource to Reactive Streams.scala
 image: /assets/media/snippets/from-resource-to-reactivestreams.png
 ---
 

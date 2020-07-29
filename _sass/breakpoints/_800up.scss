@@ -56,7 +56,7 @@ HEADER STYLING
 		position: relative;
 		top: 50%;
 		transform: translateY(-50%);
-    max-width: 800px;
+    max-width: 660px;
 		overflow: hidden;
 	}
 
@@ -162,6 +162,11 @@ POST STYLING
 	}	
 }
 
+.post.snippet {
+	.postTitle {
+		font-size: 120%;
+	}
+}
 
 /***************
 POST NAV STYLING
