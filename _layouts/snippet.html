@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <link rel="stylesheet" href="{{ "/assets/css/snippet.css" | prepend:
-    site.baseurl }}">
+    site.baseurl }}?{{ 'now' | date: '%Y%m%d%H%M' }}">
 
     {% capture page_title %}{{ page.name | replace: ".md", "" }}{% endcapture %}
     <title>{{ page_title | xml_escape }} - {{ site.title }}</title>
