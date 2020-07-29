@@ -1,3 +1,8 @@
+---
+image: /assets/media/snippets/from-resource-to-reactivestreams.png
+---
+
+```scala
 import cats.effect.Resource
 import org.reactivestreams.Publisher
 import scala.concurrent.Future
@@ -17,3 +22,4 @@ def fromFile(file: File): Publisher[InputStream]
 
 // Explicit acknowledgement logic is required
 def fromFile(file: File): Publisher[(InputStream, Ack[Future])]
+```

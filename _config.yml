@@ -43,7 +43,7 @@ collections:
     permalink: /blog/:year/:month/:day/:title.html
   snippets:
     output: true
-    permalink: /snippets/:name
+    require_front_matter: false
 
 sass:
   style: compressed
