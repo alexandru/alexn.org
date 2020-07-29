@@ -9,10 +9,14 @@
 html, body {
   margin: 0;
   padding: 0;
-  background-color: #343642;
+  background-color: #eee;
 }
 
 body {
-  padding: 0 10px;
+  padding: 10px;
   font-size: 120%;
+
+  div.highlight {
+    padding: 0 10px;
+  }
 }

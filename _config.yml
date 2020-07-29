@@ -30,6 +30,10 @@ defaults:
       path: "wiki/readme.md"
     values:
       permalink: "wiki/index.html"
+  - scope:
+      path: "snippets"
+    values:
+      layout: snippet
 sass:
   style: compressed
 
