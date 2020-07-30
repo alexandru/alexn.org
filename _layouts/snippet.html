@@ -8,11 +8,10 @@
     <link rel="stylesheet" href="{{ "/assets/css/snippet.css" | prepend:
     site.baseurl }}?{{ 'now' | date: '%Y%m%d%H%M' }}">
 
-    {% capture page_title %}{{ page.name | replace: ".md", "" }}{% endcapture %}
-    <title>{{ page_title | xml_escape }} - {{ site.title }}</title>
+    <title>{{ page.title | xml_escape }} - {{ site.title }}</title>
 
     <meta content="{{ site.title | xml_escape }}" property="og:site_name">
-    <meta content="{{ page_title | xml_escape }}" property="og:title">
+    <meta content="{{ page.title | xml_escape }}" property="og:title">
     {% if page.description -%}
       <meta content="{{ page.description | markdownify | strip_html | xml_escape | strip }}" property="og:description">
     {% else %}
@@ -64,7 +63,7 @@
     {% endif -%}
     <meta name="twitter:site" content="@{{ author_twitter }}">
     <meta name="twitter:creator" content="@{{ author_twitter }}">
-    <meta name="twitter:title" content="{{ page_title }}">
+    <meta name="twitter:title" content="{{ page.title }}">
     {% if page.url -%}
       <meta name="twitter:url" content="{{ site.url }}{{ page.url }}">
     {% endif -%}
@@ -86,6 +85,8 @@
     <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }}" href="{{ site.feed }}" />
   </head>
   <body>
-    {{ content }}
+    <article>
+      {{ content }}      
+    </article>
   </body>
 </html>

@@ -1,7 +1,3 @@
----
-image: /assets/media/snippets/from-resource-to-reactivestreams.png
----
-
 ```scala
 import cats.effect.Resource
 import org.reactivestreams.Publisher

@@ -18,22 +18,39 @@ defaults:
       has_contributions: true
       nav_id: /blog/
   - scope:
-      path: "wiki" # an empty string here means all files in the project
+      path: "_wiki" # an empty string here means all files in the project
     values:
       layout: wiki
       repo_edit: https://github.com/alexandru/wiki/blob/master/
-      repo_module: wiki/
+      repo_module: _wiki/
       has_contributions: true
       nav_id: /wiki/
       description: Personal, volatile wiki documentation
   - scope:
-      path: "wiki/readme.md"
+      path: "_wiki/readme.md"
     values:
       permalink: "wiki/index.html"
   - scope:
-      path: "snippets"
+      path: "_snippets"
     values:
       layout: snippet
+      nav_id: /snippets/
+      has_contributions: true
+  - scope:
+      path: "snippets.html"
+    values:
+      nav_id: /snippets/
+
+collections:
+  posts:
+    permalink: /blog/:year/:month/:day/:title.html
+    output: true
+  snippets:
+    permalink: /:collection/:year/:month/:day/:title.html
+    output: true
+  wiki:
+    output: true
+
 sass:
   style: compressed
 
@@ -49,17 +66,22 @@ kramdown:
 plugins:
   - jekyll-paginate-v2
   - jekyll-sitemap
-  - jekyll-optional-front-matter
   - jekyll-relative-links
   - jekyll-last-modified-at
 
 titles_from_headings:
   enabled: true
   strip_title: true
-  collections: false
+  collections: true
 
 optional_front_matter:
+  enabled: true
   remove_originals: true
+  collections: true
+
+relative_links:
+  enabled:     true
+  collections: true
 
 pagination:
   enabled: true
@@ -104,6 +126,9 @@ navigation:
   - title: Wiki
     url: /wiki/
     id: /wiki/
+  - title: Snippets
+    url: /snippets/
+    id: /snippets/
   - title: About
     url: /about.html
     id: /about.html

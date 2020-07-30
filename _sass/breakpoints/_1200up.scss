@@ -4,22 +4,41 @@ body {
 
 .container {
   max-width: 990px;
+
+  .inner-container {
+    width: 75%;
+    margin: 0 auto;
+  }
+}
+
+.js .header,
+.no-js .header {
+  .container {
+    max-width: 990px;
+  }
 }
 
 .post {
-	.formula-code, .highlight > pre.code > code {
-		font-size: 110%;
-	}
+  .formula-code,
+  .highlight > pre.code > code {
+    font-size: 110%;
+  }
 }
 
 .footer {
-	.container {
-		max-width: 990px;
-	}
+  .container {
+    max-width: 990px;
+  }
 
-	.contributions {
+  .contributions {
     #disqus_thread {
-			max-width: 1000px;
-		}
-	}
+      max-width: 1000px;
+    }
+  }
+}
+
+.post.snippet {
+  .postTitle {
+    font-size: 140%;
+  }
 }
