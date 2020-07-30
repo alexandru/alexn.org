@@ -6,7 +6,7 @@ feed: https://alexn.org/feed.xml
 repo_edit: https://github.com/alexandru/alexn.org/blob/master/
 
 include: ["_redirects"]
-exclude: ["scripts", "package.json", "package-lock.json", "vendor"]
+exclude: ["scripts", "package.json", "package-lock.json", "vendor", "redirects.conf"]
 
 defaults:
   - scope:
