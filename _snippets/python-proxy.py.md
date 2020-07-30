@@ -1,3 +1,7 @@
+---
+date: 2020-07-29
+---
+
 ```py
 class ProxyAttribute(object):
     def __init__(self, name):

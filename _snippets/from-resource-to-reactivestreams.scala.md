@@ -1,6 +1,7 @@
 ---
 title: From Resource to Reactive Streams.scala
 image: /assets/media/snippets/from-resource-to-reactivestreams.png
+date: 2020-07-29
 ---
 
 ```scala
