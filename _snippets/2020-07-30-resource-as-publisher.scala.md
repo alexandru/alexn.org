@@ -1,4 +1,9 @@
 ```scala
+/**
+  * Imported from Gist:
+  * [[https://gist.github.com/alexandru/b258f67ab1e21d61d06dcfd6ec73557a]]
+  */
+
 import java.util.concurrent.atomic.AtomicReference
 import cats.effect.{ IO, Resource }
 import com.ing.raptor.common.UnlawfulEffect

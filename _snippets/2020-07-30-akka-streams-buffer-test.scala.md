@@ -1,4 +1,9 @@
 ```scala
+/**
+  * Imported from Gist:
+  * [[https://gist.github.com/alexandru/23e102b4891cda37ab41ffa74d40e390]]
+  */
+
 import akka.actor.ActorSystem
 import akka.stream.Attributes
 import akka.stream.scaladsl.Source

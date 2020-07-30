@@ -1,4 +1,9 @@
 ```scala
+/**
+  * Imported from Gist:
+  * [[https://gist.github.com/alexandru/3df8116f1c85f69612143b3b1884e1ed]]
+  */
+
 import enumeratum.{ CatsEnum, Enum, EnumEntry }
 
 sealed abstract class AcknowledgeMode(override val entryName: String)
