@@ -46,7 +46,7 @@ collections:
     permalink: /blog/:year/:month/:day/:title.html
     output: true
   snippets:
-    permalink: /:collection/:year/:month/:day/:path.html
+    permalink: /:collection/:year/:month/:day/:title.html
     output: true
   wiki:
     output: true

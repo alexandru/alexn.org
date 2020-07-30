@@ -1,7 +1,3 @@
----
-date: 2020-07-29
----
-
 ```scala
 import java.util.concurrent.atomic.AtomicReference
 import cats.effect.{ IO, Resource }

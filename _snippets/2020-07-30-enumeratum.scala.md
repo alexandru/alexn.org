@@ -1,7 +1,3 @@
----
-date: 2020-07-29
----
-
 ```scala
 import enumeratum.{ CatsEnum, Enum, EnumEntry }
 
