@@ -9,7 +9,7 @@ disable_meta: true
   <ul>
     {% for page in site.snippets %}
     <li>
-      <a href="{{ page.url | absolute_url }}">{{ page.title }}</a>
+      <a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
       <div>
         {% capture date_created %}{{ page.date | date_to_long_string }}{% endcapture -%}
         {% capture date_updated %}{{ page.last_modified_at | date_to_long_string }}{% endcapture -%}
