@@ -19,4 +19,8 @@ trait ApplicativeError[F[_], E] extends Applicative[F] {
 
 This works like a `flatMap` operation, but for errors. For the purpose of this tutorial we are going to use [cats.effect.IO](https://typelevel.org/cats-effect/datatypes/io.html).
 
+
+
+....
+
 There is one gotcha: the web server we're trying to communicate with might have become innaccessable due to being overwhelmed by traffic.
