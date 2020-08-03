@@ -16,7 +16,7 @@ author: alexelcu
     {% unless page.image_hide_in_post -%}
     <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
       <meta itemprop="url" content="{{ page.image | absolute_url }}" />
-      <img src="{{ page.image | prepend: site.baseurl }}" alt="" />
+      <img src="{{ page.image | prepend: site.baseurl }}?{{ 'now' | date: '%Y%m%d%H%M' }}" alt="" />
       {% if page.image_caption %}<figcaption itemprop="caption">{{ page.image_caption }}</figcaption>{% endif %}
     </figure>
     {% else %}

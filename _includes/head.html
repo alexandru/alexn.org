@@ -30,8 +30,8 @@
     <meta property="og:video:type" content="video/mp4" />
     <meta property="og:video:width" content="560" />
     <meta property="og:video:height" content="315" /> 
-    <meta property="og:image" content="{% if page.image %}{{ site.url }}{{ page.image }}{% else %}{{ page.vimeo | vimeo_thumb_link }}{% endif %}" />
-    <meta property="og:image:secure_url" content="{% if page.image %}{{ site.url }}{{ page.image }}{% else %}{{ page.vimeo | vimeo_thumb_link }}{% endif %}" />
+    <meta property="og:image" content="{% if page.image %}{{ site.url }}{{ page.image }}?{{ 'now' | date: '%Y%m%d%H%M' }}{% else %}{{ page.vimeo | vimeo_thumb_link }}{% endif %}" />
+    <meta property="og:image:secure_url" content="{% if page.image %}{{ site.url }}{{ page.image }}?{{ 'now' | date: '%Y%m%d%H%M' }}{% else %}{{ page.vimeo | vimeo_thumb_link }}{% endif %}" />
     {% elsif page.youtube -%}
     <meta property="og:type" content="video.other" />
     <meta property="og:video:url" content="{{ page.youtube | youtube_player_link }}" />
@@ -39,12 +39,12 @@
     <meta property="og:video:type" content="text/html" />
     <meta property="og:video:width" content="560" />
     <meta property="og:video:height" content="315" /> 
-    <meta property="og:image" content="{% if page.image %}{{ site.url }}{{ page.image }}{% else %}{{ page.youtube | youtube_thumb_link }}{% endif %}" />
-    <meta property="og:image:secure_url" content="{% if page.image %}{{ site.url }}{{ page.image }}{% else %}{{ page.vimeo | youtube_thumb_link }}{% endif %}" />
+    <meta property="og:image" content="{% if page.image %}{{ site.url }}{{ page.image }}?{{ 'now' | date: '%Y%m%d%H%M' }}{% else %}{{ page.youtube | youtube_thumb_link }}{% endif %}" />
+    <meta property="og:image:secure_url" content="{% if page.image %}{{ site.url }}{{ page.image }}?{{ 'now' | date: '%Y%m%d%H%M' }}{% else %}{{ page.vimeo | youtube_thumb_link }}{% endif %}" />
     {% elsif page.image %}
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="{{ site.url }}{{ page.image }}" />
-    <meta property="og:image:secure_url" content="{{ site.url }}{{ page.image }}" />
+    <meta property="og:image" content="{{ site.url }}{{ page.image }}?{{ 'now' | date: '%Y%m%d%H%M' }}" />
+    <meta property="og:image:secure_url" content="{{ site.url }}{{ page.image }}?{{ 'now' | date: '%Y%m%d%H%M' }}" />
     {% else %}
     <meta content="website" property="og:type">
     <meta property="og:image" content="{{ '/assets/logo/800px.png' | prepend: site.url }}" />
@@ -64,16 +64,16 @@
     <meta name="twitter:player" content="{{ page.vimeo | vimeo_player_link }}">
     <meta name="twitter:player:width" content="560">
     <meta name="twitter:player:height" content="315">  
-    <meta name="twitter:image" content="{% if page.image %}{{ page.image | prepend: site.url }}{% else %}{{ page.vimeo | vimeo_thumb_link }}{% endif %}" />
+    <meta name="twitter:image" content="{% if page.image %}{{ page.image | prepend: site.url }}?{{ 'now' | date: '%Y%m%d%H%M' }}{% else %}{{ page.vimeo | vimeo_thumb_link }}{% endif %}" />
     {% elsif page.youtube -%}
     <meta name="twitter:card" content="player" />
     <meta name="twitter:player" content="{{ page.youtube | youtube_player_link }}">
     <meta name="twitter:player:width" content="560">
     <meta name="twitter:player:height" content="315">
-    <meta name="twitter:image" content="{% if page.image %}{{ page.image | prepend: site.url }}{% else %}{{ page.youtube | youtube_thumb_link }}{% endif %}" />
+    <meta name="twitter:image" content="{% if page.image %}{{ page.image | prepend: site.url }}?{{ 'now' | date: '%Y%m%d%H%M' }}{% else %}{{ page.youtube | youtube_thumb_link }}{% endif %}" />
     {% elsif page.image -%}
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="{{ page.image | prepend: site.url }}">
+    <meta name="twitter:image:src" content="{{ page.image | prepend: site.url }}?{{ 'now' | date: '%Y%m%d%H%M' }}">
     {% else %}
     <meta name="twitter:card" content="summary">
     <meta name="twitter:image:src" content="{{ '/assets/logo/800px.png' | prepend: site.url }}">

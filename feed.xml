@@ -29,7 +29,7 @@ layout: null
           {% endif %}
           {% if post.image %}
           <a href="{{ post.url | absolute_url | rss_campaign_link: 'image' }}">
-            <img src="{{ post.image | absolute_url }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
+            <img src="{{ post.image | absolute_url }}?{{ 'now' | date: '%Y%m%d%H%M' }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
           </a>
           <br />
           {% elsif post.vimeo %}

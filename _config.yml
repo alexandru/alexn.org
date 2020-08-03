@@ -18,6 +18,14 @@ defaults:
       has_contributions: true
       nav_id: /blog/
   - scope:
+      path: "_drafts" # an empty string here means all files in the project
+    values:
+      permalink: drafts/:title.html
+      layout: post
+      author: alexelcu
+      has_contributions: false
+      nav_id: /blog/
+  - scope:
       path: "_wiki" # an empty string here means all files in the project
     values:
       layout: wiki
