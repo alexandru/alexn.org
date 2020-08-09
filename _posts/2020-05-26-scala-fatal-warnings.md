@@ -320,7 +320,7 @@ wartremoverErrors in (Compile, compile) := Seq(Wart.ToString, Wart.StringPlusAny
 wartremoverErrors in (Test, test) := Seq.empty,
 ```
 
-Coupled with a custom logger interface making use of its own type class, we can guarantee that data structures containing protected data cannot leak via logging (either Logback or `println` statements).
+Coupled with a custom logger interface making use of its own type class, we can ensure that data structures containing protected data cannot leak by mistake via logging (either Logback or `println` statements).
 
 ## Final words
 
