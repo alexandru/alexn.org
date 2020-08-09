@@ -24,7 +24,9 @@ The Scala compiler has multiple linting options available and emits some warning
 - [3. Silence warnings locally](#3-silence-warnings-locally)
   - [3.1. Silencer plugin (Scala < 2.13)](#31-silencer-plugin-scala--213)
   - [3.2. Using @nowarn in Scala 2.13.2](#32-using-nowarn-in-scala-2132)
+  - [3.3. Silence warnings for entire folders](#33-silence-warnings-for-entire-folders)
 - [4. Other linters](#4-other-linters)
+  - [4.1. Example: disable .toString conversions](#41-example-disable-tostring-conversions)
 - [Final words](#final-words)
 
 ## Best Practice: Stop Ignoring Warnings!
@@ -234,12 +236,6 @@ def size(list: List[_]): Int =
 
 You can give via this annotation a regular expression that matches the warning being silenced.
 
-We can also silence the source files on a path using a compiler option in `build.sbt`:
-
-```scala
-scalacOptions += "-P:silencer:pathFilters=.*[/]src_managed[/].*"
-```
-
 ### 3.2. Using @nowarn in Scala 2.13.2
 
 Scala 2.13 has added the [@nowarn annotation for local suppression](https://github.com/scala/scala/pull/8373).
@@ -282,6 +278,26 @@ def size(list: List[_]): Int =
   **NOTE:** for **forward compatibility** in older Scala versions, with the [Silencer plugin](#31-silencer-plugin-scala--213), coupled with [scala-library-compat](https://github.com/scala/scala-library-compat), you can use the new `@nowarn` annotation with older Scala versions, however only the `@nowarn("msg=<pattern>")` filtering is supported.
 </p>
 
+### 3.3. Silence warnings for entire folders
+
+The same `-Wconf` option, from Scala 2.13, allows us to skip warnings for files in certain directories, e.g. here's how silence warnings for auto-generated files, for templates, etc...
+
+```scala
+// Turns off warnings for generated files and for templates
+scalacOptions ++= Seq(
+  "-Wconf:src=src_managed/.*:silent",
+)
+```
+
+Of if using the [silencer plugin](#31-silencer-plugin-scala--213):
+
+```scala
+// Alternative, if using the silencer plugin
+scalacOptions ++= Seq(
+  "-P:silencer:pathFilters=.*[/]src_managed[/].*",
+)
+```
+
 ## 4. Other linters
 
 You shouldn't stop at Scala's linting options. There are other sbt plugins available that can enforce certain best practices. Off the top of my head:
@@ -294,6 +310,17 @@ You shouldn't stop at Scala's linting options. There are other sbt plugins avail
 With these, you could ban `null` or `Any` from your project, among other beneficial options.
 
 Any useful plugins that I'm missing?
+
+### 4.1. Example: disable .toString conversions
+
+I recently disabled unsafe `.toString` and `string + any` conversions in our work project, with the purpose to not leak sensitive customer data in logs. To do this I enabled "_Wartremover_" with this configuration in `build.sbt`, and it is doing wonders:
+
+```scala
+wartremoverErrors in (Compile, compile) := Seq(Wart.ToString, Wart.StringPlusAny),
+wartremoverErrors in (Test, test) := Seq.empty,
+```
+
+Coupled with a custom logger interface making use of its own type class, we can guarantee that data structures containing protected data cannot leak via logging (either Logback or `println` statements).
 
 ## Final words
 
