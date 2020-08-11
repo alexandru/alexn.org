@@ -1,15 +1,15 @@
 ```typescript
-type Left<L, never> = {
+type Left<L> = {
   either: "left"
   value: L
 }
 
-type Right<never, R> = {
+type Right<R> = {
   either: "right",
   value: R
 }
 
-type Either<L, R> = Left<L, never> | Right<never, R>
+type Either<L, R> = Left<L> | Right<R>
 
 function left<L, R=never>(value: L): Either<L, R> {
   return { either: "left", value }
