@@ -7,7 +7,8 @@ disable_meta: true
 
 <div class="snippets">
   <ul>
-    {% for page in site.snippets %}
+    {% assign snippets = site.snippets | sort: 'date' | reverse -%}
+    {% for page in snippets %}
     <li>
       <a href="{{ site.baseurl }}{{ page.url }}" target="_blank">{{ page.title }}</a>
       <div>
