@@ -1,0 +1,18 @@
+digraph ErrorHierarchy {
+  KnownException -> {InputException, OutputException};
+
+  InputException -> {
+    Validation,
+    BadInput,
+    Forbidden,
+    NotFound,
+    Conflict
+  };
+
+  OutputException -> {
+    Timeout,
+    TooManyRequests,
+    ResourceUnavailable,
+    Unknown
+  }
+}
