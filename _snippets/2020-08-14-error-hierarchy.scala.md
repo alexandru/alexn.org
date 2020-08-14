@@ -49,7 +49,7 @@ object OutputException {
     extends OutputException(message, cause)
     with ExceptionCaseClassEquality
 
-  final case class Uncaught(message: String, cause: Throwable)
+  final case class Unknown(message: String, cause: Throwable)
     extends OutputException(message, cause)
     with ExceptionCaseClassEquality
 }
