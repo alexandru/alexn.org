@@ -16,6 +16,10 @@ body {
   padding: 10px;
   font-size: 120%;
 
+  figure, img {
+    max-width: 100%;
+  }
+
   div.highlight {
     padding: 0 10px;
   }
