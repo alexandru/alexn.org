@@ -1,5 +1,5 @@
 ---
-image: assets/media/snippets/error-hierarchy.png
+image: /assets/media/snippets/error-hierarchy.png
 ---
 
 ![Error hierachy](../assets/media/snippets/error-hierarchy.svg)

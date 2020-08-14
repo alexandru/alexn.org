@@ -1,4 +1,20 @@
 digraph ErrorHierarchy {
+  KnownException [color=darkslategrey, fontcolor=darkslategrey];
+
+  InputException [color=palevioletred4, fontcolor=palevioletred4];
+  OutputException [color=palevioletred4, fontcolor=palevioletred4];
+
+  Validation [color=dodgerblue4, fontcolor=dodgerblue4];
+  Forbidden [color=dodgerblue4, fontcolor=dodgerblue4];
+  BadInput [color=dodgerblue4, fontcolor=dodgerblue4];
+  NotFound [color=dodgerblue4, fontcolor=dodgerblue4];
+  Conflict [color=dodgerblue4, fontcolor=dodgerblue4];
+
+  Timeout [color=slateblue4, fontcolor=slateblue4];
+  TooManyRequests [color=slateblue4, fontcolor=slateblue4];
+  ResourceUnavailable [color=slateblue4, fontcolor=slateblue4];
+  Unknown [color=slateblue4, fontcolor=slateblue4];
+
   KnownException -> {InputException, OutputException};
 
   InputException -> {
