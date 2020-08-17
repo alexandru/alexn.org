@@ -46,7 +46,7 @@ skip_mailchimp: true
   <h2>RSS Web Feed</h2>
 
   <p>
-    Follow the website's RSS feed. The recommended clients are:
+    Follow the website's RSS feed(s). The recommended clients are:
   </p>
   <ul>
     <li><a href="https://newsblur.com/" target="_blank">Newsblur</a> (web, open-source)</li>
@@ -56,9 +56,10 @@ skip_mailchimp: true
   </ul>
 
   <p>
-    The website can simply be added, or in case of issues you can use the following link:
+    The website can simply be added, or in case of issues you can use the following links:
   </p>
-  <p>
-    <a href="{{ site.feed }}" target="_blank">{{ site.feed }}</a>
-  </p>
+  <ul>
+    <li><a href="{{ site.feed }}" target="_blank">{{ site.feed }}</a></li>
+    <li><a href="{{ site.feed_snippets }}" target="_blank">{{ site.feed_snippets }}</a></li>
+  </ul>
 </div>

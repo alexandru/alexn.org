@@ -8,8 +8,8 @@ layout: null
   xmlns:dc="http://purl.org/dc/elements/1.1/">
 
   <channel>
-    <title>{{ site.title | xml_escape }}</title>
-    <description>{{ site.description | xml_escape }}</description>
+    <title>{{ site.title | xml_escape }} - Blog</title>
+    <description>Feed of blog articles, published at {{ site.url }}</description>
     <link>{{ site.url }}{{ site.baseurl }}/</link>
     <atom:link href="{{ site.feed }}" rel="self" type="application/rss+xml"/>
     <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>

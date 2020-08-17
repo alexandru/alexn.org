@@ -105,7 +105,8 @@
     <meta name="msapplication-TileImage" content="{% link /assets/logo/270px.png %}" />
 
     <!-- Come and get me RSS readers -->
-    <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }}" href="{{ site.feed }}" />
+    <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }} - Blog" href="{{ site.feed }}" />
+    <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }} - Snippets" href="{{ site.feed_snippets }}" />
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | prepend: site.baseurl }}?{{ 'now' | date: '%Y%m%d%H%M' }}">
