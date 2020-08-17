@@ -6,7 +6,8 @@ image: /assets/media/snippets/error-hierarchy.png
   <a href="{% link assets/media/snippets/error-hierarchy.svg %}" target="_blank">
     <img src="{% link assets/media/snippets/error-hierarchy.svg %}" 
       alt="Error hierarchy graph"
-      title="Error hierarchy graph" />
+      title="Error hierarchy graph" 
+      width="100%" />
   </a>
 </figure>
 
