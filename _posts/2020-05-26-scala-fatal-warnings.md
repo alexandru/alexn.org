@@ -21,10 +21,9 @@ The Scala compiler has multiple linting options available and emits some warning
   - [2.1. Use the sbt-tpolecat plugin](#21-use-the-sbt-tpolecat-plugin)
   - [2.2. Exclude annoying linting options](#22-exclude-annoying-linting-options)
   - [2.3. Relax the console configuration](#23-relax-the-console-configuration)
-- [3. Silence warnings locally](#3-silence-warnings-locally)
+- [3. Silence some warnings](#3-silence-some-warnings)
   - [3.1. Silencer plugin (Scala < 2.13)](#31-silencer-plugin-scala--213)
-  - [3.2. Using @nowarn in Scala 2.13.2](#32-using-nowarn-in-scala-2132)
-  - [3.3. Silence warnings for entire folders](#33-silence-warnings-for-entire-folders)
+  - [3.2. Using @nowarn and -Wconf in Scala 2.13.2](#32-using-nowarn-and--wconf-in-scala-2132)
 - [4. Other linters](#4-other-linters)
   - [4.1. Example: disable .toString conversions](#41-example-disable-tostring-conversions)
 - [Final words](#final-words)
@@ -211,7 +210,7 @@ scalacOptions.in(Test, console) ~= filterConsoleScalacOptions
 
 Credit for this snippet: [DavidGregory084/sbt-tpolecat](https://github.com/DavidGregory084/sbt-tpolecat/blob/v0.1.11/src/main/scala/io/github/davidgregory084/TpolecatPlugin.scala#L109).
 
-## 3. Silence warnings locally
+## 3. Silence some warnings
 
 Sometimes you want to ignore a certain warning:
 
@@ -234,11 +233,20 @@ def size(list: List[_]): Int =
   }
 ```
 
-You can give via this annotation a regular expression that matches the warning being silenced.
+The annotation accepts a regular expression that matches the warning being silenced.
 
-### 3.2. Using @nowarn in Scala 2.13.2
+You can also use silence warnings for an entire folder, useful if you have auto-generated source files:
 
-Scala 2.13 has added the [@nowarn annotation for local suppression](https://github.com/scala/scala/pull/8373).
+```scala
+// Alternative, if using the silencer plugin
+scalacOptions ++= Seq(
+  "-P:silencer:pathFilters=.*[/]src_managed[/].*",
+)
+```
+
+### 3.2. Using @nowarn and -Wconf in Scala 2.13.2
+
+Scala 2.13 has added the [-Wconf flag for configurable warnings, @nowarn annotation for local suppression](https://github.com/scala/scala/pull/8373).
 
 `@nowarn` can be more fine grained. We could do just like the above and silence with a pattern matcher:
 
@@ -274,13 +282,7 @@ def size(list: List[_]): Int =
   }
 ```
 
-<p class="info-bubble" markdown="1">
-  **NOTE:** for **forward compatibility** in older Scala versions, with the [Silencer plugin](#31-silencer-plugin-scala--213), coupled with [scala-library-compat](https://github.com/scala/scala-library-compat), you can use the new `@nowarn` annotation with older Scala versions, however only the `@nowarn("msg=<pattern>")` filtering is supported.
-</p>
-
-### 3.3. Silence warnings for entire folders
-
-The same `-Wconf` option, from Scala 2.13, allows us to skip warnings for files in certain directories, e.g. here's how silence warnings for auto-generated files, for templates, etc...
+You can also silence warnings for entire folders, via `-Wconf`, useful if you have auto-generated files (e.g. from templates):
 
 ```scala
 // Turns off warnings for generated files and for templates
@@ -289,14 +291,9 @@ scalacOptions ++= Seq(
 )
 ```
 
-Of if using the [silencer plugin](#31-silencer-plugin-scala--213):
-
-```scala
-// Alternative, if using the silencer plugin
-scalacOptions ++= Seq(
-  "-P:silencer:pathFilters=.*[/]src_managed[/].*",
-)
-```
+<p class="info-bubble" markdown="1">
+  **NOTE:** for **forward compatibility** in older Scala versions, with the [Silencer plugin](#31-silencer-plugin-scala--213), coupled with [scala-library-compat](https://github.com/scala/scala-library-compat), you can use the new `@nowarn` annotation with older Scala versions, however only the `@nowarn("msg=<pattern>")` filtering is supported.
+</p>
 
 ## 4. Other linters
 

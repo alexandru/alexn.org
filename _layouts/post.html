@@ -9,7 +9,7 @@ author: alexelcu
     {% if page.date %}<meta itemprop="datePublished" content="{{ page.date | date: '%Y-%m-%dT%H:%M:%S%z' }}"/>{% endif %}
     {% capture minutes %}{% capture value %}{{ page.content | number_of_words | divided_by:180 }}{% endcapture %}{% if value == "0" %}1{% else %}{{ value }}{% endif %}{% endcapture %}
     <time itemprop="dateCreated" datetime="{{ page.date | date: '%Y-%m-%dT%H:%M:%S%z' }}">{{ page.date | date_to_long_string }}</time>
-    | <nobr><span class="time">{{ minutes }}</span> {% if minutes == "1" %}minut{% else %}minute{% endif %}</nobr>
+    | <nobr><span class="time">{{ minutes }}</span> {% if minutes == "1" %}minute{% else %}minutes{% endif %}</nobr>
   </p>
 
   {% if page.image -%}
