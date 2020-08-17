@@ -2,7 +2,13 @@
 image: /assets/media/snippets/error-hierarchy.png
 ---
 
-![Error hierachy](../assets/media/snippets/error-hierarchy.svg)
+<figure>
+  <a href="{% link assets/media/snippets/error-hierarchy.svg %}" target="_blank">
+    <img src="{% link assets/media/snippets/error-hierarchy.svg %}" 
+      alt="Error hierarchy graph"
+      title="Error hierarchy graph" />
+  </a>
+</figure>
 
 ```scala
 sealed abstract class KnownException(message: String, cause: Throwable)

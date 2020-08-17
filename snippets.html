@@ -5,21 +5,27 @@ title: Snippets
 disable_meta: true
 ---
 
+<p>
+  Unstructured code dumps, my personal "Gist" replacement:
+</p>
+
 <div class="snippets">
   <ul>
     {% assign snippets = site.snippets | sort: 'date' | reverse -%}
     {% for page in snippets %}
-    <li>
-      <a href="{{ site.baseurl }}{{ page.url }}" target="_blank">{{ page.title }}</a>
-      <div>
-        {% capture date_created %}{{ page.date | date_to_long_string }}{% endcapture -%}
-        {% capture date_updated %}{{ page.last_modified_at | date_to_long_string }}{% endcapture -%}
-        <time content="{{ page.date | date: '%Y-%m-%dT%H:%M:%S%z' }}">Created: <em>{{ date_created }}</em></time>
-        {% if date_created != date_updated %},
-        <time content="{{ page.last_modified_at | date: '%Y-%m-%dT%H:%M:%S%z' }}">Updated: <em>{{ date_updated }}</em></time>
-        {% endif %}
-      </div>
-    </li>
+      {% unless page.secret %}
+      <li>
+        <a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
+        <div>
+          {% capture date_created %}{{ page.date | date_to_long_string }}{% endcapture -%}
+          {% capture date_updated %}{{ page.last_modified_at | date_to_long_string }}{% endcapture -%}
+          <time content="{{ page.date | date: '%Y-%m-%dT%H:%M:%S%z' }}">Created: <em>{{ date_created }}</em></time>
+          {% if date_created != date_updated %},
+          <time content="{{ page.last_modified_at | date: '%Y-%m-%dT%H:%M:%S%z' }}">Updated: <em>{{ date_updated }}</em></time>
+          {% endif %}
+        </div>
+      </li>
+      {% endunless %}
     {% endfor %}
   </ul>  
 </div>

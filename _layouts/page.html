@@ -2,23 +2,25 @@
 layout: default
 ---
 <article class="post {{ layout.article_class }}" itemscope itemtype="http://schema.org/Article">
+  {% unless page.disable_title or layout.disable_title %}
   <h1 class="postTitle" itemprop="headline">{{ page.title | xml_escape }}</h1>
+  {% endunless %}
   <p class="meta">
     <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="{{ page.url | absolute_url }}"/>
-    {% unless page.disable_meta %}
-    {% if page.date %}<meta itemprop="datePublished" content="{{ page.date | date: '%Y-%m-%dT%H:%M:%S%z' }}"/>{% endif %}
-    {% if page.last_modified_at -%}
-      {% assign last_modified_at = page.last_modified_at -%}
-      {% assign date_action = "Updated" -%}
-    {% elsif page.date -%}
-      {% assign last_modified_at = page.date -%}
-      {% assign date_action = "Published" -%}
-    {% endif %}
-    {% if last_modified_at %}
-    <time itemprop="dateModified" content="{{ last_modified_at | date: '%Y-%m-%dT%H:%M:%S%z' }}">
-      {{ date_action }}: {{ last_modified_at | date_to_long_string }}
-    </time>
-    {% endif %}
+    {% unless page.disable_meta or layout.disable_meta %}
+      {% if page.date %}<meta itemprop="datePublished" content="{{ page.date | date: '%Y-%m-%dT%H:%M:%S%z' }}"/>{% endif %}
+      {% if page.last_modified_at -%}
+        {% assign last_modified_at = page.last_modified_at -%}
+        {% assign date_action = "Updated" -%}
+      {% elsif page.date -%}
+        {% assign last_modified_at = page.date -%}
+        {% assign date_action = "Published" -%}
+      {% endif %}
+      {% if last_modified_at %}
+      <time itemprop="dateModified" content="{{ last_modified_at | date: '%Y-%m-%dT%H:%M:%S%z' }}">
+        {{ date_action }}: {{ last_modified_at | date_to_long_string }}
+      </time>
+      {% endif %}
     {% endunless %}
   </p>
 
