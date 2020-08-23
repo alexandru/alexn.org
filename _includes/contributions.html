@@ -2,7 +2,7 @@
 <h2>Contribute</h2>
 
 <p>
-  Fix or add to this article by submitting a pull request:
+  Fix or add to this article by submitting a pull request: <br/>
   <a style="white-space: nowrap;" href="{{ page.repo_edit | default: site.repo_edit }}{% if page.repo_module %}{{ page.path | remove_first: page.repo_module }}{% else %}{{ page.path }}{% endif %}" target="_blank">Edit Page on GitHub</a>
 </p>
 
@@ -29,32 +29,33 @@
   <!--/sse-->
 </p>
 
-{% comment %}
-{% unless page.disable_comments %}
-<h3 id="comments">Comments</h3>
+{% if layout.has_subscribe %}
+<h2>Subscribe</h2>
 
-<script>
-  document.write('<div class="note">Be nice!<br><span class="extra">If you don\'t see the commenting widget, it might be blocked (see this <a href="https://github.com/utterance/utterances/issues/341" target="_blank">Privacy Badger issue</a>).</span></div>');
-</script>
-<script src="https://utteranc.es/client.js"
-        repo="alexandru/alexn.org"
-        issue-term="pathname"
-        label="discussion"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-<noscript>
-  <div class="note">
-    <strong>Enable JavaScript to see comments!</strong>
-    <br>
-    <span class="extra">
-      Commenting widget is powered by GitHub's API and 
-      <a href="https://utteranc.es" target="_blank">utteranc.es</a>. This website does not
-      track visitors or log personally identifiable information, see our 
-      <a href="{% link docs/privacy-policy.md %}">privacy policy</a>.
-    </span>
-  </div>
-</noscript>
-{% endunless %}
-{% endcomment %}
+<!-- Begin Mailchimp Signup Form -->
+<div id="mc_embed_signup">
+  <form action="https://alexn.us4.list-manage.com/subscribe/post?u=5bffa2af025192a58345bd5dc&amp;id=1c9005b255"
+    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
+    novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="mc-field-group field">
+        <label for="mce-EMAIL">Email Address <sup class="asterisk">*</sup></label>
+        <input type="email" value="" name="EMAIL" class="required email full-width" id="mce-EMAIL" placeholder="user@domain.com" required>
+      </div>
+      <!-- <div class="mc-field-group field">
+        <label for="mce-FULLNAME">Name</label>
+        <input type="text" value="" name="FULLNAME" class="full-width" id="mce-FULLNAME" placeholder="John Doe">
+      </div> -->
+      <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+      </div>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+          name="b_5bffa2af025192a58345bd5dc_1c9005b255" tabindex="-1" value=""></div>
+      <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+          class="button"></div>
+    </div>
+  </form>
+</div>
+{% endif %}
