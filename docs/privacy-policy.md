@@ -25,10 +25,4 @@ The collected email addresses are used solely for the purpose of delivering noti
 
 Read: [Mailchimp's Privacy Policy](https://mailchimp.com/legal/privacy/#3._Privacy_for_Contacts){:target="_blank",rel="nofollow"}.
 
-## Comments
-
-Comments are currently provided by [utterances](https://utteranc.es/), an [open source](https://github.com/utterance) project that integrates with GitHub to deliver comments via GitHub's API.
-
-Read their [privacy policy](https://github.com/utterance/utterances/blob/master/PRIVACY-POLICY.md).
-
 {% include legal-contact.html %}
