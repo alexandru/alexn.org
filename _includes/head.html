@@ -110,8 +110,8 @@
     {% elsif page.nav_id == '/snippets/' %}
     <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }} - Snippets" href="{{ site.feed_snippets }}" />
     {% else %}
-    <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }} - Snippets" href="{{ site.feed_snippets }}" />
     <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }} - Blog" href="{{ site.feed }}" />
+    <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }} - Snippets" href="{{ site.feed_snippets }}" />
     {% endif %}
 
     <!-- Stylesheet -->
