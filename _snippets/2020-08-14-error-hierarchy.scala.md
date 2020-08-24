@@ -7,7 +7,7 @@ image: /assets/media/snippets/error-hierarchy.png
     <img src="{% link assets/media/snippets/error-hierarchy.svg %}" 
       alt="Error hierarchy graph"
       title="Error hierarchy graph" 
-      width="100%" />
+      style="width:100%;" />
   </a>
 </figure>
 

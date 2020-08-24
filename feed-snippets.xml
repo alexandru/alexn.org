@@ -22,9 +22,14 @@ layout: null
     {% assign snippets = site.snippets | sort: 'date' | reverse -%}
     {% for post in snippets %}
       {% unless post.secret %}
-      {% capture post_css_id %}alexn_post_{{ post.id | to_css_id }}{% endcapture %}
+      {% capture post_css_id %}alexn_post_{{ post.id | to_css_id }}{% endcapture -%}
       {% capture styles_scss %}
         #{{ post_css_id }} {
+          .highlighter-rouge .highlight {
+            background-color: #f0f0f0;
+            color: #333;
+            padding: 10px;
+          }
           @import "modules/syntax";
         }
       {% endcapture -%}
