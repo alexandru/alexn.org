@@ -31,8 +31,6 @@ defaults:
       path: "_wiki" # an empty string here means all files in the project
     values:
       layout: wiki
-      repo_edit: https://github.com/alexandru/wiki/blob/master/
-      repo_module: _wiki/
       has_contributions: true
       nav_id: /wiki/
       description: Personal, volatile wiki documentation
@@ -91,7 +89,7 @@ optional_front_matter:
   collections: true
 
 relative_links:
-  enabled:     true
+  enabled: true
   collections: true
 
 pagination:
