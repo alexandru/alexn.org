@@ -9,7 +9,7 @@ layout: null
 
   <channel>
     <title>{{ site.title | xml_escape }} - Wiki</title>
-    <description>Feed of wiki articles, published at {{ site.url }}{{ site.baseurl }}/wiki/</description>
+    <description>Feed of wiki articles, published at {{ site.domain }}{{ site.baseurl }}/wiki/</description>
     <link>{{ site.url }}{{ site.baseurl }}/wiki/</link>
     <atom:link href="{{ site.feed_wiki }}" rel="self" type="application/rss+xml"/>
     <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
