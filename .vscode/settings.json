@@ -8,7 +8,7 @@
   },
   "git.enableSmartCommit": true,
   "git.postCommitCommand": "sync",
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "grammarly.overrides": [
     {
       "files": ["**/*.md"],
@@ -22,8 +22,5 @@
       }
     }
   ],
-  "grammarly.userWords": [
-    "algoraves",
-    "cli"
-  ]
+  "grammarly.userWords": ["algoraves", "cli"]
 }

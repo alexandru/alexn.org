@@ -32,7 +32,7 @@ layout: null
         ]]></description>
         <pubDate>{{ post.last_modified_at | date_to_rfc822 }}</pubDate>
         <link>{{ post.url | prepend: site.baseurl | prepend: site.url | rss_campaign_link: 'rss-link' | xml_escape }}</link>
-        <guid isPermaLink="false">{{ post.url | prepend: site.baseurl | prepend: site.url }}?ts={{ post.last_modified_at | date_to_rfc822 | url_encode }}</guid>
+        <guid isPermaLink="true">{{ post.url | prepend: site.baseurl | prepend: site.url }}?ts={{ post.last_modified_at | date: "%Y%m%d%H%M%S%z" | url_encode }}</guid>
         {% if post.author %}
         {% assign author = site.authors | map: post.author | map: "name" %}
         <dc:creator>{{ author }}</dc:creator>
