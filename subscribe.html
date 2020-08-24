@@ -43,23 +43,25 @@ skip_mailchimp: true
 
   <p>Powered by <a href="https://mailchimp.com/" rel="nofollow" target="_blank">Mailchimp</a>. Also read the <a href="{% link docs/privacy-policy.md %}">privacy policy</a>.</p>
 
-  <h2>RSS Web Feed</h2>
+  <h2>RSS Web Feeds</h2>
 
   <p>
-    Follow the website's RSS feed(s). The recommended clients are:
+    You can follow the following feeds in your favorite reader:
   </p>
   <ul>
-    <li><a href="https://newsblur.com/" target="_blank">Newsblur</a> (web, open-source)</li>
-    <li><a href="https://miniflux.app/">Miniflux</a> (web, open-source, self-hosted)</li>
-    <li><a href="https://feedly.com" target="_blank">Feedly (web)</a></li>
-    <li><a href="https://www.reederapp.com/">Reeder</a> (MacOS, iOS)</li>
+    <li><a href="{{ site.feed }}" target="_blank"><img src="{% link /assets/logo/feed-icon-28x28.png %}" style="vertical-align: middle;" /> Blog articles</a></li>
+    <li><a href="{{ site.feed_snippets }}" target="_blank"><img src="{% link /assets/logo/feed-icon-28x28.png %}" style="vertical-align: middle;" /> Snippets</a></li>
   </ul>
 
   <p>
-    The website can simply be added, or in case of issues you can use the following links:
+    Some recommended clients:
   </p>
+
   <ul>
-    <li><a href="{{ site.feed }}" target="_blank">{{ site.feed }}</a></li>
-    <li><a href="{{ site.feed_snippets }}" target="_blank">{{ site.feed_snippets }}</a></li>
+    <li><a href="https://newsblur.com/" target="_blank" rel="nofollow">Newsblur</a> (web, open-source)</li>
+    <li><a href="https://freshrss.org/" target="_blank" rel="nofollow">FreshRSS</a> (web, open-source, self-hosted)</li>
+    <li><a href="https://miniflux.app/" target="_blank" rel="nofollow">Miniflux</a> (web, open-source, self-hosted)</li>
+    <li><a href="https://feedly.com" target="_blank" rel="nofollow">Feedly (web)</a></li>
+    <li><a href="https://www.reederapp.com/" target="_blank" rel="nofollow">Reeder</a> (MacOS, iOS)</li>
   </ul>
 </div>
