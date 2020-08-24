@@ -9,7 +9,7 @@ def to_absolute_url(site, url)
 end
 
 module Jekyll
-  module MyDateFilter
+  module MyUsefulFilters
     @@months = {
       '1': 'January',
       '2': 'February',
@@ -31,6 +31,10 @@ module Jekyll
       d = parsed.strftime("%-d")
       y = parsed.strftime("%Y")
       m + " " + d + ", " + y
+    end
+
+    def to_css_id(name)
+      name.gsub(/\W+/, "_")
     end
   end
 
@@ -89,5 +93,5 @@ module Jekyll
   end
 end
 
-Liquid::Template.register_filter(Jekyll::MyDateFilter)
+Liquid::Template.register_filter(Jekyll::MyUsefulFilters)
 Liquid::Template.register_filter(Jekyll::MyRSSFilter)

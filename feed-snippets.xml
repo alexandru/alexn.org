@@ -22,10 +22,20 @@ layout: null
     {% assign snippets = site.snippets | sort: 'date' | reverse -%}
     {% for post in snippets %}
       {% unless post.secret %}
+      {% capture post_css_id %}alexn_post_{{ post.id | to_css_id }}{% endcapture %}
+      {% capture styles_scss %}
+        #{{ post_css_id }} {
+          @import "modules/syntax";
+        }
+      {% endcapture -%}
+      {% capture styles %}{{ styles_scss | scssify }}{% endcapture -%}
       <item>
         <title>{{ post.title | xml_escape }}</title>
-        <description><![CDATA[
-          {{ post.content | rss_process }}
+        <description><![CDATA[          
+          <style type="text/css">
+            {{ styles }}
+          </style>
+          <article id="{{ post_css_id }}">{{ post.content | rss_process }}</article>
         ]]></description>
         <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
         <link>{{ post.url | prepend: site.baseurl | prepend: site.url | rss_campaign_link: 'rss-link' | xml_escape }}</link>
