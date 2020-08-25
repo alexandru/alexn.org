@@ -25,7 +25,7 @@ This website uses a self-hosted (first-party) [Matomo](https://matomo.org/) inst
 1. no tracking cookies are being set
 2. no tracking cookies will be set in the future without explicit permission
 3. IPs are anonymized
-4. collected data is used by the website's owner for content optimizations, and is never shared with third party services
+4. collected data is used by the website's owner for content optimizations, in full compliance of GDPR, and is never shared with third party services
 
 <p class="info-bubble">
   There is a "<code>MATOMO_SESSID</code>" being created when you load this page (<a href="https://matomo.org/faq/general/faq_146/" target="_blank" rel="nofollow">see details</a>), linked to the <a href="https://matomo.org/privacy/#step-3-include-a-web-analytics-opt-out-feature-on-your-site-using-an-iframe" target="_blank" rel="nofollow">"opt-out" dialog</a> shown below. This cookie is temporary, is only meant to prevent CSRF security issues, and is only set when this dialog is loaded (and not when visiting other pages).
