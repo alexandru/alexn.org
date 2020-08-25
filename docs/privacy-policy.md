@@ -4,6 +4,7 @@ title: Privacy Policy
 description: "The privacy policy for developed extensions and applications"
 date: 2017-01-16
 last_modified_at: 2020-06-01
+article_class: privacy_policy
 ---
 
 <p class="intro withcap">
@@ -22,9 +23,8 @@ This website uses a self-hosted (first party) [Matomo](https://matomo.org/) inst
 
 You can opt-out of all tracking:
 
-<div class="content">
-  <iframe style="border: 1px solid gray; border-radius: 10px; height: 200px; width: 100%;"
-    src="https://ly.alexn.org/index.php?module=CoreAdminHome&action=optOut&language=en&backgroundColor=&fontColor=&fontSize=0.9em&fontFamily=%22PT%20Serif%22%2CGeorgia%2CTimes%2Cserif">
+<div id="opt_out_frame" class="content">
+  <iframe src="https://ly.alexn.org/index.php?module=CoreAdminHome&action=optOut&language=en&backgroundColor=&fontColor=333&fontSize=1.1em&fontFamily=%22PT%20Serif%22%2CGeorgia%2CTimes%2Cserif">
   </iframe>
 </div>
 

@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-<article class="post {{ layout.article_class }}" itemscope itemtype="http://schema.org/Article">
+<article class="post {{ page.article_class | default: layout.article_class }}" itemscope itemtype="http://schema.org/Article">
   {% unless page.disable_title or layout.disable_title %}
   <h1 class="postTitle" itemprop="headline">{{ page.title | xml_escape }}</h1>
   {% endunless %}

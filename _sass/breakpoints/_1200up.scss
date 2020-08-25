@@ -23,6 +23,10 @@ body {
   .highlight > pre.code > code {
     font-size: 110%;
   }
+
+  &.privacy_policy #opt_out_frame iframe {
+    height: 180px;
+  }
 }
 
 .footer {

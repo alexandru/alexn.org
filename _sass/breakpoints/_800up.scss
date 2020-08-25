@@ -303,4 +303,8 @@ div.header {
   .highlight > pre.code > code {
     font-size: 100%;
   }
+
+  &.privacy_policy #opt_out_frame iframe {
+    height: 190px;
+  }
 }

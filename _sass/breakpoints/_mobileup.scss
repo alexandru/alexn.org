@@ -748,7 +748,7 @@ img.right {
 }
 
 .post {
-	.info-bubble {
+	.info-bubble, &.privacy_policy #opt_out_frame iframe {
 		background-color: rgba($color: #e2e7f0, $alpha: 0.3);
 		color: #555;
 		padding: 7px;
@@ -770,6 +770,11 @@ img.right {
 	.formula-code, .highlight > pre.code > code {
 		font-size: 90%;
 	}
+
+	&.privacy_policy #opt_out_frame iframe {
+		width: 100%;
+		height: 300px;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
