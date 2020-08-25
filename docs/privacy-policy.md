@@ -13,6 +13,11 @@ article_class: privacy_policy
 
 This website has a strict no-cookies policy. Third-parties used for providing the service may drop cookies, however the implementation goes to great lengths to prevent that.
 
+<p class="info-bubble">
+  If you want to know more about <em>cookies</em> see the material at: <br/>
+  <a href="https://www.cookiesandyou.com/" target="_blank" rel="nofollow">What are cookies? (cookiesandyou.com)</a>
+</p>
+
 ## Analytics
 
 This website uses a self-hosted (first party) [Matomo](https://matomo.org/) instance for tracking users' visits, with these characteristics:
