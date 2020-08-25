@@ -20,17 +20,18 @@ This website has a strict no-cookies policy. Third-parties used for providing th
 
 ## Analytics
 
-This website uses a self-hosted (first party) [Matomo](https://matomo.org/) instance for tracking users' visits, with these characteristics:
+This website uses a self-hosted (first-party) [Matomo](https://matomo.org/) instance for tracking users' visits, with these characteristics:
 
 1. no tracking cookies are being set
 2. no tracking cookies will be set in the future without explicit permission
 3. IPs are anonymized
+4. collected data is used by the website's owner for content optimizations, and is never shared with third party services
 
 <p class="info-bubble">
   There is a "<code>MATOMO_SESSID</code>" being created when you load this page (<a href="https://matomo.org/faq/general/faq_146/" target="_blank" rel="nofollow">see details</a>), linked to the <a href="https://matomo.org/privacy/#step-3-include-a-web-analytics-opt-out-feature-on-your-site-using-an-iframe" target="_blank" rel="nofollow">"opt-out" dialog</a> shown below. This cookie is temporary, is only meant to prevent CSRF security issues, and is only set when this dialog is loaded (and not when visiting other pages).
 </p>
 
-You can opt-out of all tracking:
+While your visit cannot be traced to you, you can opt-out of these analytics:
 
 <div id="opt_out_frame" class="content">
   <iframe src="https://ly.alexn.org/index.php?module=CoreAdminHome&action=optOut&language=en&backgroundColor=&fontColor=333&fontSize=1.1em&fontFamily=%22PT%20Serif%22%2CGeorgia%2CTimes%2Cserif">
@@ -47,11 +48,11 @@ Read: [Mailchimp's Privacy Policy](https://mailchimp.com/legal/privacy/#3._Priva
 
 ## Cloudflare
 
-This website uses [Cloudflare](https://www.cloudflare.com/){:target="_blank",rel="nofollow"} as a proxy, for caching content, and for protecting against DDoS attacks.
+The `alexn.org` website uses [Cloudflare](https://www.cloudflare.com/){:target="_blank",rel="nofollow"} as a proxy, for caching content, and for protecting against DDoS attacks.
 
-Cloudflare sets a cookie named `__cfduid` that's [restricted](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#Restrict_access_to_cookies){:target="_blank",rel="nofollow"} with `HttpOnly` and `Secure` attributes, meaning that in-page scripts cannot access it. Cloudflare can identify users via this cookie, but they consider it to be a technical cookie that's "*strictly necessary to provide the service*" (see [Understanding the Cloudflare Cookies](https://support.cloudflare.com/hc/en-us/articles/200170156-Understanding-the-Cloudflare-Cookies){:target="_blank",rel="nofollow"}).
+Cloudflare sets a cookie named `__cfduid` that's [restricted](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#Restrict_access_to_cookies){:target="_blank",rel="nofollow"} with `HttpOnly` and `Secure` attributes, meaning that it is secure, and third-parties cannot access it. Cloudflare can identify users via this cookie, but they consider it to be a technical cookie that's "*strictly necessary to provide the service*" (see [Understanding the Cloudflare Cookies](https://support.cloudflare.com/hc/en-us/articles/200170156-Understanding-the-Cloudflare-Cookies){:target="_blank",rel="nofollow"}). We cannot opt-out of this cookie, all websites being served through Cloudflare have it.
 
-Read their [privacy policy](https://www.cloudflare.com/privacypolicy/).
+Read [Cloudflare's Privacy Policy](https://www.cloudflare.com/privacypolicy/).
 
 ## Video Players
 
