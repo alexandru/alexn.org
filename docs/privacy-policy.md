@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Privacy Policy
-description: "The privacy policy for developed extensions and applications"
+description: "This website does not collect personally identifiable information, and has a no-cookies policy."
 date: 2017-01-16
 last_modified_at: 2020-06-01
 article_class: privacy_policy
