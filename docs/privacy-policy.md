@@ -7,15 +7,26 @@ last_modified_at: 2020-06-01
 ---
 
 <p class="intro withcap">
-  This website does not collect personally identifiable information and no cookies are installed that could be used to track visitors.
+  This website does not collect personally identifiable information, and no cookies are installed that could be used to track visitors.
 </p>
+
+This website has a strict no-cookies policy. Third-parties used for providing the service may drop cookies, however the implementation goes to great lengths to prevent that.
 
 ## Analytics
 
 This website uses a self-hosted (first party) [Matomo](https://matomo.org/) instance for tracking users' visits, with these characteristics:
 
-1. no cookies are being set — and no cookies will be set in the future without explicit permission
-2. IPs are anonymized
+1. no cookies are being set (unless you choose to opt-out, in which case cookies must be set to remember the preference) 
+2. no cookies will be set in the future without explicit permission
+3. IPs are anonymized
+
+You can opt-out of all tracking:
+
+<div class="content">
+  <iframe style="border: 1px solid gray; border-radius: 10px; height: 200px; width: 100%;"
+    src="https://ly.alexn.org/index.php?module=CoreAdminHome&action=optOut&language=en&backgroundColor=&fontColor=&fontSize=0.9em&fontFamily=%22PT%20Serif%22%2CGeorgia%2CTimes%2Cserif">
+  </iframe>
+</div>
 
 ## Email Newsletter
 
@@ -24,5 +35,20 @@ The `alexn.org` website uses [Mailchimp](https://mailchimp.com/){:target="_blank
 The collected email addresses are used solely for the purpose of delivering notifications on new articles being published.
 
 Read: [Mailchimp's Privacy Policy](https://mailchimp.com/legal/privacy/#3._Privacy_for_Contacts){:target="_blank",rel="nofollow"}.
+
+## Cloudflare
+
+This website uses [Cloudflare](https://www.cloudflare.com/){:target="_blank",rel="nofollow"} as a proxy, for caching content, and for protecting against DDoS attacks.
+
+Cloudflare sets a cookie named `__cfduid` that's [restricted](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#Restrict_access_to_cookies){:target="_blank",rel="nofollow"} with `HttpOnly` and `Secure` attributes, meaning that in-page scripts cannot access it. Cloudflare can identify users via this cookie, but they consider it to be a technical cookie that's "*strictly necessary to provide the service*" (see [Understanding the Cloudflare Cookies](https://support.cloudflare.com/hc/en-us/articles/200170156-Understanding-the-Cloudflare-Cookies){:target="_blank",rel="nofollow"}).
+
+Read their [privacy policy](https://www.cloudflare.com/privacypolicy/).
+
+## Video Players
+
+Some embedded third-party services might drop cookies (e.g. YouTube, Vimeo players), however the website's implementation activates their "do not track" options whenever possible.
+
+- Read [Google's Privacy Policy](https://policies.google.com/privacy){:rel="nofollow",target="_blank"}; note this website uses `youtube-nocookie.com` for activating YouTube's "privacy enhanced mode", see [embedding options](https://support.google.com/youtube/answer/171780?hl=en){:rel="nofollow",target="_blank"}
+- Read [Vimeo's Privacy Policy](https://vimeo.com/privacy){:rel="nofollow",target="_blank"}; note the website [embeds the player](https://vimeo.zendesk.com/hc/en-us/articles/360001494447-Using-Player-Parameters){:rel="nofollow",target="_blank"} with a `dnt=1` flag that deactivates session cookies and tracking
 
 {% include legal-contact.html %}

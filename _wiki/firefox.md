@@ -15,6 +15,7 @@
 
 - [Auto Tab Discard](https://addons.mozilla.org/en-US/firefox/addon/auto-tab-discard/)
 - [Awesome RSS](https://addons.mozilla.org/en-US/firefox/addon/awesome-rss/)
+- [CleanURLs](https://addons.mozilla.org/en-US/firefox/addon/clearurls/)
 - [Close discarded tabs](https://addons.mozilla.org/en-US/firefox/addon/close-discarded-tabs/)
 - [Cookie Quick Manager](https://addons.mozilla.org/en-US/firefox/addon/cookie-quick-manager/)
 - [Decentraleyes](https://addons.mozilla.org/en-US/firefox/addon/decentraleyes/)
@@ -29,9 +30,9 @@
 - [Tab Reloader](https://addons.mozilla.org/en-US/firefox/addon/tab-reloader/)
 - [Terms of Service; Didn’t Read](https://addons.mozilla.org/en-US/firefox/addon/terms-of-service-didnt-read/)
 - [Tree Style Tab](https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab/)
+- [Wayback Machine](https://addons.mozilla.org/en-US/firefox/addon/wayback-machine_new/)
 - [uBlock Origin](https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/)
 - [vim-vixen](https://github.com/ueokande/vim-vixen)
-- [Wayback Machine](https://addons.mozilla.org/en-US/firefox/addon/wayback-machine_new/)
 
 ## Auto-sync about:config settings
 
