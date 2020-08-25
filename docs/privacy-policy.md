@@ -11,10 +11,10 @@ article_class: privacy_policy
   This website does not collect personally identifiable information, and no cookies are installed that could be used to track visitors.
 </p>
 
-This website has a strict no-cookies policy. Third-parties used for providing the service may drop cookies, however the implementation goes to great lengths to prevent that.
+This website has a strict no-cookies policy. Third-parties used for providing the service may drop cookies; however the implementation goes to great lengths to prevent that.
 
 <p class="info-bubble">
-  If you want to know more about <em>cookies</em> see the material at: <br/>
+  If you want to learn more about <em>cookies</em>, see the material at: <br/>
   <a href="https://www.cookiesandyou.com/" target="_blank" rel="nofollow">What are cookies? (cookiesandyou.com)</a>
 </p>
 
