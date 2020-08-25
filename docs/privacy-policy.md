@@ -22,9 +22,13 @@ This website has a strict no-cookies policy. Third-parties used for providing th
 
 This website uses a self-hosted (first party) [Matomo](https://matomo.org/) instance for tracking users' visits, with these characteristics:
 
-1. no cookies are being set (unless you choose to opt-out, in which case cookies must be set to remember the preference) 
-2. no cookies will be set in the future without explicit permission
+1. no tracking cookies are being set
+2. no tracking cookies will be set in the future without explicit permission
 3. IPs are anonymized
+
+<p class="info-bubble">
+  There is a "<code>MATOMO_SESSID</code>" being created when you load this page (<a href="https://matomo.org/faq/general/faq_146/" target="_blank" rel="nofollow">see details</a>), linked to the <a href="https://matomo.org/privacy/#step-3-include-a-web-analytics-opt-out-feature-on-your-site-using-an-iframe" target="_blank" rel="nofollow">"opt-out" dialog</a> shown below. This cookie is temporary, is only meant to prevent CSRF security issues, and is only set when this dialog is loaded (and not when visiting other pages).
+</p>
 
 You can opt-out of all tracking:
 
