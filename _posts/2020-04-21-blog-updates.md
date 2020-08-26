@@ -6,7 +6,7 @@ tags:
   - Personal
 description:
   Dusted off my website, with big plans ahead.
-vimeo: 410356726
+youtube: RYmGT905Skc
 ---
 
 <p class="intro withcap">
@@ -31,6 +31,6 @@ Like all professional software developers that want to write more, I started wit
 - Automatic thumbnails for Vimeo/YouTube videos, enabled for Twitter/Facebook cards; expect more videos soon
 - Integration of [MathJax](https://www.mathjax.org/){:rel="nofollow" target="_blank"} for math formulas
 
-{% include vimeo.html id=410356726 %}
+{% include youtube.html id=RYmGT905Skc %}
 
 If you find anything broken, please let me know.

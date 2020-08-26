@@ -9,23 +9,23 @@ tags:
   - Code
   - Scala
   - Monix
-vimeo: 165922572
+youtube: rftcbxj7et0
 ---
 
-{% include vimeo.html ratio=56.25 %}
+{% include youtube.html ratio=56.25 %}
 
 **Monix Task: Lazy, Async &amp; Awesome** -
 my presentation from
 [flatMap(Oslo) 2016](http://2016.flatmap.no/nedelcu.html#session):
 
 - [Slides (PDF file)](/assets/pdfs/Monix-Task.pdf)
-- [Video (Vimeo)](https://vimeo.com/channels/flatmap2016/165922572)
+- [Video (YouTube)](https://www.youtube.com/watch?v=rftcbxj7et0)
 
 Also see:
 
 - [Akka &amp; Monix](/blog/2016/05/15/monix-observable.html),
   Typelevel Summit, Oslo, 2016
-- the [Monix](https://github.com/monix/monix) project
+- [Monix](https://monix.io) project
 
 ## Abstract
 
