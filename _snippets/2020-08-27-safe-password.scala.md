@@ -15,7 +15,7 @@ final class SafePassword private (chars: Array[Char]) {
   private[this] val lock = new AtomicBoolean(false)
   private[this] var isAvailable = true
 
-  def many[F[_]](implicit F: Sync[F]): Resource[F, PasswordValue] =
+  def read[F[_]](implicit F: Sync[F]): Resource[F, PasswordValue] =
     Resource[F, PasswordValue](F.suspend {
       unsafeAcquire() match {
         case Right(()) =>
@@ -27,7 +27,7 @@ final class SafePassword private (chars: Array[Char]) {
     })
 
   def onceThenNullify[F[_]](implicit F: Sync[F]): Resource[F, PasswordValue] =
-    many.flatMap { value =>
+    read.flatMap { value =>
       Resource(F.pure((value, F.delay(unsafeNullify()))))
     }
 
