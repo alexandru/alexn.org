@@ -60,7 +60,10 @@ final class SafePassword private (chars: Array[Char]) {
 }
 
 object SafePassword {
-  def apply(value: String): SafePassword =
+  def apply[F[_]](value: String)(implicit F: Sync[F]): F[SafePassword] =
+    F.delay(new SafePassword(value))
+
+  def unsafe(value: String): SafePassword =
     new SafePassword(value.toCharArray)
 }
 ```
@@ -68,11 +71,11 @@ object SafePassword {
 And usage:
 
 ```scala
-val pass = SafePassword("My password")
-
-pass.onceThenNullify[IO].use { p =>
-  IO {
-    println(p.value)
+SafePassword("My password").flatMap { pass =>
+  pass.onceThenNullify[IO].use { p =>
+    IO {
+      println(p.value)
+    }
   }
 }
 ```
