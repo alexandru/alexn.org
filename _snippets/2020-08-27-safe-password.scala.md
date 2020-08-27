@@ -74,7 +74,7 @@ object SafePassword {
 And usage:
 
 ```scala
-SafePassword("My password").flatMap { pass =>
+SafePassword[IO]("74kDc2J%dd2&").flatMap { pass =>
   pass.onceThenNullify[IO].use { p =>
     IO {
       println(p.value)
