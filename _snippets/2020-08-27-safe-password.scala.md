@@ -2,6 +2,8 @@
 image: /assets/media/snippets/safe-password-snippet.png
 ---
 
+See: [Securely Store Sensitive Data in RAM](https://books.nowsecure.com/secure-mobile-development/en/coding-practices/securely-store-sensitive-data-in-ram.html)
+
 ```scala
 import cats.effect.{ Resource, Sync }
 import java.util.ConcurrentModificationException
