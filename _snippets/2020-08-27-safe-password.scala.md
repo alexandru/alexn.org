@@ -64,7 +64,7 @@ final class SafePassword private (chars: Array[Char]) {
 
 object SafePassword {
   def apply[F[_]](value: String)(implicit F: Sync[F]): F[SafePassword] =
-    F.delay(new SafePassword(value))
+    F.delay(unsafe(value))
 
   def unsafe(value: String): SafePassword =
     new SafePassword(value.toCharArray)
