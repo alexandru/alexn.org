@@ -8,6 +8,7 @@ My tech notes. This information is volatile, disorganized, incomplete, sometimes
 
 **Index**
 
+- [Apache Kafka](kafka.md)
 - [Cloudflare](cloudflare.md)
 - [Custom Zsh Prompt](zshrc-prompt.md)
 - [Debian Packages](debian-packages-deb.md)
