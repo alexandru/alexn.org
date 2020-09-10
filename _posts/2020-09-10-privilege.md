@@ -36,7 +36,7 @@ I'm not writing this to feel good, or grateful for what I have, due to other peo
 
 We work hard for what we have, for sure. But in our society, hard work isn't everything. And the privilege we're born into matters more.
 
-Systemic racism, misogyny, antisemitism, fatphobia, xenophobia—these are issues even in 2020. And when people end up hating their other human beings, based on class or category, most often than not, it is privilege they are protecting, not their hard work.
+Systemic racism, misogyny, antisemitism, fatphobia, xenophobia—these are issues even in 2020. And when people end up hating other human beings, based on class or category, most often than not, it is privilege they are protecting, not their hard work.
 
 My son is and will be privileged. I'm glad that he is because he won't be discriminated against. It's not shameful to be born into privilege, but it is dumb luck.
 
