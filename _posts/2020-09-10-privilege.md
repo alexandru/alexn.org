@@ -14,7 +14,7 @@ image_caption: My son ❤️
 
 I'm privileged to have a wonderful wife and son, to have a family.
 
-I'm privileged that I'm middle-class, that I have a comfortable and stable job, that I have more job security during a crisis; I'm privileged that my worries for tomorrow are superficial at best; I'm lucky not to have debt.
+I'm privileged that I'm middle-class, that I have a comfortable and stable job, that I have more job security during a crisis; I'm privileged that my worries for tomorrow are superficial; I'm lucky not to have debt.
 
 I'm privileged to have found my vocation; to have a profession that I would practice even if I'd win the lottery tomorrow.
 
