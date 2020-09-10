@@ -28,7 +28,7 @@ I'm privileged to be a European heterosexual white male, born into an official r
 
 I'm privileged to wear a size M or L for my tee-shirt. Even though I tend to get fat, I gravitate between overweight and XL, but no more than that. I'm privileged not to be "morbidly obese" and couldn't get blamed for having a flaw of character because of my body constitution. I'm not condemned for gluttony, which is what society does against fat people.
 
-I'm privileged to be healthy. But even if I had a problem, I have access to a public healthcare system, which has its issues, but it's available. I wouldn't have to sell my apartment to pay for my medical bills. As a middle-class white male (with money for presents and an attitude), I am prioritized. And if I'm not in the mood for public institutions, for staying in lines, I can always go to that private clinic that I'm subscribed to.
+I'm privileged to be healthy. But even if I had a problem, I have access to a public healthcare system, which has its issues, but it's available. I wouldn't have to sell my apartment to pay for my medical bills. As a middle-class white male (with money for tips and an attitude), I am prioritized. And if I'm not in the mood for public institutions, for staying in lines, I can always go to that private clinic that I'm subscribed to.
 
 **I was born in privilege. Other people aren't as lucky.**
 
