@@ -6,6 +6,7 @@
 - `C-c C-t` rotate state (change TODO to DONE)
 - `C-c C-s` schedule
 - `C-c C-x p` set property (e.g. `STYLE` to `habit`)
+- `M-x org-time-stamp-inactive` for inserting the current date
 
 For clock timing:
 

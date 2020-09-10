@@ -1,7 +1,3 @@
----
-disable_comments: true
----
-
 # Wiki
 
 My tech notes. This information is volatile, disorganized, incomplete, sometimes wrong, with no promises to be kept up to date. PRs welcome!

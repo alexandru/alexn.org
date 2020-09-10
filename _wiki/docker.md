@@ -1,4 +1,4 @@
-# Docker cheat sheet
+# Docker
 
 <!-- toc -->
 
@@ -109,7 +109,7 @@ If some containers are still running as a daemon, use `-f` (force):
 docker rm -f $(docker ps -a -q)
 ```
 
-### Remove orphan containers
+### Remove orphan volumes
 
 List:
 
