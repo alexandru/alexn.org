@@ -8,7 +8,9 @@ image: /assets/media/articles/fi-miu.jpg
 image_caption: My son ❤️
 ---
 
-Today it's my 38ᵗʰ birthday. I was born into privilege. Other people aren't as lucky.
+<p class="intro withcap">
+  Today it's my 38ᵗʰ birthday. I was born into privilege. Other people aren't as lucky.
+</p>
 
 I'm privileged to have a wonderful wife and son, to have a family.
 
