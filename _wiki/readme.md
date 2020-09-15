@@ -20,6 +20,7 @@ My tech notes. This information is volatile, disorganized, incomplete, sometimes
 - [GitHub](github.md)
 - [GNU Screen](gnu-screen.md)
 - [Haskell](haskell.md)
+- [Image Formats](image-formats.md)
 - [iTerm](iterm.md)
 - [Json](json.md)
 - [Kanban](kanban.md)
