@@ -1,10 +1,12 @@
-# Rust - Getting Started
+# Rust
 
 <!-- toc -->
 
 - [Installation](#installation)
+- [Tools, Libraries](#tools-libraries)
 - [Documentation](#documentation)
-- [Tools](#tools)
+- [Tutorials](#tutorials)
+- [How-to](#how-to)
   - [Cargo](#cargo)
   - [Language Server](#language-server)
 
@@ -26,6 +28,12 @@ To uninstall:
 rustup self uninstall
 ```
 
+## Tools, Libraries
+
+- [IntelliJ Rust](https://intellij-rust.github.io/)
+- [Neon: Write fast, safe native Node plugins with Rust](https://neon-bindings.com/)
+- [Amethyst - Game Engine](https://amethyst.rs/)
+
 ## Documentation
 
 - [The Rust Programming Language](https://doc.rust-lang.org/)
@@ -34,7 +42,15 @@ rustup self uninstall
 - [Rust Sokoban](https://sokoban.iolivia.me/)
 - [Tour of Rust](https://tourofrust.com/)
 
-## Tools
+## Tutorials
+
+- [Choosing Rust - Intro to Rust and Ownership](https://www.youtube.com/watch?v=DMAnfOlhSpU) (YouTube video)
+- [Beginning Game Development with Amethyst](https://www.youtube.com/watch?v=GFi_EdS_s_c) (YouTube video)
+  - [Creating a Simple Spritesheet Animation with Amethyst](https://mtigley.dev/posts/sprite-animations-with-amethyst/) ([archive](https://web.archive.org/web/20200915172323/https://mtigley.dev/posts/sprite-animations-with-amethyst/))
+  - [Running Animation](https://mtigley.dev/posts/running-animation/) ([archive](https://web.archive.org/web/20200915172354/https://mtigley.dev/posts/running-animation/))
+  - [Camera Follow System](https://mtigley.dev/posts/camera-follow-system/) ([archive](https://web.archive.org/web/20200821172558/https://mtigley.dev/posts/camera-follow-system/))
+
+## How-to
 
 ### Cargo
 
