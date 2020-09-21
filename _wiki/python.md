@@ -14,6 +14,12 @@ Installation via Homebrew:
 brew install pyenv pyenv-virtualenv
 ```
 
+List available versions:
+
+``` sh
+pyenv install --list
+```
+
 Install a specific Python version:
 
 ```sh

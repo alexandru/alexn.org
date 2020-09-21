@@ -31,6 +31,7 @@ My tech notes. This information is volatile, disorganized, incomplete, sometimes
 - [Nix](nix.md)
 - [Org-mode](org-mode.md)
 - [PostgreSQL](postgresql.md)
+- [Privacy](privacy.md)
 - [Project management](project-management.md)
 - [Python](python.md)
 - [RSS/Atom feeds](rss-feeds.md)
