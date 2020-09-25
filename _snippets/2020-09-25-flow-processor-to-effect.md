@@ -1,5 +1,7 @@
 # Flow/Processor to Effect
 
+Possibly broken implementation, take it with a grain of salt:
+
 ```scala
 import akka.actor.ActorSystem
 import akka.stream.Materializer
