@@ -38,13 +38,17 @@ While your visit cannot be traced to you, you can opt-out of these analytics:
   </iframe>
 </div>
 
+<p class="warn-bubble" markdown="1">
+  **WARN:** The [Do Not Track](https://en.wikipedia.org/wiki/Do_Not_Track){:target="_blank",rel="nofollow"} header is not supported, because it's a failed standard, that just helps fingerprinting, which is why Safari dropped support for it.
+</p>
+
 ## Email Newsletter
 
 The `alexn.org` website uses [Mailchimp](https://mailchimp.com/){:target="_blank",rel="nofollow"}. Email addresses collected via the newsletter subscription are processed by Mailchimp, acting as a data processor.
 
 The collected email addresses are used solely to deliver notifications on new articles being published.
 
-Read: [Mailchimp's Privacy Policy](https://mailchimp.com/legal/privacy/#3._Privacy_for_Contacts){:target="_blank",rel="nofollow"}.
+Read [Mailchimp's Privacy Policy](https://mailchimp.com/legal/privacy/#3._Privacy_for_Contacts){:target="_blank",rel="nofollow"}.
 
 ## Cloudflare
 
@@ -52,7 +56,7 @@ The `alexn.org` website uses [Cloudflare](https://www.cloudflare.com/){:target="
 
 Cloudflare sets a cookie named `__cfduid` that's [restricted](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#Restrict_access_to_cookies){:target="_blank",rel="nofollow"} with `HttpOnly` and `Secure` attributes, meaning that it is secure, and other parties cannot access it. Cloudflare can identify users via this cookie, but they consider it a technical cookie that's "*strictly necessary to provide the service*" (see [Understanding the Cloudflare Cookies](https://support.cloudflare.com/hc/en-us/articles/200170156-Understanding-the-Cloudflare-Cookies){:target="_blank",rel="nofollow"}). We cannot opt-out of this cookie, all websites being served through Cloudflare have it.
 
-Read [Cloudflare's Privacy Policy](https://www.cloudflare.com/privacypolicy/).
+Read [Cloudflare's Privacy Policy](https://www.cloudflare.com/privacypolicy/){:target="_blank",rel="nofollow"}.
 
 ## Video Players
 

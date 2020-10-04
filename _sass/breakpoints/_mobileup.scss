@@ -748,12 +748,18 @@ img.right {
 }
 
 .post {
-	.info-bubble, &.privacy_policy #opt_out_frame iframe {
+	.warn-bubble, .info-bubble, &.privacy_policy #opt_out_frame iframe {
 		background-color: rgba($color: #e2e7f0, $alpha: 0.3);
 		color: #555;
 		padding: 7px;
 		border: 2px dashed #e2f0e7;
 		border-radius: 10px;
+	}
+
+	.warn-bubble {
+		color: #655;
+		background-color: rgba($color: #f3ebed, $alpha: 0.3);
+		border: 2px dashed #f6ddd7;
 	}
 
 	.highlight {
