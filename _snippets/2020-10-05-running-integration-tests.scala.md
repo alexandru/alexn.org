@@ -30,6 +30,7 @@ Then in your tests:
 
 ```scala
 import org.scalatest.Tag
+import org.scalatest.funsuite.AsyncFunSuite
 
 object IntegrationTest extends Tag("integrationTest")
 
