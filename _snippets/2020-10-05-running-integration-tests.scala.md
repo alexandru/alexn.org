@@ -1,5 +1,5 @@
 ---
-title: "Running integration tests, in Scala, with sbt"
+title: "Running integration tests, with Scala + sbt"
 image: /assets/media/snippets/sbt-integration-tests.png
 ---
 
