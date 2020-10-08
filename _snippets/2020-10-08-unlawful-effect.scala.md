@@ -1,3 +1,7 @@
+---
+image: /assets/media/snippets/unlawful-effect.png
+---
+
 ```scala
 import cats.ApplicativeError
 import cats.effect.{ Effect, IO }
