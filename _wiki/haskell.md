@@ -24,6 +24,7 @@
 
 - [Haskell mini-patterns handbook](https://kowainik.github.io/posts/haskell-mini-patterns)
 - [Help! My Haskell program consumes more memory the longer it runs](https://jacobstanley.io/help-my-haskell-program-consumes-more-memory-the-longer-it-runs/)
+- [Let's build a Cloudflare Worker with WebAssembly and Haskell](https://blog.cloudflare.com/cloudflare-worker-with-webassembly-and-haskell/)
 
 ## Tools
 
