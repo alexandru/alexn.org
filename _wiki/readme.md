@@ -15,7 +15,7 @@ My tech notes. This information is volatile, disorganized, incomplete, sometimes
 - [Dropbox](dropbox.md)
 - [Emacs](emacs.md)
 - [Email](email.md)
-- [F#](fsharp.md)
+- [.NET (C#, F#)](dotnet.md)
 - [Firefox](firefox.md)
 - [Git](git.md)
 - [GitHub](github.md)

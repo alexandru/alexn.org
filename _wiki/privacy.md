@@ -18,6 +18,7 @@
 
 - [Pi-hole](https://pi-hole.net/)
 - [NextDNS](https://nextdns.io/) (pi-hole as a service)
+- [StevenBlack/hosts](https://github.com/StevenBlack/hosts) for blocking via `/etc/hosts`
   
 ## Testing
 
