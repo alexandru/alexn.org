@@ -111,10 +111,13 @@
     <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }} - Snippets" href="{{ site.feed_snippets }}" />
     {% elsif page.nav_id == '/wiki/' %}
     <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }} - Wiki" href="{{ site.feed_wiki }}" />
+    {% elsif page.nav_id == '/links/' %}
+    <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }} - Recommended Articles" href="{{ site.feed_external_links }}" />
     {% else %}
     <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }} - Blog" href="{{ site.feed }}" />
     <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }} - Snippets" href="{{ site.feed_snippets }}" />
     <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }} - Wiki" href="{{ site.feed_wiki }}" />
+    <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }} - Recommended Articles" href="{{ site.feed_external_links }}" />
     {% endif %}
 
     <!-- Stylesheet -->
