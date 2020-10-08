@@ -2,6 +2,8 @@
 image: /assets/media/snippets/unlawful-effect.png
 ---
 
+Unlawful version of [cats.effect.Effect](https://typelevel.org/cats-effect/typeclasses/effect.html):
+
 ```scala
 import cats.ApplicativeError
 import cats.effect.{ Effect, IO }
