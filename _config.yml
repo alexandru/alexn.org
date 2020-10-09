@@ -41,10 +41,6 @@ defaults:
       nav_id: /wiki/
       description: Personal, volatile wiki documentation
   - scope:
-      path: "_wiki/readme.md"
-    values:
-      permalink: "wiki/index.html"
-  - scope:
       path: "_snippets"
     values:
       layout: snippet
@@ -52,18 +48,11 @@ defaults:
       has_contributions: true
       author: alexelcu
   - scope:
-      path: "snippets.html"
-    values:
-      nav_id: /snippets/
-  - scope:
-      path: "/indexes/links.html"
-    values:
-      nav_id: /links/
-  - scope:
       path: "_links"
     values:
       nav_id: /links/
       layout: link
+      has_contributions: true
 
 collections:
   posts:
