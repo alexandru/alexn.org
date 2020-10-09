@@ -105,20 +105,11 @@
     <meta name="msapplication-TileImage" content="{% link /assets/logo/270px.png %}" />
 
     <!-- Come and get me RSS readers -->
-    {% if page.nav_id == '/blog/' %}
-    <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }} - Blog" href="{{ site.feed }}" />
-    {% elsif page.nav_id == '/snippets/' %}
-    <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }} - Snippets" href="{{ site.feed_snippets }}" />
-    {% elsif page.nav_id == '/wiki/' %}
-    <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }} - Wiki" href="{{ site.feed_wiki }}" />
-    {% elsif page.nav_id == '/links/' %}
-    <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }} - Recommended Articles" href="{{ site.feed_links }}" />
-    {% else %}
-    <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }} - Blog" href="{{ site.feed }}" />
-    <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }} - Snippets" href="{{ site.feed_snippets }}" />
-    <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }} - Wiki" href="{{ site.feed_wiki }}" />
-    <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }} - Recommended Articles" href="{{ site.feed_links }}" />
-    {% endif %}
+    <link rel="alternate" type="application/rss+xml" title="All articles (blog, snippets, wiki, links)" href="{{ site.feeds.all }}" />
+    <link rel="alternate" type="application/rss+xml" title="Blog" href="{{ site.feeds.blog }}" />
+    <link rel="alternate" type="application/rss+xml" title="Snippets" href="{{ site.feeds.snippets }}" />
+    <link rel="alternate" type="application/rss+xml" title="Wiki" href="{{ site.feeds.wiki }}" />
+    <link rel="alternate" type="application/rss+xml" title="Shared Links" href="{{ site.feeds.links }}" />
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | prepend: site.baseurl }}?{{ 'now' | date: '%Y%m%d%H%M' }}">

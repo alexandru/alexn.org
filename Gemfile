@@ -7,6 +7,7 @@ gem 'classifier-reborn'
 gem 'gsl'
 gem "mini_magick"
 gem "image_optim"
+gem "premailer"
 
 group :jekyll_plugins do
   gem "jekyll-paginate-v2"

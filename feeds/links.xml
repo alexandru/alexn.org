@@ -9,9 +9,9 @@ layout: null
 
   <channel>
     <title>{{ site.title | xml_escape }} - Shared Links</title>
-    <description>Feed of recommended links from around the web.</description>
+    <description>Feed of recommended links from around the web, published at {{ site.domain }}{{ site.baseurl }}/links/</description>
     <link>{{ site.url }}{{ site.baseurl }}/links/</link>
-    <atom:link href="{{ site.feed_links }}" rel="self" type="application/rss+xml"/>
+    <atom:link href="{{ site.feeds.links }}" rel="self" type="application/rss+xml"/>
     <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
     <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
   	<language>en</language>
@@ -19,8 +19,8 @@ layout: null
 	  <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v{{ jekyll.version }}</generator>
 
-    {% assign links = site.links | sort: 'date' | reverse -%}
-    {% for post in links %}
+    {% assign links = site.links | rss_sort_all -%}
+    {% for post in links limit:300 %}
       {% unless post.secret %}
         {% include feed-item-link.xml post=post %}
       {% endunless %}

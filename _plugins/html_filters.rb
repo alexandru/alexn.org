@@ -1,4 +1,5 @@
 require "nokogiri"
+require "premailer"
 
 def to_absolute_url(site, url)
   if url =~ /^\//
@@ -57,7 +58,7 @@ module Jekyll
       posts.sort_by { |post| -1 * post['date'].to_i }
     end
 
-    def rss_process(html)
+    def rss_process(html, styles=nil)
       doc = Nokogiri::HTML(html)
 
       doc.css("img").each do |elem|
@@ -92,7 +93,21 @@ module Jekyll
       end
 
       body = doc.at_css("body")
-      body ? doc.at_css("body").inner_html : ""
+      html1 = body ? body.inner_html : ""
+
+      if styles
+        html2 = "<style>#{styles}</style> #{html1}"
+        premailer = Premailer.new(html2, with_html_string: true, drop_unmergeable_css_rules: true)
+        html3 = premailer.to_inline_css
+        
+        premailer.warnings.each do |w|
+          Jekyll.logger.warn("                    #{w[:message]} (#{w[:level]}) may not render properly in RSS client")
+        end
+
+        html3
+      else
+        html1
+      end
     end
   end
 end
