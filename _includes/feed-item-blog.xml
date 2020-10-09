@@ -30,6 +30,7 @@
   {% assign author = site.authors | map: include.post.author | map: "name" %}
   <dc:creator>{{ author }}</dc:creator>
   {% endif %}
+  <category>blog</category>
   {% for tag in include.post.tags %}
   <category>{{ tag | xml_escape }}</category>
   {% endfor %}

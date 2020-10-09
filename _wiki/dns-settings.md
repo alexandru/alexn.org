@@ -1,11 +1,5 @@
 # DNS settings
 
-- [MacOS](#macos)
-  - [Refresh DNS](#refresh-dns)
-  - [Set DNS to Cloudflare](#set-dns-to-cloudflare)
-  - [Split DNS](#split-dns)
-    - [Uninstall dnsmasq](#uninstall-dnsmasq)
-
 ## MacOS
 
 ### Refresh DNS

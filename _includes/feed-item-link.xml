@@ -12,6 +12,7 @@
   {% if include.post.author %}
   <dc:creator>{{ include.post.author }}</dc:creator>
   {% endif %}
+  <category>shared link</category>
   {% for tag in include.post.tags %}
   <category>{{ tag | xml_escape }}</category>
   {% endfor %}

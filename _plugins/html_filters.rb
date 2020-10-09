@@ -61,7 +61,6 @@ module Jekyll
           -1 * post['date'].to_i
         end
       }
-      posts
     end
 
     def rss_process(html)

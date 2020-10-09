@@ -1,6 +1,5 @@
 ---
 layout: null
-permalink: /feed.xml
 ---
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"
@@ -31,7 +30,7 @@ permalink: /feed.xml
           {% include feed-item-link.xml post=post prefix="Shared Link" %}
         {% elsif post.nav_id == '/wiki/' -%}
           {% unless post.path == '_wiki/readme.md' %}          
-            {% include feed-item-wiki.xml post=post prefix="Wiki" unique_id_per_path=true %}
+            {% include feed-item-wiki.xml post=post prefix="Wiki" signal_updates_as_new=false %}
           {% endunless %}
         {% endif -%}
       {% endunless -%}

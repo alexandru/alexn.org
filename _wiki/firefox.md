@@ -1,16 +1,5 @@
 # Firefox
 
-<!-- toc -->
-
-- [Cool Extensions](#cool-extensions)
-- [Auto-sync about:config settings](#auto-sync-aboutconfig-settings)
-- [Enable media keys on MacOS](#enable-media-keys-on-macos)
-- [Restore Pinned Tabs on Demand](#restore-pinned-tabs-on-demand)
-- [Hide Native Tabs (for Tree Style Tabs)](#hide-native-tabs-for-tree-style-tabs)
-- [All about: Pages](#all-about-pages)
-
-<!-- tocstop -->
-
 ## Cool Extensions
 
 - [Auto Tab Discard](https://addons.mozilla.org/en-US/firefox/addon/auto-tab-discard/)

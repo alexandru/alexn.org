@@ -2,9 +2,6 @@
 
 Tips for [iTerm2](https://www.iterm2.com/){:target="_blank"}.
 
-- [Configure opening of file paths (semantic history)](#configure-opening-of-file-paths-semantic-history)
-  - [Opening files in IntelliJ IDEA + Visual Studio Code](#opening-files-in-intellij-idea--visual-studio-code)
-
 ## Configure opening of file paths (semantic history)
 
 In iTerm's settings, goto `Profiles` -> `Advanced` -> `Semantic

@@ -1,8 +1,5 @@
 # Git Tips
 
-- [Large files support](#large-files-support)
-- [git-sync](#git-sync)
-
 ## Large files support
 
 Resources:

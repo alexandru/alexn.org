@@ -1,6 +1,6 @@
 # Kanban 
 
-[Agile Project Management with Kanban, Eric Brechner (YouTube)][https://www.youtube.com/watch?v=CD0y-aU1sXo]
+[Agile Project Management with Kanban, Eric Brechner (YouTube)](https://www.youtube.com/watch?v=CD0y-aU1sXo)
 
 Notes:
 

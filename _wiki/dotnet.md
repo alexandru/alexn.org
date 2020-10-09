@@ -1,14 +1,5 @@
 # .NET
 
-- [CSharp](#csharp)
-  - [Game Development](#game-development)
-- [FSharp](#fsharp)
-  - [Articles](#articles)
-  - [Presentations](#presentations)
-  - [Templates](#templates)
-  - [Tools](#tools)
-  - [Libraries](#libraries)
-
 ## CSharp
 
 ### Game Development

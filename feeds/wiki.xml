@@ -1,6 +1,5 @@
 ---
 layout: null
-permalink: /wiki/feed.xml
 ---
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"
@@ -23,7 +22,7 @@ permalink: /wiki/feed.xml
     {% assign wiki = site.wiki | sort: 'last_modified_at' | reverse -%}
     {% for post in wiki %}
       {% unless post.secret or post.path == '_wiki/readme.md' %}
-        {% include feed-item-wiki.xml post=post %}
+        {% include feed-item-wiki.xml post=post signal_updates_as_new=true %}
       {% endunless %}
     {% endfor %}
   </channel>

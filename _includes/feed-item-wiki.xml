@@ -1,18 +1,18 @@
 <item>
   <title>{% if include.prefix %}{{ include.prefix }}: {% endif %}{{ include.post.title | xml_escape }}</title>
   <description><![CDATA[
-    <p>Wiki article, updated at {{ include.post.last_modified_at | date_to_long_string }}.</p>
-    <p>
-      <a href="{{ include.post.url | absolute_url | rss_campaign_link: 'read-more' }}">Read article →</a>
-    </p>
+    <p>Article updated at {{ include.post.last_modified_at | date_to_long_string }}.</p>
+    <hr>
+    {{ include.post.content | rss_process }}
   ]]></description>
   <pubDate>{{ include.post.last_modified_at | date_to_rfc822 }}</pubDate>
   <link>{{ include.post.url | prepend: site.baseurl | prepend: site.url | rss_campaign_link: 'rss-link' | xml_escape }}</link>
-  <guid isPermaLink="true">{{ include.post.url | prepend: site.baseurl | prepend: site.url }}</guid>
+  <guid isPermaLink="true">{{ include.post.url | prepend: site.baseurl | prepend: site.url }}{% if include.signal_updates_as_new %}?ts={{ include.post.last_modified_at | date: "%Y%m%d%H%M%S%z" | url_encode }}{% endif %}</guid>
   {% if include.post.author %}
   {% assign author = site.authors | map: include.post.author | map: "name" %}
   <dc:creator>{{ author }}</dc:creator>
   {% endif %}
+  <category>wiki</category>
   {% for tag in include.post.tags %}
   <category>{{ tag | xml_escape }}</category>
   {% endfor %}

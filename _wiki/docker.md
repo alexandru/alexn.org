@@ -1,26 +1,5 @@
 # Docker
 
-<!-- toc -->
-
-- [Installation](#installation)
-  - [MacOS](#macos)
-- [Basic usage](#basic-usage)
-  - [Running a container interactively](#running-a-container-interactively)
-  - [Running a container as daemon](#running-a-container-as-daemon)
-  - [List containers](#list-containers)
-  - [Start & stop containers](#start--stop-containers)
-  - [Remove containers](#remove-containers)
-  - [Remove orphan containers](#remove-orphan-containers)
-  - [List or remove images](#list-or-remove-images)
-  - [List or remove volumes](#list-or-remove-volumes)
-  - [Gain shell access to a container](#gain-shell-access-to-a-container)
-- [Building Docker images](#building-docker-images)
-- [Auto-update containers to latest](#auto-update-containers-to-latest)
-- [Docker Compose](#docker-compose)
-  - [Example docker-compose.yml](#example-docker-composeyml)
-
-<!-- tocstop -->
-
 ## Installation
 
 ### MacOS

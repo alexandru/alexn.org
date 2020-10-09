@@ -1,12 +1,5 @@
 # Emacs Setup
 
-- [Installation](#installation)
-- [Settings](#settings)
-- [Emacs Server as MacOS Service](#emacs-server-as-macos-service)
-- [Script for running EmacsClient](#script-for-running-emacsclient)
-- [Bash/Zsh Settings](#bashzsh-settings)
-- [Resources](#resources)
-
 ## Installation
 
 My preferred installation on macOS:
