@@ -1,0 +1,18 @@
+<item>
+  <title>{% if include.prefix %}{{ include.prefix }}: {% endif %}{{ include.post.title | xml_escape }}{% if include.post.author %}, by {{ include.post.author }}{% endif %}</title>
+  <description><![CDATA[          
+    {{ include.post.content | rss_process }}
+    <p>
+      <a href="{{ include.post.link }}">Read article ...</a>
+    </p>
+  ]]></description>
+  <pubDate>{{ include.post.date | date_to_rfc822 }}</pubDate>
+  <link>{{ include.post.link | xml_escape }}</link>
+  <guid isPermaLink="false">{{ include.post.url | prepend: site.baseurl | prepend: site.url }}</guid>
+  {% if include.post.author %}
+  <dc:creator>{{ include.post.author }}</dc:creator>
+  {% endif %}
+  {% for tag in include.post.tags %}
+  <category>{{ tag | xml_escape }}</category>
+  {% endfor %}
+</item>

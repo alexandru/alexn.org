@@ -4,9 +4,9 @@ domain: alexn.org
 url: https://alexn.org
 baseurl: ""
 feed: https://alexn.org/feed.xml
-feed_snippets: https://alexn.org/feed-snippets.xml
-feed_external_links: https://alexn.org/feed-external-links.xml
-feed_wiki: https://alexn.org/feed-wiki.xml
+feed_snippets: https://alexn.org/snippets/feed.xml
+feed_links: https://alexn.org/links/feed.xml
+feed_wiki: https://alexn.org/wiki/feed.xml
 repo_edit: https://github.com/alexandru/alexn.org/blob/master/
 
 include: ["_redirects"]
@@ -53,6 +53,10 @@ defaults:
       nav_id: /snippets/
   - scope:
       path: "links.html"
+    values:
+      nav_id: /links/
+  - scope:
+      path: "_links"
     values:
       nav_id: /links/
 

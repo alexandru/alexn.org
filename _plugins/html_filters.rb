@@ -53,6 +53,17 @@ module Jekyll
       l
     end
 
+    def rss_sort_all(posts)
+      posts.sort_by { |post|
+        if post['nav_id'] == '/wiki/' && post['last_modified_at']
+          -1 * post['last_modified_at'].last_modified_at_unix.to_i
+        else 
+          -1 * post['date'].to_i
+        end
+      }
+      posts
+    end
+
     def rss_process(html)
       doc = Nokogiri::HTML(html)
 
