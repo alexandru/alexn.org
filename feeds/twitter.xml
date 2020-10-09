@@ -8,7 +8,7 @@ layout: null
   xmlns:dc="http://purl.org/dc/elements/1.1/">
 
   <channel>
-    <title>{{ site.title | xml_escape }} — RSS to Twitter</title>
+    <title>{{ site.title | xml_smart_escape }} — RSS to Twitter</title>
     <description>Feed meant for publishing notifications to Twitter.</description>
     <link>{{ site.url }}{{ site.baseurl }}/</link>
     <atom:link href="{{ site.url }}{% link feeds/twitter.xml %}" rel="self" type="application/rss+xml"/>

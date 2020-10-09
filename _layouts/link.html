@@ -4,7 +4,7 @@ has_subscribe: true
 ---
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
   <h1 class="postTitle" itemprop="headline">
-    <a href="{{ page.link }}" target="_blank">{{ page.title | xml_escape }}</a>
+    <a href="{{ page.link }}" target="_blank">{{ page.title | xml_smart_escape }}</a>
   </h1>
   <p class="meta">
     <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="{{ page.url | absolute_url }}"/>
@@ -30,7 +30,7 @@ has_subscribe: true
   {% endif %}
 
   <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-    <meta itemprop="name" content="{{ site.title | xml_escape }}">
+    <meta itemprop="name" content="{{ site.title | xml_smart_escape }}">
     <meta itemprop="url" content="{{ '/about.html' | absolute_url }}">
     <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
       <meta itemprop="url" content="{{ '/assets/raw/logo-green.png' | absolute_url }}">
@@ -63,7 +63,7 @@ has_subscribe: true
       {% unless recent_link.url == page.url %}
       <div class="item">
         <a class="related-link" href="{{ site.baseurl }}{{ recent_link.url }}">
-          {{ recent_link.title | xml_escape }}
+          {{ recent_link.title | xml_smart_escape }}
         </a>
         <div class="related-meta">
           <time>{{ recent_link.date | date_to_long_string }}</time>

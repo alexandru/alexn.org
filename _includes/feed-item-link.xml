@@ -19,7 +19,7 @@
   </p>
 {% endcapture -%}
 <item>
-  <title>{% if include.prefix %}{{ include.prefix }}{% endif %}{{ include.post.title | xml_escape }}{% if include.post.author %}, by {{ include.post.author }}{% endif %}</title>
+  <title>{% if include.prefix %}{{ include.prefix }}{% endif %}{{ include.post.title | xml_smart_escape }}{% if include.post.author %}, by {{ include.post.author }}{% endif %}</title>
   <description>{{ description | strip | xml_escape }}</description>
   <pubDate>{{ include.post.date | date_to_rfc822 }}</pubDate>
   {% if include.post.last_modified_at -%}

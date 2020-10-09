@@ -20,7 +20,7 @@ has_subscribe: true
     {% unless recent_snippet.url == page.url %}
     <div class="item">
       <a class="related-link" href="{{ site.baseurl }}{{ recent_snippet.url }}">
-        {{ recent_snippet.title | xml_escape }}
+        {{ recent_snippet.title | xml_smart_escape }}
       </a>
       <div class="related-meta">
         <time>{{ recent_snippet.date | date_to_long_string }}</time>

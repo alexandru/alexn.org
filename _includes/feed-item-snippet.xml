@@ -1,6 +1,6 @@
 {% assign campaign_name = include.campaign_name | default: "rss" -%}
 <item>
-  <title>{% if include.prefix %}{{ include.prefix }}{% endif %}{{ include.post.title | xml_escape }}</title>
+  <title>{% if include.prefix %}{{ include.prefix }}{% endif %}{{ include.post.title | xml_smart_escape }}</title>
   <pubDate>{{ include.post.date | date_to_rfc822 }}</pubDate>
   {% if include.post.last_modified_at -%}
   <dc:modified>{{ include.post.last_modified_at | date_to_rfc822 }}</dc:modified>

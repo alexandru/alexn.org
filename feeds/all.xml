@@ -8,7 +8,7 @@ layout: null
   xmlns:dc="http://purl.org/dc/elements/1.1/">
 
   <channel>
-    <title>{{ site.title | xml_escape }} — All articles</title>
+    <title>{{ site.title | xml_smart_escape }} — All articles</title>
     <description>Feed of blog articles, snippets, wiki, shared links, published at {{ site.domain }}{{ site.baseurl }}</description>
     <link>{{ site.url }}{{ site.baseurl }}/</link>
     <atom:link href="{{ site.url }}{% link feeds/all.xml %}" rel="self" type="application/rss+xml"/>

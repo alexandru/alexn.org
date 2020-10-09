@@ -3,12 +3,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <title>{% if page.title %}{{ page.title | xml_escape }}{% unless page.has_full_title %} - {{ site.title }}{% endunless %}{% else %}{{ site.title | xml_escape }} - {{ site.description | xml_escape }}{% endif -%}</title>
-    {% capture page_or_site_title %}{% if page.title %}{{ page.title | xml_escape }}{% else %}{{ site.title | xml_escape }}{% endif -%}{% endcapture %}
+    <title>{% if page.title %}{{ page.title | xml_smart_escape }}{% unless page.has_full_title %} - {{ site.title }}{% endunless %}{% else %}{{ site.title | xml_smart_escape }} - {{ site.description | xml_escape }}{% endif -%}</title>
+    {% capture page_or_site_title %}{% if page.title %}{{ page.title | xml_smart_escape }}{% else %}{{ site.title | xml_smart_escape }}{% endif -%}{% endcapture %}
 
     <!-- Open Graph Meta -->
-    <meta content="{{ site.title | xml_escape }}" property="og:site_name">
-    <meta content="{{ page_or_site_title | xml_escape }}" property="og:title">
+    <meta content="{{ site.title | xml_smart_escape }}" property="og:site_name">
+    <meta content="{{ page_or_site_title | xml_smart_escape }}" property="og:title">
     {% if page.description -%}
       <meta content="{{ page.description | markdownify | strip_html | xml_escape | strip }}" property="og:description">
     {% else %}

@@ -1,5 +1,6 @@
 require "nokogiri"
 require "premailer"
+require "cgi"
 
 def to_absolute_url(site, url)
   if url =~ /^\//
@@ -36,6 +37,14 @@ module Jekyll
 
     def to_css_id(name)
       name.gsub(/\W+/, "_")
+    end
+
+    def xml_smart_escape(str)
+      if str.match(/['"><]/) || (str.include?("&") && !str.match(/&\w+;/))
+        CGI.escapeHTML(str)
+      else
+        str
+      end
     end
   end
 

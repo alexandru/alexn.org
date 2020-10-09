@@ -19,7 +19,7 @@ has_full_title: true
       {% for post in site.posts offset:1 limit:3 %}
       <div class="item">
         <a class="related-link" href="{{ site.baseurl }}{{ post.url }}">
-          {{ post.title | xml_escape }}
+          {{ post.title | xml_smart_escape }}
         </a>
         <div class="related-meta">
           <div class="tags">
@@ -49,7 +49,7 @@ has_full_title: true
       {% for post in all_snippets offset:0 limit:3 %}
       <div class="item">
         <a class="related-link" href="{{ site.baseurl }}{{ post.url }}">
-          {{ post.title | xml_escape }}
+          {{ post.title | xml_smart_escape }}
         </a>
         <div class="related-meta">
           <time>{{ post.date | date_to_long_string }}</time>
@@ -72,7 +72,7 @@ has_full_title: true
       {% for post in all_wiki offset:0 limit:3 %}
       <div class="item">
         <a class="related-link" href="{{ site.baseurl }}{{ post.url }}">
-          {{ post.title | xml_escape }}
+          {{ post.title | xml_smart_escape }}
         </a>
         <div class="related-meta">
           <time>{{ post.date | date_to_long_string }}</time>
@@ -94,7 +94,7 @@ has_full_title: true
     <div class="container">
       {% for post in all_links offset:0 limit:3 %}
       <div class="item">
-        <a class="related-link" href="{{ site.baseurl }}{{ post.url }}">{{ post.title | xml_escape }}</a> 
+        <a class="related-link" href="{{ site.baseurl }}{{ post.url }}">{{ post.title | xml_smart_escape }}</a> 
         {% if post.author %} by {{ post.author }}{% endif %}
         <div class="related-meta">
           <time>{{ post.date | date_to_long_string }}</time>

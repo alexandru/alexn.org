@@ -18,13 +18,13 @@ has_full_title: true
   </div>
 
   <div class="archive_list content">
-    <h2>Recent Articles</h2>
+    <h2>Recent Blog Articles</h2>
 
     <div class="container">
-      {% for post in site.posts limit:5 %}
+      {% for post in site.posts limit:3 %}
       <div class="item">
         <a class="related-link" href="{{ site.baseurl }}{{ post.url }}">
-          {{ post.title | xml_escape }}
+          {{ post.title | xml_smart_escape }}
         </a>
         <div class="related-meta">
           <div class="tags">
@@ -36,6 +36,66 @@ has_full_title: true
             >
             {% endfor %}
           </div>
+          <time>{{ post.date | date_to_long_string }}</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      {% endfor %}
+      <div class="clearfix"></div>
+    </div>
+  </div>
+
+  <div class="archive_list content">
+    <h2>Recent Snippets</h2>
+
+    <div class="container">
+      {% assign snippets = site.snippets | rss_sort_all | slice: 0, 3 -%}
+      {% for post in snippets %}
+      <div class="item">
+        <a class="related-link" href="{{ site.baseurl }}{{ post.url }}">
+          {{ post.title | xml_smart_escape }}
+        </a>
+        <div class="related-meta">
+          <time>{{ post.date | date_to_long_string }}</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      {% endfor %}
+      <div class="clearfix"></div>
+    </div>
+  </div>
+
+  <div class="archive_list content">
+    <h2>Recent Wiki Articles</h2>
+
+    <div class="container">
+      {% assign wikis = site.wiki | rss_sort_all | slice: 0, 3 -%}
+      {% for post in wikis %}
+      <div class="item">
+        <a class="related-link" href="{{ site.baseurl }}{{ post.url }}">
+          {{ post.title | xml_smart_escape }}
+        </a>
+        <div class="related-meta">
+          <time>{{ post.date | date_to_long_string }}</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      {% endfor %}
+      <div class="clearfix"></div>
+    </div>
+  </div>
+
+  <div class="archive_list content">
+    <h2>Recent Shared Links</h2>
+
+    <div class="container">
+      {% assign links = site.links | rss_sort_all | slice: 0, 3 -%}
+      {% for post in links %}
+      <div class="item">
+        <a class="related-link" href="{{ site.baseurl }}{{ post.url }}">
+          {{ post.title | xml_smart_escape }}
+        </a>
+        <div class="related-meta">
           <time>{{ post.date | date_to_long_string }}</time>
         </div>
         <div class="clearfix"></div>
