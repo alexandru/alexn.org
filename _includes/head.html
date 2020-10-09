@@ -105,11 +105,11 @@
     <meta name="msapplication-TileImage" content="{% link /assets/logo/270px.png %}" />
 
     <!-- Come and get me RSS readers -->
-    <link rel="alternate" type="application/rss+xml" title="All articles (blog, snippets, wiki, links)" href="{{ site.feeds.all }}" />
-    <link rel="alternate" type="application/rss+xml" title="Blog" href="{{ site.feeds.blog }}" />
-    <link rel="alternate" type="application/rss+xml" title="Snippets" href="{{ site.feeds.snippets }}" />
-    <link rel="alternate" type="application/rss+xml" title="Wiki" href="{{ site.feeds.wiki }}" />
-    <link rel="alternate" type="application/rss+xml" title="Shared Links" href="{{ site.feeds.links }}" />
+    <link rel="alternate" type="application/rss+xml" title="All articles (blog, snippets, wiki, links)" href="{% link feeds/all.xml %}" />
+    <link rel="alternate" type="application/rss+xml" title="Blog" href="{% link feeds/blog.xml %}" />
+    <link rel="alternate" type="application/rss+xml" title="Snippets" href="{% link feeds/snippets.xml %}" />
+    <link rel="alternate" type="application/rss+xml" title="Wiki" href="{% link feeds/wiki.xml %}" />
+    <link rel="alternate" type="application/rss+xml" title="Shared Links" href="{% link feeds/links.xml %}" />
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | prepend: site.baseurl }}?{{ 'now' | date: '%Y%m%d%H%M' }}">

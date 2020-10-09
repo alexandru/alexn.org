@@ -42,14 +42,14 @@ module Jekyll
   module MyRSSFilter
     @@site = Jekyll.configuration({})
 
-    def rss_campaign_link(link, keyword)
+    def rss_campaign_link(link, keyword, campaign="rss")
       l = if link.include? '?'
         link + "&"
       else
         link + "?"
       end
 
-      l = l + "pk_campaign=rss"
+      l = l + "pk_campaign=#{campaign}"
       l = l + "&pk_kwd=" + keyword if keyword
       l
     end
