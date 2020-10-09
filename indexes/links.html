@@ -1,0 +1,30 @@
+---
+permalink: /links/index.html
+layout: page
+title: Shared Links
+disable_meta: true
+nav_id: /links/
+description: >-
+  Shared links to articles from the web.
+---
+
+<p>
+  Articles from the web that I found interesting and would like to share:
+</p>
+
+<div class="snippets">
+  <ul>
+    {% for page in site.links reversed %}
+      {% unless page.secret %}
+      <li>
+        <a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
+        <div>
+          {% capture date_created %}{{ page.date | date_to_long_string }}{% endcapture -%}
+          {% capture date_updated %}{{ page.last_modified_at | date_to_long_string }}{% endcapture -%}
+          <time content="{{ page.date | date: '%Y-%m-%dT%H:%M:%S%z' }}">Added: <em>{{ date_created }}</em></time>
+        </div>
+      </li>
+      {% endunless %}
+    {% endfor %}
+  </ul>  
+</div>

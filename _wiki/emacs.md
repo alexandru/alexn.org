@@ -1,11 +1,8 @@
-# Emacs Setup
+---
+date: 2020-08-24 16:24:31+0300
+---
 
-- [Installation](#installation)
-- [Settings](#settings)
-- [Emacs Server as MacOS Service](#emacs-server-as-macos-service)
-- [Script for running EmacsClient](#script-for-running-emacsclient)
-- [Bash/Zsh Settings](#bashzsh-settings)
-- [Resources](#resources)
+# Emacs Setup
 
 ## Installation
 

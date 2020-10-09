@@ -4,7 +4,7 @@ author: alexelcu
 has_subscribe: true
 ---
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <h1 class="postTitle" itemprop="headline">{{ page.title | xml_escape }}</h1>
+  <h1 class="postTitle" itemprop="headline">{{ page.title | xml_smart_escape }}</h1>
   <p class="meta">
     <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="{{ page.url | absolute_url }}"/>
     {% if page.date %}<meta itemprop="datePublished" content="{{ page.date | date: '%Y-%m-%dT%H:%M:%S%z' }}"/>{% endif %}
@@ -31,7 +31,7 @@ has_subscribe: true
   {% endif %}
 
   <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-    <meta itemprop="name" content="{{ site.title | xml_escape }}">
+    <meta itemprop="name" content="{{ site.title | xml_smart_escape }}">
     <meta itemprop="url" content="{{ '/about.html' | absolute_url }}">
     <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
       <meta itemprop="url" content="{{ '/assets/raw/logo-green.png' | absolute_url }}">
@@ -73,7 +73,7 @@ has_subscribe: true
       Tags:
       {% for tag in page.tags %}
         {% unless forloop.first %} | {% endunless %}
-        <a href="{{ tag | downcase | append: '/' | prepend: '/tag/' | prepend: site.baseurl }}" class="category">{{ tag | downcase }}</a>
+        <a href="{{ tag | downcase | append: '/' | prepend: '/blog/tag/' | prepend: site.baseurl }}" class="category">{{ tag | downcase }}</a>
       {% endfor %}
     </div>
   </div>
@@ -91,14 +91,14 @@ has_subscribe: true
       {% unless related_post.url == page.url %}
       <div class="item">
         <a class="related-link" href="{{ site.baseurl }}{{ related_post.url }}">
-          {{ related_post.title | xml_escape }}
+          {{ related_post.title | xml_smart_escape }}
         </a>
         <div class="related-meta">
           <div class="tags">
             {% assign had_first_tag = false %}
             {% for tag in related_post.tags %}
               {% unless had_first_tag %}{% assign had_first_tag = true %}{% else %} | {% endunless -%}
-              <a href="{{ tag | downcase | prepend: '/tag/' | prepend: site.baseurl }}" class="tag">{{ tag | downcase }}</a>
+              <a href="{{ tag | downcase | prepend: '/blog/tag/' | prepend: site.baseurl }}" class="tag">{{ tag | downcase }}</a>
             {% endfor %}            
           </div>
           <time>{{ related_post.date | date_to_long_string }}</time>
@@ -116,14 +116,14 @@ has_subscribe: true
   <!-- POST NAVIGATION -->
   <div class="postNav clearfix">
     {% if page.previous.url %}
-    <a class="prev{% if page.previous.image %} image{% endif %}" href="{{ page.previous.url | prepend: site.baseurl }}"><span>&laquo;&nbsp;{{ page.previous.title | xml_escape }}</span>
+    <a class="prev{% if page.previous.image %} image{% endif %}" href="{{ page.previous.url | prepend: site.baseurl }}"><span>&laquo;&nbsp;{{ page.previous.title | xml_smart_escape }}</span>
       {% if page.previous.image %}
       <img src="{{ site.baseurl }}{{ page.previous.image }}" alt="">
       {% endif %}
     </a>
     {% endif %}
     {% if page.next.url %}
-    <a class="next{% if page.next.image %} image{% endif %}" href="{{ page.next.url | prepend: site.baseurl }}"><span>{{ page.next.title | xml_escape }}&nbsp;&raquo;</span>
+    <a class="next{% if page.next.image %} image{% endif %}" href="{{ page.next.url | prepend: site.baseurl }}"><span>{{ page.next.title | xml_smart_escape }}&nbsp;&raquo;</span>
       {% if page.next.image %}
       <img src="{{ site.baseurl }}{{ page.next.image }}" alt="">
       {% endif %}

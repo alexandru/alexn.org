@@ -1,3 +1,7 @@
+---
+date: 2020-08-24 16:24:31+0300
+---
+
 # Custom Zsh Prompt
 
 References:
@@ -25,7 +29,7 @@ zstyle ':vcs_info:git:*' formats '%F{240}%b %f %F{237}%r%f'
 zstyle ':vcs_info:*' enable git
 ```
 
-In iTerm2 make sure to enable [Use built-in Powerline glyphs]([Use built-in Powerline glyphs](https://www.iterm2.com/documentation-preferences-profiles-text.html)).
+In iTerm2 make sure to enable [Use built-in Powerline glyphs](https://www.iterm2.com/documentation-preferences-profiles-text.html).
 
 How this looks:
 

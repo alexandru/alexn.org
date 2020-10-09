@@ -1,0 +1,39 @@
+---
+layout: null
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/">
+
+  <channel>
+    <title>{{ site.title | xml_smart_escape }} — RSS to Twitter</title>
+    <description>Feed meant for publishing notifications to Twitter.</description>
+    <link>{{ site.url }}{{ site.baseurl }}/</link>
+    <atom:link href="{{ site.url }}{% link feeds/twitter.xml %}" rel="self" type="application/rss+xml"/>
+    <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
+    <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
+  	<language>en</language>
+    <sy:updatePeriod>hourly</sy:updatePeriod>
+	  <sy:updateFrequency>1</sy:updateFrequency>
+    <generator>Jekyll v{{ jekyll.version }}</generator>
+
+    {% assign everything = site.posts | concat: site.snippets | concat: site.links | concat: site.wiki | rss_sort_all -%}
+    {% for post in everything limit:200 %}
+      {% unless post.secret -%}
+        {% if post.collection == 'posts' -%}
+          {% include feed-item-blog.xml post=post prefix="Blog article — " campaign_name="twitter" %}
+        {% elsif post.collection == 'snippets' -%}
+          {% include feed-item-snippet.xml post=post prefix="Snippet — " campaign_name="twitter" %}  
+        {% elsif post.collection == 'links' -%}
+          {% include feed-item-link.xml post=post prefix="Shared Link — " campaign_name="twitter" %}
+        {% elsif post.collection == 'wiki' -%}
+          {% unless post.path == '_wiki/readme.md' %}          
+            {% include feed-item-wiki.xml post=post prefix="Wiki — " campaign_name="twitter" %}
+          {% endunless %}
+        {% endif -%}
+      {% endunless -%}
+    {% endfor -%}
+  </channel>
+</rss>

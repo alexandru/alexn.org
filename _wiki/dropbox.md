@@ -1,9 +1,8 @@
-# Dropbox
+---
+date: 2020-08-24 16:24:31+0300
+---
 
-- [Remove all shared links](#remove-all-shared-links)
-- [Screenshots Sync on MacOS](#screenshots-sync-on-macos)
-  - [Solution 1: Configure MacOS's Screen Capture](#solution-1-configure-macoss-screen-capture)
-  - [Solution 2: Sync via Script](#solution-2-sync-via-script)
+# Dropbox
 
 ## Remove all shared links
 

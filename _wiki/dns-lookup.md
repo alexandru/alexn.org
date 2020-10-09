@@ -1,3 +1,7 @@
+---
+date: 2020-07-30 13:00:27+0300
+---
+
 # DNS Lookup - Check Domain's DNS Records
 
 For MX records (email):

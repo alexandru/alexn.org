@@ -3,7 +3,7 @@ layout: default
 ---
 <article class="post {{ page.article_class | default: layout.article_class }}" itemscope itemtype="http://schema.org/Article">
   {% unless page.disable_title or layout.disable_title %}
-  <h1 class="postTitle" itemprop="headline">{{ page.title | xml_escape }}</h1>
+  <h1 class="postTitle" itemprop="headline">{{ page.title | xml_smart_escape }}</h1>
   {% endunless %}
   <p class="meta">
     <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="{{ page.url | absolute_url }}"/>
@@ -25,7 +25,7 @@ layout: default
   </p>
 
   <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-    <meta itemprop="name" content="{{ site.title | xml_escape }}">
+    <meta itemprop="name" content="{{ site.title | xml_smart_escape }}">
     <meta itemprop="url" content="{{ '/about.html' | absolute_url }}">
     <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
       <meta itemprop="url" content="{{ '/assets/raw/logo-green.png' | absolute_url }}">

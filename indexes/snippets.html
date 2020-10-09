@@ -3,6 +3,7 @@ permalink: /snippets/index.html
 layout: page
 title: Snippets
 disable_meta: true
+nav_id: /snippets/
 description: >-
   Unstructured code dumps, my personal "Gist" replacement.
 ---
@@ -13,8 +14,7 @@ description: >-
 
 <div class="snippets">
   <ul>
-    {% assign snippets = site.snippets | sort: 'date' | reverse -%}
-    {% for page in snippets %}
+    {% for page in site.snippets reversed %}
       {% unless page.secret %}
       <li>
         <a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>

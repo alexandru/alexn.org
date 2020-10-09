@@ -1,0 +1,20 @@
+---
+layout: wiki
+title: Wiki
+permalink: /wiki/index.html
+nav_id: /wiki/
+disable_meta: true
+---
+
+<p>My tech notes. This information is volatile, disorganized, incomplete, sometimes wrong, with no promises to be kept up to date. PRs welcome!</p>
+
+<p>
+  <strong>Index</strong>
+</p>
+
+{% assign posts = site.wiki | sort:"slug" -%}
+<ul>
+  {% for post in posts -%}
+  <li><a href="{{ include.post.url | prepend: site.baseurl }}">{{ post.title }}</a></li>
+  {% endfor -%}  
+</ul>

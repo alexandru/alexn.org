@@ -1,10 +1,8 @@
-# DNS settings
+---
+date: 2020-08-24 16:24:31+0300
+---
 
-- [MacOS](#macos)
-  - [Refresh DNS](#refresh-dns)
-  - [Set DNS to Cloudflare](#set-dns-to-cloudflare)
-  - [Split DNS](#split-dns)
-    - [Uninstall dnsmasq](#uninstall-dnsmasq)
+# DNS settings
 
 ## MacOS
 

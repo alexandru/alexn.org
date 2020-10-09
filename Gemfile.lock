@@ -7,6 +7,8 @@ GEM
       fast-stemmer (~> 1.0)
     colorator (1.1.0)
     concurrent-ruby (1.1.6)
+    css_parser (1.7.1)
+      addressable
     em-websocket (0.5.1)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
@@ -19,6 +21,7 @@ GEM
     forwardable-extended (2.6.0)
     fspath (3.1.2)
     gsl (2.1.0.3)
+    htmlentities (4.3.4)
     http_parser.rb (0.6.0)
     i18n (1.8.3)
       concurrent-ruby (~> 1.0)
@@ -82,6 +85,10 @@ GEM
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
     posix-spawn (0.3.14)
+    premailer (1.14.2)
+      addressable
+      css_parser (>= 1.6.0)
+      htmlentities (>= 4.0.0)
     progress (3.5.2)
     public_suffix (4.0.5)
     rb-fsevent (0.10.4)
@@ -128,6 +135,7 @@ DEPENDENCIES
   jekyll-titles-from-headings
   mini_magick
   nokogiri
+  premailer
   support-for
   tzinfo (~> 1.2)
   tzinfo-data

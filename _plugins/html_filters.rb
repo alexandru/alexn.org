@@ -1,4 +1,6 @@
 require "nokogiri"
+require "premailer"
+require "cgi"
 
 def to_absolute_url(site, url)
   if url =~ /^\//
@@ -36,24 +38,41 @@ module Jekyll
     def to_css_id(name)
       name.gsub(/\W+/, "_")
     end
+
+    def xml_smart_escape(str)
+      if str.match(/['"><]/) || (str.include?("&") && !str.match(/&\w+;/))
+        CGI.escapeHTML(str)
+      else
+        str
+      end
+    end
   end
 
   module MyRSSFilter
     @@site = Jekyll.configuration({})
 
-    def rss_campaign_link(link, keyword)
+    def rss_campaign_link(link, keyword, campaign="rss")
       l = if link.include? '?'
         link + "&"
       else
         link + "?"
       end
 
-      l = l + "pk_campaign=rss"
+      l = l + "pk_campaign=#{campaign}"
       l = l + "&pk_kwd=" + keyword if keyword
       l
     end
 
-    def rss_process(html)
+    def rss_sort_all(posts)
+      posts.sort { |a, b| 
+        -1 * (
+          a['date'] <=> b['date'] ||
+          a['slug'] <=> b['slug']
+        )
+      }
+    end
+
+    def rss_process(html, styles=nil)
       doc = Nokogiri::HTML(html)
 
       doc.css("img").each do |elem|
@@ -88,7 +107,21 @@ module Jekyll
       end
 
       body = doc.at_css("body")
-      body ? doc.at_css("body").inner_html : ""
+      html1 = body ? body.inner_html : ""
+
+      if styles
+        html2 = "<style>#{styles}</style> #{html1}"
+        premailer = Premailer.new(html2, with_html_string: true, drop_unmergeable_css_rules: true)
+        html3 = premailer.to_inline_css
+        
+        premailer.warnings.each do |w|
+          Jekyll.logger.warn("                    #{w[:message]} (#{w[:level]}) may not render properly in RSS client")
+        end
+
+        html3
+      else
+        html1
+      end
     end
   end
 end

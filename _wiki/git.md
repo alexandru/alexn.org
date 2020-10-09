@@ -1,7 +1,8 @@
-# Git Tips
+---
+date: 2020-08-24 16:24:31+0300
+---
 
-- [Large files support](#large-files-support)
-- [git-sync](#git-sync)
+# Git Tips
 
 ## Large files support
 

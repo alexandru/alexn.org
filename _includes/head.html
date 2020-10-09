@@ -3,12 +3,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <title>{% if page.title %}{{ page.title | xml_escape }}{% unless page.has_full_title %} - {{ site.title }}{% endunless %}{% else %}{{ site.title | xml_escape }} - {{ site.description | xml_escape }}{% endif -%}</title>
-    {% capture page_or_site_title %}{% if page.title %}{{ page.title | xml_escape }}{% else %}{{ site.title | xml_escape }}{% endif -%}{% endcapture %}
+    <title>{% if page.title %}{{ page.title | xml_smart_escape }}{% unless page.has_full_title %} - {{ site.title }}{% endunless %}{% else %}{{ site.title | xml_smart_escape }} - {{ site.description | xml_escape }}{% endif -%}</title>
+    {% capture page_or_site_title %}{% if page.title %}{{ page.title | xml_smart_escape }}{% else %}{{ site.title | xml_smart_escape }}{% endif -%}{% endcapture %}
 
     <!-- Open Graph Meta -->
-    <meta content="{{ site.title | xml_escape }}" property="og:site_name">
-    <meta content="{{ page_or_site_title | xml_escape }}" property="og:title">
+    <meta content="{{ site.title | xml_smart_escape }}" property="og:site_name">
+    <meta content="{{ page_or_site_title | xml_smart_escape }}" property="og:title">
     {% if page.description -%}
       <meta content="{{ page.description | markdownify | strip_html | xml_escape | strip }}" property="og:description">
     {% else %}
@@ -105,17 +105,11 @@
     <meta name="msapplication-TileImage" content="{% link /assets/logo/270px.png %}" />
 
     <!-- Come and get me RSS readers -->
-    {% if page.nav_id == '/blog/' %}
-    <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }} - Blog" href="{{ site.feed }}" />
-    {% elsif page.nav_id == '/snippets/' %}
-    <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }} - Snippets" href="{{ site.feed_snippets }}" />
-    {% elsif page.nav_id == '/wiki/' %}
-    <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }} - Wiki" href="{{ site.feed_wiki }}" />
-    {% else %}
-    <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }} - Blog" href="{{ site.feed }}" />
-    <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }} - Snippets" href="{{ site.feed_snippets }}" />
-    <link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }} - Wiki" href="{{ site.feed_wiki }}" />
-    {% endif %}
+    <link rel="alternate" type="application/rss+xml" title="All articles (blog, snippets, wiki, links)" href="{% link feeds/all.xml %}" />
+    <link rel="alternate" type="application/rss+xml" title="Blog" href="{% link feeds/blog.xml %}" />
+    <link rel="alternate" type="application/rss+xml" title="Snippets" href="{% link feeds/snippets.xml %}" />
+    <link rel="alternate" type="application/rss+xml" title="Wiki" href="{% link feeds/wiki.xml %}" />
+    <link rel="alternate" type="application/rss+xml" title="Shared Links" href="{% link feeds/links.xml %}" />
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | prepend: site.baseurl }}?{{ 'now' | date: '%Y%m%d%H%M' }}">

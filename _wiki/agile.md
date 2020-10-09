@@ -1,6 +1,12 @@
-# Kanban 
+---
+date: 2020-08-24 16:24:31+0300
+---
 
-[Agile Project Management with Kanban, Eric Brechner (YouTube)][https://www.youtube.com/watch?v=CD0y-aU1sXo]
+# Agile software development
+
+## Kanban
+
+[Eric Brechner: "Agile Project Management with Kanban"](https://www.youtube.com/watch?v=CD0y-aU1sXo)
 
 Notes:
 

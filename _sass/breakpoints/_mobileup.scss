@@ -442,6 +442,24 @@ POST STYLING
 	}
 }
 
+div.archive_list {
+	position: relative;
+
+	h3 {
+		margin-top: 4rem;
+		color: #A66C75;
+	}
+
+	&:before {
+		content: "";
+		position: absolute;
+		bottom: -2rem;
+		left: 0;
+		background: darken(white, 10%);
+		height: 2px;
+		width: 60px;
+	}
+}
 
 /***************
 POST NAV STYLING
@@ -680,6 +698,10 @@ POST LIST STYLING
 
 #home {
 	padding-top: 2em;
+
+	.postTitle {
+		text-align: center;
+	}
 }
 
 img.right {

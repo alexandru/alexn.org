@@ -1,11 +1,8 @@
+---
+date: 2020-08-24 16:24:31+0300
+---
+
 # Windows 10
-
-<!-- toc -->
-
-- [Macbook drivers for Windows](#macbook-drivers-for-windows)
-- [Enable Macbook support for Hyper-Threading in Windows](#enable-macbook-support-for-hyper-threading-in-windows)
-
-<!-- tocstop -->
 
 ## Macbook drivers for Windows
 

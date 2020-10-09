@@ -1,15 +1,8 @@
+---
+date: 2020-08-24 16:24:31+0300
+---
+
 # Firefox
-
-<!-- toc -->
-
-- [Cool Extensions](#cool-extensions)
-- [Auto-sync about:config settings](#auto-sync-aboutconfig-settings)
-- [Enable media keys on MacOS](#enable-media-keys-on-macos)
-- [Restore Pinned Tabs on Demand](#restore-pinned-tabs-on-demand)
-- [Hide Native Tabs (for Tree Style Tabs)](#hide-native-tabs-for-tree-style-tabs)
-- [All about: Pages](#all-about-pages)
-
-<!-- tocstop -->
 
 ## Cool Extensions
 

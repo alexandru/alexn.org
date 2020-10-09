@@ -5,12 +5,12 @@
   {% for tag in include.post.tags %}
     {% unless tag == auto_tag %}
       {% unless had_first_tag %}{% assign had_first_tag = true %}{% else %} | {% endunless -%}
-      <a href="{{ tag | downcase | append: '/' | prepend: '/tag/' | prepend: site.baseurl }}" class="tag">{{ tag | downcase }}</a>
+      <a href="{{ tag | downcase | append: '/' | prepend: '/blog/tag/' | prepend: site.baseurl }}" class="tag">{{ tag | downcase }}</a>
     {% endunless %}
   {% endfor %}
 </div>
 
-<h3><a class="post-link" href="{{ include.post.url | prepend: site.baseurl }}">{{ include.post.title | xml_escape }}</a></h3>
+<h3><a class="post-link" href="{{ include.post.url | prepend: site.baseurl }}">{{ include.post.title | xml_smart_escape }}</a></h3>
 {% capture image %}{% if include.post.vimeo %}{{ include.post.vimeo | vimeo_thumb_link }}{% elsif include.post.youtube %}{{ include.post.youtube | youtube_thumb_link }}{% elsif include.post.image %}{{ include.post.image | prepend: site.baseurl }}{% endif %}{% endcapture -%}
 {% if image != null and image != "" %}
 <figure>

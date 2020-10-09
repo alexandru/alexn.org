@@ -1,0 +1,38 @@
+{% capture description -%}
+  {% if include.post.image -%}
+  <a href="{{ include.post.link }}">
+    <img src="{{ include.post.image | absolute_url }}?{{ 'now' | date: '%Y%m%d%H%M' }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
+  </a>
+  <br />
+  {% elsif include.post.vimeo -%}
+  <a href="{{ include.post.link }}">
+    <img src="{{ include.post.vimeo | vimeo_thumb_link }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
+  </a>
+  {% elsif include.post.youtube -%}
+  <a href="{{ include.post.link }}">
+    <img src="{{ include.post.youtube | youtube_thumb_link }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
+  </a>
+  {% endif -%}
+  {{ include.post.content | rss_process }}
+  <p>
+    <a href="{{ include.post.link }}">Read article ...</a>
+  </p>
+{% endcapture -%}
+<item>
+  <title>{% if include.prefix %}{{ include.prefix }}{% endif %}{{ include.post.title | xml_smart_escape }}{% if include.post.author %}, by {{ include.post.author }}{% endif %}</title>
+  <description>{{ description | strip | xml_escape }}</description>
+  <pubDate>{{ include.post.date | date_to_rfc822 }}</pubDate>
+  {% if include.post.last_modified_at -%}
+  <dc:modified>{{ include.post.last_modified_at | date_to_rfc822 }}</dc:modified>
+  <atom:modified>{{ include.post.last_modified_at | date_to_rfc822 }}</atom:modified>
+  {% endif -%}
+  <link>{{ include.post.link | xml_escape }}</link>
+  <guid isPermaLink="false">{{ include.post.url | prepend: site.baseurl | prepend: site.url }}</guid>
+  {% if include.post.author %}
+  <dc:creator>{{ include.post.author }}</dc:creator>
+  {% endif %}
+  <category>Shared link</category>
+  {% for tag in include.post.tags %}
+  <category>{{ tag | xml_escape }}</category>
+  {% endfor %}
+</item>

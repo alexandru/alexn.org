@@ -1,16 +1,8 @@
+---
+date: 2020-08-24 16:24:31+0300
+---
+
 # Rust
-
-<!-- toc -->
-
-- [Installation](#installation)
-- [Tools, Libraries](#tools-libraries)
-- [Documentation](#documentation)
-- [Tutorials](#tutorials)
-- [How-to](#how-to)
-  - [Cargo](#cargo)
-  - [Language Server](#language-server)
-
-<!-- tocstop -->
 
 ## Installation
 

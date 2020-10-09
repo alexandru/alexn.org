@@ -1,0 +1,28 @@
+---
+layout: null
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/">
+
+  <channel>
+    <title>{{ site.title | xml_smart_escape }} - Wiki</title>
+    <description>Feed of wiki articles, published at {{ site.domain }}{{ site.baseurl }}/wiki/</description>
+    <link>{{ site.url }}{{ site.baseurl }}/wiki/</link>
+    <atom:link href="{{ site.url }}{% link feeds/wiki.xml %}" rel="self" type="application/rss+xml"/>
+    <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
+    <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
+  	<language>en</language>
+    <sy:updatePeriod>hourly</sy:updatePeriod>
+	  <sy:updateFrequency>1</sy:updateFrequency>
+    <generator>Jekyll v{{ jekyll.version }}</generator>
+
+    {% for post in site.wiki reversed limit:300 %}
+      {% unless post.secret or post.path == '_wiki/readme.md' %}
+        {% include feed-item-wiki.xml post=post %}
+      {% endunless %}
+    {% endfor %}
+  </channel>
+</rss>

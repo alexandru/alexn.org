@@ -1,13 +1,8 @@
-# .NET
+---
+date: 2020-10-08 08:31:40+0300
+---
 
-- [CSharp](#csharp)
-  - [Game Development](#game-development)
-- [FSharp](#fsharp)
-  - [Articles](#articles)
-  - [Presentations](#presentations)
-  - [Templates](#templates)
-  - [Tools](#tools)
-  - [Libraries](#libraries)
+# .NET
 
 ## CSharp
 
