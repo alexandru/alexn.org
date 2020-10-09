@@ -1,14 +1,8 @@
+---
+date: 2020-08-24 16:24:31+0300
+---
+
 # Nix
-
-<!-- toc -->
-
-- [Install/Uninstall instructions](#installuninstall-instructions)
-- [Resources](#resources)
-- [Aliases](#aliases)
-- [Nix-env Cheatsheet](#nix-env-cheatsheet)
-- [Nix-shell Cheatsheet](#nix-shell-cheatsheet)
-
-<!-- tocstop -->
 
 ## Install/Uninstall instructions
 

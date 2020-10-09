@@ -1,16 +1,8 @@
-# tmux shortcuts & cheatsheet
+---
+date: 2020-08-24 16:24:31+0300
+---
 
-- [Intro](#intro)
-- [Sessions](#sessions)
-- [Windows (tabs)](#windows-tabs)
-- [Panes (splits)](#panes-splits)
-- [Sync Panes](#sync-panes)
-- [Resizing Panes](#resizing-panes)
-- [Copy mode:](#copy-mode)
-- [Misc](#misc)
-- [Configurations Options:](#configurations-options)
-- [Resources:](#resources)
-- [Credits](#credits)
+# tmux shortcuts & cheatsheet
 
 ## Intro
 

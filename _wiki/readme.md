@@ -4,6 +4,8 @@ My tech notes. This information is volatile, disorganized, incomplete, sometimes
 
 **Index**
 
+<!--index-->
+- [Agile software development](agile.md)
 - [Apache Kafka](kafka.md)
 - [Cloudflare](cloudflare.md)
 - [Custom Zsh Prompt](zshrc-prompt.md)
@@ -23,7 +25,6 @@ My tech notes. This information is volatile, disorganized, incomplete, sometimes
 - [Image Formats](image-formats.md)
 - [iTerm](iterm.md)
 - [Json](json.md)
-- [Kanban](kanban.md)
 - [Lorem Ipsum](lorem-ipsum.md)
 - [MacOS](macos.md)
 - [Microsoft .NET (C#, F#)](dotnet.md)
@@ -32,7 +33,6 @@ My tech notes. This information is volatile, disorganized, incomplete, sometimes
 - [Org-mode](org-mode.md)
 - [PostgreSQL](postgresql.md)
 - [Privacy](privacy.md)
-- [Project management](project-management.md)
 - [Python](python.md)
 - [RSS/Atom feeds](rss-feeds.md)
 - [Rust](rust.md)
@@ -40,3 +40,4 @@ My tech notes. This information is volatile, disorganized, incomplete, sometimes
 - [Tmux](tmux.md)
 - [Web Apps](web-apps.md)
 - [Windows](windows.md)
+<!--/index-->

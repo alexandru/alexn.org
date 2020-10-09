@@ -1,3 +1,7 @@
+---
+date: 2020-08-24 16:24:31+0300
+---
+
 # iTerm2
 
 Tips for [iTerm2](https://www.iterm2.com/){:target="_blank"}.

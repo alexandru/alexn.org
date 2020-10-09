@@ -19,18 +19,18 @@ layout: null
 	  <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v{{ jekyll.version }}</generator>
 
-    {% assign everything = site.posts | concat: site.snippets | concat: site.links | concat: site.links | concat: site.wiki | rss_sort_all -%}
+    {% assign everything = site.posts | concat: site.snippets | concat: site.links | concat: site.wiki | rss_sort_all -%}
     {% for post in everything limit:200 %}
-      {% unless post.link or post.secret -%}
-        {% if post.nav_id == '/blog/' -%}
+      {% unless post.secret -%}
+        {% if post.collection == 'posts' -%}
           {% include feed-item-blog.xml post=post first=forloop.first %}
-        {% elsif post.nav_id == '/snippets/' -%}
+        {% elsif post.collection == 'snippets' -%}
           {% include feed-item-snippet.xml post=post prefix="Snippet" %}  
-          {% elsif post.nav_id == '/links/' -%}
+        {% elsif post.collection == 'links' -%}
           {% include feed-item-link.xml post=post prefix="Shared Link" %}
-        {% elsif post.nav_id == '/wiki/' -%}
+        {% elsif post.collection == 'wiki' -%}
           {% unless post.path == '_wiki/readme.md' %}          
-            {% include feed-item-wiki.xml post=post prefix="Wiki" signal_updates_as_new=false %}
+            {% include feed-item-wiki.xml post=post prefix="Wiki" %}
           {% endunless %}
         {% endif -%}
       {% endunless -%}
