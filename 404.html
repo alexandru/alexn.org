@@ -32,7 +32,7 @@ has_full_title: true
             unless had_first_tag %}{% assign had_first_tag = true %}{% else %} |
             {% endunless -%}
             <a
-              href="{{ tag | downcase | prepend: '/tag/' | prepend: site.baseurl }}"
+              href="{{ tag | downcase | prepend: '/blog/tag/' | prepend: site.baseurl }}"
               class="tag"
               >{{ tag | downcase }}</a
             >

@@ -56,13 +56,14 @@ defaults:
     values:
       nav_id: /snippets/
   - scope:
-      path: "links.html"
+      path: "/indexes/links.html"
     values:
       nav_id: /links/
   - scope:
       path: "_links"
     values:
       nav_id: /links/
+      layout: link
 
 collections:
   posts:
@@ -73,7 +74,7 @@ collections:
     output: true
   links:
     permalink: /:collection/:year/:month/:day/:title.html
-    output: false
+    output: true
   wiki:
     output: true
 
@@ -147,7 +148,7 @@ autopages:
 
 navigation:
   - title: Blog
-    url: /
+    url: /blog/
     id: /blog/
   - title: Wiki
     url: /wiki/
@@ -155,6 +156,9 @@ navigation:
   - title: Snippets
     url: /snippets/
     id: /snippets/
+  - title: Links
+    url: /links/
+    id: /links/
   - title: About
     url: /about.html
     id: /about.html
@@ -168,8 +172,6 @@ authors:
     github: alexandru
     twitter: alexelcu
     facebook: alexelcu
-
-google_analytics: "UA-84530423-1"
 
 assets:
   destination: "/assets/compiled"

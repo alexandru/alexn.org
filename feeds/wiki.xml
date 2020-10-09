@@ -19,8 +19,7 @@ layout: null
 	  <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v{{ jekyll.version }}</generator>
 
-    {% assign wiki = site.wiki | rss_sort_all -%}
-    {% for post in wiki limit:300 %}
+    {% for post in site.wiki reversed limit:300 %}
       {% unless post.secret or post.path == '_wiki/readme.md' %}
         {% include feed-item-wiki.xml post=post %}
       {% endunless %}

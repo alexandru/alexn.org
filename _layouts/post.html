@@ -73,7 +73,7 @@ has_subscribe: true
       Tags:
       {% for tag in page.tags %}
         {% unless forloop.first %} | {% endunless %}
-        <a href="{{ tag | downcase | append: '/' | prepend: '/tag/' | prepend: site.baseurl }}" class="category">{{ tag | downcase }}</a>
+        <a href="{{ tag | downcase | append: '/' | prepend: '/blog/tag/' | prepend: site.baseurl }}" class="category">{{ tag | downcase }}</a>
       {% endfor %}
     </div>
   </div>
@@ -98,7 +98,7 @@ has_subscribe: true
             {% assign had_first_tag = false %}
             {% for tag in related_post.tags %}
               {% unless had_first_tag %}{% assign had_first_tag = true %}{% else %} | {% endunless -%}
-              <a href="{{ tag | downcase | prepend: '/tag/' | prepend: site.baseurl }}" class="tag">{{ tag | downcase }}</a>
+              <a href="{{ tag | downcase | prepend: '/blog/tag/' | prepend: site.baseurl }}" class="tag">{{ tag | downcase }}</a>
             {% endfor %}            
           </div>
           <time>{{ related_post.date | date_to_long_string }}</time>

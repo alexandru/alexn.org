@@ -5,7 +5,7 @@
   {% for tag in include.post.tags %}
     {% unless tag == auto_tag %}
       {% unless had_first_tag %}{% assign had_first_tag = true %}{% else %} | {% endunless -%}
-      <a href="{{ tag | downcase | append: '/' | prepend: '/tag/' | prepend: site.baseurl }}" class="tag">{{ tag | downcase }}</a>
+      <a href="{{ tag | downcase | append: '/' | prepend: '/blog/tag/' | prepend: site.baseurl }}" class="tag">{{ tag | downcase }}</a>
     {% endunless %}
   {% endfor %}
 </div>

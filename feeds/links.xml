@@ -19,8 +19,7 @@ layout: null
 	  <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v{{ jekyll.version }}</generator>
 
-    {% assign links = site.links | rss_sort_all -%}
-    {% for post in links limit:300 %}
+    {% for post in site.links reversed limit:300 %}
       {% unless post.secret %}
         {% include feed-item-link.xml post=post %}
       {% endunless %}

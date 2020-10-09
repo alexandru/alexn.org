@@ -13,8 +13,7 @@ description: >-
 
 <div class="snippets">
   <ul>
-    {% assign snippets = site.snippets | sort: 'date' | reverse -%}
-    {% for page in snippets %}
+    {% for page in site.snippets reversed %}
       {% unless page.secret %}
       <li>
         <a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>

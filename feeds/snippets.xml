@@ -19,8 +19,7 @@ layout: null
 	  <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v{{ jekyll.version }}</generator>
 
-    {% assign snippets = site.snippets | rss_sort_all -%}
-    {% for post in snippets limit:300 %}
+    {% for post in site.snippets reversed limit:300 %}
       {% unless post.secret %}
         {% include feed-item-snippet.xml post=post %}
       {% endunless %}

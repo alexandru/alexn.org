@@ -55,7 +55,12 @@ module Jekyll
     end
 
     def rss_sort_all(posts)
-      posts.sort_by { |post| -1 * post['date'].to_i }
+      posts.sort { |a, b| 
+        -1 * (
+          a['date'] <=> b['date'] ||
+          a['slug'] <=> b['slug']
+        )
+      }
     end
 
     def rss_process(html, styles=nil)

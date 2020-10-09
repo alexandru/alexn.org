@@ -19,8 +19,7 @@ layout: null
 	  <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v{{ jekyll.version }}</generator>
 
-    {% assign posts = site.posts | rss_sort_all %}
-    {% for post in posts limit:200 %}
+    {% for post in site.posts limit:200 %}
       {% include feed-item-blog.xml post=post first=forloop.first %}
     {% endfor %}
   </channel>
