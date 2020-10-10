@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Privacy Policy
+title: Privacy & Cookie Policy
 description: "This website does not collect personally identifiable information, and has a no-cookies policy."
 date: 2017-01-16
 last_modified_at: 2020-06-01
@@ -17,6 +17,14 @@ This website has a strict no-cookies policy. Third-parties used for providing th
   If you want to learn more about <em>cookies</em>, see the material at: <br/>
   <a href="https://www.cookiesandyou.com/" target="_blank" rel="nofollow">What are cookies? (cookiesandyou.com)</a>
 </p>
+
+**Contents:**
+
+- [Analytics](#analytics)
+- [Commenting](#commenting)
+- [Email Newsletter](#email-newsletter)
+- [Cloudflare](#cloudflare)
+- [Video Players](#video-players)
 
 ## Analytics
 
@@ -41,6 +49,12 @@ While your visit cannot be traced to you, you can opt-out of these analytics:
 <p class="warn-bubble" markdown="1">
   **WARN:** The [Do Not Track](https://en.wikipedia.org/wiki/Do_Not_Track){:target="_blank",rel="nofollow"} header is not supported, because it's a failed standard, that just helps fingerprinting, which is why Safari dropped support for it.
 </p>
+
+## Commenting
+
+This `alexn.org` website uses a self-hosted [Isso commenting](https://posativ.org/isso/){:target="_blank"} server and widget, for allowing comments on articles.
+
+The commenting widget collects your name, email, and website. Your email is for being notified in case of replies (optional feature), or for being contacted by the author, but only related to your comments. Your website is optionally collected in case you want to show to other readers who you are. This data, collected via the commenting widget, is only used for displaying and reacting to comments on the website. It will not be used for any other purpose, or given to any third-party.
 
 ## Email Newsletter
 
