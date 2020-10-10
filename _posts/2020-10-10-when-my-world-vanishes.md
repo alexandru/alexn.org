@@ -26,7 +26,7 @@ To help focus I often play some tune on repeat, over and over again. Or maybe th
 
 And the world around me vanishes ...
 
-All other problems, my hopes, my dreams, my worries about tomorrow, the world's hum, everything becomes irrelevant and silent, feeling as if I migrated to another reality, being just me and the algorithm I'm working on. A reality in which the problems are solvable, and the solutions are born out of thin air. It's like a vice; if I ever had one that I can't quit, this is it.
+All other problems, my hopes, my dreams, my worries about tomorrow, the world's hum, everything becomes irrelevant and silent, feeling as if I've migrated to another reality, being just me and the algorithm I'm working on. A reality in which the problems are solvable, and the solutions are born out of thin air. It's like a vice; if I ever had one that I can't quit, this is it.
 
 It's the reason for why I never liked alcohol, as it prevents me from going there. I remember being junior year in high-school, and getting drunk with my gang. It's a memory that got imprinted on me, because the national "Olympiad in Informatics" was in a couple of days, and drunk as I was, I kept repeating the recipe for "_killed backtracking_", out of fear I'd forget it. Fun times, got third prize.
 
