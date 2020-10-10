@@ -18,6 +18,7 @@ description: >-
       {% unless page.secret %}
       <li>
         <a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
+        {% if page.author %}, by {{ page.author }}{% endif %}
         <div>
           {% capture date_created %}{{ page.date | date_to_long_string }}{% endcapture -%}
           {% capture date_updated %}{{ page.last_modified_at | date_to_long_string }}{% endcapture -%}
