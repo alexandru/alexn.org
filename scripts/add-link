@@ -28,7 +28,7 @@ author: #{if options[:author] then options[:author].to_json else 'null' end}
   dir_path = File.expand_path(File.join(File.dirname(File.expand_path(__FILE__)), "..", "_links"))
   path = File.join(dir_path, slug)
   File.open(path, 'w') { |file| file.write(text) }
-  exec("#{ENV['EDITOR']} #{path}")
+  exec("code #{path}")
 rescue
   puts parser.help
   raise

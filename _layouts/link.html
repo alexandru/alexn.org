@@ -41,9 +41,11 @@ has_subscribe: true
   </div>
 
   <div id="content" itemprop="articleBody">
+    {% if page.author -%}
     <p>
       <strong>Author:</strong> {{ page.author }}
     </p>
+    {% endif -%}
     {{ content }}
 
     <p>
