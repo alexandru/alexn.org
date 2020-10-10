@@ -18,5 +18,5 @@
   {% for tag in include.post.tags %}
   <category>{{ tag | xml_escape }}</category>
   {% endfor %}
-  <description>{{ include.post.content | rss_process: include.styles | strip | xml_escape }}</description>
+  <description>{{ include.post.content | rss_process }}</description>
 </item>
