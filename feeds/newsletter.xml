@@ -8,10 +8,10 @@ layout: null
   xmlns:dc="http://purl.org/dc/elements/1.1/">
 
   <channel>
-    <title>{{ site.title | xml_smart_escape }} — RSS to Reddit</title>
-    <description>Feed meant for publishing notifications to Reddit.</description>
+    <title>{{ site.title | xml_smart_escape }} — RSS to Newsletter</title>
+    <description>Feed meant for publishing notifications via the Newsletter.</description>
     <link>{{ site.url }}{{ site.baseurl }}/</link>
-    <atom:link href="{{ site.url }}{% link feeds/reddit.xml %}" rel="self" type="application/rss+xml"/>
+    <atom:link href="{{ site.url }}{% link feeds/newsletter.xml %}" rel="self" type="application/rss+xml"/>
     <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
     <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
   	<language>en</language>
@@ -19,14 +19,10 @@ layout: null
 	  <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v{{ jekyll.version }}</generator>
 
-    {% assign everything = site.posts | concat: site.snippets | rss_sort_all -%}
+    {% assign everything = site.posts | rss_sort_all -%}
     {% for post in everything limit:200 %}
       {% unless post.secret or post.is_noise -%}
-        {% if post.collection == 'posts' -%}
-          {% include feed-item-blog.xml post=post campaign_name="reddit" %}
-        {% elsif post.collection == 'snippets' -%}
-          {% include feed-item-snippet.xml post=post campaign_name="reddit" %}  
-        {% endif -%}
+        {% include feed-item-blog.xml post=post campaign_name="letter" %}
       {% endunless -%}
     {% endfor -%}
   </channel>
