@@ -1,0 +1,39 @@
+{% unless page.disable_comments %}
+<h2 id="comments">
+  Comments
+  <a href="#comments" class="anchor">#</a>
+</h2>
+
+<script>
+  document.write('<div class="note">Be nice!<br><span class="extra">If you don\'t see my self-hosted <a href="https://posativ.org/isso/" target="_blank">Isso</a> commenting widget, it might be blocked by a browser extension.</span></div>');
+</script>
+<div id="comments">
+  <script data-isso="/comments/alexn/"
+          data-isso-css="true"
+          data-isso-lang="en"
+          data-isso-reply-to-self="true"
+          data-isso-require-author="true"
+          data-isso-require-email="false"
+          data-isso-reply-notifications="true"
+          data-isso-max-comments-top="10"
+          data-isso-max-comments-nested="5"
+          data-isso-reveal-on-click="5"
+          data-isso-gravatar="true"
+          data-isso-avatar="false"
+          data-isso-vote="true"
+          data-vote-levels=""
+          src="https://alexn.org/comments/alexn/js/embed.min.js"></script>
+  <section id="isso-thread" data-title="{{ page.title }}">
+  </section>
+</div>
+<noscript>
+  <div class="note">
+    <strong>Enable JavaScript to see comments!</strong>
+    <br>
+    <span class="extra">
+      Commenting widget is powered by a self-hosted <a href="https://posativ.org/isso/" target="_blank">Isso</a>
+      commenting server. Read our <a href="{% link docs/privacy-policy.md %}">privacy policy</a>.
+    </span>
+  </div>
+</noscript>
+{% endunless %}
