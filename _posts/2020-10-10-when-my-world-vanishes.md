@@ -34,6 +34,6 @@ I remembered this intense feeling of focus while browsing my music library, and 
 
 {% include youtube.html id="mlXtwZY4ko4" caption="Best Mamgu Ever — Underworld" %}
 
-Tonight I worked on a hard problem, playing this tune on repeat.
+Tonight I worked on a hard problem, playing this tune on auto-repeat.
 
 I'll probably fail to go to sleep too soon, as this dumb tune is going to keep ringing in my ears. But it's not really the music that's keeping me awake, but the problem I've been working on, with the tune being just its echo. Oh well, my brain will have to calm down eventually.
