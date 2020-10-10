@@ -54,7 +54,6 @@ module Jekyll
       collection.each do |other|
         next if other.id == post.id
         score = ((other['tags'] || []) & (post['tags'] || [])).size
-        next unless score > 0
         ref2 = Hash['obj' => other, 'score' => score]
         related.push(ref2)
       end
