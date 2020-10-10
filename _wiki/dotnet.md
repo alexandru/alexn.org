@@ -2,7 +2,7 @@
 date: 2020-10-08 08:31:40+0300
 ---
 
-# .NET
+# Microsoft .NET
 
 ## CSharp
 
