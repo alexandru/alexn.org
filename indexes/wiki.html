@@ -15,6 +15,6 @@ disable_meta: true
 {% assign posts = site.wiki | sort_natural:"title" -%}
 <ul>
   {% for post in posts -%}
-  <li><a href="{{ include.post.url | prepend: site.baseurl }}">{{ post.title }}</a></li>
+  <li><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></li>
   {% endfor -%}  
 </ul>
