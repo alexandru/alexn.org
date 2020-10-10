@@ -78,16 +78,13 @@ has_subscribe: true
     </div>
   </div>
 
-  {% if site.related_posts %}
+  {% assign related_posts = page | calculate_related_articles: site.posts -%}
+  {% assign related_posts_count = related_posts | size -%}
+  {% if related_posts_count > 0 %}
   <div class="related">
     <h2>Related Articles</h2>
     <div class="container">
-      {% assign num=4 %}
-      {% for related_post in site.related_posts limit:num %}
-        {% if related_post.url == page.url %}{% assign num=5 %}{% endif %}
-      {% endfor %}
-
-      {% for related_post in site.related_posts limit:num %}
+      {% for related_post in related_posts limit:4 %}
       {% unless related_post.url == page.url %}
       <div class="item">
         <a class="related-link" href="{{ site.baseurl }}{{ related_post.url }}">

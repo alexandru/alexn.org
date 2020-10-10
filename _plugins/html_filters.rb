@@ -48,6 +48,24 @@ module Jekyll
         str
       end
     end
+
+    def calculate_related_articles(post, collection)
+      related = []
+      collection.each do |other|
+        next if other.id == post.id
+        score = ((other['tags'] || []) & (post['tags'] || [])).size
+        next unless score > 0
+        ref2 = Hash['obj' => other, 'score' => score]
+        related.push(ref2)
+      end
+
+      if related.size > 0
+        related.sort { |a, b| -1 * (a['score'] <=> b['score'] || a['obj']['date'] <=> b['obj']['date']) }
+          .map {|x| x['obj']}
+      else
+        []
+      end
+    end
   end
 
   module MyRSSFilter

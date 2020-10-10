@@ -17,7 +17,7 @@ end
 Dir.chdir(File.absolute_path(File.join(File.dirname(__FILE__), "..")))
 
 if ENV['CI_DEPLOY'] == "true"
-  exec("bundle exec jekyll build --lsi")
+  exec("bundle exec jekyll build")
 else
   exec("bundle exec jekyll build")
 end
