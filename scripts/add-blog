@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require "json"
+
+options = {}
+parser = OptionParser.new do |opt|
+  opt.on('--title TITLE') { |o| options[:title] = o }
+end
+
+parser.parse!
+begin
+  raise OptionParser::MissingArgument.new("--title") if options[:title].nil?
+
+  now = Time.new
+  slug = now.strftime("%Y-%m-%d") + "-" + options[:title].strip.downcase.gsub(/\W+/, "-") + ".md"
+  text = %{
+---
+title: #{options[:title].to_json}
+---
+  }.strip
+
+  dir_path = File.expand_path(File.join(File.dirname(File.expand_path(__FILE__)), "..", "_posts"))
+  path = File.join(dir_path, slug)
+  File.open(path, 'w') { |file| file.write(text) }
+  exec("code #{path}")
+rescue
+  puts parser.help
+  raise
+end

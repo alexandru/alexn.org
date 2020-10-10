@@ -40,7 +40,9 @@ module Jekyll
     end
 
     def xml_smart_escape(str)
-      if str.match(/['"><]/) || (str.include?("&") && !str.match(/&\w+;/))
+      if !str
+        str
+      elsif str.match(/['"><]/) || (str.include?("&") && !str.match(/&\w+;/))
         CGI.escapeHTML(str)
       else
         str
