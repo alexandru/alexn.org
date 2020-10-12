@@ -14,9 +14,7 @@
   <dc:modified>{{ include.post.last_modified_at | date_to_rfc822 }}</dc:modified>
   <atom:modified>{{ include.post.last_modified_at | date_to_rfc822 }}</atom:modified>
   {% endif -%}
-  <link>
-    {{ include.post.url | prepend: site.baseurl | prepend: site.url | rss_campaign_link: "link", campaign_name | xml_escape }}
-  </link>
+  <link>{{ include.post.url | prepend: site.baseurl | prepend: site.url | rss_campaign_link: "link", campaign_name | xml_escape }}</link>
   <guid isPermaLink="true">{{ include.post.url | prepend: site.baseurl | prepend: site.url }}</guid>
   {% if include.post.author %}
   {% assign author = site.authors | map: include.post.author | map: "name" %}
