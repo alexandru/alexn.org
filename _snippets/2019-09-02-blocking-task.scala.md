@@ -1,3 +1,10 @@
+---
+tags:
+  - Async
+  - Monix
+  - Scala
+---
+
 Imported from [gist.github.com](https://gist.github.com/alexandru/d04c23e3ebd918c6144b5ad33c69f48f).
 
 WARN: not sure if this code is correct.

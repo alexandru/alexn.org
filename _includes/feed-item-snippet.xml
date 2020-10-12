@@ -1,6 +1,14 @@
 {% assign campaign_name = include.campaign_name | default: "rss" -%}
+{% capture description -%}
+  {% if include.write_tags_as_content %}
+    Code snippet: {% for tag in include.post.tags %}#{{ tag | twitter_taggify }} {% endfor %}
+  {% else %}
+    {{ include.post.content | rss_process }}
+  {% endif %}
+{% endcapture -%}
 <item>
   <title>{% if include.prefix %}{{ include.prefix }}{% endif %}{{ include.post.title | xml_smart_escape }}</title>
+  <description>{{ description | strip | xml_escape }}</description>
   <pubDate>{{ include.post.date | date_to_rfc822 }}</pubDate>
   {% if include.post.last_modified_at -%}
   <dc:modified>{{ include.post.last_modified_at | date_to_rfc822 }}</dc:modified>
@@ -18,5 +26,4 @@
   {% for tag in include.post.tags %}
   <category>{{ tag | xml_escape }}</category>
   {% endfor %}
-  <description>{{ include.post.content | rss_process | xml_escape }}</description>
 </item>

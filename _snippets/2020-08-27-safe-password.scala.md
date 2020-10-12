@@ -1,6 +1,9 @@
 ---
 image: /assets/media/snippets/safe-password-snippet.png
 description: For security, it's not a good practice to keep sensitive data in RAM indefinitely.
+tags:
+  - JVM
+  - Scala
 ---
 
 See: [Securely Store Sensitive Data in RAM](https://books.nowsecure.com/secure-mobile-development/en/coding-practices/securely-store-sensitive-data-in-ram.html)

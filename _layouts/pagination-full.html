@@ -1,0 +1,35 @@
+---
+layout: default
+---
+
+<div class="home" id="home">
+  <h1 class="postTitle">{{ page.title }}</h1>
+  
+  <ul class="posts noList">
+    {% for post in paginator.posts %}
+      <li>
+        {% include post-excerpt.html post=post %}
+      </li>
+    {% endfor %}
+  </ul>
+
+  <!-- Pagination links -->
+  {% if paginator.total_pages != 1 %}
+  <div class="pagination">
+    <div class="page_number ">
+      Page: {{ paginator.page }} of {{ paginator.total_pages }}
+    </div>
+
+    {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path | prepend: site.baseurl }}" class="previous button__outline">
+      Newer Articles ➡
+    </a>
+    {% endif %}
+    {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path | prepend: site.baseurl }}" class="next button__outline">
+      ⬅ Older Articles
+    </a>
+    {% endif %}
+  </div>
+  {% endif -%}
+</div>

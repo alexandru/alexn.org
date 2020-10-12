@@ -1,3 +1,10 @@
+---
+tags:
+  - Async
+  - JavaScript
+  - TypeScript
+---
+
 ```ts
 type Callback<A> = (a: A) => void;
 

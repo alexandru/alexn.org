@@ -1,3 +1,11 @@
+---
+tags:
+  - Akka
+  - Cats Effect
+  - Reactive Streams
+  - Scala
+---
+
 ```scala
 /**
   * Imported from Gist:

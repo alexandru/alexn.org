@@ -1,3 +1,9 @@
+---
+tags:
+  - sbt
+  - Scala
+---
+
 ```scala
 fork := true
 

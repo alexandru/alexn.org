@@ -1,3 +1,8 @@
+---
+tags:
+  - Python
+---
+
 ```py
 class ProxyAttribute(object):
     def __init__(self, name):

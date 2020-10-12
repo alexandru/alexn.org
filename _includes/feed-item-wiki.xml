@@ -1,11 +1,15 @@
 {% assign campaign_name = include.campaign_name | default: "rss" -%}
 {% capture description -%}
-  <p>
-    Article updated at {{ include.post.last_modified_at | date_to_long_string }}, 
-    created at {{ include.post.date | date_to_long_string }}.
-  </p>
-  <hr>
-  {{ include.post.content | rss_process }}
+  {% if include.write_tags_as_content %}
+    Wiki article: {% for tag in include.post.tags %}#{{ tag | twitter_taggify }} {% endfor %}
+  {% else %}
+    <p>
+      Article updated at {{ include.post.last_modified_at | date_to_long_string }}, 
+      created at {{ include.post.date | date_to_long_string }}.
+    </p>
+    <hr>
+    {{ include.post.content | rss_process }}
+  {% endif %}
 {% endcapture -%}
 <item>
   <title>{% if include.prefix %}{{ include.prefix }}{% endif %}{{ include.post.title | xml_smart_escape }}</title>

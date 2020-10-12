@@ -1,5 +1,8 @@
 ---
 image: /assets/media/snippets/unlawful-effect.png
+tags:
+  - Cats Effect
+  - Scala
 ---
 
 Unlawful version of [cats.effect.Effect](https://typelevel.org/cats-effect/typeclasses/effect.html):

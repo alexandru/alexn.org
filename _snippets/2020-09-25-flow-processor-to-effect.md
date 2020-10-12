@@ -1,3 +1,11 @@
+---
+tags:
+  - Akka
+  - Cats Effect
+  - Reactive Streams
+  - Scala
+---
+
 # Flow/Processor to Effect
 
 Possibly broken implementation, take it with a grain of salt:

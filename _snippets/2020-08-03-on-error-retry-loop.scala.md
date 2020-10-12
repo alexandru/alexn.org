@@ -1,5 +1,8 @@
 ---
 image: /assets/media/snippets/on-error-retry-loop.png
+tags:
+  - Cats Effect
+  - Scala
 ---
 
 ```scala

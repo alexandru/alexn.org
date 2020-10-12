@@ -1,23 +1,27 @@
 {% assign campaign_name = include.campaign_name | default: "rss" -%}
 {% capture description -%}
-  {% if include.post.image -%}
-    <a href="{{ include.post.url | absolute_url | rss_campaign_link: 'image', campaign_name }}">
-      <img src="{{ include.post.image | absolute_url }}?{{ 'now' | date: '%Y%m%d%H%M' }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
-    </a>
-    <br />
-  {% elsif include.post.vimeo -%}
-    <a href="{{ include.post.url | absolute_url | rss_campaign_link: 'image', campaign_name }}">
-      <img src="{{ include.post.vimeo | vimeo_thumb_link }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
-    </a>
-  {% elsif include.post.youtube -%}
-    <a href="{{ include.post.url | absolute_url | rss_campaign_link: 'image', campaign_name }}">
-      <img src="{{ include.post.youtube | youtube_thumb_link }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
-    </a>
-  {% endif -%}
-  {% if include.post.description %}{{ include.post.description | markdownify | rss_process }}{% else %}{{ include.post.excerpt | strip_html | rss_process }}{% endif -%}
-  <p>
-    <a href="{{ include.post.url | absolute_url | rss_campaign_link: 'read-more', campaign_name }}">Read article →</a>
-  </p>
+  {% if include.write_tags_as_content %}
+    Blog article: {% for tag in include.post.tags %}#{{ tag | twitter_taggify }} {% endfor %}
+  {% else %}
+    {% if include.post.image -%}
+      <a href="{{ include.post.url | absolute_url | rss_campaign_link: 'image', campaign_name }}">
+        <img src="{{ include.post.image | absolute_url }}?{{ 'now' | date: '%Y%m%d%H%M' }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
+      </a>
+      <br />
+    {% elsif include.post.vimeo -%}
+      <a href="{{ include.post.url | absolute_url | rss_campaign_link: 'image', campaign_name }}">
+        <img src="{{ include.post.vimeo | vimeo_thumb_link }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
+      </a>
+    {% elsif include.post.youtube -%}
+      <a href="{{ include.post.url | absolute_url | rss_campaign_link: 'image', campaign_name }}">
+        <img src="{{ include.post.youtube | youtube_thumb_link }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
+      </a>
+    {% endif -%}
+    {% if include.post.description %}{{ include.post.description | markdownify | rss_process }}{% else %}{{ include.post.excerpt | strip_html | rss_process }}{% endif -%}
+    <p>
+      <a href="{{ include.post.url | absolute_url | rss_campaign_link: 'read-more', campaign_name }}">Read article →</a>
+    </p>
+  {% endif %}
 {% endcapture -%}
 <item>
   <title>{% if include.prefix %}{{ include.prefix }}{% endif %}{{ include.post.title | xml_smart_escape }}</title>

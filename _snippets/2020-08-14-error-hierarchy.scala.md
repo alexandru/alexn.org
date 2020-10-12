@@ -1,5 +1,7 @@
 ---
 image: /assets/media/snippets/error-hierarchy.png
+tags:
+  - Scala
 ---
 
 <figure>

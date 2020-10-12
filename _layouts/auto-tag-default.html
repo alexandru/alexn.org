@@ -1,0 +1,50 @@
+---
+layout: default
+---
+<div class="home" id="home">
+  <h1 class="pageTitle"><span class="type">{{ page.collection_name }} Tag:</span> {% if page.autopages %}{{ page.autopages.display_name }}{% endif %}</h1>
+
+  <div class="archive_list">
+    <div class="container">
+      {% for post in paginator.posts %}
+      <div class="item">
+        <a class="related-link" href="{{ site.baseurl }}{{ post.url }}">
+          {{ post.title | xml_smart_escape }}
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            {% assign had_first_tag = false %}
+            {% for tag in post.tags %}
+            {% unless had_first_tag %}{% assign had_first_tag = true %}{% else %} | {% endunless -%}
+            <a href="{{ tag | downcase | uri_escape | append: '/' | prepend: 'tag/' | prepend: page.nav_id | prepend: site.baseurl }}" class="tag">{{ tag }}</a>
+            {% endfor %}            
+          </div>
+          <time>{{ post.date | date_to_long_string }}</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      {% endfor %}
+      <div class="clearfix"></div>
+    </div>
+  </div>
+
+  <!-- Pagination links -->
+  {% if paginator.total_pages != 1 %}
+  <div class="pagination">
+    <div class="page_number ">
+      Page: {{ paginator.page }} of {{ paginator.total_pages }}
+    </div>    
+
+    {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path | prepend: site.baseurl }}" class="previous button__outline">
+      Newer Articles ➡
+    </a>
+    {% endif %}
+    {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path | prepend: site.baseurl }}" class="next button__outline">
+      ⬅ Older Articles
+    </a>
+    {% endif %}
+  </div>
+  {% endif %}
+</div>

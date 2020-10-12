@@ -1,3 +1,10 @@
+---
+tags:
+  - Akka
+  - Scala
+  - Reactive Streams
+---
+
 ```scala
 /**
   * Imported from Gist:

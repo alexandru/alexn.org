@@ -1,6 +1,10 @@
 ---
 title: "Running integration tests, with Scala + sbt"
 image: /assets/media/snippets/sbt-integration-tests.png
+tags:
+  - sbt
+  - Scala
+  - Testing
 ---
 
 For separating integration tests, from unit tests, in `build.sbt`:

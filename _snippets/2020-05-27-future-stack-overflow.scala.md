@@ -1,3 +1,9 @@
+---
+tags:
+  - Async
+  - Scala
+---
+
 ```scala
 // Demonstrating that directly executing runnables in your 
 // ExecutionContext is a really bad idea

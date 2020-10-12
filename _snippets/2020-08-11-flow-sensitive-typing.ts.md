@@ -1,3 +1,8 @@
+---
+tags:
+  - TypeScript
+---
+
 ```typescript
 type Left<L> = {
   either: "left"

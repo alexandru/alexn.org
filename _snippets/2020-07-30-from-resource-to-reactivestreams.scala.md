@@ -1,3 +1,11 @@
+---
+tags:
+  - Akka
+  - Cats Effect
+  - Reactive Streams
+  - Scala
+---
+
 ```scala
 import cats.effect.Resource
 import org.reactivestreams.Publisher

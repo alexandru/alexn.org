@@ -96,7 +96,7 @@ pagination:
   enabled: true
   per_page: 20
   permalink: "/page/:num/"
-  title: ":title - pagina :num"
+  title: ":title - page :num"
   sort_reverse: true
 
 # thumbnails:
@@ -122,7 +122,9 @@ autopages:
   enabled: true
   tags:
     layouts:
-      - "auto-tag.html"
+      - "auto-posts-tag.html"
+      - "auto-links-tag.html"
+      - "auto-snippets-tag.html"
   categories:
     enabled: false
   collections:

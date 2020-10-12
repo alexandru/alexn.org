@@ -1,3 +1,8 @@
+---
+tags:
+  - Scala
+---
+
 ```scala
 /**
   * Imported from Gist:

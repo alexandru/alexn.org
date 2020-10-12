@@ -1,33 +1,11 @@
 ---
-permalink: /snippets/index.html
-layout: page
-title: Snippets
-disable_meta: true
+layout: pagination-simple
 nav_id: /snippets/
-description: >-
-  Unstructured code dumps, my personal "Gist" replacement.
+permalink: /snippets/
+title: Code Snippets
+collection: snippets
+pagination:
+  enabled: true
+  collection: snippets
+description: 'Unstructured code dumps, my personal "Gist" replacement.'
 ---
-
-<p>
-  Unstructured code dumps, my personal "Gist" replacement:
-</p>
-
-<div class="snippets">
-  <ul>
-    {% for page in site.snippets reversed %}
-      {% unless page.secret %}
-      <li>
-        <a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
-        <div>
-          {% capture date_created %}{{ page.date | date_to_long_string }}{% endcapture -%}
-          {% capture date_updated %}{{ page.last_modified_at | date_to_long_string }}{% endcapture -%}
-          <time content="{{ page.date | date: '%Y-%m-%dT%H:%M:%S%z' }}">Created: <em>{{ date_created }}</em></time>
-          {% if date_created != date_updated %},
-          <time content="{{ page.last_modified_at | date: '%Y-%m-%dT%H:%M:%S%z' }}">Updated: <em>{{ date_updated }}</em></time>
-          {% endif %}
-        </div>
-      </li>
-      {% endunless %}
-    {% endfor %}
-  </ul>  
-</div>

@@ -90,6 +90,10 @@ module Jekyll
       }
     end
 
+    def twitter_taggify(tag)
+      tag.gsub(/\s+/, "")
+    end
+
     def rss_process(html)
       doc = Nokogiri::HTML(html)
 

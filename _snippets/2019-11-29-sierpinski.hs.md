@@ -1,3 +1,9 @@
+---
+tags:
+  - Fun
+  - Haskell
+---
+
 ```haskell
 #!/usr/bin/env stack
 -- stack --resolver lts-14.14 script

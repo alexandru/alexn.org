@@ -3,6 +3,9 @@ link: "https://www.youtube.com/watch?v=n9LPwOPACj4"
 title: "Countdown to Scala 3"
 author: "Martin Odersky"
 youtube: n9LPwOPACj4
+tags:
+  - Programming
+  - Scala
 ---
 
 _"I give a quick status report where we are with Scala 3. What is the current status? What remains to be done? Who is contributing to the effort? I’ll also give some initial thoughts about how Scala will evolve after 3.0 is out."_
