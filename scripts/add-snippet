@@ -21,7 +21,7 @@ date: #{now.strftime("%Y-%m-%d %H:%M:%S%z")}
 ---
   }.strip
 
-  dir_path = File.expand_path(File.join(File.dirname(File.expand_path(__FILE__)), "..", "_posts"))
+  dir_path = File.expand_path(File.join(File.dirname(File.expand_path(__FILE__)), "..", "_snippets"))
   path = File.join(dir_path, slug)
   File.open(path, 'w') { |file| file.write(text) }
   exec("code #{path}")
