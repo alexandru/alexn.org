@@ -5,6 +5,30 @@ has_subscribe: true
 
 {{ content }}
 
+<div id="article-details">
+  {% if page.last_modified_at -%}
+    {% assign last_modified_at = page.last_modified_at -%}
+    {% assign date_action = "Updated" -%}
+  {% else -%}
+    {% assign last_modified_at = page.date -%}
+    {% assign date_action = "Published" -%}
+  {% endif %}
+  <time itemprop="dateModified" content="{{ last_modified_at | date: '%Y-%m-%dT%H:%M:%S%z' }}">
+      {{ date_action }}: {{ last_modified_at | date_to_long_string }}
+  </time>
+  {% if page.author %}
+    | Written by <a href="{{ '/about.html' | absolute_url }}#{{ page.author }}" itemprop="url" rel="author">{{ site.authors | map: page.author | map: 'name' }}</a>
+  {% endif %}
+
+  <div id="all-categories">
+    Tags:
+    {% for tag in page.tags %}
+      {% unless forloop.first %} | {% endunless %}
+      <a href="{{ tag | downcase | uri_escape | append: '/' | prepend: '/snippets/tag/' | prepend: site.baseurl }}" class="category">{{ tag }}</a>
+    {% endfor %}
+  </div>
+</div>
+
 {% assign all_snippets = site.snippets | rss_sort_all -%}
 {% assign snippets_count = all_snippets | size -%}
 {% if snippets_count > 1 %}

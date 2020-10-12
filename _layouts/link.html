@@ -53,6 +53,20 @@ has_subscribe: true
     </p>
   </div>
 
+<div id="article-details">
+  <time itemprop="dateModified" content="{{ page.last_modified_at | default: page.date | date: '%Y-%m-%dT%H:%M:%S%z' }}">
+      Updated: {{ page.last_modified_at | default: page.date | date_to_long_string }}
+  </time>
+
+  <div id="all-categories">
+    Tags:
+    {% for tag in page.tags %}
+      {% unless forloop.first %} | {% endunless %}
+      <a href="{{ tag | downcase | uri_escape | append: '/' | prepend: '/links/tag/' | prepend: site.baseurl }}" class="category">{{ tag }}</a>
+    {% endfor %}
+  </div>
+</div>
+
   {% assign all_links = site.links | rss_sort_all -%}
   {% assign links_count = all_links | size -%}
   {% if links_count > 1 %}
