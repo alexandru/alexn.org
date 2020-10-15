@@ -68,10 +68,10 @@ abstract class MyGenericApp[F[_]: Async] extends PureApp[F] {
     F: ConcurrentEffect[F],
     r: EffectRuntime[F]
   ): F[ExitCode] = {
-
     for {
       name <- Sync[F].delay(scala.io.StdIn.readLine())
-      _ <- Sync[F].delay(println(s"Hello, $name"))
+      _    <- Timer[F].sleep(1.second)
+      _    <- Sync[F].delay(println(s"Hello, $name"))
     } yield {
       ExitCode.Success
     }
