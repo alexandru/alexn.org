@@ -8,7 +8,7 @@ tags:
   - Scala
 ---
 
-This is a simple and generic [IOApp](https://typelevel.org/cats-effect/datatypes/ioapp.html) replacement. For those instances in which you want to work with `F[_]` and not `IO`, even in `main` apps.
+This is a simple and generic [IOApp](https://typelevel.org/cats-effect/datatypes/ioapp.html) and [TaskApp](https://monix.io/api/current/monix/eval/TaskApp.html) replacement. For those instances in which you want to work with `F[_]` and not `IO` or `Task`, even in `main` apps.
 
 Requirements:
 
