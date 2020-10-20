@@ -7,10 +7,10 @@ tags:
   - Browser
   - Privacy
   - Web
-description: "Comments on the web can be toxic, and a waste of time. Here's how to block them."
+description: "Comments on the web can be toxic, and a waste of time. Here's how to block them..."
 ---
 
-<p class="intro withcap">
+<p class="intro">
   Comments on the web can be toxic, and a waste of time. Here's how to block them ...
 </p>
 
