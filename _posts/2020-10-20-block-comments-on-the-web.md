@@ -10,7 +10,9 @@ tags:
 description: "Comments on the web can be toxic, and a waste of time. Here's how to block them."
 ---
 
-Comments on the web can be toxic, and a waste of time. Here's how to block them ...
+<p class="intro withcap">
+  Comments on the web can be toxic, and a waste of time. Here's how to block them ...
+</p>
 
 ## In Firefox/Chrome, and Android
 
