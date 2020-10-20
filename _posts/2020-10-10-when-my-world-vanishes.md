@@ -22,7 +22,9 @@ Hard problems demand focus. A single word from a colleague, or from my wife or k
 
 To help focus I often play some tune on repeat, over and over again. Or maybe there's some inertia, the problem is exciting, and that magic moment finally comes ...
 
-{% include image.html image="/assets/media/articles/earth.jpg" %}
+<figure>
+  <img src="{% link assets/media/articles/earth.jpg %}" alt="Picture of Earth" />
+</figure>
 
 And the world around me vanishes ...
 
