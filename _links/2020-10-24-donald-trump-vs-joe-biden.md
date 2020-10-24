@@ -8,4 +8,4 @@ tags:
   - YouTube
 ---
 
-Now you know the US presidential elections are close 🤡
+Now you know the US presidential election is close 🤡
