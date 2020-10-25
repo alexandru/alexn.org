@@ -6,7 +6,7 @@ baseurl: ""
 
 repo_edit: https://github.com/alexandru/alexn.org/blob/master/
 
-include: ["_redirects"]
+include: ["_redirects", ".well-known"]
 exclude: ["scripts", "package.json", "package-lock.json", "vendor"]
 
 defaults:
