@@ -8,6 +8,7 @@ tags:
   - FP
   - Haskell
   - Programming
----
+  - YouTube
+-----
 
 Just what the world needed, another monads tutorial 🙂
