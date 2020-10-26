@@ -141,6 +141,14 @@ gpg --keyserver hkp://keys.gnupg.net --recv-keys 066DAFCB81E42C40
 
 Afterwards starting Emacs from the command line might be a good idea.
 
+### General unhappiness
+
+```
+brew uninstall emacs
+```
+
+Then download [VS Code](https://code.visualstudio.com/).
+
 ## Resources
 
 - [The Emacs Lisp Style Guide](https://github.com/bbatsov/emacs-lisp-style-guide)
