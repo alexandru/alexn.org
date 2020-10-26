@@ -127,6 +127,20 @@ emacs_open_buffer()
 alias eb=emacs_open_buffer
 ```
 
+## Troubleshooting
+
+### Failed to verify signature
+
+In my case Emacs was complaining that key `066DAFCB81E42C40` is missing.
+
+I managed to solve it by running:
+
+```sh
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 066DAFCB81E42C40
+```
+
+Afterwards starting Emacs from the command line might be a good idea.
+
 ## Resources
 
 - [The Emacs Lisp Style Guide](https://github.com/bbatsov/emacs-lisp-style-guide)
