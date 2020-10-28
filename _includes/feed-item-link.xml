@@ -1,6 +1,6 @@
 {% capture description -%}
   {% if include.write_tags_as_content %}
-    Shared link: {% for tag in include.post.tags %}#{{ tag | twitter_taggify }} {% endfor %}
+    Shared link {% for tag in include.post.tags %}#{{ tag | twitter_taggify }} {% endfor %}
   {% else %}
     {% if include.post.image -%}
     <a href="{{ include.post.link }}">

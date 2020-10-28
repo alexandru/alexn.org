@@ -1,7 +1,7 @@
 {% assign campaign_name = include.campaign_name | default: "rss" -%}
 {% capture description -%}
   {% if include.write_tags_as_content %}
-    Wiki article: {% for tag in include.post.tags %}#{{ tag | twitter_taggify }} {% endfor %}
+    Wiki article {% for tag in include.post.tags %}#{{ tag | twitter_taggify }} {% endfor %}
   {% else %}
     <p>
       Article updated at {{ include.post.last_modified_at | date_to_long_string }}, 
