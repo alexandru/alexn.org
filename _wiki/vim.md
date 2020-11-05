@@ -57,3 +57,4 @@ set clipboard+=unnamed
 
 - [Vim Tips for the Intermediate Vim User](https://jemma.dev/blog/intermediate-vim-tips)
 - [VimGolf](https://www.vimgolf.com/)
+- [Configuring .ideavimrc](https://medium.com/@danidiaz/configuring-ideavimrc-de16a4da0715)
