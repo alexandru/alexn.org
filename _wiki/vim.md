@@ -38,6 +38,17 @@ zle -N zle-keymap-select
 
 ## Tips and Tricks
 
+### Surround text
+
+Functionality from [vim-surround](https://github.com/tpope/vim-surround), which also works in VS Code (with VSCodeVim):
+
+```
+v                    # Enter visual mode
+<visually select>    # Use the keyboard to select the section of text
+S                    # Press upper case S
+"                    # Specify what you want to surround the visual selection with
+```
+
 ### Copy & Paste
 
 Shortcuts:
@@ -58,3 +69,4 @@ set clipboard+=unnamed
 - [Vim Tips for the Intermediate Vim User](https://jemma.dev/blog/intermediate-vim-tips)
 - [VimGolf](https://www.vimgolf.com/)
 - [Configuring .ideavimrc](https://medium.com/@danidiaz/configuring-ideavimrc-de16a4da0715)
+- [Vim surround plugin tutorial](http://www.futurile.net/2016/03/19/vim-surround-plugin-tutorial/)
