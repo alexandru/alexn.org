@@ -9,7 +9,10 @@ date: 2020-08-24 16:24:31+0300
 My preferred installation on macOS:
 
 ```sh
-brew cask install emacs
+brew cask install emacs --no-quarantine
+
+# Needed lately because signature verification fails with gpgtools.org
+brew install gnupg
 ```
 
 This installs:

@@ -36,9 +36,14 @@ zle -N zle-line-init
 zle -N zle-keymap-select
 ```
 
-## Tips and Tricks
+## Fold / Unfold
 
-### Surround text
+- `zc`: fold
+- `zo`: unfold
+- `zM`: fold all
+- `zR`: unfold all
+
+## Surround text
 
 Functionality from [vim-surround](https://github.com/tpope/vim-surround), which also works in VS Code (with VSCodeVim):
 
@@ -49,7 +54,7 @@ S                    # Press upper case S
 "                    # Specify what you want to surround the visual selection with
 ```
 
-### Copy & Paste
+## Copy & Paste
 
 Shortcuts:
 
