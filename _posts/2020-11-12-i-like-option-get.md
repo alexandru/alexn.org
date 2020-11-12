@@ -88,17 +88,10 @@ type Some<A> = {
 
 type Option<A> = Some<A> | None
 
-function none<A=never>(): Option<A> {
-  return { nonEmpty: false }
-}
+// ----------------------------------
 
-function some<A>(a: A): Option<A> {
-  return { nonEmpty: true, value: a }
-}
-
-//--------------------
-
-const sample: Option<String> = none()
+const sample: Option<String> = 
+  { nonEmpty: true } // None
 
 sample.value
 //=> error TS2339: Property 'value' does not exist on type 'Option<String>'.
@@ -112,4 +105,4 @@ if (sample.nonEmpty) {
 
 This is called [Flow-sensitive typing](https://en.wikipedia.org/wiki/Flow-sensitive_typing). And minus some limitations and gotchas, it works just fine.
 
-I hope Scala will evolve to do it too, because Kotlin already does this 🙂 and it would be a shame for Scala to not evolve such abilities, along with its brand new [untagged union types](https://dotty.epfl.ch/docs/reference/new-types/union-types.html).
+I hope Scala will evolve to do it too, because TypeScript, and Kotlin can already do this 🙂 and it would be a shame for Scala to not evolve such abilities, to go along with its brand new [untagged union types](https://dotty.epfl.ch/docs/reference/new-types/union-types.html).
