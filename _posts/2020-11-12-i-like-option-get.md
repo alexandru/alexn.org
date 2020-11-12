@@ -91,7 +91,7 @@ type Option<A> = Some<A> | None
 // ----------------------------------
 
 const sample: Option<String> = 
-  { nonEmpty: true } // None
+  { nonEmpty: false } // None
 
 sample.value
 //=> error TS2339: Property 'value' does not exist on type 'Option<String>'.
