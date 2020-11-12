@@ -57,7 +57,7 @@ else
 
 In other words, I'll blame Scala and Haskell, and not the availability of `Option.get`. I learned to expect more from my tools. It's not me, it's you, Scala.
 
-You could say of course, that in absence of compiler features to cope with this, then `.get` shouldn't exist. However, programming languages are general purpose, and often get used in contexts in which strong static guarantees are not only useless, but get in the way. I still [build my scripts in Ruby](./2020-11-11-organize-index-screenshots-ocr-macos.md), because the static languages, that I love, are really bad for scripting. I'd like for example to disable some static guarantees, whenever brevity is important, while correctness is not. 
+We could that in absence of compiler features to cope with this, then `.get` shouldn't exist. However, programming languages are general purpose, and often get used in contexts in which strong static guarantees are not only useless, but get in the way. I still [build my scripts in Ruby](./2020-11-11-organize-index-screenshots-ocr-macos.md), because the static languages that I love are really bad for scripting. I'd like to disable some static guarantees, whenever brevity is important, and not correctness. E.g. for my own throwaway scripts I couldn't care less that `Option.get` throws exceptions.
 
 TypeScript has untagged unions, and under `--strict` this throws an error:
 
