@@ -4,6 +4,7 @@ date: 2020-11-12 20:02:46+0200
 tags:
   - FP
   - Scala
+  - TypeScript
 description: We should strive to make illegal states unrepresentable. `Option.get` is a partial function that, according to many, shouldn't be in the standard library. Yet it doesn't bother me; the inability of Scala to make it safe is the problem.
 image: /assets/media/articles/option.get.png
 ---
