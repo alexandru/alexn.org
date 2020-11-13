@@ -1,7 +1,7 @@
 ---
 title: "Why Scala's Traversable Is Bad Design"
 tags:
-  - Functional
+  - FP
   - Code
   - Scala
 description:

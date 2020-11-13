@@ -2,7 +2,6 @@
 title: I hate NULL and all its variants!
 date:   2010-05-25
 tags:
-  - Rant
   - Python
 image: /assets/media/articles/beautiful-soup.png
 ---

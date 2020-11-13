@@ -6,7 +6,7 @@ description:
   lumping together of these practices is not an accident, as they are
   related.
 tags:
-  - Functional
+  - FP
   - Code
   - Scala
   - Rx

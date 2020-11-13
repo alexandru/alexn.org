@@ -3,10 +3,10 @@ title: "JavaScript's Promise Leaks Memory"
 description:
   JavaScript's Promise leaks memory in recursive loops and what you can do about it.
 tags:
-  - JavaScript
-  - Promise
+  - Concurrency
+  - FP
   - Funfix
-  - Functional
+  - JavaScript
 image: /assets/media/articles/js-then.png
 image_hide_in_post: true
 ---

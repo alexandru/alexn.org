@@ -1,10 +1,11 @@
 ---
 title: "Asynchronous Programming and Scala"
 tags:
-  - Best Of
-  - Scala
   - Asynchrony
+  - Best Of
   - Concurrency
+  - Multithreading
+  - Scala
 description:
   Asynchrony is everywhere and it subsumes concurrency. This article explains what asynchronous processing is and its challenges.
 image: /assets/media/articles/nondet.png

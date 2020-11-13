@@ -2,7 +2,7 @@
 title: "JVM Multithreading: Monitor Locks and Visibility"
 tags:
   - Languages
-  - Functional
+  - FP
   - Scala
   - Java
   - Multithreading

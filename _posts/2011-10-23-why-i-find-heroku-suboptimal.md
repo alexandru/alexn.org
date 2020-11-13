@@ -2,7 +2,6 @@
 title: "Why I Find Heroku Suboptimal"
 tags:
   - DevOps
-  - Rant
   - Heroku
   - Server
   - Cloud

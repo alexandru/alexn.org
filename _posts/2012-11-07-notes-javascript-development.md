@@ -2,7 +2,7 @@
 title: "Notes On JavaScript Client-side Development"
 tags:
   - JavaScript
-  - Functional
+  - FP
   - Browser
   - Web
 image: /assets/media/articles/javascript.jpg

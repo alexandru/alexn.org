@@ -1,7 +1,7 @@
 ---
 title: "Functional Programming Inception (Presentation)"
 tags:
-  - Functional
+  - FP
   - Code
   - Scala
   - Monix
