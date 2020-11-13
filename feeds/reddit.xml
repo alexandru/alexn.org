@@ -23,9 +23,9 @@ layout: null
     {% for post in everything limit:200 %}
       {% unless post.secret or post.is_noise -%}
         {% if post.collection == 'posts' -%}
-          {% include feed-item-blog.xml post=post campaign_name="reddit" %}
+          {% include feed-item-blog.xml post=post campaign_name="reddit" write_tags_as_content=true %}
         {% elsif post.collection == 'snippets' -%}
-          {% include feed-item-snippet.xml post=post campaign_name="reddit" %}  
+          {% include feed-item-snippet.xml post=post campaign_name="reddit" write_tags_as_content=true %}  
         {% endif -%}
       {% endunless -%}
     {% endfor -%}
