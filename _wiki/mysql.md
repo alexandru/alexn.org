@@ -4,6 +4,20 @@ date: 2020-08-24 16:24:31+0300
 
 # MySQL / MariaDB
 
+## Start a Docker Instance
+
+```sh
+docker run --rm --name mariadb -e MYSQL_ROOT_PASSWORD=pass -p 3306:3306 mariadb:10.5 
+```
+
+Note `--rm` deletes the container after stop. Also add `-d` to detach (daemon mode).
+
+To connect to it:
+
+```sh
+docker exec -it mariadb mysql -uroot -ppass
+```
+
 ## Create user
 
 ``` sql
