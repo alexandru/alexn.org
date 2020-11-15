@@ -7,7 +7,6 @@ description:
   related.
 tags:
   - FP
-  - Code
   - Scala
   - Rx
 image: /assets/media/articles/skunk.jpg

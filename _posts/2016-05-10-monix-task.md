@@ -5,7 +5,6 @@ description:
   It's about the Monix Task, a new type for dealing
   with asynchronous processing on top of Scala and Scala.js.
 tags:
-  - Code
   - FP
   - Monix
   - Presentation

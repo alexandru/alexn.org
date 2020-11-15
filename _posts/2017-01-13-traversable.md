@@ -1,8 +1,6 @@
 ---
 title: "Why Scala's Traversable Is Bad Design"
 tags:
-  - FP
-  - Code
   - Scala
 description:
   Traversable was a design mistake, is redundant and we should remove it.

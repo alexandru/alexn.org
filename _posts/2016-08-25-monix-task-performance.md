@@ -4,7 +4,6 @@ description:
   The Task in Monix has really good performance. See the benchmark.
 tags:
   - FP
-  - Code
   - Scala
   - Monix
   - Typelevel

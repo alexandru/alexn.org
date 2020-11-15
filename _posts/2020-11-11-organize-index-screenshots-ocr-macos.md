@@ -5,7 +5,6 @@ image: /assets/media/articles/spotlight-search.png
 description: Screenshots contain text, text that should be searchable, as finding a screenshot later is the whole point of creating it.
 tags:
   - Cloud
-  - Code
   - macOS
   - Ruby
 ---

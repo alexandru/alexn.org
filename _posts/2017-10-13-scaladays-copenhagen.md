@@ -2,7 +2,6 @@
 title: "Scala Days 2017 — Monix Task"
 tags:
   - FP
-  - Code
   - Scala
   - Monix
   - Presentation

@@ -7,7 +7,6 @@ description:
   using Akka &amp; Monix.
 tags:
   - FP
-  - Code
   - Scala
   - Monix
 youtube: CQxviYlAKaY
