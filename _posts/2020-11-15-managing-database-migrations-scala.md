@@ -9,7 +9,9 @@ date: 2020-11-15 18:17:25+0200
 image: /assets/media/articles/db-migrations-scala.png
 ---
 
-The database schema should be described as code, in your repository. And you should be able to semi-automatically update your database schema on new deployments.
+<p class="intro withcap">
+  The database schema should be described as code, in your repository. And you should be able to semi-automatically update your database schema on new deployments.
+</p>
 
 A very popular Java library for handling migrations is [Flyway](https://flywaydb.org/). We'll combine that with [Typesafe Config (aka HOCON)](https://github.com/lightbend/config) for configuration, along with [PureConfig](https://github.com/pureconfig/pureconfig) for parsing it. And [Cats Effect](https://github.com/typelevel/cats-effect) for describing our effects, because we love FP, right? 😎 
 
