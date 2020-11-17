@@ -5,7 +5,7 @@ tags:
   - Best Practices
   - Scala
 image: /assets/media/articles/ordering.png
-description: Scala has `scala.math.Ordering` for defining a natural order. Definitions MUST BE consistent with `equals`, an often overlooked law that can lead to problems.
+description: Definitions of `scala.math.Ordering` MUST BE consistent with `equals`, an often overlooked law that can lead to problems.
 ---
 
 Scala has [scala.math.Ordering](https://www.scala-lang.org/api/2.13.3/scala/math/Ordering.html), Java has [java.lang.Comparable](https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html). These are interfaces used for defining a natural order, which can then be used to sort lists of elements, or in data structures implemented via binary search trees, such as [SortedSet](https://www.scala-lang.org/api/2.13.3/scala/collection/SortedSet.html).
