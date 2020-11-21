@@ -1,8 +1,7 @@
 ---
 date: 2020-10-29 12:48:21+0300
+title: "Web Tricks"
 ---
-
-# Web Tricks
 
 ## Detect the Brave Browser
 

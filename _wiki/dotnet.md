@@ -1,8 +1,7 @@
 ---
 date: 2020-10-08 08:31:40+0300
+title: "Microsoft .NET"
 ---
-
-# Microsoft .NET
 
 ## CSharp
 

@@ -1,8 +1,7 @@
 ---
 date: 2020-08-24 16:24:31+0300
+title: "Email Tips"
 ---
-
-# Email Tips
 
 ## Send email from localhost
 

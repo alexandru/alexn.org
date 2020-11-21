@@ -1,8 +1,7 @@
 ---
 date: 2020-09-04 10:30:08+0300
+title: "Apache Kafka"
 ---
-
-# Apache Kafka
 
 ## Docker Setup
 

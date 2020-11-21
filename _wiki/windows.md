@@ -1,8 +1,7 @@
 ---
 date: 2020-08-24 16:24:31+0300
+title: "Windows 10"
 ---
-
-# Windows 10
 
 ## Macbook drivers for Windows
 
