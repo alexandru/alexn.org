@@ -16,7 +16,7 @@ To download the drivers:
 
 - To make the Macbook's touchpad not suck: <https://github.com/imbushuo/mac-precision-touchpad>
 
-## Support for Hyper-Threading
+### Support for Hyper-Threading
 
 - Source: [Hacker News comment](https://news.ycombinator.com/item?id=22875681)
 - Documentation: [Enabling VT-x on Mac Book Air in Bootcamp](https://dea.nbird.com.au/2017/02/24/enabling-vt-x-on-mac-book-air-in-bootcamp/)
