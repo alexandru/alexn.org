@@ -1,0 +1,53 @@
+@mixin code-rectangle-dark {
+  background: #1f2325;
+  color: rgb(200, 195, 188);
+  border: 1px solid #333;
+}
+
+
+$scrollbarBG: #1e2223;
+$thumbBG: #727173;
+
+html, body, * {
+  scrollbar-width: thin;
+  scrollbar-color: $thumbBG $scrollbarBG;
+}
+
+body::-webkit-scrollbar, *::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track, *::-webkit-scrollbar-track {
+  background: $scrollbarBG;
+}
+
+body::-webkit-scrollbar-thumb, *::-webkit-scrollbar-thumb {
+  background-color: $thumbBG;
+  border-radius: 6px;
+  border: 3px solid $scrollbarBG;
+}
+
+html {
+  background: $site-background-dark;
+}
+
+body {
+  background: $site-background-dark;
+  color: $text-color-dark;
+
+  .header {
+    background-color: $header-color-dark;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: $all-headers-color-dark;
+  }
+
+  .highlight {
+    @include code-rectangle-dark;
+  }
+
+  div.formula-code {
+    @include code-rectangle-dark;
+  }
+}

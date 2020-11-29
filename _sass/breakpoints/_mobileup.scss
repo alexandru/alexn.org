@@ -14,11 +14,11 @@ html {
 }
 
 body {
-	background: $site-background;
+	background: $site-background-light;
 	font-family: $serif;
 	line-height: 1.75;
 	font-size: 112.5%; // 18px base font size
-	color: $black;
+	color: $text-color-light;
 	overflow-x: hidden;
 	margin: 0;
 
@@ -201,7 +201,7 @@ HEADER STYLING
 }
 
 .header {
-	background-color: $header-color;
+	background-color: $header-color-light;
 	background-size: cover;
 	background-position: center center;
 	color: white;
@@ -395,7 +395,7 @@ POST STYLING
 	h2 {
 		margin: 0;
 		margin-top: 1rem;
-		color: darken($all-headers-color, 10%);
+		color: darken($all-headers-color-light, 10%);
 	}
 
 	div.container {
@@ -811,7 +811,7 @@ img.right {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: $all-headers-color;
+  color: $all-headers-color-light;
 	font-weight: 800;
 	
 	a.anchor {

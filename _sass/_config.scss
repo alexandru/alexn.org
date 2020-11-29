@@ -37,9 +37,11 @@ $tertiary-color: #aaa;
 $link-color: $primary-color;
 
 $background-color: $primary-color;
-$header-color: #473864;
+$header-color-light: #473864;
+$header-color-dark: $header-color-light;
 
-$all-headers-color: $black;
+$all-headers-color-light: $black;
+$all-headers-color-dark: rgb(221, 218, 214);
 
 $bad-color: $red; // Bad color for errors, validation etc.
 $good-color: $green; // Good color for success etc.
@@ -47,6 +49,13 @@ $info-color: $blue; // Good color for success etc.
 $warning-color: $orange; // Good color for success etc.
 $subtle-color: $grey; // Subtle color for subtle text
 
+$text-color-light: $black;
+$text-color-dark: rgb(221, 218, 214);
+
+$site-background-light: #ffffff url("/assets/media/tile-graphpaper.jpg") 51% 0;
+$site-background-dark: #171a1b;
+
+$site-background-footer: transparent url("/assets/media/tile-graphpaper-footer.jpg") 50% 0;
 
 /***************
 CONSISTENT SETTINGS
@@ -67,6 +76,3 @@ $serif: "PT Serif", Georgia, Times, serif;
 $monospace: "Fira Code", monospace, monospace;
 
 $header-font: $monospace;
-
-$site-background: #ffffff url("/assets/media/tile-graphpaper.jpg") 50% 0;
-$site-background-footer: transparent url("/assets/media/tile-graphpaper-footer.jpg") 50% 0;
