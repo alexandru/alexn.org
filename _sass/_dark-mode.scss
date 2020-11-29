@@ -1,16 +1,12 @@
 @mixin code-rectangle-dark {
-  background: #1f2325;
-  color: rgb(200, 195, 188);
+  background: #11202c;
+  color: #fefffe;
   border: 1px solid #333;
 }
 
-
-$scrollbarBG: #1e2223;
-$thumbBG: #727173;
-
 html, body, * {
   scrollbar-width: thin;
-  scrollbar-color: $thumbBG $scrollbarBG;
+  scrollbar-color: $scrollbar-thumb-dark $scrollbar-background-dark;
 }
 
 body::-webkit-scrollbar, *::-webkit-scrollbar {
@@ -18,13 +14,13 @@ body::-webkit-scrollbar, *::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-track, *::-webkit-scrollbar-track {
-  background: $scrollbarBG;
+  background: $scrollbar-background-dark;
 }
 
 body::-webkit-scrollbar-thumb, *::-webkit-scrollbar-thumb {
-  background-color: $thumbBG;
+  background-color: $scrollbar-thumb-dark;
   border-radius: 6px;
-  border: 3px solid $scrollbarBG;
+  border: 3px solid $scrollbar-background-dark;
 }
 
 html {
@@ -83,5 +79,21 @@ body {
         background-color: lighten($color: #362521, $amount: 5%);;
       }
     }
+
+    #article-details {
+      border-top: 1px solid lighten($site-background-dark, 15%);
+
+      #all-categories {
+        border-top: 1px solid lighten($site-background-dark, 15%);
+      }
+    }
+
+    div.related {
+      border-top: 2px solid lighten($site-background-dark, 15%);
+    }
   }
+}
+
+.post div.related h2, div.archive_list h2 {
+  color: $all-headers-color-dark;
 }
