@@ -34,12 +34,12 @@ body {
 
 // Text Selection Styling
 ::-moz-selection {
-	background: $primary-color;
+	background: $primary-color-light;
 	color: white;
 }
 
 ::selection {
-	background: $primary-color;
+	background: $primary-color-light;
 	color: white;
 }
 
@@ -62,10 +62,10 @@ LINK STYLING
 ***************/
 
 a {
-	color: $link-color;
+	color: $link-color-light;
 
 	&:hover {
-		color: darken($link-color, 15%);
+		color: darken($link-color-light, 15%);
 	}
 }
 
@@ -292,7 +292,7 @@ POST STYLING
 		font-weight: 300;
 
 		a {
-			color: lighten(desaturate($link-color, 25%), 15%);
+			color: lighten(desaturate($link-color-light, 25%), 15%);
 			text-decoration: none;
 			&:hover {
 				text-decoration: underline;
@@ -338,7 +338,7 @@ POST STYLING
 	}
 
 	.dropcap {
-		color: $primary-color;
+		color: $primary-color-light;
 		margin-right: .45rem;
 	}
 
@@ -433,7 +433,7 @@ POST STYLING
         line-height: 1.5;
 
 				a {
-					color: lighten(desaturate($link-color, 25%), 15%);
+					color: lighten(desaturate($link-color-light, 25%), 15%);
 					text-decoration: none;
 					&:hover { text-decoration: underline; }
 				}
@@ -686,7 +686,7 @@ POST LIST STYLING
       }
 
 			a {
-				color: lighten(desaturate($link-color, 25%), 15%);
+				color: lighten(desaturate($link-color-light, 25%), 15%);
 				text-decoration: none;
 				&:hover { text-decoration: underline; }
 			}

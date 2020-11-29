@@ -31,12 +31,16 @@ $grey:   #aaa;
 $black:  #111;
 
 // Color variables
-$primary-color: #00649e;
+$primary-color-light: #00649e;
+$primary-color-dark: #0092d6;
+
 $secondary-color: #008bd8;
 $tertiary-color: #aaa;
-$link-color: $primary-color;
 
-$background-color: $primary-color;
+$link-color-light: $primary-color-light;
+$link-color-dark: $primary-color-dark;
+
+$background-color: $primary-color-light;
 $header-color-light: #473864;
 $header-color-dark: $header-color-light;
 
