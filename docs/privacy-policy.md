@@ -41,7 +41,7 @@ If you wish to disable these analytics, you can enable the [Do Not Track](https:
 - [Chrome](https://support.google.com/chrome/answer/2790761){:target="_blank",rel="nofollow"}
 
 <p class="warn-bubble" markdown="1">
-  **WARN:** This header is not supported in Safari, as Apple pulled support for it. This is because, at the moment of writing, the header does not have legal implications, and it might aid in fingerprinting. This might change in the future with the [Global Privacy Control](https://globalprivacycontrol.org/){:target="_blank",rel="nofollow"} initiative.
+  **WARN:** This header is not supported in Safari, as Apple pulled support for it. This is because, at the moment of writing, the header isn't legally binding, and it might aid in fingerprinting. This might change in the future with the [Global Privacy Control](https://globalprivacycontrol.org/){:target="_blank",rel="nofollow"} initiative.
 </p>
 
 ## Commenting
