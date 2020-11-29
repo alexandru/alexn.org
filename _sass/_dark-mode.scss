@@ -4,6 +4,10 @@
   border: 1px solid #333;
 }
 
+:root {
+  color-scheme: light dark; /* both supported */
+}
+
 html, body, * {
   scrollbar-width: thin;
   scrollbar-color: $scrollbar-thumb-dark $scrollbar-background-dark;
@@ -91,9 +95,31 @@ body {
     div.related {
       border-top: 2px solid lighten($site-background-dark, 15%);
     }
+
+    .meta, #article-details {
+      color: lightslategray;
+    }
+
   }
+}
+
+.post div.related div.container div.item .related-meta, 
+div.archive_list div.container div.item .related-meta  {
+  color: lightslategray;
 }
 
 .post div.related h2, div.archive_list h2 {
   color: $all-headers-color-dark;
+}
+
+.footer {
+  background-color: lighten($color: $site-background-dark, $amount: 5%);
+
+  #isso-thread {
+    filter: invert(1) hue-rotate(180deg);
+
+    img, picture, video {
+      filter: invert(1) hue-rotate(180deg);
+    }
+  }
 }
