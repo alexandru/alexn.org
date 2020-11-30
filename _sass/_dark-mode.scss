@@ -4,6 +4,31 @@
   border: 1px solid #333;
 }
 
+@mixin form-elements {
+  label {
+    color: #777;
+  }
+  
+  select, input, textarea, button, .textarea,
+  input[type=text],input[type=email],input[type=phone],input[type=password],input[type=number],input[type=search] {
+    border: 1px solid hsl(0, 0%, 10%);
+    color: #afafaf;
+    background: hsl(0, 0%, 14%);
+    transition: background-color 0.3s cubic-bezier(0.57, 0.21, 0.69, 1.25),
+      transform 0.3s cubic-bezier(0.57, 0.21, 0.69, 1.25);
+  }
+
+  button, input[type=submit], input[type=button], input[type=reset] {
+    border: 1px solid hsl(0, 0%, 15%);
+    background: hsl(0, 0%, 20%);
+  }
+
+  ::placeholder {
+    color: inherit;
+    opacity: 1;
+  }
+}
+
 :root {
   color-scheme: light dark; /* both supported */
 }
@@ -63,6 +88,10 @@ body {
     background-color: #1e2325;
   }
 
+  form {
+    @include form-elements;
+  }
+
   .post {
     .info-bubble {
       background-color: #25313c;
@@ -115,11 +144,25 @@ div.archive_list div.container div.item .related-meta  {
 .footer {
   background-color: lighten($color: $site-background-dark, $amount: 5%);
 
-  #isso-thread {
-    filter: invert(1) hue-rotate(180deg);
-
-    img, picture, video {
-      filter: invert(1) hue-rotate(180deg);
+  .contributions {
+    #isso-thread {
+      @include form-elements;
     }
+
+    .note {
+      border: 1px solid $site-background-dark;
+      background-color: lighten($color: $site-background-dark, $amount: 3%);
+
+      .extra {
+        color: #586069;
+      }
+    }
+  }
+
+  .bottom {
+    background: $site-background-dark;
+    color: $text-color-dark;
+		border-top: 2px solid lighten($site-background-dark, $amount: 5%);
+		border-bottom: 2px solid lighten($site-background-dark, $amount: 5%);
   }
 }
