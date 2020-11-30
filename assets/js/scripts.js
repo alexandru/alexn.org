@@ -14,9 +14,9 @@ layout: null
 		if (isDarkReaderEnabled) {
 			document.cookie = "accept_dark_reader=1;path=/;max-age=604800";
 			alert(
-				"You have Dark Reader extension enabled.\n\n" + 
-				"This website already supports a dark theme.\n\n" + 
-				"Please disable Dark Reader for this website, as it breaks its design!"
+				"You have the Dark Reader extension enabled.\n\n" + 
+				"This website already supports a dark theme 🚀✨\n\n" + 
+				"Please disable Dark Reader for this website, as it breaks its design 🙏"
 			);
 		}
 	}
