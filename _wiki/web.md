@@ -3,7 +3,7 @@ date: 2020-10-29 12:48:21+0300
 title: "Web"
 ---
 
-## JavaScript Tricks
+## Client Tricks
 
 ### Detect the Brave Browser
 
@@ -12,6 +12,32 @@ title: "Web"
 ```
 
 Credit: <https://stackoverflow.com/a/60954062>
+
+### Detect Dark Mode
+
+From JavaScript:
+
+```js
+"matchMedia" in window && 
+window.matchMedia('(prefers-color-scheme: dark)').matches
+```
+
+From CSS:
+
+```css
+@media (prefers-color-scheme: dark) {
+    /* ... */
+}
+```
+
+### Detect Dark Reader (browser extension)
+
+For detecting the [Dark Reader](https://darkreader.org/) browser extension:
+
+```js
+"querySelector" in document &&
+!!document.querySelector("meta[name=darkreader]")
+```
 
 ## Browser benchmarks
 
