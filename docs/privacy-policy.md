@@ -35,19 +35,13 @@ This website uses a self-hosted (first-party) [Matomo](https://matomo.org/) inst
 3. IPs are anonymized
 4. collected data is used by the website's owner for content optimizations, in full compliance of GDPR, and is never shared with third-party services
 
-<p class="info-bubble">
-  There is a "<code>MATOMO_SESSID</code>" being created when you load this page (<a href="https://matomo.org/faq/general/faq_146/" target="_blank" rel="nofollow">see details</a>), linked to the <a href="https://matomo.org/privacy/#step-3-include-a-web-analytics-opt-out-feature-on-your-site-using-an-iframe" target="_blank" rel="nofollow">"opt-out" dialog</a> shown below. This cookie is temporary, is only meant to prevent CSRF security issues, and is only set when this dialog is loaded (and not when visiting other pages).
-</p>
+If you wish to disable these analytics, you can enable the [Do Not Track](https://en.wikipedia.org/wiki/Do_Not_Track){:target="_blank",rel="nofollow"} header. See how to enable it in:
 
-While your visit cannot be traced to you, you can opt-out of these analytics:
-
-<div id="opt_out_frame" class="content">
-  <iframe src="https://ly.alexn.org/index.php?module=CoreAdminHome&action=optOut&language=en&backgroundColor=&fontColor=333&fontSize=1.1em&fontFamily=%22PT%20Serif%22%2CGeorgia%2CTimes%2Cserif">
-  </iframe>
-</div>
+- [Firefox](https://support.mozilla.org/kb/how-do-i-turn-do-not-track-feature){:target="_blank",rel="nofollow"}
+- [Chrome](https://support.google.com/chrome/answer/2790761){:target="_blank",rel="nofollow"}
 
 <p class="warn-bubble" markdown="1">
-  **WARN:** The [Do Not Track](https://en.wikipedia.org/wiki/Do_Not_Track){:target="_blank",rel="nofollow"} header is not supported, because it's a failed standard, that just helps fingerprinting, which is why Safari dropped support for it.
+  **WARN:** This header is not supported in Safari, as Apple pulled support for it. This is because, at the moment of writing, the header isn't legally binding, and it might aid in fingerprinting. This might change in the future with the [Global Privacy Control](https://globalprivacycontrol.org/){:target="_blank",rel="nofollow"} initiative.
 </p>
 
 ## Commenting

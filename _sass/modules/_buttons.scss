@@ -3,7 +3,7 @@ BUTTON DEFAULTS
 ***************/
 
 %btn {
-  background-color: $primary-color;
+  background-color: $primary-color-light;
   display: inline-block;
   position: relative;
   font-family: $sans-serif;
@@ -23,7 +23,7 @@ BUTTON DEFAULTS
   &:hover, &:focus {
     color: $white;
     text-decoration: none;
-    background-color: darken($primary-color, 10%);
+    background-color: darken($primary-color-light, 10%);
   } // end hover
 
   // clicking on the button
@@ -40,10 +40,10 @@ BUTTON DEFAULTS
 
   &-secondary {
     @extend %btn;
-    background-color: $secondary-color;
+    background-color: $secondary-color-light;
 
     &:hover {
-      background-color: darken($secondary-color, 10%);
+      background-color: darken($secondary-color-light, 10%);
     }
   }
 
@@ -62,11 +62,11 @@ BUTTON DEFAULTS
 .button__outline {
   @extend %btn;
   background-color: transparent;
-  border: 3px solid $primary-color;
-  color: $primary-color;
+  border: 3px solid $primary-color-light;
+  color: $primary-color-light;
 
   &:hover {
-    background-color: $primary-color;
+    background-color: $primary-color-light;
     color: $white;
   }
 }

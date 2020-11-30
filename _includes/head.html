@@ -3,6 +3,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
+    <!-- https://github.com/darkreader/darkreader/issues/1114 -->
+    <meta name="darkreader" content="41637b04c7ddb955e533a5c76d68a2c8">
+    <meta name="color-scheme" content="light dark">
     <title>{% if page.title %}{{ page.title | xml_smart_escape }}{% unless page.has_full_title %} - {{ site.title }}{% endunless %}{% else %}{{ site.title | xml_smart_escape }} - {{ site.description | xml_escape }}{% endif -%}</title>
     {% capture page_or_site_title %}{% if page.title %}{{ page.title | xml_smart_escape }}{% else %}{{ site.title | xml_smart_escape }}{% endif -%}{% endcapture %}
 

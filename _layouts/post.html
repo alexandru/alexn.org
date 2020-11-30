@@ -85,7 +85,7 @@ has_subscribe: true
   {% assign related_posts_count = related_posts | size -%}
   {% if related_posts_count > 0 %}
   <div class="related">    
-    <h2>Related Articles</h2>
+    <h2 id="related-articles">Related Articles</h2>
     <div class="container">
       {% for related_post in related_posts limit:4 %}
       {% unless related_post.url == page.url %}
