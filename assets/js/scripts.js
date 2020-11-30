@@ -16,7 +16,7 @@ layout: null
 			alert(
 				"You have the Dark Reader extension enabled.\n\n" + 
 				"This website already supports a dark theme 🚀✨\n\n" + 
-				"Please disable Dark Reader for this website, as it breaks its design 🙏"
+				"Please disable Dark Reader for this website,\nas it breaks its design 🙏"
 			);
 		}
 	}
