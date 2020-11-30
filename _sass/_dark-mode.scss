@@ -8,9 +8,18 @@
   label {
     color: #777;
   }
-  
-  select, input, textarea, button, .textarea,
-  input[type=text],input[type=email],input[type=phone],input[type=password],input[type=number],input[type=search] {
+
+  select,
+  input,
+  textarea,
+  button,
+  .textarea,
+  input[type="text"],
+  input[type="email"],
+  input[type="phone"],
+  input[type="password"],
+  input[type="number"],
+  input[type="search"] {
     border: 1px solid hsl(0, 0%, 10%);
     color: #afafaf;
     background: hsl(0, 0%, 14%);
@@ -18,7 +27,10 @@
       transform 0.3s cubic-bezier(0.57, 0.21, 0.69, 1.25);
   }
 
-  button, input[type=submit], input[type=button], input[type=reset] {
+  button,
+  input[type="submit"],
+  input[type="button"],
+  input[type="reset"] {
     border: 1px solid hsl(0, 0%, 15%);
     background: hsl(0, 0%, 20%);
   }
@@ -33,20 +45,25 @@
   color-scheme: light dark; /* both supported */
 }
 
-html, body, * {
+html,
+body,
+* {
   scrollbar-width: thin;
   scrollbar-color: $scrollbar-thumb-dark $scrollbar-background-dark;
 }
 
-body::-webkit-scrollbar, *::-webkit-scrollbar {
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
   width: 10px;
 }
 
-body::-webkit-scrollbar-track, *::-webkit-scrollbar-track {
+body::-webkit-scrollbar-track,
+*::-webkit-scrollbar-track {
   background: $scrollbar-background-dark;
 }
 
-body::-webkit-scrollbar-thumb, *::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-thumb,
+*::-webkit-scrollbar-thumb {
   background-color: $scrollbar-thumb-dark;
   border-radius: 6px;
   border: 3px solid $scrollbar-background-dark;
@@ -72,7 +89,12 @@ body {
     background-color: $header-color-dark;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     color: $all-headers-color-dark;
   }
 
@@ -99,7 +121,7 @@ body {
       color: $text-color-dark;
 
       code.language-plaintext.highlighter-rouge {
-        background-color: lighten($color: #25313c, $amount: 5%);;
+        background-color: lighten($color: #25313c, $amount: 5%);
       }
     }
 
@@ -109,7 +131,7 @@ body {
       color: inherit;
 
       code.language-plaintext.highlighter-rouge {
-        background-color: lighten($color: #362521, $amount: 5%);;
+        background-color: lighten($color: #362521, $amount: 5%);
       }
     }
 
@@ -125,10 +147,14 @@ body {
       border-top: 2px solid lighten($site-background-dark, 15%);
     }
 
-    .meta, #article-details {
+    .meta,
+    #article-details {
       color: #778899;
     }
 
+    .dropcap {
+      color: $primary-color-dark;
+    }
   }
 
   .button {
@@ -151,50 +177,59 @@ body {
     }
   }
 
-.post div.related div.container div.item .related-meta, 
-div.archive_list div.container div.item .related-meta  {
-  color: #778899;
-}
+  .post div.related div.container div.item .related-meta,
+  div.archive_list div.container div.item .related-meta {
+    color: #778899;
+  }
 
-.post div.related h2, div.archive_list h2 {
-  color: $all-headers-color-dark;
-}
+  .post div.related h2,
+  div.archive_list h2 {
+    color: $all-headers-color-dark;
+  }
 
-.footer {
-  background-color: lighten($color: $site-background-dark, $amount: 5%);
+  .footer {
+    background-color: lighten($color: $site-background-dark, $amount: 5%);
 
-  .contributions {
-    #isso-thread {
-      @include form-elements;
+    .contributions {
+      #isso-thread {
+        @include form-elements;
 
-      & > h4 {
-        color: lighten(#778899, 5%);
+        & > h4 {
+          color: lighten(#778899, 5%);
+        }
+
+        .isso-comment > div.text-wrapper > .isso-comment-header {
+          color: #778899;
+        }
+
+        .isso-comment > div.text-wrapper > .isso-comment-header .author {
+          color: lighten(#778899, 5%);
+        }
       }
 
-      .isso-comment > div.text-wrapper > .isso-comment-header {
-        color: #778899;
-      }
+      .note {
+        border: 1px solid $site-background-dark;
+        background-color: lighten($color: $site-background-dark, $amount: 3%);
 
-      .isso-comment > div.text-wrapper > .isso-comment-header .author {
-        color: lighten(#778899, 5%);
+        .extra {
+          color: #586069;
+        }
       }
     }
 
-    .note {
-      border: 1px solid $site-background-dark;
-      background-color: lighten($color: $site-background-dark, $amount: 3%);
+    .bottom {
+      background: $site-background-dark;
+      color: lightslategray;
+      border-top: 2px solid lighten($site-background-dark, $amount: 5%);
+      border-bottom: 2px solid lighten($site-background-dark, $amount: 5%);
+    }
 
-      .extra {
-        color: #586069;
-      }
+    #footer-comments-widget {
+      border-bottom: 2px solid lighten($site-background-dark, 20%);
     }
   }
 
-  .bottom {
-    background: $site-background-dark;
-    color: $text-color-dark;
-    border-top: 2px solid lighten($site-background-dark, $amount: 5%);
-    border-bottom: 2px solid lighten($site-background-dark, $amount: 5%);
+  div.archive_list:before, .posts li:before {
+    background: lighten($site-background-dark, 15%);
   }
-}
 }

@@ -459,6 +459,10 @@ div.archive_list {
 		height: 2px;
 		width: 60px;
 	}
+
+	&.last:before {
+		display: none;
+	}
 }
 
 /***************
@@ -665,6 +669,10 @@ POST LIST STYLING
 			background: darken(white, 10%);
 			height: 2px;
 			width: 60px;
+		}
+
+		&:last-child:before {
+			display: none;
 		}
 
 		a {
