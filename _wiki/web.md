@@ -49,6 +49,14 @@ For detecting the [Dark Reader](https://darkreader.org/) browser extension:
 - <https://www.wirple.com/bmark/>
 - <https://web.basemark.com/>
 
+### For testing ads-blocking
+
+- [google.com](https://www.google.com/search?q=vpn){:target="_blank",rel="nofollow"}
+- [youtube.com](https://www.youtube.com/results?search_query=vpn){:target="_blank",rel="nofollow"}
+  - [video sample](https://www.youtube.com/watch?v=xGjGQ24cXAY){:target="_blank",rel="nofollow"}
+- [bild.de](https://www.bild.de/){:target="_blank",rel="nofollow"}
+- [knowyourmeme.com](https://knowyourmeme.com/){:target="_blank",rel="nofollow"}
+
 ## Progressive Web Apps (PWAs)
 
 - <https://web.dev/progressive-web-apps/>
