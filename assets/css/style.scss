@@ -22,10 +22,10 @@
 @import "modules/syntax-customizations";
 @import "modules/syntax-light";
 @import "modules/isso-comments";
+@import "modules/dark-reader-hacks";
 
-// Mobile up base styles
+// Base styles, starting from mobile, going up
 @import "breakpoints/mobileup";
-
 // Import media queries add more as you desire
 @media only screen and (min-width: 375px) { @import "breakpoints/375up";}
 @media only screen and (min-width: 500px) { @import "breakpoints/500up";}

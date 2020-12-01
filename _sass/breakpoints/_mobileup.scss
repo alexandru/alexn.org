@@ -14,7 +14,8 @@ html {
 }
 
 body {
-	background: $site-background-light;
+	background-color: $site-background-light;
+	background-image: $site-background-image;
 	font-family: $serif;
 	line-height: 1.75;
 	font-size: 112.5%; // 18px base font size
@@ -546,6 +547,7 @@ FOOTER STYLING
 	margin-top: 2rem;
 	clear: both;
 	background: #fafafa;
+	background-image: $site-background-image;
 
 	hr {
 		display: block;

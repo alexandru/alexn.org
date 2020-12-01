@@ -70,11 +70,13 @@ body::-webkit-scrollbar-thumb,
 }
 
 html {
-  background: $site-background-dark;
+  background-color: $site-background-dark;
+  background-image: none;
 }
 
 body {
-  background: $site-background-dark;
+  background-color: $site-background-dark;
+  background-image: none;
   color: $text-color-dark;
 
   a {
@@ -189,6 +191,7 @@ body {
 
   .footer {
     background-color: lighten($color: $site-background-dark, $amount: 5%);
+    background-image: none;
 
     .contributions {
       #isso-thread {

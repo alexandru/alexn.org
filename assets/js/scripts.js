@@ -3,21 +3,27 @@ layout: null
 ---
 
 (function () {
-	function warnAboutDarkReader() {
+	function actOnDarkReaderExtension() {
 		var isDarkReaderEnabled =
-			"matchMedia" in window && 
-			window.matchMedia('(prefers-color-scheme: dark)').matches &&
 			"querySelector" in document &&
-			!!document.querySelector("meta[name=darkreader]") &&
-			!document.cookie.match(/accept_dark_reader/);
+			!!document.querySelector("meta[name=darkreader]");
 
 		if (isDarkReaderEnabled) {
-			document.cookie = "accept_dark_reader=1;path=/;max-age=604800";
-			alert(
-				"You have the Dark Reader extension enabled.\n\n" + 
-				"This website already supports a dark theme 🚀✨\n\n" + 
-				"Please disable Dark Reader for this website,\nas it interferes with its design 🙏"
-			);
+			$("html").addClass("dark-reader");
+
+			var showWarning =
+				"matchMedia" in window && 
+				window.matchMedia('(prefers-color-scheme: dark)').matches &&
+				!document.cookie.match(/accept_dark_reader/);
+
+			if (showWarning) {
+				document.cookie = "accept_dark_reader=1;path=/;max-age=604800";
+				alert(
+					"You have the Dark Reader extension enabled.\n\n" + 
+					"This website already supports a dark theme 🚀✨\n\n" + 
+					"Please disable Dark Reader for this website,\nas it interferes with its design 🙏"
+				);
+			}
 		}
 	}
 
@@ -50,7 +56,7 @@ layout: null
 			return Math.round(parseFloat(value));
 		});
 
-		warnAboutDarkReader();
+		actOnDarkReaderExtension();
 	}
 
 	if (document.readyState === "complete") {

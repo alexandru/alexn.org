@@ -56,6 +56,7 @@ For detecting the [Dark Reader](https://darkreader.org/) browser extension:
   - [video sample](https://www.youtube.com/watch?v=xGjGQ24cXAY){:target="_blank",rel="nofollow"}
 - [bild.de](https://www.bild.de/){:target="_blank",rel="nofollow"}
 - [knowyourmeme.com](https://knowyourmeme.com/){:target="_blank",rel="nofollow"}
+- [adblock-tester.com](https://adblock-tester.com/){:target="_blank",rel="nofollow"}
 
 ## Progressive Web Apps (PWAs)
 
