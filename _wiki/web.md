@@ -56,6 +56,7 @@ For detecting the [Dark Reader](https://darkreader.org/) browser extension:
 </p>
 
 - [adblock-tester.com](https://adblock-tester.com/){:target="_blank",rel="nofollow"}
+- [coveryourtracks.eff.org](https://coveryourtracks.eff.org/){:target="_blank",rel="nofollow"}
 - [google.com](https://www.google.com/search?q=vpn){:target="_blank",rel="nofollow"}
   - Features first-party ads, blockable via generic cosmetic rules in uBlock Origin
 - [youtube.com](https://www.youtube.com/results?search_query=vpn){:target="_blank",rel="nofollow"}
