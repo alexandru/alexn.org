@@ -46,7 +46,7 @@ let executeCommand executable args =
     }
   }
 
-let executeShellCommand (command: string) =
+let executeShellCommand command =
   executeCommand "/usr/bin/env" [ "-S"; "bash"; "-c"; command ]
 
 let r = executeShellCommand "ls -alh" |> Async.RunSynchronously
