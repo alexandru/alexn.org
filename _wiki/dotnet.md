@@ -12,6 +12,30 @@ title: "Microsoft .NET"
 
 ## FSharp
 
+### Start New Project
+
+```sh
+# Starting a new solution
+dotnet new sln -o AdventOfCode
+
+# Start a console applicatin
+cd AdventOfCode/
+dotnet new console -lang "F#" -o App
+
+# Add project to the solution
+dotnet sln add App/App.fsproj
+
+# Restore NuGet dependencies
+dotnet restore
+
+# Build the project
+dotnet build
+
+# Run the project
+cd ./App
+dotnet run
+```
+
 ### Articles
 
 - [Get started with F# with the .NET Core CLI](https://docs.microsoft.com/en-us/dotnet/fsharp/get-started/get-started-command-line)
