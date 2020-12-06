@@ -9,6 +9,7 @@ tags:
 ```fsharp
 #!/usr/bin/env -S dotnet fsi
 
+open System
 open System.Diagnostics
 open System.Threading.Tasks
 
@@ -49,6 +50,11 @@ let executeCommand executable args =
 let executeShellCommand command =
   executeCommand "/usr/bin/env" [ "-S"; "bash"; "-c"; command ]
 
+// Invocation sample
 let r = executeShellCommand "ls -alh" |> Async.RunSynchronously
-printfn "%A" r
+if r.ExitCode = 0 then
+  printfn "%s" r.StandardOutput
+else
+  eprintfn "%s" r.StandardError
+  Environment.Exit(r.ExitCode)
 ```
