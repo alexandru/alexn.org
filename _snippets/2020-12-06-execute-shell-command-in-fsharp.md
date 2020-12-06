@@ -28,7 +28,7 @@ let executeCommand executable args =
     startInfo.RedirectStandardError <- true
     startInfo.UseShellExecute <- false
     startInfo.CreateNoWindow <- true
-    let p = new Process()
+    use p = new Process()
     p.StartInfo <- startInfo
     p.Start() |> ignore
 
@@ -46,9 +46,9 @@ let executeCommand executable args =
     }
   }
 
-let executeShell (command: string) =
+let executeShellCommand (command: string) =
   executeCommand "/usr/bin/env" [ "-S"; "bash"; "-c"; command ]
 
-let r = executeShell "ls -alh" |> Async.RunSynchronously
+let r = executeShellCommand "ls -alh" |> Async.RunSynchronously
 printfn "%A" r
 ```
