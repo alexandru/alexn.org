@@ -42,13 +42,11 @@ has_subscribe: true
   </div>
   {% if page.author -%}
     {% assign author_twitter = site.authors | map: page.author | map: "twitter" -%}
-    {% assign author_facebook = site.authors | map: page.author | map: "facebook" -%}
     {% assign author_github = site.authors | map: page.author | map: "github" -%}
     <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="{{ site.authors | map: page.author | map: 'name' }}" />
       <meta itemprop="url" content="{{ '/about.html' | absolute_url }}#{{ page.author }}" />
       {% if author_twitter -%}<meta itemprop="url" content="https://twitter.com/{{ author_twitter }}" />{% endif %}
-      {% if author_facebook -%}<meta itemprop="url" content="https://www.facebook.com/{{ author_facebook }}" />{% endif %}
       {% if author_github -%}<meta itemprop="url" content="https://github.com/{{ author_github }}" />{% endif %}
     </div>
   {% endif %}

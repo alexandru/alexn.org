@@ -54,13 +54,6 @@
     <meta property="og:image:secure_url" content="{{ '/assets/logo/800px.png' | prepend: site.url }}" />
     {% endif -%}
   
-    {% if page.author -%}
-      {% assign author_facebook = site.authors | map: page.author | map: "facebook" -%}
-    {% else %}
-      {% assign author_facebook = site.authors.alexelcu.facebook -%}
-    {% endif -%}
-    <meta content="https://www.facebook.com/{{ author_facebook }}" property="article:author">
-
     <!-- Twitter Cards -->
     {% if page.vimeo -%}
     <meta name="twitter:card" content="player" />
