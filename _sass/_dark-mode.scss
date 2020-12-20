@@ -157,6 +157,10 @@ body {
     .dropcap {
       color: $primary-color-dark;
     }
+
+    blockquote em {
+      color: darken($text-color-dark, 15%);
+    }
   }
 
   .button {
