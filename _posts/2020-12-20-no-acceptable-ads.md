@@ -24,7 +24,7 @@ Contents:
   - [What about first-party contextual ads?](#what-about-first-party-contextual-ads)
   - [Won't the rejection of ads affect the health of the Internet?](#wont-the-rejection-of-ads-affect-the-health-of-the-internet)
 - [Solutions](#solutions)
-  - [Pay for your content](#pay-for-your-content)
+  - [Pay for consumed goods & services](#pay-for-consumed-goods--services)
   - [Block all ads](#block-all-ads)
     - [For all devices (DNS-level blocking)](#for-all-devices-dns-level-blocking)
     - [Desktop / laptop](#desktop--laptop)
@@ -143,7 +143,7 @@ Could it affect the health of the Internet? Yes, without ads the Internet can ge
 
 ## Solutions
 
-### Pay for your content
+### Pay for consumed goods & services
 
 > "*If you're not paying, you are the product.*"
 
