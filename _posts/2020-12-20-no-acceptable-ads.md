@@ -26,7 +26,7 @@ Contents:
 - [Solutions](#solutions)
   - [Pay for consumed goods & services](#pay-for-consumed-goods--services)
   - [Block all ads](#block-all-ads)
-    - [For all devices (DNS-level blocking)](#for-all-devices-dns-level-blocking)
+    - [For all devices (DNS)](#for-all-devices-dns)
     - [Desktop / laptop](#desktop--laptop)
     - [Android](#android)
     - [iPhone / iOS](#iphone--ios)
@@ -173,13 +173,13 @@ Publishers are not entitled to run code on our computers, and we can't know in a
 
 Block them all!
 
-#### For all devices (DNS-level blocking)
+#### For all devices (DNS)
 
-DNS-level blocking works very well. At least until devices or apps will start using DNS-over-HTTPS with their own servers.
+[DNS blocking](https://en.wikipedia.org/wiki/DNS_blocking){:target="_blank"} works very well. At least until devices or apps will start using DNS-over-HTTPS with their own servers (e.g. TikTok).
 
-If you like self-hosting stuff, you could setup a [Pi-hole](https://pi-hole.net/){:target="_blank"}. For a managed service, I prefer [NextDNS](https://nextdns.io/){:target="_blank"}.
+If you like self-hosting stuff, you could setup a [Pi-hole](https://pi-hole.net/){:target="_blank"}. For a managed service, I prefer [NextDNS](https://nextdns.io/){:target="_blank"}. I've also heard of [AdGuard DNS](https://adguard.com/en/adguard-dns/overview.html){:target="_blank"}, but I've never tried it.
 
-The advantage is that by making your router serve these DNS servers, all the devices connected to your Wi-fi will be protected. Smart TVs, Playstation, mobile devices, etc.
+The advantage is that by making your router serve these DNS servers (via [DHCP](https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol){:target="_blank"}), all the devices connected to your Wi-fi will be protected. Smart TVs, Playstation, mobile devices, etc.
 
 #### Desktop / laptop
 
