@@ -1,7 +1,8 @@
 ---
 title: "There are No Acceptable Ads"
 date: 2020-12-20 17:16:08+0200
-image: /assets/media/articles/mobilead.png
+image: /assets/media/articles/england1835.jpg
+image_caption: England 1835, by John Orlando Parry
 description: "The attention economy, and targeted advertising, are a first world problem, one that we have to deal with, because it's affecting our well-being."
 tags:
   - Browser
@@ -166,7 +167,9 @@ I never install ads-enabled apps on my mobile devices. If there's an ads-free ve
   <img src="{% link assets/media/articles/blockallad.jpg %}" alt="" loading="lazy" />
 </figure>
 
-Even if we admit that some ads are fine, in some contexts, we don't know which ads are targeted and which ads aren't, we don't know which ads are malvertising, or which ads play mind tricks, and we can't know that before loading the page. Even if we had a whitelist of "acceptable ads", it's still code downloaded from the Internet that we can't trust. And we want publishers to take responsibility for the created mess, and change their business model.
+Even if we admit that some ads are fine, in some contexts, we don't know which ads are targeted and which ads aren't, we don't know which ads are malvertising, or which ads play mind tricks, and we can't know that before loading the page. Even if we had a whitelist of "acceptable ads", it's still code downloaded from the Internet that we can't trust. And we want publishers to take responsibility for the created mess, 
+
+Publishers are not entitled to run code on our computers, and we can't know in advance if a web page will serve any ads or not. It's my computer, my "user agent". If publishers have a problem with that, then they can block me. Anti-ad-blocking tech, that can detect ad-blockers, already exists (this being a constant arms race). For me that would be a clear signal that the website is serving ads, and that I'm not wanted, then I'd go somewhere else.
 
 Block them all!
 
