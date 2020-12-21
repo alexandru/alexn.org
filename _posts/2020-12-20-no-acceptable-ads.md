@@ -1,5 +1,5 @@
 ---
-title: "There are No Acceptable Targeted Ads"
+title: "There are No Acceptable Ads"
 date: 2020-12-20 17:16:08+0200
 image: /assets/media/articles/mobilead.png
 description: "The attention economy, and targeted advertising, are a first world problem, one that we have to deal with, because it's affecting our well-being."
@@ -10,7 +10,7 @@ tags:
   - Web
 ---
 
-The attention economy, and targeted advertising, are a first world problem, one that we have to deal with, because it's affecting our well-being. In this article I'm arguing why there is no such thing as "*acceptable targeted ads*". It doesn't matter if the user's data is transmitted on the Internet, or processed client-side. What matter is the end result, and the way I see it, we are headed towards a dystopia, facilitated by targeting algorithms.
+The attention economy, and targeted advertising, are a first world problem, one that we have to deal with, because it's affecting our well-being. In this article I'm arguing why there is no such thing as "*acceptable ads*" on the Internet. It doesn't matter if the user's data is transmitted on the Internet, or processed client-side. What matters is the end result, and the way I see it, we are headed towards a dystopia, facilitated by targeting algorithms.
 
 Contents:
 
@@ -19,6 +19,7 @@ Contents:
 - [Advertiser's Perspective](#advertisers-perspective)
 - [Q & A](#q--a)
   - [What about first-party contextual ads?](#what-about-first-party-contextual-ads)
+  - [Won't the rejection of ads affect the health of the Internet?](#wont-the-rejection-of-ads-affect-the-health-of-the-internet)
 - [Solutions](#solutions)
   - [Pay for your content](#pay-for-your-content)
   - [Block all ads](#block-all-ads)
@@ -123,9 +124,19 @@ But conventional ads are problematic as well, for all of the above reasons. All 
 
 Scams can happen via conventional ads as well, the incentive structure for advertising-driven businesses is still there, and it isn't unreasonable to not want any ads, ever.
 
-At the moment of writing, in Romania I'm seeing ads for "*cheap Windows 10 licenses*" all over the place, even as advertorials published by respectable publications, as first-party articles. It's a clear scam, there are now dozens of companies founded over night, selling what are basically MSDN AA activation codes for Windows, and I've reported dozens, without any outcome. Facebook thanks me, eMAG (our local Amazon) thanks me, local publications all thanked me for my report, but the ads are still up! Don't even get me started on the cryptocoin scams, which are promoted even by the supposedly ethical advertising networks.
+At the moment of writing, in Romania I'm seeing ads for "*cheap Windows 10 licenses*" all over the place, even as advertorials published by respectable publications, as first-party articles. It's a clear scam, there are now dozens of companies founded over night, illegally selling what are basically MSDN AA activation codes for Windows, and I've reported dozens, without any outcome. Facebook thanks me, eMAG (our local Amazon) thanks me, local publications all thanked me for my report, but the ads are still up! Don't even get me started on the cryptocoin scams, which are promoted even by the supposedly ethical advertising networks.
 
 No, the time for this distinction is long gone, and IMO trust cannot be re-established. Online, it's simpler and far more effective if we treat all ads as targeted, privacy-invading, intrusive scams. Screw them all.
+
+### Won't the rejection of ads affect the health of the Internet?
+
+Technical folks that are pro-advertisement, are expressing their views from behind ads-blockers, a clear double standard. Given the choice between receiving ads and receiving no ads, a vast majority of people would pick the no-ads option. Nobody wants ads, unless forced, either because there's no other clear choice, or because the price of the no-ads option is too high.
+
+The evolution and use of ads-blockers is just another way to "vote with your wallet". Many people will block ads with their ads-blocker, but at the same time feel guilty about it, then advise other people to accept ads, because it's for the health of the Internet. This is a side effect of many IT people working in the advertisement industry, the elephant in the room. And the other people, that should subsidize the Internet for the elite, are the technically illiterate.
+
+If browsers would have a business model that did not depend on advertisement, then those browsers would ship with an aggressive ads-blocker enabled by default, simply because it makes the experience much better. There's absolutely no browser that does this, all browser vendors earn a lot of money from ads, and this includes Apple, Microsoft, Brave, Vivaldi, DuckDuckGo, Samsung, all of them.
+
+Could it affect the health of the Internet? Yes, without ads the Internet can get better.
 
 ## Solutions
 
