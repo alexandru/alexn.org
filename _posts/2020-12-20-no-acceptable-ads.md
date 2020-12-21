@@ -17,7 +17,9 @@ Contents:
 - [Consumer's Perspective](#consumers-perspective)
 - [Publisher's Perspective](#publishers-perspective)
 - [Advertiser's Perspective](#advertisers-perspective)
-- [Solutions for blocking trackers and ads](#solutions-for-blocking-trackers-and-ads)
+- [Q & A](#q--a)
+  - [What about first-party contextual ads?](#what-about-first-party-contextual-ads)
+- [Solutions](#solutions)
   - [Pay for your content](#pay-for-your-content)
   - [Block all ads](#block-all-ads)
     - [For all devices (DNS-level blocking)](#for-all-devices-dns-level-blocking)
@@ -72,7 +74,7 @@ In this transition there might be collateral damage ... if content stops being a
 ## Publisher's Perspective
 
 <figure>
-  <img src="{% link assets/media/articles/poorpoet.jpg %}" />
+  <img src="{% link assets/media/articles/poorpoet.jpg %}" alt="Poor poet, a painting by Carl Spitzweg" />
   <figcaption>"Poor poet" by Carl Spitzweg</figcaption>
 </figure>
 
@@ -87,7 +89,7 @@ People will also pay for convenience, and there are online services that prove t
 ## Advertiser's Perspective
 
 <figure>
-  <img src="{% link assets/media/articles/publisher-revenue.jpg %}" />
+  <img src="{% link assets/media/articles/publisher-revenue.jpg %}" alt="" />
 </figure>
 
 Marketing and advertising is all about communication. Companies should be allowed to position themselves in the market, and to communicate about their product to the world. 
@@ -106,9 +108,26 @@ So what should companies do? Truth is, this is simply not my problem, and frankl
 
 This might be an anecdote, maybe other people found ads useful, and enjoy consuming them, along with the mass-media optimized for eyeballs, but that's just not me, and given all the drawbacks, of what we are seeing in 2020, I now wish for the death of all targeted ads, and associated business models.
 
-What about conventional, non-targeted ads? Those are problematic too, all that targeting does is to take it to the next level. I would admit conventional ads, for all the reasons mentioned above (advertising is speech, etc), except that online, how do you know which ads are targeted and which ads aren't? How do you know before loading the page? You don't.
+## Q & A
 
-## Solutions for blocking trackers and ads
+### What about first-party contextual ads?
+
+<figure>
+  <img src="{% link assets/media/articles/rebel-angels.jpg %}" alt="The Fall of the Rebel Angels, a painting by Pieter Bruegel the Elder" />
+  <figcaption>"The Fall of the Rebel Angels" by Pieter Bruegel the Elder</figcaption>
+</figure>
+
+Ads could be served based on just the content being viewed right now, with no need to keep a user history and profile. This takes care of the privacy concerns. Ads can also be first-party, and this matters because your data is no longer shared, and the service provider has better quality control for the ads being shown (versus going through an RTB platform). Thus the risk of malvertising, and of scams goes down. This is what TV stations and newspapers have always done, certain shows appealing to certain demographics, with the ads selected to match that.
+
+But conventional ads are problematic as well, for all of the above reasons. All that targeting does is to take it to the next level. I would admit conventional ads, for all the reasons mentioned above (advertising is speech, etc), except that there's less oversight on the Internet. And the medium is more complicated. How do you know which ads are targeted and which ads aren't? How do you know before loading the page? You don't. Even if we had some sort of whitelist for "acceptable ads", the problem is that code downloaded on your computer can do anything, with no way to review it; and third-party requests can always be disguised as first-party ones. You have to trust the advertising companies, and our trust has been violated again and again.
+
+Scams can happen via conventional ads as well, the incentive structure for advertising-driven businesses is still there, and it isn't unreasonable to not want any ads, ever.
+
+At the moment of writing, in Romania I'm seeing ads for "*cheap Windows 10 licenses*" all over the place, even as advertorials published by respectable publications, as first-party articles. It's a clear scam, there are now dozens of companies founded over night, selling what are basically MSDN AA activation codes for Windows, and I've reported dozens, without any outcome. Facebook thanks me, eMAG (our local Amazon) thanks me, local publications all thanked me for my report, but the ads are still up! Don't even get me started on the cryptocoin scams, which are promoted even by the supposedly ethical advertising networks.
+
+No, the time for this distinction is long gone, and IMO trust cannot be re-established. Online, it's simpler and far more effective if we treat all ads as targeted, privacy-invading, intrusive scams. Screw them all.
+
+## Solutions
 
 ### Pay for your content
 
@@ -131,7 +150,7 @@ I never install ads-enabled apps on my mobile devices. If there's an ads-free ve
 ### Block all ads
 
 <figure>
-  <img src="{% link assets/media/articles/blockallad.jpg %}" />
+  <img src="{% link assets/media/articles/blockallad.jpg %}" alt="" />
 </figure>
 
 Even if we admit that some ads are fine, in some contexts, we don't know which ads are targeted and which ads aren't, we don't know which ads are malvertising, or which ads play mind tricks, and we can't know that before loading the page. Even if we had a whitelist of "acceptable ads", it's still code downloaded from the Internet that we can't trust. And we want publishers to take responsibility for the created mess, and change their business model.
@@ -179,7 +198,9 @@ I personally use [Firefox for iOS](https://apps.apple.com/us/app/firefox-private
 ### Avoid Brave, the browser
 
 <figure>
-  <img src="{% link assets/media/articles/brave-ad-example.png %}" />
+  <img src="{% link assets/media/articles/brave-ad-example.png %}" 
+    alt="Screenshot shown on Brave's website, showing a contextual ad, which might as well be a scam." />
+  <figcaption>Screenshot from Brave's website, showing a contextual ad, which might as well be a scam.</figcaption>
 </figure>
 
 [Brave](https://brave.com/){:target="_blank",rel="nofollow"} is a browser with built-in blocking of trackers and ads. They do this in the name of privacy.
