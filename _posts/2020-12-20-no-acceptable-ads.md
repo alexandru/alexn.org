@@ -10,7 +10,9 @@ tags:
   - Web
 ---
 
-The attention economy, and targeted advertising, are a first world problem, one that we have to deal with, because it's affecting our well-being. In this article I'm arguing why there is no such thing as "*acceptable ads*" on the Internet. It doesn't matter if the user's data is transmitted on the Internet, or processed client-side. What matters is the end result, and the way I see it, we are headed towards a dystopia, facilitated by targeting algorithms.
+<p class="intro withcap" markdown="1">
+  The attention economy, and targeted advertising, are a first world problem, one that we have to deal with, because it's affecting our well-being. In this article I'm arguing why there is no such thing as "*acceptable ads*" on the Internet. It doesn't matter if the user's data is transmitted on the Internet, or processed client-side. What matters is the end result, and the way I see it, we are headed towards a dystopia, facilitated by targeting algorithms.
+</p>
 
 Contents:
 
@@ -75,7 +77,7 @@ In this transition there might be collateral damage ... if content stops being a
 ## Publisher's Perspective
 
 <figure>
-  <img src="{% link assets/media/articles/poorpoet.jpg %}" alt="Poor poet, a painting by Carl Spitzweg" />
+  <img src="{% link assets/media/articles/poorpoet.jpg %}" alt="Poor poet, a painting by Carl Spitzweg" loading="lazy" />
   <figcaption>"Poor poet" by Carl Spitzweg</figcaption>
 </figure>
 
@@ -90,7 +92,7 @@ People will also pay for convenience, and there are online services that prove t
 ## Advertiser's Perspective
 
 <figure>
-  <img src="{% link assets/media/articles/publisher-revenue.jpg %}" alt="" />
+  <img src="{% link assets/media/articles/publisher-revenue.jpg %}" alt="" loading="lazy" />
 </figure>
 
 Marketing and advertising is all about communication. Companies should be allowed to position themselves in the market, and to communicate about their product to the world. 
@@ -111,12 +113,12 @@ This might be an anecdote, maybe other people found ads useful, and enjoy consum
 
 ## Q & A
 
-### What about first-party contextual ads?
-
 <figure>
-  <img src="{% link assets/media/articles/rebel-angels.jpg %}" alt="The Fall of the Rebel Angels, a painting by Pieter Bruegel the Elder" />
+  <img src="{% link assets/media/articles/rebel-angels.jpg %}" alt="The Fall of the Rebel Angels, a painting by Pieter Bruegel the Elder" loading="lazy" />
   <figcaption>"The Fall of the Rebel Angels" by Pieter Bruegel the Elder</figcaption>
 </figure>
+
+### What about first-party contextual ads?
 
 Ads could be served based on just the content being viewed right now, with no need to keep a user history and profile. This takes care of the privacy concerns. Ads can also be first-party, and this matters because your data is no longer shared, and the service provider has better quality control for the ads being shown (versus going through an RTB platform). Thus the risk of malvertising, and of scams goes down. This is what TV stations and newspapers have always done, certain shows appealing to certain demographics, with the ads selected to match that.
 
@@ -161,7 +163,7 @@ I never install ads-enabled apps on my mobile devices. If there's an ads-free ve
 ### Block all ads
 
 <figure>
-  <img src="{% link assets/media/articles/blockallad.jpg %}" alt="" />
+  <img src="{% link assets/media/articles/blockallad.jpg %}" alt="" loading="lazy" />
 </figure>
 
 Even if we admit that some ads are fine, in some contexts, we don't know which ads are targeted and which ads aren't, we don't know which ads are malvertising, or which ads play mind tricks, and we can't know that before loading the page. Even if we had a whitelist of "acceptable ads", it's still code downloaded from the Internet that we can't trust. And we want publishers to take responsibility for the created mess, and change their business model.
@@ -210,7 +212,7 @@ I personally use [Firefox for iOS](https://apps.apple.com/us/app/firefox-private
 
 <figure>
   <img src="{% link assets/media/articles/brave-ad-example.png %}" 
-    alt="Screenshot shown on Brave's website, showing a contextual ad, which might as well be a scam." />
+    alt="Screenshot shown on Brave's website, showing a contextual ad, which might as well be a scam." loading="lazy" />
   <figcaption>Screenshot from Brave's website, showing a contextual ad, which might as well be a scam.</figcaption>
 </figure>
 
