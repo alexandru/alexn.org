@@ -11,7 +11,7 @@ article_class: privacy_policy
   This website does not collect personally identifiable information, and no cookies are installed that could be used to track visitors.
 </p>
 
-This website has a strict no-cookies policy. Third-parties used for providing the service may drop cookies; however, the implementation goes to great lengths to prevent that.
+This website has a no-cookies policy. Third-parties used for providing the service may drop essential cookies; however, the implementation goes to great lengths to prevent that.
 
 <p class="info-bubble">
   If you want to learn more about <em>cookies</em>, see the material at: <br/>
