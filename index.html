@@ -7,7 +7,7 @@ has_full_title: true
   <ul class="posts noList">
     {% for post in site.posts offset:0 limit:1  %}
     <li>
-      {% include post-excerpt.html post=post %}
+      {% include post-excerpt.html post=post strict_loading=true %}
     </li>
     {% endfor %}
   </ul>
