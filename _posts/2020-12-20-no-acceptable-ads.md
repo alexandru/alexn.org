@@ -93,14 +93,15 @@ People will also pay for convenience, and there are online services that prove t
 ## Advertiser's Perspective
 
 <figure>
-  <img src="{% link assets/media/articles/publisher-revenue.jpg %}" alt="" loading="lazy" />
+  <img src="{% link assets/media/articles/carpet-seller.jpg %}" alt="" loading="lazy" />
+  <figcaption>Carpet Seller, by Ettore Forti</figcaption>
 </figure>
 
-Marketing and advertising is all about communication. Companies should be allowed to position themselves in the market, and to communicate about their product to the world. 
+Marketing and advertising is all about communication. Companies should be allowed to position themselves in the market, and to communicate about their product to the world. Advertising is speech. Consumers don't have to listen to the message though, free speech is a double edged knife. 
 
-Whenever new products happen, how else would consumers find out about it, if not by advertising? 
+Whenever new products happen, how else would consumers find out about it, if not by advertising? Or so the saying goes.
 
-Advertising is speech. Advertising is an "inbound marketing" strategy. You communicate to the world who you are, and then hope that your message directs people to you. Businesses feel the need for advertisement in order to get the word out. Having participated in startups, I truly understand this need, and there's no doubt in my mind that advertising will continue to play some role in our economy, in spite of my wishes to the contrary.
+Advertising is an "inbound marketing" strategy. You communicate to the world who you are, and then hope that your message directs people to you. Businesses feel the need for advertisement in order to get the word out. Having participated in startups, I truly understand this desire, and there's no doubt in my mind that advertising will continue to play some role in our economy, in spite of my wishes to the contrary.
 
 <p class="warn-bubble" markdown="1">
   **Disclaimer:** I used to work in the advertising industry, in my not so distant past. I worked on a platform for serving personalized mobile ads. Then I worked on anti-ad-blocking tech. I've been in that industry, thinking that we're fighting for the small companies trying to make a living, or to get the word out ... and it never felt right.
@@ -108,9 +109,13 @@ Advertising is speech. Advertising is an "inbound marketing" strategy. You commu
 
 Great products and services have been successful via word of mouth. This is what "viral marketing" means: to get people to talk about your products. And there are marketing tactics that don't involve tricking people into changing their behavior. Conventional advertising is better than the targeted variety, because it's not individualized. At least everybody is seeing the shit that you're seeing.
 
-So what should companies do? Truth is, this is simply not my problem, and frankly, no company is entitled to my attention or data. And I'm done giving the benefit of the doubt to advertisers. I have trouble remembering the last time I've seen a useful ad. Whenever I need something, I do an Internet search (with ads blocked), I look for reviews, or I ask for recommendations.
+Although one problem is there is no such thing as a non-intrusive ad. A non-intrusive ad is no ad.
 
-This might be an anecdote, maybe other people found ads useful, and enjoy consuming them, along with the mass-media optimized for eyeballs, but that's just not me, and given all the drawbacks, of what we are seeing in 2020, I now wish for the death of all targeted ads, and associated business models.
+{% include vimeo.html id=36651896 %}
+
+So what should companies do? Truth is, this is simply not our problem, and frankly, no company is entitled to our attention or data. And I'm done giving the benefit of the doubt to advertisers. I have trouble remembering the last time I've seen a useful ad. Whenever I need something, I do an Internet search (with ads blocked), I look for reviews, or I ask for recommendations.
+
+You know how the unethical behavior of companies is always excused via the need of shareholders to make money? Well, this goes both ways. We, the consumers, we aren't running charities, and it isn't our job to save dying business models.
 
 ## Q & A
 
@@ -255,3 +260,11 @@ From the web:
 ## Final Words
 
 While I understand the need for advertisement in this current climate, I want the entire targeted advertising industry to die. And I will block all ads without shame. Companies are not entitled to my attention, or data. And given the track record of the advertising industry, I will do whatever it takes to protect my family, and advise others to do the same.
+
+Further reading:
+
+- ['Acceptable' Ads?](https://blockads.fivefilters.org/acceptable.html){:target="_blank"}
+- [Ten Arguments for Deleting Your Social Media Accounts Right Now](https://openlibrary.org/works/OL19744680W/Ten_arguments_for_deleting_your_social_media_accounts_right_now){:target="_blank"}
+, a book by Jaron Lanier
+
+Enjoy~
