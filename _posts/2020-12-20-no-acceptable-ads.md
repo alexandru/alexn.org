@@ -169,10 +169,11 @@ I never install ads-enabled apps on my mobile devices. If there's an ads-free ve
 ### Block all ads
 
 <figure>
-  <img src="{% link assets/media/articles/blockallad.jpg %}" alt="" loading="lazy" />
+  <img src="{% link assets/media/articles/war.jpg %}" alt="" loading="lazy" />
+  <figcaption>The Intervention of the Sabine Women, by Jacques-Louis David</figcaption>
 </figure>
 
-Even if we admit that some ads are fine, in some contexts, we don't know which ads are targeted and which ads aren't, we don't know which ads are malvertising, or which ads play mind tricks, and we can't know that before loading the page. Even if we had a whitelist of "acceptable ads", it's still code downloaded from the Internet that we can't trust. And we want publishers to take responsibility for the created mess, 
+Even if we admit that some ads are fine, in some contexts, we don't know which ads are targeted and which ads aren't, we don't know which ads are malvertising, or which ads play mind tricks, and we can't know that before loading the page. Even if we had a whitelist of "acceptable ads", it's still code downloaded from the Internet that we can't trust, it's still intrusive, it's still fueling the attention economy, it's still driving you to buy things you don't need, or to do things that you don't want. And we want publishers to take responsibility for the created mess.
 
 Publishers are not entitled to run code on our computers, and we can't know in advance if a web page will serve any ads or not. It's my computer, my "user agent". If publishers have a problem with that, then they can block me. Anti-ad-blocking tech, that can detect ad-blockers, already exists (this being a constant arms race). For me that would be a clear signal that the website is serving ads, and that I'm not wanted, then I'd go somewhere else.
 
@@ -265,6 +266,5 @@ Further reading:
 
 - ['Acceptable' Ads?](https://blockads.fivefilters.org/acceptable.html){:target="_blank"}
 - [Ten Arguments for Deleting Your Social Media Accounts Right Now](https://openlibrary.org/works/OL19744680W/Ten_arguments_for_deleting_your_social_media_accounts_right_now){:target="_blank"}
-, a book by Jaron Lanier
 
 Enjoy~
