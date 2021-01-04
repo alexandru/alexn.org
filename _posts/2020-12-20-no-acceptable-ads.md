@@ -245,6 +245,8 @@ Brave proposes a way to reward content authors via [BAT](https://basicattentiont
 
 Brave purports to serve ads based on the user's interests, which is either via client-side profiling, or via what they currently consume. This means that Brave's ads engine piggy-backs on the content being viewed, to optimize those ads, while blocking the publisher's own ads. In spite of them claiming that ads are not "replaced", this is the net effect. And if the publisher wants a cut, then they need to [become partners](https://publishers.basicattentiontoken.org/){:target="_blank",rel="nofollow"}. While "rewards" and ads may be opt-in for users, those ads are not opt-in for publishers, leaving publishers that don't want any ads near their websites in an awkward position. If there ever was a case for ads-blocking to be considered copyright infringement, this is it.
 
+Brave is an advertising platform. They want to be a middleman between users and advertisers. Yes, other browsers survive via ads too, we already know Mozilla has a complicated relationship with Google for example, but Brave is the only browser with ambitions to be an advertising platform. You'd be trusting an advertising company with the preservation of your privacy, what could go wrong 🤯
+
 I also have a nagging suspicion that Internet fun money (cryptocurrency) will never be a good substitute for micro-transactions with actual money, being more often than not genuine Ponzi schemes, but this prediction may not age well 🤷‍♂️
 
 From the web:
