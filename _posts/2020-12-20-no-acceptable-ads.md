@@ -227,14 +227,14 @@ I personally use [Firefox for iOS](https://apps.apple.com/us/app/firefox-private
 
 [Brave](https://brave.com/){:target="_blank",rel="nofollow"} is a browser with built-in blocking of trackers and ads. They do this in the name of privacy.
 
-There are problems straight from the get-go, as Brave doesn't block first-party ads by default, as a policy. They don't block Google Search, Twitter or Facebook ads. Cosmetic blocking is severely restricted, especially on mobile devices. And it doesn't have the option to add custom third-party lists, in addition to Brave's sanctioned ones. On mobile phones at least, there's nothing you can do to block first-party ads.
+Brave doesn't block first-party ads by default, as a policy. They don't block Google Search, Twitter or Facebook ads. Cosmetic blocking is severely restricted, especially on mobile devices. And it doesn't have the option to add custom third-party lists, in addition to Brave's sanctioned ones. On mobile phones at least, there's nothing you can do to block first-party ads.
 
 This hasn't been a technical limitation, but company policy. They will correct this, once people realize that Brave is not very effective at blocking ads, but it does show that the incentives don't align with those of consumers. Quick, who wants Google Search, Facebook or Twitter ads? 
 
 <p class="info-bubble" markdown="1">
-  Brave serves ads, and they claim that their ads are opt-in, but this is doublespeak. Advertised images in the New Tab screen are opt-out. Creepy integrations with third-parties (e.g. scammy crypto stuff), pushed down on their users' throats with every release, are also opt-out. Brave makes money only by serving ads, and in the long run making features opt-out, or making users accept ads via dark patterns, is a natural consequence.
+  Brave serves ads, and they claim that their ads are opt-in, but this is doublespeak. Advertised images in the New Tab screen are opt-out. Creepy integrations with third-parties (e.g. scammy crypto stuff), pushed down on their users' throats with every release, are also opt-out. Their new "Brave Today" feature, that shows news on the New Tab page, has ads for Amazon products using Brave's affiliate tag.
   <br><br>
-  And except for the people dreaming of becoming Internet-billionaires with the next Bitcoin-wannabe, who wants Brave's ads anyway?
+  Brave makes money only by serving ads, and in the long run making features opt-out, or making users accept ads via dark patterns, is a natural consequence. [Case in point](https://github.com/brave/brave-browser/issues/13222). And except for the people dreaming of becoming Internet-billionaires with the next Bitcoin-wannabe, who wants Brave's ads anyway?
 </p>
 
 In my tests, mobile Brave's ads-blocking is no better than mobile Chrome coupled with Pi-hole or NextDNS (for DNS-level ads-blocking). And on iOS, Safari + Wipr is much better, which is quite the feat, given Safari's limited content blocking capabilities. Firefox + uBlock Origin is miles better. And any performance claims for Brave's content blocking, being supposedly "native", is bullshit.
@@ -249,14 +249,15 @@ I also have a nagging suspicion that Internet fun money (cryptocurrency) will ne
 
 From the web:
 
-- [The cowardice of Brave](https://practicaltypography.com/the-cowardice-of-brave.html)
-- [The Brave browser is brilliant](https://rudism.com/the-brave-browser-is-brilliant/)
-- [Brave taking cryptocurrency donations “for me” without my consent](https://news.ycombinator.com/item?id=18734999)
-- [Provide a Brave-specific User Agent for some sites](https://github.com/brave/brave-browser/issues/1052)
-  - [Context](https://github.com/brave/brave-browser/issues/4641#issuecomment-498364043)
-  - [Re-block Brave scam](https://github.com/lobsters/lobsters/issues/761)
-- [The Brave web browser is hijacking links, and inserting affiliate codes](https://davidgerard.co.uk/blockchain/2020/06/06/the-brave-web-browser-is-hijacking-links-and-inserting-affiliate-codes/)
-  - [Brave browser CEO apologizes for automatically adding affiliate links to cryptocurrency URLs](https://www.theverge.com/2020/6/8/21283769/brave-browser-affiliate-links-crypto-privacy-ceo-apology)
+- [The cowardice of Brave](https://practicaltypography.com/the-cowardice-of-brave.html){:target="_blank"}
+- [The Brave browser is brilliant](https://rudism.com/the-brave-browser-is-brilliant/){:target="_blank"}
+- [Unsolicited Advertisements from Brave Rewards](https://github.com/brave/brave-browser/issues/13222){:target="_blank"}
+- [Brave taking cryptocurrency donations “for me” without my consent](https://news.ycombinator.com/item?id=18734999){:target="_blank"}
+- [Provide a Brave-specific User Agent for some sites](https://github.com/brave/brave-browser/issues/1052){:target="_blank"}
+  - [Context](https://github.com/brave/brave-browser/issues/4641#issuecomment-498364043){:target="_blank"}
+  - [Re-block Brave scam](https://github.com/lobsters/lobsters/issues/761){:target="_blank"}
+- [The Brave web browser is hijacking links, and inserting affiliate codes](https://davidgerard.co.uk/blockchain/2020/06/06/the-brave-web-browser-is-hijacking-links-and-inserting-affiliate-codes/){:target="_blank"}
+  - [Brave browser CEO apologizes for automatically adding affiliate links to cryptocurrency URLs](https://www.theverge.com/2020/6/8/21283769/brave-browser-affiliate-links-crypto-privacy-ceo-apology){:target="_blank"}
 
 ## Final Words
 
@@ -265,6 +266,7 @@ While I understand the need for advertisement in this current climate, I want th
 Further reading:
 
 - ['Acceptable' Ads?](https://blockads.fivefilters.org/acceptable.html){:target="_blank"}
-- [Ten Arguments for Deleting Your Social Media Accounts Right Now](https://openlibrary.org/works/OL19744680W/Ten_arguments_for_deleting_your_social_media_accounts_right_now){:target="_blank"}
+- [Ten Arguments for Deleting Your Social Media Accounts Right Now (book)](https://openlibrary.org/works/OL19744680W/Ten_arguments_for_deleting_your_social_media_accounts_right_now){:target="_blank"}
+- [The Age of Surveillance Capitalism (book)](https://openlibrary.org/works/OL18201749W/The_Age_of_Surveillance_Capitalism?edition=ageofsurveillanc0000zubo){:target="_blank"}
 
 Enjoy~
