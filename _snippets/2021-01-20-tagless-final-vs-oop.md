@@ -58,6 +58,7 @@ trait RegistrationService[F[_], Env] {
 }
 
 object RegistrationService {
-  implicit def instance[F[_]: Monad]: RegistrationService[F, (UserDB[F], EmailService[F])]
+  implicit def instance[F[_]: Monad]
+    : RegistrationService[F, (UserDB[F], EmailService[F])]
 }
 ```
