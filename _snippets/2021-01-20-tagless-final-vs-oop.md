@@ -34,4 +34,15 @@ final class RegistrationService[F[_]: Monad](
 
   def registerUser(user: User): F[Unit]
 }
+
+// OOP trait
+trait RegistrationService[F[_]] {
+  def registerUser(user: User): F[Unit]
+}
+
+object RegistrationService {
+  def apply[F[_]: Monad](
+    db: UserDB[F], 
+    es: EmailService[F]): RegistrationService[F] = ???
+}
 ```
