@@ -35,7 +35,7 @@ final class RegistrationService[F[_]: Monad](
   def registerUser(user: User): F[Unit]
 }
 
-// OOP trait
+// OOP interface
 trait RegistrationService[F[_]] {
   def registerUser(user: User): F[Unit]
 }
