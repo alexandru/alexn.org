@@ -21,11 +21,11 @@ def registerUser[F[_]: UserDB : EmailService : Monad](user: User): F[Unit]
 def registerUser[F[_]: Monad](
   user: User): Kleisli[F, (UserDB[F], EmailService[F]), Unit]
 
-// Plain function arguments & OOP
+// Plain function parameters & OOP
 def registerUser[F[_] : Monad](
-  user: User, 
   db: UserDB[F], 
-  es: EmailService[F]): F[Unit]
+  es: EmailService[F],
+  user: User): F[Unit]
 
 // OOP class
 final class RegistrationService[F[_]: Monad](
