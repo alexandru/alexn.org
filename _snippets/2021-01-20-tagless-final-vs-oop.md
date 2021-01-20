@@ -14,19 +14,23 @@ These may as well be interview questions for Scala developers:
 2. Just looking at the signature, what can potentially be wrong with the "tagless final" version?
 
 ```scala
+// -----------------
 // Tagless final
 def registerUser[F[_]: UserDB: EmailService: Monad](user: User): F[Unit]
 
+// -----------------
 // ReaderT (Kleisli) & OOP
 def registerUser[F[_]: Monad](
   user: User): Kleisli[F, (UserDB[F], EmailService[F]), Unit]
 
+// -----------------
 // Plain function parameters & OOP
 def registerUser[F[_]: Monad](
   db: UserDB[F], 
   es: EmailService[F],
   user: User): F[Unit]
 
+// -----------------
 // OOP class
 final class RegistrationService[F[_]: Monad](
   db: UserDB[F], 
@@ -35,6 +39,7 @@ final class RegistrationService[F[_]: Monad](
   def registerUser(user: User): F[Unit]
 }
 
+// -----------------
 // OOP interface
 trait RegistrationService[F[_]] {
   def registerUser(user: User): F[Unit]
@@ -46,6 +51,7 @@ object RegistrationService {
     es: EmailService[F]): RegistrationService[F] = ???
 }
 
+// -----------------
 // Type Class
 trait RegistrationService[F[_], Env] {
   def registerUser(env: Env, user: User): F[Unit]
