@@ -45,4 +45,13 @@ object RegistrationService {
     db: UserDB[F], 
     es: EmailService[F]): RegistrationService[F] = ???
 }
+
+// Type Class
+trait RegistrationService[F[_], Env] {
+  def registerUser(env: Env, user: User): F[Unit]
+}
+
+object RegistrationService {
+  implicit def instance[F[_]: Monad]: RegistrationService[F, (UserDB[F], EmailService[F])]
+}
 ```
