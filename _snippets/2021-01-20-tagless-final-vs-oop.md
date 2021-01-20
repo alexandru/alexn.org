@@ -12,6 +12,7 @@ These may as well be interview questions for Scala developers:
 
 1. Which signature do you prefer? 
 2. Just looking at the signature, what can potentially be wrong with the "tagless final" version?
+3. Also discuss the 2 type-class approaches, what are the potential design problems there?
 
 ```scala
 // -----------------
@@ -52,13 +53,24 @@ object RegistrationService {
 }
 
 // -----------------
-// Type Class
+// Type Class (1) — two type params
 trait RegistrationService[F[_], Env] {
   def registerUser(env: Env, user: User): F[Unit]
 }
 
 object RegistrationService {
   implicit def instance[F[_]: Monad]
-    : RegistrationService[F, (UserDB[F], EmailService[F])]
+    : RegistrationService[F, (UserDB[F], EmailService[F])] = ???
+}
+
+// -----------------
+// Type Class (2) — single type param
+trait RegistrationService[Env[_[_]]] {
+  def registerUser[F[_]: Monad](env: Env[F], user: User): F[Unit]
+}
+
+object RegistrationService {
+  type Env[F[_]] = (UserDB[F], EmailService[F])
+  implicit val instance: RegistrationService[Env] = ???
 }
 ```
