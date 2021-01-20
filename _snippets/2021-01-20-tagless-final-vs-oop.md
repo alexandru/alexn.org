@@ -15,14 +15,14 @@ These may as well be interview questions for Scala developers:
 
 ```scala
 // Tagless final
-def registerUser[F[_]: UserDB : EmailService : Monad](user: User): F[Unit]
+def registerUser[F[_]: UserDB: EmailService: Monad](user: User): F[Unit]
 
 // ReaderT (Kleisli) & OOP
 def registerUser[F[_]: Monad](
   user: User): Kleisli[F, (UserDB[F], EmailService[F]), Unit]
 
 // Plain function parameters & OOP
-def registerUser[F[_] : Monad](
+def registerUser[F[_]: Monad](
   db: UserDB[F], 
   es: EmailService[F],
   user: User): F[Unit]
