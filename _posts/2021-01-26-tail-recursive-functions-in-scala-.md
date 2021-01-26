@@ -131,7 +131,7 @@ def fib(n: Int): BigInt = {
 
 ## (Actual) Recursion
 
-Tail-recursions are just `while` loops. But some algorithms are actually _recursive_, and can't be described via a `while` loop that uses constant memory. What makes an algorithm actually recursive is _usage of a stack_. In imperative programming, for low-level implementations, that's how you can tell if recursion is required ... does it use a manually managed stack or not?
+Tail-recursions are just loops. But some algorithms are actually _recursive_, and can't be described via a `while` loop that uses constant memory. What makes an algorithm actually recursive is _usage of a stack_. In imperative programming, for low-level implementations, that's how you can tell if recursion is required ... does it use a manually managed stack or not?
 
 But even in such cases we can use a `while` loop, or a `@tailrec` function. Doing so has some advantages. Let's start with a `Tree` data-structure:
 
