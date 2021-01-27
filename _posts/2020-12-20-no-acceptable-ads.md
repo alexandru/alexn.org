@@ -266,9 +266,9 @@ From the web:
 
 ### Avoid Chromium Shells with Ads
 
-In practice "*Chrome without Google*" isn't working out great.
+In practice "*Chrome without Google*" isn't working out great. Chromium shells, with a paint job and ads, are not an improvement.
 
-People have been saying that browsers based on Chromium still give Google power over the market, since they can impose whatever web standards they want, like [AMP](https://en.wikipedia.org/wiki/Accelerated_Mobile_Pages). There is a bigger problem however. Following the same trend like Brave, being just a Chromium shell with a paint job and Ads, the other browser that does pretty much the same thing is [Microsoft Edge](https://www.microsoft.com/edge){:target="_blank",rel="nofollow"}.
+People have been saying that browsers based on Chromium still give Google power over the market, since they can impose whatever web standards they want, like [AMP](https://en.wikipedia.org/wiki/Accelerated_Mobile_Pages). There is a bigger problem however: Chromium shells coming from ads companies. Like Brave, the other well known browser that follows the trend is [Microsoft Edge](https://www.microsoft.com/edge){:target="_blank",rel="nofollow"}.
 
 People forget that Microsoft also owns Bing Ads, and in 2020 it generated 7.74 billion USD in revenue. That's nothing to scoff about, making Microsoft also an advertising company, and Edge a vessel for serving those ads.
 
@@ -288,9 +288,9 @@ Here's the screen informing me who Edge intends to share my data with (and this 
   <figcaption>Edge's list of advertisers, that may receive your personal data.</figcaption>
 </figure>
 
-When you click to manage those settings manually, all the checkboxes are already ticked. This means opt-out instead of opt-in, and I'm pretty sure it's illegal under GDPR.
+That list is huge. And when you click to manage those settings manually, all the checkboxes are already ticked. This means opt-out instead of opt-in, and I'm pretty sure it's illegal under GDPR.
 
-This is worse than Chrome from a privacy perspective. Just because Google isn't making it, doesn't make it better. Google being the biggest target, at least it's scrutinized, and the controls you have in your Google Account are half-decent. I'm not advocating for Chrome, I'm advocating against Chromium shells coming from other ads companies.
+This is worse than Chrome from a privacy perspective. Just because Google isn't making it, doesn't make it better. Google being the biggest target, at least they are scrutinized, and the controls you have in your Google Account are half-decent. I'm not advocating for Chrome, I'm advocating against Chromium shells coming from other ads companies.
 
 ## Final Words
 
