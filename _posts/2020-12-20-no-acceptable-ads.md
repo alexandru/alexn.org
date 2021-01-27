@@ -270,7 +270,7 @@ In practice "*Chrome without Google*" isn't working out great.
 
 People have been saying that browsers based on Chromium still give Google power over the market, since they can impose whatever web standards they want, like AMP. There is a bigger problem however. Following the same trend like Brave, being just a Chromium shell with a paint job and Ads, the other browser that does pretty much the same thing is [Microsoft Edge](https://www.microsoft.com/edge){:target="_blank",rel="nofollow"}.
 
-People forget that Microsoft also owns Bing Ads, and in 2020 it generated 7.74 billion USD in revenue. That's nothing to scoff about, making Microsoft also an ads-company, and Edge a vessel for serving those ads.
+People forget that Microsoft also owns Bing Ads, and in 2020 it generated 7.74 billion USD in revenue. That's nothing to scoff about, making Microsoft also an advertising company, and Edge a vessel for serving those ads.
 
 Don't believe me? Here's what Edge asks of me, at the moment of writing:
 
