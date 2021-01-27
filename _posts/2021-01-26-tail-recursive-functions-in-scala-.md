@@ -43,7 +43,7 @@ First let's describe it as a dirty `while` loop instead:
 
 ```scala
 def len(l: List[_]): Int = {
-  var count = 1
+  var count = 0
   var cursor = l
 
   while (cursor != Nil) {
@@ -97,6 +97,7 @@ First turn this into a dirty `while` loop:
 
 ```scala
 def fib(n: Int): BigInt = {
+  // Kids, don't do this at home 😅
   if (n <= 0) return 0
   // Going from 0 to n, instead of vice-versa  
   var a: BigInt = 0 // instead of fib(n - 2)
@@ -132,7 +133,7 @@ def fib(n: Int): BigInt = {
 
 ## (Actual) Recursion
 
-Tail-recursions are just loops. But some algorithms are actually _recursive_, and can't be described via a `while` loop that uses constant memory. What makes an algorithm actually recursive is id=Ua1iMD4icLUa1iMD4icL_usage of a stack_. In imperative programming, for low-level implementations, that's how you can tell if recursion is required ... does it use a manually managed stack or not?
+Tail-recursions are just loops. But some algorithms are actually _recursive_, and can't be described via a `while` loop that uses constant memory. What makes an algorithm actually recursive is _usage of a stack_. In imperative programming, for low-level implementations, that's how you can tell if recursion is required ... does it use a manually managed stack or not?
 
 But even in such cases we can use a `while` loop, or a `@tailrec` function. Doing so has some advantages. Let's start with a `Tree` data-structure:
 
@@ -172,12 +173,16 @@ def foldTree[A, R](tree: Tree[A], seed: R)(f: (R, A) => R): R = {
       // Step in our loop
       case Node(value, left, right) :: tail =>
         // Adds left and right nodes to stack, evolves the state
-        loop(left :: right :: stack, f(state, value))
+        loop(left :: right :: tail, f(state, value))
     }
   // Go, go, go!
   loop(List(tree), seed)
 }
 ```
+
+<p class="info-bubble">
+  If you want to internalize this notion — recursion == usage of a stack — a great exercise is the [backtracking algorithm](https://en.wikipedia.org/wiki/Backtracking). Implement it with recursive functions, or with dirty loops and a manually managed stack, and compare. The plot thickens for backtracking problems using 2 stacks 🙂
+</p>
 
 Does this manually managed stack buy us anything?
 
