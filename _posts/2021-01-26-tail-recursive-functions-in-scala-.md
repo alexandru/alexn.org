@@ -1,7 +1,8 @@
 ---
 title: "Tail Recursive Functions (in Scala)"
 date: 2021-01-26 21:49:35+0200
-youtube: Ua1iMD4icLU
+image: /assets/media/articles/tail-recursive-functions.png
+image_hide_in_post: true
 tags: 
   - Algorithms
   - FP
@@ -10,7 +11,7 @@ tags:
 description: "Turning imperative algorithms to tail-recursive functions isn't necessarily obvious. In this episode I'm showing you the trick you need, and in doing so, we'll discover the Zen of Functional Programming."
 ---
 
-{% include youtube.html ratio=56.25 %}
+{% include youtube.html id="Ua1iMD4icLU" %}
 
 Turning imperative algorithms to tail-recursive functions isn't necessarily obvious. In this episode I'm showing you the trick you need, and in doing so, we'll discover the Zen of Functional Programming.
 
@@ -131,7 +132,7 @@ def fib(n: Int): BigInt = {
 
 ## (Actual) Recursion
 
-Tail-recursions are just loops. But some algorithms are actually _recursive_, and can't be described via a `while` loop that uses constant memory. What makes an algorithm actually recursive is _usage of a stack_. In imperative programming, for low-level implementations, that's how you can tell if recursion is required ... does it use a manually managed stack or not?
+Tail-recursions are just loops. But some algorithms are actually _recursive_, and can't be described via a `while` loop that uses constant memory. What makes an algorithm actually recursive is id=Ua1iMD4icLUa1iMD4icL_usage of a stack_. In imperative programming, for low-level implementations, that's how you can tell if recursion is required ... does it use a manually managed stack or not?
 
 But even in such cases we can use a `while` loop, or a `@tailrec` function. Doing so has some advantages. Let's start with a `Tree` data-structure:
 
