@@ -240,3 +240,9 @@ body {
     background: lighten($site-background-dark, 15%);
   }
 }
+
+.video {
+	.youtube-play-link {
+    box-shadow: 0px 0px 5px 0px rgba(200, 200, 200, 0.3);
+  }
+}
