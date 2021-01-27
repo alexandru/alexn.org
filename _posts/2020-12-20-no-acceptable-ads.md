@@ -31,6 +31,7 @@ Contents:
     - [Android](#android)
     - [iPhone / iOS](#iphone--ios)
   - [Avoid Brave, the browser](#avoid-brave-the-browser)
+  - [Avoid Chromium Shells with Ads](#avoid-chromium-shells-with-ads)
 - [Final Words](#final-words)
 
 ## Consumer's Perspective
@@ -237,6 +238,8 @@ This hasn't been a technical limitation, but company policy. They will correct t
   Brave makes money only by serving ads, and in the long run making features opt-out, or making users accept ads via dark patterns, is a natural consequence. [Case in point](https://github.com/brave/brave-browser/issues/13222). And except for the people dreaming of becoming Internet-billionaires with the next Bitcoin-wannabe, who wants Brave's ads anyway?
 </p>
 
+Brave is just a Chromium shell with a paint job and Ads.
+
 In my tests, mobile Brave's ads-blocking is no better than mobile Chrome coupled with Pi-hole or NextDNS (for DNS-level ads-blocking). And on iOS, Safari + Wipr is much better, which is quite the feat, given Safari's limited content blocking capabilities. Firefox + uBlock Origin is miles better. And any performance claims for Brave's content blocking, being supposedly "native", is bullshit.
 
 But don't trust me. You can [run the benchmarks]({% link _wiki/web.md %}#browser-benchmarks) yourself.
@@ -260,6 +263,36 @@ From the web:
   - [Re-block Brave scam](https://github.com/lobsters/lobsters/issues/761){:target="_blank"}
 - [The Brave web browser is hijacking links, and inserting affiliate codes](https://davidgerard.co.uk/blockchain/2020/06/06/the-brave-web-browser-is-hijacking-links-and-inserting-affiliate-codes/){:target="_blank"}
   - [Brave browser CEO apologizes for automatically adding affiliate links to cryptocurrency URLs](https://www.theverge.com/2020/6/8/21283769/brave-browser-affiliate-links-crypto-privacy-ceo-apology){:target="_blank"}
+
+### Avoid Chromium Shells with Ads
+
+In practice "*Chrome without Google*" isn't working out great.
+
+People have been saying that browsers based on Chromium still give Google power over the market, since they can impose whatever web standards they want, like AMP. There is a bigger problem however. Following the same trend like Brave, being just a Chromium shell with a paint job and Ads, the other browser that does pretty much the same thing is [Microsoft Edge](https://www.microsoft.com/edge){:target="_blank",rel="nofollow"}.
+
+People forget that Microsoft also owns Bing Ads, and in 2020 it generated 7.74 billion USD in revenue. That's nothing to scoff about, making Microsoft also an ads-company, and Edge a vessel for serving those ads.
+
+Don't believe me? Here's what Edge asks of me, at the moment of writing:
+
+<figure>
+  <img src="{% link assets/media/articles/edge-consent-1.png %}" 
+    alt="Screenshot of Edge's consent dialog, for sharing data with advertisers" />
+  <figcaption>Microsoft Edge, requiring consent for sharing data with advertisers.</figcaption>
+</figure>
+
+It uses the same [dark patterns](https://en.wikipedia.org/wiki/Dark_pattern) that the rest of the industry is using: an "_I Accept_" button, with a "_Managed Preferences_" alternative — this being a dark pattern because the effort to _reject all_ is greater. People will just reach for the easier option, because it gets too annoying otherwise. I wonder if they'll keep asking me until I accept. 
+
+Here's the screen informing me who Edge intends to share my data with (and this means GPS location data, browsing history, etc), the whole list of "vendors":
+
+<figure>
+  <img src="{% link assets/media/articles/edge-consent-2.png %}"
+    alt="Screenshot of Edge's list of advertisers, that may receive your personal data." />
+  <figcaption>Edge's list of advertisers, that may receive your personal data.</figcaption>
+</figure>
+
+When you click to manage those settings manually, all the checkboxes are already ticked. This means opt-out instead of opt-in, and I'm pretty sure it's illegal under GDPR.
+
+This is worse than Chrome from a privacy perspective. Just because Google isn't making it, doesn't make it better. Google being the biggest target, at least it's scrutinized, and the controls you have in your Google Account are half-decent. I'm not advocating for Chrome, I'm advocating against Chromium shells coming from other ads companies.
 
 ## Final Words
 
