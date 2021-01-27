@@ -275,8 +275,7 @@ People forget that Microsoft also owns Bing Ads, and in 2020 it generated 7.74 b
 Don't believe me? Here's what Edge asks of me, at the moment of writing:
 
 <figure>
-  <img src="{% link assets/media/articles/edge-consent-1.png %}" 
-    alt="Screenshot of Edge's consent dialog, for sharing data with advertisers" />
+  <img src="{% link assets/media/articles/edge-consent-1.png %}" loading="lazy" alt="Screenshot of Edge's consent dialog, for sharing data with advertisers" />
   <figcaption>Microsoft Edge, requiring consent for sharing data with advertisers.</figcaption>
 </figure>
 
@@ -285,8 +284,7 @@ It uses the same [dark patterns](https://en.wikipedia.org/wiki/Dark_pattern) tha
 Here's the screen informing me who Edge intends to share my data with (and this means GPS location data, browsing history, etc), the whole list of "vendors":
 
 <figure>
-  <img src="{% link assets/media/articles/edge-consent-2.png %}"
-    alt="Screenshot of Edge's list of advertisers, that may receive your personal data." />
+  <img src="{% link assets/media/articles/edge-consent-2.png %}" loading="lazy" alt="Screenshot of Edge's list of advertisers, that may receive your personal data." />
   <figcaption>Edge's list of advertisers, that may receive your personal data.</figcaption>
 </figure>
 
