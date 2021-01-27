@@ -737,6 +737,8 @@ img.right {
 	.youtube-play-link {
 		position: relative;
 		display: block;
+		box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.3);
+		border-radius: 3px;
 
 		img.play-logo {
 			display: block;
@@ -747,11 +749,18 @@ img.right {
 			top: 0; left: 0; bottom: 0; right: 0;
 			z-index: 100;
 			opacity: 0.8;
+
 		}
 
 		img.play-thumb {
 			display: block;
 			min-height: 70px;
+		}
+
+		&:hover {
+			img.play-logo {
+				opacity: 1;
+			}
 		}
 	}
 
