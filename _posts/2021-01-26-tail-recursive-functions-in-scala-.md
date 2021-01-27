@@ -11,7 +11,7 @@ tags:
 description: "Turning imperative algorithms to tail-recursive functions isn't necessarily obvious. In this article (and video) I'm showing you the trick you need, and in doing so, we'll discover the Zen of Functional Programming."
 ---
 
-{% include youtube.html id="Ua1iMD4icLU" %}
+{% include youtube.html id="Ua1iMD4icLU" image="/assets/media/articles/tail-recursive-functions.png" %}
 
 Turning imperative algorithms to tail-recursive functions isn't necessarily obvious. In this episode I'm showing you the trick you need, and in doing so, we'll discover the Zen of Functional Programming.
 

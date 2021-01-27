@@ -734,6 +734,27 @@ img.right {
 }
 
 .video {
+	.youtube-play-link {
+		position: relative;
+		display: block;
+
+		img.play-logo {
+			display: block;
+			width: 100px;
+			height: 70px;
+			margin: auto;
+			position: absolute;
+			top: 0; left: 0; bottom: 0; right: 0;
+			z-index: 100;
+			opacity: 0.8;
+		}
+
+		img.play-thumb {
+			display: block;
+			min-height: 70px;
+		}
+	}
+
 	.video-container {
 		position: relative;
 		padding-bottom: 56.25%;
