@@ -181,7 +181,7 @@ def foldTree[A, R](tree: Tree[A], seed: R)(f: (R, A) => R): R = {
 ```
 
 <p class="info-bubble" markdown="1">
-  If you want to internalize this notion — recursion == usage of a stack — a great exercise is the [backtracking algorithm](https://en.wikipedia.org/wiki/Backtracking). Implement it with recursive functions, or with dirty loops and a manually managed stack, and compare. The plot thickens for backtracking problems using 2 stacks 🙂
+  If you want to internalize this notion — recursion == usage of a stack — a great exercise is the [backtracking algorithm](https://en.wikipedia.org/wiki/Backtracking). Implement it with recursive functions, or with dirty loops and a manually managed stack, and compare. The plot thickens for backtracking solutions using 2 stacks 🙂
 </p>
 
 Does this manually managed stack buy us anything?
