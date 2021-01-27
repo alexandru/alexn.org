@@ -781,6 +781,12 @@ img.right {
 	}
 }
 
+.no-js .footer {
+  .contributions .note.only-js {
+		display: none;
+	}
+}
+
 .no-js .video {
   .video-container {
     display: none;
