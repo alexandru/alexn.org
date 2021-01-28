@@ -742,14 +742,15 @@ img.right {
 
 		img.play-logo {
 			display: block;
-			width: 100px;
-			height: 70px;
+			width: 80px;
+			height: 56px;
 			margin: auto;
 			position: absolute;
 			top: 0; left: 0; bottom: 0; right: 0;
 			z-index: 100;
 			opacity: 0.8;
-
+			transition-timing-function: ease-in;
+			transition: opacity 0.3s;
 		}
 
 		img.play-thumb {
