@@ -1,0 +1,248 @@
+@mixin code-rectangle-dark {
+  background: #11202c;
+  color: #fefffe;
+  border: 1px solid #333;
+}
+
+@mixin form-elements {
+  label {
+    color: #777;
+  }
+
+  select,
+  input,
+  textarea,
+  button,
+  .textarea,
+  input[type="text"],
+  input[type="email"],
+  input[type="phone"],
+  input[type="password"],
+  input[type="number"],
+  input[type="search"] {
+    border: 1px solid hsl(0, 0%, 10%);
+    color: #afafaf;
+    background: hsl(0, 0%, 14%);
+    transition: background-color 0.3s cubic-bezier(0.57, 0.21, 0.69, 1.25),
+      transform 0.3s cubic-bezier(0.57, 0.21, 0.69, 1.25);
+  }
+
+  button,
+  input[type="submit"],
+  input[type="button"],
+  input[type="reset"] {
+    border: 1px solid hsl(0, 0%, 15%);
+    background: hsl(0, 0%, 20%);
+  }
+
+  ::placeholder {
+    color: inherit;
+    opacity: 1;
+  }
+}
+
+:root {
+  color-scheme: light dark; /* both supported */
+}
+
+html,
+body,
+* {
+  scrollbar-width: thin;
+  scrollbar-color: $scrollbar-thumb-dark $scrollbar-background-dark;
+}
+
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track,
+*::-webkit-scrollbar-track {
+  background: $scrollbar-background-dark;
+}
+
+body::-webkit-scrollbar-thumb,
+*::-webkit-scrollbar-thumb {
+  background-color: $scrollbar-thumb-dark;
+  border-radius: 6px;
+  border: 3px solid $scrollbar-background-dark;
+}
+
+html {
+  background-color: $site-background-dark;
+  background-image: none;
+}
+
+body {
+  background-color: $site-background-dark;
+  background-image: none;
+  color: $text-color-dark;
+
+  a {
+    color: $link-color-dark;
+
+    &:hover {
+      color: darken($link-color-dark, 15%);
+    }
+  }
+
+  .header {
+    background-color: $header-color-dark;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: $all-headers-color-dark;
+  }
+
+  .highlight {
+    @include code-rectangle-dark;
+  }
+
+  div.formula-code {
+    @include code-rectangle-dark;
+  }
+
+  code.language-plaintext.highlighter-rouge {
+    background-color: #1e2325;
+  }
+
+  form {
+    @include form-elements;
+  }
+
+  .post {
+    .info-bubble {
+      background-color: #25313c;
+      border-color: lighten($color: #25313c, $amount: 10%);
+      color: $text-color-dark;
+
+      code.language-plaintext.highlighter-rouge {
+        background-color: lighten($color: #25313c, $amount: 5%);
+      }
+    }
+
+    .warn-bubble {
+      background-color: #362521;
+      border-color: lighten($color: #362521, $amount: 10%);
+      color: inherit;
+
+      code.language-plaintext.highlighter-rouge {
+        background-color: lighten($color: #362521, $amount: 5%);
+      }
+    }
+
+    #article-details {
+      border-top: 1px solid lighten($site-background-dark, 15%);
+
+      #all-categories {
+        border-top: 1px solid lighten($site-background-dark, 15%);
+      }
+    }
+
+    div.related {
+      border-top: 2px solid lighten($site-background-dark, 15%);
+    }
+
+    .meta,
+    #article-details {
+      color: #778899;
+    }
+
+    .dropcap {
+      color: $primary-color-dark;
+    }
+
+    blockquote em {
+      color: darken($text-color-dark, 15%);
+    }
+  }
+
+  .button {
+    &-secondary {
+      background-color: $secondary-color-dark;
+
+      &:hover {
+        background-color: darken($secondary-color-dark, 10%);
+      }
+    }
+  }
+
+  a.button__outline {
+    border: 3px solid $primary-color-dark;
+    color: $primary-color-dark;
+
+    &:hover {
+      background-color: $primary-color-dark;
+      color: $white;
+    }
+  }
+
+  .post div.related div.container div.item .related-meta,
+  div.archive_list div.container div.item .related-meta {
+    color: #778899;
+  }
+
+  .post div.related h2,
+  div.archive_list h2 {
+    color: $all-headers-color-dark;
+  }
+
+  .footer {
+    background-color: lighten($color: $site-background-dark, $amount: 5%);
+    background-image: none;
+
+    .contributions {
+      #isso-thread {
+        @include form-elements;
+
+        & > h4 {
+          color: lighten(#778899, 5%);
+        }
+
+        .isso-comment > div.text-wrapper > .isso-comment-header {
+          color: #778899;
+        }
+
+        .isso-comment > div.text-wrapper > .isso-comment-header .author {
+          color: lighten(#778899, 5%);
+        }
+      }
+
+      .note {
+        border: 1px solid $site-background-dark;
+        background-color: lighten($color: $site-background-dark, $amount: 3%);
+
+        .extra {
+          color: #586069;
+        }
+      }
+    }
+
+    .bottom {
+      background: $site-background-dark;
+      color: lightslategray;
+      border-top: 2px solid lighten($site-background-dark, $amount: 5%);
+      border-bottom: 2px solid lighten($site-background-dark, $amount: 5%);
+    }
+
+    #footer-comments-widget {
+      border-bottom: 2px solid lighten($site-background-dark, 20%);
+    }
+  }
+
+  div.archive_list:before, .posts li:before {
+    background: lighten($site-background-dark, 15%);
+  }
+}
+
+.video {
+	.youtube-play-link {
+    box-shadow: 0px 0px 5px 0px rgba(200, 200, 200, 0.3);
+  }
+}

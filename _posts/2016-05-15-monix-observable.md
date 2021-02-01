@@ -6,8 +6,7 @@ description:
   by processing asynchronous soft-real time signals
   using Akka &amp; Monix.
 tags:
-  - Functional
-  - Code
+  - FP
   - Scala
   - Monix
 youtube: CQxviYlAKaY

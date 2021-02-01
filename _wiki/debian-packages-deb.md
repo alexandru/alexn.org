@@ -1,8 +1,7 @@
 ---
 date: 2020-08-24 16:24:31+0300
+title: "Debian Packages (deb)"
 ---
-
-# Debian Packages (deb)
 
 - <https://www.debian.org/doc/manuals/debmake-doc/ch04.en.html>
 - <http://wiki.opf-labs.org/display/SP/The+Hello+World+Debian+Package>

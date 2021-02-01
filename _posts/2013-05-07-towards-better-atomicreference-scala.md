@@ -2,7 +2,7 @@
 title: "Towards a Better AtomicReference"
 tags:
   - Languages
-  - Functional
+  - FP
   - Scala
   - Java
   - Multithreading

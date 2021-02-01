@@ -1,8 +1,7 @@
 ---
 date: 2020-09-21 16:20:35+0300
+title: "Privacy"
 ---
-
-# Privacy
 
 ## Firefox Extensions
 

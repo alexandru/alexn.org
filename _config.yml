@@ -79,7 +79,7 @@ plugins:
   - jekyll-last-modified-at
 
 titles_from_headings:
-  enabled: true
+  enabled: false
   strip_title: true
   collections: true
 
@@ -155,7 +155,6 @@ authors:
     name: Alexandru Nedelcu
     github: alexandru
     twitter: alexelcu
-    facebook: alexelcu
 
 assets:
   destination: "/assets/compiled"

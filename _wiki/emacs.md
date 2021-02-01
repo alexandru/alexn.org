@@ -1,8 +1,7 @@
 ---
 date: 2020-08-24 16:24:31+0300
+title: "Emacs Setup"
 ---
-
-# Emacs Setup
 
 ## Installation
 
@@ -51,10 +50,12 @@ Create `~/Library/LaunchAgents/alex.emacs.plist`:
     <key>ProgramArguments</key>
     <array>
       <string>/Applications/Emacs.app/Contents/MacOS/emacs</string>
-      <string>--fg-daemon</string>
+      <string>--daemon</string>
     </array>
     <key>RunAtLoad</key>
     <true/>
+    <key>UserName</key>
+    <string>replace_me_with_mac_username</string>
   </dict>
 </plist>
 ```

@@ -2,7 +2,7 @@
 title: "Scala Best Practices"
 tags:
   - Languages
-  - Functional
+  - FP
   - Scala
   - Best Practices
 image: /assets/media/articles/scala.png

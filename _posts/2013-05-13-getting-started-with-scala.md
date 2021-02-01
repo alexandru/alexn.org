@@ -2,7 +2,7 @@
 title: "Resources for Learning Scala"
 tags:
   - Languages
-  - Functional
+  - FP
   - Scala
   - Books
 image: /assets/media/articles/scala.png

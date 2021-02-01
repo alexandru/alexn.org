@@ -3,11 +3,9 @@ title: "Monix Task vs Scalaz vs Future, The Benchmark"
 description:
   The Task in Monix has really good performance. See the benchmark.
 tags:
-  - Functional
-  - Code
+  - FP
   - Scala
   - Monix
-  - Scalaz
   - Typelevel
 image: /assets/media/articles/monix-1024.png
 ---

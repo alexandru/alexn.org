@@ -1,8 +1,7 @@
 ---
 date: 2020-10-08 08:31:40+0300
+title: "Microsoft .NET"
 ---
-
-# Microsoft .NET
 
 ## CSharp
 
@@ -12,6 +11,30 @@ date: 2020-10-08 08:31:40+0300
 - [Available game engines](https://dotnet.microsoft.com/apps/games/engines?WT.mc_id=gamedev-blog-abhamed)
 
 ## FSharp
+
+### Start New Project
+
+```sh
+# Starting a new solution
+dotnet new sln -o AdventOfCode
+
+# Start a console applicatin
+cd AdventOfCode/
+dotnet new console -lang "F#" -o App
+
+# Add project to the solution
+dotnet sln add App/App.fsproj
+
+# Restore NuGet dependencies
+dotnet restore
+
+# Build the project
+dotnet build
+
+# Run the project
+cd ./App
+dotnet run
+```
 
 ### Articles
 

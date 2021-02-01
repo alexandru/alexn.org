@@ -20,7 +20,7 @@ has_subscribe: true
     {% unless page.image_hide_in_post -%}
     <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
       <meta itemprop="url" content="{{ page.image | absolute_url }}" />
-      <img src="{{ page.image | prepend: site.baseurl }}?{{ 'now' | date: '%Y%m%d%H%M' }}" alt="" />
+      <img src="{{ page.image | prepend: site.baseurl }}?{{ 'now' | date: '%Y%m%d%H%M' }}" alt="{% if page.image_caption %}{{ page.image_caption | xml_escape }}{% endif %}" />
       {% if page.image_caption %}<figcaption itemprop="caption">{{ page.image_caption }}</figcaption>{% endif %}
     </figure>
     {% else %}
@@ -42,13 +42,11 @@ has_subscribe: true
   </div>
   {% if page.author -%}
     {% assign author_twitter = site.authors | map: page.author | map: "twitter" -%}
-    {% assign author_facebook = site.authors | map: page.author | map: "facebook" -%}
     {% assign author_github = site.authors | map: page.author | map: "github" -%}
     <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="{{ site.authors | map: page.author | map: 'name' }}" />
       <meta itemprop="url" content="{{ '/about.html' | absolute_url }}#{{ page.author }}" />
       {% if author_twitter -%}<meta itemprop="url" content="https://twitter.com/{{ author_twitter }}" />{% endif %}
-      {% if author_facebook -%}<meta itemprop="url" content="https://www.facebook.com/{{ author_facebook }}" />{% endif %}
       {% if author_github -%}<meta itemprop="url" content="https://github.com/{{ author_github }}" />{% endif %}
     </div>
   {% endif %}
@@ -85,7 +83,7 @@ has_subscribe: true
   {% assign related_posts_count = related_posts | size -%}
   {% if related_posts_count > 0 %}
   <div class="related">    
-    <h2>Related Articles</h2>
+    <h2 id="related-articles">Related Articles</h2>
     <div class="container">
       {% for related_post in related_posts limit:4 %}
       {% unless related_post.url == page.url %}
@@ -98,7 +96,7 @@ has_subscribe: true
             {% assign had_first_tag = false %}
             {% for tag in related_post.tags %}
               {% unless had_first_tag %}{% assign had_first_tag = true %}{% else %} | {% endunless -%}
-              <a href="{{ tag | uri_escape | prepend: '/blog/tag/' | prepend: site.baseurl }}" class="tag">{{ tag }}</a>
+              <a href="{{ tag | downcase | uri_escape | prepend: '/blog/tag/' | prepend: site.baseurl }}" class="tag">{{ tag }}</a>
             {% endfor %}            
           </div>
           <time>{{ related_post.date | date_to_long_string }}</time>

@@ -14,11 +14,12 @@ html {
 }
 
 body {
-	background: $site-background;
+	background-color: $site-background-light;
+	background-image: $site-background-image;
 	font-family: $serif;
 	line-height: 1.75;
 	font-size: 112.5%; // 18px base font size
-	color: $black;
+	color: $text-color-light;
 	overflow-x: hidden;
 	margin: 0;
 
@@ -34,12 +35,12 @@ body {
 
 // Text Selection Styling
 ::-moz-selection {
-	background: $primary-color;
+	background: $primary-color-light;
 	color: white;
 }
 
 ::selection {
-	background: $primary-color;
+	background: $primary-color-light;
 	color: white;
 }
 
@@ -62,10 +63,10 @@ LINK STYLING
 ***************/
 
 a {
-	color: $link-color;
+	color: $link-color-light;
 
 	&:hover {
-		color: darken($link-color, 15%);
+		color: darken($link-color-light, 15%);
 	}
 }
 
@@ -201,7 +202,7 @@ HEADER STYLING
 }
 
 .header {
-	background-color: $header-color;
+	background-color: $header-color-light;
 	background-size: cover;
 	background-position: center center;
 	color: white;
@@ -292,7 +293,7 @@ POST STYLING
 		font-weight: 300;
 
 		a {
-			color: lighten(desaturate($link-color, 25%), 15%);
+			color: lighten(desaturate($link-color-light, 25%), 15%);
 			text-decoration: none;
 			&:hover {
 				text-decoration: underline;
@@ -338,7 +339,7 @@ POST STYLING
 	}
 
 	.dropcap {
-		color: $primary-color;
+		color: $primary-color-light;
 		margin-right: .45rem;
 	}
 
@@ -395,7 +396,7 @@ POST STYLING
 	h2 {
 		margin: 0;
 		margin-top: 1rem;
-		color: darken($all-headers-color, 10%);
+		color: darken($all-headers-color-light, 10%);
 	}
 
 	div.container {
@@ -433,7 +434,7 @@ POST STYLING
         line-height: 1.5;
 
 				a {
-					color: lighten(desaturate($link-color, 25%), 15%);
+					color: lighten(desaturate($link-color-light, 25%), 15%);
 					text-decoration: none;
 					&:hover { text-decoration: underline; }
 				}
@@ -458,6 +459,10 @@ div.archive_list {
 		background: darken(white, 10%);
 		height: 2px;
 		width: 60px;
+	}
+
+	&.last:before {
+		display: none;
 	}
 }
 
@@ -667,6 +672,10 @@ POST LIST STYLING
 			width: 60px;
 		}
 
+		&:last-child:before {
+			display: none;
+		}
+
 		a {
 			text-decoration: none;
 
@@ -686,7 +695,7 @@ POST LIST STYLING
       }
 
 			a {
-				color: lighten(desaturate($link-color, 25%), 15%);
+				color: lighten(desaturate($link-color-light, 25%), 15%);
 				text-decoration: none;
 				&:hover { text-decoration: underline; }
 			}
@@ -725,6 +734,37 @@ img.right {
 }
 
 .video {
+	.youtube-play-link {
+		position: relative;
+		display: block;
+		box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.3);
+		border-radius: 3px;
+
+		img.play-logo {
+			display: block;
+			width: 80px;
+			height: 56px;
+			margin: auto;
+			position: absolute;
+			top: 0; left: 0; bottom: 0; right: 0;
+			z-index: 100;
+			opacity: 0.8;
+			transition-timing-function: ease-in;
+			transition: opacity 0.3s;
+		}
+
+		img.play-thumb {
+			display: block;
+			min-height: 70px;
+		}
+
+		&:hover {
+			img.play-logo {
+				opacity: 1;
+			}
+		}
+	}
+
 	.video-container {
 		position: relative;
 		padding-bottom: 56.25%;
@@ -739,6 +779,12 @@ img.right {
 			width: 100%;
 			height: 100%;
 		}
+	}
+}
+
+.no-js .footer {
+  .contributions .note.only-js {
+		display: none;
 	}
 }
 
@@ -811,7 +857,7 @@ img.right {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: $all-headers-color;
+  color: $all-headers-color-light;
 	font-weight: 800;
 	
 	a.anchor {

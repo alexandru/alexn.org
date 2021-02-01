@@ -1,13 +1,10 @@
 ---
 title: "Scala Days 2017 — Monix Task"
 tags:
-  - Functional
-  - Code
+  - FP
   - Scala
   - Monix
   - Presentation
-  - Video
-  - Slides
 description:
   My presentation from Scala Days 2017, Chicago (April) and Copenhagen (June),
   on the design of Monix's Task.

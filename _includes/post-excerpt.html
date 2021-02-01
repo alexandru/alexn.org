@@ -5,7 +5,7 @@
   {% for tag in include.post.tags %}
     {% unless tag == auto_tag %}
       {% unless had_first_tag %}{% assign had_first_tag = true %}{% else %} | {% endunless -%}
-      <a href="{{ tag | downcase | uri_escape | append: '/' | prepend: 'tag/' | prepend: page.nav_id | prepend: site.baseurl }}" class="tag">{{ tag }}</a>
+      <a href="{{ tag | downcase | uri_escape | append: '/' | prepend: 'blog/tag/' | prepend: page.nav_id | prepend: site.baseurl }}" class="tag">{{ tag }}</a>
     {% endunless %}
   {% endfor %}
 </div>
@@ -14,7 +14,7 @@
 {% capture image %}{% if include.post.vimeo %}{{ include.post.vimeo | vimeo_thumb_link }}{% elsif include.post.youtube %}{{ include.post.youtube | youtube_thumb_link }}{% elsif include.post.image %}{{ include.post.image | prepend: site.baseurl }}{% endif %}{% endcapture -%}
 {% if image != null and image != "" %}
 <figure>
-  <a href="{{ include.post.url | prepend: site.baseurl }}"><img src="{{ image }}" /></a>
+  <a href="{{ include.post.url | prepend: site.baseurl }}"><img src="{{ image }}" alt="{% if include.post.image_caption %}{{ include.post.image_caption | xml_escape }}{% endif %}" {% unless include.strict_loading %}loading="lazy"{% endunless %} /></a>
 </figure>
 {% endif %}
 <p>{% if include.post.description %}{{ include.post.description | markdownify }}{% else %}{{ include.post.excerpt | strip_html }}{% endif %}</p>

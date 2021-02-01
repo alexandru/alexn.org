@@ -1,8 +1,7 @@
 ---
 date: 2020-09-15 21:48:09+0300
+title: "Image Formats"
 ---
-
-# Image Formats
 
 ## Convert HEIC to JPEG in a directory
 

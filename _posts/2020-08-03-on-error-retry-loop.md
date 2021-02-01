@@ -3,9 +3,8 @@ title: "Retry Failing Tasks with Cats and Scala"
 description:
   Retry actions ending in failure via simple functions and Typelevel Cats type-classes.
 tags:
-  - Scala
   - FP
-  - Code
+  - Scala
 image: /assets/media/snippets/on-error-retry-loop.png
 ---
 

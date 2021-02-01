@@ -7,7 +7,7 @@ has_full_title: true
   <ul class="posts noList">
     {% for post in site.posts offset:0 limit:1  %}
     <li>
-      {% include post-excerpt.html post=post %}
+      {% include post-excerpt.html post=post strict_loading=true %}
     </li>
     {% endfor %}
   </ul>
@@ -87,7 +87,7 @@ has_full_title: true
     </div>
   </div>
 
-  <div class="archive_list">
+  <div class="archive_list last">
     <h3>Recent Shared Links</h3>
   
     {% assign all_links = site.links | rss_sort_all -%}

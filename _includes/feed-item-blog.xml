@@ -5,16 +5,19 @@
   {% else %}
     {% if include.post.image -%}
       <a href="{{ include.post.url | absolute_url | rss_campaign_link: 'image', campaign_name }}">
-        <img src="{{ include.post.image | absolute_url }}?{{ 'now' | date: '%Y%m%d%H%M' }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
+        <img src="{{ include.post.image | absolute_url }}?{{ 'now' | date: '%Y%m%d%H%M' }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;"
+          alt="{% if include.post.image_caption %}{{ include.post.image_caption | xml_escape }}{% endif %}" />
       </a>
       <br />
     {% elsif include.post.vimeo -%}
       <a href="{{ include.post.url | absolute_url | rss_campaign_link: 'image', campaign_name }}">
-        <img src="{{ include.post.vimeo | vimeo_thumb_link }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
+        <img src="{{ include.post.vimeo | vimeo_thumb_link }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;"
+          alt="Vimeo thumbnail" />
       </a>
     {% elsif include.post.youtube -%}
       <a href="{{ include.post.url | absolute_url | rss_campaign_link: 'image', campaign_name }}">
-        <img src="{{ include.post.youtube | youtube_thumb_link }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
+        <img src="{{ include.post.youtube | youtube_thumb_link }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" 
+          alt="YouTube thumbnail" />
       </a>
     {% endif -%}
     {% if include.post.description %}{{ include.post.description | markdownify | rss_process }}{% else %}{{ include.post.excerpt | strip_html | rss_process }}{% endif -%}

@@ -1,8 +1,7 @@
 ---
 date: 2020-08-24 16:24:31+0300
+title: "Teach Kids to Code"
 ---
-
-# Teach Kids to Code
 
 Platforms, engines, toys:
 

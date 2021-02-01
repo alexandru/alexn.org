@@ -4,7 +4,6 @@ description:
   Strengthen your code via `-Xfatal-warnings`, linting and piss off your colleagues with useful compiler errors.
 tags:
   - Scala
-  - Code
 image: /assets/media/articles/scala-xfatal-warnings.png
 ---
 

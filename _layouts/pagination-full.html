@@ -8,7 +8,11 @@ layout: default
   <ul class="posts noList">
     {% for post in paginator.posts %}
       <li>
-        {% include post-excerpt.html post=post %}
+        {% if forloop.index0 == 0 %}
+          {% include post-excerpt.html post=post strict_loading=true %}
+        {% else %}
+          {% include post-excerpt.html post=post %}
+        {% endif %}
       </li>
     {% endfor %}
   </ul>

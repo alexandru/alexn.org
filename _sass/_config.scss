@@ -31,15 +31,22 @@ $grey:   #aaa;
 $black:  #111;
 
 // Color variables
-$primary-color: #00649e;
-$secondary-color: #008bd8;
+$primary-color-light: #00649e;
+$primary-color-dark: #00c1ff;
+
+$secondary-color-light: #008bd8;
+$secondary-color-dark: lighten($secondary-color-light, 10%);
 $tertiary-color: #aaa;
-$link-color: $primary-color;
 
-$background-color: $primary-color;
-$header-color: #473864;
+$link-color-light: $primary-color-light;
+$link-color-dark: $primary-color-dark;
 
-$all-headers-color: $black;
+$background-color: $primary-color-light;
+$header-color-light: #473864;
+$header-color-dark: $header-color-light;
+
+$all-headers-color-light: $black;
+$all-headers-color-dark: rgb(221, 218, 214);
 
 $bad-color: $red; // Bad color for errors, validation etc.
 $good-color: $green; // Good color for success etc.
@@ -47,6 +54,15 @@ $info-color: $blue; // Good color for success etc.
 $warning-color: $orange; // Good color for success etc.
 $subtle-color: $grey; // Subtle color for subtle text
 
+$text-color-light: $black;
+$text-color-dark: rgb(221, 218, 214);
+
+$site-background-image: url("/assets/media/tile-graphpaper.png");
+$site-background-light: #ffffff;
+$site-background-dark: #171a1b;
+
+$scrollbar-background-dark: #1e2223;
+$scrollbar-thumb-dark: #727173;
 
 /***************
 CONSISTENT SETTINGS
@@ -62,11 +78,26 @@ $line-height: 44px; // Consistent height for buttons, inputs etc.
 TYPE SETTINGS
 ***************/
 
+$system-font:
+  // Safari for macOS and iOS (San Francisco)
+  -apple-system,
+  // Chrome < 56 for macOS (San Francisco)
+  BlinkMacSystemFont,
+  // Windows
+  "Segoe UI",
+  // Android
+  Roboto,
+  // Basic web fallback
+  "Helvetica Neue", Arial,
+  // Linux
+  "Noto Sans",
+  // Sans serif fallback
+  sans-serif,
+  // Emoji fonts
+  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+
 $sans-serif: "Open Sans", Helvetica, Arial, sans-serif;
 $serif: "PT Serif", Georgia, Times, serif;
 $monospace: "Fira Code", monospace, monospace;
 
 $header-font: $monospace;
-
-$site-background: #ffffff url("/assets/media/tile-graphpaper.jpg") 50% 0;
-$site-background-footer: transparent url("/assets/media/tile-graphpaper-footer.jpg") 50% 0;

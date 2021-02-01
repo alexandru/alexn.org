@@ -1,7 +1,7 @@
 ---
 title: "Monifu vs Akka Streams"
 tags:
-  - Functional
+  - FP
   - Scala
   - Rx
   - Reactive Streams

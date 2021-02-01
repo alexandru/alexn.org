@@ -3,7 +3,6 @@ title: "Minitest: Zero Crap Scala Testing Library"
 clean_summary:
   Provides only the minimal functionality needed, with ScalaCheck integration and maximum compatibility.
 tags:
-  - Code
   - Testing
   - Scala
 image: /assets/media/articles/scala.png

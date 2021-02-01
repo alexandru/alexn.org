@@ -18,6 +18,7 @@ begin
 ---
 title: #{options[:title].to_json}
 date: #{now.strftime("%Y-%m-%d %H:%M:%S%z")}
+tags: []
 ---
   }.strip
 

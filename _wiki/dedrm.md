@@ -1,8 +1,7 @@
 ---
 date: 2020-09-17 12:02:43+0300
+title: "De-DRM"
 ---
-
-# De-DRM
 
 ## eBooks
 

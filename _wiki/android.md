@@ -1,8 +1,7 @@
 ---
 date: 2020-11-02 21:09:46+0200
+title: "Android"
 ---
-
-# Android
 
 ## Apps
 

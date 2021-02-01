@@ -5,10 +5,10 @@ description:
   It's about the Monix Task, a new type for dealing
   with asynchronous processing on top of Scala and Scala.js.
 tags:
-  - Functional
-  - Code
-  - Scala
+  - FP
   - Monix
+  - Presentation
+  - Scala
 youtube: rftcbxj7et0
 ---
 
