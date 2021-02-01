@@ -96,7 +96,7 @@ has_subscribe: true
             {% assign had_first_tag = false %}
             {% for tag in related_post.tags %}
               {% unless had_first_tag %}{% assign had_first_tag = true %}{% else %} | {% endunless -%}
-              <a href="{{ tag | uri_escape | prepend: '/blog/tag/' | prepend: site.baseurl }}" class="tag">{{ tag }}</a>
+              <a href="{{ tag | downcase | uri_escape | prepend: '/blog/tag/' | prepend: site.baseurl }}" class="tag">{{ tag }}</a>
             {% endfor %}            
           </div>
           <time>{{ related_post.date | date_to_long_string }}</time>
