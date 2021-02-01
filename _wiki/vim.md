@@ -1,8 +1,19 @@
 ---
 date: 2020-11-04 13:57:32+0200
+title: 'Vim'
 ---
 
-# Vim
+## References
+
+- [Quickref](./vim-quickref.txt)
+- [Vim Tips for the Intermediate Vim User](https://jemma.dev/blog/intermediate-vim-tips)
+  [(archive)](https://web.archive.org/web/20210201151013/https://jemma.dev/blog/intermediate-vim-tip)
+- [VimGolf](https://www.vimgolf.com/)
+  [(archive)](https://web.archive.org/web/20210201151233/https://www.vimgolf.com/)
+- [Configuring .ideavimrc](https://medium.com/@danidiaz/configuring-ideavimrc-de16a4da0715) 
+  [(archive)](https://web.archive.org/web/20210201151332/https://medium.com/@danidiaz/configuring-ideavimrc-de16a4da0715)
+- [Vim surround plugin tutorial](http://www.futurile.net/2016/03/19/vim-surround-plugin-tutorial/)
+  [(archive)](https://web.archive.org/web/20210201151440/http://www.futurile.net/2016/03/19/vim-surround-plugin-tutorial/)
 
 ## Shell setup
 
