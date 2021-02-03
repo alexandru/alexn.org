@@ -116,3 +116,9 @@ nativefier \
     --name "Gitter" \
     "https://gitter.im"
 ```
+
+## Browser comparisons
+
+Chrome vs Firefox:
+
+- [Firefox and Chromium Security (2020)](https://madaidans-insecurities.github.io/firefox-chromium.html) ([archive](https://web.archive.org/web/20210105142528/https://madaidans-insecurities.github.io/firefox-chromium.html))
