@@ -161,6 +161,10 @@ body {
     blockquote em {
       color: darken($text-color-dark, 15%);
     }
+
+    .transparency-fix {
+      background-color: lightgray;
+    }
   }
 
   .button {
