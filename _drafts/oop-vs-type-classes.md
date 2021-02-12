@@ -1,5 +1,6 @@
 ---
 title: "OOP vs Type Classes"
+image: /assets/media/articles/scala-oop-typeclasses.jpg
 ---
 
 - [Abstraction](#abstraction)
@@ -15,6 +16,10 @@ title: "OOP vs Type Classes"
   - [OOP interfaces to Type Classes](#oop-interfaces-to-type-classes)
   - [Type Classes to OOP interfaces](#type-classes-to-oop-interfaces)
 - [Best Practices](#best-practices)
+  - [Use Type Classes for expressing data constructors (factories)](#use-type-classes-for-expressing-data-constructors-factories)
+  - [Use Type Classes if you want reusability of dumb data structures](#use-type-classes-if-you-want-reusability-of-dumb-data-structures)
+    - [Caveat: dumb data structures can be misleading](#caveat-dumb-data-structures-can-be-misleading)
+    - [Caveat 3: dumb data structures may need dirty optimizations](#caveat-3-dumb-data-structures-may-need-dirty-optimizations)
   - [Type Class instances must be coherent (globally unique)](#type-class-instances-must-be-coherent-globally-unique)
   - [Type Classes must not keep state](#type-classes-must-not-keep-state)
   - [Use OOP for managing resources](#use-oop-for-managing-resources)
@@ -501,7 +506,246 @@ Damn, that's a depressing thought.
 
 ## Best Practices
 
+Getting down to the nitty-gritty ...
+
+### Use Type Classes for expressing data constructors (factories)
+
+Say we want to make the following function more generic, to work with any collection type, a classic problem solvable by [traverse](https://typelevel.org/cats/typeclasses/traverse.html):
+
+```scala
+def sequence(list: List[IO[A]]): IO[List[A]] = ???
+```
+
+We could attempt usage of `Iterable`, but that would mean we'd be losing the input type, and we'd have to replace it with something else, more concrete:
+
+```scala
+def sequence(list: Iterable[IO[A]]): IO[???]
+```
+
+In absence of `Traverse`, there's also Scala's [BuildFrom](https://www.scala-lang.org/api/current/scala/collection/BuildFrom.html), but let's attempt our own type class. We need:
+
+- ability to create an empty buffer that can eventually build our final list
+- ability to append items to this buffer
+- ability to convert into our target type
+
+```scala
+import scala.collection.mutable.ListBuffer
+
+trait CollectionBuilder[Coll[_]] {
+  // Buffer is used for building the collection, 
+  // it can be dirty / mutable
+  type Buffer[A]
+  // We need a way to iterate over the collection
+  def iterable[A](coll: Coll[A]): Iterable[A]
+  // Buffer data constructor
+  def newBuffer[A]: Buffer[A]
+  def append[A](buf: Buffer[A], elem: A): Buffer[A]
+  def build[A](buf: Buffer[A]): Coll[A]
+}
+
+object CollectionBuilder {
+  // Sample instance
+  implicit object forList extends CollectionBuilder[List] {
+    type Buffer[A] = ListBuffer[A]
+    def iterable[A](coll: List[A]) = coll
+    def newBuffer[A] = ListBuffer.empty[A]
+    def append[A](buf: Buffer[A], elem: A) = buf += elem
+    def build[A](buf: Buffer[A]) = buf.toList
+  }
+}
+
+def sequence[Coll[_]](list: Coll[IO[A]])
+  (implicit cb: CollectionBuilder[Coll]): IO[Coll[A]] =
+
+  cb.iterable(list)
+    .foldLeft(IO(cb.newBuffer[A]))(cb.append)
+    .map(cb.build)
+```
+
+### Use Type Classes if you want reusability of dumb data structures
+
+FP developers in general love to say that data survives more than the functions operating on it. Static FP developers love to reuse their data structures too. They also say that OOP is "complecting" data and methods operating on that data together, and that we shouldn't do that. I have objections to that statement, because *data implies some interpretation rules and logic*, even if minimal (otherwise we are dealing with bits), as we shall see, but sometimes it's a good idea.
+
+When you can work with dumb, immutable data structures that need to be interpreted, type classes might be a good solution for reusing them. One such example is [monix.tail.Iterant](https://monix.io/api/current/monix/tail/Iterant.html). There's an [older presentation](https://www.youtube.com/watch?v=Ki4JvV66EbE) about it, but here's a summary ...
+
+We start from the `Iterator` idea, described above as a pure trait, powered by `IO` for suspending side effects:
+
+```scala
+trait Iterator[+A] {
+  def hasNext: IO[Boolean]
+  def next: IO[A]
+}
+```
+
+Well, this trait could be turned into a data structure:
+
+```scala
+sealed trait LazyList[A]
+
+object LazyList {
+  case class Next[A](head: A, tail: IO[LazyList[A]]) 
+    extends LazyList[A]
+  // Marks the end of the list, with an optional error
+  case class Halt[A](e: Option[Throwable]) 
+    extends LazyList[A]
+}
+```
+
+But, why impose behavior on it via `IO`? Why is `IO` relevant at all?
+
+```scala
+sealed trait LazyList[F[_], A]
+
+object LazyList {
+  case class Next[F[_], A](head: A, tail: F[LazyList[F, A]]) 
+    extends LazyList[F, A]
+  case class Halt[F[_], A](e: Option[Throwable]) 
+    extends LazyList[F, A]
+}
+```
+
+And now, if we want to iterate this data structure, we can make it so :
+
+```scala
+def fold[F[_], A, S](list: LazyList[F, A])(seed: S)(f: (S, A) => S)
+  (implicit F: MonadError[F, Throwable]): F[S] =
+  // Using tailRecM for stack safety ;-)
+  F.tailRecM((list, seed)) {
+    case (Next(head, tail), state) =>
+      tail.map { tail => Left((tail, f(state, head))) }
+    case (Halt(None), state) =>
+      F.pure(Right(state))
+    case (Halt(Some(err)), _) =>
+      F.raiseError(err)
+  }
+```
+
+And now all we need is `MonadError`, which means this can work with more types than `IO`. 
+
+#### Caveat: dumb data structures can be misleading
+
+FP developers may love the reuse of data structures, but this isn't always such a good idea. 
+
+> Sometimes invariants set by the used functions are important, and ignoring those invariants is dangerous.
+
+Consider:
+
+```scala
+case class BinaryTree[+A](
+  value: A,
+  left: Option[BinaryTree[A]],
+  right: Option[BinaryTree[A]]
+)
+```
+
+Does this qualify as a dumb, reusable data-structure? It depends. This tree can be a [binary search tree (BST)](https://en.wikipedia.org/wiki/Binary_search_tree), and we could have this function for searching an element:
+
+```scala
+object SortedSet {
+  def fromList[A: Ordering](list: List[A]): BinaryTree[A] = ???
+  def contains[A: Ordering](set: BinaryTree[A], value: A): Boolean = ???
+}
+
+// Second variant
+object InefficientSet {
+  def fromList[A](list: List[A]): BinaryTree[A] = ???
+  def contains(set: BinaryTree[A], value: A): Boolean
+}
+```
+
+Here's the problem:
+
+```scala
+// Inefficient
+InefficientSet.contains(
+  SortedSet.fromList(???),
+  111
+)
+// Malfunction
+SortedSet.contains(
+  InefficientSet.fromList(???),
+  222
+)
+```
+
+The invariant of the "binary search tree" is imposed by the `fromList` function. If you build that tree with any other function, then that `contains` of a BST will malfunction.
+
+```scala
+case class SortedSet[+A](tree: BinaryTree[A])
+
+object SortedSet {
+  def contains[A: Ordering](set: SortedSet[A], value: A): Boolean = ???
+}
+```
+
+M'kay, that's better, but is this really reusability? Wouldn't it have been better to copy/paste and then add that restriction in the class constructor?
+
+```scala
+// Notice the Ordering restriction:
+case class SortedSet[+A : Ordering](
+  value: A,
+  left: Option[SortedSet[A]],
+  right: Option[SortedSet[A]]
+)
+```
+
+But this is no longer a "dumb data structure", because it adds interpretation to its definition. As it should. The public data constructor is still risky 😉
+
+#### Caveat 3: dumb data structures may need dirty optimizations
+
+Nothing could be simpler than a an immutable `List` definition, right? For the standard `List`, you'd expect the following, correct?
+
+```scala
+sealed abstract class List[+A]
+
+final case class :: [+A](head: A, tail: List[A])
+  extends List[A]
+case object Nil extends List[Nothing]
+  extends List[A]
+```
+
+Oh boy, I've got news for you — this is the actual definition from Scala's standard library:
+
+```scala
+sealed abstract class List[+A]
+
+final case class :: [+A](
+  override val head: A, 
+  private[scala] var next: List[A @uncheckedVariance]) 
+  extends List[A]
+
+case object Nil extends List[Nothing]
+  extends List[A]
+```
+
+Yikes, that private `next` value is a `var`. They added it as a `var` such that [ListBuffer](https://www.scala-lang.org/api/current/scala/collection/mutable/ListBuffer.html) can build a list more efficiently.
+
+Contrary to popular opinion, this means `List` does not benefit from `final`'s Java Memory Model semantics. So it might have visibility issues in a multi-threaded context. Which is probably why we see this in `ListBuffer#toList`:
+
+```scala
+override def toList: List[A] = {
+  aliased = nonEmpty
+  // We've accumulated a number of mutations to `List.tail` by this stage.
+  // Make sure they are visible to threads that the client of this ListBuffer might be about
+  // to share this List with.
+  releaseFence()
+  first
+}
+```
+
+Yikes, they are adding a manual memory barrier 😲 But this goes to show the necessity of coupling data structures with the methods operating on them.
+
+> FP developers don't care about resources, because of the expectation that resources should be handled by the runtime, but sometimes that isn't possible or optimal — even dumb data structures are resources and sometimes need special resource management, for efficiency reasons. In which case coupling the data with the methods operating on it is healthy 😉
+
 ### Type Class instances must be coherent (globally unique)
+
+Type Class instances must be *globally unique*, as the logic making use of type classes usually depends on it, or in other words:
+
+> In a fully compiled program, for any type(s) parameters, there is at most one instance resolution for a given type class.
+
+Type Classes have many qualities, but the ability to redefine instances for existing types is not one of them. Scala cannot guard against this, we can define as many instances we want, and import them in scope as needed. Scala doesn't support type classes directly either, yet we encode them anyway.
+
+
 
 ### Type Classes must not keep state
 
