@@ -42,7 +42,7 @@ final case class :: [+A](
 case object Nil extends List[Nothing]
 ```
 
-Yikes, that private `next` value is a `var`. They added it as a `var` such that [ListBuffer](https://www.scala-lang.org/api/current/scala/collection/mutable/ListBuffer.html) can build a list more efficiently, because an immutable `List` is in essence a [Stack](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)), so to build one, you'd need to do an `O(n)` reversal at the end. That `releaseFence` in the constructor is there because initialized `var` values are not guaranteed to be visible by other threads, after the constructor has finished.
+Yikes, that private `next` value is a `var`. They added it as a `var` such that [ListBuffer](https://www.scala-lang.org/api/current/scala/collection/mutable/ListBuffer.html) can build a list more efficiently, because an immutable `List` is in essence a [Stack](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)), so to build a new list from an existing one, you'd need to do an `O(n)` reversal at the end. 
 
 With the pure definition, we'd build `List` values like this:
 
@@ -51,6 +51,7 @@ def map[A, B](self: List[A])(f: A => B): List[B] = {
   var buffer = List.empty[B]
   for (elem <- self) { buffer = f(elem) :: buffer  }
   // Extra O(n) tax if that list would be pure, no way around it
+  // (legend has it that this is a computer science issue related to stacks)
   buffer.reverse
 }
 ```
