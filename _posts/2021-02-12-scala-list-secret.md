@@ -87,3 +87,38 @@ Yikes, they are adding manual [memory barriers](https://en.wikipedia.org/wiki/Me
 <p class="info-bubble">
   I don't like manual memory barriers BTW. They are expensive and a design based on proper acquisition and release (reads and writes in volatiles) would be better, as it lets the JVM do its magic. Don't copy their design here without knowing what you're doing.
 </p>
+
+## Update: The Need for a Memory Barrier
+
+Consider this sample:
+
+```scala
+sealed trait MyList[+A]
+case class Cons[A](head: A, var tail: MyList[A]) extends MyList[A]
+case object Empty extends MyList[A]
+
+var list: MyList[Int] = Empty
+
+// Thread 1: Producer
+new Thread(() => {
+  var x = 0
+  while (true) {
+    x += 1
+    list = Cons(x, Cons(x + 1, Empty))
+  }
+}).start()
+
+// Thread 2: Consumer
+new Thread(() => {
+  while (true) {
+    try {
+      var cursor = list
+      while (cursor != Empty) {
+        cursor = cursor.tail
+      }
+    } catch {
+      case e => e.printStackTrace()
+    }
+  }
+}).start()
+```
