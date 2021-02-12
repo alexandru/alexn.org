@@ -183,7 +183,7 @@ However, this is false. Let's take a mutable interface:
 ```scala
 trait Iterator[+A] {
   def hasNext: Boolean
-  def next(): +A
+  def next(): A
 }
 ```
 
@@ -192,7 +192,7 @@ We can of course "purify" it via `IO`:
 ```scala
 trait Iterator[+A] {
   def hasNext: IO[Boolean]
-  def next: IO[+A]
+  def next: IO[A]
 }
 ```
 
