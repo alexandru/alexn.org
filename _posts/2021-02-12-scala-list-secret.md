@@ -61,7 +61,7 @@ def map[A, B](self: List[A])(f: A => B): List[B] = {
 }
 ```
 
-Contrary to popular opinion, this means `List` does not benefit from `final`'s guarantees by the [Java Memory Model](https://en.wikipedia.org/wiki/Java_memory_model). So it might have visibility issues in a multi-threaded context (e.g. you might end up with a `tail` being `null` when it shouldn't be). Which is probably why we see this in `ListBuffer#toList`:
+Contrary to popular opinion, this means `List` does not benefit from `final` (`val` in Scala) visibility guarantees by the [Java Memory Model](https://en.wikipedia.org/wiki/Java_memory_model). So it might have visibility issues in a multi-threaded context (e.g. you might end up with a `tail` being `null` when it shouldn't be). Which is probably why we see this in `ListBuffer#toList`:
 
 ```scala
 override def toList: List[A] = {
