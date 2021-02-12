@@ -112,7 +112,7 @@ You don't necessarily have visibility guarantees here. In such instances you can
 This probably doesn't matter much in practice, as you should probably not abuse shared vars like that.
 
 <p class="info-bubble" markdown="1">
-  Note that in this case a `volatile` annotation might help, since it prevents reordering of the `list = ???` store with whatever var mutations that happened before it. So if a new `list` value becomes visible, then the writes that happened before it should be visible from other threads as well.
+  Note that in this case a `@volatile` annotation might help, since it prevents reordering of the `list = ???` store with whatever var mutations that happened before it. So if a new `list` value becomes visible, then the writes that happened before it should be visible from other threads as well.
   <br><br>
   But these things are so complicated, that I'm not 100% sure 🤷‍♂️ needs to be tested!
 </p>
