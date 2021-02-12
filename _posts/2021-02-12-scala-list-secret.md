@@ -77,3 +77,42 @@ override def toList: List[A] = {
 Yikes, they are adding a manual [memory barrier](https://en.wikipedia.org/wiki/Memory_barrier) 😲 I guess it beats an O(n) reversal of a list. But this goes to show the necessity of coupling data structures with the methods operating on them.
 
 > FP developers don't care about resources, because of the expectation that resources should be handled by the runtime, but sometimes that isn't possible or optimal — even dumb data structures are resources and sometimes need special resource management, for efficiency reasons. In which case coupling the data with the methods operating on it is healthy 😉
+
+Speaking of that memory barrier, it may not be enough. You shouldn't do this:
+
+```scala
+// Shared state
+var list: List[Int] = Nil
+
+// Thread 1: Producer
+new Thread(new Runnable {
+  def run() = {
+    var x = 0
+    while (true) {
+      list = x :: list
+      x += 1
+      Thread.sleep(1000)
+    }
+  }
+}).start()
+
+// Thread 2: Consumer
+new Thread(new Runnable {
+  def run() = {
+    while (true) {
+      println(s"Consuming: $list")
+      Thread.sleep(100)
+    }
+  }
+}).start()
+```
+
+You don't necessarily have visibility guarantees here. In such instances you can probably still see a `tail` value that's `null`, which wouldn't have happened with a `tail` that had `final` (`val`) semantics. According to the JMM, this is because `var` values aren't guaranteed to be visible (from other threads) after a class constructor has finished building the object. So with `var` values inside a class, you can end up in situations in which the vars are not initialized yet from the point of view of other threads.
+
+This probably doesn't matter much in practice, as you should probably not abuse shared vars like that.
+
+<p class="info-bubble" markdown="1">
+  Note that in this case a `volatile` annotation might help, since it prevents reordering of the `list = ???` store with whatever var mutations that happened before it. So if a new `list` value becomes visible, then the writes that happened before it should be visible from other threads as well.
+  <br><br>
+  But these things are so complicated, that I'm not 100% sure 🤷‍♂️ needs to be tested!
+</p>
