@@ -31,8 +31,10 @@ sealed abstract class List[+A]
 
 final case class :: [+A](
   head: A, 
-  private[scala] var next: List[A @uncheckedVariance]) // 😱
+  // mutable var 😱
+  private[scala] var next: List[A @uncheckedVariance]) 
   extends List[A] {
+ 
   // 😱 memory barrier
   releaseFence()
 }
