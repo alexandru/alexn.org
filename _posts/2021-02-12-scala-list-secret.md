@@ -32,12 +32,15 @@ sealed abstract class List[+A]
 final case class :: [+A](
   head: A, 
   private[scala] var next: List[A @uncheckedVariance]) // 😱
-  extends List[A]
+  extends List[A] {
+  // 😱 memory barrier
+  releaseFence()
+}
 
 case object Nil extends List[Nothing]
 ```
 
-Yikes, that private `next` value is a `var`. They added it as a `var` such that [ListBuffer](https://www.scala-lang.org/api/current/scala/collection/mutable/ListBuffer.html) can build a list more efficiently, because an immutable `List` is in essence a [Stack](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)), so to build one, you'd need to do an O(n) reversal at the end.
+Yikes, that private `next` value is a `var`. They added it as a `var` such that [ListBuffer](https://www.scala-lang.org/api/current/scala/collection/mutable/ListBuffer.html) can build a list more efficiently, because an immutable `List` is in essence a [Stack](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)), so to build one, you'd need to do an O(n) reversal at the end. That `releaseFence` in the constructor is there because initialized `var` values are not guaranteed to be visible by other threads, after the constructor has finished.
 
 With the pure definition, we'd build `List` values like this:
 
@@ -61,7 +64,7 @@ def map[A, B](self: List[A])(f: A => B): List[B] = {
 }
 ```
 
-Contrary to popular opinion, this means `List` does not benefit from `final` (`val` in Scala) visibility guarantees by the [Java Memory Model](https://en.wikipedia.org/wiki/Java_memory_model). So it might have visibility issues in a multi-threaded context (e.g. you might end up with a `tail` being `null` when it shouldn't be). Which is probably why we see this in `ListBuffer#toList`:
+Contrary to popular opinion, this means `List` does not benefit from `final` (`val` in Scala) visibility guarantees by the [Java Memory Model](https://en.wikipedia.org/wiki/Java_memory_model). So it might have visibility issues in a multi-threaded context (e.g. you might end up with a `tail` being `null` when it shouldn't be). Which is probably why we see this in both the class constructor and in `ListBuffer#toList`:
 
 ```scala
 override def toList: List[A] = {
@@ -74,47 +77,6 @@ override def toList: List[A] = {
 }
 ```
 
-Yikes, they are adding a manual [memory barrier](https://en.wikipedia.org/wiki/Memory_barrier) 😲 I guess it beats an O(n) reversal of a list. But this goes to show the necessity of coupling data structures with the methods operating on them.
+Yikes, they are adding manual [memory barriers](https://en.wikipedia.org/wiki/Memory_barrier) everywhere 😲 I guess it beats an O(n) reversal of a list. But this goes to show the necessity of coupling data structures with the methods operating on them.
 
 > FP developers don't care about resources, because of the expectation that resources should be handled by the runtime, but sometimes that isn't possible or optimal — even dumb data structures are resources and sometimes need special resource management, for efficiency reasons. In which case coupling the data with the methods operating on it is healthy 😉
-
-## Leaky Abstractions
-
-OK, I'm going to be honest, there's a small chance that the memory barrier in `ListBuffer` may not be enough. Which is why I don't like manual memory barriers, as it means that the encapsulation is faulty (i.e. you don't control both the acquisition and the release). You should probably avoid doing this:
-
-```scala
-// Shared state
-var list: List[Int] = Nil
-
-// Thread 1: Producer
-new Thread(new Runnable {
-  def run() = {
-    var x = 0
-    while (true) {
-      list = x :: list
-      x += 1
-      Thread.sleep(1000)
-    }
-  }
-}).start()
-
-// Thread 2: Consumer
-new Thread(new Runnable {
-  def run() = {
-    while (true) {
-      println(s"Consuming: $list")
-      Thread.sleep(100)
-    }
-  }
-}).start()
-```
-
-You don't necessarily have visibility guarantees here. In such instances you can probably still see a `tail` value that's `null`, which wouldn't have happened with a `tail` that had `final` (`val`) semantics. According to the JMM, this is because `var` values aren't guaranteed to be visible (from other threads) after a class constructor has finished building the object. So with `var` values inside a class, you can end up in situations in which the vars are not initialized yet from the point of view of other threads.
-
-This probably doesn't matter much in practice, as you should probably not abuse shared vars like that.
-
-<p class="info-bubble" markdown="1">
-  Note that in this case a `@volatile` annotation might help, since it prevents reordering of the `list = ???` store with whatever var mutations that happened before it. So if a new `list` value becomes visible, then the writes that happened before it should be visible from other threads as well.
-  <br><br>
-  But these things are so complicated, that I'm not 100% sure 🤷‍♂️ needs to be tested!
-</p>
