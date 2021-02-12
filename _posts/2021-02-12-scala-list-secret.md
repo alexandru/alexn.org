@@ -13,7 +13,7 @@ description: "OOP couples the data with the methods operating on it, and this is
 
 OOP couples the "data" with the methods operating on it, and that's considered bad in FP circles, because supposedly data outlives the functions operating on it. Also in static FP circles, dumb data structures are reusable, so it's a good idea to make them generic, and add restrictions on the functions themselves.
 
-Few data structures could be simpler than an immutable `List` definition, right? At least as far as recursive data structures go 🙂 For the standard `List`, you'd expect the following:
+Few data structures could be simpler than an immutable `List` definition, right? At least as far as recursive data structures go 🙂 For the standard `List` you'd expect the following:
 
 ```scala
 sealed abstract class List[+A]
