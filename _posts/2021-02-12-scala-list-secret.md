@@ -77,7 +77,7 @@ override def toList: List[A] = {
 }
 ```
 
-Yikes, they are adding manual [memory barriers](https://en.wikipedia.org/wiki/Memory_barrier) everywhere 😲 I guess it beats an O(n) reversal of a list. But this goes to show the necessity of coupling data structures with the methods operating on them.
+Yikes, they are adding manual [memory barriers](https://en.wikipedia.org/wiki/Memory_barrier) everywhere 😲 I guess it beats an `O(n)` reversal of a list. But this goes to show the necessity of coupling data structures with the methods operating on them.
 
 > FP developers don't care about resources, because of the expectation that resources should be handled by the runtime, but sometimes that isn't possible or optimal — even dumb data structures are resources and sometimes need special resource management, for efficiency reasons. In which case coupling the data with the methods operating on it is healthy 😉
 
