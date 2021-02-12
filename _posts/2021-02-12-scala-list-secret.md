@@ -39,13 +39,13 @@ case object Nil extends List[Nothing]
 
 Yikes, that private `next` value is a `var`. They added it as a `var` such that [ListBuffer](https://www.scala-lang.org/api/current/scala/collection/mutable/ListBuffer.html) can build a list more efficiently, because an immutable `List` is in essence a [Stack](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)), so to build one, you'd need to do an O(n) reversal at the end.
 
-With the pure definition, we'd have the following:
+With the pure definition, we'd build `List` values like this:
 
 ```scala
 def map[A, B](self: List[A])(f: A => B): List[B] = {
   var buffer = List.empty[B]
   for (elem <- self) { buffer = f(elem) :: buffer  }
-  // Extra O(n) tax if the list would be pure
+  // Extra O(n) tax if that list would be pure, no way around it
   buffer.reverse
 }
 ```
