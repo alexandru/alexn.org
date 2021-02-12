@@ -78,7 +78,9 @@ Yikes, they are adding a manual [memory barrier](https://en.wikipedia.org/wiki/M
 
 > FP developers don't care about resources, because of the expectation that resources should be handled by the runtime, but sometimes that isn't possible or optimal — even dumb data structures are resources and sometimes need special resource management, for efficiency reasons. In which case coupling the data with the methods operating on it is healthy 😉
 
-Speaking of that memory barrier, it may not be enough. You shouldn't do this:
+## Leaky Abstractions
+
+OK, I'm going to be honest, there's a small chance that the memory barrier in `ListBuffer` may not be enough. Which is why I don't like manual memory barriers, as it means that the encapsulation is faulty (i.e. you don't control both the acquisition and the release). You should probably avoid doing this:
 
 ```scala
 // Shared state
