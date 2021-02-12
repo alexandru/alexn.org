@@ -84,6 +84,6 @@ Yikes, they are adding manual [memory barriers](https://en.wikipedia.org/wiki/Me
 
 > FP developers don't care about resources, because of the expectation that resources should be handled by the runtime, but sometimes that isn't possible or optimal — even dumb data structures are resources and sometimes need special resource management, for efficiency reasons. In which case coupling the data with the methods operating on it is healthy 😉
 
-<p class="info-class">
+<p class="info-bubble">
   I don't like manual memory barriers BTW. They are expensive and a design based on proper acquisition and release (reads and writes in volatiles) would be better, as it lets the JVM do its magic. Don't copy their design here without knowing what you're doing.
 </p>

@@ -19,7 +19,6 @@ image: /assets/media/articles/scala-oop-typeclasses.jpg
   - [Use Type Classes for expressing data constructors (factories)](#use-type-classes-for-expressing-data-constructors-factories)
   - [Use Type Classes if you want reusability of dumb data structures](#use-type-classes-if-you-want-reusability-of-dumb-data-structures)
     - [Caveat: dumb data structures can be misleading](#caveat-dumb-data-structures-can-be-misleading)
-    - [Caveat 3: dumb data structures may need dirty optimizations](#caveat-3-dumb-data-structures-may-need-dirty-optimizations)
   - [Type Class instances must be coherent (globally unique)](#type-class-instances-must-be-coherent-globally-unique)
   - [Type Classes must not keep state](#type-classes-must-not-keep-state)
   - [Use OOP for managing resources](#use-oop-for-managing-resources)
@@ -690,52 +689,6 @@ case class SortedSet[+A : Ordering](
 ```
 
 But this is no longer a "dumb data structure", because it adds interpretation to its definition. As it should. The public data constructor is still risky 😉
-
-#### Caveat 3: dumb data structures may need dirty optimizations
-
-Nothing could be simpler than a an immutable `List` definition, right? For the standard `List`, you'd expect the following, correct?
-
-```scala
-sealed abstract class List[+A]
-
-final case class :: [+A](head: A, tail: List[A])
-  extends List[A]
-case object Nil extends List[Nothing]
-  extends List[A]
-```
-
-Oh boy, I've got news for you — this is the actual definition from Scala's standard library:
-
-```scala
-sealed abstract class List[+A]
-
-final case class :: [+A](
-  override val head: A, 
-  private[scala] var next: List[A @uncheckedVariance]) 
-  extends List[A]
-
-case object Nil extends List[Nothing]
-  extends List[A]
-```
-
-Yikes, that private `next` value is a `var`. They added it as a `var` such that [ListBuffer](https://www.scala-lang.org/api/current/scala/collection/mutable/ListBuffer.html) can build a list more efficiently.
-
-Contrary to popular opinion, this means `List` does not benefit from `final`'s Java Memory Model semantics. So it might have visibility issues in a multi-threaded context. Which is probably why we see this in `ListBuffer#toList`:
-
-```scala
-override def toList: List[A] = {
-  aliased = nonEmpty
-  // We've accumulated a number of mutations to `List.tail` by this stage.
-  // Make sure they are visible to threads that the client of this ListBuffer might be about
-  // to share this List with.
-  releaseFence()
-  first
-}
-```
-
-Yikes, they are adding a manual memory barrier 😲 But this goes to show the necessity of coupling data structures with the methods operating on them.
-
-> FP developers don't care about resources, because of the expectation that resources should be handled by the runtime, but sometimes that isn't possible or optimal — even dumb data structures are resources and sometimes need special resource management, for efficiency reasons. In which case coupling the data with the methods operating on it is healthy 😉
 
 ### Type Class instances must be coherent (globally unique)
 
