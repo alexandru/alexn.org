@@ -31,7 +31,7 @@ sealed abstract class List[+A]
 
 final case class :: [+A](
   head: A, 
-  private[scala] var next: List[A @uncheckedVariance]) 
+  private[scala] var next: List[A @uncheckedVariance]) // 😱
   extends List[A]
 
 case object Nil extends List[Nothing]
