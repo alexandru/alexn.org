@@ -16,7 +16,7 @@ tags:
 
 Yo dawg, I heard you liked concurrency primitives. Let's implement our own asynchronous, dirty [CountDownLatch](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CountDownLatch.html).
 
-Just to be clear, what we are implementing here is probably not production ready (please do some testing first, as I didn't 😅). Also this is not functional programming, and it's not using Monix or Cats Effect, or any other libraries that might have helped. This is implemented using just the standard library.
+Just to be clear, what we are implementing here is probably not production ready (please do some testing first, as I didn't 😅). Also this is not functional programming, and it's not using [Monix](https://monix.io) or [Cats-Effect](https://typelevel.org/cats-effect/), or any other libraries that might have helped. This is implemented using just the standard library.
 
 Also, you might want the classic `java.util.concurrent.CountDownLatch`, which is pretty awesome, and it might be exactly what you need, although this one is useful too.
 
