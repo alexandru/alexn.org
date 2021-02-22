@@ -22,7 +22,7 @@ Also, you might want the classic `java.util.concurrent.CountDownLatch`, which is
 
 Why implement one? Because we can 💪
 
-1. Watch the YouTube video for full explanations
+1. Watch the [YouTube video](https://www.youtube.com/watch?v=R6pl91IRVaI&autoplay=1){:target="_blank"} for full explanations
 2. Checkout the following code for digesting it at your own pace
 3. See the usage examples at the end
 
