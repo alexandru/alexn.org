@@ -77,16 +77,23 @@ final class AsyncCountDownLatch(count: Int)(implicit ec: ExecutionContext)
         case null =>
           () // countDown reached zero
       }
-    // Keeping this as a value in order to avoid duplicate work in `onComplete`
-    val ex = new TimeoutException(s"AsyncCountDownLatch.await($timeout)")
+    // Keeping this as a value in order to avoid duplicate work
+    val ex = new TimeoutException(
+      s"AsyncCountDownLatch.await($timeout)"
+    )
     val timeoutTask: Runnable = () => {
       // Timeout won, get rid of promise from our state
       removePromise()
       p.tryFailure(ex)
     }
     try {
-      // Finally our timeout task
-      val cancelToken = scheduler.schedule(timeoutTask, timeout.length, timeout.unit)
+      // Finally, installing our timeout, w00t!
+      val cancelToken = scheduler.schedule(
+        timeoutTask, 
+        timeout.length, 
+        timeout.unit
+      )
+      // Canceling our timeout task, if primary completes first
       p.future.onComplete { r =>
         // Avoiding duplicate work
         if (r.fold(_ != ex, _ => true))
@@ -133,8 +140,8 @@ final class AsyncCountDownLatch(count: Int)(implicit ec: ExecutionContext)
     }
 
   /**
-    * Causes the consumer to wait until the latch has counted down to zero,
-    * or the specified waiting time elapses.
+    * Causes the consumer to wait until the latch has counted down 
+    * to zero, or the specified waiting time elapses.
     *
     * If the timeout gets triggered, then the returned `Future`
     * will complete with a `TimeoutException`.
