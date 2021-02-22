@@ -131,9 +131,13 @@ final class AsyncCountDownLatch(count: Int)(implicit ec: ExecutionContext)
         if (!state.compareAndSet(current, update))
           countDown() // retry
         else if (update.count == 0) {
-          for (r <- tasks) r.trySuccess(())
-          // Releasing resources
-          close()
+          // Deferring execution to another thread, as it might 
+          // be expensive (TBD if this is a good idea or not)
+          ec.execute(() => {
+            for (r <- tasks) r.trySuccess(())
+            // Releasing resources
+            close()
+          })
         }
       case _ =>
         ()
