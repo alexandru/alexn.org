@@ -19,8 +19,8 @@ I'm retracting this article (Feb 24, 2021). Before taking it down, this was my m
 1. blocking all ads without shame
 2. paying for the products & services you enjoy, whenever you can
 
-In writing it I've made some errors, I misrepresented the need for advertising in a free market, I misrepresented the intentions and the work of those trying to fix the problem, and attacking the work of others [just doesn't feel good](https://marco.org/2015/09/18/just-doesnt-feel-good).
+In writing it I've made errors, I misrepresented the need for advertising in a free market, I misrepresented the intentions and the work of those trying to fix the problem, and attacking the work of others [just doesn't feel good](https://marco.org/2015/09/18/just-doesnt-feel-good).
 
-There is some value in that content, so be my guest, head over to the archive to read it, but it's a warped perspective that I can't promote without further research.
+There is some value in that content, so be my guest, head over to the archive to read it, but it's a warped perspective that I can no longer promote, at least not without some serious research.
 
 We should indeed fight to preserve privacy, and to combat filter bubbles and targeted advertising. But when going to battle, I recommend caution, and doing some research first, preferably one grounded in economics, and not philosophy of history 😉
