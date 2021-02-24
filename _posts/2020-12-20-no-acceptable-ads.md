@@ -1,9 +1,6 @@
 ---
 title: "There are No Acceptable Ads"
 date: 2020-12-20 17:16:08+0200
-image: /assets/media/articles/england1835.jpg
-image_hide_in_post: true
-image_caption: England 1835, by John Orlando Parry
 description: "Retracted article"
 tags:
   - Browser
