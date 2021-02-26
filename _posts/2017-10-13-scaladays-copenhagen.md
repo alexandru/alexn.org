@@ -4,7 +4,7 @@ tags:
   - FP
   - Scala
   - Monix
-  - Presentation
+  - Video
 description:
   My presentation from Scala Days 2017, Chicago (April) and Copenhagen (June),
   on the design of Monix's Task.

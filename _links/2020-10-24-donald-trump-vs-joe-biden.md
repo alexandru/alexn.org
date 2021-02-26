@@ -6,7 +6,7 @@ youtube: FkGK7bitav0
 tags:
   - Entertainment
   - Politics
-  - YouTube
+  - Video
 ---
 
 Now you know the US presidential election is close 🤡

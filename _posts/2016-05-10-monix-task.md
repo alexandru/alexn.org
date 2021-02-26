@@ -7,8 +7,8 @@ description:
 tags:
   - FP
   - Monix
-  - Presentation
   - Scala
+  - Video
 youtube: rftcbxj7et0
 ---
 

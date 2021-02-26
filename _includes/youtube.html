@@ -1,27 +1,14 @@
 {% capture youtube %}{% if page.youtube %}{{ page.youtube }}{% else %}{{ include.id }}{% endif -%}{% endcapture -%}
 {% capture image %}{% if include.image %}{{ site.baseurl }}{{ include.image }}{% else %}{% if page.youtube and page.image %}{{ page.image }}{% else %}{{ youtube | youtube_thumb_link }}{% endif %}{% endif %}{% endcapture %}
+  {% capture link %}{{ youtube | youtube_link }}&autoplay=1{% if include.time %}&t={{ include.time }}{% endif %}{% endcapture -%}
 
 <figure class="video">
-  <!-- <div class="video-container">
-    <span class="embed-youtube" style="text-align:center; display: block;">
-      <iframe width="1100" height="619"
-              src="https://www.youtube-nocookie.com/embed/{{ youtube }}"
-              frameborder="0"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen></iframe>
-    </span>
-  </div> -->
-  <!-- <noscript> -->
-  <a href="{{ youtube | youtube_link }}&autoplay=1" target="_blank" class="youtube-play-link" title="Go to YouTube video">
+  <a href="{{ link }}" target="_blank" class="youtube-play-link" title="Go to YouTube video">
     <img src="{% link /assets/media/youtube.png %}" alt="YouTube play logo" class="play-logo" />
     <img src="{{ image }}" alt="YouTube video thumbnail" class="play-thumb" />
   </a>
-  <!-- </noscript> -->
   <figcaption>
-    <!-- <noscript>
-      <em>JavaScript is disabled, embedding not possible, but you can still view this video on YouTube.</em><br>
-    </noscript> -->
-    <a href="https://www.youtube.com/watch?v={{ youtube }}" target="_blank">
+    <a href="{{ link }}" target="_blank">
       {% if include.caption %}{{ include.caption }}{% else %}Link{% endif %}
       (YouTube Video)
     </a>

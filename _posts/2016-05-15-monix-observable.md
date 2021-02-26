@@ -9,6 +9,7 @@ tags:
   - FP
   - Scala
   - Monix
+  - Video
 youtube: CQxviYlAKaY
 ---
 

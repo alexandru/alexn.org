@@ -8,6 +8,7 @@ tags:
   - FP
   - Programming
   - Scala
+  - Video
 description: "Turning imperative algorithms to tail-recursive functions isn't necessarily obvious. In this article (and video) I'm showing you the trick you need, and in doing so, we'll discover the Zen of Functional Programming."
 ---
 

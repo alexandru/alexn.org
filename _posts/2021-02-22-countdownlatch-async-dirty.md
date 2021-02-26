@@ -6,10 +6,11 @@ image_hide_in_post: true
 description: Yo dawg, I heard you liked concurrency primitives. Let's implement our own asynchronous, dirty CountDownLatch.
 tags: 
   - Concurrency
+  - JVM
   - Multithreading
   - Programming
   - Scala
-  - JVM
+  - Video
 ---
 
 {% include youtube.html id="R6pl91IRVaI" image="/assets/media/articles/countdownlatch-async-dirty.png" %}
