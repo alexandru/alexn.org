@@ -1,7 +1,7 @@
 ---
 title: "ING Scala Meetup on Scala 3 (live coding session)"
 date: 2021-02-26 08:30:07+0200
-image: /assets/media/articles/ing-meetup-working-with-dotty.jpg
+image: /assets/media/articles/ing-meetup-working-with-dotty-1.jpg
 image_hide_in_post: true
 description: "Online meetup on Scala 3's newly introduced types and features for encoding type classes."
 tags:
