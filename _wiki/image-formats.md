@@ -24,3 +24,7 @@ convert()
 
 find . -iname "*.heic" | while read file; do convert "$file"; done
 ```
+
+## Converting to AVIF/WebP/Other
+
+Use: [squoosh/cli](https://github.com/GoogleChromeLabs/squoosh/tree/dev/cli)
