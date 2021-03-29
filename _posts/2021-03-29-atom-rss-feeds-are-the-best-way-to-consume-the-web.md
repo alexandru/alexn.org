@@ -32,7 +32,7 @@ My RSS/Atom feed reader is the best way to follow:
 ## Updates to my blog's feeds
 
 <p class="warn-bubble" markdown="1">
-  If you follow my blog's [RSS feeds](https://alexn.org/subscribe.html), you may have noticed that some articles were changed. That's because I modified the blog posts to be published in full, inside the RSS feed, so I had to make necessary fixes where appropriate. Sorry for the noise.
+  If you follow my blog's [RSS feeds](https://alexn.org/subscribe.html) you may have noticed that some articles were changed. That's because I modified the blog posts to be published in full, inside the RSS feed, so I had to make necessary fixes where appropriate. Sorry for the noise 🙏
 </p>
 
 My blog articles can now be enjoyed from the RSS reader, without having to open the website. See:
