@@ -7,6 +7,7 @@ tags:
   - Java
   - Multithreading
   - Concurrency
+generate_toc: true
 image: /assets/media/articles/ferrari.jpg
 ---
 

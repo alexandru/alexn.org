@@ -9,25 +9,12 @@ tags:
   - Scala
   - Haskell
 image: /assets/media/articles/bio.png
+generate_toc: true
 ---
 
-The Bifunctor `IO` data type is a hot topic in the Scala community. In
-this article however I'm expressing my dislike for it because it
-shares the same problems as Java's Checked Exceptions.
-
-## Table of Contents
-
-- [Table of Contents](#table-of-contents)
-- [What is IO?](#what-is-io)
-- [What's the Bifunctor IO?](#whats-the-bifunctor-io)
-- [The Problems of Java's Checked Exceptions](#the-problems-of-javas-checked-exceptions)
-  - [1. Composition Destroys Specific Error Types](#1-composition-destroys-specific-error-types)
-  - [2. You Don't Recover From Errors Often](#2-you-dont-recover-from-errors-often)
-  - [3. The Error Type is an Encapsulation Leak](#3-the-error-type-is-an-encapsulation-leak)
-  - [4. It Pushes Complexity to the User](#4-it-pushes-complexity-to-the-user)
-  - [5. The Bifunctor IO Doesn't Reflect the Runtime](#5-the-bifunctor-io-doesnt-reflect-the-runtime)
-- [IO Cannot Be an Alias of the Bifunctor IO](#io-cannot-be-an-alias-of-the-bifunctor-io)
-- [Final Words](#final-words)
+<p class="intro withcap" markdown="1">
+  The Bifunctor `IO` data type is a hot topic in the Scala community. In this article however I'm expressing my dislike for it because it shares the same problems as Java's Checked Exceptions.
+</p>
 
 ## What is IO?
 

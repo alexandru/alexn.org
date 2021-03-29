@@ -13,7 +13,7 @@ has_subscribe: true
     {% unless page.disable_comments %}
     | <a href="{{ page.url | prepend: site.baseurl }}#isso-thread">comments</a>
     {% endunless %}        
-</p>
+  </p>
 
   {% if page.image -%}
   <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
@@ -27,9 +27,6 @@ has_subscribe: true
   </figure>
   {% elsif page.youtube %}
     {% include youtube.html id=page.youtube %}
-  {% elsif page.vimeo %}
-    {% capture caption %}{{ page.title }}, by {{ page.author }}{% endcapture %}
-    {% include vimeo.html id=page.vimeo caption=caption %}
   {% endif %}
 
   <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">

@@ -9,22 +9,8 @@ tags:
   - JavaScript
 image: /assets/media/articles/js-then.png
 image_hide_in_post: true
+generate_toc: true
 ---
-
-- [Introduction](#introduction)
-- [The Spec is The Problem](#the-spec-is-the-problem)
-- [The Non-leaky Solution](#the-non-leaky-solution)
-- [Common Objections](#common-objections)
-  - [1. This is Normal](#1-this-is-normal)
-  - [2. But It Does Unlimited Chaining of Promises](#2-but-it-does-unlimited-chaining-of-promises)
-  - [3. That Sample Does Not Use the Return Value](#3-that-sample-does-not-use-the-return-value)
-  - [4. That's the Equivalent of a Stack Overflow](#4-thats-the-equivalent-of-a-stack-overflow)
-  - [5. You Don't Understand How Promises Work](#5-you-dont-understand-how-promises-work)
-  - [6. No Use-cases, This is a Niche](#6-no-use-cases-this-is-a-niche)
-- [Alternatives](#alternatives)
-  - [Fluture](#fluture)
-  - [Funfix](#funfix)
-- [Final Words](#final-words)
 
 ## Introduction
 

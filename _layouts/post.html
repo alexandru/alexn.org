@@ -4,52 +4,71 @@ author: alexelcu
 has_subscribe: true
 ---
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <h1 class="postTitle" itemprop="headline">{{ page.title | xml_smart_escape }}</h1>
-  <p class="meta">
-    <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="{{ page.url | absolute_url }}"/>
-    {% if page.date %}<meta itemprop="datePublished" content="{{ page.date | date: '%Y-%m-%dT%H:%M:%S%z' }}"/>{% endif %}
-    {% capture minutes %}{% capture value %}{{ page.content | number_of_words | divided_by:180 }}{% endcapture %}{% if value == "0" %}1{% else %}{{ value }}{% endif %}{% endcapture %}
-    <time itemprop="dateCreated" datetime="{{ page.date | date: '%Y-%m-%dT%H:%M:%S%z' }}">{{ page.date | date_to_long_string }}</time>
-    | <nobr><span class="time">{{ minutes }}</span> {% if minutes == "1" %}minute{% else %}minutes{% endif %}</nobr>
-    {% unless page.disable_comments %}
-    | <a href="{{ page.url | prepend: site.baseurl }}#isso-thread">comments</a>
-    {% endunless %}
-  </p>
+  <header>
+    <h1 class="postTitle" itemprop="headline">
+      {{ page.title | xml_smart_escape | strip_newlines | strip }}
+    </h1>
+    <p class="meta">
+      <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="{{ page.url | absolute_url }}"/>
+      {% if page.date %}<meta itemprop="datePublished" content="{{ page.date | date: '%Y-%m-%dT%H:%M:%S%z' }}"/>{% endif %}
+      {% capture minutes %}{% capture value %}{{ page.content | number_of_words | divided_by:180 }}{% endcapture %}{% if value == "0" %}1{% else %}{{ value }}{% endif %}{% endcapture %}
+      <time itemprop="dateCreated" datetime="{{ page.date | date: '%Y-%m-%dT%H:%M:%S%z' }}">{{ page.date | date_to_long_string }}</time>
+      | <nobr><span class="time">{{ minutes }}</span> {% if minutes == "1" %}minute{% else %}minutes{% endif %}</nobr>
+      {% unless page.disable_comments %}
+      | <a href="{{ page.url | prepend: site.baseurl }}#isso-thread">comments</a>
+      {% endunless %}
+    </p>
 
-  {% if page.image -%}
-    {% unless page.image_hide_in_post -%}
-    <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-      <meta itemprop="url" content="{{ page.image | absolute_url }}" />
-      <img src="{{ page.image | prepend: site.baseurl }}?{{ 'now' | date: '%Y%m%d%H%M' }}" alt="{% if page.image_caption %}{{ page.image_caption | xml_escape }}{% endif %}" />
-      {% if page.image_caption %}<figcaption itemprop="caption">{{ page.image_caption }}</figcaption>{% endif %}
-    </figure>
-    {% else %}
-    <div class="hidden" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-      <meta itemprop="url" content="{{ page.image | absolute_url }}" />
-      {% if page.image_caption -%}
-      <meta itemprop="caption" content="{{ page.image_caption | escape }}" />
-      {% endif %}
-    </div>
-    {% endunless %}
-  {% endif %}
+    {% if page.image -%}
+      {% unless page.image_hide_in_post -%}
+        {% if page.youtube %}
+        {% include youtube.html id=page.youtube image=page.image caption=page.image_caption featured=true %} 
+        {% else %}
+        <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+          <meta itemprop="url" content="{{ page.image | absolute_url }}" />
+          <img src="{{ page.image | prepend: site.baseurl }}?{{ 'now' | date: '%Y%m%d%H%M' }}" alt="{% if page.image_caption %}{{ page.image_caption | xml_escape }}{% endif %}" />
+          {% if page.image_caption %}<figcaption itemprop="caption">{{ page.image_caption }}</figcaption>{% endif %}
+        </figure>
+        {% endif -%}
+      {% else %}
+      <div class="hidden" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="{{ page.image | absolute_url }}" />
+        {% if page.image_caption -%}
+        <meta itemprop="caption" content="{{ page.image_caption | escape }}" />
+        {% endif %}
+      </div>
+      {% endunless %}
+    {% endif %}
 
-  <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-    <meta itemprop="name" content="{{ site.title | xml_smart_escape }}">
-    <meta itemprop="url" content="{{ '/about.html' | absolute_url }}">
-    <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-      <meta itemprop="url" content="{{ '/assets/raw/logo-green.png' | absolute_url }}">
+    <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="{{ site.title | xml_smart_escape }}">
+      <meta itemprop="url" content="{{ '/about.html' | absolute_url }}">
+      <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="{{ '/assets/raw/logo-green.png' | absolute_url }}">
+      </div>
     </div>
-  </div>
-  {% if page.author -%}
-    {% assign author_twitter = site.authors | map: page.author | map: "twitter" -%}
-    {% assign author_github = site.authors | map: page.author | map: "github" -%}
-    <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="{{ site.authors | map: page.author | map: 'name' }}" />
-      <meta itemprop="url" content="{{ '/about.html' | absolute_url }}#{{ page.author }}" />
-      {% if author_twitter -%}<meta itemprop="url" content="https://twitter.com/{{ author_twitter }}" />{% endif %}
-      {% if author_github -%}<meta itemprop="url" content="https://github.com/{{ author_github }}" />{% endif %}
-    </div>
-  {% endif %}
+    {% if page.author -%}
+      {% assign author_twitter = site.authors | map: page.author | map: "twitter" -%}
+      {% assign author_github = site.authors | map: page.author | map: "github" -%}
+      <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="{{ site.authors | map: page.author | map: 'name' }}" />
+        <meta itemprop="url" content="{{ '/about.html' | absolute_url }}#{{ page.author }}" />
+        {% if author_twitter -%}<meta itemprop="url" content="https://twitter.com/{{ author_twitter }}" />{% endif %}
+        {% if author_github -%}<meta itemprop="url" content="https://github.com/{{ author_github }}" />{% endif %}
+      </div>
+    {% endif %}
+
+    {% if page.generate_toc %}
+    {% capture toc_html %}{% include toc.html h_min=2 h_max=3 html=content -%}{% endcapture -%}
+    {% assign toc_html_stripped = toc_html | strip %}
+    {% if toc_html_stripped != "" %}
+    <nav class="toc">
+      <p class="toc-title">Table of Contents:</p>
+      {{ toc_html_stripped }}
+    </nav>
+    {% endif -%}
+    {% endif -%}
+  </header>
 
   <div id="content" itemprop="articleBody">
     {{ content }}

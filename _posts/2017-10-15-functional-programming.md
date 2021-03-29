@@ -9,22 +9,13 @@ tags:
   - Scala
   - JavaScript
 image: /assets/media/articles/functions.png
+generate_toc: true
 ---
 
 <p class="intro withcap" markdown='1'>Functional Programming (FP) is programming with *functions*. [Mathematical functions](https://goo.gl/q8dToC).</p>
 
 There's no other definition that's correct, unless it's equivalent
 to this one. There's no other definition that matters.
-
-**Contents:**
-
-- [Background](#background)
-- [Why Functional Programming?](#why-functional-programming)
-- [Procedural Programming](#procedural-programming)
-  - [Impure is Uninteresting](#impure-is-uninteresting)
-- [Anti-intellectualism Phenomenon](#anti-intellectualism-phenomenon)
-- [Can We do FP in Any Language?](#can-we-do-fp-in-any-language)
-- [Learning Resources](#learning-resources)
 
 ## Background
 

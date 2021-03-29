@@ -29,16 +29,7 @@
     {% if page.last_modified_at -%}
       <meta content="{{ page.last_modified_at | date_to_xmlschema }}" property="article:modified_time">
     {% endif -%}
-    {% if page.vimeo -%}
-    <meta property="og:type" content="video.other" />
-    <meta property="og:video:url" content="{{ page.vimeo | vimeo_player_link }}" />
-    <meta property="og:video:secure_url" content="{{ page.vimeo | vimeo_player_link }}" />
-    <meta property="og:video:type" content="video/mp4" />
-    <meta property="og:video:width" content="560" />
-    <meta property="og:video:height" content="315" /> 
-    <meta property="og:image" content="{% if page.image %}{{ site.url }}{{ page.image }}?{{ 'now' | date: '%Y%m%d%H%M' }}{% else %}{{ page.vimeo | vimeo_thumb_link }}{% endif %}" />
-    <meta property="og:image:secure_url" content="{% if page.image %}{{ site.url }}{{ page.image }}?{{ 'now' | date: '%Y%m%d%H%M' }}{% else %}{{ page.vimeo | vimeo_thumb_link }}{% endif %}" />
-    {% elsif page.youtube -%}
+    {% if page.youtube -%}
     <meta property="og:type" content="video.other" />
     <meta property="og:video:url" content="{{ page.youtube | youtube_player_link }}" />
     <meta property="og:video:secure_url" content="{{ page.youtube | youtube_player_link }}" />
@@ -46,7 +37,7 @@
     <meta property="og:video:width" content="560" />
     <meta property="og:video:height" content="315" /> 
     <meta property="og:image" content="{% if page.image %}{{ site.url }}{{ page.image }}?{{ 'now' | date: '%Y%m%d%H%M' }}{% else %}{{ page.youtube | youtube_thumb_link }}{% endif %}" />
-    <meta property="og:image:secure_url" content="{% if page.image %}{{ site.url }}{{ page.image }}?{{ 'now' | date: '%Y%m%d%H%M' }}{% else %}{{ page.vimeo | youtube_thumb_link }}{% endif %}" />
+    <meta property="og:image:secure_url" content="{% if page.image %}{{ site.url }}{{ page.image }}?{{ 'now' | date: '%Y%m%d%H%M' }}{% else %}{{ page.youtube | youtube_thumb_link }}{% endif %}" />
     {% elsif page.image %}
     <meta property="og:type" content="article" />
     <meta property="og:image" content="{{ site.url }}{{ page.image }}?{{ 'now' | date: '%Y%m%d%H%M' }}" />
@@ -58,13 +49,7 @@
     {% endif -%}
   
     <!-- Twitter Cards -->
-    {% if page.vimeo -%}
-    <meta name="twitter:card" content="player" />
-    <meta name="twitter:player" content="{{ page.vimeo | vimeo_player_link }}">
-    <meta name="twitter:player:width" content="560">
-    <meta name="twitter:player:height" content="315">  
-    <meta name="twitter:image" content="{% if page.image %}{{ page.image | prepend: site.url }}?{{ 'now' | date: '%Y%m%d%H%M' }}{% else %}{{ page.vimeo | vimeo_thumb_link }}{% endif %}" />
-    {% elsif page.youtube -%}
+    {% if page.youtube -%}
     <meta name="twitter:card" content="player" />
     <meta name="twitter:player" content="{{ page.youtube | youtube_player_link }}">
     <meta name="twitter:player:width" content="560">

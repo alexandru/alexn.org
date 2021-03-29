@@ -7,10 +7,6 @@
       <img src="{{ include.post.image | absolute_url }}?{{ 'now' | date: '%Y%m%d%H%M' }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
     </a>
     <br />
-    {% elsif include.post.vimeo -%}
-    <a href="{{ include.post.link }}">
-      <img src="{{ include.post.vimeo | vimeo_thumb_link }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
-    </a>
     {% elsif include.post.youtube -%}
     <a href="{{ include.post.link }}">
       <img src="{{ include.post.youtube | youtube_thumb_link }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />

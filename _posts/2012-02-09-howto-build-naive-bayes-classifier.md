@@ -10,6 +10,7 @@ tags:
 image: /assets/media/articles/conditional-prob.png
 image_hide_in_post: true
 mathjax: true
+generate_toc: true
 description: >-
   In machine learning a classifier is able to predict, given an input, a probability distribution over a set of categories. Some use-cases for building a classifier: spam detection, for example you could build your own Akismet API, automatic assignment of categories to a set of items, automatic detection of the primary language (e.g. Google Translate), sentiment analysis, which in simple terms refers to discovering if an opinion is about love or hate about a certain topic.
 ---
@@ -38,21 +39,6 @@ even though there are a lot of libraries out there that already do
 this, you're far better off for understanding the concept behind it,
 otherwise you won't be able to tweak the implementation in response to
 your needs.
-
-<!-- read more -->
-
-- [0. The Source Code](#0-the-source-code)
-- [1. Introduction to Probabilities](#1-introduction-to-probabilities)
-  - [1.1. Events and Event Types](#11-events-and-event-types)
-  - [1.2. Conditional Probabilities and The Bayes Theorem](#12-conditional-probabilities-and-the-bayes-theorem)
-  - [1.3. The Naive Bayes Approach](#13-the-naive-bayes-approach)
-- [2. Implementation](#2-implementation)
-  - [2.1. General Algorithm](#21-general-algorithm)
-  - [2.2. Avoiding Floating Point Underflow (UPDATE Feb 27, 2012)](#22-avoiding-floating-point-underflow-update-feb-27-2012)
-  - [2.3. Training](#23-training)
-  - [2.4. Getting Rid of Stop Words / Stemming](#24-getting-rid-of-stop-words--stemming)
-  - [2.5. Implementation Guidelines](#25-implementation-guidelines)
-- [Final Words](#final-words)
 
 ## 0. The Source Code
 

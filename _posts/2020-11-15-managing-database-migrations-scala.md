@@ -7,6 +7,7 @@ tags:
 description: The database schema should be described as code, in your repository. And you should be able to semi-automatically update your database schema on new deployments.
 date: 2020-11-15 18:17:25+0200
 image: /assets/media/articles/db-migrations-scala.png
+generate_toc: true
 ---
 
 <p class="intro withcap">
@@ -18,16 +19,6 @@ A very popular Java library for handling migrations is [Flyway](https://flywaydb
 <p class="info-bubble" markdown="1">
   This is a complete solution, that's customizable and easy to implement (couple of lines of code), that can be used in multi-project builds, and that doesn't tie you to a [particular framework](https://www.playframework.com/documentation/2.8.x/Evolutions), or a [particular build tool](http://www.lihaoyi.com/mill/page/contrib-modules.html#flyway), or an [enterprise solution](https://www.liquibase.org/) solving problems that you don't have.
 </p>
-
-Contents:
-
-- [1. Setup MySQL on localhost](#1-setup-mysql-on-localhost)
-- [2. Initial project setup](#2-initial-project-setup)
-- [3. Configuration](#3-configuration)
-- [4. Flyway library integration](#4-flyway-library-integration)
-- [5. Create your first DB migration](#5-create-your-first-db-migration)
-- [6. Add sbt command](#6-add-sbt-command)
-- [7. Pro-tip: Unit-test migrations with HSQLDB](#7-pro-tip-unit-test-migrations-with-hsqldb)
 
 ## 1. Setup MySQL on localhost
 

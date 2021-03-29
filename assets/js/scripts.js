@@ -49,7 +49,7 @@ layout: null
 		$("figure.video img.play-thumb").one("load", function () {
 			var playImg = document.createElement("img");
 			playImg.src = "/assets/media/youtube.png";
-			playImg.alt = "YouTube play logo";
+			playImg.alt = "";
 			playImg.className = "play-logo";
 			$(playImg).appendTo($(this).parent());
 		}).each(function () {

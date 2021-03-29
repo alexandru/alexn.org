@@ -6,20 +6,16 @@ tags:
   - FP
   - Scala
 image: /assets/media/snippets/on-error-retry-loop.png
+generate_toc: true
 ---
 
-In the face of errors, we could interrupt what we are doing and log the incident for debugging purposes. Some errors are temporary, for example, network connection errors, the web service becoming unavailable for whatever reason, etc. It might be appropriate to do one or multiple retries, as it might not be acceptable to drop a valuable transaction on the floor.
+<p class="intro withcap" markdown='1'>
+  In the face of errors, we could interrupt what we are doing and log the incident for debugging purposes. Some errors are temporary, for example, network connection errors, the web service becoming unavailable for whatever reason, etc. It might be appropriate to do one or multiple retries, as it might not be acceptable to drop a valuable transaction on the floor.
+</p>
 
 Libraries with DSLs for specifying complex retry logic exist, see **[cats-retry](https://github.com/cb372/cats-retry)**. In this article, I am not talking about such libraries because implementing your functions is fun, educational, and because you might not need a library where a simple function could do just fine.
 
 Here's how ...
-
-- [Task Example](#task-example)
-- [Naive Implementation](#naive-implementation)
-- [Filtering and End Condition](#filtering-and-end-condition)
-- [Building a Generic Retry Loop](#building-a-generic-retry-loop)
-- [Exponential Backoff](#exponential-backoff)
-- [TL;DR Full Code Sample](#tldr-full-code-sample)
 
 ## Task Example
 

@@ -6,6 +6,7 @@ tags:
   - Testing
   - Scala
 image: /assets/media/articles/scala.png
+generate_toc: true
 ---
 
 <p class="intro withcap" markdown='1'>[Minitest](https://github.com/monix/minitest) is my minimal testing library that I've been using for developing [Monix](https://monix.io).</p>
