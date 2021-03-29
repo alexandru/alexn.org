@@ -1,0 +1,43 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require "json"
+require "yaml"
+
+options = {}
+OptionParser.new do |opt|
+  opt.on('--folder PATH') { |o| options[:path] = File.expand_path(o) }
+end.parse!
+
+if !options[:path] && ARGV[0] && File.directory?(ARGV[0])
+  options[:path] = File.expand_path(ARGV[0])
+end
+raise OptionParser::MissingArgument.new("--folder") if options[:path].nil?
+
+filters = [
+  File.join(options[:path], "*.md"),
+  File.join(options[:path], "*.markdown"),
+  File.join(options[:path], "*.html"),
+  File.join(options[:path], "*.htm"),
+]
+
+all_keys = {}
+
+filters.each do |filter|
+  Dir[filter].each do |path|
+    contents = File.read(path)
+    if contents =~ /\A---\s*\r?\n(.*?)^---/m
+      yaml_str = ($1).strip
+      yaml = YAML.load(yaml_str)
+      keys = yaml.keys || []
+      keys.each do |key|
+        all_keys[key] ||= 0
+        all_keys[key] += 1
+      end
+    end
+  end
+end
+
+all_keys.to_a.sort_by{|x| -x[1]}.each do |key|
+  printf("%20s %3d\n", key[0], key[1])
+end
