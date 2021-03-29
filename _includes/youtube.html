@@ -3,10 +3,10 @@
 {% capture link %}{{ youtube | youtube_link }}&autoplay=1{% if include.time %}&t={{ include.time }}{% endif %}{% endcapture -%}
 {% capture image_absolute %}{{ image | absolute_url }}?{{ 'now' | date: '%Y%m%d%H%M' }}{% endcapture -%}
 
-<figure {% if include.featured %}class="featuredImage video" itemprop="image" itemscope itemtype="https://schema.org/ImageObject"{% else %}class="video"{% endif %}>
+<figure {% if include.featured %}class="featuredImage video" itemprop="image" itemscope itemtype="https://schema.org/ImageObject"{% else %}class="video"{% endif %} {% if include.figure_style %}style="{{ include.figure_style }}"{% endif %}>
   {% if include.featured %}<meta itemprop="url" content="{{ image_absolute }}" />{% endif %}
   <a href="{{ link | absolute_url }}" target="_blank" class="youtube-play-link" title="Go to YouTube video">
-    <img src="{{ image_absolute }}" alt="" class="play-thumb" {% if include.style %}style="{{ include.style }}"{% endif %} />
+    <img src="{{ image_absolute }}" alt="" class="play-thumb" {% if include.img_style %}style="{{ include.img_style }}"{% endif %} />
   </a>
   <figcaption>
     <a href="{{ link }}" target="_blank">

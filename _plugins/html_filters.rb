@@ -117,7 +117,7 @@ module Jekyll
       end
 
       doc.css("figure").each do |elem|
-        elem["style"] = "max-width: 100%; " + (elem["style"] || "")
+        elem["style"] = "margin: 0; max-width: 100%; " + (elem["style"] || "")
       end
 
       doc.css("a").each do |elem|
