@@ -7,6 +7,7 @@ tags:
   - Blogging
   - Jekyll
   - Web
+description: "I stay connected to websites I care about via an RSS/Atom feed reader. It's better than social media for finding out what's new because it's clutter-free. By following RSS/Atom feeds, I discover wonderful gems that otherwise would be lost in the noise."
 ---
 
 <p class="intro withcap" markdown="1">
