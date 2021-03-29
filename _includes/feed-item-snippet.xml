@@ -6,7 +6,7 @@
     {{ include.post.content | rss_process }}
     <hr />
     <p>
-      The article <a href="{{ include.post.url | absolute_url | rss_campaign_link: 'footer-link', campaign_name }}">{{ include.post.title | xml_smart_escape }}</a> first appeared on <a href="{{ site.url | rss_campaign_link: 'footer-link', campaign_name }}">{{ site.domain }}</a> 🎁
+      The article <a href="{{ include.post.url | absolute_url | rss_campaign_link: 'footer-link', campaign_name }}">{{ include.post.title | xml_smart_escape }}</a> first appeared on <a href="{{ site.url | rss_campaign_link: 'footer-link', campaign_name }}">{{ site.domain }}</a>.
     </p>
   {% endif %}
 {% endcapture -%}
