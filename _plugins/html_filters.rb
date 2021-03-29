@@ -99,7 +99,6 @@ module Jekyll
 
       doc.css("img").each do |elem|
         elem["src"] = to_absolute_url(@@site, elem['src'])
-        elem["style"] = "max-width: 100%; " + (elem["style"] || "")
       end
 
       doc.css("img.left").each do |elem|
@@ -110,10 +109,6 @@ module Jekyll
       doc.css("img.right").each do |elem|
         elem["src"] = to_absolute_url(@@site, elem['src'])
         elem["style"] = "float:right; margin-left:20px; margin-left:20px;" + (elem["style"] || "")
-      end
-
-      doc.css("iframe").each do |elem|
-        elem["style"] = "max-width: 100%; " + (elem["style"] || "")
       end
 
       doc.css("a").each do |elem|
