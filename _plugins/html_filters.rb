@@ -116,10 +116,6 @@ module Jekyll
         elem["style"] = "max-width: 100%; " + (elem["style"] || "")
       end
 
-      doc.css("figure").each do |elem|
-        elem["style"] = "margin: 0; max-width: 100%; " + (elem["style"] || "")
-      end
-
       doc.css("a").each do |elem|
         elem["href"] = to_absolute_url(@@site, elem['href'])
       end

@@ -4,18 +4,18 @@
     {% if include.post.image %}{% unless include.post.image_hide_in_post %}
       <div class="post-featured-image">
       {% if include.post.youtube %}
-        {% include youtube.html id=include.post.youtube image=include.post.image caption=include.post.image_caption figure_style="margin: 0;" img_style="display: block; max-width:100%; margin: 0 auto;"  %} 
+        {% include youtube.html id=include.post.youtube image=include.post.image caption=include.post.image_caption in_rss=true %}
       {% else %}
         <figure style="margin: 0;">
           <a href="{{ include.post.url | absolute_url | rss_campaign_link: 'image', campaign_name }}">
-            <img src="{{ include.post.image | absolute_url }}?{{ 'now' | date: '%Y%m%d%H%M' }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" alt="" />
+            <img src="{{ include.post.image | absolute_url }}?{{ 'now' | date: '%Y%m%d%H%M' }}" align="middle" width="100%;" alt="" />
           </a>
           {% if include.post.image_caption %}<figcaption>{{ include.post.image_caption | xml_escape }}</figcaption>{% endif %}
         </figure>
       {% endif %}
       </div>
     {% endunless %}{% endif %}
-    {{ include.post.content | rss_process }}
+    {{ include.post.content }}
     <p>
       <i>The article <a href="{{ include.post.url | absolute_url | rss_campaign_link: 'footer-link', campaign_name }}">{{ include.post.title | xml_smart_escape }}</a> first appeared on <a href="{{ site.url | rss_campaign_link: 'footer-link', campaign_name }}">{{ site.domain }}</a>.</i>
     </p>
@@ -34,7 +34,7 @@
           alt="YouTube thumbnail" />
       </a>
     {% endif -%}
-    {% if include.post.description %}{{ include.post.description | markdownify | rss_process }}{% else %}{{ include.post.excerpt | strip_html | rss_process }}{% endif -%}
+    {% if include.post.description %}{{ include.post.description | markdownify }}{% else %}{{ include.post.excerpt | strip_html }}{% endif %}
     <p>
       <a href="{{ include.post.url | absolute_url | rss_campaign_link: 'read-more', campaign_name }}">Read article →</a>
     </p>
@@ -42,7 +42,7 @@
 {% endcapture -%}
 <item>
   <title>{% if include.prefix %}{{ include.prefix }}{% endif %}{{ include.post.title | xml_smart_escape }}</title>
-  <description>{{ description | strip | xml_escape }}</description>
+  <description>{{ description | rss_process | strip | xml_escape }}</description>
   <pubDate>{{ include.post.date | date_to_rfc822 }}</pubDate>
   {% if include.post.last_modified_at -%}
   <dc:modified>{{ include.post.last_modified_at | date_to_rfc822 }}</dc:modified>
