@@ -18,13 +18,6 @@ My folder is stored in Dropbox, and unfortunately they are not indexing images o
 
 Here's how to organize and index your screenshots locally, using open source stuff, and save some money ...
 
-- [1. Install: Tesseract OCR Engine](#1-install-tesseract-ocr-engine)
-- [2. Create folder structure](#2-create-folder-structure)
-- [3. Change the default screenshots folder](#3-change-the-default-screenshots-folder)
-- [4. Add the synchronization script](#4-add-the-synchronization-script)
-- [5. Load a Launch Agent](#5-load-a-launch-agent)
-- [Enjoy](#enjoy)
-
 ## 1. Install: Tesseract OCR Engine
 
 [Tesseract OCR](https://github.com/tesseract-ocr/tesseract) is a neat OSS project, available in Homebrew:
