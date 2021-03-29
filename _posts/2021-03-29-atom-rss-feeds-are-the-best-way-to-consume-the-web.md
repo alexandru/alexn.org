@@ -27,7 +27,7 @@ My RSS/Atom feed reader is the best way to follow:
 - Library releases, via [GitHub's atom feeds](https://docs.github.com/en/rest/reference/activity)
 - Podcasts
 - Reddit (a fire hose, but I can filter by subjects I care about)
-- The programming communities I care about (Scala, Haskell, etc)
+- Programming communities (Scala, Haskell, etc)
 - YouTube
 
 ## Updates to my blog's feeds
