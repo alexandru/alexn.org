@@ -5,6 +5,7 @@ description:
 tags:
   - Scala
 image: /assets/media/articles/scala-xfatal-warnings.png
+generate_toc: true
 ---
 
 <p class="intro withcap" markdown='1'>
@@ -12,20 +13,6 @@ image: /assets/media/articles/scala-xfatal-warnings.png
 </p>
 
 The Scala compiler has multiple linting options available and emits some warnings out of the box that would be more useful as errors. Let's see how we can rely on the Scala compiler to strengthen our code and piss off your colleagues with clean code requirements.
-
-- [Best Practice: Stop Ignoring Warnings!](#best-practice-stop-ignoring-warnings)
-- [1. Activate -Xfatal-warnings](#1-activate--xfatal-warnings)
-  - [1.1. Make only some warnings fatal (Scala 2.13)](#11-make-only-some-warnings-fatal-scala-213)
-- [2. Activate All Linting Options](#2-activate-all-linting-options)
-  - [2.1. Use the sbt-tpolecat plugin](#21-use-the-sbt-tpolecat-plugin)
-  - [2.2. Exclude annoying linting options](#22-exclude-annoying-linting-options)
-  - [2.3. Relax the console configuration](#23-relax-the-console-configuration)
-- [3. Silence some warnings](#3-silence-some-warnings)
-  - [3.1. Silencer plugin (Scala < 2.13)](#31-silencer-plugin-scala--213)
-  - [3.2. Using @nowarn and -Wconf in Scala 2.13.2](#32-using-nowarn-and--wconf-in-scala-2132)
-- [4. Other linters](#4-other-linters)
-  - [4.1. Example: disable .toString conversions](#41-example-disable-tostring-conversions)
-- [Final words](#final-words)
 
 ## Best Practice: Stop Ignoring Warnings!
 

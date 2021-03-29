@@ -128,6 +128,10 @@ module Jekyll
         elem.inner_html = "<p><em>" + elem.inner_html + "</em></p>"
       end
 
+      doc.css("div.clear").each do |elem|
+        elem["style"] = "clear: both; " + (elem["style"] || "") 
+      end
+
       body = doc.at_css("body")
       body ? body.inner_html : ""
     end

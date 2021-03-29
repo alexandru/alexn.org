@@ -20,7 +20,7 @@ layout: null
     <generator>Jekyll v{{ jekyll.version }}</generator>
 
     {% for post in site.posts limit:200 %}
-      {% include feed-item-blog.xml post=post %}
+      {% include feed-item-blog.xml post=post full_post=true %}
     {% endfor %}
   </channel>
 </rss>

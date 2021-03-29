@@ -23,7 +23,7 @@ layout: null
     {% for post in everything limit:200 %}
       {% unless post.secret -%}
         {% if post.collection == 'posts' -%}
-          {% include feed-item-blog.xml post=post %}
+          {% include feed-item-blog.xml post=post full_post=true %}
         {% elsif post.collection == 'snippets' -%}
           {% include feed-item-snippet.xml post=post prefix="Snippet — " %}  
         {% elsif post.collection == 'links' -%}

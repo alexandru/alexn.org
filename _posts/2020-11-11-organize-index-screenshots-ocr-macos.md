@@ -7,9 +7,12 @@ tags:
   - Cloud
   - macOS
   - Ruby
+generate_toc: true
 ---
 
-I maintain a growing `Screenshots` folder. Screenshots contain text, text that should be searchable, as finding a screenshot later is the whole point of creating it.
+<p class="intro withcap" markdown='1'>
+  I maintain a growing `Screenshots` folder. Screenshots contain text, text that should be searchable, as finding a screenshot later is the whole point of creating it.
+</p>
 
 My folder is stored in Dropbox, and unfortunately they are not indexing images on the "Plus" plan, at the moment of writing. And OneDrive currently has this functionality suspended for personal accounts, due to some technical issues they are having. Having to depend on a cloud service for searching your screenshots sucks, and I don't want the lock-in of online services.
 

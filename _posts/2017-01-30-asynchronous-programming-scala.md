@@ -10,34 +10,10 @@ description:
   Asynchrony is everywhere and it subsumes concurrency. This article explains what asynchronous processing is and its challenges.
 image: /assets/media/articles/nondet.png
 image_hide_in_post: true
+generate_toc: true
 ---
 
-<p class="intro withcap" markdown='1'>Asynchrony is everywhere and it subsumes concurrency. This article
-explains what asynchronous processing is and its challenges.</p>
-
-## Table of Contents
-
-- [Table of Contents](#table-of-contents)
-- [1. Introduction](#1-introduction)
-- [2. The Big Illusion](#2-the-big-illusion)
-- [3. Callback Hell](#3-callback-hell)
-  - [3.1. Sequencing (Purgatory of Side-effects)](#31-sequencing-purgatory-of-side-effects)
-  - [3.2. Parallelism (Limbo of Nondeterminism)](#32-parallelism-limbo-of-nondeterminism)
-  - [3.3. Recursivity (Wrath of StackOverflow)](#33-recursivity-wrath-of-stackoverflow)
-- [4. Futures and Promises](#4-futures-and-promises)
-  - [4.1. Sequencing](#41-sequencing)
-  - [4.2. Parallelism](#42-parallelism)
-  - [4.3. Recursivity](#43-recursivity)
-  - [4.4. Performance Considerations](#44-performance-considerations)
-- [5. Task, Scala's IO Monad](#5-task-scalas-io-monad)
-  - [5.1. Sequencing](#51-sequencing)
-  - [5.2. Parallelism](#52-parallelism)
-  - [5.3. Recursivity](#53-recursivity)
-- [6. Functional Programming and Type-classes](#6-functional-programming-and-type-classes)
-  - [6.1. Monad (Sequencing and Recursivity)](#61-monad-sequencing-and-recursivity)
-  - [6.2. Applicative (Parallelism)](#62-applicative-parallelism)
-  - [6.3. Can We Define a Type-class for Async Evaluation?](#63-can-we-define-a-type-class-for-async-evaluation)
-- [7. Picking the Right Tool](#7-picking-the-right-tool)
+<p class="intro withcap" markdown='1'>Asynchrony is everywhere and it subsumes concurrency. This article explains what asynchronous processing is and its challenges.</p>
 
 ## 1. Introduction
 

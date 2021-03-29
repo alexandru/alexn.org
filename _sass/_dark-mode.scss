@@ -117,6 +117,10 @@ body {
   }
 
   .post {
+    header nav.toc {
+      border-color: rgb(59, 64, 66);
+    }
+    
     .info-bubble {
       background-color: #25313c;
       border-color: lighten($color: #25313c, $amount: 10%);

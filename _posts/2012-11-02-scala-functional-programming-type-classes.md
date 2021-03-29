@@ -7,6 +7,7 @@ tags:
   - Clojure
   - Java
 image: /assets/media/articles/scala.png
+generate_toc: true
 description: >- 
   I've been following the excellent Coursera course on
   [Functional Programming Principles in Scala](https://www.coursera.org/course/progfun)

@@ -8,7 +8,9 @@ description:
   It's me, facing a hard to solve problem. It's a difficult one, and I'm having problems focusing. I make some coffee, I move to another room, and I'm already thinking of running to some coffee shop, forgetting that we're still in a pandemic.
 ---
 
-It's me, facing a hard to solve problem. It's a difficult one, and I'm having problems focusing. I make some coffee, I move to another room, and I'm already thinking of running to some coffee shop, forgetting that we're still in a pandemic. I sometimes find it hard to focus, it can be hard to start, I procrastinate a lot, or I'm just too damn lazy.
+<p class="intro withcap" markdown='1'>
+  It's me, facing a hard to solve problem. It's a difficult one, and I'm having problems focusing. I make some coffee, I move to another room, and I'm already thinking of running to some coffee shop, forgetting that we're still in a pandemic. I sometimes find it hard to focus, it can be hard to start, I procrastinate a lot, or I'm just too damn lazy.
+</p>
 
 The problems I'm dealing with can require an extreme attention to details, as you have to load all of those fine-grained interactions between components, all of those side effects, all the system's responsibilities and limitations; you go over the problem repeatedly, maybe you can understand it, maybe you can simplify it, maybe you don't need to solve it at all. When things don't work, you try a change in perspective.
 

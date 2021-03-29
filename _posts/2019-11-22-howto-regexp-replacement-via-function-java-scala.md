@@ -9,10 +9,9 @@ tags:
 image: /assets/media/articles/scala-replace-all-function.png
 ---
 
-Article explains how to have fine grained control over replacements when using
-[String.replaceAll](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#replaceAll(java.lang.String,java.lang.String))
-or similar in Java or Scala. The samples given are in Scala, but if you're a
-Java user, the snippets can be easily translated without any issues.
+<p class="intro withcap" markdown="1">
+  Article explains how to have fine grained control over replacements when using [String.replaceAll](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#replaceAll(java.lang.String,java.lang.String)) or similar in Java or Scala. The samples given are in Scala, but if you're a Java user, the snippets can be easily translated without any issues.
+</p>
 
 <p class='info-bubble' markdown='1'>
   The following task should be obvious to accomplish in Scala / Java,

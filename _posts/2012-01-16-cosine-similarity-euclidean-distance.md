@@ -8,6 +8,7 @@ tags:
   - Mining
   - Ruby
 image: /assets/media/articles/cosine-distance.png
+generate_toc: true
 description: >-
   How to find related items? Here are recipes based on really simple formulas. If you pay attention, this technique is used all over the web (like on Amazon) to personalize the user experience and increase conversion rates. Because we want to give kick-ass product recommendations.
 mathjax: true
@@ -24,15 +25,6 @@ To get one question out of the way: there are already many available
 libraries that do this, but as you'll see there are multiple ways of
 skinning the cat and you won't be able to pick the right one without
 understanding the process, at least intuitively.
-
-- [Defining the Problem](#defining-the-problem)
-- [Redefining the Problem in Terms of Geometry](#redefining-the-problem-in-terms-of-geometry)
-- [Euclidean Distance](#euclidean-distance)
-  - [The Problem (or Strength) of Euclidean Distance](#the-problem-or-strength-of-euclidean-distance)
-- [Cosine Similarity](#cosine-similarity)
-  - [The Problem with Our Sample; The Tf-Idf Weight](#the-problem-with-our-sample-the-tf-idf-weight)
-- [Pearson Correlation Coefficient](#pearson-correlation-coefficient)
-- [Manhattan Distance](#manhattan-distance)
 
 ## Defining the Problem
 

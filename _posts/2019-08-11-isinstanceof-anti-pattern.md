@@ -7,9 +7,12 @@ tags:
   - Best Of
   - Scala
 image: /assets/media/articles/scala-instanceof-antipattern.png
+generate_toc: true
 ---
 
-When you use `isInstanceOf[Class]` checks, that's an anti-pattern, as Scala has a much better way of discriminating between types. Scala has implicit parameters, with which you can describe [type classes](https://en.wikipedia.org/wiki/Type_class).
+<p class="intro withcap" markdown="1">
+  When you use `isInstanceOf[Class]` checks, that's an anti-pattern, as Scala has a much better way of discriminating between types. Scala has implicit parameters, with which you can describe [type classes](https://en.wikipedia.org/wiki/Type_class).
+</p>
 
 <p class='info-bubble' markdown='1'>
   When C# developers try Java, one primary complaint is about the lack of reification for Java's generics and by that they mean the ability to discriminate between different type parameters, so to differentiate between `List[Int]` and `List[String]` via `isInstanceOf` checks. Java and Scala do type erasure so a `List[String]` at runtime becomes a `List[Any]`.

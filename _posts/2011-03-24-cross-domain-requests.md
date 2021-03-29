@@ -7,20 +7,10 @@ tags:
   - Browser
   - Web
 image: /assets/media/articles/cors-ajax.png
+generate_toc: true
 description: >-
   This article describes how to make cross-browser requests, in all browsers (including IExplorer 6), using web standards along with fallbacks and without using a proxy or JSONP (which is limited and awkward) -- as long as you control the destination server, or if the destination server allows.
 ---
-
-- [Updates](#updates)
-  - [Oct 27, 2011](#oct-27-2011)
-- [In Modern Browsers - Meet Cross-Origin Resource Sharing](#in-modern-browsers---meet-cross-origin-resource-sharing)
-- [Response of _destination.org_](#response-of-destinationorg)
-- [Client-side Implementation of Ajax Request for CORS](#client-side-implementation-of-ajax-request-for-cors)
-- [Fallback for Older Browsers](#fallback-for-older-browsers)
-  - [Why bother with CORS?](#why-bother-with-cors)
-  - [flXHR Usage](#flxhr-usage)
-- [Not Loading the Junk when Not Needed](#not-loading-the-junk-when-not-needed)
-- [Almost there](#almost-there)
 
 <p class="intro withcap">
   This article describes how to make cross-browser requests, in all browsers (including <u>IExplorer 6</u>), using web standards along with fallbacks and without using a proxy or JSONP (which is limited and awkward) -- as long as you control the destination server, or if the destination server allows.

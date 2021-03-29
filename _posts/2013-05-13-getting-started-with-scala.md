@@ -6,6 +6,7 @@ tags:
   - Scala
   - Books
 image: /assets/media/articles/scala.png
+generate_toc: true
 ---
 
 <p class="intro withcap">

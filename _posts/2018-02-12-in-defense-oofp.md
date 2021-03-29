@@ -10,6 +10,7 @@ description:
   OOP versus Type Classes, exemplified and in defense of the Scala collections redesign.
 image: /assets/media/articles/scala-stairs.jpg
 image_caption: <a href="https://www.flickr.com/photos/gilles_dubochet/7327041044" target="_blank">Credits</a>
+generate_toc: true
 ---
 
 <p class="intro withcap" markdown='1'>
@@ -18,25 +19,6 @@ image_caption: <a href="https://www.flickr.com/photos/gilles_dubochet/7327041044
   example Scala's standard collections, which are involved in a recent
   debate around their redesign.
 </p>
-
-**Table of Contents:**
-
-- [1. Background](#1-background)
-  - [1.1. My Road to Scala](#11-my-road-to-scala)
-- [2. Criticism](#2-criticism)
-  - [2.1. CanBuildFrom](#21-canbuildfrom)
-  - [2.2. Complex Hierarchy](#22-complex-hierarchy)
-  - [2.3. Seq or Other Super-types](#23-seq-or-other-super-types)
-  - [2.4. Not Using Type-classes](#24-not-using-type-classes)
-- [3. OOP vs Constrained Parametric Polymorphism (Type-classes)](#3-oop-vs-constrained-parametric-polymorphism-type-classes)
-  - [4. Case Study: Monix Iterant](#4-case-study-monix-iterant)
-  - [4.1. Type-classes For Super Powers](#41-type-classes-for-super-powers)
-  - [4.2. Liskov Substitution Principle: OOP Strikes Back](#42-liskov-substitution-principle-oop-strikes-back)
-  - [4.3. Iterator vs Foldable and Traverse](#43-iterator-vs-foldable-and-traverse)
-- [5. Seq My Love](#5-seq-my-love)
-  - [5.1. Seq on Return](#51-seq-on-return)
-  - [5.2. Seq on Input](#52-seq-on-input)
-- [6. Conclusion](#6-conclusion)
 
 ## 1. Background
 

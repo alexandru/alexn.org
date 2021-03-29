@@ -1,8 +1,8 @@
 ---
 title: "Tail Recursive Functions (in Scala)"
 date: 2021-01-26 21:49:35+0200
+youtube: Ua1iMD4icLU
 image: /assets/media/articles/tail-recursive-functions.png
-image_hide_in_post: true
 tags: 
   - Algorithms
   - FP
@@ -10,19 +10,16 @@ tags:
   - Scala
   - Video
 description: "Turning imperative algorithms to tail-recursive functions isn't necessarily obvious. In this article (and video) I'm showing you the trick you need, and in doing so, we'll discover the Zen of Functional Programming."
+generate_toc: true
 ---
 
-{% include youtube.html id="Ua1iMD4icLU" image="/assets/media/articles/tail-recursive-functions.png" %}
-
-Turning imperative algorithms to tail-recursive functions isn't necessarily obvious. In this article (and video) I'm showing you the trick you need, and in doing so, we'll discover the Zen of Functional Programming.
+<p class="intro withcap" markdown="1">
+  Turning imperative algorithms to tail-recursive functions isn't necessarily obvious. In this article (and video) I'm showing you the trick you need, and in doing so, we'll discover the Zen of Functional Programming.
+</p>
 
 <p class="info-bubble">
   Choose between watching the video on YouTube (linked above), or reading the article (below), or both.
 </p>
-
-- [The Trick](#the-trick)
-- [(Actual) Recursion](#actual-recursion)
-- [Zen of Functional Programming?](#zen-of-functional-programming)
 
 ## The Trick
 

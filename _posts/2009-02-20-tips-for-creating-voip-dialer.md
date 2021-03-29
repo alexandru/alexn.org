@@ -9,24 +9,10 @@ tags:
   - JavaScript
   - Perl
 image: /assets/media/articles/freeswitch1.png
+generate_toc: true
 description: >-
   FreeSWITCH is a free and open source application server for real-time communication, WebRTC, telecommunications, video and Voice over Internet Protocol. Let's build a VoIP dialer with it.
 ---
-
-- [Introduction](#introduction)
-- [Prerequisites](#prerequisites)
-- [Step 1: Instalation](#step-1-instalation)
-- [Step 2: Configuration](#step-2-configuration)
-- [Step 3: Initiating External Calls](#step-3-initiating-external-calls)
-- [Step 4: Scripting](#step-4-scripting)
-- [Step 5: More Scripting](#step-5-more-scripting)
-  - [How to send a caller-id when initiating calls?](#how-to-send-a-caller-id-when-initiating-calls)
-  - [How to retry if phone is busy?](#how-to-retry-if-phone-is-busy)
-  - [How to detect phone keys pressed?](#how-to-detect-phone-keys-pressed)
-  - [How to create a connection between your session and another phone?](#how-to-create-a-connection-between-your-session-and-another-phone)
-  - [How to execute external commands from your script?](#how-to-execute-external-commands-from-your-script)
-- [Step 6: Communicating with FreeSWITCH using mod_event_socket](#step-6-communicating-with-freeswitch-using-modeventsocket)
-- [Wrapping up](#wrapping-up)
 
 ## Introduction
 
