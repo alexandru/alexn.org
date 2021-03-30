@@ -377,6 +377,25 @@ POST STYLING
 			color: lighten(black, 50%);
 		}
 	}
+
+	div.footnotes {
+		font-size: 85%;
+		border-top: 1px dashed darken(white, 15%);
+		padding-top: 1rem;
+		
+		ol {
+			margin: 0;
+			width: 100%;
+			list-style-position: outside;
+			padding-left: 30px;
+		}
+
+		li p {
+			margin-left: 0;
+			margin-right: 0;
+			width: 100%;
+		}
+	}
 }
 
 .post.snippet {

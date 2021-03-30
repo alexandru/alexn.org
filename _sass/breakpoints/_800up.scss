@@ -146,10 +146,18 @@ POST STYLING
   dl,
   .pageTitle,
   .content,
-  .page-width {
+  .page-width,
+  div.footnotes {
     width: $elementsWidth;
     float: none;
     margin: 0 auto 2rem;
+  }
+
+  div.footnotes {
+    margin: 0 auto 1rem;
+    p {
+      margin-bottom: 1rem;
+    }
   }
 
   h1,
