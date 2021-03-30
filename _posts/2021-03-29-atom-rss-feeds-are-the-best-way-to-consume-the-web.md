@@ -46,7 +46,7 @@ Native:
 
 Own your audience!
 
-If you're cool enough to have your own blog, maybe you've built your website with a static website generator, such as Jekyll, please don't forget about exposing an RSS/Atom feed. Don't forget about us. If you expose a good RSS feed, you can then build an automated newsletter too 😉
+If you're cool enough to have your own blog, maybe you've built your website with a static website generator, such as Jekyll, but please don't forget to expose an RSS/Atom feed. Those of us using a news aggregator will thank you ❤️ And if you expose an RSS feed, you can then build an automated newsletter from it too 😉
 
 Here's some cool stuff to get you going:
 
