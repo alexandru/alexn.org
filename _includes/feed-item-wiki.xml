@@ -9,9 +9,6 @@
     </p>
     <hr>
     {{ include.post.content | rss_process }}
-    <p>
-      <i>The article <a href="{{ include.post.url | absolute_url | rss_campaign_link: 'footer-link', campaign_name }}">{{ include.post.title | xml_smart_escape }}</a> first appeared on <a href="{{ site.url | rss_campaign_link: 'footer-link', campaign_name }}">{{ site.domain }}</a>.</i>
-    </p>
   {% endif %}
 {% endcapture -%}
 <item>
