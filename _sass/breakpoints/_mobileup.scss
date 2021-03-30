@@ -826,6 +826,10 @@ img.right {
 		border-bottom: 1px solid darken(white, 15%);
 		margin-bottom: 1rem;
 
+		ul {
+			margin-bottom: 1rem;
+		}
+
 		.toc-title {
 			font-weight: bold;
 			margin: 1rem auto 1rem;
