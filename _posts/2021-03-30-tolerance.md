@@ -21,16 +21,17 @@ Then it dawned on me that I wrote that code to begin with. This piece already un
 
 I started blaming the COVID-19 pandemic, it's been a year since I've been lethargic (aka mild to moderate depression), missing the creative energy that I remember since before the world went mad. But then I started giving myself some credit, because the truth is ... as I grow old, I tolerate people more, while tolerating BS in programming less.
 
+Here's some science[^1]:
+
 <figure>
   <img src="{% link assets/media/articles/tolerance.png %}" alt="" class="transparency-fix" />
   <figcaption>The normal distribution of BS tolerance, it's all downhill after 30, yikes!</figcaption>
 </figure>
 
-This is another way of saying that you should never forget *YAGNI*[^1], *KISS*[^2], the *Principle of Least Surprise*[^3], or whatever kids call it these days. Just because you can, doesn't mean you should, with great power comes great responsibility, learn from my mistakes, etc, etc. Also, sometimes *DRY*[^4] is a bad philosophy, copy/paste that shit.
+This is another way of saying that you should never forget *YAGNI*[^2], *KISS*[^3], the *Principle of Least Surprise*[^4], or whatever kids call it these days. Just because you can, doesn't mean you should, with great power comes great responsibility, learn from my mistakes, etc, etc. Most importantly, sometimes *DRY*[^5] is a bad philosophy, monomorphic code is sometimes the best code, copy/paste that shit.
 
-Now get off my lawn.
-
-[^1]: [You Ain't Gonna Need It](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it) is what agile developers crave for
-[^2]: [Keep It Simple Stupid](https://en.wikipedia.org/wiki/KISS_principle) was a hip phrase back in my Ruby days, but searching "KISS Ruby" on Google yielded some strange results
-[^3]: OOP and FP developers actually understand different things by the [rule of least power](https://en.wikipedia.org/wiki/Rule_of_least_power) 🤷‍♂️
-[^4]: [Don't Repeat Yourself](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) is not the mantra of Go developers
+[^1]: Babies have no tolerance obviously, when they are hungry or sleepy they won't take no for an answer. Babies eventually get suckered into accepting life's compromises. When looking at what helps us fulfil our potential, the ability to eat shit is an obvious confounding factor.
+[^2]: [You Ain't Gonna Need It](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it) is what agile developers crave for.
+[^3]: [Keep It Simple Stupid](https://en.wikipedia.org/wiki/KISS_principle) was a hip phrase back in my Ruby days, but searching "KISS Ruby" on Google yielded some strange results, so unfortunately I couldn't get some of that groove back.
+[^4]: OOP and FP developers actually understand different things by the [rule of least power](https://en.wikipedia.org/wiki/Rule_of_least_power) 🤷‍♂️
+[^5]: [Don't Repeat Yourself](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) is not the mantra of Go developers.
