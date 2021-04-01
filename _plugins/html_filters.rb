@@ -101,16 +101,6 @@ module Jekyll
         elem["src"] = to_absolute_url(@@site, elem['src'])
       end
 
-      doc.css("img.left").each do |elem|
-        elem["src"] = to_absolute_url(@@site, elem['src'])
-        elem["style"] = "float:left; margin-right:20px; margin-bottom:20px;" + (elem["style"] || "")
-      end
-
-      doc.css("img.right").each do |elem|
-        elem["src"] = to_absolute_url(@@site, elem['src'])
-        elem["style"] = "float:right; margin-left:20px; margin-left:20px;" + (elem["style"] || "")
-      end
-
       doc.css("a").each do |elem|
         elem["href"] = to_absolute_url(@@site, elem['href'])
       end
