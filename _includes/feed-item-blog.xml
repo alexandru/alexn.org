@@ -7,9 +7,9 @@
       {% include youtube.html id=include.post.youtube image=include.post.image caption=include.post.image_caption %}
     {% else %}
       {% capture image_src %}{% if include.post.image %}{{ include.post.image }}{% else %}{{ include.post.youtube | youtube_thumb_link }}{% endif -%}{% endcapture -%}
-      <figure style="margin: 0;">
+      <figure>
         <a href="{{ include.post.url | absolute_url | rss_campaign_link: 'image', campaign_name }}">
-          <img src="{{ image_src | absolute_url }}?{{ 'now' | date: '%Y%m%d%H%M' }}" align="middle" width="100%;" alt="" />
+          <img src="{{ image_src | absolute_url }}?{{ 'now' | date: '%Y%m%d%H%M' }}" width="100%;" alt="" />
         </a>
         {% if include.post.image_caption %}<figcaption>{{ include.post.image_caption }}</figcaption>{% endif %}
       </figure>
