@@ -14,7 +14,7 @@
     {% endif -%}
     {{ include.post.content }}
     <p>
-      <a href="{{ include.post.link }}">Read article ...</a>
+      <a href="{{ include.post.link }}">Open link ...</a>
     </p>
   {% endif %}
 {% endcapture -%}
