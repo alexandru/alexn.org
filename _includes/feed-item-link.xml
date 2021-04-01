@@ -1,5 +1,3 @@
-{% capture item_image %}
-{% endcapture -%}
 {% capture item_content -%}
   {% if include.write_tags_as_content %}
     Shared link {% for tag in include.post.tags %}#{{ tag | twitter_taggify }} {% endfor %}
