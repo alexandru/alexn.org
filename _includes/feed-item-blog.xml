@@ -1,6 +1,7 @@
 {% assign campaign_name = include.campaign_name | default: "rss" -%}
 {% capture item_image %}
-  {% if include.post.image %}{% unless include.with_full_post and include.post.image_hide_in_post %}
+  {% if include.post.image or include.post.youtube %}
+  {% unless include.with_full_post and include.post.image_hide_in_post %}
     <div class="post-featured-image">
     {% if include.post.youtube %}
       {% include youtube.html id=include.post.youtube image=include.post.image caption=include.post.image_caption %}
@@ -13,7 +14,8 @@
       </figure>
     {% endif %}
     </div>
-  {% endunless %}{% endif %}
+  {% endunless %}
+  {% endif %}
 {% endcapture -%}
 {% capture item_content -%}
   {% if include.with_full_post %}

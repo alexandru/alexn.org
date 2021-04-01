@@ -1,17 +1,25 @@
+{% capture item_image %}
+{% endcapture -%}
 {% capture item_content -%}
   {% if include.write_tags_as_content %}
     Shared link {% for tag in include.post.tags %}#{{ tag | twitter_taggify }} {% endfor %}
   {% else %}
-    {% if include.post.image -%}
-    <a href="{{ include.post.link }}">
-      <img src="{{ include.post.image | absolute_url }}?{{ 'now' | date: '%Y%m%d%H%M' }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
-    </a>
-    <br />
-    {% elsif include.post.youtube -%}
-    <a href="{{ include.post.link }}">
-      <img src="{{ include.post.youtube | youtube_thumb_link }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
-    </a>
-    {% endif -%}
+    {% if include.post.image or include.post.youtube %}
+    {% unless include.with_full_post and include.post.image_hide_in_post %}
+      <div class="post-featured-image">
+      {% if include.post.youtube %}
+        {% include youtube.html id=include.post.youtube image=include.post.image caption=include.post.image_caption %}
+      {% else %}
+        <figure style="margin: 0;">
+          <a href="{{ include.post.url | absolute_url | rss_campaign_link: 'image', campaign_name }}">
+            <img src="{{ include.post.image | absolute_url }}?{{ 'now' | date: '%Y%m%d%H%M' }}" align="middle" width="100%;" alt="" />
+          </a>
+          {% if include.post.image_caption %}<figcaption>{{ include.post.image_caption }}</figcaption>{% endif %}
+        </figure>
+      {% endif %}
+      </div>
+    {% endunless %}
+    {% endif %}
     {{ include.post.content }}
     <p>
       <a href="{{ include.post.link }}">Open link ...</a>
