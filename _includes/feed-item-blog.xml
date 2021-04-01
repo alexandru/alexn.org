@@ -3,7 +3,7 @@
   {% if include.post.image %}{% unless include.with_full_post and include.post.image_hide_in_post %}
     <div class="post-featured-image">
     {% if include.post.youtube %}
-      {% include youtube.html id=include.post.youtube image=include.post.image caption=include.post.image_caption in_rss=true %}
+      {% include youtube.html id=include.post.youtube image=include.post.image caption=include.post.image_caption %}
     {% else %}
       <figure style="margin: 0;">
         <a href="{{ include.post.url | absolute_url | rss_campaign_link: 'image', campaign_name }}">
