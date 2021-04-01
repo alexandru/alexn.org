@@ -8,7 +8,6 @@ tags:
   - OOP
   - Personal
   - Programming
-description: "I just refactored a piece of code. I deleted 6 source code files, and rebuilt the functionality with a bunch of dirty OOP classes shoved in a single file 😱"
 ---
 
 <p class="intro withcap" markdown="1">
