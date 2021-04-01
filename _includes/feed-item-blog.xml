@@ -1,29 +1,56 @@
 {% assign campaign_name = include.campaign_name | default: "rss" -%}
-{% capture description -%}
-  {% if include.write_tags_as_content %}
+{% capture item_image %}
+  {% if include.post.image or include.post.youtube %}
+  {% unless include.with_full_post and include.post.image_hide_in_post %}
+    <div class="post-featured-image">
+    {% if include.with_full_post and include.post.youtube %}
+      {% include youtube.html id=include.post.youtube image=include.post.image caption=include.post.image_caption %}
+    {% else %}
+      {% capture image_src %}{% if include.post.image %}{{ include.post.image }}{% else %}{{ include.post.youtube | youtube_thumb_link }}{% endif -%}{% endcapture -%}
+      <figure>
+        <a href="{{ include.post.url | absolute_url | rss_campaign_link: 'image', campaign_name }}">
+          <img src="{{ image_src | absolute_url }}?{{ 'now' | date: '%Y%m%d%H%M' }}" width="100%;" alt="" />
+        </a>
+        {% if include.post.image_caption %}<figcaption>{{ include.post.image_caption }}</figcaption>{% endif %}
+      </figure>
+    {% endif -%}
+    </div>
+  {% endunless -%}
+  {% endif -%}
+{% endcapture -%}
+{% capture item_content -%}
+  {% if include.with_full_post %}
+    {{ item_image }}
+    {{ include.post.content }}
+    <hr/>
+    <p>
+      <i>The article <a href="{{ include.post.url | absolute_url | rss_campaign_link: 'footer-link', campaign_name }}">{{ include.post.title | xml_smart_escape }}</a> first appeared on <a href="{{ site.url | rss_campaign_link: 'footer-link', campaign_name }}">{{ site.domain }}</a>.</i>
+    </p>
+  {% elsif include.write_tags_as_content %}
     Blog article {% for tag in include.post.tags %}#{{ tag | twitter_taggify }} {% endfor %}
   {% else %}
-    {% if include.post.image -%}
-      <a href="{{ include.post.url | absolute_url | rss_campaign_link: 'image', campaign_name }}">
-        <img src="{{ include.post.image | absolute_url }}?{{ 'now' | date: '%Y%m%d%H%M' }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;"
-          alt="{% if include.post.image_caption %}{{ include.post.image_caption | xml_escape }}{% endif %}" />
-      </a>
-      <br />
-    {% elsif include.post.youtube -%}
-      <a href="{{ include.post.url | absolute_url | rss_campaign_link: 'image', campaign_name }}">
-        <img src="{{ include.post.youtube | youtube_thumb_link }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" 
-          alt="YouTube thumbnail" />
-      </a>
-    {% endif -%}
+    {{ item_image }}
     {% if include.post.description %}{{ include.post.description | markdownify }}{% else %}{{ include.post.excerpt | strip_html }}{% endif %}
     <p>
       <a href="{{ include.post.url | absolute_url | rss_campaign_link: 'read-more', campaign_name }}">Read article →</a>
     </p>
   {% endif %}
 {% endcapture -%}
+{% capture item_description %}
+  {% if include.write_tags_as_content %}
+    Blog article {% for tag in include.post.tags %}#{{ tag | twitter_taggify }} {% endfor %}
+  {% else %}
+    {% if include.post.description %}
+      {{ include.post.description | markdownify }}
+    {% else %}
+      {{ include.post.excerpt | strip_html }}
+    {% endif %}
+  {% endif %}
+{% endcapture %}
 <item>
   <title>{% if include.prefix %}{{ include.prefix }}{% endif %}{{ include.post.title | xml_smart_escape }}</title>
-  <description>{{ description | rss_process | strip | xml_escape }}</description>
+  <description>{{ item_description | strip_html | strip | xml_escape }}</description>
+  <content:encoded>{{ item_content | rss_process | strip | xml_escape }}</content:encoded>
   <pubDate>{{ include.post.date | date_to_rfc822 }}</pubDate>
   {% if include.post.last_modified_at -%}
   <dc:modified>{{ include.post.last_modified_at | date_to_rfc822 }}</dc:modified>

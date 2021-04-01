@@ -5,7 +5,8 @@ layout: null
 <rss version="2.0"
   xmlns:atom="http://www.w3.org/2005/Atom"
 	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
-  xmlns:dc="http://purl.org/dc/elements/1.1/">
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
 
   <channel>
     <title>{{ site.title | xml_smart_escape }} — All articles</title>
@@ -23,7 +24,7 @@ layout: null
     {% for post in everything limit:200 %}
       {% unless post.secret -%}
         {% if post.collection == 'posts' -%}
-          {% include feed-item-blog.xml post=post %}
+          {% include feed-item-blog.xml post=post with_full_post=true %}
         {% elsif post.collection == 'snippets' -%}
           {% include feed-item-snippet.xml post=post prefix="Snippet — " %}  
         {% elsif post.collection == 'links' -%}
