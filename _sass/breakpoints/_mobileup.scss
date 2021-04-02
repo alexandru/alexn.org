@@ -353,7 +353,10 @@ POST STYLING
 	}
 
 	#article-details {
-		border-top: 1px solid darken(white, 15%);
+		border-style: solid;
+    border-color: lighten($text-color-light, 40%);
+		border-width: 1.5px 0 0 0;
+
 		width: 100%;
 		text-align: left;
 		margin: 0 auto;
@@ -362,7 +365,7 @@ POST STYLING
 		#all-categories {
 			margin-top: 1rem;
 			padding-top: 1rem;
-			border-top: 1px solid darken(white, 5%);
+			border-top: 1px solid darken(white, 10%);
 		}
 	}
 
@@ -412,7 +415,7 @@ POST STYLING
 }
 
 .post div.related {
-	border-top: 2px solid darken(white, 15%);
+	border-top: 1.5px solid darken(white, 15%);
 }
 
 .post div.related, div.archive_list {
