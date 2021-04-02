@@ -141,9 +141,12 @@ body {
       }
     }
 
-    div.footnotes {
-      border-color: lighten($site-background-dark, 15%);
+    hr {
+      border-color: darken($text-color-dark, 20%);
     }
+    // div.footnotes {
+    //   border-color: lighten($site-background-dark, 15%);
+    // }
 
     #article-details {
       border-top: 1px solid lighten($site-background-dark, 15%);

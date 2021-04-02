@@ -378,13 +378,20 @@ POST STYLING
 		}
 	}
 
+	hr {
+		border-style: solid;
+    border-color: lighten($text-color-light, 40%);
+		border-width: 1.5px 0 0 0;
+		margin-top: 2rem;
+		margin-bottom: 2rem;
+	}
+	
 	div.footnotes {
 		font-size: 85%;
-		border-top: 1px dashed darken(white, 15%);
-		padding-top: 1rem;
 		
 		ol {
 			margin: 0;
+			margin-bottom: 2rem;
 			width: 100%;
 			list-style-position: outside;
 			padding-left: 30px;

@@ -29,7 +29,7 @@ Here's some science[^1]:
 
 This is another way of saying that you should never forget *YAGNI*[^2], *KISS*[^3], the *Principle of Least Surprise*[^4], or whatever kids call it these days. Just because you can, doesn't mean you should, with great power comes great responsibility, learn from my mistakes, etc, etc. Most importantly, sometimes *DRY*[^5] is a bad philosophy, monomorphic code is sometimes the best code, copy/paste that shit.
 
-## Notes
+---
 
 [^1]: Babies have no tolerance obviously, when they are hungry or sleepy they won't take no for an answer. Babies eventually get suckered into accepting life's compromises. When looking at what helps us fulfil our potential, the ability to eat shit is an obvious confounding factor.
 [^2]: [You Ain't Gonna Need It](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it) is what agile developers crave for.

@@ -153,6 +153,10 @@ POST STYLING
     margin: 0 auto 2rem;
   }
 
+  hr {
+    width: $elementsWidth;
+  }
+
   div.footnotes {
     margin: 0 auto 1rem;
     p {
