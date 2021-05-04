@@ -44,8 +44,8 @@
     <meta property="og:image:secure_url" content="{{ site.url }}{{ page.image }}?{{ 'now' | date: '%Y%m%d%H%M' }}" />
     {% else %}
     <meta content="website" property="og:type">
-    <meta property="og:image" content="{{ '/assets/logo/800px.png' | prepend: site.url }}" />
-    <meta property="og:image:secure_url" content="{{ '/assets/logo/800px.png' | prepend: site.url }}" />
+    <meta property="og:image" content="{{ '/assets/logo/800px-bordered.png' | prepend: site.url }}" />
+    <meta property="og:image:secure_url" content="{{ '/assets/logo/800px-bordered.png' | prepend: site.url }}" />
     {% endif -%}
   
     <!-- Twitter Cards -->
@@ -60,7 +60,7 @@
     <meta name="twitter:image:src" content="{{ page.image | prepend: site.url }}?{{ 'now' | date: '%Y%m%d%H%M' }}">
     {% else %}
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:image:src" content="{{ '/assets/logo/800px.png' | prepend: site.url }}">
+    <meta name="twitter:image:src" content="{{ '/assets/logo/800px-bordered.png' | prepend: site.url }}">
     {% endif -%}
   
     {% if page.author -%}
@@ -81,10 +81,12 @@
     {% endif -%}
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{% link /favicon.ico %}" sizes="16x16" />
+    <link rel="icon" type="image/x-icon" href="{% link /favicon.ico %}" sizes="48x48" />
+    <link rel="icon" href="{% link /assets/logo/16px.png %}" sizes="16x16" />
     <link rel="icon" href="{% link /assets/logo/32px.png %}" sizes="32x32" />
     <link rel="icon" href="{% link /assets/logo/192px.png %}" sizes="192x192" />
     <link rel="icon" href="{% link /assets/logo/270px.png %}" sizes="270x270" />
+    <link rel="icon" href="{% link /assets/logo/512px.png %}" sizes="512x512" />
     <link rel="apple-touch-icon-precomposed" href="{% link /assets/logo/180px.png %}" />
     <meta name="msapplication-TileImage" content="{% link /assets/logo/270px.png %}" />
 
