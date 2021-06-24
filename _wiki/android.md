@@ -21,3 +21,8 @@ title: "Android"
 - [Termux](https://termux.com/): terminal emulator and Linux environment
 - [VLC](https://www.videolan.org/vlc/download-android.html): video player
 - [Voice](https://github.com/PaulWoitaschek/Voice): open-source audiobook player
+
+## Screen-sharing with Laptop
+
+- [Deskreen](https://deskreen.com/lang-en): for sharing the desktop's screen over the local network, works with any device
+- 
