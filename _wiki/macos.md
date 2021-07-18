@@ -8,6 +8,10 @@ title: "MacOS"
 - `Cmd + Shift + G`: Go to Folder
 - `Cmd + Shift + .`: Toggle visibility of dot files
 
+## Useful Apps
+
+- [Dozer](https://github.com/Mortennn/Dozer): OSS alternative to [Bartender](https://www.macbartender.com/) for sorting / hiding icons in the menu bar
+
 ## Stop Apple Music / iTunes from starting on Play
 
 Source: [Stop iTunes From Launching When You Press Play On Your Mac’s Keyboard](https://www.howtogeek.com/274345/stop-itunes-from-launching-when-you-press-play-on-your-macs-keyboard/)
