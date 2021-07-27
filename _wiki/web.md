@@ -41,6 +41,8 @@ For detecting the [Dark Reader](https://darkreader.org/) browser extension:
 
 ## Browser benchmarks
 
+Performance:
+
 - <https://browserbench.org/>
   - <https://browserbench.org/Speedometer2.0/>
   - <https://browserbench.org/JetStream/>
@@ -48,6 +50,10 @@ For detecting the [Dark Reader](https://darkreader.org/) browser extension:
 - <https://krakenbenchmark.mozilla.org/>
 - <https://www.wirple.com/bmark/>
 - <https://web.basemark.com/>
+
+Features:
+
+- <https://tomayac.github.io/pwa-feature-detector/>
 
 ### For testing ads-blocking
 

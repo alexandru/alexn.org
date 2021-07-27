@@ -102,3 +102,17 @@ brew uninstall dnsmasq
 rm "$(brew --prefix)/etc/dnsmasq.conf"
 sudo networksetup -setdnsservers "Wi-Fi" empty
 ```
+
+### NextDNS
+
+Install:
+
+```
+brew install nextdns/tap/nextdns
+
+sudo nextdns install \
+  -report-client-info \
+  -auto-activate \
+  -detect-captive-portals \
+  --config <id>
+```
