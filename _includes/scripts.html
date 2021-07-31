@@ -10,24 +10,12 @@
   _paq.push(['disableCookies']);
   _paq.push(['trackPageView']);
   _paq.push(['enableLinkTracking']);
-  (function() {
-    var w = window;
-    var dnt = 
-      ("doNotTrack" in w.navigator && w.navigator.doNotTrack) ||
-      ("doNotTrack" in w && w.doNotTrack) ||
-      ("msDoNotTrack" in w.navigator && w.navigator.msDoNotTrack) || 
-      ("msTrackingProtectionEnabled" in w.external && w.external.msTrackingProtectionEnabled());
 
-    if (dnt === true || dnt === "1" || dnt === 1 || dnt === "yes" || dnt === "true") {
-      console.log("DNT is on, skipping analytics");
-    } else {
-      var u="//ly.alexn.org/";
-      _paq.push(['setTrackerUrl', u+'m.php']);
-      _paq.push(['setSiteId', '1']);
-      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-      g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'m.js'; s.parentNode.insertBefore(g,s);
-    }
-  })();
+  var u="//ly.alexn.org/";
+  _paq.push(['setTrackerUrl', u+'m.php']);
+  _paq.push(['setSiteId', '1']);
+  var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+  g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'m.js'; s.parentNode.insertBefore(g,s);
 </script>
 <noscript>
   {% capture page_name %}{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif -%}{% endcapture %}

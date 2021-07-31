@@ -33,16 +33,7 @@ This website uses a self-hosted (first-party) [Matomo](https://matomo.org/) inst
 1. no tracking cookies are being set
 2. no tracking cookies will be created in the future without explicit permission
 3. IPs are anonymized
-4. collected data is used by the website's owner for content optimizations, in full compliance of GDPR, and is never shared with third-party services
-
-If you wish to disable these analytics, you can enable the [Do Not Track](https://en.wikipedia.org/wiki/Do_Not_Track){:target="_blank",rel="nofollow"} header. See how to enable it in:
-
-- [Firefox](https://support.mozilla.org/kb/how-do-i-turn-do-not-track-feature){:target="_blank",rel="nofollow"}
-- [Chrome](https://support.google.com/chrome/answer/2790761){:target="_blank",rel="nofollow"}
-
-<p class="warn-bubble" markdown="1">
-  **WARN:** This header is not supported in Safari, as Apple pulled support for it. This is because, at the moment of writing, the header isn't legally binding, and it might aid in fingerprinting. This might change in the future with the [Global Privacy Control](https://globalprivacycontrol.org/){:target="_blank",rel="nofollow"} initiative.
-</p>
+4. collected data is used by the website's owner for content optimizations, in full compliance of GDPR and CCPA, is never shared with third-party services, and will never be sold
 
 ## Commenting
 
