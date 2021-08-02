@@ -61,7 +61,6 @@ layout: null
 	}
 
 	function onDocumentReady() {
-		console.log("Initializing page");
 		initDropCapParagraphs();
 		// Activate responsive navigation
 		responsiveNav(".nav-collapse");
