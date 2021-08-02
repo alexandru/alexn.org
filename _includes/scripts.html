@@ -5,21 +5,46 @@
 {% if page.mathjax -%}<script async src="{% link assets/js/load-mathjax.js %}?{{ 'now' | date: '%Y%m%d%H%M' }}"></script>{% endif %}
 <script async src="{% link assets/js/scripts.js %}?{{ 'now' | date: '%Y%m%d%H%M' }}" type="text/javascript"></script>
 
-<script type="text/javascript">
-  var _paq = window._paq || [];
-  _paq.push(['disableCookies']);
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
+{% capture page_name %}{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif -%}{% endcapture -%}
+{% capture tracker_url %}https://ly.alexn.org/m.php?idsite=1&rec=1&action_name={{ page_name | url_encode }}&url={{ page.url | absolute_url | url_encode }}{% endcapture -%}
 
+<script type="text/javascript">
   (function () {
-    var u="//ly.alexn.org/";
-    _paq.push(['setTrackerUrl', u+'m.php']);
-    _paq.push(['setSiteId', '1']);
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'m.js'; s.parentNode.insertBefore(g,s);
+    var p = (function () {
+      var query = window.location.search.substring(1);
+      var vars = query.split('&');
+      var p = {};
+      for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        p[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+      }
+      return p;
+    })();
+
+    var now = new Date();
+    var url = "{{ tracker_url }}" + 
+      "&rand=" + encodeURIComponent(Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)) +
+      "&h=" + now.getHours() +
+      "&m=" + now.getMinutes() +
+      "&s=" + now.getSeconds();
+
+    if ("pk_campaign" in p)
+      url += "&_rcn=" + encodeURIComponent(p["pk_campaign"]);
+    if ("pk_kwd" in p)
+      url += "&_rck=" + encodeURIComponent(p["pk_kwd"]);
+    if ("referrer" in document && document.referrer) 
+      url += "&urlref=" + encodeURIComponent(document.referrer);
+    if ("screen" in window) 
+      url += "&res=" + screen.width + "x" + screen.height;
+
+    var d=document, i=d.createElement("img"),s0=d.getElementsByTagName("script"),s=s0[s0.length-1];
+    i.setAttribute("alt", "");
+    i.setAttribute("referrerpolicy", "no-referrer-when-downgrade");
+    i.setAttribute("src", url);
+    i.setAttribute("style", "border:0");
+    s.parentNode.insertBefore(i,s);
   })();
 </script>
 <noscript>
-  {% capture page_name %}{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif -%}{% endcapture %}
-  <img src="https://ly.alexn.org/m.php?idsite=1&rec=1&action_name={{ page_name | url_encode }}" style="border:0" alt="" />
+  <img referrerpolicy="no-referrer-when-downgrade" src="{{ tracker_url }}" style="border:0" alt="" />
 </noscript>
