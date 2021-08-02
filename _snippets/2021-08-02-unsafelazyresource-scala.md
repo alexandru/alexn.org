@@ -17,8 +17,7 @@ import scala.util.control.NonFatal
   * the resource only happens in case the resource was initialized.
   *
   * NOTE: it's called "unsafe" because it is side-effecting.
-  * Prefer suspending side-effects with: 
-  * [[https://typelevel.org/cats-effect/]]
+  * See homework.
   */
 final class UnsafeLazyResource[A](
   initRef: () => A,
