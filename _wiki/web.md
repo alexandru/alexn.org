@@ -43,55 +43,24 @@ For detecting the [Dark Reader](https://darkreader.org/) browser extension:
 
 Performance:
 
-- <https://browserbench.org/>
-  - <https://browserbench.org/Speedometer2.0/>
-  - <https://browserbench.org/JetStream/>
-  - <https://browserbench.org/MotionMark/>
-- <https://krakenbenchmark.mozilla.org/>
-- <https://www.wirple.com/bmark/>
-- <https://web.basemark.com/>
+- [browserbench.org](https://browserbench.org){:target="_blank"}
+  - [Speedometer2.0](https://browserbench.org/Speedometer2.0/){:target="_blank"}
+  - [JetStream](https://browserbench.org/JetStream/){:target="_blank"}
+  - [MotionMark](https://browserbench.org/MotionMark){:target="_blank"}
+- [BMark (HTML5 3D benchmark)](https://www.wirple.com/bmark/){:target="_blank"}
+- [Basemark Web](https://web.basemark.com/){:target="_blank"}
+- [UFO test (for framerate)](https://www.testufo.com/){:target="_blank"}
 
 Features:
 
-- <https://tomayac.github.io/pwa-feature-detector/>
+- [PWA feature detector](https://tomayac.github.io/pwa-feature-detector){:target="_blank"}
 
-### For testing ads-blocking
+### For testing tracking & ads blocking
 
-<p class="warn-bubble" markdown="1">
-  **WARN:** some of these websites may distribute [malvertising](https://en.wikipedia.org/wiki/Malvertising), pirated or NSFW content. Load at your own risk!
-</p>
-
-
-- [adblock-tester.com](https://adblock-tester.com/){:target="_blank",rel="nofollow"}
-- [coveryourtracks.eff.org](https://coveryourtracks.eff.org/){:target="_blank",rel="nofollow"}
-- <https://d3ward.github.io/toolz/src/adblock>
-- <https://blockads.fivefilters.org/>
-
-Samples in the wild:
-
-- [google.com](https://www.google.com/search?q=vpn){:target="_blank",rel="nofollow"}
-  - Features first-party ads, blockable via generic cosmetic rules in uBlock Origin
-- [youtube.com](https://www.youtube.com/results?search_query=vpn){:target="_blank",rel="nofollow"}
-  - [video sample](https://www.youtube.com/watch?v=xGjGQ24cXAY){:target="_blank",rel="nofollow"}
-  - Features first-party ads
-- [bild.de](https://www.bild.de/){:target="_blank",rel="nofollow"}
-  - Features anti-ad-blocking tech
-- [nytimes.com](https://www.nytimes.com/){:target="_blank",rel="nofollow"}
-  - Features annoying cookies / trackers banner
-- [forbes.com](https://www.forbes.com/){:target="_blank",rel="nofollow"}
-  - Features annoying cookies / trackers dialog, and huge ad banners
-- [businessinsider.com](https://www.businessinsider.com/us-fda-approve-pfizer-vaccine-biontech-covid-uk-mhra-2020-12){:target="_blank",rel="nofollow"}
-  - Trackers/cookies dialog, notification spam
-- [g4media.ro](https://www.g4media.ro/){:target="_blank",rel="nofollow"}
-  - Trackers/cookie dialog, notification spam, Google ads
-- [technoreels.com](https://techoreels.com/4920/s4/){:target="_blank",rel="nofollow"}
-  - WARN: malvertising, intrusive ads, anti-ad-blocking tech (kicking in after several seconds)
-- [lookmovie.io](https://lookmovie.io/shows/view/2382108-see-dad-run-2012#S3-E8-88337){:target="_blank",rel="nofollow"}
-  - WARN: pirated content, illegal software; anti-ad-blocking tech
-- [lostmediawiki.com](https://forums.lostmediawiki.com/thread/5336/dark-forums-theme-available){:target="_blank",rel="nofollow"}
-  - Anti-ad-blocking tech
-- [multics.eu](https://multics.eu/){:target="_blank",rel="nofollow"}
-  - Anti-ad-blocking tech
+- <https://adblock-tester.com/>{:target="_blank"}
+- <https://coveryourtracks.eff.org/>{:target="_blank"}
+- <https://d3ward.github.io/toolz/src/adblock>{:target="_blank"}
+- <https://blockads.fivefilters.org/>{:target="_blank"}
 
 ## Progressive Web Apps (PWAs)
 
@@ -131,7 +100,5 @@ nativefier \
 
 ## Browser comparisons
 
-Chrome vs Firefox:
-
 - [Firefox and Chromium Security (2020)](https://madaidans-insecurities.github.io/firefox-chromium.html) ([archive](https://web.archive.org/web/20210105142528/https://madaidans-insecurities.github.io/firefox-chromium.html))
-
+- [Brave vs Firefox](https://itsfoss.com/brave-vs-firefox/)
