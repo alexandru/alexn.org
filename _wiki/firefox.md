@@ -67,6 +67,16 @@ dom.media.mediasession.enabled = true
 services.sync.prefs.dom.media.mediasession.enabled = true
 ```
 
+## Activate compact mode (after Proton)
+
+In `about:config`:
+
+```js
+browser.compactmode.show = true
+```
+
+Source: <https://support.mozilla.org/en-US/kb/compact-mode-workaround-firefox>
+
 ## Restore Pinned Tabs on Demand
 
 Note sure how to prevent the pinned tabs from opening at all, but at least this delays them loading, until you activate the tabs:
