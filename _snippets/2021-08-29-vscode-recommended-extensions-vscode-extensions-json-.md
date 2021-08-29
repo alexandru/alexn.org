@@ -9,7 +9,7 @@ tags:
 
 You can recommend the required [VS Code](https://code.visualstudio.com/){:target="_blank",rel="nofollow"} extensions per repository to your fellow programmers. This is what VS Code calls "[workspace recommended extensions](http://go.microsoft.com/fwlink/?LinkId=827846){:target="_blank"}".
 
-For example, if your project is a [Scala](https://www.scala-lang.org/){:target="_blank"} project,add this `$PROJECT_ROOT/.vscode/extensions.json` file to your repository:
+For example, if your project is a [Scala](https://www.scala-lang.org/){:target="_blank"} project, add this `$PROJECT_ROOT/.vscode/extensions.json` file to your repository:
 
 ```javascript
 {
