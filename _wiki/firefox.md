@@ -147,3 +147,9 @@ Then in the `<Profile folder>/chrome/userChrome.css`:
 - [about:telemetry](about:telemetry)
 - [about:url-classifier](about:url-classifier)
 - [about:webrtc](about:webrtc)
+
+## Docs
+
+- [Configuring Networks to Disable DNS over HTTPS](https://support.mozilla.org/ro/kb/configuring-networks-disable-dns-over-https)
+- [Canary domain - use-application-dns.net](https://support.mozilla.org/en-US/kb/canary-domain-use-application-dnsnet)
+- [Trusted Recursive Resolver](https://wiki.mozilla.org/Trusted_Recursive_Resolver)

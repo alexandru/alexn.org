@@ -17,6 +17,7 @@ title: "Android"
 - [OsmAnd](https://osmand.net/): maps based on OpenStreetMap and Wikipedia  
 - [Pocket Casts](https://www.pocketcasts.com/): podcasts
 - [Resilio Sync](https://www.resilio.com/platforms/mobile/): local files sync
+- [Talon](https://github.com/klinker-apps/talon-for-twitter-android) ([store](https://play.google.com/store/apps/details?id=com.klinker.android.twitter_l&hl=en&gl=US)): open-source Twitter client
 - [Tasker](https://tasker.joaoapps.com/): automation
 - [Termux](https://termux.com/): terminal emulator and Linux environment
 - [VLC](https://www.videolan.org/vlc/download-android.html): video player
