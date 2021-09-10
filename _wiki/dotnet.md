@@ -62,3 +62,7 @@ dotnet run
 ### Libraries
 
 - [Expecto](https://github.com/haf/expecto#installing): unit testing
+
+### Samples
+
+- [zerosharp](https://github.com/MichalStrehovsky/zerosharp): "demo of the potential of C# for systems programming with the .NET native ahead-of-time compilation technology"

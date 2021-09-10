@@ -26,4 +26,4 @@ title: "Android"
 ## Screen-sharing with Laptop
 
 - [Deskreen](https://deskreen.com/lang-en): for sharing the desktop's screen over the local network, works with any device
-- 
+- [Scrcpy](https://github.com/Genymobile/scrcpy): display & control Android device from desktop
