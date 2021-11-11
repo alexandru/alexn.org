@@ -143,6 +143,22 @@ docker volume rm $(docker volume ls -q)
 docker exec -it <container_id> sh
 ```
 
+### Clean Restart of all Docker Instances
+
+```sh
+# Stop all containers
+docker-compose down
+
+# Delete all containers
+docker rm -f $(docker ps -a -q)
+
+# Delete all volumes
+docker volume rm $(docker volume ls -q)
+
+# Restart all containers
+docker-compose up -d
+```
+
 ## Building Docker images
 
 Resources:

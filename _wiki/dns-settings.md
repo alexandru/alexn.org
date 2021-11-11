@@ -107,7 +107,7 @@ sudo networksetup -setdnsservers "Wi-Fi" empty
 
 Install:
 
-```
+```sh
 brew install nextdns/tap/nextdns
 
 sudo nextdns install \
