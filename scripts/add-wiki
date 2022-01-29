@@ -13,15 +13,15 @@ begin
   raise OptionParser::MissingArgument.new("--title") if options[:title].nil?
 
   now = Time.new
-  slug = options[:title].strip.downcase.gsub(/\W+/, "-") + ".md"
+  slug_title = options[:title].strip.downcase.gsub(/^\W+|\W+$/, "").gsub(/\W+/, "-")
+  slug = slug_title + ".md"
   text = %{
 ---
 date: #{now.strftime("%Y-%m-%d %H:%M:%S%z")}
+title: #{options[:title].to_json}
 ---
 
-\# #{options[:title]}
-  }.strip
-
+}.strip
   dir_path = File.expand_path(File.join(File.dirname(File.expand_path(__FILE__)), "..", "_wiki"))
   path = File.join(dir_path, slug)
   File.open(path, 'w') { |file| file.write(text) }

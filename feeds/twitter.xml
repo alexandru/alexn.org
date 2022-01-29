@@ -20,7 +20,7 @@ layout: null
 	  <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v{{ jekyll.version }}</generator>
 
-    {% assign everything = site.posts | concat: site.snippets | concat: site.links | concat: site.wiki | rss_sort_all -%}
+    {% assign everything = site.posts | concat: site.snippets | concat: site.links | rss_sort_all -%}
     {% for post in everything limit:200 %}
       {% unless post.secret -%}
         {% if post.collection == 'posts' -%}

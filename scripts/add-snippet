@@ -13,7 +13,8 @@ begin
   raise OptionParser::MissingArgument.new("--title") if options[:title].nil?
 
   now = Time.new
-  slug = now.strftime("%Y-%m-%d") + "-" + options[:title].strip.downcase.gsub(/\W+/, "-") + ".md"
+  slug_title = options[:title].strip.downcase.gsub(/^\W+|\W+$/, "").gsub(/\W+/, "-")
+  slug = now.strftime("%Y-%m-%d") + "-" + slug_title + ".md"
   text = %{
 ---
 title: #{options[:title].to_json}

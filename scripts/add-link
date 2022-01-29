@@ -16,7 +16,8 @@ begin
   raise OptionParser::MissingArgument.new("--link") if options[:link].nil?
 
   now = Time.new
-  slug = now.strftime("%Y-%m-%d") + "-" + options[:title].strip.downcase.gsub(/\W+/, "-") + ".md"
+  slug_title = options[:title].strip.downcase.gsub(/^\W+|\W+$/, "").gsub(/\W+/, "-")
+  slug = now.strftime("%Y-%m-%d") + "-" + slug_title + ".md"
   text = %{
 ---
 link: #{options[:link].to_json}
