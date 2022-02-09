@@ -13,6 +13,7 @@ Important:
 
 Other:
 
+- [Use Vim macros to automate frequent tasks](https://www.redhat.com/sysadmin/use-vim-macros)
 - [Configuring .ideavimrc](https://medium.com/@danidiaz/configuring-ideavimrc-de16a4da0715) ([archive](https://web.archive.org/web/20210201132546/https://medium.com/@danidiaz/configuring-ideavimrc-de16a4da0715))
 - [Everyone Who Tried to Convince Me to use Vim was Wrong](https://yehudakatz.com/2010/07/29/everyone-who-tried-to-convince-me-to-use-vim-was-wrong/) ([archive](https://web.archive.org/web/20210201154621/https://yehudakatz.com/2010/07/29/everyone-who-tried-to-convince-me-to-use-vim-was-wrong/))
 - [Seven habits of effective text editing](https://www.moolenaar.net/habits.html) ([archive](https://web.archive.org/web/20210201155823/https://www.moolenaar.net/habits.html))
@@ -120,3 +121,13 @@ set clipboard+=unnamed
 - `]c`: Jump to the next change.
 - `[c`: Jump to the previous change.
 - `Ctrl W + Ctrl W`: Switch to the other split window.
+
+### Record macros
+
+- to record macros: `q<register><commands>q`
+  - pressing `qa` starts recording in register `a`
+  - pressing `q` again stops recording
+- to view recorded macros: `:reg`
+- to play the macro once: `@<register>`
+  - `@a` plays the macro in register `a`
+- to repeat the macro execution: `@@`

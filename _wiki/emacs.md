@@ -8,10 +8,7 @@ title: "Emacs Setup"
 My preferred installation on macOS:
 
 ```sh
-brew cask install emacs --no-quarantine
-
-# Needed lately because signature verification fails with gpgtools.org
-brew install gnupg
+brew install emacs --cask
 ```
 
 This installs:
@@ -49,8 +46,8 @@ Create `~/Library/LaunchAgents/alex.emacs.plist`:
     <string>alex.Emacs</string>
     <key>ProgramArguments</key>
     <array>
-      <string>/Applications/Emacs.app/Contents/MacOS/emacs</string>
-      <string>--daemon</string>
+      <string>/usr/local/bin/emacs</string>
+      <string>--fg-daemon</string>
     </array>
     <key>RunAtLoad</key>
     <true/>
