@@ -4,7 +4,7 @@ domain: alexn.org
 url: https://alexn.org
 baseurl: ""
 
-repo_edit: https://github.com/alexandru/alexn.org/blob/master/
+repo_edit: https://github.com/alexandru/alexn.org/blob/main/
 
 include: ["_redirects", ".well-known"]
 exclude: ["scripts", "package.json", "package-lock.json", "vendor"]
