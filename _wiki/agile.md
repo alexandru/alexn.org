@@ -1,6 +1,6 @@
 ---
 date: 2020-08-24 16:24:31+0300
-title: "Agile software development"
+title: "Agile"
 ---
 
 ## Kanban
