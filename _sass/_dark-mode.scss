@@ -210,22 +210,6 @@ body {
     background-image: none;
 
     .contributions {
-      #isso-thread {
-        @include form-elements;
-
-        & > h4 {
-          color: lighten(#778899, 5%);
-        }
-
-        .isso-comment > div.text-wrapper > .isso-comment-header {
-          color: #778899;
-        }
-
-        .isso-comment > div.text-wrapper > .isso-comment-header .author {
-          color: lighten(#778899, 5%);
-        }
-      }
-
       .note {
         border: 1px solid $site-background-dark;
         background-color: lighten($color: $site-background-dark, $amount: 3%);
@@ -241,10 +225,6 @@ body {
       color: lightslategray;
       border-top: 2px solid lighten($site-background-dark, $amount: 5%);
       border-bottom: 2px solid lighten($site-background-dark, $amount: 5%);
-    }
-
-    #footer-comments-widget {
-      border-bottom: 2px solid lighten($site-background-dark, 20%);
     }
   }
 
