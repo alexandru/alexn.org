@@ -21,9 +21,6 @@ layout: default
         {{ date_action }}: {{ last_modified_at | date_to_long_string }}
       </time>
       {% endif %}
-      {% unless page.disable_comments %}
-      | <a href="{{ page.url | prepend: site.baseurl }}#isso-thread">comments</a>
-      {% endunless %}
     {% endunless %}
   </p>
 

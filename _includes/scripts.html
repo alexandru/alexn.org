@@ -7,6 +7,7 @@
 
 {% capture page_name %}{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif -%}{% endcapture -%}
 {% capture tracker_url %}https://ly.alexn.org/m.php?idsite=1&rec=1&action_name={{ page_name | url_encode }}&url={{ page.url | absolute_url | url_encode }}{% endcapture -%}
+{% comment %}
 <script type="text/javascript">
   (function () {
     var h = "hostname" in document.location && document.location.hostname || "";
@@ -51,3 +52,4 @@
 <noscript>
   <img referrerpolicy="no-referrer-when-downgrade" src="{{ tracker_url }}" style="border:0" alt="" />
 </noscript>
+{% endcomment %}

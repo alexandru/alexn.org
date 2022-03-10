@@ -10,6 +10,8 @@ tags:
 image: /assets/media/articles/js-then.png
 image_hide_in_post: true
 generate_toc: true
+redirect_from:
+  - /blog/2017/10/11/javascript-promise-memory-unsafe.html
 ---
 
 ## Introduction
