@@ -20,9 +20,26 @@ This website has a no-cookies policy. Third-parties used for providing the servi
 
 **Contents:**
 
+- [Analytics](#analytics)
+- [Commenting](#commenting)
 - [Email Newsletter](#email-newsletter)
 - [Cloudflare](#cloudflare)
 - [Video Players](#video-players)
+
+## Analytics
+
+This website uses a self-hosted (first-party) [Matomo](https://matomo.org/) instance for tracking users' visits, with these characteristics:
+
+1. no tracking cookies are being set
+2. no tracking cookies will be created in the future without explicit permission
+3. IPs are anonymized
+4. collected data is used by the website's owner for content optimizations, in full compliance of GDPR and CCPA, is never shared with third-party services, and will never be sold
+
+## Commenting
+
+This `alexn.org` website uses a self-hosted [Isso commenting](https://posativ.org/isso/){:target="_blank"} server and widget, for allowing comments on articles.
+
+The commenting widget collects your name, email, and website. Your email is for being notified in case of replies (optional feature), or for being contacted by the author, but only related to your comments. Your website is optionally collected in case you want to show to other readers who you are. This data, collected via the commenting widget, is only used for displaying and reacting to comments on the website. It will not be used for any other purpose, or given to any third-party.
 
 ## Email Newsletter
 
