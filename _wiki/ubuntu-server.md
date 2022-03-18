@@ -16,8 +16,64 @@ apt update && apt upgrade
 # Enabling firewall (super important!)
 apt install ufw
 ufw default deny incoming
-ufw allow OpenSSH
+# I've decided to be super strict and block everything by default
+ufw default deny outgoing
+
+# OpenSSH
+ufw allow 22
+ufw allow out 22
+
+# Allow incoming HTTP(S) requests
+ufw allow 80
+ufw allow out 80
+ufw allow 443
+ufw allow out 443
+
+# Allow DNS requests
+ufw allow out 53
+
+# Allow outgoing SMTP via FastMail
+ufw allow out 587
+
 ufw --force enable
+```
+
+Status should now look like this:
+
+```
+root@vm:~# ufw status
+Status: active
+
+To                         Action      From
+--                         ------      ----
+OpenSSH                    ALLOW       Anywhere
+80                         ALLOW       Anywhere
+443                        ALLOW       Anywhere
+OpenSSH (v6)               ALLOW       Anywhere (v6)
+80 (v6)                    ALLOW       Anywhere (v6)
+443 (v6)                   ALLOW       Anywhere (v6)
+
+80                         ALLOW OUT   Anywhere
+443                        ALLOW OUT   Anywhere
+53                         ALLOW OUT   Anywhere
+587                        ALLOW OUT   Anywhere
+80 (v6)                    ALLOW OUT   Anywhere (v6)
+443 (v6)                   ALLOW OUT   Anywhere (v6)
+53 (v6)                    ALLOW OUT   Anywhere (v6)
+587 (v6)                   ALLOW OUT   Anywhere (v6)
+```
+
+Fix the UFW+Docker combination via [ufw-docker](https://github.com/chaifeng/ufw-docker) utility (otherwise Docker will just ignore your firewall rules):
+
+```
+wget -O /usr/local/bin/ufw-docker \
+  https://github.com/chaifeng/ufw-docker/raw/master/ufw-docker
+
+chmod +x /usr/local/bin/ufw-docker
+
+ufw-docker install
+
+systemctl restart ufw
 ```
 
 Creating a new user and disabling `root`:
@@ -77,7 +133,7 @@ UsePAM no
 AllowAgentForwarding no
 AllowTcpForwarding no
 X11Forwarding no
-PrintMotd no
+PrintMotd yes
 ClientAliveInterval 6m
 ClientAliveCountMax 0
 UseDNS no
@@ -147,7 +203,7 @@ echo "Test Email message body" | mail -s "Email test subject"  test@domain.tld
 ## Install ClamAV anti-virus
 
 ```sh
-sudo apt install clamav clamav-daemon -y
+sudo apt install clamav -y
 ```
 
 Update its definitions:
@@ -160,20 +216,16 @@ sudo freshclam
 sudo systemctl start clamav-freshclam
 ```
 
-Start the daemon:
-
-```sh
-sudo systemctl start clamav-daemon
-```
-
 ## Install swap file
+
+Source: <https://bookofzeus.com/harden-ubuntu/server-setup/add-swap/>
 
 ```sh
 # Let's check if a SWAP file exists and it's enabled before we create one.
 sudo swapon -s
 
 # To create the SWAP file, you will need to use this.
-sudo fallocate -l 4G /swapfile	# same as "sudo dd if=/dev/zero of=/swapfile bs=1G count=4"
+sudo fallocate -l 4G /swapfile
 
 # Secure swap.
 sudo chown root:root /swapfile
