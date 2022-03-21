@@ -23,7 +23,7 @@ layout: null
     {% assign everything = site.posts | rss_sort_all -%}
     {% for post in everything limit:200 %}
       {% unless post.secret or post.is_noise -%}
-        {% include feed-item-blog.xml post=post campaign_name="letter" %}
+        {% include feed-item-blog.xml post=post utm_medium="newsletter" %}
       {% endunless -%}
     {% endfor -%}
   </channel>

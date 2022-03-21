@@ -24,14 +24,14 @@ layout: null
     {% for post in everything limit:200 %}
       {% unless post.secret -%}
         {% if post.collection == 'posts' -%}
-          {% include feed-item-blog.xml post=post campaign_name="twitter" write_tags_as_content=true %}
+          {% include feed-item-blog.xml post=post utm_medium="twitter" write_tags_as_content=true %}
         {% elsif post.collection == 'snippets' -%}
-          {% include feed-item-snippet.xml post=post campaign_name="twitter" write_tags_as_content=true %}  
+          {% include feed-item-snippet.xml post=post utm_medium="twitter" write_tags_as_content=true %}  
         {% elsif post.collection == 'links' -%}
-          {% include feed-item-link.xml post=post campaign_name="twitter" write_tags_as_content=true %}
+          {% include feed-item-link.xml post=post utm_medium="twitter" write_tags_as_content=true %}
         {% elsif post.collection == 'wiki' -%}
           {% unless post.path == '_wiki/readme.md' %}          
-            {% include feed-item-wiki.xml post=post campaign_name="twitter" write_tags_as_content=true %}
+            {% include feed-item-wiki.xml post=post utm_medium="twitter" write_tags_as_content=true %}
           {% endunless %}
         {% endif -%}
       {% endunless -%}

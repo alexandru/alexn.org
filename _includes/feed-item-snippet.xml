@@ -1,4 +1,4 @@
-{% assign campaign_name = include.campaign_name | default: "rss" -%}
+{% assign utm_medium = include.utm_medium | default: "snippets" -%}
 {% capture item_content -%}
   {% if include.write_tags_as_content %}
     Code snippet {% for tag in include.post.tags %}#{{ tag | twitter_taggify }} {% endfor %}
@@ -6,7 +6,7 @@
     {{ include.post.content }}
     <hr/>
     <p>
-      <i>The snippet <a href="{{ include.post.url | absolute_url | rss_campaign_link: 'footer-link', campaign_name }}">{{ include.post.title | xml_smart_escape }}</a> first appeared on <a href="{{ site.url | rss_campaign_link: 'footer-link', campaign_name }}">{{ site.domain }}</a>.</i>
+      <i>The snippet <a href="{{ include.post.url | absolute_url | rss_campaign_link: utm_medium, 'footer-link' }}">{{ include.post.title | xml_smart_escape }}</a> first appeared on <a href="{{ site.url | rss_campaign_link: utm_medium, 'footer-link' }}">{{ site.domain }}</a>.</i>
     </p>
   {% endif %}
 {% endcapture -%}
@@ -30,7 +30,7 @@
   <dc:modified>{{ include.post.last_modified_at | date_to_rfc822 }}</dc:modified>
   <atom:modified>{{ include.post.last_modified_at | date_to_rfc822 }}</atom:modified>
   {% endif -%}
-  <link>{{ include.post.url | prepend: site.baseurl | prepend: site.url | rss_campaign_link: "link", campaign_name | xml_escape }}</link>
+  <link>{{ include.post.url | prepend: site.baseurl | prepend: site.url | rss_campaign_link: utm_medium, "link" | xml_escape }}</link>
   <guid isPermaLink="true">{{ include.post.url | prepend: site.baseurl | prepend: site.url }}</guid>
   {% if include.post.author %}
   {% assign author = site.authors | map: include.post.author | map: "name" %}
