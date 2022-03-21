@@ -24,7 +24,7 @@ my presentation from the
 
 Also see:
 
-- [Monix Task](/blog/2016/05/10/monix-task.html), flatMap(Oslo), 2016
+- [Monix Task]({% link _posts/2016-05-10-monix-task.md %}), flatMap(Oslo), 2016
 - the [Monix](https://github.com/monixio/monix) project
 
 ## Abstract

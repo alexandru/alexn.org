@@ -12,7 +12,7 @@ This is a simple and generic [IOApp](https://typelevel.org/cats-effect/datatypes
 
 Requirements:
 
-- [EffectRuntime](./2020-10-12-effect-runtime.md) (snippet); or if not in the mood for that, replace it with the basic [cats.effect.ContextShift](https://typelevel.org/cats-effect/datatypes/contextshift.html)
+- [EffectRuntime]({% link _snippets/2020-10-12-effect-runtime.md %}) (snippet); or if not in the mood for that, replace it with the basic [cats.effect.ContextShift](https://typelevel.org/cats-effect/datatypes/contextshift.html)
 - [Monix Catnap](https://monix.io/docs/3x/#monix-catnap)
 
 ```scala

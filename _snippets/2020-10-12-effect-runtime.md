@@ -132,4 +132,4 @@ def getRequest[F[_]: Concurrent](req: Request)(
 ```
 
 WARN: the retry logic isn't a good one. For a better implementation,
-see [Retry Failing Tasks with Cats and Scala](../_posts/2020-08-03-on-error-retry-loop.md).
+see [Retry Failing Tasks with Cats and Scala]({% link _posts/2020-08-03-on-error-retry-loop.md %}).

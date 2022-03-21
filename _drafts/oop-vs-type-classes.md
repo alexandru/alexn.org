@@ -164,7 +164,7 @@ Implemented by most collection types. We'll come back to it, to contrast and com
 
 ### Are OOP and FP orthogonal? Can they mix?
 
-FP is about working with [mathematical functions](https://alexn.org/blog/2017/10/15/functional-programming.html). Nothing stops objects from being "pure", with their methods being math functions. For one, objects can perfectly describe immutable data structures, although these are less interesting, since they are just "product types" with names, or records:
+FP is about working with [mathematical functions]({% link _posts/2017-10-15-functional-programming.md %}). Nothing stops objects from being "pure", with their methods being math functions. For one, objects can perfectly describe immutable data structures, although these are less interesting, since they are just "product types" with names, or records:
 
 ```scala
 case class Customer(

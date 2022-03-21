@@ -13,7 +13,7 @@ defaults:
   - scope:
       path: "_posts" # an empty string here means all files in the project
     values:
-      permalink: blog/:year/:month/:day/:title.html
+      permalink: blog/:year/:month/:day/:title/
       layout: post
       author: alexelcu
       has_contributions: true
@@ -21,7 +21,7 @@ defaults:
   - scope:
       path: "_drafts" # an empty string here means all files in the project
     values:
-      permalink: drafts/:title.html
+      permalink: drafts/:title/
       layout: post
       author: alexelcu
       has_contributions: false
@@ -29,6 +29,7 @@ defaults:
   - scope:
       path: "_wiki" # an empty string here means all files in the project
     values:
+      permalink: wiki/:title/
       layout: wiki
       has_contributions: true
       nav_id: /wiki/
@@ -49,13 +50,13 @@ defaults:
 
 collections:
   posts:
-    permalink: /blog/:year/:month/:day/:title.html
+    permalink: /blog/:year/:month/:day/:title/
     output: true
   snippets:
-    permalink: /:collection/:year/:month/:day/:title.html
+    permalink: /:collection/:year/:month/:day/:title/
     output: true
   links:
-    permalink: /:collection/:year/:month/:day/:title.html
+    permalink: /:collection/:year/:month/:day/:title/
     output: true
   wiki:
     output: true
@@ -145,11 +146,11 @@ navigation:
     url: /links/
     id: /links/
   - title: About
-    url: /about.html
-    id: /about.html
+    url: /about/
+    id: /about/
   - title: Subscribe
-    url: /subscribe.html
-    id: /subscribe.html
+    url: /subscribe/
+    id: /subscribe/
 
 authors:
   alexelcu:

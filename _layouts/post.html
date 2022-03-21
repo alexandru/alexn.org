@@ -39,7 +39,7 @@ has_subscribe: true
 
     <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
       <meta itemprop="name" content="{{ site.title | xml_smart_escape }}">
-      <meta itemprop="url" content="{{ '/about.html' | absolute_url }}">
+      <meta itemprop="url" content="{{ '/about/' | absolute_url }}">
       <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
         <meta itemprop="url" content="{{ '/assets/raw/logo-green.png' | absolute_url }}">
       </div>
@@ -49,7 +49,7 @@ has_subscribe: true
       {% assign author_github = site.authors | map: page.author | map: "github" -%}
       <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
         <meta itemprop="name" content="{{ site.authors | map: page.author | map: 'name' }}" />
-        <meta itemprop="url" content="{{ '/about.html' | absolute_url }}#{{ page.author }}" />
+        <meta itemprop="url" content="{{ '/about/' | absolute_url }}#{{ page.author }}" />
         {% if author_twitter -%}<meta itemprop="url" content="https://twitter.com/{{ author_twitter }}" />{% endif %}
         {% if author_github -%}<meta itemprop="url" content="https://github.com/{{ author_github }}" />{% endif %}
       </div>
@@ -83,7 +83,7 @@ has_subscribe: true
         {{ date_action }}: {{ last_modified_at | date_to_long_string }}
     </time>
     {% if page.author %}
-      | Written by <a href="{{ '/about.html' | absolute_url }}#{{ page.author }}" itemprop="url" rel="author">{{ site.authors | map: page.author | map: 'name' }}</a>
+      | Written by <a href="{{ '/about/' | absolute_url }}#{{ page.author }}" itemprop="url" rel="author">{{ site.authors | map: page.author | map: 'name' }}</a>
     {% endif %}
 
     <div id="all-categories">

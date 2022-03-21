@@ -69,7 +69,7 @@ then ignore this post and just read
 you can come back to this post when its limits start bothering you.
 
 Heroku's free plan is awesome, in spite of what
-[I said previously](/blog/2011/10/23/why-i-find-heroku-suboptimal.html).
+[I said previously]({% link _posts/2011-10-23-why-i-find-heroku-suboptimal.md %}).
 It's great for prototyping and for quickly seeing your website
 online. Instant gratification is awesome. Well, it does have some
 problems and to tell you the truth, for hosting my blog I would have

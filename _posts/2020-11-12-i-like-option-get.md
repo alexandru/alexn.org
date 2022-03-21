@@ -38,7 +38,7 @@ value match {
 value.getOrElse("unknown")
 ```
 
-And if you'd miss a case, you'd get a warning (or an error, if you work with [fatal warnings](./2020-05-26-scala-fatal-warnings.md)):
+And if you'd miss a case, you'd get a warning (or an error, if you work with [fatal warnings]({% link _posts/2020-05-26-scala-fatal-warnings.md %})):
 
 ```scala
 value match { case Some(v) => v }
@@ -60,7 +60,7 @@ else
 
 In other words, I'll blame Scala and Haskell, and not the availability of `Option.get`. I learned to expect more from my tools. It's not me, it's you, Scala.
 
-We could say that in absence of compiler features to cope with this, then `.get` shouldn't exist. However, programming languages are general purpose, and often get used in contexts in which strong static guarantees are not only useless, but get in the way. I still [build my scripts in Ruby](./2020-11-11-organize-index-screenshots-ocr-macos.md), because the static languages that I love are really bad for scripting. I'd like to disable some static guarantees, whenever brevity is important, and not correctness. E.g. for my own throwaway scripts I couldn't care less that `Option.get` throws exceptions.
+We could say that in absence of compiler features to cope with this, then `.get` shouldn't exist. However, programming languages are general purpose, and often get used in contexts in which strong static guarantees are not only useless, but get in the way. I still [build my scripts in Ruby]({% link _posts/2020-11-11-organize-index-screenshots-ocr-macos.md %}), because the static languages that I love are really bad for scripting. I'd like to disable some static guarantees, whenever brevity is important, and not correctness. E.g. for my own throwaway scripts I couldn't care less that `Option.get` throws exceptions.
 
 TypeScript has untagged unions, and under `--strict` this throws an error:
 

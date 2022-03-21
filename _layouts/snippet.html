@@ -17,7 +17,7 @@ has_subscribe: true
       {{ date_action }}: {{ last_modified_at | date_to_long_string }}
   </time>
   {% if page.author %}
-    | Written by <a href="{{ '/about.html' | absolute_url }}#{{ page.author }}" itemprop="url" rel="author">{{ site.authors | map: page.author | map: 'name' }}</a>
+    | Written by <a href="{{ '/about/' | absolute_url }}#{{ page.author }}" itemprop="url" rel="author">{{ site.authors | map: page.author | map: 'name' }}</a>
   {% endif %}
 
   <div id="all-categories">
