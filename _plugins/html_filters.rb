@@ -76,8 +76,9 @@ module Jekyll
         link + "?"
       end
 
-      l = l + "pk_campaign=#{campaign}"
-      l = l + "&pk_kwd=" + keyword if keyword
+      l = l + "utm_source=#{campaign}"
+      l = l + "&utm_medium=rss"
+      l = l + "&utm_content=" + keyword if keyword
       l
     end
 
