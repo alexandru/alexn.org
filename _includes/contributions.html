@@ -12,6 +12,7 @@
       document.write("<a target=\"_blank\" href=\"mailto");
       document.write(":" + lhs + "@");
       document.write(rhs);
+      document.write("?subject=Comment%20on%3A%20{{ page.title | uri_escape | trim }}")
       document.write("\">" + lhs + "@" + rhs + "<\/a>");
     })()
   </script>
