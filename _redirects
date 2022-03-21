@@ -1,1 +1,16 @@
-/*.html /:splat/ 301
+---
+filename: _redirects
+---
+
+/rss/ /feeds/all.xml 302
+/atom.xml /feeds/all.xml 301
+/feed-snippets.xml /feeds/snippets.xml 301
+/feed-wiki.xml /feeds/wiki.xml 301
+
+/feed.xml /feeds/all.xml 302
+/blog/feed.xml /feeds/blog.xml 302
+/snippets/feed.xml /feeds/snippets.xml 302
+/wiki/feed.xml /feeds/wiki.xml 302
+/links/feed.xml /feeds/links.xml 302
+
+/tag/* /blog/tag/:splat 301
