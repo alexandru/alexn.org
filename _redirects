@@ -14,3 +14,5 @@ filename: _redirects
 /links/feed.xml /feeds/links.xml 302
 
 /tag/* /blog/tag/:splat 301
+
+/*.html /:splat/ 301
