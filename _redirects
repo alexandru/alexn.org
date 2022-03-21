@@ -2,6 +2,8 @@
 filename: _redirects
 ---
 
+https://www.alexn.org/* https://alexn.org/:splat 301
+
 /rss/ /feeds/all.xml 302
 /atom.xml /feeds/all.xml 301
 /feed-snippets.xml /feeds/snippets.xml 301
@@ -14,5 +16,13 @@ filename: _redirects
 /links/feed.xml /feeds/links.xml 302
 
 /tag/* /blog/tag/:splat 301
+
+/docs/dialer.html /blog/2009/02/20/tips-for-creating-voip-dialer/ 301
+/pages/about.html /about/ 301
+/blog/2017/01/16/fixing-iterators.html /blog/2017/01/16/iterator/ 301
+/blog/2017/10/11/javascript-promise-memory-unsafe.html /blog/2017/10/11/javascript-promise-leaks-memory/ 301
+/snippets/from-resource-to-reactivestreams.scala.html /snippets/2020/07/30/akka-streams-buffer-test.scala/ 301
+/wiki/web-tricks.html /wiki/web/ 301
+/wiki/web-apps.html /wiki/web/ 301
 
 /*.html /:splat/ 301
