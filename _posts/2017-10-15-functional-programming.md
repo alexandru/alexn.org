@@ -233,7 +233,7 @@ There are also community efforts, such as my own
 [Fantasy Land](https://github.com/fantasyland/fantasy-land), etc.
 
 But bring up a problem like
-[JavaScript's Promise Leaks Memory](https://alexn.org/blog/2017/10/11/javascript-promise-leaks-memory.html)
+[JavaScript's Promise Leaks Memory]({% link _posts/2017-10-11-javascript-promise-leaks-memory.md %})
 in `then` chains and dozens of developers will jump on you to
 re-educate you on how promises work and to make you understand that
 the concerns you have are a niche, functional programming be damned.

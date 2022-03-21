@@ -107,4 +107,4 @@ all_td_elems = soup.find('table', {'class':'search-params'})\
 
 Yeah, it's just a small hack, but it's so damn useful sometimes. 
 
-See [full code snippet](../_snippets/2020-07-30-python-proxy.py.md) for copy/pasting.
+See [full code snippet]({% link _snippets/2020-07-30-python-proxy.py.md %}) for copy/pasting.

@@ -3,8 +3,6 @@ tags:
   - Akka
   - Scala
   - Reactive Streams
-redirect_from:
-  - /snippets/from-resource-to-reactivestreams.scala.html
 ---
 
 ```scala

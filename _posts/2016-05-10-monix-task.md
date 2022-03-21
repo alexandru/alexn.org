@@ -23,7 +23,7 @@ my presentation from
 
 Also see:
 
-- [Akka &amp; Monix](/blog/2016/05/15/monix-observable.html),
+- [Akka &amp; Monix]({% link _posts/2016-05-15-monix-observable.md %}),
   Typelevel Summit, Oslo, 2016
 - [Monix](https://monix.io) project
 

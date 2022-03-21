@@ -1,9 +1,6 @@
 ---
 date: 2020-11-30 17:38:13+0300
 title: "Web"
-redirect_from:
-  - /wiki/web-tricks.html
-  - /wiki/web-apps.html
 ---
 
 ## Client Tricks

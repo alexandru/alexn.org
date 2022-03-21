@@ -10,8 +10,6 @@ tags:
   - Perl
 image: /assets/media/articles/freeswitch1.png
 generate_toc: true
-redirect_from:
-  - /docs/dialer.html
 description: >-
   FreeSWITCH is a free and open source application server for real-time communication, WebRTC, telecommunications, video and Voice over Internet Protocol. Let's build a VoIP dialer with it.
 ---

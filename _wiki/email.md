@@ -22,4 +22,4 @@ swaks --auth \
 
 ## Via Python script
 
-See: [send-mail.py](https://alexn.org/snippets/2020/03/18/send-mail.py.html)
+See: [send-mail.py]({% link _snippets/2020-03-18-send-mail.py.md %})

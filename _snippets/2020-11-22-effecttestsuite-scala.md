@@ -9,9 +9,9 @@ tags:
   - Scala
 ---
 
-Helpers for [ScalaTest](https://www.scalatest.org/) for testing effects (e.g. `cats.effect.IO`, `monix.eval.Task`). This is similar to [PureApp](./2020-10-15-generic-ioapp-alternative.md).
+Helpers for [ScalaTest](https://www.scalatest.org/) for testing effects (e.g. `cats.effect.IO`, `monix.eval.Task`). This is similar to [PureApp]({% link _snippets/2020-10-15-generic-ioapp-alternative.md %}).
 
-**Requirement:** [EffectRuntime](./2020-10-12-effect-runtime.md) (snippet)
+**Requirement:** [EffectRuntime]({% link _snippets/2020-10-12-effect-runtime.md %}) (snippet)
 
 Usage:
 

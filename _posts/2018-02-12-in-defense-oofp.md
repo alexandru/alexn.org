@@ -54,9 +54,9 @@ fresh air.
 Yes, I came to Scala in 2012 looking for a better OOP language and
 what I got was a great combination of Smalltalk-esque OOP features,
 mixed with an
-[actual FP culturre](https://alexn.org/blog/2017/10/15/functional-programming.html). I
+[actual FP culturre]({% link _posts/2017-10-15-functional-programming.md %}). I
 have an article about
-[what I liked about it](https://alexn.org/blog/2012/11/02/scala-functional-programming-type-classes.html)
+[what I liked about it]({% link _posts/2012-11-02-scala-functional-programming-type-classes.md %})
 written back then and to be honest, not much has changed.
 
 But what really sold me were the standard collections. In spite of their
