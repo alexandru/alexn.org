@@ -7,9 +7,23 @@ baseurl: ""
 repo_edit: https://github.com/alexandru/alexn.org/blob/main/
 
 include: ["_redirects", ".well-known"]
-exclude: ["scripts", "package.json", "package-lock.json", "vendor"]
+exclude: ["scripts", "package.json", "package-lock.json", "vendor", "README.md"]
 
 defaults:
+  # HTML pages
+  - scope:
+      path: "docs/*.html"
+    values:
+      permalink: /:path/:basename/
+  - scope:
+      path: "docs/*.md"
+    values:
+      permalink: /:path/:basename/
+  - scope:
+      path: "assets/html/*.html"
+    values:
+      permalink: /:path/:basename/
+  # Blog posts (collection)
   - scope:
       path: "_posts" # an empty string here means all files in the project
     values:
@@ -18,6 +32,7 @@ defaults:
       author: alexelcu
       has_contributions: true
       nav_id: /blog/
+  # Blog drafts
   - scope:
       path: "_drafts" # an empty string here means all files in the project
     values:
@@ -26,6 +41,7 @@ defaults:
       author: alexelcu
       has_contributions: false
       nav_id: /blog/
+  # Wiki pages (collection)
   - scope:
       path: "_wiki" # an empty string here means all files in the project
     values:
@@ -34,6 +50,7 @@ defaults:
       has_contributions: true
       nav_id: /wiki/
       description: Personal, volatile wiki documentation
+  # Snippets (collection)
   - scope:
       path: "_snippets"
     values:
@@ -41,6 +58,7 @@ defaults:
       nav_id: /snippets/
       has_contributions: true
       author: alexelcu
+  # Links (collection)
   - scope:
       path: "_links"
     values:
@@ -78,7 +96,6 @@ plugins:
   - jekyll-sitemap
   - jekyll-relative-links
   - jekyll-last-modified-at
-  - jekyll-redirect-from
 
 titles_from_headings:
   enabled: false

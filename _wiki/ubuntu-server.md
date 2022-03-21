@@ -1,8 +1,6 @@
 ---
 date: 2022-03-11 13:59:24+0200
 title: "Ubuntu Server"
-redirect_from:
-  - /wiki/securing-ubuntu-server.html
 ---
 
 ## Initial setup (firewall, user, updates)
