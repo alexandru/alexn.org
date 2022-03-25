@@ -98,6 +98,8 @@ module Jekyll
     def rss_process(html)
       doc = Nokogiri::HTML(html)
 
+      doc.search(".hide-in-feed").remove
+
       doc.css("img").each do |elem|
         elem["src"] = to_absolute_url(@@site, elem['src'])
       end
