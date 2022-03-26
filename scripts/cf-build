@@ -3,5 +3,18 @@
 set -e
 
 cd "$(dirname "$0")/.."
+
+if [ -z "$CF_PAGES_BRANCH" ] || [ "$CF_PAGES_BRANCH" == "main" ]; then
+  echo "-------------------------------------------------------------"
+  echo "Building for production deployment (branch: $CF_PAGES_BRANCH)"
+  echo "-------------------------------------------------------------"
+  JEKYL_OPTS="--lsi"
+else
+  echo "-------------------------------------------------------------"
+  echo "Building for preview (branch: $CF_PAGES_BRANCH)"
+  echo "-------------------------------------------------------------"
+  JEKYL_OPTS="--lsi --drafts"
+fi
+
 bundle install --jobs 4 --retry 3
-bundle exec jekyll build --lsi
+bundle exec jekyll build $JEKYLL_OPTS

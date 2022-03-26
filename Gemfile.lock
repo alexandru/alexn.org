@@ -72,8 +72,6 @@ GEM
       posix-spawn (~> 0.3.9)
     jekyll-paginate-v2 (3.0.0)
       jekyll (>= 3.0, < 5.0)
-    jekyll-redirect-from (0.16.0)
-      jekyll (>= 3.3, < 5.0)
     jekyll-relative-links (0.6.1)
       jekyll (>= 3.3, < 5.0)
     jekyll-sass-converter (2.1.0)
@@ -147,7 +145,6 @@ DEPENDENCIES
   jekyll-gist
   jekyll-last-modified-at
   jekyll-paginate-v2
-  jekyll-redirect-from
   jekyll-relative-links
   jekyll-sitemap
   jekyll-titles-from-headings
