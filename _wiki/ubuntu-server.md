@@ -1,6 +1,7 @@
 ---
-date: 2022-03-11 13:59:24+0200
 title: "Ubuntu Server"
+date: 2022-03-11 13:59:24 +02:00
+last_modified_at: 2022-03-29 10:45:20 +03:00
 ---
 
 ## Initial setup (firewall, user, updates)

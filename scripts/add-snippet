@@ -18,7 +18,7 @@ begin
   text = %{
 ---
 title: #{options[:title].to_json}
-date: #{now.strftime("%Y-%m-%d %H:%M:%S%z")}
+date: #{now.strftime("%Y-%m-%d %H:%M:%S %Z")}
 tags: []
 ---
   }.strip

@@ -1,6 +1,7 @@
 ---
-date: 2020-10-08 08:31:40+0300
 title: "Microsoft .NET"
+date: 2020-10-08 08:31:40 +03:00
+last_modified_at: 2022-03-29 10:40:41 +03:00
 ---
 
 ## CSharp

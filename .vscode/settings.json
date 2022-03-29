@@ -6,30 +6,7 @@
   "[markdown]": {
     "editor.quickSuggestions": true
   },
-  "git.enableSmartCommit": true,
-  "git.postCommitCommand": "sync",
   "editor.formatOnSave": false,
-  "grammarly.overrides": [
-    {
-      "files": ["**/*.md"],
-      "config": {
-        "audience": "knowledgeable",
-        "dialect": "american",
-        "domain": "technical",
-        "emotions": ["confident", "joyful", "respectful"],
-        "goals": ["inform", "describe"],
-        "emotion": "mild"
-      }
-    }
-  ],
-  "grammarly.userWords": [
-    "algoraves",
-    "cli"
-  ],
-  "cSpell.enableFiletypes": [
-    "markdown"
-  ],
-  "files.watcherExclude": {
-    "**/target": true
-  }
+  "lpubsppop01.autoTimeStamp.modifiedTimeStart": "last_modified_at: ",
+  "lpubsppop01.autoTimeStamp.momentFormat": "YYYY-MM-DD HH:mm:ss Z"
 }
