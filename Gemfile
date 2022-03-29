@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem "jekyll", "~> 4.1.1"
+gem "jekyll", "~> 4.2"
 gem "support-for"
 gem 'nokogiri'
 gem 'classifier-reborn'
