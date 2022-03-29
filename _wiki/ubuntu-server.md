@@ -1,7 +1,7 @@
 ---
 title: "Ubuntu Server"
 date: 2022-03-11 13:59:24 +02:00
-last_modified_at: 2022-03-29 10:45:20 +03:00
+last_modified_at: 2022-03-29 18:30:00 +03:00
 ---
 
 ## Initial setup (firewall, user, updates)
@@ -16,16 +16,22 @@ apt update && apt upgrade
 apt install ufw
 ufw default deny incoming
 # I've decided to be super strict and block everything by default
+
+# SSH
+ufw allow in 22
+# HTTP(S)
+ufw allow in 80
+ufw allow in 443
+```
+
+We can also configure the firewall to deny outgoing connections:
+
+```bash
 ufw default deny outgoing
-
-# OpenSSH
-ufw allow 22
+# SSH
 ufw allow out 22
-
-# Allow incoming HTTP(S) requests
-ufw allow 80
+# HTTP(S)
 ufw allow out 80
-ufw allow 443
 ufw allow out 443
 
 # Allow DNS requests
@@ -33,14 +39,18 @@ ufw allow out 53
 
 # Allow outgoing SMTP via FastMail
 ufw allow out 587
+```
 
+Enable ufw (after making sure that SSH is enabled):
+
+```bash
 ufw --force enable
 ```
 
 Status should now look like this:
 
 ```
-root@vm:~# ufw status
+root@vm~# ufw status
 Status: active
 
 To                         Action      From
