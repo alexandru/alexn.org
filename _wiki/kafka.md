@@ -1,6 +1,7 @@
 ---
-date: 2020-09-04 10:30:08+0300
 title: "Apache Kafka"
+date: 2020-09-04 10:30:08 +03:00
+last_modified_at: 2022-03-29 10:42:58 +03:00
 ---
 
 ## Docker Setup

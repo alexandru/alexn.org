@@ -1,6 +1,7 @@
 ---
-date: 2020-08-24 16:24:31+0300
 title: "tmux shortcuts & cheatsheet"
+date: 2020-08-24 16:24:31 +03:00
+last_modified_at: 2022-03-29 10:45:09 +03:00
 ---
 
 ## Intro

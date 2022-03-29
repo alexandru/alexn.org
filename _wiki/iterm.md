@@ -1,6 +1,7 @@
 ---
-date: 2020-08-24 16:24:31+0300
 title: "iTerm2"
+date: 2020-08-24 16:24:31 +03:00
+last_modified_at: 2022-03-29 10:42:39 +03:00
 ---
 
 Tips for [iTerm2](https://www.iterm2.com/){:target="_blank"}.

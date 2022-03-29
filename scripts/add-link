@@ -23,7 +23,7 @@ begin
 link: #{options[:link].to_json}
 title: #{options[:title].to_json}
 author: #{if options[:author] then options[:author].to_json else 'null' end}
-date: #{now.strftime("%Y-%m-%d %H:%M:%S%z")}
+date: #{now.strftime("%Y-%m-%d %H:%M:%S %Z")}
 tags: []
 ---
   }.strip
