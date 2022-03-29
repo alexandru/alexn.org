@@ -21,24 +21,6 @@
   </noscript>
 </p>
 
-<h2 id="contribute">
-  Contribute
-  <a href="#contribute" class="anchor">#</a>
-</h2>
-
-
-<p>
-  Fix or add to this article by submitting a pull request:<br/>
-  <a style="white-space: nowrap;" href="{{ page.repo_edit | default: site.repo_edit }}{% if page.repo_module %}{{ page.path | remove_first: page.repo_module }}{% else %}{{ page.path }}{% endif %}" target="_blank">Edit Page on GitHub</a>
-</p>
-
-<p>
-  Donate to cover ongoing website costs, or buy me coffee ☕️😋 <br/>
-  <a href="https://www.patreon.com/bePatron?u=6102596" target="_blank">
-    <img label="Become a Patron!" alt="Become a Patron!" title="Become a Patron!" src="{% link /assets/media/buttons/patreon.png %}" height="40" />
-  </a>
-</p>
-
 {% if layout.has_subscribe or page.has_subscribe %}
 <h2 id="subscribe">
   Subscribe
@@ -73,6 +55,24 @@
 </div>
 
 <div class="note">
-  Newsletter subscription uses Mailchimp, see <a href="{% link docs/privacy-policy.md %}">privacy policy</a>. If you're not seeing the form, it's probably blocked by your browser.
+  Newsletter subscription uses Mailchimp, see <a href="{% link docs/privacy-policy.md %}">privacy policy</a>. If you're not seeing the form, it's probably blocked by your browser; <a target="_blank" href="http://eepurl.com/g5ClAT"><em>try the subscribe link &#10141;</em></a>
 </div>
 {% endif %}
+
+<h2 id="contribute">
+  Contribute
+  <a href="#contribute" class="anchor">#</a>
+</h2>
+
+
+<p>
+  Fix or add to this article by submitting a pull request:<br/>
+  <a style="white-space: nowrap;" href="{{ page.repo_edit | default: site.repo_edit }}{% if page.repo_module %}{{ page.path | remove_first: page.repo_module }}{% else %}{{ page.path }}{% endif %}" target="_blank">Edit Page on GitHub</a>
+</p>
+
+<p>
+  Donate to cover ongoing website costs, or buy me coffee ☕️😋 <br/>
+  <a href="https://www.patreon.com/bePatron?u=6102596" target="_blank">
+    <img label="Become a Patron!" alt="Become a Patron!" title="Become a Patron!" src="{% link /assets/media/buttons/patreon.png %}" height="40" />
+  </a>
+</p>
