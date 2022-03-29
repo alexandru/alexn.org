@@ -1,29 +1,24 @@
 ---
 title: "OOP vs Type Classes"
 image: /assets/media/articles/scala-oop-typeclasses.jpg
+generate_toc: true
 ---
 
-- [Abstraction](#abstraction)
-  - [Black Box Abstraction](#black-box-abstraction)
-- [What is OOP?](#what-is-oop)
-  - [Are OOP and FP orthogonal? Can they mix?](#are-oop-and-fp-orthogonal-can-they-mix)
-- [What are Type Classes?](#what-are-type-classes)
-- [Ideological clash](#ideological-clash)
-  - [OOP values](#oop-values)
-  - [Static FP values](#static-fp-values)
-  - [Degenerate cases](#degenerate-cases)
-- [Converting between styles](#converting-between-styles)
-  - [OOP interfaces to Type Classes](#oop-interfaces-to-type-classes)
-  - [Type Classes to OOP interfaces](#type-classes-to-oop-interfaces)
-- [Best Practices](#best-practices)
-  - [Use Type Classes for expressing data constructors (factories)](#use-type-classes-for-expressing-data-constructors-factories)
-  - [Use Type Classes if you want reusability of dumb data structures](#use-type-classes-if-you-want-reusability-of-dumb-data-structures)
-    - [Caveat: dumb data structures can be misleading](#caveat-dumb-data-structures-can-be-misleading)
-  - [Type Class instances must be coherent (globally unique)](#type-class-instances-must-be-coherent-globally-unique)
-  - [Type Classes must not keep state](#type-classes-must-not-keep-state)
-  - [Use OOP for managing resources](#use-oop-for-managing-resources)
-  - [Use OOP for information hiding, aka Encapsulation](#use-oop-for-information-hiding-aka-encapsulation)
-  - [Use OOP for avoiding the "Sea of Parameters" effect](#use-oop-for-avoiding-the-sea-of-parameters-effect)
+## Motivation
+
+<img src="{% link assets/media/articles/scala-spiral.png %}" width="100" align="right" class="right hide-in-feed" />
+
+Scala is a hybrid OOP+FP language. If you love OOP, Scala is one of the best static OOP languages. But Scala also exposes parametric polymorphism and can encode type classes.
+
+Thus, developers can also choose to use parametric polymorphism restricted by type classes (aka ad hoc polymorphism). As if choosing when to use immutability versus object identity wasn't bad enough, developers are also faced with a difficult choice when expressing abstractions. Such choices create tension in teams, with the code style depending on the team leader or whoever does the code reviews.
+
+Let's go through what is OOP, what is ad hoc polymorphism via type classes, how to design type classes, go through the pros and cons, and establish guidelines for what to pick, depending on the use case.
+
+## Video Presentation
+
+I gave a speech in 2021 at [Scala Love in the City](https://inthecity.scala.love/) on this same topic. If you're more into videos, rather than reading words, you can watch this as an alternative, although note this article has more details that couldn't fit in video form...
+
+{% include youtube.html id="UT2K9c66xCU" ratio=56.25 %}
 
 ## Abstraction
 
@@ -34,10 +29,10 @@ We are gifted with a brain that's great at recognizing patterns. Take a look at 
 
 What's cool is that there is no right answer, you can point at any one of them, thus grouping the other 3 with some common characteristic. We have above:
 
-1. 3 triangles
-2. 2 triangles with a right angle
-3. 2 isosceles triangles
-4. a pentagon
+- 3 triangles;
+- 2 triangles with a right angle;
+- 2 isosceles triangles;
+- 3 shapes containing a right angle;
 
 Here's another one:
 
@@ -46,14 +41,15 @@ Here's another one:
 
 We have:
 
-- 3 squares, and 1 regular quadrilateral that's not a square
-- 1 red square, 3 blue
-- 1 big square, 3 small regular quadrilaterals
-- 1 square with a different orientation than the other 3
+- 3 squares, and 1 regular quadrilateral that's not a square;
+- 1 red square, 3 blue;
+- 1 big square, 3 small regular quadrilaterals;
+- 1 square with a different orientation than the other 3;
 
 What about standard Scala types, how can you group these?
 
-<img src="{% link assets/media/articles/types-cloud.svg %}" />
+<img src="{% link assets/media/articles/types-cloud.svg %}"
+  alt="Names of Scala types: SortedSet, List, Array, Vector, Option, String, Future, Try, Long, Either, IO" />
 
 Some clues:
 
@@ -77,15 +73,15 @@ We're pretty good at observing similarities, right?
 
 So what is abstraction?
 
-- "*to draw away, withdraw, remove*", from the Latin _abstractus_
-- "*to consider as a general object or idea without regard to matter*"
-- "*the act of focusing on one characteristic of an object rather than the object as a whole group of characteristics; the act of separating said qualities from the object or ideas*" (late 16th century)
-- "*a member of an idealized subgroup when contemplated according to the abstracted quality which defines the subgroup*"
+- "*to draw away, withdraw, remove*", from the Latin _abstractus_;
+- "*to consider as a general object or idea without regard to matter*";
+- "*the act of focusing on one characteristic of an object rather than the object as a whole group of characteristics; the act of separating said qualities from the object or ideas*" (late 16th century);
+- "*a member of an idealized subgroup when contemplated according to the abstracted quality which defines the subgroup*";
 
 In the context of _software development_, abstraction can mean:
 
-- idealization, removing details that aren't relevant, working with idealized models that focus on what's important
-- generalization, looking at what objects or systems have in common that's of interest, such that we can transfer knowledge, recipes, proofs
+- idealization, removing details that aren't relevant, working with idealized models that focus on what's important;
+- generalization, looking at what objects or systems have in common that's of interest, such that we can transfer knowledge, recipes, proofs;
 
 We do this in order to **_manage complexity_** because abstractions allow us to map the problem domain better, by focusing on the essential, and it also helps us to reuse code.
 
@@ -136,9 +132,9 @@ I like asking this question in interviews, as it's a little confusing. Ask 10 pe
 
 OOP is a paradigm based on the concept of "objects" and their interactions, objects that contain both data and the code for manipulating that data, objects that communicate via messages. And in terms of provided features, we can talk of:
 
-- Subtype polymorphism, via [single (dynamic) dispatch](https://en.wikipedia.org/wiki/Dynamic_dispatch)
-- Encapsulation (hiding implementation details)
-- Inheritance of classes or prototypes
+- Subtype polymorphism, via [single (dynamic) dispatch](https://en.wikipedia.org/wiki/Dynamic_dispatch);
+- Encapsulation (hiding implementation details);
+- Inheritance of classes or prototypes;
 
 If there's one defining feature that defines OOP, that's subtype polymorphism, everything else flowing from it.
 Subtype polymorphism gives us the [Liskov subtitution principle](https://en.wikipedia.org/wiki/Liskov_substitution_principle):
@@ -259,7 +255,9 @@ sum(List.empty[Int]) //= 0
 sum(List.empty[String]) //= ""
 ```
 
-Could Scala's or Java's standard library would provide this OOP interface?
+Can Scala's or Java's standard library provide this OOP interface?
+
+First try:
 
 ```scala
 trait Combine {
@@ -267,7 +265,7 @@ trait Combine {
 }
 ```
 
-Yikes, that's not good. We can't combine any two objects inheriting from `Combine`. We can't sum up an `Int` and a `String`, as this isn't JavaScript 😊 Liskov's substitution principle actually sucks here, as we care about the type, and we don't want to lose type safety here 🙂
+Yikes, that's not good. We can't combine any two objects inheriting from `Combine`. We can't sum up an `Int` and a `String`, as this isn't JavaScript 😊 Liskov's substitution principle actually sucks here, as we care about the type, and we don't want to lose type safety 🙂
 
 ```scala
 trait Combine[Self] { self: Self =>

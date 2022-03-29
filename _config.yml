@@ -9,6 +9,9 @@ repo_edit: https://github.com/alexandru/alexn.org/blob/main/
 include: ["_redirects", ".well-known"]
 exclude: ["scripts", "package.json", "package-lock.json", "vendor", "README.md"]
 
+analytics:
+  enabled: false
+
 defaults:
   # HTML pages
   - scope:
@@ -95,17 +98,6 @@ plugins:
   - jekyll-paginate-v2
   - jekyll-sitemap
   - jekyll-relative-links
-  - jekyll-last-modified-at
-
-titles_from_headings:
-  enabled: false
-  strip_title: true
-  collections: true
-
-optional_front_matter:
-  enabled: true
-  remove_originals: true
-  collections: true
 
 relative_links:
   enabled: true

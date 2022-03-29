@@ -438,7 +438,7 @@ class PingService(webapp2.RequestHandler):
   def get(self):
       self.response.headers['Content-Type'] = 'text/plain'
 
-      url = "http://alexn.org/ping"
+      url = "https://alexn.org/ping"
       try:
           result = urlfetch.fetch(url, deadline=30)
           self.response.out.write('HTTP %d - %s' %
@@ -469,7 +469,7 @@ appcfg.py update .
 
 To see it working on this blog, here are the requests:
 
-* Heroku URL getting requested: [http://alexn.org/ping](http://alexn.org/ping)
+* Heroku URL getting requested: [https://alexn.org/ping](https://alexn.org/ping)
 * GAE Cron Job getting executed: [http://assets-bionicspirit.appspot.com/tasks/ping](http://assets-bionicspirit.appspot.com/tasks/ping)
 
 ## Extra Tip - CloudFlare

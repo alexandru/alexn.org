@@ -820,7 +820,7 @@ static-type system Scala sits somewhere in the middle. This is both
 good and bad. On one hand Scala does not have the same (static)
 expressive capabilities of Haskell, being a poor substitute for it
 when working with higher-kinded types. On the other hand you can
-[drill holes](http://alexn.org/blog/2012/07/02/love-scala.html)
+[drill holes](https://alexn.org/blog/2012/07/02/love-scala.html)
 in that static-type system to make it do what you want, which I think
 is a good trade-off.
 

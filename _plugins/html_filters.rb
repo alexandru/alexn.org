@@ -26,6 +26,14 @@ module Jekyll
       '12': 'December'
     }
 
+    def toc_filter(toc_html, min_count=3)
+      if toc_html.scan(/<li>/).count >= min_count
+        toc_html.strip
+      else 
+        ""
+      end
+    end
+
     def date_to_long_string(date)
       parsed = time(date)
       m = @@months[parsed.strftime("%-m").to_sym]
@@ -70,6 +78,8 @@ module Jekyll
     @@site = Jekyll.configuration({})
 
     def rss_campaign_link(link, medium=nil, content=nil)
+      return link unless @@site['analytics']['enabled']
+
       l = if link.include? '?'
         link + "&"
       else
@@ -97,6 +107,8 @@ module Jekyll
 
     def rss_process(html)
       doc = Nokogiri::HTML(html)
+
+      doc.search(".hide-in-feed").remove
 
       doc.css("img").each do |elem|
         elem["src"] = to_absolute_url(@@site, elem['src'])

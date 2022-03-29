@@ -1,9 +1,10 @@
 ---
 layout: page
+has_subscribe: true
 ---
 
 {% capture toc_html %}{% include toc.html h_min=2 h_max=3 html=content -%}{% endcapture -%}
-{% assign toc_html_stripped = toc_html | strip %}
+{% assign toc_html_stripped = toc_html | toc_filter: 2 %}
 {% if toc_html_stripped != "" %}
   <p><strong>Contents:</strong></p>
   {{ toc_html_stripped }}

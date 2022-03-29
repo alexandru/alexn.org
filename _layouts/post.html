@@ -57,7 +57,7 @@ has_subscribe: true
 
     {% if page.generate_toc %}
     {% capture toc_html %}{% include toc.html h_min=2 h_max=3 html=content -%}{% endcapture -%}
-    {% assign toc_html_stripped = toc_html | strip %}
+    {% assign toc_html_stripped = toc_html | toc_filter: 2 %}
     {% if toc_html_stripped != "" %}
     <nav class="toc">
       <p class="toc-title">Table of Contents:</p>
@@ -101,7 +101,7 @@ has_subscribe: true
   <div class="related">    
     <h2 id="related-articles">Related Articles</h2>
     <div class="container">
-      {% for related_post in related_posts limit:4 %}
+      {% for related_post in related_posts limit:3 %}
       {% unless related_post.url == page.url %}
       <div class="item">
         <a class="related-link" href="{{ site.baseurl }}{{ related_post.url }}">

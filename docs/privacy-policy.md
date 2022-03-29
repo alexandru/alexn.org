@@ -11,18 +11,12 @@ article_class: privacy_policy
   This website does not collect personally identifiable information, and no cookies are installed that could be used to track visitors.
 </p>
 
-This website has a no-cookies policy. Third-parties used for providing the service may drop essential cookies; however, the implementation goes to great lengths to prevent that.
+This website has a no-cookies policy. Third-parties used for providing the service may drop essential cookies; however, the implementation goes to great lengths to prevent that, avoiding third-party services altogether (including video players).
 
 <p class="info-bubble">
   If you want to learn more about <em>cookies</em>, see the material at: <br/>
   <a href="https://www.cookiesandyou.com/" target="_blank" rel="nofollow">What are cookies? (cookiesandyou.com)</a>
 </p>
-
-**Contents:**
-
-- [Email Newsletter](#email-newsletter)
-- [Cloudflare](#cloudflare)
-- [Video Players](#video-players)
 
 ## Email Newsletter
 
@@ -39,12 +33,5 @@ The `alexn.org` website uses [Cloudflare](https://www.cloudflare.com/){:target="
 Cloudflare sets a cookie named `__cfduid` that's [restricted](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#Restrict_access_to_cookies){:target="_blank",rel="nofollow"} with `HttpOnly` and `Secure` attributes, meaning that it is secure, and other parties cannot access it. Cloudflare can identify users via this cookie, but they consider it a technical cookie that's "*strictly necessary to provide the service*" (see [Understanding the Cloudflare Cookies](https://support.cloudflare.com/hc/en-us/articles/200170156-Understanding-the-Cloudflare-Cookies){:target="_blank",rel="nofollow"}). We cannot opt-out of this cookie, all websites being served through Cloudflare have it.
 
 Read [Cloudflare's Privacy Policy](https://www.cloudflare.com/privacypolicy/){:target="_blank",rel="nofollow"}.
-
-## Video Players
-
-Some embedded third-party services might drop cookies (e.g., YouTube, Vimeo players); however, the website's implementation activates "do not track" options whenever possible.
-
-- Read [Google's Privacy Policy](https://policies.google.com/privacy){:rel="nofollow",target="_blank"}; note this website uses `youtube-nocookie.com` for activating YouTube's "privacy-enhanced mode," see [embedding options](https://support.google.com/youtube/answer/171780?hl=en){:rel="nofollow",target="_blank"}
-- Read [Vimeo's Privacy Policy](https://vimeo.com/privacy){:rel="nofollow",target="_blank"}; note the website [embeds the player](https://vimeo.zendesk.com/hc/en-us/articles/360001494447-Using-Player-Parameters){:rel="nofollow",target="_blank"} with a `dnt=1` flag that deactivates session cookies and tracking
 
 {% include legal-contact.html %}
