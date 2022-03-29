@@ -17,8 +17,9 @@ begin
   slug = slug_title + ".md"
   text = %{
 ---
-date: #{now.strftime("%Y-%m-%d %H:%M:%S%z")}
 title: #{options[:title].to_json}
+date: #{now.strftime("%Y-%m-%d %H:%M:%S %:z")}
+last_modified_at: #{now.strftime("%Y-%m-%d %H:%M:%S %:z")}
 ---
 
 }.strip

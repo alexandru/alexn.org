@@ -70,6 +70,8 @@ module Jekyll
     @@site = Jekyll.configuration({})
 
     def rss_campaign_link(link, medium=nil, content=nil)
+      return link unless @@site['analytics']['enabled']
+
       l = if link.include? '?'
         link + "&"
       else

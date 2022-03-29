@@ -1,6 +1,7 @@
 ---
-date: 2020-08-24 16:24:31+0300
 title: "GNU Screen"
+date: 2020-08-24 16:24:31 +03:00
+last_modified_at: 2022-03-29 10:42:03 +03:00
 ---
 
 [Documentation](https://www.gnu.org/software/screen/manual/screen.html)
