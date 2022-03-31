@@ -1,6 +1,10 @@
-@mixin code-rectangle-dark {
+@mixin code-inline-dark {
   background: #11202c;
   color: #fefffe;
+}
+
+@mixin code-rectangle-dark {
+  @include code-inline-dark;
   border: 1px solid #333;
 }
 
@@ -161,7 +165,7 @@ body {
     #article-details {
       color: #778899;
     }
-
+    
     .dropcap {
       color: $primary-color-dark;
     }
@@ -210,7 +214,39 @@ body {
     background-image: none;
 
     .contributions {
-      .note {
+      #isso-thread {
+        @include form-elements;
+        
+        & > h4 {
+          color: lighten(#778899, 5%);
+        }
+
+        .isso-comment > div.text-wrapper > .isso-comment-header {
+          color: #778899;
+        }
+
+        .isso-comment > div.text-wrapper > .isso-comment-header .author {
+          color: lighten(#778899, 5%);
+        }
+
+        .isso-comment > .text-wrapper {
+          blockquote {
+            border-left-color: rgb(58, 62, 65);
+            background-color: rgb(29, 31, 32);
+            color: rgb(157, 148, 136);
+          }
+    
+          code {
+            @include code-inline-dark;
+          }
+    
+          pre {
+            @include code-rectangle-dark;
+          }
+        }
+      }
+
+      .note-warning {
         border: 1px solid $site-background-dark;
         background-color: lighten($color: $site-background-dark, $amount: 3%);
 
@@ -225,6 +261,10 @@ body {
       color: lightslategray;
       border-top: 2px solid lighten($site-background-dark, $amount: 5%);
       border-bottom: 2px solid lighten($site-background-dark, $amount: 5%);
+    }
+
+    #footer-comments-widget {
+      border-bottom: 2px solid lighten($site-background-dark, 20%);
     }
   }
 

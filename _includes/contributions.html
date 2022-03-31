@@ -1,26 +1,3 @@
-<h2 id="comments">
-  Comments
-  <a href="#comments" class="anchor">#</a>
-</h2>
-
-<p>
-  Do you have suggestions? Want to chat? Email me at: <br>
-  <script>
-    (function () {
-      var lhs = "contact22+comments";
-      var rhs = "alexn.org";
-      document.write("<a target=\"_blank\" href=\"mailto");
-      document.write(":" + lhs + "@");
-      document.write(rhs);
-      document.write("?subject=Comment%20on%3A%20{{ page.title | uri_escape | trim }}")
-      document.write("\">" + lhs + "@" + rhs + "<\/a>");
-    })()
-  </script>
-  <noscript>
-    <em>Email address is protected via JavaScript, activate it to see it!</em>
-  </noscript>
-</p>
-
 <div id="footer-comments-widget">
   {% include comments.html %}
 </div>
@@ -29,7 +6,6 @@
   Contribute
   <a href="#contribute" class="anchor">#</a>
 </h2>
-
 
 <p>
   Fix or add to this article by submitting a pull request:<br/>
@@ -76,7 +52,7 @@
   </form>
 </div>
 
-<div class="note">
+<div class="note-warning">
   <span class="extra">
     Newsletter subscription uses Mailchimp, see <a href="{% link docs/privacy-policy.md %}">privacy policy</a>.
     If you're not seeing the form, it may be blocked by the browser; <a target="_blank" href="http://eepurl.com/g5ClAT"><em><span style="white-space: nowrap;">try the external subscribe page &#10141;</span></em></a>

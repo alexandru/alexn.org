@@ -3,7 +3,7 @@ layout: page
 title: Privacy & Cookie Policy
 description: "This website does not collect personally identifiable information, and has a no-cookies policy."
 date: 2017-01-16
-last_modified_at: 2020-06-01
+last_modified_at: 2022-03-31 15:45:52 +03:00
 article_class: privacy_policy
 ---
 
@@ -11,7 +11,7 @@ article_class: privacy_policy
   This website does not collect personally identifiable information, and no cookies are installed that could be used to track visitors.
 </p>
 
-This website has a no-cookies policy. Third-parties used for providing the service may drop essential cookies; however, the implementation goes to great lengths to prevent that, avoiding third-party services altogether (including video players).
+This website has a "<em>no tracking cookies</em>" policy. Third-parties used for providing the service may drop essential cookies; however, the implementation goes to great lengths to prevent that, avoiding third-party services altogether (including video players).
 
 <p class="info-bubble">
   If you want to learn more about <em>cookies</em>, see the material at: <br/>
@@ -25,6 +25,12 @@ The `alexn.org` website uses [Mailchimp](https://mailchimp.com/){:target="_blank
 The collected email addresses are used solely to deliver notifications on new articles being published.
 
 Read [Mailchimp's Privacy Policy](https://mailchimp.com/legal/privacy/#3._Privacy_for_Contacts){:target="_blank",rel="nofollow"}.
+
+## Commenting
+
+This `alexn.org` website uses a self-hosted [Isso commenting](https://posativ.org/isso/){:target="_blank"} server and widget for allowing comments on articles.
+
+The commenting widget collects your name, email, and website. Your email is for being notified in case of replies (optional feature), or for being contacted by the author, but only related to your comments. Your website is optionally collected in case you want to show to other readers who you are. This data, collected via the commenting widget, is only used for displaying and reacting to comments on the website. It will not be used for any other purpose, or given to any third-party.
 
 ## Cloudflare
 

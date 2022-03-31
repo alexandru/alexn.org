@@ -242,6 +242,12 @@ FOOTER STYLES
   .contributions {
     width: $elementsWidth;
     margin: 0 auto;
+
+		.avatar img {
+      max-width: 48px;
+      max-height: 48px;
+      border-radius: 5px;
+		}
   }
 
   .bottom {

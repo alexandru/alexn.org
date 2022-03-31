@@ -1,13 +1,18 @@
+@mixin code-inline {
+  color: #333;
+  background: #f0f0f0;
+}
+
 @mixin code-rectangle {
+  @include code-inline;
+
   white-space: pre;
   overflow: auto;
   word-wrap: normal; /* horizontal scrolling */
 
-  background: #f0f0f0;
-  color: #333;
-  border-radius: 4px;
   border: 1px solid #bbb;
-  padding: 20px 0;
+  border-radius: 4px;
+  padding: 10px 0;
 }
 
 .highlight {

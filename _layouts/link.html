@@ -10,6 +10,9 @@ has_subscribe: true
     <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="{{ page.url | absolute_url }}"/>
     {% if page.date %}<meta itemprop="datePublished" content="{{ page.date | date: '%Y-%m-%dT%H:%M:%S%z' }}"/>{% endif %}
     <time itemprop="dateCreated" datetime="{{ page.date | date: '%Y-%m-%dT%H:%M:%S%z' }}">{{ page.date | date_to_long_string }}</time>
+    {% unless page.disable_comments %}
+    | <a href="{{ page.url | prepend: site.baseurl }}#isso-thread" class="nobr">comments</a>
+    {% endunless %}
   </p>
 
   {% if page.image -%}
