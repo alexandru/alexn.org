@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <!-- https://github.com/darkreader/darkreader/issues/1114 -->
+    <!-- <meta name="darkreader" content="41637b04c7ddb955e533a5c76d68a2c8"> -->
+    <meta name="color-scheme" content="light dark">
+    <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
+    <meta name="theme-color" content="#493667">
+    
+    <title>Blogging Platform for Hackers - Alexandru Nedelcu</title>
+    
+
+    <!-- Open Graph Meta -->
+    <meta content="Alexandru Nedelcu" property="og:site_name">
+    <meta content="Blogging Platform for Hackers" property="og:title">
+    <meta content="Host your own static website on Heroku’s free plan, use Google’s App Engine as a CDN, keep Heroku’s free dyno alive, generate the website via Jekyll." property="og:description">
+    <meta content="https://alexn.org/blog/2012/01/05/blogging-for-hackers/" property="og:url">
+    <meta content="2012-01-05T00:00:00+00:00" property="article:published_time">
+    <meta content="2019-12-19T00:00:00+00:00" property="article:modified_time">
+    
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/jekyll.png?202203310904" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/jekyll.png?202203310904" />
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/jekyll.png?202203310904">
+    <meta name="twitter:site" content="@alexelcu">
+    <meta name="twitter:creator" content="@alexelcu">
+    <meta name="twitter:title" content="Blogging Platform for Hackers">
+    <meta name="twitter:url" content="https://alexn.org/blog/2012/01/05/blogging-for-hackers/">
+    <meta name="twitter:description" content="Host your own static website on Heroku’s free plan, use Google’s App Engine as a CDN, keep Heroku’s free dyno alive, generate the website via Jekyll.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/logo/16px.png" sizes="16x16" />
+    <link rel="icon" href="/assets/logo/32px.png" sizes="32x32" />
+    <link rel="icon" href="/assets/logo/192px.png" sizes="192x192" />
+    <link rel="icon" href="/assets/logo/270px.png" sizes="270x270" />
+    <link rel="icon" href="/assets/logo/512px.png" sizes="512x512" />
+    <link rel="apple-touch-icon-precomposed" href="/assets/logo/180px.png" />
+    <meta name="msapplication-TileImage" content="/assets/logo/270px.png" />
+
+    <!-- Come and get me RSS readers -->
+    <link rel="alternate" type="application/rss+xml" title="All articles (blog, snippets, wiki, links)" href="/feeds/all.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Blog" href="/feeds/blog.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Snippets" href="/feeds/snippets.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Shared Links" href="/feeds/links.xml" />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/assets/css/style.css?202203310904">
+    <link rel="preload" as="style" href="/assets/css/style.css?202203310904">
+    
+    <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
+    <link rel="canonical" href="https://alexn.org/blog/2012/01/05/blogging-for-hackers/">
+</head>
+
+
+<body>
+   <div class="header">
+  <div class="container">
+    <div class="inner-container">
+      <h1 class="logo"><a href="/">Alex<span class="wide2">andru</span> Nedelcu<span class="wide1"> =&lt;&lt;</span></a></h1>
+      <nav class="nav-collapse">
+        <ul class="noList">
+          
+          <li class="element first current ">
+            <a href="/blog/">Blog</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/wiki/">Wiki</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/snippets/">Snippets</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/links/">Links</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/about/">About</a>
+          </li>
+          
+          <li class="element   last">
+            <a href="/subscribe/">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav>  
+    </div>
+  </div>
+</div><!-- end .header -->
+
+
+   <div class="content">
+      <div class="container">
+         <article class="post" itemscope itemtype="http://schema.org/BlogPosting"><header>
+      <h1 class="postTitle" itemprop="headline">
+        
+        
+          
+      Blogging Platform for Hackers
+    
+        
+        
+      </h1>
+    
+    <p class="meta">
+      <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://alexn.org/blog/2012/01/05/blogging-for-hackers/"/>
+      <meta itemprop="datePublished" content="2012-01-05T00:00:00+0000"/>
+      
+      <time itemprop="dateCreated" datetime="2012-01-05T00:00:00+0000">January 5, 2012</time>
+      | <nobr><span class="time">17</span> minutes</nobr>
+    </p>
+
+    
+        <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+          <meta itemprop="url" content="https://alexn.org/assets/media/articles/jekyll.png" />
+          <img src="/assets/media/articles/jekyll.png?202203310904" alt="" />
+          
+        </figure>
+        
+    
+
+    <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Alexandru Nedelcu">
+      <meta itemprop="url" content="https://alexn.org/about/">
+      <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="https://alexn.org/assets/raw/logo-green.png">
+      </div>
+    </div>
+    <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="Alexandru Nedelcu" />
+        <meta itemprop="url" content="https://alexn.org/about/#alexelcu" />
+        <meta itemprop="url" content="https://twitter.com/alexelcu" />
+        <meta itemprop="url" content="https://github.com/alexandru" />
+      </div>
+    
+
+    </header>
+
+  <div id="content" itemprop="articleBody">
+    <p class="intro withcap">Host your own static website using free services. This article is a recipe for:</p>
+
+<ul>
+  <li>building your website with <a href="https://jekyllrb.com/">Jekyll</a></li>
+  <li>hosting your own static website on Heroku’s free plan;</li>
+  <li>using Google’s App Engine as a CDN, for better responsiveness;</li>
+  <li>keeping  Heroku’s free dyno alive, by using a GAE cron job;</li>
+  <li>having a very responsive, scalable and secure blog, with ultimate;
+control and simplicity, for zero bucks per month;</li>
+</ul>
+
+<p class="info-bubble">
+  <strong>UPDATE (2019-12-19):</strong> these days there are better options available for hosting your static website for free, including <a href="https://pages.github.com/">GitHub Pages</a> (also see <a href="https://github.com/features/actions">GitHub Actions</a>) and <a href="https://www.netlify.com/">Netlify</a>.
+</p>
+
+<p>You could just skip this article and browse the source code of my
+blog:</p>
+
+<ul>
+  <li><a href="https://github.com/alexandru/alexn.org">github.com/alexandru/alexn.org</a></li>
+</ul>
+
+<p>Forget about Wordpress or Blogger. Hacking your own stuff is much more
+fun. Also, make sure to read
+<a href="http://tom.preston-werner.com/2008/11/17/blogging-like-a-hacker.html">Blogging Like a Hacker</a>,
+by Tom Preston-Werner, GitHub’s cofounder and the author of Jekyll.</p>
+      <h2 id="jekyll-and-heroku-sitting-in-a-tree">
+        
+        
+          Jekyll and Heroku, Sitting in a Tree <a href="#jekyll-and-heroku-sitting-in-a-tree" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>I love <a href="https://github.com/mojombo/jekyll">Jekyll</a>, the static
+website generator. It is pure awesomeness for me:</p>
+
+<ul>
+  <li>all content is hosted in a Git repository, the best CMS ever
+invented</li>
+  <li>my articles are written in Markdown, with Emacs, the most potent
+text editor ever created - think Textmate-snippets, macros, syntax
+highlighting, keyboard-driven navigation and spelling corrections</li>
+  <li>static content scales like crazy, without any special gimmicks. A
+small VPS can serve thousands of requests per second without a
+sweat</li>
+  <li>static content is also secure by default, no constant upgrades
+required, no SQL injections</li>
+  <li>I always make little tweaks to my design, I’m never satisfied, which
+is why it makes sense to make my own, but checkout
+<a href="http://octopress.org/">Octopress</a> in case you want a reasonable
+default</li>
+  <li>I’ve lost an entire blog when my hosting account got blocked in the
+past. Never again, as my content is right now saved in 2 Git
+repositories and on my local machine</li>
+  <li>by working with my own domain, making my own shit, Google will never
+make me cry ;-)</li>
+</ul>
+
+<p>Jekyll’s first hosting option you should consider is
+<a href="http://pages.github.com/">GitHub Pages</a>, however you will need <em>some</em>
+dynamic behavior, like having configurable redirects. If you don’t
+then ignore this post and just read
+<a href="https://github.com/mojombo/jekyll/wiki/usage">Jekyll’s tutorial</a>, but
+you can come back to this post when its limits start bothering you.</p>
+
+<p>Heroku’s free plan is awesome, in spite of what
+<a href="/blog/2011/10/23/why-i-find-heroku-suboptimal/">I said previously</a>.
+It’s great for prototyping and for quickly seeing your website
+online. Instant gratification is awesome. Well, it does have some
+problems and to tell you the truth, for hosting my blog I would have
+rather used Google’s <a href="http://code.google.com/appengine/">App Engine</a>,
+if only they allowed me to have naked domains. I like my domains to be
+naked.</p>
+
+<p>One note in regards to the scalability of static content I mentioned
+above. In Heroku the Bamboo stack features a Varnish frontend. If you
+set proper expiry headers on your content, subsequent requests will
+not hit the Ruby server.</p>
+      <h2 id="hosting-static-content-on-heroku">
+        
+        
+          Hosting Static Content on Heroku <a href="#hosting-static-content-on-heroku" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>So this tutorial is about hosting a Jekyll website, which is why I’m
+going to make some assumptions about your directory structure. However
+you can modify these instructions for any static website, not just
+Jekyll-generated stuff.</p>
+
+<p>First, the setup:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c"># install the heroku command-line utility</span>
+gem <span class="nb">install </span>heroku
+
+<span class="c"># change to your website directory</span>
+<span class="nb">cd </span>website/
+
+<span class="c"># initialize a git repo, if you haven't done so</span>
+git init
+<span class="c"># ... and commit everything to it</span>
+git add <span class="nb">.</span>
+git commit <span class="nt">-m</span> <span class="s1">'initial commit'</span>
+
+<span class="c"># create the heroku app</span>
+heroku create
+</code></pre></div></div>
+
+<p>OK, now we need a Rake-powered application to serve our
+content. We’ll need a <em>./Gemfile</em> …</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="n">source</span> <span class="s1">'http://rubygems.org'</span>
+
+<span class="n">gem</span> <span class="s1">'rack'</span>
+<span class="n">gem</span> <span class="s1">'mime-types'</span>
+
+<span class="n">group</span> <span class="ss">:development</span> <span class="k">do</span>
+  <span class="n">gem</span> <span class="s1">'jekyll'</span>
+  <span class="n">gem</span> <span class="s1">'rdiscount'</span>
+  <span class="n">gem</span> <span class="s1">'hpricot'</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Then install these gems with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="code"><code>bundle <span class="nb">install</span>
+</code></pre></div></div>
+
+<p>You also need a Rake configuration file, <em>./config.ru</em>. What follows is the
+configuration that I am using. You can go simpler, a lot simpler than
+this actually, but I like flexibility and Heroku also does something
+funny with files served through Rack::File, so I refrained from using
+it …</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1"># Rack configuration file for serving a Jekyll-generated static</span>
+<span class="c1"># website from Heroku, with some nice additions:</span>
+<span class="c1">#</span>
+<span class="c1"># * knows how to do redirects, with settings taken from ./_config.yaml</span>
+<span class="c1"># * sets the cache expiry for HTML files differently from other static</span>
+<span class="c1">#   assets, with settings taken from ./_config.yaml</span>
+
+<span class="nb">require</span> <span class="s1">'yaml'</span>
+<span class="nb">require</span> <span class="s1">'mime/types'</span>
+
+<span class="c1"># main configuration file, also used by Jekyll</span>
+<span class="no">CONFIG</span> <span class="o">=</span> <span class="no">YAML</span><span class="o">::</span><span class="n">load_file</span><span class="p">(</span><span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="no">File</span><span class="p">.</span><span class="nf">dirname</span><span class="p">(</span><span class="kp">__FILE__</span><span class="p">),</span> <span class="s1">'_config.yml'</span><span class="p">))</span>
+
+<span class="c1"># points to our generated website directory</span>
+<span class="no">PUBLIC</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">expand_path</span><span class="p">(</span><span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="no">File</span><span class="p">.</span><span class="nf">dirname</span><span class="p">(</span><span class="kp">__FILE__</span><span class="p">),</span>
+                          <span class="no">CONFIG</span><span class="p">[</span><span class="s1">'destination'</span><span class="p">]</span> <span class="o">||</span> <span class="s1">'_site'</span><span class="p">))</span>
+
+<span class="c1"># For cutting down on the boilerplate</span>
+
+<span class="k">class</span> <span class="nc">BaseMiddleware</span>
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+    <span class="vi">@app</span> <span class="o">=</span> <span class="n">app</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">each</span><span class="p">(</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+
+<span class="c1"># Rack middleware for correcting paths:</span>
+<span class="c1">#</span>
+<span class="c1"># 1. redirects from the www. version to the naked domain version</span>
+<span class="c1">#</span>
+<span class="c1"># 2. converts directory/paths/ to directory/paths/index.html (most</span>
+<span class="c1">#    importantly / to /index.html)</span>
+
+<span class="k">class</span> <span class="nc">PathCorrections</span> <span class="o">&lt;</span> <span class="no">BaseMiddleware</span>
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+    <span class="n">env</span><span class="p">[</span><span class="s1">'PATH_INFO'</span><span class="p">]</span> <span class="o">+=</span> <span class="s1">'index.html'</span> <span class="k">if</span> <span class="n">env</span><span class="p">[</span><span class="s1">'PATH_INFO'</span><span class="p">].</span><span class="nf">end_with?</span> <span class="s1">'/'</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="no">Rack</span><span class="o">::</span><span class="no">Request</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">request</span><span class="p">.</span><span class="nf">host</span><span class="p">.</span><span class="nf">start_with?</span><span class="p">(</span><span class="s2">"www."</span><span class="p">)</span>
+      <span class="p">[</span><span class="mi">301</span><span class="p">,</span> <span class="p">{</span><span class="s2">"Location"</span> <span class="o">=&gt;</span> <span class="n">request</span><span class="p">.</span><span class="nf">url</span><span class="p">.</span><span class="nf">sub</span><span class="p">(</span><span class="s2">"//www."</span><span class="p">,</span> <span class="s2">"//"</span><span class="p">)},</span> <span class="nb">self</span><span class="p">]</span>
+    <span class="k">else</span>
+      <span class="vi">@app</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+
+<span class="c1"># Middleware that enables configurable redirects. The configuration is</span>
+<span class="c1"># done in the standard Jekyll _config.yml file.</span>
+<span class="c1">#</span>
+<span class="c1"># Sample configuration in _config.yml:</span>
+<span class="c1">#</span>
+<span class="c1">#   redirects:</span>
+<span class="c1">#     - from: /docs/some-document.html</span>
+<span class="c1">#       to: /archive/some-document.html</span>
+<span class="c1">#       type: 301</span>
+<span class="c1">#</span>
+<span class="c1"># The sample above will do a permanent redirect from ((*/docs/dialer.html*))</span>
+<span class="c1"># to ((*/archive/some-document.html*))</span>
+
+<span class="k">class</span> <span class="nc">Redirects</span> <span class="o">&lt;</span> <span class="no">BaseMiddleware</span>
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="no">Rack</span><span class="o">::</span><span class="no">Request</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="nf">path_info</span>
+    <span class="n">ext</span>  <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">extname</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">+=</span> <span class="s1">'/'</span> <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s1">''</span> <span class="n">and</span> <span class="o">!</span> <span class="n">path</span><span class="p">.</span><span class="nf">end_with?</span><span class="p">(</span><span class="s1">'/'</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">redirect</span> <span class="o">=</span> <span class="no">CONFIG</span><span class="p">[</span><span class="s1">'redirects'</span><span class="p">].</span><span class="nf">find</span><span class="p">{</span><span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">path</span> <span class="o">==</span> <span class="n">x</span><span class="p">[</span><span class="s1">'from'</span><span class="p">]}</span>
+      <span class="n">new_location</span> <span class="o">=</span> <span class="n">redirect</span><span class="p">[</span><span class="s1">'to'</span><span class="p">]</span>
+      <span class="n">new_location</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="nf">base_url</span> <span class="o">+</span> <span class="n">new_location</span> <span class="p">\</span>
+        <span class="k">unless</span> <span class="n">new_location</span><span class="p">.</span><span class="nf">start_with?</span><span class="p">(</span><span class="s2">"http"</span><span class="p">)</span>
+      <span class="p">[</span><span class="n">redirect</span><span class="p">[</span><span class="s1">'type'</span><span class="p">]</span> <span class="o">||</span> <span class="mi">302</span><span class="p">,</span> <span class="p">{</span><span class="s1">'Location'</span> <span class="o">=&gt;</span> <span class="n">new_location</span><span class="p">},</span> <span class="nb">self</span><span class="p">]</span>
+    <span class="k">else</span>
+      <span class="vi">@app</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+
+<span class="c1"># The 404 Not Found message should be a simple one in case the</span>
+<span class="c1"># mimetype of a file is not HTML (like the message returned by</span>
+<span class="c1"># Rack::File). However, in case of HTML files, then we should display</span>
+<span class="c1"># a custom 404 message</span>
+
+<span class="k">class</span> <span class="nc">Fancy404NotFound</span> <span class="o">&lt;</span> <span class="no">BaseMiddleware</span>
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+    <span class="n">status</span><span class="p">,</span> <span class="n">headers</span><span class="p">,</span> <span class="n">response</span> <span class="o">=</span> <span class="vi">@app</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">404</span>
+      <span class="n">ext</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">extname</span><span class="p">(</span><span class="n">env</span><span class="p">[</span><span class="s1">'PATH_INFO'</span><span class="p">])</span>
+      <span class="k">if</span> <span class="n">ext</span> <span class="o">=~</span> <span class="sr">/html?$/</span> <span class="n">or</span> <span class="n">ext</span> <span class="o">==</span> <span class="s1">''</span> <span class="n">or</span> <span class="o">!</span><span class="n">ext</span>
+        <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'Content-Type'</span> <span class="o">=&gt;</span> <span class="s1">'text/html'</span><span class="p">}</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="no">File</span><span class="p">.</span><span class="nf">join</span> <span class="no">PUBLIC</span><span class="p">,</span> <span class="s1">'pages'</span><span class="p">,</span> <span class="s1">'404.html'</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="p">[</span><span class="n">status</span><span class="p">,</span> <span class="n">headers</span><span class="p">,</span> <span class="n">response</span><span class="p">]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+
+<span class="c1"># Mimicking Rack::File</span>
+<span class="c1">#</span>
+<span class="c1"># I couldn't work with Rack::File directly, because for some reason</span>
+<span class="c1"># Heroku prevents me from overriding the Cache-Control header, setting</span>
+<span class="c1"># it to 12 hours. But 12 hours is not suitable for HTML content that</span>
+<span class="c1"># may receive fixes and other assets should have an expiry in the far</span>
+<span class="c1"># future, with 12 hours not being enough.</span>
+
+<span class="k">class</span> <span class="nc">Application</span> <span class="o">&lt;</span> <span class="no">BaseMiddleware</span>
+  <span class="k">class</span> <span class="nc">Http404</span> <span class="o">&lt;</span> <span class="no">Exception</span><span class="p">;</span> <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">guess_mimetype</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">type</span> <span class="o">=</span> <span class="no">MIME</span><span class="o">::</span><span class="no">Types</span><span class="p">.</span><span class="nf">of</span><span class="p">(</span><span class="n">path</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">||</span> <span class="kp">nil</span>
+    <span class="n">type</span> <span class="p">?</span> <span class="n">type</span><span class="p">.</span><span class="nf">to_s</span> <span class="p">:</span> <span class="kp">nil</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="no">Rack</span><span class="o">::</span><span class="no">Request</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+    <span class="n">path_info</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="nf">path_info</span>
+
+    <span class="c1"># a /ping request always hits the Ruby Rake server - useful in</span>
+    <span class="c1"># case you want to setup a cron to check if the server is still</span>
+    <span class="c1"># online or bring it back to life in case it sleeps</span>
+
+    <span class="k">if</span> <span class="n">path_info</span> <span class="o">==</span> <span class="s2">"/ping"</span>
+      <span class="k">return</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span>
+          <span class="s1">'Content-Type'</span> <span class="o">=&gt;</span> <span class="s1">'text/plain'</span><span class="p">,</span>
+          <span class="s1">'Cache-Control'</span> <span class="o">=&gt;</span> <span class="s1">'no-cache'</span>
+      <span class="p">},</span> <span class="p">[</span><span class="no">DateTime</span><span class="p">.</span><span class="nf">now</span><span class="p">.</span><span class="nf">to_s</span><span class="p">]]</span>
+    <span class="k">end</span>
+
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="n">mimetype</span> <span class="o">=</span> <span class="n">guess_mimetype</span><span class="p">(</span><span class="n">path_info</span><span class="p">)</span>
+      <span class="n">headers</span><span class="p">[</span><span class="s1">'Content-Type'</span><span class="p">]</span> <span class="o">=</span> <span class="n">mimetype</span>
+      <span class="k">if</span> <span class="n">mimetype</span> <span class="o">==</span> <span class="s1">'text/html'</span>
+        <span class="n">headers</span><span class="p">[</span><span class="s1">'Content-Language'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'en'</span>
+        <span class="n">headers</span><span class="p">[</span><span class="s1">'Content-Type'</span><span class="p">]</span> <span class="o">+=</span> <span class="s2">"; charset=utf-8"</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="k">begin</span>
+      <span class="c1"># basic validation of the path provided</span>
+      <span class="k">raise</span> <span class="no">Http404</span> <span class="k">if</span> <span class="n">path_info</span><span class="p">.</span><span class="nf">include?</span> <span class="s1">'..'</span>
+      <span class="n">abs_path</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="no">PUBLIC</span><span class="p">,</span> <span class="n">path_info</span><span class="p">[</span><span class="mi">1</span><span class="o">..-</span><span class="mi">1</span><span class="p">])</span>
+      <span class="k">raise</span> <span class="no">Http404</span> <span class="k">unless</span> <span class="no">File</span><span class="p">.</span><span class="nf">exists?</span> <span class="n">abs_path</span>
+
+      <span class="c1"># setting Cache-Control expiry headers</span>
+      <span class="n">type</span> <span class="o">=</span> <span class="n">path_info</span> <span class="o">=~</span> <span class="sr">/\.html?$/</span> <span class="p">?</span> <span class="s1">'html'</span> <span class="p">:</span> <span class="s1">'assets'</span>
+      <span class="n">headers</span><span class="p">[</span><span class="s1">'Cache-Control'</span><span class="p">]</span>  <span class="o">=</span> <span class="s2">"public, max-age="</span>
+      <span class="n">headers</span><span class="p">[</span><span class="s1">'Cache-Control'</span><span class="p">]</span> <span class="o">+=</span> <span class="no">CONFIG</span><span class="p">[</span><span class="s1">'expires'</span><span class="p">][</span><span class="n">type</span><span class="p">].</span><span class="nf">to_s</span>
+
+      <span class="n">status</span><span class="p">,</span> <span class="n">response</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="no">File</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="n">abs_path</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">)</span>
+    <span class="k">rescue</span> <span class="no">Http404</span>
+      <span class="n">status</span><span class="p">,</span> <span class="n">response</span> <span class="o">=</span> <span class="mi">404</span><span class="p">,</span> <span class="p">[</span><span class="s2">"404 Not Found: </span><span class="si">#{</span><span class="n">path_info</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span>
+    <span class="k">end</span>
+
+    <span class="p">[</span><span class="n">status</span><span class="p">,</span> <span class="n">headers</span><span class="p">,</span> <span class="n">response</span><span class="p">]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+
+<span class="c1">#</span>
+<span class="c1"># the actual Rack configuration, using</span>
+<span class="c1"># the middleware defined above</span>
+<span class="c1">#</span>
+
+<span class="n">use</span> <span class="no">Redirects</span>
+<span class="n">use</span> <span class="no">PathCorrections</span>
+<span class="n">use</span> <span class="no">Fancy404NotFound</span>
+
+<span class="n">run</span> <span class="no">Application</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="no">PUBLIC</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>This Rack configuration uses settings defined in the standard Jekyll
+<em>_config.yaml</em> file. Here are some settings needed for it to work as
+intended:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="na">destination</span><span class="pi">:</span> <span class="s">./_site</span>
+
+<span class="na">expires</span><span class="pi">:</span>
+  <span class="na">html</span><span class="pi">:</span> <span class="m">3600</span> <span class="c1"># one hour</span>
+  <span class="na">assets</span><span class="pi">:</span> <span class="m">1314000</span> <span class="c1"># one year</span>
+
+<span class="na">redirects</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">from</span><span class="pi">:</span> <span class="s">/rss/</span>
+    <span class="na">to</span><span class="pi">:</span> <span class="s">http://feeds.feedburner.com/bionicspirit</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="m">302</span>
+</code></pre></div></div>
+
+<p>OK, so once done, test this configuration:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c"># generating the website</span>
+jekyll
+
+<span class="c"># starting the server</span>
+rackup
+</code></pre></div></div>
+
+<p>Deployment is as easy as pie:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="code"><code>git push heroku master
+</code></pre></div></div>
+
+<p>One note: Heroku could be configured to automatically generate the
+website for you. However you either have to use the Cedar stack, or
+generate the pages on the fly. In case of the Cedar stack, you lose
+Varnish. Just keep your generated files in Git, it’s easier.</p>
+      <h2 id="commenting-with-disqus-facebook-or-roll-your-own">
+        
+        
+          Commenting with Disqus, Facebook or Roll Your Own <a href="#commenting-with-disqus-facebook-or-roll-your-own" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>For commenting <a href="http://disqus.com">Disqus</a> is a really good
+service. In case you have a very popular website amongst normal
+people, it may be even better to integrate Facebook’s commenting
+widget.</p>
+
+<p>Well, I had some fun a while ago and created my own:
+<a href="https://github.com/alexandru/TheBuzzEngine">TheBuzzEngine</a>.</p>
+
+<p>Unfortunately it doesn’t have all the features I want, but it does get
+the job done and it isn’t bloated. These days I’ll probably get around
+to adding some stuff to it, like threaded comments and email
+subscriptions. This is what happens when working for fun on stuff -
+once you’re over a certain threshold, the return of investment is too
+low to bother with extra development.</p>
+
+<p>I recommend Disqus, although rolling your own is fun and keeps you in
+control (which is the reason I’m using Jekyll in the first place).</p>
+      <h2 id="using-google-app-engine-as-your-cdn-or-cron-manager">
+        
+        
+          Using Google App Engine as Your CDN or Cron Manager <a href="#using-google-app-engine-as-your-cdn-or-cron-manager" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>So when using Heroku’s free plan, I feel a little uncomfortable
+because relying on one dyno can get you in trouble. Having Varnish in
+front is great, but Varnish is a cache manager. For instance, if you
+happen to push a new version of your latest article to Heroku, then
+the Varnish cache gets cleared and the Ruby server can potentially get
+exposed to a lot of requests and one dyno on Heroku can only serve one
+request at a time.</p>
+
+<p>So why not push all our static assets, except HTML files, to a CDN?
+It’s best practice anyway as your website should be more
+responsive. If you have an Amazon AWS account, then CloudFront + S3
+are great.</p>
+
+<p>However, I started with the goal of hosting this for zero bucks (it’s
+fun, so why not?). Therefore I’m going to teach you how to push your
+files to Google’s <a href="http://code.google.com/appengine/">App Engine</a>. I
+don’t really know how GAE works as a CDN for static files, but it
+seems that it does have the
+<a href="http://blog.sallarp.com/google-app-engine-cdn/">properties of a CDN</a>
+(i.e. serving content to users from servers closer to their location).</p>
+
+<p>Another problem with Heroku’s free plan is that the free dyno goes to
+sleep, to save resources. While I advise you to just pay up for an
+extra dyno, you can get around this restriction by just configuring
+GAE to send a periodic <em>ping</em> to your website.</p>
+
+<p>Here’s my GAE configuration file, <em>app.yaml</em> which should sit in your
+root (assuming <em>./assets</em> is the directory you want to serve from GAE):</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="na">application</span><span class="pi">:</span> <span class="s">assets-bionicspirit</span>
+<span class="na">version</span><span class="pi">:</span> <span class="m">1</span>
+<span class="na">runtime</span><span class="pi">:</span> <span class="s">python27</span>
+<span class="na">api_version</span><span class="pi">:</span> <span class="m">1</span>
+<span class="na">threadsafe</span><span class="pi">:</span> <span class="no">true</span>
+
+<span class="na">handlers</span><span class="pi">:</span>
+
+<span class="pi">-</span> <span class="na">url</span><span class="pi">:</span> <span class="s">/assets</span>
+  <span class="na">static_dir</span><span class="pi">:</span> <span class="s">assets</span>
+  <span class="na">expiration</span><span class="pi">:</span> <span class="s2">"</span><span class="s">365d"</span>
+
+<span class="c1"># next item is for our cron job, described below, but you can ignore</span>
+<span class="c1"># it if you don't want a cron job ...</span>
+
+<span class="pi">-</span> <span class="na">url</span><span class="pi">:</span> <span class="s">/tasks/ping</span>
+  <span class="na">script</span><span class="pi">:</span> <span class="s">ping.app</span>
+</code></pre></div></div>
+
+<p>As you can see, I’m setting the expiry of my static assets to a
+whooping 1 year.</p>
+
+<p>I also have a real handler, at <em>/tasks/ping</em> configured. This will be
+our cron job that sends a ping to our Heroku app, every X
+minutes. Here’s the code for <em>ping.py</em> …</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="kn">import</span> <span class="nn">webapp2</span>
+<span class="kn">from</span> <span class="nn">google.appengine.api</span> <span class="kn">import</span> <span class="n">urlfetch</span>
+
+<span class="k">class</span> <span class="nc">PingService</span><span class="p">(</span><span class="n">webapp2</span><span class="p">.</span><span class="n">RequestHandler</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="bp">self</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s">'Content-Type'</span><span class="p">]</span> <span class="o">=</span> <span class="s">'text/plain'</span>
+
+      <span class="n">url</span> <span class="o">=</span> <span class="s">"https://alexn.org/ping"</span>
+      <span class="k">try</span><span class="p">:</span>
+          <span class="n">result</span> <span class="o">=</span> <span class="n">urlfetch</span><span class="p">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">deadline</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+          <span class="bp">self</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">out</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">'HTTP %d - %s'</span> <span class="o">%</span>
+              <span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">status_code</span><span class="p">,</span> <span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">content</span> <span class="ow">or</span> <span class="s">''</span><span class="p">).</span><span class="n">strip</span><span class="p">()))</span>
+      <span class="k">except</span><span class="p">:</span>
+          <span class="bp">self</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">out</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">'ERROR: no response'</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">webapp2</span><span class="p">.</span><span class="n">WSGIApplication</span><span class="p">([(</span><span class="s">'/tasks/ping'</span><span class="p">,</span> <span class="n">PingService</span><span class="p">)],</span> <span class="n">debug</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>But we are not done. To configure <em>/tasks/ping</em> to run every X
+minutes, you also need a <em>cron.yaml</em> file …</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="na">cron</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">description</span><span class="pi">:</span> <span class="s">ping alexn.org to wake it up</span>
+  <span class="na">url</span><span class="pi">:</span> <span class="s">/tasks/ping</span>
+  <span class="na">schedule</span><span class="pi">:</span> <span class="s">every 4 minutes</span>
+</code></pre></div></div>
+
+<p>Assuming you already have the
+<a href="http://code.google.com/appengine/docs/python/gettingstarted/devenvironment.html">GAE SDK installed</a>,
+then run this command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="code"><code>appcfg.py update <span class="nb">.</span>
+</code></pre></div></div>
+
+<p>To see it working on this blog, here are the requests:</p>
+
+<ul>
+  <li>Heroku URL getting requested: <a href="https://alexn.org/ping">https://alexn.org/ping</a></li>
+  <li>GAE Cron Job getting executed: <a href="http://assets-bionicspirit.appspot.com/tasks/ping">http://assets-bionicspirit.appspot.com/tasks/ping</a></li>
+</ul>
+      <h2 id="extra-tip---cloudflare">
+        
+        
+          Extra Tip - CloudFlare <a href="#extra-tip---cloudflare" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Luigi Montanez kindly pointed out in below’s comments the availability
+of <a href="https://www.cloudflare.com/">CloudFlare</a>.</p>
+
+<p>CloudFlare is a proxy that sits between your website and your
+users. It allegedly prevents DDOS attacks on your website, but it also
+caches static content, which helps because apparently it also has the
+properties of a CDN.</p>
+
+<p>I activated it to see how it works. The main reason is that GAE has a
+1 GB bandwidth-out daily limit - and this article generated ~ 10,000
+visits in only one day, which consumed ~ 700 MB of bandwidth on GAE
+(for a couple of small images, I don’t want to imagine what would
+happen for an image-rich post). So that’s not good and I placed
+CloudFlare in front of GAE and my Heroku instance, which should save
+some bandwidth for me.</p>
+
+<p>I don’t have a conclusion on CloudFlare. If it works as advertised,
+then it is <em>awesome</em>. Although be careful about it as I’ve seen
+reports on the Internet that it may in fact add latency to your
+website, instead of decreasing it.</p>
+
+<p>For my website however, everything seems to be fine. I am monitoring
+my website with <a href="http://pingdom.com">Pingdom.com</a>, a service which
+also reports the average responsiveness of the website, calculated by
+doing requests from multiple locations. The homepage, which is not
+cached by CloudFlare or served by GAE, has an average load time of
+300ms, while cached static resources from GAE and proxied through
+CloudFlare are doing much better.</p>
+
+<p>So we’ll see.</p>
+      <h2 id="conclusion">
+        
+        
+          Conclusion <a href="#conclusion" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>The result is a really responsive, scalable and kick-ass blog, for
+zero bucks spent on hosting.</p>
+
+<p>This very blog is hosted using the method described above. Well, I’ll
+probably return to my trustworthy VPS instance as I’m paying for it
+anyway, but this was fun.</p>
+
+<p>Enjoy ~</p>
+
+  </div>
+
+  <div id="article-details">
+    
+    <time itemprop="dateModified" content="2019-12-19T00:00:00+0000">
+        Updated: December 19, 2019
+    </time>
+    
+      | Written by <a href="https://alexn.org/about/#alexelcu" itemprop="url" rel="author">Alexandru Nedelcu</a>
+    
+
+    <div id="all-categories">
+      Tags:
+      
+        
+        <a href="/blog/tag/blogging/" class="category">Blogging</a>
+      
+         | 
+        <a href="/blog/tag/server/" class="category">Server</a>
+      
+         | 
+        <a href="/blog/tag/cloud/" class="category">Cloud</a>
+      
+         | 
+        <a href="/blog/tag/heroku/" class="category">Heroku</a>
+      
+         | 
+        <a href="/blog/tag/ruby/" class="category">Ruby</a>
+      
+         | 
+        <a href="/blog/tag/jekyll/" class="category">Jekyll</a>
+      
+    </div>
+  </div>
+
+  
+  <div class="related">
+      <h2 id="related-articles">
+        
+        
+          Related Articles <a href="#related-articles" class="anchor">#</a>
+        
+        
+      </h2>
+    
+    <div class="container">
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2011/10/23/why-i-find-heroku-suboptimal/">
+          Why I Find Heroku Suboptimal
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/devops" class="tag">DevOps</a>
+            
+               | <a href="/blog/tag/heroku" class="tag">Heroku</a>
+            
+               | <a href="/blog/tag/server" class="tag">Server</a>
+            
+               | <a href="/blog/tag/cloud" class="tag">Cloud</a>
+            
+               | <a href="/blog/tag/nginx" class="tag">Nginx</a>
+            
+               | <a href="/blog/tag/varnish" class="tag">Varnish</a>
+                        
+          </div>
+          <time>October 23, 2011</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2021/03/29/atom-rss-feeds-are-the-best-way-to-consume-the-web/">
+          Atom/RSS Feeds are the Best Way to Consume the Web
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/blogging" class="tag">Blogging</a>
+            
+               | <a href="/blog/tag/jekyll" class="tag">Jekyll</a>
+            
+               | <a href="/blog/tag/web" class="tag">Web</a>
+                        
+          </div>
+          <time>March 29, 2021</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2020/11/11/organize-index-screenshots-ocr-macos/">
+          Organize and Index Your Screenshots (OCR) on macOS
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/cloud" class="tag">Cloud</a>
+            
+               | <a href="/blog/tag/macos" class="tag">macOS</a>
+            
+               | <a href="/blog/tag/ruby" class="tag">Ruby</a>
+                        
+          </div>
+          <time>November 11, 2020</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  
+
+  
+</article>
+
+      </div>
+   </div><!-- end .content -->
+
+   <script async src="/assets/js/modernizr.custom.15390.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202203310904" type="text/javascript"></script>
+
+<script async src="/assets/js/scripts.js?202203310904" type="text/javascript"></script>
+
+   <div class="footer">
+  
+  <div class="container">
+    <div class="contributions">
+      <h2 id="comments">
+  Comments
+  <a href="#comments" class="anchor">#</a>
+</h2>
+
+<p>
+  Do you have suggestions? Want to chat? Email me at: <br>
+  <script>
+    (function () {
+      var lhs = "contact22+comments";
+      var rhs = "alexn.org";
+      document.write("<a target=\"_blank\" href=\"mailto");
+      document.write(":" + lhs + "@");
+      document.write(rhs);
+      document.write("?subject=Comment%20on%3A%20Blogging%20Platform%20for%20Hackers")
+      document.write("\">" + lhs + "@" + rhs + "<\/a>");
+    })()
+  </script>
+  <noscript>
+    <em>Email address is protected via JavaScript, activate it to see it!</em>
+  </noscript>
+</p>
+
+<h2 id="contribute">
+  Contribute
+  <a href="#contribute" class="anchor">#</a>
+</h2>
+
+
+<p>
+  Fix or add to this article by submitting a pull request:<br/>
+  <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/main/_posts/2012-01-05-blogging-for-hackers.md" target="_blank">Edit Page on GitHub</a>
+</p>
+
+<p>
+  Donate to cover ongoing website costs, or buy me coffee ☕️😋 <br/>
+  <a href="https://www.patreon.com/bePatron?u=6102596" target="_blank">
+    <img label="Become a Patron!" alt="Become a Patron!" title="Become a Patron!" src="/assets/media/buttons/patreon.png" height="40" />
+  </a>
+</p>
+
+
+<h2 id="subscribe">
+  Subscribe
+  <a href="#subscribe" class="anchor">#</a>
+</h2>
+
+<!-- Begin Mailchimp Signup Form -->
+<div id="mc_embed_signup">
+  <form action="https://alexn.us4.list-manage.com/subscribe/post?u=5bffa2af025192a58345bd5dc&amp;id=1c9005b255"
+    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
+    novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="mc-field-group field">
+        <label for="mce-EMAIL">Email Address <sup class="asterisk">*</sup></label>
+        <input type="email" value="" name="EMAIL" class="required email full-width" id="mce-EMAIL" placeholder="user@domain.com" required>
+      </div>
+      <!-- <div class="mc-field-group field">
+        <label for="mce-FULLNAME">Name</label>
+        <input type="text" value="" name="FULLNAME" class="full-width" id="mce-FULLNAME" placeholder="John Doe">
+      </div> -->
+      <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+      </div>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+          name="b_5bffa2af025192a58345bd5dc_1c9005b255" tabindex="-1" value=""></div>
+      <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+          class="button"></div>
+    </div>
+  </form>
+</div>
+
+<div class="note">
+  <span class="extra">
+    Newsletter subscription uses Mailchimp, see <a href="/docs/privacy-policy/">privacy policy</a>.
+    If you're not seeing the form, it may be blocked by the browser; <a target="_blank" href="http://eepurl.com/g5ClAT"><em><span style="white-space: nowrap;">try the external subscribe page &#10141;</span></em></a>
+  </span>
+</div>
+
+
+    </div>  
+  </div>
+  
+
+  <div class="bottom">
+    <div class="container">
+      <span class="copy">
+          &copy; 2009-2022
+      </span>
+      <span class="links">
+        <a href="/docs/license/">License</a> |
+        <a href="/docs/privacy-policy/">Privacy Policy</a> |
+        <a href="/about/#contact">Contact</a>
+      </span>
+    </div>
+  </div>
+</div><!-- end .footer -->
+
+</body>
+</html>

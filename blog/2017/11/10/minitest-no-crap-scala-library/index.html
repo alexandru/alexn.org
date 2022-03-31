@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <!-- https://github.com/darkreader/darkreader/issues/1114 -->
+    <!-- <meta name="darkreader" content="41637b04c7ddb955e533a5c76d68a2c8"> -->
+    <meta name="color-scheme" content="light dark">
+    <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
+    <meta name="theme-color" content="#493667">
+    
+    <title>Minitest: Zero Crap Scala Testing Library - Alexandru Nedelcu</title>
+    
+
+    <!-- Open Graph Meta -->
+    <meta content="Alexandru Nedelcu" property="og:site_name">
+    <meta content="Minitest: Zero Crap Scala Testing Library" property="og:title">
+    
+      <meta content="On programming and personal projects" property="og:description">
+    <meta content="https://alexn.org/blog/2017/11/10/minitest-no-crap-scala-library/" property="og:url">
+    <meta content="2017-11-10T00:00:00+00:00" property="article:published_time">
+    
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/scala.png?202203310904" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/scala.png?202203310904" />
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/scala.png?202203310904">
+    <meta name="twitter:site" content="@alexelcu">
+    <meta name="twitter:creator" content="@alexelcu">
+    <meta name="twitter:title" content="Minitest: Zero Crap Scala Testing Library">
+    <meta name="twitter:url" content="https://alexn.org/blog/2017/11/10/minitest-no-crap-scala-library/">
+    
+      <meta name="twitter:description" content="On programming and personal projects">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/logo/16px.png" sizes="16x16" />
+    <link rel="icon" href="/assets/logo/32px.png" sizes="32x32" />
+    <link rel="icon" href="/assets/logo/192px.png" sizes="192x192" />
+    <link rel="icon" href="/assets/logo/270px.png" sizes="270x270" />
+    <link rel="icon" href="/assets/logo/512px.png" sizes="512x512" />
+    <link rel="apple-touch-icon-precomposed" href="/assets/logo/180px.png" />
+    <meta name="msapplication-TileImage" content="/assets/logo/270px.png" />
+
+    <!-- Come and get me RSS readers -->
+    <link rel="alternate" type="application/rss+xml" title="All articles (blog, snippets, wiki, links)" href="/feeds/all.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Blog" href="/feeds/blog.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Snippets" href="/feeds/snippets.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Shared Links" href="/feeds/links.xml" />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/assets/css/style.css?202203310904">
+    <link rel="preload" as="style" href="/assets/css/style.css?202203310904">
+    
+    <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
+    <link rel="canonical" href="https://alexn.org/blog/2017/11/10/minitest-no-crap-scala-library/">
+</head>
+
+
+<body>
+   <div class="header">
+  <div class="container">
+    <div class="inner-container">
+      <h1 class="logo"><a href="/">Alex<span class="wide2">andru</span> Nedelcu<span class="wide1"> =&lt;&lt;</span></a></h1>
+      <nav class="nav-collapse">
+        <ul class="noList">
+          
+          <li class="element first current ">
+            <a href="/blog/">Blog</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/wiki/">Wiki</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/snippets/">Snippets</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/links/">Links</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/about/">About</a>
+          </li>
+          
+          <li class="element   last">
+            <a href="/subscribe/">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav>  
+    </div>
+  </div>
+</div><!-- end .header -->
+
+
+   <div class="content">
+      <div class="container">
+         <article class="post" itemscope itemtype="http://schema.org/BlogPosting"><header>
+      <h1 class="postTitle" itemprop="headline">
+        
+        
+          
+      Minitest: Zero Crap Scala Testing Library
+    
+        
+        
+      </h1>
+    
+    <p class="meta">
+      <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://alexn.org/blog/2017/11/10/minitest-no-crap-scala-library/"/>
+      <meta itemprop="datePublished" content="2017-11-10T00:00:00+0000"/>
+      
+      <time itemprop="dateCreated" datetime="2017-11-10T00:00:00+0000">November 10, 2017</time>
+      | <nobr><span class="time">11</span> minutes</nobr>
+    </p>
+
+    
+        <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+          <meta itemprop="url" content="https://alexn.org/assets/media/articles/scala.png" />
+          <img src="/assets/media/articles/scala.png?202203310904" alt="" />
+          
+        </figure>
+        
+    
+
+    <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Alexandru Nedelcu">
+      <meta itemprop="url" content="https://alexn.org/about/">
+      <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="https://alexn.org/assets/raw/logo-green.png">
+      </div>
+    </div>
+    <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="Alexandru Nedelcu" />
+        <meta itemprop="url" content="https://alexn.org/about/#alexelcu" />
+        <meta itemprop="url" content="https://twitter.com/alexelcu" />
+        <meta itemprop="url" content="https://github.com/alexandru" />
+      </div>
+    
+
+    
+    
+    
+    <nav class="toc">
+      <p class="toc-title">Table of Contents:</p>
+      <ul>
+  <li><a href="#raison-dêtre">Raison d’être</a>
+    <ul>
+      <li><a href="#portability">Portability</a></li>
+      <li><a href="#say-no-to-dsls">Say No to DSLs</a></li>
+      <li><a href="#minimal-implementation-less-is-more">Minimal Implementation, Less is More</a></li>
+    </ul>
+  </li>
+  <li><a href="#hypothesis">Hypothesis</a></li>
+  <li><a href="#tutorial">Tutorial</a></li>
+  <li><a href="#common-complaints">Common Complaints</a>
+    <ul>
+      <li><a href="#i-do-not-like-future">I do not like Future</a></li>
+      <li><a href="#i-want-a-purely-functional-api">I want a purely functional API</a></li>
+      <li><a href="#it-does-not-support-maven-cbt-or-others">It does not support Maven, CBT or others</a></li>
+    </ul>
+  </li>
+  <li><a href="#final-words">Final Words</a></li>
+</ul>
+    </nav>
+    </header>
+
+  <div id="content" itemprop="articleBody">
+    <p class="intro withcap"><a href="https://github.com/monix/minitest">Minitest</a> is my minimal testing library that I’ve been using for developing <a href="https://monix.io">Monix</a>.</p>
+      <h2 id="raison-dêtre">
+        
+        
+          Raison d’être <a href="#raison-dêtre" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>I dislike most testing frameworks, because of bloat and of heavy DSLs
+trying to mimic the English language. When I created Minitest, I
+wasn’t satisfied with any of the available alternatives.</p>
+
+<p>Then I found that <a href="http://www.scala-sbt.org/">SBT</a> can do all the
+heavy lifting (e.g. running the tests, reporting, etc), exposing a
+nice <a href="https://github.com/sbt/test-interface">sbt/test-interface</a> that
+you can integrate with. All you need to do is to build your own
+API on top. And so I did.</p>
+
+<p class="info-bubble">
+<strong>NOTE:</strong> My opinions in this article disagree with the design 
+choices of popular testing libraries. I know that libraries like
+<a href="http://www.scalatest.org/">ScalaTest</a> or 
+<a href="https://etorreborre.github.io/specs2/">Specs2</a> are the way they
+are because people want them that way. And those are awesome
+projects, having awesome authors. They are just not for me.
+</p>
+      <h3 id="portability">
+        
+        
+          Portability <a href="#portability" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>The natural tendency of testing frameworks is to grow beyond all
+imagination in order to accommodate the various testing styles that
+people want, these testing frameworks also end up hard to port to new
+platforms - which is especially relevant in Scala due to new major
+versions and new targets released all the time
+(e.g. <a href="http://www.scala-js.org/">Scala.js</a>, <a href="https://github.com/scala-native/scala-native">Scala
+Native</a>,
+<a href="https://github.com/lampepfl/dotty">Dotty</a>).</p>
+
+<p>In 2014 I started to work on <a href="https://monix.io">Monix</a> and during that
+time <a href="http://www.scala-js.org/">Scala.js</a> was also born.</p>
+
+<p>This awesome Scala compiler that targets JavaScript was really fresh
+back then and I wanted to target it, however none of the testing
+libraries (e.g. <a href="http://www.scalatest.org/">ScalaTest</a>) were
+supporting it yet, except for
+<a href="https://github.com/lihaoyi/utest">µTest</a>. µTest seemed fine, but it
+had problems when displaying error messages, plus its DSL was and
+still is weird.</p>
+
+<p>For some reason I don’t like magic in my tests — and by magic I mean
+expressions or statements that I don’t immediately understand. That,
+and I wanted an easy transition in Monix from ScalaTest’s
+<a href="http://www.scalatest.org/getting_started_with_fun_suite">FunSuite</a>,
+which is what I was using.</p>
+      <h3 id="say-no-to-dsls">
+        
+        
+          Say No to DSLs <a href="#say-no-to-dsls" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>I do not want to write <code class="language-plaintext highlighter-rouge">x shouldBe greaterThan(y)</code> or other such
+nonsense. I do not have the memory for that, I always forget the API
+and the IDE doesn’t help much due to the implicit conversions going on.</p>
+
+<p>Unit tests might be business driven, but so is software in
+general, nothing makes tests a special snowflake to warrant the abuse
+of the programming language to make it look like English.</p>
+
+<p>Yes, there are advantages to such a DSL. For example if you express
+the above with a simple <code class="language-plaintext highlighter-rouge">assert</code>, then you won’t get a meaningful
+error message back, depending on whether the implementation does or
+doesn’t do macros for <code class="language-plaintext highlighter-rouge">assert</code>, but if it does, then that’s a whole
+other can of worms:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nf">assert</span><span class="o">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">y</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p><strong>Fact:</strong> most assertions that you need to do in testing are <em>equality
+tests</em> and for that rare moment in which you need inequality tests, you
+can simply add a custom error message:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nf">assert</span><span class="o">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">y</span><span class="o">,</span> <span class="n">s</span><span class="s">"$x &gt; $y"</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>Yes, it’s repetitive, but I don’t care, because this is such a rare
+event that I don’t want to optimize it with a special DSL or even with
+macros.</p>
+
+<p>Another thing that I absolutely hate are tests marked with English
+words like “<code class="language-plaintext highlighter-rouge">it</code>”, forcing you to phrase the test’s description in a
+certain way. I frequently end up with “sentences” that makes no sense:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nf">it</span><span class="o">(</span><span class="s">"left identity"</span><span class="o">)</span> <span class="o">{</span>
+  <span class="c1">// ...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>This tendency actually stems from Java OOP, with its “kingdom of
+nouns”, the idea being that the things you’re testing are all nouns
+that interact with the world, aka objects. Well, I’m not testing just
+objects, so <code class="language-plaintext highlighter-rouge">it</code> is a bad trend.</p>
+
+<p>And the idea that business folks might be writing tests, hell no, that
+almost never happens and if they are inclined to do that (like once in
+a million), then they can just learn programming. It’s not like an
+English-like DSL is any closer to natural language.</p>
+      <h3 id="minimal-implementation-less-is-more">
+        
+        
+          Minimal Implementation, Less is More <a href="#minimal-implementation-less-is-more" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Because the implementation is minimal, there’s nothing that I can’t
+fix in it, there’s nothing that I can’t implement should I need
+anything.</p>
+
+<p>It’s also easy to port to new targets. I intend to port it to 
+<a href="https://github.com/scala-native/scala-native">Scala Native</a> as soon as it
+is available for Scala 2.12 (at the moment of writing, it isn’t).</p>
+
+<p>In fact, if you want to build your own testing framework, Minitest can
+serve as a sample ;-)</p>
+      <h2 id="hypothesis">
+        
+        
+          Hypothesis <a href="#hypothesis" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>All you need is the ability to express:</p>
+
+<ol>
+  <li>synchronous tests, returning <code class="language-plaintext highlighter-rouge">Unit</code> (or an equivalent, as I ended
+up doing in order to avoid Scala’s annoying implicit conversion)</li>
+  <li>asynchronous tests, returning <code class="language-plaintext highlighter-rouge">Future</code></li>
+  <li>the ability to setup an environment before every test, then
+tear it down after each test</li>
+</ol>
+
+<p>All the asserts that you need:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">assert(boolean, string?)</code>: general purpose assertion for any
+condition</li>
+  <li><code class="language-plaintext highlighter-rouge">assertEquals(received, expected)</code>: for equality testing with a
+nice error message</li>
+  <li><code class="language-plaintext highlighter-rouge">intercept</code>: for testing that exceptions are thrown</li>
+  <li><code class="language-plaintext highlighter-rouge">fail(reason?)</code>: fails the current test</li>
+  <li><code class="language-plaintext highlighter-rouge">ignore(reason?)</code>: ignores the current test</li>
+  <li><code class="language-plaintext highlighter-rouge">cancel(reason?)</code>: cancels the current test</li>
+</ol>
+
+<p>What you don’t need:</p>
+
+<ol>
+  <li>nesting in tests</li>
+  <li>an English-like DSL</li>
+  <li>a purely functional <em>base</em> API</li>
+</ol>
+      <h2 id="tutorial">
+        
+        
+          Tutorial <a href="#tutorial" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Test suites MUST BE objects, not classes. To create a simple test
+suite, it could inherit from <code class="language-plaintext highlighter-rouge">SimpleTestSuite</code>. Here’s a simple test:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">minitest.SimpleTestSuite</span>
+
+<span class="k">object</span> <span class="nc">MySimpleSuite</span> <span class="k">extends</span> <span class="nc">SimpleTestSuite</span> <span class="o">{</span>
+  <span class="nf">test</span><span class="o">(</span><span class="s">"should be"</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nf">assertEquals</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span>
+  <span class="o">}</span>
+
+  <span class="nf">test</span><span class="o">(</span><span class="s">"should not be"</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nf">assert</span><span class="o">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">!=</span> <span class="mi">3</span><span class="o">)</span>
+  <span class="o">}</span>
+
+  <span class="nf">test</span><span class="o">(</span><span class="s">"should throw"</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">class</span> <span class="nc">DummyException</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="s">"DUMMY"</span><span class="o">)</span>
+    <span class="k">def</span> <span class="nf">test</span><span class="o">()</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="k">throw</span> <span class="k">new</span> <span class="nc">DummyException</span>
+
+    <span class="n">intercept</span><span class="o">[</span><span class="kt">DummyException</span><span class="o">]</span> <span class="o">{</span>
+      <span class="nf">test</span><span class="o">()</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="nf">test</span><span class="o">(</span><span class="s">"test result of"</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nf">assertResult</span><span class="o">(</span><span class="s">"hello world"</span><span class="o">)</span> <span class="o">{</span>
+      <span class="s">"hello"</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="s">"world"</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="nf">test</span><span class="o">(</span><span class="s">"should be ignored"</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nf">if</span> <span class="o">(</span><span class="nv">Platform</span><span class="o">.</span><span class="py">isJS</span><span class="o">)</span> <span class="nf">ignore</span><span class="o">(</span><span class="s">"Blocking not supported on top of JS"</span><span class="o">)</span>
+    <span class="k">val</span> <span class="nv">r</span> <span class="k">=</span> <span class="nv">Await</span><span class="o">.</span><span class="py">result</span><span class="o">(</span><span class="nc">Future</span><span class="o">(</span><span class="mi">1</span><span class="o">),</span> <span class="nv">Duration</span><span class="o">.</span><span class="py">Inf</span><span class="o">)</span>
+    <span class="nf">assertEquals</span><span class="o">(</span><span class="n">r</span><span class="o">,</span> <span class="mi">1</span><span class="o">)</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In case you want to setup an environment for each test and need
+<code class="language-plaintext highlighter-rouge">setup</code> and <code class="language-plaintext highlighter-rouge">tearDown</code> semantics, you could inherit from
+<a href="https://github.com/monix/minitest/blob/v2.0.0/shared/src/main/scala/minitest/TestSuite.scala">TestSuite</a>. 
+Then on each <code class="language-plaintext highlighter-rouge">test</code> definition, you’ll receive a fresh value:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">monix.execution.schedulers.TestScheduler</span>
+<span class="k">import</span> <span class="nn">minitest.TestSuite</span>
+
+<span class="k">object</span> <span class="nc">MyTestSuite</span> <span class="k">extends</span> <span class="nc">TestSuite</span><span class="o">[</span><span class="kt">TestScheduler</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="nf">setup</span><span class="o">()</span> <span class="k">=</span> <span class="nc">TestScheduler</span><span class="o">()</span>
+
+  <span class="k">def</span> <span class="nf">tearDown</span><span class="o">(</span><span class="n">env</span><span class="k">:</span> <span class="kt">TestScheduler</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span>
+    <span class="nf">assert</span><span class="o">(</span><span class="nv">env</span><span class="o">.</span><span class="py">state</span><span class="o">.</span><span class="py">tasks</span><span class="o">.</span><span class="py">isEmpty</span><span class="o">,</span> <span class="s">"Scheduler should not have tasks left"</span><span class="o">)</span>
+
+  <span class="nf">test</span><span class="o">(</span><span class="s">"simulated async"</span><span class="o">)</span> <span class="o">{</span> <span class="k">implicit</span> <span class="n">ec</span> <span class="k">=&gt;</span>
+    <span class="k">val</span> <span class="nv">f</span> <span class="k">=</span> <span class="nc">Future</span><span class="o">(</span><span class="mi">1</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="k">_</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span>
+    <span class="nv">ec</span><span class="o">.</span><span class="py">tick</span><span class="o">()</span>
+	
+    <span class="nf">assertEquals</span><span class="o">(</span><span class="nv">f</span><span class="o">.</span><span class="py">value</span><span class="o">,</span> <span class="nc">Some</span><span class="o">(</span><span class="nc">Success</span><span class="o">(</span><span class="mi">2</span><span class="o">)))</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Minitest supports asynchronous results in tests, just use <code class="language-plaintext highlighter-rouge">testAsync</code>
+and return a <code class="language-plaintext highlighter-rouge">Future[Unit]</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">scala.concurrent.ExecutionContext.Implicits.global</span>
+
+<span class="k">object</span> <span class="nc">MySimpleSuite</span> <span class="k">extends</span> <span class="nc">SimpleTestSuite</span> <span class="o">{</span>
+  <span class="nf">testAsync</span><span class="o">(</span><span class="s">"asynchronous execution"</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">val</span> <span class="nv">future</span> <span class="k">=</span> <span class="nc">Future</span><span class="o">(</span><span class="mi">100</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="k">_</span><span class="o">+</span><span class="mi">1</span><span class="o">)</span>
+    
+    <span class="nf">for</span> <span class="o">(</span><span class="n">result</span> <span class="k">&lt;-</span> <span class="n">future</span><span class="o">)</span> <span class="k">yield</span> <span class="o">{</span>
+      <span class="nf">assertEquals</span><span class="o">(</span><span class="n">result</span><span class="o">,</span> <span class="mi">101</span><span class="o">)</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Minitest has integration with
+<a href="https://www.scalacheck.org/">ScalaCheck</a>. 
+So for property-based testing:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">minitest.laws.Checkers</span>
+
+<span class="k">object</span> <span class="nc">MyLawsTest</span> <span class="k">extends</span> <span class="nc">SimpleTestSuite</span> <span class="k">with</span> <span class="nc">Checkers</span> <span class="o">{</span>
+  <span class="nf">test</span><span class="o">(</span><span class="s">"addition of integers is commutative"</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nf">check2</span><span class="o">((</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">==</span> <span class="n">y</span> <span class="o">+</span> <span class="n">x</span><span class="o">)</span>
+  <span class="o">}</span>
+  
+  <span class="nf">test</span><span class="o">(</span><span class="s">"addition of integers is transitive"</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nf">check3</span><span class="o">((</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">z</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="o">)</span> <span class="o">+</span> <span class="n">z</span> <span class="o">==</span> <span class="n">x</span> <span class="o">+</span> <span class="o">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">z</span><span class="o">))</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>That’s everything!</p>
+      <h2 id="common-complaints">
+        
+        
+          Common Complaints <a href="#common-complaints" class="anchor">#</a>
+        
+        
+      </h2>
+    
+      <h3 id="i-do-not-like-future">
+        
+        
+          I do not like Future <a href="#i-do-not-like-future" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>That’s too bad, because the <code class="language-plaintext highlighter-rouge">Future</code> is needed by the runtime and
+regardless what alternative you use (e.g. <code class="language-plaintext highlighter-rouge">cats.effect.IO</code>,
+<code class="language-plaintext highlighter-rouge">monix.eval.Task</code>), you’ll have to convert it into a <code class="language-plaintext highlighter-rouge">Future</code> anyway.</p>
+
+<p>Besides, a good testing framework cannot have dependencies, because it
+would end in conflict with the project’s dependencies. It’s unwise to
+depend on Cats or Scalaz.</p>
+
+<p>And you can always build your own <code class="language-plaintext highlighter-rouge">testTask</code>, <code class="language-plaintext highlighter-rouge">testEffect</code> or <code class="language-plaintext highlighter-rouge">testIO</code>
+utilities on top of <code class="language-plaintext highlighter-rouge">testAsync</code>.</p>
+      <h3 id="i-want-a-purely-functional-api">
+        
+        
+          I want a purely functional API <a href="#i-want-a-purely-functional-api" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p><a href="https://etorreborre.github.io/specs2/">Specs2</a> has a nice functional
+API. You might like that, however I don’t like it for all the reasons
+stated above.</p>
+
+<p>And if pure FP is what you want, nothing stops you from implementing
+your own utilities and I recommend piggybacking on ScalaCheck, e.g:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">cats.effect.IO</span>
+<span class="k">import</span> <span class="nn">org.scalacheck.</span><span class="o">{</span><span class="nc">Prop</span><span class="o">,</span> <span class="nc">Test</span><span class="o">}</span>
+<span class="k">import</span> <span class="nn">scala.concurrent.ExecutionContext.Implicits.global</span>
+
+<span class="k">trait</span> <span class="nc">PureTestSuite</span> <span class="k">extends</span> <span class="nv">minitest</span><span class="o">.</span><span class="py">api</span><span class="o">.</span><span class="py">AbstractTestSuite</span> <span class="o">{</span>
+  <span class="k">private</span><span class="o">[</span><span class="kt">this</span><span class="o">]</span> <span class="k">val</span> <span class="nv">ts</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">SimpleTestSuite</span> <span class="o">{}</span>
+  <span class="k">lazy</span> <span class="k">val</span> <span class="nv">properties</span> <span class="k">=</span> <span class="nv">ts</span><span class="o">.</span><span class="py">properties</span>
+  
+  <span class="k">def</span> <span class="nf">test</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)(</span><span class="n">f</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="nc">Prop</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> 
+    <span class="nv">ts</span><span class="o">.</span><span class="py">test</span><span class="o">(</span><span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">val</span> <span class="nv">result</span> <span class="k">=</span> <span class="nv">Test</span><span class="o">.</span><span class="py">check</span><span class="o">(</span><span class="n">config</span><span class="o">,</span> <span class="n">f</span><span class="o">)</span>
+      <span class="nf">if</span> <span class="o">(!</span><span class="nv">result</span><span class="o">.</span><span class="py">passed</span><span class="o">)</span> <span class="nf">fail</span><span class="o">(</span><span class="nv">Pretty</span><span class="o">.</span><span class="py">pretty</span><span class="o">(</span><span class="n">result</span><span class="o">))</span>
+    <span class="o">}</span>
+
+  <span class="k">def</span> <span class="nf">testIO</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)(</span><span class="n">f</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="nc">IO</span><span class="o">[</span><span class="kt">Prop</span><span class="o">])</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> 
+    <span class="nv">ts</span><span class="o">.</span><span class="py">testAsync</span><span class="o">(</span><span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+      <span class="nv">f</span><span class="o">.</span><span class="py">unsafeToFuture</span><span class="o">.</span><span class="py">map</span> <span class="o">{</span> <span class="n">result</span> <span class="k">=&gt;</span>
+        <span class="k">val</span> <span class="nv">result</span> <span class="k">=</span> <span class="nv">Test</span><span class="o">.</span><span class="py">check</span><span class="o">(</span><span class="n">config</span><span class="o">,</span> <span class="n">f</span><span class="o">)</span>
+        <span class="nf">if</span> <span class="o">(!</span><span class="nv">result</span><span class="o">.</span><span class="py">passed</span><span class="o">)</span> <span class="nf">fail</span><span class="o">(</span><span class="nv">Pretty</span><span class="o">.</span><span class="py">pretty</span><span class="o">(</span><span class="n">result</span><span class="o">))</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>There’s your purely functional API in just a couple of lines of code.</p>
+
+<p>I don’t want that in Monix though - the integration that we have with
+ScalaCheck is minimal and enough.</p>
+      <h3 id="it-does-not-support-maven-cbt-or-others">
+        
+        
+          It does not support Maven, CBT or others <a href="#it-does-not-support-maven-cbt-or-others" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Sorry about that, but this library is meant to be minimal and stable,
+and I don’t have the time to expand support beyond SBT right now.</p>
+
+<p>Pull requests open and only accepted if they don’t complicate the
+codebase much.</p>
+      <h2 id="final-words">
+        
+        
+          Final Words <a href="#final-words" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Forget DSLs.</p>
+
+<p>All you need for testing are
+<a href="https://github.com/monix/minitest/">Minitest</a> and
+<a href="https://www.scalacheck.org/">ScalaCheck</a>.</p>
+
+  </div>
+
+  <div id="article-details">
+    
+    <time itemprop="dateModified" content="2017-11-10T00:00:00+0000">
+        Published: November 10, 2017
+    </time>
+    
+      | Written by <a href="https://alexn.org/about/#alexelcu" itemprop="url" rel="author">Alexandru Nedelcu</a>
+    
+
+    <div id="all-categories">
+      Tags:
+      
+        
+        <a href="/blog/tag/testing/" class="category">Testing</a>
+      
+         | 
+        <a href="/blog/tag/scala/" class="category">Scala</a>
+      
+    </div>
+  </div>
+
+  
+  <div class="related">
+      <h2 id="related-articles">
+        
+        
+          Related Articles <a href="#related-articles" class="anchor">#</a>
+        
+        
+      </h2>
+    
+    <div class="container">
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2021/07/18/iterm-open-file-cmd-click-ide-semantic-history/">
+          Combining the terminal (iTerm) with the IDE
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/macos" class="tag">macOS</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+                        
+          </div>
+          <time>July 18, 2021</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2021/02/26/type-classes-in-scala-3-live-coding-session/">
+          ING Scala Meetup on Scala 3 (live coding session)
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/programming" class="tag">Programming</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/video" class="tag">Video</a>
+                        
+          </div>
+          <time>February 26, 2021</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2021/02/22/countdownlatch-async-dirty/">
+          Implementing a CountDownLatch (async and dirty)
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/concurrency" class="tag">Concurrency</a>
+            
+               | <a href="/blog/tag/jvm" class="tag">JVM</a>
+            
+               | <a href="/blog/tag/multithreading" class="tag">Multithreading</a>
+            
+               | <a href="/blog/tag/programming" class="tag">Programming</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/video" class="tag">Video</a>
+                        
+          </div>
+          <time>February 22, 2021</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  
+
+  
+</article>
+
+      </div>
+   </div><!-- end .content -->
+
+   <script async src="/assets/js/modernizr.custom.15390.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202203310904" type="text/javascript"></script>
+
+<script async src="/assets/js/scripts.js?202203310904" type="text/javascript"></script>
+
+   <div class="footer">
+  
+  <div class="container">
+    <div class="contributions">
+      <h2 id="comments">
+  Comments
+  <a href="#comments" class="anchor">#</a>
+</h2>
+
+<p>
+  Do you have suggestions? Want to chat? Email me at: <br>
+  <script>
+    (function () {
+      var lhs = "contact22+comments";
+      var rhs = "alexn.org";
+      document.write("<a target=\"_blank\" href=\"mailto");
+      document.write(":" + lhs + "@");
+      document.write(rhs);
+      document.write("?subject=Comment%20on%3A%20Minitest:%20Zero%20Crap%20Scala%20Testing%20Library")
+      document.write("\">" + lhs + "@" + rhs + "<\/a>");
+    })()
+  </script>
+  <noscript>
+    <em>Email address is protected via JavaScript, activate it to see it!</em>
+  </noscript>
+</p>
+
+<h2 id="contribute">
+  Contribute
+  <a href="#contribute" class="anchor">#</a>
+</h2>
+
+
+<p>
+  Fix or add to this article by submitting a pull request:<br/>
+  <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/main/_posts/2017-11-10-minitest-no-crap-scala-library.md" target="_blank">Edit Page on GitHub</a>
+</p>
+
+<p>
+  Donate to cover ongoing website costs, or buy me coffee ☕️😋 <br/>
+  <a href="https://www.patreon.com/bePatron?u=6102596" target="_blank">
+    <img label="Become a Patron!" alt="Become a Patron!" title="Become a Patron!" src="/assets/media/buttons/patreon.png" height="40" />
+  </a>
+</p>
+
+
+<h2 id="subscribe">
+  Subscribe
+  <a href="#subscribe" class="anchor">#</a>
+</h2>
+
+<!-- Begin Mailchimp Signup Form -->
+<div id="mc_embed_signup">
+  <form action="https://alexn.us4.list-manage.com/subscribe/post?u=5bffa2af025192a58345bd5dc&amp;id=1c9005b255"
+    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
+    novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="mc-field-group field">
+        <label for="mce-EMAIL">Email Address <sup class="asterisk">*</sup></label>
+        <input type="email" value="" name="EMAIL" class="required email full-width" id="mce-EMAIL" placeholder="user@domain.com" required>
+      </div>
+      <!-- <div class="mc-field-group field">
+        <label for="mce-FULLNAME">Name</label>
+        <input type="text" value="" name="FULLNAME" class="full-width" id="mce-FULLNAME" placeholder="John Doe">
+      </div> -->
+      <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+      </div>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+          name="b_5bffa2af025192a58345bd5dc_1c9005b255" tabindex="-1" value=""></div>
+      <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+          class="button"></div>
+    </div>
+  </form>
+</div>
+
+<div class="note">
+  <span class="extra">
+    Newsletter subscription uses Mailchimp, see <a href="/docs/privacy-policy/">privacy policy</a>.
+    If you're not seeing the form, it may be blocked by the browser; <a target="_blank" href="http://eepurl.com/g5ClAT"><em><span style="white-space: nowrap;">try the external subscribe page &#10141;</span></em></a>
+  </span>
+</div>
+
+
+    </div>  
+  </div>
+  
+
+  <div class="bottom">
+    <div class="container">
+      <span class="copy">
+          &copy; 2009-2022
+      </span>
+      <span class="links">
+        <a href="/docs/license/">License</a> |
+        <a href="/docs/privacy-policy/">Privacy Policy</a> |
+        <a href="/about/#contact">Contact</a>
+      </span>
+    </div>
+  </div>
+</div><!-- end .footer -->
+
+</body>
+</html>

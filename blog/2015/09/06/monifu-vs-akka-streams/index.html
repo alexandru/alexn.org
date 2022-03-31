@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <!-- https://github.com/darkreader/darkreader/issues/1114 -->
+    <!-- <meta name="darkreader" content="41637b04c7ddb955e533a5c76d68a2c8"> -->
+    <meta name="color-scheme" content="light dark">
+    <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
+    <meta name="theme-color" content="#493667">
+    
+    <title>Monifu vs Akka Streams - Alexandru Nedelcu</title>
+    
+
+    <!-- Open Graph Meta -->
+    <meta content="Alexandru Nedelcu" property="og:site_name">
+    <meta content="Monifu vs Akka Streams" property="og:title">
+    
+      <meta content="On programming and personal projects" property="og:description">
+    <meta content="https://alexn.org/blog/2015/09/06/monifu-vs-akka-streams/" property="og:url">
+    <meta content="2015-09-06T00:00:00+00:00" property="article:published_time">
+    
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/monifu.png?202203310904" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/monifu.png?202203310904" />
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/monifu.png?202203310904">
+    <meta name="twitter:site" content="@alexelcu">
+    <meta name="twitter:creator" content="@alexelcu">
+    <meta name="twitter:title" content="Monifu vs Akka Streams">
+    <meta name="twitter:url" content="https://alexn.org/blog/2015/09/06/monifu-vs-akka-streams/">
+    
+      <meta name="twitter:description" content="On programming and personal projects">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/logo/16px.png" sizes="16x16" />
+    <link rel="icon" href="/assets/logo/32px.png" sizes="32x32" />
+    <link rel="icon" href="/assets/logo/192px.png" sizes="192x192" />
+    <link rel="icon" href="/assets/logo/270px.png" sizes="270x270" />
+    <link rel="icon" href="/assets/logo/512px.png" sizes="512x512" />
+    <link rel="apple-touch-icon-precomposed" href="/assets/logo/180px.png" />
+    <meta name="msapplication-TileImage" content="/assets/logo/270px.png" />
+
+    <!-- Come and get me RSS readers -->
+    <link rel="alternate" type="application/rss+xml" title="All articles (blog, snippets, wiki, links)" href="/feeds/all.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Blog" href="/feeds/blog.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Snippets" href="/feeds/snippets.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Shared Links" href="/feeds/links.xml" />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/assets/css/style.css?202203310904">
+    <link rel="preload" as="style" href="/assets/css/style.css?202203310904">
+    
+    <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
+    <link rel="canonical" href="https://alexn.org/blog/2015/09/06/monifu-vs-akka-streams/">
+</head>
+
+
+<body>
+   <div class="header">
+  <div class="container">
+    <div class="inner-container">
+      <h1 class="logo"><a href="/">Alex<span class="wide2">andru</span> Nedelcu<span class="wide1"> =&lt;&lt;</span></a></h1>
+      <nav class="nav-collapse">
+        <ul class="noList">
+          
+          <li class="element first current ">
+            <a href="/blog/">Blog</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/wiki/">Wiki</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/snippets/">Snippets</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/links/">Links</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/about/">About</a>
+          </li>
+          
+          <li class="element   last">
+            <a href="/subscribe/">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav>  
+    </div>
+  </div>
+</div><!-- end .header -->
+
+
+   <div class="content">
+      <div class="container">
+         <article class="post" itemscope itemtype="http://schema.org/BlogPosting"><header>
+      <h1 class="postTitle" itemprop="headline">
+        
+        
+          
+      Monifu vs Akka Streams
+    
+        
+        
+      </h1>
+    
+    <p class="meta">
+      <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://alexn.org/blog/2015/09/06/monifu-vs-akka-streams/"/>
+      <meta itemprop="datePublished" content="2015-09-06T00:00:00+0000"/>
+      
+      <time itemprop="dateCreated" datetime="2015-09-06T00:00:00+0000">September 6, 2015</time>
+      | <nobr><span class="time">14</span> minutes</nobr>
+    </p>
+
+    
+      <div class="hidden" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="https://alexn.org/assets/media/articles/monifu.png" />
+        
+      </div>
+      
+    
+
+    <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Alexandru Nedelcu">
+      <meta itemprop="url" content="https://alexn.org/about/">
+      <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="https://alexn.org/assets/raw/logo-green.png">
+      </div>
+    </div>
+    <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="Alexandru Nedelcu" />
+        <meta itemprop="url" content="https://alexn.org/about/#alexelcu" />
+        <meta itemprop="url" content="https://twitter.com/alexelcu" />
+        <meta itemprop="url" content="https://github.com/alexandru" />
+      </div>
+    
+
+    </header>
+
+  <div id="content" itemprop="articleBody">
+    <p>Back in June I attended
+<a href="http://event.scaladays.org/scaladays-amsterdam-2015">Scala Days</a> in
+Amsterdam and participated at a talk by Mathias Doenitz on
+<a href="https://www.parleys.com/tutorial/the-reactive-streams-implementation-landscape">The Reactive Streams Implementation Landscape</a>.
+It was a good talk, yet I felt a little bias towards Akka Streams,
+which is natural coming from somebody that is contributing to Akka,
+but let me give you the perspective from <em>the other side</em>.</p>
+
+<figure class="page-width">
+  <img src="/assets/media/articles/monifu.png" />
+</figure>
+
+<p>For a short introduction, we are talking about libraries that are
+meant for stream processing. Several libraries exist for stream
+processing, a craze that started with
+<a href="https://msdn.microsoft.com/en-us/data/gg577609.aspx">Rx.NET</a>, or with
+<a href="https://en.wikipedia.org/wiki/Iteratee">Iteratees</a> on the Haskell
+side and since then we ended up with ports and enhancements, like
+<a href="https://github.com/ReactiveX/RxJava">RxJava</a>,
+<a href="https://github.com/Reactive-Extensions/RxJS">Rx.js</a>,
+<a href="https://baconjs.github.io/">Bacon.js</a>,
+<a href="https://www.playframework.com/documentation/2.4.x/Iteratees">Play’s Iteratees</a>,
+<a href="https://github.com/scalaz/scalaz-stream">Scalaz Streams</a> and more
+recently
+<a href="http://doc.akka.io/docs/akka-stream-and-http-experimental/current/">Akka Streams</a>.</p>
+
+<p>The library I’ve been working on is named
+<strong><a href="https://github.com/monifu/monifu">Monifu</a></strong>. It has just
+reached 1.0-RC1, it is built on idiomatic Scala principles, is
+cross-compiled to <a href="http://www.scala-js.org/">Scala.js</a>, is freaking
+awesome and even though it is inspired by Rx, compared to other Rx
+implementations, it was designed from scratch to deal with
+back-pressure. It’s also implementing the 1.0 version of the
+<a href="http://www.reactive-streams.org/">Reactive Streams</a> protocol for
+interoperability. Checkout this cool sample of client/server
+communications, where both the server-side and the browser-side is handled
+by Monifu: <a href="https://github.com/monifu/monifu-sample">code</a> /
+<a href="http://monifu-sample.herokuapp.com/">demo</a>
+(that’s a free Heroku node, go easy on it :-)).</p>
+      <h2 id="code">
+        
+        
+          Code <a href="#code" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>I am biased, I admit. But personally I find the design of Akka Streams
+to be <em>conceptually ugly</em>.</p>
+
+<p>Mathias was kind to release his comparison
+<a href="https://github.com/sirthias/rs-comparison">on GitHub</a>, containing the
+same problem solved with Akka Streams, RxJava and Reactor and I think
+this provides a good starting point for a comparison.  So lets take
+Mathias’s own
+<a href="https://github.com/alexandru/rs-comparison/blob/master/src/main/scala/swave/rsc/AkkaPi.scala">sample for Akka Streams</a>
+and compare it with my
+<a href="https://github.com/alexandru/rs-comparison/blob/master/src/main/scala/swave/rsc/MonifuPi.scala">own sample for Monifu</a>. Akka
+Streams is missing some useful operators, like operators for
+throttling, therefore the code needs to implement it.</p>
+
+<p>To throttle once per second, here’s what the Akka Streams sample is doing:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Akka Streams sample</span>
+<span class="k">def</span> <span class="nf">onePerSecValve</span><span class="k">:</span> <span class="kt">Flow</span><span class="o">[</span><span class="kt">State</span>, <span class="kt">State</span>, <span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nc">Flow</span><span class="o">()</span> <span class="o">{</span> <span class="k">implicit</span> <span class="n">b</span> <span class="k">⇒</span>
+    <span class="k">import</span> <span class="nn">FlowGraph.Implicits._</span>
+
+    <span class="k">val</span> <span class="nv">zip</span> <span class="k">=</span> <span class="nv">b</span><span class="o">.</span><span class="py">add</span><span class="o">(</span><span class="nc">ZipWith</span><span class="o">[</span><span class="kt">State</span>, <span class="kt">Tick.</span><span class="k">type</span>, <span class="kt">State</span><span class="o">](</span><span class="nv">Keep</span><span class="o">.</span><span class="py">left</span><span class="o">)</span>
+      <span class="o">.</span><span class="py">withAttributes</span><span class="o">(</span><span class="nv">OperationAttributes</span><span class="o">.</span><span class="py">inputBuffer</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">1</span><span class="o">)))</span>
+    <span class="k">val</span> <span class="nv">dropOne</span> <span class="k">=</span> <span class="nv">b</span><span class="o">.</span><span class="py">add</span><span class="o">(</span><span class="nc">Flow</span><span class="o">[</span><span class="kt">State</span><span class="o">].</span><span class="py">drop</span><span class="o">(</span><span class="mi">1</span><span class="o">))</span>
+
+    <span class="nc">Source</span><span class="o">(</span><span class="nv">Duration</span><span class="o">.</span><span class="py">Zero</span><span class="o">,</span> <span class="mf">1.</span><span class="n">second</span><span class="o">,</span> <span class="nc">Tick</span><span class="o">)</span> <span class="o">~&gt;</span> <span class="nv">zip</span><span class="o">.</span><span class="py">in1</span>
+    <span class="nv">zip</span><span class="o">.</span><span class="py">out</span> <span class="o">~&gt;</span> <span class="nv">dropOne</span><span class="o">.</span><span class="py">inlet</span>
+
+    <span class="o">(</span><span class="nv">zip</span><span class="o">.</span><span class="py">in0</span><span class="o">,</span> <span class="nv">dropOne</span><span class="o">.</span><span class="py">outlet</span><span class="o">)</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+
+<p>Monifu has
+<a href="https://monifu.org/api/1.0-RC1/index.html#monifu.reactive.Observable@throttleFirst(interval:scala.concurrent.duration.FiniteDuration):monifu.reactive.Observable[T]">throttling operators</a>
+built-in, but if that weren’t the case, here’s how you could implement
+sampling per second:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Monifu sample</span>
+<span class="k">def</span> <span class="nf">throttleOnePerSec</span><span class="o">[</span><span class="kt">T</span><span class="o">](</span><span class="n">source</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">T</span><span class="o">])</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="nv">tick</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">intervalAtFixedRate</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">,</span> <span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
+  <span class="nv">source</span><span class="o">.</span><span class="py">whileBusyDropEvents</span><span class="o">.</span><span class="py">zip</span><span class="o">(</span><span class="n">tick</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">map</span> <span class="o">{</span> <span class="nf">case</span> <span class="o">(</span><span class="n">elem</span><span class="o">,</span> <span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">elem</span> <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Both pieces of code are doing roughly the same thing. A different
+data-source is being started that generates a tick over every second
+and that data-source is being <code class="language-plaintext highlighter-rouge">zipped</code> with our source. Events emitted
+by our source are dropped as long as the tick is silent and then when
+the tick event happens we emit whatever we’ve got. Using <code class="language-plaintext highlighter-rouge">zip</code> for
+sampling is actually very inefficient, as <code class="language-plaintext highlighter-rouge">zip</code> is a fundamentally
+concurrent operator, but this is just for comparing apples with apples
+;-)</p>
+
+<p>So why is the code for Akka Streams looking so complicated? Well
+that’s because of its design, but lets come back to that later.
+In the Akka Streams sample, here’s how the original data-source is
+being split in two streams (<code class="language-plaintext highlighter-rouge">filterInner</code> and <code class="language-plaintext highlighter-rouge">filterOuter</code>) and then
+merged:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Akka Streams sample</span>
+<span class="nc">Source</span><span class="o">(()</span> <span class="k">⇒</span> <span class="k">new</span> <span class="nc">RandomDoubleValueGenerator</span><span class="o">())</span>
+  <span class="o">.</span><span class="py">grouped</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">map</span> <span class="o">{</span> <span class="k">case</span> <span class="n">x</span> <span class="o">+:</span> <span class="n">y</span> <span class="o">+:</span> <span class="nc">Nil</span> <span class="k">⇒</span> <span class="nc">Point</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span> <span class="o">}</span>
+  <span class="o">.</span><span class="py">via</span><span class="o">(</span><span class="n">broadcastFilterMerge</span><span class="o">)</span>
+
+<span class="c1">// ...</span>
+<span class="k">def</span> <span class="nf">broadcastFilterMerge</span><span class="k">:</span> <span class="kt">Flow</span><span class="o">[</span><span class="kt">Point</span>, <span class="kt">Sample</span>, <span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nc">Flow</span><span class="o">()</span> <span class="o">{</span> <span class="k">implicit</span> <span class="n">b</span> <span class="k">⇒</span>
+    <span class="k">import</span> <span class="nn">FlowGraph.Implicits._</span>
+
+    <span class="k">val</span> <span class="nv">broadcast</span> <span class="k">=</span> <span class="nv">b</span><span class="o">.</span><span class="py">add</span><span class="o">(</span><span class="nc">Broadcast</span><span class="o">[</span><span class="kt">Point</span><span class="o">](</span><span class="mi">2</span><span class="o">))</span> <span class="c1">// split one upstream into 2 downstreams</span>
+    <span class="k">val</span> <span class="nv">filterInner</span> <span class="k">=</span> <span class="nv">b</span><span class="o">.</span><span class="py">add</span><span class="o">(</span><span class="nc">Flow</span><span class="o">[</span><span class="kt">Point</span><span class="o">].</span><span class="py">filter</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">isInner</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="nc">InnerSample</span><span class="o">))</span>
+    <span class="k">val</span> <span class="nv">filterOuter</span> <span class="k">=</span> <span class="nv">b</span><span class="o">.</span><span class="py">add</span><span class="o">(</span><span class="nc">Flow</span><span class="o">[</span><span class="kt">Point</span><span class="o">].</span><span class="py">filter</span><span class="o">(!</span><span class="nv">_</span><span class="o">.</span><span class="py">isInner</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="nc">OuterSample</span><span class="o">))</span>
+    <span class="k">val</span> <span class="nv">merge</span> <span class="k">=</span> <span class="nv">b</span><span class="o">.</span><span class="py">add</span><span class="o">(</span><span class="nc">Merge</span><span class="o">[</span><span class="kt">Sample</span><span class="o">](</span><span class="mi">2</span><span class="o">))</span> <span class="c1">// merge 2 upstreams into one downstream</span>
+
+    <span class="nv">broadcast</span><span class="o">.</span><span class="py">out</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="o">~&gt;</span> <span class="n">filterInner</span> <span class="o">~&gt;</span> <span class="nv">merge</span><span class="o">.</span><span class="py">in</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+    <span class="nv">broadcast</span><span class="o">.</span><span class="py">out</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span> <span class="o">~&gt;</span> <span class="n">filterOuter</span> <span class="o">~&gt;</span> <span class="nv">merge</span><span class="o">.</span><span class="py">in</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+
+    <span class="o">(</span><span class="nv">broadcast</span><span class="o">.</span><span class="py">in</span><span class="o">,</span> <span class="nv">merge</span><span class="o">.</span><span class="py">out</span><span class="o">)</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+
+<p>Here’s Monifu’s version, doing the same thing.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Monifu sample</span>
+<span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nc">Observable</span>
+  <span class="o">.</span><span class="py">fromIterator</span><span class="o">(</span><span class="k">new</span> <span class="nc">RandomDoubleValueGenerator</span><span class="o">())</span>
+  <span class="o">.</span><span class="py">buffer</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">map</span> <span class="o">{</span> <span class="k">case</span> <span class="nc">Seq</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span> <span class="k">⇒</span> <span class="nc">Point</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span> <span class="o">}</span>
+  <span class="o">.</span><span class="py">share</span><span class="o">()</span> <span class="c1">// shares the data-source</span>
+
+<span class="k">val</span> <span class="nv">innerSamples</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">filter</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">isInner</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="nc">InnerSample</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">outerSamples</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">filter</span><span class="o">(!</span><span class="nv">_</span><span class="o">.</span><span class="py">isInner</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="nc">OuterSample</span><span class="o">)</span>
+
+<span class="nv">Observable</span><span class="o">.</span><span class="py">merge</span><span class="o">(</span><span class="n">innerSamples</span><span class="o">,</span> <span class="n">outerSamples</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>At this point I think a pattern emerges.</p>
+      <h2 id="design">
+        
+        
+          Design <a href="#design" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>A stream of information is like a river. Does the river care who
+observes it or who drinks from it? No, it doesn’t. And yes, sometimes
+you need to share the source between multiple listeners, sometimes you
+want to create new sources for each listener. But the listener
+shouldn’t care what sort of producer it has on its hands or
+vice-versa. And people are really not good at reasoning about graphs
+and making those graphs explicit doesn’t make it better, it makes it
+worse.</p>
+
+<figure class="page-width">
+  <img src="/assets/media/articles/river.jpg" />
+</figure>
+
+<p>In Monifu / Rx you’ve got hot observables (hot data sources shared
+between an unlimited number of subscribers) and cold observables (each
+subscriber gets its very own private data source). You can also
+convert any cold data source into a hot one by using the <code class="language-plaintext highlighter-rouge">multicast</code>
+operator, in combination with <code class="language-plaintext highlighter-rouge">Subjects</code> that dictate behavior
+(e.g. Publish, Behavior, Async or Replay). The
+<a href="https://monifu.org/api/1.0-RC1/index.html#monifu.reactive.observables.ConnectableObservable">ConnectableObservable</a>
+is meant for hot data sources. In our sample above, we are using
+<code class="language-plaintext highlighter-rouge">share()</code>, an operator that transforms our data source into a hot one
+and then applies reference counting on its subscribers to know when to
+stop it. This is what <em>encapsulation</em> is all about.</p>
+
+<p>In Akka Streams the sources have a “single output” port and what you
+do is you build “flow graphs” and sinks. Akka Streams is thus all
+about modeling how streams are split. They call it “<em>explicit
+fan-out</em>” and it’s a design choice. However I consider it an
+encapsulation leak that makes things way more complicated than they
+should be and defeats the purpose of using a library for streams
+manipulation in the first place. In Rx (Rx.NET / RxJava / Monifu)
+terms, this is like having single-subscriber Observables and then
+working with Subjects (which is both a listener and a producer) and
+people that have used Rx know that working with Subjects sucks and
+when you do, you usually encapsulate it really, really well. This
+design choice of Akka Streams has also leaked into the “Reactive
+Streams” specification, as that Processor interface is irrelevant,
+plus during the talks on what the <code class="language-plaintext highlighter-rouge">Producer</code> should be, the original
+design was for the <code class="language-plaintext highlighter-rouge">Producer</code> to be single-subscriber.</p>
+
+<p>Another thing I don’t like is that Akka Streams depends on Akka, the
+library. You need an Actor System and an <code class="language-plaintext highlighter-rouge">ActorFlowMaterializer</code>,
+whatever that is, with the tasks being executed by actors. I think
+that’s a design mistake. One reason for why Scala’s <code class="language-plaintext highlighter-rouge">Future</code> and
+<code class="language-plaintext highlighter-rouge">ExecutionContext</code> are great is precisely because they model only
+asynchronous computations, but are completely oblivious to how the
+required asynchronous execution happens. This
+is why <code class="language-plaintext highlighter-rouge">Future</code> works on top of Scala.js without problems.</p>
+
+<p>And again, I’m biased, but Monifu’s own implementation is conceptually
+elegant. You’ve got the
+<a href="https://github.com/monifu/monifu/blob/master/core/shared/src/main/scala/monifu/concurrent/Scheduler.scala#L34">Scheduler</a>
+that is used to execute tasks (an evolved <code class="language-plaintext highlighter-rouge">ExecutionContext</code>), the
+<a href="https://github.com/monifu/monifu/blob/v1.0-RC1/monifu/shared/src/main/scala/monifu/reactive/Observable.scala#L379">Observable</a>
+interface which is the producer, characterized solely by its
+<code class="language-plaintext highlighter-rouge">onSubscribe</code> function, then you’ve got the
+<a href="https://github.com/monifu/monifu/blob/v1.0-RC1/monifu/shared/src/main/scala/monifu/reactive/Observer.scala#L42">Observer</a>
+which represents the consumer and has the back-pressure protocol baked
+in its API, the
+<a href="https://github.com/monifu/monifu/blob/v1.0-RC1/monifu/shared/src/main/scala/monifu/reactive/Subject.scala#L34">Subject</a>
+that is both a producer and a consumer, the
+<a href="https://github.com/monifu/monifu/blob/master/monifu/shared/src/main/scala/monifu/reactive/Channel.scala#L28">Channel</a>
+which represents a way to build Observables in an imperative way
+without back-pressure concerns and the
+<a href="https://github.com/monifu/monifu/blob/master/monifu/shared/src/main/scala/monifu/reactive/observables/ConnectableObservable.scala#L33">ConnectableObservable</a>,
+which represents hot data-sources that are shared between multiple
+subscribers. Monifu’s internals are self-explanatory and (I hope) a
+joy to go through.</p>
+
+<p>I mean, this beauty describes Monifu’s design and represents at least
+half of what you need to know (and skipping over back-pressure
+concerns, you
+<a href="https://en.wikipedia.org/wiki/Observer_pattern">already know it</a>):</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">trait</span> <span class="nc">Observer</span><span class="o">[</span><span class="kt">-T</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="nf">onNext</span><span class="o">(</span><span class="n">elem</span><span class="k">:</span> <span class="kt">T</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Ack</span><span class="o">]</span>
+
+  <span class="k">def</span> <span class="nf">onError</span><span class="o">(</span><span class="n">ex</span><span class="k">:</span> <span class="kt">Throwable</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span>
+
+  <span class="k">def</span> <span class="nf">onComplete</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In contrast, I found the source-code and the concepts in Akka Streams
+to be very hard to read and understand. Give it a try and compare.</p>
+      <h2 id="performance">
+        
+        
+          Performance <a href="#performance" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>I’ve left the best part of Monifu for last. Here’s running the Monifu
+sample:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>[info] Running swave.rsc.MonifuPi
+
+After  1,909,713 samples π is approximated as 3.14102
+After  4,132,610 samples π is approximated as 3.14240
+After  6,342,356 samples π is approximated as 3.14241
+After  8,513,597 samples π is approximated as 3.14239
+After 10,696,940 samples π is approximated as 3.14176
+After 12,897,762 samples π is approximated as 3.14165
+After 15,099,261 samples π is approximated as 3.14160
+After 17,326,511 samples π is approximated as 3.14169
+After 19,529,832 samples π is approximated as 3.14164
+After 21,752,232 samples π is approximated as 3.14170
+
+[success] Total time: 11 s, completed Sep 6, 2015 2:48:06 PM
+</code></pre></div></div>
+
+<p>Here’s Akka Streams:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>[info] Running swave.rsc.AkkaPi
+
+After     59,812 samples π is approximated as 3.12807
+After    258,925 samples π is approximated as 3.13910
+After    525,537 samples π is approximated as 3.14173
+After    892,973 samples π is approximated as 3.14070
+After  1,258,939 samples π is approximated as 3.14127
+After  1,545,861 samples π is approximated as 3.14019
+After  1,813,374 samples π is approximated as 3.14103
+After  2,219,992 samples π is approximated as 3.14137
+After  2,515,283 samples π is approximated as 3.14129
+After  2,826,297 samples π is approximated as 3.14148
+
+[success] Total time: 13 s, completed Sep 6, 2015 2:49:23 PM
+</code></pre></div></div>
+
+<p>Here’s RxJava (RxScala):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>[info] Running swave.rsc.RxScalaPi
+
+After    804,127 samples π is approximated as 3.11240
+After  1,747,146 samples π is approximated as 3.12848
+After  2,761,645 samples π is approximated as 3.13558
+After  3,678,029 samples π is approximated as 3.13880
+After  4,756,818 samples π is approximated as 3.13960
+After  5,787,079 samples π is approximated as 3.14172
+After  6,768,352 samples π is approximated as 3.14249
+After  7,804,973 samples π is approximated as 3.14320
+After  8,812,403 samples π is approximated as 3.14381
+After  9,625,207 samples π is approximated as 3.14393
+
+[success] Total time: 12 s, completed Sep 6, 2015 2:54:55 PM
+</code></pre></div></div>
+
+<p>The results:</p>
+
+<figure class="page-width">
+  <img src="/assets/media/articles/bench-monifu.png" />
+</figure>
+
+<p>So my Monifu sample is consistently beating Akka Streams by at least a
+<strong>factor of 7</strong> and RxJava/RxScala by a <strong>factor of 2</strong>.</p>
+
+<p>The difference is so large that either Akka Streams has some serious
+improvements to achieve, or I’m doing something terribly wrong,
+because this is Monifu’s out-of-the-box behavior, as in I haven’t even
+attempted to fine tune the buffers or the scheduler for this sample.</p>
+
+<p>But yes, Monifu was built for both ease of use and performance.</p>
+      <h2 id="final-words">
+        
+        
+          Final Words <a href="#final-words" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Again, I’m biased, since I’m the author of an alternative, so take
+this conclusion for what it is.</p>
+
+<p>The precursors of Akka Streams have been
+<a href="https://www.playframework.com/documentation/2.4.x/Iteratees">Play’s Iteratees</a>
+and the
+<a href="http://doc.akka.io/docs/akka/2.2.0/scala/io-codec.html">Akka I/O Pipeline</a>,
+the former on its way to deprecation, the latter already
+deprecated. Unfortunately I’m seeing the same mistakes: implementation
+hard to read, conceptualy very complicated, while exposing custom
+binary operators in the hope of forming a DSL that will somehow fix
+this complexity. And I’m all for wheel reinvention when it’s done for
+the right reasons, but I find this model to be inferior to an evolved
+Rx (such as Monifu) and this is just one other design heading towards
+deprecation.</p>
+
+<p>If you’re interested in Monifu, there’s still some work to be done.
+It’s at release candidate for version 1.0, meaning that we’re done breaking the
+API and a very functional core is ready. Monifu has been developed in
+parallel to its usage in production for the past year, should be fairly
+solid and has very good test coverage as testament to that, but bugs may
+still happen, since a lot of work went on this past month.
+Documentation is sadly a work in progress and for now only the
+<a href="http://monifu.org/api/current/">API documentation</a> is up to date. But we’re
+marching towards a 1.0 release you can rely on, which should be available
+in about two weeks from now (if everything goes well). Checkout the
+<a href="https://github.com/monifu/monifu">GitHub repo</a>, join
+<a href="https://gitter.im/monifu/monifu">our chat channel</a> and give us feedback.</p>
+      <h3 id="update-sep-8-800-am">
+        
+        
+          Update (Sep 8, 8:00 AM) <a href="#update-sep-8-800-am" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Some interesting questions happened on
+<a href="https://www.reddit.com/r/scala/comments/3jymvw/monifu_vs_akka_streams/">the reddit thread</a>.
+To dispel some myths:</p>
+
+<ol>
+  <li>currently Akka Streams does no more parallelism than Monifu does</li>
+  <li>in our sample Monifu is not single-threaded</li>
+  <li>in our sample Monifu parallelizes the portion that it can, which
+is the processing of <code class="language-plaintext highlighter-rouge">filterInner</code> and <code class="language-plaintext highlighter-rouge">filterOuter</code>, plus execution
+is jumping threads, because Monifu as a matter of policy never keeps
+a single thread occupied for too long</li>
+  <li>you can’t parallelize concurrent operations, that being an oxymoron,
+which is why I’m dumbfounded by claims of parallelism</li>
+</ol>
+
+<p>Cheers,</p>
+
+  </div>
+
+  <div id="article-details">
+    
+    <time itemprop="dateModified" content="2015-09-06T00:00:00+0000">
+        Published: September 6, 2015
+    </time>
+    
+      | Written by <a href="https://alexn.org/about/#alexelcu" itemprop="url" rel="author">Alexandru Nedelcu</a>
+    
+
+    <div id="all-categories">
+      Tags:
+      
+        
+        <a href="/blog/tag/fp/" class="category">FP</a>
+      
+         | 
+        <a href="/blog/tag/scala/" class="category">Scala</a>
+      
+         | 
+        <a href="/blog/tag/rx/" class="category">Rx</a>
+      
+         | 
+        <a href="/blog/tag/reactive%20streams/" class="category">Reactive Streams</a>
+      
+    </div>
+  </div>
+
+  
+  <div class="related">
+      <h2 id="related-articles">
+        
+        
+          Related Articles <a href="#related-articles" class="anchor">#</a>
+        
+        
+      </h2>
+    
+    <div class="container">
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2015/12/15/avoid-javaisms-code-smell/">
+          Avoid Javaisms: Mocks, Stubs, DI is Code Smell
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/rx" class="tag">Rx</a>
+                        
+          </div>
+          <time>December 15, 2015</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2021/02/26/type-classes-in-scala-3-live-coding-session/">
+          ING Scala Meetup on Scala 3 (live coding session)
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/programming" class="tag">Programming</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/video" class="tag">Video</a>
+                        
+          </div>
+          <time>February 26, 2021</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2021/02/12/scala-list-secret/">
+          Scala&#39;s List has a Secret
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/multithreading" class="tag">Multithreading</a>
+            
+               | <a href="/blog/tag/programming" class="tag">Programming</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+                        
+          </div>
+          <time>February 12, 2021</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  
+
+  
+</article>
+
+      </div>
+   </div><!-- end .content -->
+
+   <script async src="/assets/js/modernizr.custom.15390.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202203310904" type="text/javascript"></script>
+
+<script async src="/assets/js/scripts.js?202203310904" type="text/javascript"></script>
+
+   <div class="footer">
+  
+  <div class="container">
+    <div class="contributions">
+      <h2 id="comments">
+  Comments
+  <a href="#comments" class="anchor">#</a>
+</h2>
+
+<p>
+  Do you have suggestions? Want to chat? Email me at: <br>
+  <script>
+    (function () {
+      var lhs = "contact22+comments";
+      var rhs = "alexn.org";
+      document.write("<a target=\"_blank\" href=\"mailto");
+      document.write(":" + lhs + "@");
+      document.write(rhs);
+      document.write("?subject=Comment%20on%3A%20Monifu%20vs%20Akka%20Streams")
+      document.write("\">" + lhs + "@" + rhs + "<\/a>");
+    })()
+  </script>
+  <noscript>
+    <em>Email address is protected via JavaScript, activate it to see it!</em>
+  </noscript>
+</p>
+
+<h2 id="contribute">
+  Contribute
+  <a href="#contribute" class="anchor">#</a>
+</h2>
+
+
+<p>
+  Fix or add to this article by submitting a pull request:<br/>
+  <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/main/_posts/2015-09-06-monifu-vs-akka-streams.md" target="_blank">Edit Page on GitHub</a>
+</p>
+
+<p>
+  Donate to cover ongoing website costs, or buy me coffee ☕️😋 <br/>
+  <a href="https://www.patreon.com/bePatron?u=6102596" target="_blank">
+    <img label="Become a Patron!" alt="Become a Patron!" title="Become a Patron!" src="/assets/media/buttons/patreon.png" height="40" />
+  </a>
+</p>
+
+
+<h2 id="subscribe">
+  Subscribe
+  <a href="#subscribe" class="anchor">#</a>
+</h2>
+
+<!-- Begin Mailchimp Signup Form -->
+<div id="mc_embed_signup">
+  <form action="https://alexn.us4.list-manage.com/subscribe/post?u=5bffa2af025192a58345bd5dc&amp;id=1c9005b255"
+    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
+    novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="mc-field-group field">
+        <label for="mce-EMAIL">Email Address <sup class="asterisk">*</sup></label>
+        <input type="email" value="" name="EMAIL" class="required email full-width" id="mce-EMAIL" placeholder="user@domain.com" required>
+      </div>
+      <!-- <div class="mc-field-group field">
+        <label for="mce-FULLNAME">Name</label>
+        <input type="text" value="" name="FULLNAME" class="full-width" id="mce-FULLNAME" placeholder="John Doe">
+      </div> -->
+      <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+      </div>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+          name="b_5bffa2af025192a58345bd5dc_1c9005b255" tabindex="-1" value=""></div>
+      <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+          class="button"></div>
+    </div>
+  </form>
+</div>
+
+<div class="note">
+  <span class="extra">
+    Newsletter subscription uses Mailchimp, see <a href="/docs/privacy-policy/">privacy policy</a>.
+    If you're not seeing the form, it may be blocked by the browser; <a target="_blank" href="http://eepurl.com/g5ClAT"><em><span style="white-space: nowrap;">try the external subscribe page &#10141;</span></em></a>
+  </span>
+</div>
+
+
+    </div>  
+  </div>
+  
+
+  <div class="bottom">
+    <div class="container">
+      <span class="copy">
+          &copy; 2009-2022
+      </span>
+      <span class="links">
+        <a href="/docs/license/">License</a> |
+        <a href="/docs/privacy-policy/">Privacy Policy</a> |
+        <a href="/about/#contact">Contact</a>
+      </span>
+    </div>
+  </div>
+</div><!-- end .footer -->
+
+</body>
+</html>

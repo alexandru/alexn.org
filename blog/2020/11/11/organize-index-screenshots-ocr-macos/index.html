@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <!-- https://github.com/darkreader/darkreader/issues/1114 -->
+    <!-- <meta name="darkreader" content="41637b04c7ddb955e533a5c76d68a2c8"> -->
+    <meta name="color-scheme" content="light dark">
+    <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
+    <meta name="theme-color" content="#493667">
+    
+    <title>Organize and Index Your Screenshots (OCR) on macOS - Alexandru Nedelcu</title>
+    
+
+    <!-- Open Graph Meta -->
+    <meta content="Alexandru Nedelcu" property="og:site_name">
+    <meta content="Organize and Index Your Screenshots (OCR) on macOS" property="og:title">
+    <meta content="Screenshots contain text, text that should be searchable, as finding a screenshot later is the whole point of creating it." property="og:description">
+    <meta content="https://alexn.org/blog/2020/11/11/organize-index-screenshots-ocr-macos/" property="og:url">
+    <meta content="2020-11-11T12:43:46+00:00" property="article:published_time">
+    
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/spotlight-search.png?202203310904" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/spotlight-search.png?202203310904" />
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/spotlight-search.png?202203310904">
+    <meta name="twitter:site" content="@alexelcu">
+    <meta name="twitter:creator" content="@alexelcu">
+    <meta name="twitter:title" content="Organize and Index Your Screenshots (OCR) on macOS">
+    <meta name="twitter:url" content="https://alexn.org/blog/2020/11/11/organize-index-screenshots-ocr-macos/">
+    <meta name="twitter:description" content="Screenshots contain text, text that should be searchable, as finding a screenshot later is the whole point of creating it.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/logo/16px.png" sizes="16x16" />
+    <link rel="icon" href="/assets/logo/32px.png" sizes="32x32" />
+    <link rel="icon" href="/assets/logo/192px.png" sizes="192x192" />
+    <link rel="icon" href="/assets/logo/270px.png" sizes="270x270" />
+    <link rel="icon" href="/assets/logo/512px.png" sizes="512x512" />
+    <link rel="apple-touch-icon-precomposed" href="/assets/logo/180px.png" />
+    <meta name="msapplication-TileImage" content="/assets/logo/270px.png" />
+
+    <!-- Come and get me RSS readers -->
+    <link rel="alternate" type="application/rss+xml" title="All articles (blog, snippets, wiki, links)" href="/feeds/all.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Blog" href="/feeds/blog.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Snippets" href="/feeds/snippets.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Shared Links" href="/feeds/links.xml" />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/assets/css/style.css?202203310904">
+    <link rel="preload" as="style" href="/assets/css/style.css?202203310904">
+    
+    <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
+    <link rel="canonical" href="https://alexn.org/blog/2020/11/11/organize-index-screenshots-ocr-macos/">
+</head>
+
+
+<body>
+   <div class="header">
+  <div class="container">
+    <div class="inner-container">
+      <h1 class="logo"><a href="/">Alex<span class="wide2">andru</span> Nedelcu<span class="wide1"> =&lt;&lt;</span></a></h1>
+      <nav class="nav-collapse">
+        <ul class="noList">
+          
+          <li class="element first current ">
+            <a href="/blog/">Blog</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/wiki/">Wiki</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/snippets/">Snippets</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/links/">Links</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/about/">About</a>
+          </li>
+          
+          <li class="element   last">
+            <a href="/subscribe/">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav>  
+    </div>
+  </div>
+</div><!-- end .header -->
+
+
+   <div class="content">
+      <div class="container">
+         <article class="post" itemscope itemtype="http://schema.org/BlogPosting"><header>
+      <h1 class="postTitle" itemprop="headline">
+        
+        
+          
+      Organize and Index Your Screenshots (OCR) on macOS
+    
+        
+        
+      </h1>
+    
+    <p class="meta">
+      <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://alexn.org/blog/2020/11/11/organize-index-screenshots-ocr-macos/"/>
+      <meta itemprop="datePublished" content="2020-11-11T12:43:46+0000"/>
+      
+      <time itemprop="dateCreated" datetime="2020-11-11T12:43:46+0000">November 11, 2020</time>
+      | <nobr><span class="time">8</span> minutes</nobr>
+    </p>
+
+    
+        <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+          <meta itemprop="url" content="https://alexn.org/assets/media/articles/spotlight-search.png" />
+          <img src="/assets/media/articles/spotlight-search.png?202203310904" alt="" />
+          
+        </figure>
+        
+    
+
+    <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Alexandru Nedelcu">
+      <meta itemprop="url" content="https://alexn.org/about/">
+      <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="https://alexn.org/assets/raw/logo-green.png">
+      </div>
+    </div>
+    <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="Alexandru Nedelcu" />
+        <meta itemprop="url" content="https://alexn.org/about/#alexelcu" />
+        <meta itemprop="url" content="https://twitter.com/alexelcu" />
+        <meta itemprop="url" content="https://github.com/alexandru" />
+      </div>
+    
+
+    
+    
+    
+    <nav class="toc">
+      <p class="toc-title">Table of Contents:</p>
+      <ul>
+  <li><a href="#1-install-tesseract-ocr-engine">1. Install: Tesseract OCR Engine</a></li>
+  <li><a href="#2-create-folder-structure">2. Create folder structure</a></li>
+  <li><a href="#3-change-the-default-screenshots-folder">3. Change the default screenshots folder</a></li>
+  <li><a href="#4-add-the-synchronization-script">4. Add the synchronization script</a></li>
+  <li><a href="#5-load-a-launch-agent">5. Load a Launch Agent</a></li>
+  <li><a href="#enjoy">Enjoy</a></li>
+</ul>
+    </nav>
+    </header>
+
+  <div id="content" itemprop="articleBody">
+    <p class="intro withcap">
+  I maintain a growing <code class="language-plaintext highlighter-rouge">Screenshots</code> folder. Screenshots contain text, text that should be searchable, as finding a screenshot later is the whole point of creating it.
+</p>
+
+<p>My folder is stored in Dropbox, and unfortunately they are not indexing images on the “Plus” plan, at the moment of writing. And OneDrive currently has this functionality suspended for personal accounts, due to some technical issues they are having. Having to depend on a cloud service for searching your screenshots sucks, and I don’t want the lock-in of online services.</p>
+
+<p>Here’s how to organize and index your screenshots locally, using open source stuff, and save some money …</p>
+      <h2 id="1-install-tesseract-ocr-engine">
+        
+        
+          1. Install: Tesseract OCR Engine <a href="#1-install-tesseract-ocr-engine" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p><a href="https://github.com/tesseract-ocr/tesseract">Tesseract OCR</a> is a neat OSS project, available in Homebrew:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>brew <span class="nb">install </span>tesseract
+</code></pre></div></div>
+
+<p>Given a PNG image file, you can convert it into a properly annotated PDF with:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>tesseract /input/path/to/file.png /output/path/to/file <span class="nt">-l</span> eng pdf
+</code></pre></div></div>
+
+<p>This will process <code class="language-plaintext highlighter-rouge">/input/path/to/file.png</code> and create a properly annotated <code class="language-plaintext highlighter-rouge">/output/path/to/file.pdf</code> from it, that can then be indexed by macOS’s Spotlight, or Dropbox.</p>
+      <h2 id="2-create-folder-structure">
+        
+        
+          2. Create folder structure <a href="#2-create-folder-structure" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>In Dropbox I have the following folders:</p>
+
+<ul>
+  <li>Screenshots
+    <ul>
+      <li>Processing</li>
+      <li>Raw</li>
+      <li>OCR</li>
+    </ul>
+  </li>
+</ul>
+
+<p>New screenshots go in <code class="language-plaintext highlighter-rouge">Processing</code>. Indexable PDF files generated by Tesseract go in <code class="language-plaintext highlighter-rouge">OCR</code>. And after processing, the raw files are moved in <code class="language-plaintext highlighter-rouge">Raw</code>, possibly with some renaming, which helps in sorting the files by their timestamp.</p>
+      <h2 id="3-change-the-default-screenshots-folder">
+        
+        
+          3. Change the default screenshots folder <a href="#3-change-the-default-screenshots-folder" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Instruct your macOS to save screenshots directly in your <code class="language-plaintext highlighter-rouge">Processing</code> folder:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>defaults write com.apple.screencapture location ~/Dropbox/Screenshots/Processing
+</code></pre></div></div>
+      <h2 id="4-add-the-synchronization-script">
+        
+        
+          4. Add the synchronization script <a href="#4-add-the-synchronization-script" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>I’ve built my script with Ruby. In case you don’t have Ruby installed:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>brew <span class="nb">install </span>ruby
+</code></pre></div></div>
+
+<p>Create the following script somewhere on your <code class="language-plaintext highlighter-rouge">PATH</code> and make it executable. I prefer <code class="language-plaintext highlighter-rouge">~/bin/screenshots-sync</code>:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">#!/usr/bin/env ruby</span>
+
+<span class="nb">require</span> <span class="s1">'optparse'</span>
+<span class="nb">require</span> <span class="s1">'pp'</span>
+
+<span class="no">USAGE</span> <span class="o">=</span> <span class="o">&lt;&lt;</span><span class="no">ENDUSAGE</span><span class="sh">
+Usage:
+  screenshots-sync [-h] -i &lt;path&gt; -o &lt;path&gt; -r &lt;path&gt; [-d]
+</span><span class="no">ENDUSAGE</span>
+
+<span class="n">options</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="no">OptionParser</span><span class="p">.</span><span class="nf">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">opts</span><span class="o">|</span>
+  <span class="n">opts</span><span class="p">.</span><span class="nf">banner</span> <span class="o">=</span> <span class="no">USAGE</span>
+  
+  <span class="n">opts</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="s2">"-i"</span><span class="p">,</span> <span class="s2">"--input-dir INPUT_DIR"</span><span class="p">,</span> <span class="s2">"Path to the input directory."</span><span class="p">)</span> <span class="p">{</span><span class="o">|</span><span class="n">v</span><span class="o">|</span> 
+    <span class="k">raise</span> <span class="no">OptionParser</span><span class="o">::</span><span class="no">InvalidArgument</span> <span class="k">unless</span> <span class="no">File</span><span class="p">.</span><span class="nf">directory?</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="n">options</span><span class="p">[</span><span class="ss">:processingDir</span><span class="p">]</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">expand_path</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="n">opts</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="s2">"-o"</span><span class="p">,</span> <span class="s2">"--output-ocr-dir OUTPUT_OCR_DIR"</span><span class="p">,</span> <span class="s2">"Path to the output directory for OCR-ed PDF files."</span><span class="p">)</span> <span class="p">{</span><span class="o">|</span><span class="n">v</span><span class="o">|</span> 
+    <span class="k">raise</span> <span class="no">OptionParser</span><span class="o">::</span><span class="no">InvalidArgument</span> <span class="k">unless</span> <span class="no">File</span><span class="p">.</span><span class="nf">directory?</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="n">options</span><span class="p">[</span><span class="ss">:ocrDir</span><span class="p">]</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">expand_path</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="n">opts</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="s2">"-r"</span><span class="p">,</span> <span class="s2">"--output-raw-dir OUTPUT_RAW_DIR"</span><span class="p">,</span> <span class="s2">"Path to the output directory for the raw image files."</span><span class="p">)</span> <span class="p">{</span><span class="o">|</span><span class="n">v</span><span class="o">|</span> 
+    <span class="k">raise</span> <span class="no">OptionParser</span><span class="o">::</span><span class="no">InvalidArgument</span> <span class="k">unless</span> <span class="no">File</span><span class="p">.</span><span class="nf">directory?</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="n">options</span><span class="p">[</span><span class="ss">:rawDir</span><span class="p">]</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">expand_path</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="n">opts</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="s2">"-f"</span><span class="p">,</span> <span class="s2">"--filter FILTER"</span><span class="p">,</span> <span class="s2">"File name filter (LIST), defaults to *.jpg, *.jpeg, *.png"</span><span class="p">)</span> <span class="p">{</span><span class="o">|</span><span class="n">v</span><span class="o">|</span> 
+    <span class="n">options</span><span class="p">[</span><span class="ss">:filter</span><span class="p">]</span> <span class="o">||=</span> <span class="p">[]</span>
+    <span class="n">options</span><span class="p">[</span><span class="ss">:filter</span><span class="p">].</span><span class="nf">push</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="n">opts</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="s2">"-v"</span><span class="p">,</span> <span class="s2">"--[no-]verbose"</span><span class="p">,</span> <span class="s2">"Run verbosely"</span><span class="p">)</span> <span class="p">{</span><span class="o">|</span><span class="n">v</span><span class="o">|</span> 
+    <span class="n">options</span><span class="p">[</span><span class="ss">:verbose</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+  <span class="p">}</span>
+<span class="k">end</span><span class="p">.</span><span class="nf">parse!</span>
+
+<span class="n">options</span><span class="p">[</span><span class="ss">:tesseract</span><span class="p">]</span> <span class="o">=</span> <span class="sb">`which tesseract`</span>
+<span class="n">options</span><span class="p">[</span><span class="ss">:tesseract</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"/usr/local/bin/tesseract"</span> <span class="k">unless</span> <span class="no">File</span><span class="p">.</span><span class="nf">exists?</span> <span class="n">options</span><span class="p">[</span><span class="ss">:tesseract</span><span class="p">]</span>
+<span class="k">raise</span> <span class="s2">"Missing tesseract executable from PATH"</span> <span class="k">unless</span> <span class="no">File</span><span class="p">.</span><span class="nf">executable?</span><span class="p">(</span><span class="n">options</span><span class="p">[</span><span class="ss">:tesseract</span><span class="p">])</span>
+
+<span class="n">options</span><span class="p">[</span><span class="ss">:filter</span><span class="p">]</span> <span class="o">||=</span> <span class="p">[</span><span class="s2">"*.png"</span><span class="p">,</span> <span class="s2">"*.jpeg"</span><span class="p">,</span> <span class="s2">"*.jpg"</span><span class="p">]</span> <span class="k">unless</span> <span class="n">options</span><span class="p">[</span><span class="ss">:filter</span><span class="p">]</span>
+
+<span class="k">raise</span> <span class="no">OptionParser</span><span class="o">::</span><span class="no">MissingArgument</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s2">"--input-dir"</span><span class="p">)</span> <span class="k">if</span> <span class="n">options</span><span class="p">[</span><span class="ss">:processingDir</span><span class="p">].</span><span class="nf">nil?</span>
+<span class="k">raise</span> <span class="no">OptionParser</span><span class="o">::</span><span class="no">MissingArgument</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s2">"--output-ocr-dir"</span><span class="p">)</span> <span class="k">if</span> <span class="n">options</span><span class="p">[</span><span class="ss">:ocrDir</span><span class="p">].</span><span class="nf">nil?</span>
+<span class="k">raise</span> <span class="no">OptionParser</span><span class="o">::</span><span class="no">MissingArgument</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s2">"--output-raw-dir"</span><span class="p">)</span> <span class="k">if</span> <span class="n">options</span><span class="p">[</span><span class="ss">:rawDir</span><span class="p">].</span><span class="nf">nil?</span>
+
+<span class="k">if</span> <span class="n">options</span><span class="p">[</span><span class="ss">:verbose</span><span class="p">]</span>
+  <span class="nb">puts</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Running with options:</span><span class="se">\n\n</span><span class="s2">"</span> 
+  <span class="n">pp</span> <span class="n">options</span>
+  <span class="nb">puts</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="n">cmd</span> <span class="k">if</span> <span class="n">options</span><span class="p">[</span><span class="ss">:verbose</span><span class="p">]</span>
+  <span class="n">out</span> <span class="o">=</span> <span class="k">if</span> <span class="n">options</span><span class="p">[</span><span class="ss">:verbose</span><span class="p">]</span> <span class="k">then</span> <span class="s2">""</span> <span class="k">else</span> <span class="s2">"1&gt;/dev/null 2&gt;&amp;1"</span> <span class="k">end</span>
+  <span class="n">r</span> <span class="o">=</span> <span class="nb">system</span><span class="p">(</span><span class="s2">"</span><span class="si">#{</span><span class="n">cmd</span><span class="si">}</span><span class="s2"> </span><span class="si">#{</span><span class="n">out</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+  <span class="k">unless</span> <span class="n">r</span>
+    <span class="vg">$stderr</span><span class="p">.</span><span class="nf">puts</span> <span class="s2">"ERROR — command exited with error code (</span><span class="si">#{</span><span class="n">r</span><span class="si">}</span><span class="s2">):</span><span class="se">\n</span><span class="s2">  </span><span class="si">#{</span><span class="n">cmd</span><span class="si">}</span><span class="s2">"</span>
+    <span class="nb">exit</span> <span class="mi">1</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">options</span><span class="p">[</span><span class="ss">:filter</span><span class="p">].</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">filter</span><span class="o">|</span>
+  <span class="no">Dir</span><span class="p">[</span><span class="s2">"</span><span class="si">#{</span><span class="n">options</span><span class="p">[</span><span class="ss">:processingDir</span><span class="p">]</span><span class="si">}</span><span class="s2">/</span><span class="si">#{</span><span class="n">filter</span><span class="si">}</span><span class="s2">"</span><span class="p">].</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+    <span class="c1"># Filename format generated by macOS</span>
+    <span class="k">if</span> <span class="n">f</span> <span class="o">=~</span> <span class="sr">/Screenshot\s+(\d{4}-\d{2}-\d{2})\s+at\s+(\d{2}\.\d{2}\.\d{2})/</span>
+      <span class="n">fname</span> <span class="o">=</span> <span class="s2">"Screenshot </span><span class="si">#{</span><span class="vg">$1</span><span class="si">}</span><span class="s2"> </span><span class="si">#{</span><span class="vg">$2</span><span class="si">}#{</span><span class="no">File</span><span class="p">.</span><span class="nf">extname</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+    <span class="c1"># Filename format generated by my Galaxy Tab (Android)</span>
+    <span class="k">elsif</span> <span class="n">f</span> <span class="o">=~</span> <span class="sr">/Screenshot[_\s-]+(\d{4})(\d{2})(\d{2})[_\s-]+(\d{2})(\d{2})(\d{2})(?:[_\s-]+([^.]*))?/</span>
+      <span class="n">details</span> <span class="o">=</span> <span class="k">if</span> <span class="vg">$7</span> <span class="k">then</span> <span class="s2">" </span><span class="si">#{</span><span class="vg">$7</span><span class="si">}</span><span class="s2">"</span> <span class="k">else</span> <span class="s2">""</span> <span class="k">end</span>
+      <span class="n">fname</span> <span class="o">=</span> <span class="s2">"Screenshot </span><span class="si">#{</span><span class="vg">$1</span><span class="si">}</span><span class="s2">-</span><span class="si">#{</span><span class="vg">$2</span><span class="si">}</span><span class="s2">-</span><span class="si">#{</span><span class="vg">$3</span><span class="si">}</span><span class="s2"> </span><span class="si">#{</span><span class="vg">$4</span><span class="si">}</span><span class="s2">.</span><span class="si">#{</span><span class="vg">$5</span><span class="si">}</span><span class="s2">.</span><span class="si">#{</span><span class="vg">$6</span><span class="si">}#{</span><span class="n">details</span><span class="si">}#{</span><span class="no">File</span><span class="p">.</span><span class="nf">extname</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+    <span class="k">else</span>
+      <span class="n">fname</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">basename</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">raw_output</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">options</span><span class="p">[</span><span class="ss">:rawDir</span><span class="p">],</span> <span class="n">fname</span><span class="p">)</span> 
+    <span class="n">ocr_output</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">options</span><span class="p">[</span><span class="ss">:ocrDir</span><span class="p">],</span> <span class="n">fname</span><span class="p">)</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">expand_path</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">source</span> <span class="o">!=</span> <span class="n">raw_output</span>
+      <span class="n">execute</span><span class="p">(</span><span class="s2">"mv </span><span class="se">\"</span><span class="si">#{</span><span class="n">source</span><span class="si">}</span><span class="se">\"</span><span class="s2"> </span><span class="se">\"</span><span class="si">#{</span><span class="n">raw_output</span><span class="si">}</span><span class="se">\"</span><span class="s2">"</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">execute</span><span class="p">(</span><span class="s2">"</span><span class="si">#{</span><span class="n">options</span><span class="p">[</span><span class="ss">:tesseract</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="se">\"</span><span class="si">#{</span><span class="n">raw_output</span><span class="si">}</span><span class="se">\"</span><span class="s2"> </span><span class="se">\"</span><span class="si">#{</span><span class="n">ocr_output</span><span class="si">}</span><span class="se">\"</span><span class="s2"> -l eng pdf"</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Don’t forget to make it executable:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nb">chmod</span> +x ~/bin/screenshots-sync
+</code></pre></div></div>
+
+<p>Note that this script can be used standalone, for importing existing screenshots archives:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nv">$ </span>screenshots-sync <span class="nt">-h</span>
+
+Usage:
+  screenshots-sync <span class="o">[</span><span class="nt">-h</span><span class="o">]</span> <span class="nt">-i</span> &lt;path&gt; <span class="nt">-o</span> &lt;path&gt; <span class="nt">-r</span> &lt;path&gt; <span class="o">[</span><span class="nt">-d</span><span class="o">]</span>
+    <span class="nt">-i</span>, <span class="nt">--input-dir</span> INPUT_DIR        Path to the input directory.
+    <span class="nt">-o</span> OUTPUT_OCR_DIR,               Path to the output directory <span class="k">for </span>OCR-ed PDF files.
+        <span class="nt">--output-ocr-dir</span>
+    <span class="nt">-r</span> OUTPUT_RAW_DIR,               Path to the output directory <span class="k">for </span>the raw image files.
+        <span class="nt">--output-raw-dir</span>
+    <span class="nt">-f</span>, <span class="nt">--filter</span> FILTER              File name filter <span class="o">(</span>LIST<span class="o">)</span>, defaults to <span class="k">*</span>.jpg, <span class="k">*</span>.jpeg, <span class="k">*</span>.png
+    <span class="nt">-v</span>, <span class="nt">--</span><span class="o">[</span>no-]verbose               Run verbosely
+</code></pre></div></div>
+      <h2 id="5-load-a-launch-agent">
+        
+        
+          5. Load a Launch Agent <a href="#5-load-a-launch-agent" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Installing a <a href="https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html">launch agent</a> for running our synchronization script, whenever new files appear in <code class="language-plaintext highlighter-rouge">Processing</code>, is easy.</p>
+
+<p>Create the <code class="language-plaintext highlighter-rouge">~/Library/LaunchAgents/my.sync.ocr.plist</code> file:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="cp">&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;</span>
+<span class="nt">&lt;plist</span> <span class="na">version=</span><span class="s">"1.0"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>Label<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>my.screenshot.ocr<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>ProgramArguments<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;array&gt;</span>
+        <span class="c">&lt;!-- TODO: change alex with your username --&gt;</span>
+        <span class="nt">&lt;string&gt;</span>/Users/alex/bin/screenshots-sync<span class="nt">&lt;/string&gt;</span>
+        <span class="nt">&lt;string&gt;</span>--input-dir<span class="nt">&lt;/string&gt;</span>
+        <span class="c">&lt;!-- TODO: change alex with your username --&gt;</span>
+        <span class="nt">&lt;string&gt;</span>/Users/alex/Dropbox/Screenshots/Processing<span class="nt">&lt;/string&gt;</span>
+        <span class="nt">&lt;string&gt;</span>--output-ocr-dir<span class="nt">&lt;/string&gt;</span>
+        <span class="c">&lt;!-- TODO: change alex with your username --&gt;</span>
+        <span class="nt">&lt;string&gt;</span>/Users/alex/Dropbox/Screenshots/OCR<span class="nt">&lt;/string&gt;</span>
+        <span class="nt">&lt;string&gt;</span>--output-raw-dir<span class="nt">&lt;/string&gt;</span>
+        <span class="c">&lt;!-- TODO: change alex with your username --&gt;</span>
+        <span class="nt">&lt;string&gt;</span>/Users/alex/Dropbox/Screenshots/Raw<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;/array&gt;</span>
+    <span class="nt">&lt;key&gt;</span>WatchPaths<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;array&gt;</span>
+        <span class="c">&lt;!-- TODO: change alex with your username --&gt;</span>
+        <span class="nt">&lt;string&gt;</span>/Users/alex/Dropbox/Screenshots/Processing<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;/array&gt;</span>
+    <span class="nt">&lt;key&gt;</span>ThrottleInterval<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;integer&gt;</span>5<span class="nt">&lt;/integer&gt;</span>
+    <span class="nt">&lt;key&gt;</span>StandardOutPath<span class="nt">&lt;/key&gt;</span>
+    <span class="c">&lt;!-- TODO: change alex with your username --&gt;</span>
+    <span class="nt">&lt;string&gt;</span>/Users/alex/Library/Logs/screenshots-sync.log<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>StandardErrorPath<span class="nt">&lt;/key&gt;</span>
+    <span class="c">&lt;!-- TODO: change alex with your username --&gt;</span>
+    <span class="nt">&lt;string&gt;</span>/Users/alex/Library/Logs/screenshots-sync.log<span class="nt">&lt;/string&gt;</span>
+<span class="nt">&lt;/dict&gt;</span>
+<span class="nt">&lt;/plist&gt;</span>
+</code></pre></div></div>
+
+<p>Then install it:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>launchctl load <span class="nt">-w</span> ~/Library/LaunchAgents/my.sync.ocr.plist
+</code></pre></div></div>
+      <h2 id="enjoy">
+        
+        
+          Enjoy <a href="#enjoy" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Your screenshots will now be indexed by macOS’s Finder, searchable via Spotlight.</p>
+
+<p>They’ll also get indexed by Dropbox, because the Plus plan supports searching in PDF files.</p>
+
+  </div>
+
+  <div id="article-details">
+    
+    <time itemprop="dateModified" content="2020-11-11T12:43:46+0000">
+        Published: November 11, 2020
+    </time>
+    
+      | Written by <a href="https://alexn.org/about/#alexelcu" itemprop="url" rel="author">Alexandru Nedelcu</a>
+    
+
+    <div id="all-categories">
+      Tags:
+      
+        
+        <a href="/blog/tag/cloud/" class="category">Cloud</a>
+      
+         | 
+        <a href="/blog/tag/macos/" class="category">macOS</a>
+      
+         | 
+        <a href="/blog/tag/ruby/" class="category">Ruby</a>
+      
+    </div>
+  </div>
+
+  
+  <div class="related">
+      <h2 id="related-articles">
+        
+        
+          Related Articles <a href="#related-articles" class="anchor">#</a>
+        
+        
+      </h2>
+    
+    <div class="container">
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2012/01/05/blogging-for-hackers/">
+          Blogging Platform for Hackers
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/blogging" class="tag">Blogging</a>
+            
+               | <a href="/blog/tag/server" class="tag">Server</a>
+            
+               | <a href="/blog/tag/cloud" class="tag">Cloud</a>
+            
+               | <a href="/blog/tag/heroku" class="tag">Heroku</a>
+            
+               | <a href="/blog/tag/ruby" class="tag">Ruby</a>
+            
+               | <a href="/blog/tag/jekyll" class="tag">Jekyll</a>
+                        
+          </div>
+          <time>January 5, 2012</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2011/10/29/how-i-use-flickr/">
+          How I Use Flickr: For Backup
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/cloud" class="tag">Cloud</a>
+            
+               | <a href="/blog/tag/api" class="tag">API</a>
+            
+               | <a href="/blog/tag/ruby" class="tag">Ruby</a>
+                        
+          </div>
+          <time>October 29, 2011</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2021/07/18/iterm-open-file-cmd-click-ide-semantic-history/">
+          Combining the terminal (iTerm) with the IDE
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/macos" class="tag">macOS</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+                        
+          </div>
+          <time>July 18, 2021</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  
+
+  
+</article>
+
+      </div>
+   </div><!-- end .content -->
+
+   <script async src="/assets/js/modernizr.custom.15390.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202203310904" type="text/javascript"></script>
+
+<script async src="/assets/js/scripts.js?202203310904" type="text/javascript"></script>
+
+   <div class="footer">
+  
+  <div class="container">
+    <div class="contributions">
+      <h2 id="comments">
+  Comments
+  <a href="#comments" class="anchor">#</a>
+</h2>
+
+<p>
+  Do you have suggestions? Want to chat? Email me at: <br>
+  <script>
+    (function () {
+      var lhs = "contact22+comments";
+      var rhs = "alexn.org";
+      document.write("<a target=\"_blank\" href=\"mailto");
+      document.write(":" + lhs + "@");
+      document.write(rhs);
+      document.write("?subject=Comment%20on%3A%20Organize%20and%20Index%20Your%20Screenshots%20(OCR)%20on%20macOS")
+      document.write("\">" + lhs + "@" + rhs + "<\/a>");
+    })()
+  </script>
+  <noscript>
+    <em>Email address is protected via JavaScript, activate it to see it!</em>
+  </noscript>
+</p>
+
+<h2 id="contribute">
+  Contribute
+  <a href="#contribute" class="anchor">#</a>
+</h2>
+
+
+<p>
+  Fix or add to this article by submitting a pull request:<br/>
+  <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/main/_posts/2020-11-11-organize-index-screenshots-ocr-macos.md" target="_blank">Edit Page on GitHub</a>
+</p>
+
+<p>
+  Donate to cover ongoing website costs, or buy me coffee ☕️😋 <br/>
+  <a href="https://www.patreon.com/bePatron?u=6102596" target="_blank">
+    <img label="Become a Patron!" alt="Become a Patron!" title="Become a Patron!" src="/assets/media/buttons/patreon.png" height="40" />
+  </a>
+</p>
+
+
+<h2 id="subscribe">
+  Subscribe
+  <a href="#subscribe" class="anchor">#</a>
+</h2>
+
+<!-- Begin Mailchimp Signup Form -->
+<div id="mc_embed_signup">
+  <form action="https://alexn.us4.list-manage.com/subscribe/post?u=5bffa2af025192a58345bd5dc&amp;id=1c9005b255"
+    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
+    novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="mc-field-group field">
+        <label for="mce-EMAIL">Email Address <sup class="asterisk">*</sup></label>
+        <input type="email" value="" name="EMAIL" class="required email full-width" id="mce-EMAIL" placeholder="user@domain.com" required>
+      </div>
+      <!-- <div class="mc-field-group field">
+        <label for="mce-FULLNAME">Name</label>
+        <input type="text" value="" name="FULLNAME" class="full-width" id="mce-FULLNAME" placeholder="John Doe">
+      </div> -->
+      <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+      </div>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+          name="b_5bffa2af025192a58345bd5dc_1c9005b255" tabindex="-1" value=""></div>
+      <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+          class="button"></div>
+    </div>
+  </form>
+</div>
+
+<div class="note">
+  <span class="extra">
+    Newsletter subscription uses Mailchimp, see <a href="/docs/privacy-policy/">privacy policy</a>.
+    If you're not seeing the form, it may be blocked by the browser; <a target="_blank" href="http://eepurl.com/g5ClAT"><em><span style="white-space: nowrap;">try the external subscribe page &#10141;</span></em></a>
+  </span>
+</div>
+
+
+    </div>  
+  </div>
+  
+
+  <div class="bottom">
+    <div class="container">
+      <span class="copy">
+          &copy; 2009-2022
+      </span>
+      <span class="links">
+        <a href="/docs/license/">License</a> |
+        <a href="/docs/privacy-policy/">Privacy Policy</a> |
+        <a href="/about/#contact">Contact</a>
+      </span>
+    </div>
+  </div>
+</div><!-- end .footer -->
+
+</body>
+</html>

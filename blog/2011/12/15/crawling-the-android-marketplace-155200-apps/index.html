@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <!-- https://github.com/darkreader/darkreader/issues/1114 -->
+    <!-- <meta name="darkreader" content="41637b04c7ddb955e533a5c76d68a2c8"> -->
+    <meta name="color-scheme" content="light dark">
+    <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
+    <meta name="theme-color" content="#493667">
+    
+    <title>Crawling the Android Marketplace - Alexandru Nedelcu</title>
+    
+
+    <!-- Open Graph Meta -->
+    <meta content="Alexandru Nedelcu" property="og:site_name">
+    <meta content="Crawling the Android Marketplace" property="og:title">
+    <meta content="I had a very specific need for fetching the details for some apps in the Android marketplace, in an automated manner. Here I’m describing a script that I used to crawl the marketplace back in 2011." property="og:description">
+    <meta content="https://alexn.org/blog/2011/12/15/crawling-the-android-marketplace-155200-apps/" property="og:url">
+    <meta content="2011-12-15T00:00:00+00:00" property="article:published_time">
+    <meta content="2019-12-18T00:00:00+00:00" property="article:modified_time">
+    
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/wolf-spider.jpg?202203310904" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/wolf-spider.jpg?202203310904" />
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/wolf-spider.jpg?202203310904">
+    <meta name="twitter:site" content="@alexelcu">
+    <meta name="twitter:creator" content="@alexelcu">
+    <meta name="twitter:title" content="Crawling the Android Marketplace">
+    <meta name="twitter:url" content="https://alexn.org/blog/2011/12/15/crawling-the-android-marketplace-155200-apps/">
+    <meta name="twitter:description" content="I had a very specific need for fetching the details for some apps in the Android marketplace, in an automated manner. Here I’m describing a script that I used to crawl the marketplace back in 2011.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/logo/16px.png" sizes="16x16" />
+    <link rel="icon" href="/assets/logo/32px.png" sizes="32x32" />
+    <link rel="icon" href="/assets/logo/192px.png" sizes="192x192" />
+    <link rel="icon" href="/assets/logo/270px.png" sizes="270x270" />
+    <link rel="icon" href="/assets/logo/512px.png" sizes="512x512" />
+    <link rel="apple-touch-icon-precomposed" href="/assets/logo/180px.png" />
+    <meta name="msapplication-TileImage" content="/assets/logo/270px.png" />
+
+    <!-- Come and get me RSS readers -->
+    <link rel="alternate" type="application/rss+xml" title="All articles (blog, snippets, wiki, links)" href="/feeds/all.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Blog" href="/feeds/blog.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Snippets" href="/feeds/snippets.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Shared Links" href="/feeds/links.xml" />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/assets/css/style.css?202203310904">
+    <link rel="preload" as="style" href="/assets/css/style.css?202203310904">
+    
+    <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
+    <link rel="canonical" href="https://alexn.org/blog/2011/12/15/crawling-the-android-marketplace-155200-apps/">
+</head>
+
+
+<body>
+   <div class="header">
+  <div class="container">
+    <div class="inner-container">
+      <h1 class="logo"><a href="/">Alex<span class="wide2">andru</span> Nedelcu<span class="wide1"> =&lt;&lt;</span></a></h1>
+      <nav class="nav-collapse">
+        <ul class="noList">
+          
+          <li class="element first current ">
+            <a href="/blog/">Blog</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/wiki/">Wiki</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/snippets/">Snippets</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/links/">Links</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/about/">About</a>
+          </li>
+          
+          <li class="element   last">
+            <a href="/subscribe/">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav>  
+    </div>
+  </div>
+</div><!-- end .header -->
+
+
+   <div class="content">
+      <div class="container">
+         <article class="post" itemscope itemtype="http://schema.org/BlogPosting"><header>
+      <h1 class="postTitle" itemprop="headline">
+        
+        
+          
+      Crawling the Android Marketplace
+    
+        
+        
+      </h1>
+    
+    <p class="meta">
+      <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://alexn.org/blog/2011/12/15/crawling-the-android-marketplace-155200-apps/"/>
+      <meta itemprop="datePublished" content="2011-12-15T00:00:00+0000"/>
+      
+      <time itemprop="dateCreated" datetime="2011-12-15T00:00:00+0000">December 15, 2011</time>
+      | <nobr><span class="time">3</span> minutes</nobr>
+    </p>
+
+    
+        <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+          <meta itemprop="url" content="https://alexn.org/assets/media/articles/wolf-spider.jpg" />
+          <img src="/assets/media/articles/wolf-spider.jpg?202203310904" alt="" />
+          
+        </figure>
+        
+    
+
+    <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Alexandru Nedelcu">
+      <meta itemprop="url" content="https://alexn.org/about/">
+      <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="https://alexn.org/assets/raw/logo-green.png">
+      </div>
+    </div>
+    <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="Alexandru Nedelcu" />
+        <meta itemprop="url" content="https://alexn.org/about/#alexelcu" />
+        <meta itemprop="url" content="https://twitter.com/alexelcu" />
+        <meta itemprop="url" content="https://github.com/alexandru" />
+      </div>
+    
+
+    </header>
+
+  <div id="content" itemprop="articleBody">
+    <p class="intro withcap">I had a very specific need for fetching the details for some apps in
+the Android marketplace, in an automated manner. Here I'm describing a
+script that I used to crawl the marketplace back in 2011.</p>
+
+<p class="info-bubble">
+  <strong>UPDATE (2019-12-18):</strong> this is an old article, the script I used no longer works, but it can still be a good starting point for building your own web crawler.
+</p>
+
+<p>First I found <a href="https://github.com/jberkel/supermarket">the supermarket
+gem</a>, a wrapper for the
+<a href="http://code.google.com/p/android-market-api/">Android Market API</a>
+Java implementation. However, it gives unpredictable results (it
+wouldn’t return the details of our in-house apps or of many other
+examples I tried) and Google is placing hard-limits on the number of
+requests you can make per minute. This is an internal API, probably
+used by the marketplace client and the implementation mentioned above
+was created through reverse-engineering.</p>
+
+<p>This really pissed me off, this is Google, they should grok APIs. But
+this info is already available from their website and so I went ahead
+and crawled it.</p>
+
+<p>The script and the data collected are is available. Read below.</p>
+      <h2 id="how-to-do-it-by-yourself">
+        
+        
+          How To Do it By Yourself <a href="#how-to-do-it-by-yourself" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>The actual script that I created can be found in the
+<a href="https://github.com/alexandru/AndroidMarketCrawler">AndroidMarketCrawler</a>
+GitHub Repository, with the relevant files being:</p>
+
+<ul>
+  <li><a href="https://github.com/alexandru/AndroidMarketCrawler/blob/master/crawler.py">crawler.py</a> - source code with lots of comments, it’s really not complicated, you should go read it</li>
+  <li>marketplace_database.json_lines.bz2 - compressed file
+containing the details of the crawled apps, one per each line; this
+is not a proper JSON file, you use it by reading it line by line,
+where each line represents a JSON object (personal preference, as
+otherwise the file is pretty big and you can run out of
+memory)</li>
+</ul>
+
+<p><strong>UPDATE:</strong> The Android Marketplace explicitly bans crawling
+apparently. This crawler and associated data only serves educational
+purposes. Don’t abuse it.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">for</span> <span class="n">app</span> <span class="ow">in</span> <span class="n">AndroidMarketCrawler</span><span class="p">(</span><span class="n">concurrency</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="c1"># app is at this point a dictionary with the details needed, like
+</span>    <span class="c1">#  id, name, developer name, number of installs, etc...
+</span>    <span class="n">fh</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">app</span><span class="p">)</span> <span class="o">+</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>I used the Python programming language, along with
+<a href="http://eventlet.net">Eventlet</a> for fetching URLs in parallel (async I/O with
+epoll/libevent, providing you with coroutines support and green
+threads) and <a href="http://packages.python.org/pyquery/">PyQuery</a> for
+selecting DOM elements using CSS3 selectors (instead of XPath or
+BeautifulSoup). If you fancy Ruby instead, you could use slight
+equivalents such as
+<a href="https://github.com/igrigorik/em-http-request">em-http-request</a> and
+<a href="http://nokogiri.org/">Nokogiri</a>.</p>
+
+<p>So you start fetching content from a root and add application links as
+you encounter them in a queue. We are then using a (green) threadpool
+to start fetching jobs for each of the links in the queue. So it’s
+recursive. The results are also pushed in another queue, ready to be
+consumed by the client.</p>
+
+<p>Be careful though, don’t abuse this, as it will generate a ton of
+traffic and your IP may end up being banned by Google. It also takes a
+lot of time; with good bandwidth and a VPS located in California, it
+still took me 5 hours for the script to finish. Don’t abuse the
+concurrency settings either, 10 is enough.</p>
+      <h2 id="155200-apps-available-from-the-us">
+        
+        
+          155,200 Apps Available From the US <a href="#155200-apps-available-from-the-us" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>You have to realize that this number is only approximate. Apps are
+going strong in other countries, such as South Korea and Google does
+Geo-IP filtering, which means some of the apps were unavailable to me,
+depending on restrictions set by their developers.</p>
+
+<p>The numbers published by
+<a href="http://www.readwriteweb.com/mobile/2011/10/android-market-hits-500000-suc.php">Research2Guidance in October</a>
+tell the story of 500,000 apps published on the Marketplace. But this
+gets weird, as I took the number of downloads from those 155,200 apps
+and it <em>matches</em> the number of downloads
+<a href="http://android-developers.blogspot.com/2011/12/10-billion-android-market-downloads-and.html">published by Google this month</a>. See
+below.</p>
+      <h3 id="an-average-of-1363-billion-downloads">
+        
+        
+          An Average of 13.63 Billion Downloads <a href="#an-average-of-1363-billion-downloads" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>So there have been between 5,514,202,281 and 21,545,335,515 downloads
+for <em>free apps</em>, making the average 13,529,768,898 downloads.</p>
+
+<p>More interesting however is that according to my data for paid apps,
+the number of downloads is between 42,576,311 and 164,116,615. This
+number seems rather low to me, making it clear that Android
+distribution is freemium based.</p>
+
+
+  </div>
+
+  <div id="article-details">
+    
+    <time itemprop="dateModified" content="2019-12-18T00:00:00+0000">
+        Updated: December 18, 2019
+    </time>
+    
+      | Written by <a href="https://alexn.org/about/#alexelcu" itemprop="url" rel="author">Alexandru Nedelcu</a>
+    
+
+    <div id="all-categories">
+      Tags:
+      
+        
+        <a href="/blog/tag/python/" class="category">Python</a>
+      
+         | 
+        <a href="/blog/tag/android/" class="category">Android</a>
+      
+         | 
+        <a href="/blog/tag/web/" class="category">Web</a>
+      
+         | 
+        <a href="/blog/tag/api/" class="category">API</a>
+      
+    </div>
+  </div>
+
+  
+  <div class="related">
+      <h2 id="related-articles">
+        
+        
+          Related Articles <a href="#related-articles" class="anchor">#</a>
+        
+        
+      </h2>
+    
+    <div class="container">
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2021/03/29/atom-rss-feeds-are-the-best-way-to-consume-the-web/">
+          Atom/RSS Feeds are the Best Way to Consume the Web
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/blogging" class="tag">Blogging</a>
+            
+               | <a href="/blog/tag/jekyll" class="tag">Jekyll</a>
+            
+               | <a href="/blog/tag/web" class="tag">Web</a>
+                        
+          </div>
+          <time>March 29, 2021</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2020/10/20/block-comments-on-the-web/">
+          Block comments on the web
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/browser" class="tag">Browser</a>
+            
+               | <a href="/blog/tag/privacy" class="tag">Privacy</a>
+            
+               | <a href="/blog/tag/web" class="tag">Web</a>
+                        
+          </div>
+          <time>October 20, 2020</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2016/11/11/newsblur-bookmarklet/">
+          Add to NewsBlur Bookmarklet
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/utils" class="tag">Utils</a>
+            
+               | <a href="/blog/tag/web" class="tag">Web</a>
+                        
+          </div>
+          <time>November 11, 2016</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  
+
+  
+</article>
+
+      </div>
+   </div><!-- end .content -->
+
+   <script async src="/assets/js/modernizr.custom.15390.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202203310904" type="text/javascript"></script>
+
+<script async src="/assets/js/scripts.js?202203310904" type="text/javascript"></script>
+
+   <div class="footer">
+  
+  <div class="container">
+    <div class="contributions">
+      <h2 id="comments">
+  Comments
+  <a href="#comments" class="anchor">#</a>
+</h2>
+
+<p>
+  Do you have suggestions? Want to chat? Email me at: <br>
+  <script>
+    (function () {
+      var lhs = "contact22+comments";
+      var rhs = "alexn.org";
+      document.write("<a target=\"_blank\" href=\"mailto");
+      document.write(":" + lhs + "@");
+      document.write(rhs);
+      document.write("?subject=Comment%20on%3A%20Crawling%20the%20Android%20Marketplace")
+      document.write("\">" + lhs + "@" + rhs + "<\/a>");
+    })()
+  </script>
+  <noscript>
+    <em>Email address is protected via JavaScript, activate it to see it!</em>
+  </noscript>
+</p>
+
+<h2 id="contribute">
+  Contribute
+  <a href="#contribute" class="anchor">#</a>
+</h2>
+
+
+<p>
+  Fix or add to this article by submitting a pull request:<br/>
+  <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/main/_posts/2011-12-15-crawling-the-android-marketplace-155200-apps.md" target="_blank">Edit Page on GitHub</a>
+</p>
+
+<p>
+  Donate to cover ongoing website costs, or buy me coffee ☕️😋 <br/>
+  <a href="https://www.patreon.com/bePatron?u=6102596" target="_blank">
+    <img label="Become a Patron!" alt="Become a Patron!" title="Become a Patron!" src="/assets/media/buttons/patreon.png" height="40" />
+  </a>
+</p>
+
+
+<h2 id="subscribe">
+  Subscribe
+  <a href="#subscribe" class="anchor">#</a>
+</h2>
+
+<!-- Begin Mailchimp Signup Form -->
+<div id="mc_embed_signup">
+  <form action="https://alexn.us4.list-manage.com/subscribe/post?u=5bffa2af025192a58345bd5dc&amp;id=1c9005b255"
+    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
+    novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="mc-field-group field">
+        <label for="mce-EMAIL">Email Address <sup class="asterisk">*</sup></label>
+        <input type="email" value="" name="EMAIL" class="required email full-width" id="mce-EMAIL" placeholder="user@domain.com" required>
+      </div>
+      <!-- <div class="mc-field-group field">
+        <label for="mce-FULLNAME">Name</label>
+        <input type="text" value="" name="FULLNAME" class="full-width" id="mce-FULLNAME" placeholder="John Doe">
+      </div> -->
+      <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+      </div>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+          name="b_5bffa2af025192a58345bd5dc_1c9005b255" tabindex="-1" value=""></div>
+      <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+          class="button"></div>
+    </div>
+  </form>
+</div>
+
+<div class="note">
+  <span class="extra">
+    Newsletter subscription uses Mailchimp, see <a href="/docs/privacy-policy/">privacy policy</a>.
+    If you're not seeing the form, it may be blocked by the browser; <a target="_blank" href="http://eepurl.com/g5ClAT"><em><span style="white-space: nowrap;">try the external subscribe page &#10141;</span></em></a>
+  </span>
+</div>
+
+
+    </div>  
+  </div>
+  
+
+  <div class="bottom">
+    <div class="container">
+      <span class="copy">
+          &copy; 2009-2022
+      </span>
+      <span class="links">
+        <a href="/docs/license/">License</a> |
+        <a href="/docs/privacy-policy/">Privacy Policy</a> |
+        <a href="/about/#contact">Contact</a>
+      </span>
+    </div>
+  </div>
+</div><!-- end .footer -->
+
+</body>
+</html>

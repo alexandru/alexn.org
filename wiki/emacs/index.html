@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <!-- https://github.com/darkreader/darkreader/issues/1114 -->
+    <!-- <meta name="darkreader" content="41637b04c7ddb955e533a5c76d68a2c8"> -->
+    <meta name="color-scheme" content="light dark">
+    <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
+    <meta name="theme-color" content="#493667">
+    
+    <title>Emacs Setup - Alexandru Nedelcu</title>
+    
+
+    <!-- Open Graph Meta -->
+    <meta content="Alexandru Nedelcu" property="og:site_name">
+    <meta content="Emacs Setup" property="og:title">
+    <meta content="Personal, volatile wiki documentation" property="og:description">
+    <meta content="https://alexn.org/wiki/emacs/" property="og:url">
+    <meta content="2020-08-24T13:24:31+00:00" property="article:published_time">
+    <meta content="2022-03-29T07:40:59+00:00" property="article:modified_time">
+    
+    <meta content="website" property="og:type">
+    <meta property="og:image" content="https://alexn.org/assets/logo/800px-bordered.png" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/logo/800px-bordered.png" />
+    <!-- Twitter Cards -->
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/logo/800px-bordered.png">
+    <meta name="twitter:site" content="@alexelcu">
+    <meta name="twitter:creator" content="@alexelcu">
+    <meta name="twitter:title" content="Emacs Setup">
+    <meta name="twitter:url" content="https://alexn.org/wiki/emacs/">
+    <meta name="twitter:description" content="Personal, volatile wiki documentation">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/logo/16px.png" sizes="16x16" />
+    <link rel="icon" href="/assets/logo/32px.png" sizes="32x32" />
+    <link rel="icon" href="/assets/logo/192px.png" sizes="192x192" />
+    <link rel="icon" href="/assets/logo/270px.png" sizes="270x270" />
+    <link rel="icon" href="/assets/logo/512px.png" sizes="512x512" />
+    <link rel="apple-touch-icon-precomposed" href="/assets/logo/180px.png" />
+    <meta name="msapplication-TileImage" content="/assets/logo/270px.png" />
+
+    <!-- Come and get me RSS readers -->
+    <link rel="alternate" type="application/rss+xml" title="All articles (blog, snippets, wiki, links)" href="/feeds/all.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Blog" href="/feeds/blog.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Snippets" href="/feeds/snippets.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Shared Links" href="/feeds/links.xml" />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/assets/css/style.css?202203310904">
+    <link rel="preload" as="style" href="/assets/css/style.css?202203310904">
+    
+    <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
+    <link rel="canonical" href="https://alexn.org/wiki/emacs/">
+</head>
+
+
+<body>
+   <div class="header">
+  <div class="container">
+    <div class="inner-container">
+      <h1 class="logo"><a href="/">Alex<span class="wide2">andru</span> Nedelcu<span class="wide1"> =&lt;&lt;</span></a></h1>
+      <nav class="nav-collapse">
+        <ul class="noList">
+          
+          <li class="element first  ">
+            <a href="/blog/">Blog</a>
+          </li>
+          
+          <li class="element  current ">
+            <a href="/wiki/">Wiki</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/snippets/">Snippets</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/links/">Links</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/about/">About</a>
+          </li>
+          
+          <li class="element   last">
+            <a href="/subscribe/">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav>  
+    </div>
+  </div>
+</div><!-- end .header -->
+
+
+   <div class="content">
+      <div class="container">
+         <article class="post " itemscope itemtype="http://schema.org/Article">
+      <h1 class="postTitle" itemprop="headline">
+        
+        
+          Emacs Setup
+        
+        
+      </h1>
+    
+  
+  <p class="meta">
+    <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://alexn.org/wiki/emacs/"/>
+    
+      <meta itemprop="datePublished" content="2020-08-24T13:24:31+0000"/>
+      
+      
+      <time itemprop="dateModified" content="2022-03-29T10:40:59+0300">
+        Updated: March 29, 2022
+      </time>
+      
+    
+  </p>
+
+  <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+    <meta itemprop="name" content="Alexandru Nedelcu">
+    <meta itemprop="url" content="https://alexn.org/about/">
+    <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+      <meta itemprop="url" content="https://alexn.org/assets/raw/logo-green.png">
+    </div>
+  </div>
+
+  <div id="content" itemprop="articleBody">
+    
+
+  <p><strong>Contents:</strong></p>
+  <ul>
+  <li><a href="#installation">Installation</a></li>
+  <li><a href="#settings">Settings</a></li>
+  <li><a href="#emacs-server-as-macos-service">Emacs Server as MacOS Service</a></li>
+  <li><a href="#script-for-running-emacsclient">Script for running EmacsClient</a></li>
+  <li><a href="#bashzsh-settings">Bash/Zsh Settings</a></li>
+  <li><a href="#troubleshooting">Troubleshooting</a>
+    <ul>
+      <li><a href="#failed-to-verify-signature">Failed to verify signature</a></li>
+      <li><a href="#general-unhappiness">General unhappiness</a></li>
+    </ul>
+  </li>
+  <li><a href="#resources">Resources</a></li>
+</ul>
+      <h2 id="installation">
+        
+        
+          Installation <a href="#installation" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>My preferred installation on macOS:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>brew <span class="nb">install </span>emacs <span class="nt">--cask</span>
+</code></pre></div></div>
+
+<p>This installs:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>App '/Applications/Emacs.app'.
+Binary '/usr/local/bin/emacs'.
+Binary '/usr/local/bin/ebrowse'.
+Binary '/usr/local/bin/emacsclient'.
+Binary '/usr/local/bin/etags'.
+</code></pre></div></div>
+
+<p><strong>GOTCHA:</strong> make sure these are on the system path and have priority over the system’s Emacs.</p>
+      <h2 id="settings">
+        
+        
+          Settings <a href="#settings" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>git clone https://github.com/alexandru/emacs.d ~/.emacs.d
+</code></pre></div></div>
+
+<p>See <a href="https://github.com/alexandru/emacs.d">repo</a>.</p>
+      <h2 id="emacs-server-as-macos-service">
+        
+        
+          Emacs Server as MacOS Service <a href="#emacs-server-as-macos-service" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Create <code class="language-plaintext highlighter-rouge">~/Library/LaunchAgents/alex.emacs.plist</code>:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="cp">&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;</span>
+<span class="nt">&lt;plist</span> <span class="na">version=</span><span class="s">"1.0"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>KeepAlive<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;true/&gt;</span>
+    <span class="nt">&lt;key&gt;</span>Label<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>alex.Emacs<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>ProgramArguments<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;array&gt;</span>
+      <span class="nt">&lt;string&gt;</span>/usr/local/bin/emacs<span class="nt">&lt;/string&gt;</span>
+      <span class="nt">&lt;string&gt;</span>--fg-daemon<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;/array&gt;</span>
+    <span class="nt">&lt;key&gt;</span>RunAtLoad<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;true/&gt;</span>
+    <span class="nt">&lt;key&gt;</span>UserName<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>replace_me_with_mac_username<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/dict&gt;</span>
+<span class="nt">&lt;/plist&gt;</span>
+</code></pre></div></div>
+
+<p>The service can then be loaded via:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>launchctl load <span class="nt">-w</span> ~/Library/LaunchAgents/alex.emacs.plist
+</code></pre></div></div>
+
+<p>Or unloaded via:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>launchctl unload ~/Library/LaunchAgents/alex.emacs.plist
+</code></pre></div></div>
+      <h2 id="script-for-running-emacsclient">
+        
+        
+          Script for running EmacsClient <a href="#script-for-running-emacsclient" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Placed in <code class="language-plaintext highlighter-rouge">~/bin/run-emacsclient</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c">#!/usr/bin/env bash</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nt">-z</span> <span class="s2">"</span><span class="nv">$EMACSCLIENT_OPTS</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+  </span><span class="nv">EMACSCLIENT_OPTS</span><span class="o">=</span><span class="s2">"-nc"</span>
+<span class="k">fi
+
+if</span> <span class="o">[</span> <span class="nv">$# </span><span class="nt">-eq</span> 0 <span class="o">]</span><span class="p">;</span> <span class="k">then
+  </span><span class="nv">COMMAND</span><span class="o">=</span><span class="s1">'/usr/local/bin/emacsclient '</span><span class="nv">$EMACSCLIENT_OPTS</span><span class="s1">' -e "(if (display-graphic-p) (x-focus-frame nil))"'</span>
+<span class="k">else
+  </span><span class="nv">COMMAND</span><span class="o">=</span><span class="s1">'/usr/local/bin/emacsclient '</span><span class="nv">$EMACSCLIENT_OPTS</span><span class="s1">' "$@"'</span>
+<span class="k">fi
+
+if</span> <span class="o">[</span> <span class="nt">-z</span> <span class="s2">"</span><span class="si">$(</span><span class="nb">shopt</span> | <span class="nb">grep </span>login_shell<span class="si">)</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+  </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$COMMAND</span><span class="s2">"</span> | <span class="nb">exec </span>bash <span class="nt">--login</span> <span class="nt">-s</span> <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span>
+<span class="k">else
+  </span><span class="nb">eval</span> <span class="s2">"exec </span><span class="nv">$COMMAND</span><span class="s2">"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<p>And a corresponding <code class="language-plaintext highlighter-rouge">~/bin/run-emacs-client-cli</code> to force the CLI mode in the terminal, instead of opening a buffer in some opened GUI window:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c">#!/usr/bin/env bash</span>
+
+<span class="nb">export </span><span class="nv">EMACSCLIENT_OPTS</span><span class="o">=</span><span class="s1">'-t'</span>
+<span class="nb">exec </span>run-emacsclient <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span>
+</code></pre></div></div>
+      <h2 id="bashzsh-settings">
+        
+        
+          Bash/Zsh Settings <a href="#bashzsh-settings" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c"># Default zsh keybindings (emacs; might want to switch to vim later)</span>
+bindkey <span class="nt">-e</span>
+
+<span class="c"># Adding Emacs to PATH</span>
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$PATH</span><span class="s2">:~/Applications/Emacs.app/Contents/MacOS/bin:/Applications/Emacs.app/Contents/MacOS/bin:~/Applications/Emacs.app/Contents/MacOS:/Applications/Emacs.app/Contents/MacOS"</span>
+
+<span class="c"># Default editor</span>
+<span class="nb">export </span><span class="nv">EDITOR</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/bin/run-emacsclient-cli"</span>
+<span class="nb">export </span><span class="nv">VISUAL</span><span class="o">=</span><span class="s2">"</span><span class="nv">$EDITOR</span><span class="s2">"</span>
+<span class="nb">export </span><span class="nv">ALTERNATE_EDITOR</span><span class="o">=</span><span class="s2">"vim"</span>
+
+<span class="c">## Editor aliases</span>
+<span class="nb">alias </span><span class="nv">e</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/bin/run-emacsclient-cli"</span>
+<span class="nb">alias </span><span class="nv">ew</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/bin/run-emacsclient"</span>
+<span class="nb">alias </span><span class="nv">notes</span><span class="o">=</span><span class="s1">'$HOME/bin/run-emacsclient-cli -e "(deft)"'</span>
+
+emacs_open_buffer<span class="o">()</span>
+<span class="o">{</span>
+  run-emacsclient-cli <span class="nt">-e</span> <span class="s2">"(let ((b (find-buffer-by-prefix </span><span class="se">\"</span><span class="nv">$1</span><span class="se">\"</span><span class="s2">))) nil)"</span>
+<span class="o">}</span>
+<span class="nb">alias </span><span class="nv">eb</span><span class="o">=</span>emacs_open_buffer
+</code></pre></div></div>
+      <h2 id="troubleshooting">
+        
+        
+          Troubleshooting <a href="#troubleshooting" class="anchor">#</a>
+        
+        
+      </h2>
+    
+      <h3 id="failed-to-verify-signature">
+        
+        
+          Failed to verify signature <a href="#failed-to-verify-signature" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>In my case Emacs was complaining that key <code class="language-plaintext highlighter-rouge">066DAFCB81E42C40</code> is missing.</p>
+
+<p>I managed to solve it by running:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>gpg <span class="nt">--keyserver</span> hkp://keys.gnupg.net <span class="nt">--recv-keys</span> 066DAFCB81E42C40
+</code></pre></div></div>
+
+<p>Afterwards starting Emacs from the command line might be a good idea.</p>
+      <h3 id="general-unhappiness">
+        
+        
+          General unhappiness <a href="#general-unhappiness" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>brew uninstall emacs
+</code></pre></div></div>
+
+<p>Then download <a href="https://code.visualstudio.com/">VS Code</a>.</p>
+      <h2 id="resources">
+        
+        
+          Resources <a href="#resources" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<ul>
+  <li><a href="https://github.com/bbatsov/emacs-lisp-style-guide">The Emacs Lisp Style Guide</a></li>
+</ul>
+
+  </div>
+</article>
+
+      </div>
+   </div><!-- end .content -->
+
+   <script async src="/assets/js/modernizr.custom.15390.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202203310904" type="text/javascript"></script>
+
+<script async src="/assets/js/scripts.js?202203310904" type="text/javascript"></script>
+
+   <div class="footer">
+  
+  <div class="container">
+    <div class="contributions">
+      <h2 id="comments">
+  Comments
+  <a href="#comments" class="anchor">#</a>
+</h2>
+
+<p>
+  Do you have suggestions? Want to chat? Email me at: <br>
+  <script>
+    (function () {
+      var lhs = "contact22+comments";
+      var rhs = "alexn.org";
+      document.write("<a target=\"_blank\" href=\"mailto");
+      document.write(":" + lhs + "@");
+      document.write(rhs);
+      document.write("?subject=Comment%20on%3A%20Emacs%20Setup")
+      document.write("\">" + lhs + "@" + rhs + "<\/a>");
+    })()
+  </script>
+  <noscript>
+    <em>Email address is protected via JavaScript, activate it to see it!</em>
+  </noscript>
+</p>
+
+<h2 id="contribute">
+  Contribute
+  <a href="#contribute" class="anchor">#</a>
+</h2>
+
+
+<p>
+  Fix or add to this article by submitting a pull request:<br/>
+  <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/main/_wiki/emacs.md" target="_blank">Edit Page on GitHub</a>
+</p>
+
+<p>
+  Donate to cover ongoing website costs, or buy me coffee ☕️😋 <br/>
+  <a href="https://www.patreon.com/bePatron?u=6102596" target="_blank">
+    <img label="Become a Patron!" alt="Become a Patron!" title="Become a Patron!" src="/assets/media/buttons/patreon.png" height="40" />
+  </a>
+</p>
+
+
+<h2 id="subscribe">
+  Subscribe
+  <a href="#subscribe" class="anchor">#</a>
+</h2>
+
+<!-- Begin Mailchimp Signup Form -->
+<div id="mc_embed_signup">
+  <form action="https://alexn.us4.list-manage.com/subscribe/post?u=5bffa2af025192a58345bd5dc&amp;id=1c9005b255"
+    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
+    novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="mc-field-group field">
+        <label for="mce-EMAIL">Email Address <sup class="asterisk">*</sup></label>
+        <input type="email" value="" name="EMAIL" class="required email full-width" id="mce-EMAIL" placeholder="user@domain.com" required>
+      </div>
+      <!-- <div class="mc-field-group field">
+        <label for="mce-FULLNAME">Name</label>
+        <input type="text" value="" name="FULLNAME" class="full-width" id="mce-FULLNAME" placeholder="John Doe">
+      </div> -->
+      <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+      </div>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+          name="b_5bffa2af025192a58345bd5dc_1c9005b255" tabindex="-1" value=""></div>
+      <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+          class="button"></div>
+    </div>
+  </form>
+</div>
+
+<div class="note">
+  <span class="extra">
+    Newsletter subscription uses Mailchimp, see <a href="/docs/privacy-policy/">privacy policy</a>.
+    If you're not seeing the form, it may be blocked by the browser; <a target="_blank" href="http://eepurl.com/g5ClAT"><em><span style="white-space: nowrap;">try the external subscribe page &#10141;</span></em></a>
+  </span>
+</div>
+
+
+    </div>  
+  </div>
+  
+
+  <div class="bottom">
+    <div class="container">
+      <span class="copy">
+          &copy; 2009-2022
+      </span>
+      <span class="links">
+        <a href="/docs/license/">License</a> |
+        <a href="/docs/privacy-policy/">Privacy Policy</a> |
+        <a href="/about/#contact">Contact</a>
+      </span>
+    </div>
+  </div>
+</div><!-- end .footer -->
+
+</body>
+</html>

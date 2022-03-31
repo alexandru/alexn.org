@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <!-- https://github.com/darkreader/darkreader/issues/1114 -->
+    <!-- <meta name="darkreader" content="41637b04c7ddb955e533a5c76d68a2c8"> -->
+    <meta name="color-scheme" content="light dark">
+    <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
+    <meta name="theme-color" content="#493667">
+    
+    <title>On Bifunctor IO and Java&#39;s Checked Exceptions - Alexandru Nedelcu</title>
+    
+
+    <!-- Open Graph Meta -->
+    <meta content="Alexandru Nedelcu" property="og:site_name">
+    <meta content="On Bifunctor IO and Java&amp;#39;s Checked Exceptions" property="og:title">
+    <meta content="Bifunctor IO is a hot topic in the Scala community. Herein I’m expressing my dislike for it, as it shares the problems of Java’s Checked Exceptions." property="og:description">
+    <meta content="https://alexn.org/blog/2018/05/06/bifunctor-io/" property="og:url">
+    <meta content="2018-05-06T00:00:00+00:00" property="article:published_time">
+    
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/bio.png?202203310904" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/bio.png?202203310904" />
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/bio.png?202203310904">
+    <meta name="twitter:site" content="@alexelcu">
+    <meta name="twitter:creator" content="@alexelcu">
+    <meta name="twitter:title" content="On Bifunctor IO and Java&#39;s Checked Exceptions">
+    <meta name="twitter:url" content="https://alexn.org/blog/2018/05/06/bifunctor-io/">
+    <meta name="twitter:description" content="Bifunctor IO is a hot topic in the Scala community. Herein I’m expressing my dislike for it, as it shares the problems of Java’s Checked Exceptions.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/logo/16px.png" sizes="16x16" />
+    <link rel="icon" href="/assets/logo/32px.png" sizes="32x32" />
+    <link rel="icon" href="/assets/logo/192px.png" sizes="192x192" />
+    <link rel="icon" href="/assets/logo/270px.png" sizes="270x270" />
+    <link rel="icon" href="/assets/logo/512px.png" sizes="512x512" />
+    <link rel="apple-touch-icon-precomposed" href="/assets/logo/180px.png" />
+    <meta name="msapplication-TileImage" content="/assets/logo/270px.png" />
+
+    <!-- Come and get me RSS readers -->
+    <link rel="alternate" type="application/rss+xml" title="All articles (blog, snippets, wiki, links)" href="/feeds/all.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Blog" href="/feeds/blog.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Snippets" href="/feeds/snippets.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Shared Links" href="/feeds/links.xml" />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/assets/css/style.css?202203310904">
+    <link rel="preload" as="style" href="/assets/css/style.css?202203310904">
+    
+    <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
+    <link rel="canonical" href="https://alexn.org/blog/2018/05/06/bifunctor-io/">
+</head>
+
+
+<body>
+   <div class="header">
+  <div class="container">
+    <div class="inner-container">
+      <h1 class="logo"><a href="/">Alex<span class="wide2">andru</span> Nedelcu<span class="wide1"> =&lt;&lt;</span></a></h1>
+      <nav class="nav-collapse">
+        <ul class="noList">
+          
+          <li class="element first current ">
+            <a href="/blog/">Blog</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/wiki/">Wiki</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/snippets/">Snippets</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/links/">Links</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/about/">About</a>
+          </li>
+          
+          <li class="element   last">
+            <a href="/subscribe/">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav>  
+    </div>
+  </div>
+</div><!-- end .header -->
+
+
+   <div class="content">
+      <div class="container">
+         <article class="post" itemscope itemtype="http://schema.org/BlogPosting"><header>
+      <h1 class="postTitle" itemprop="headline">
+        
+        
+          
+      On Bifunctor IO and Java&#39;s Checked Exceptions
+    
+        
+        
+      </h1>
+    
+    <p class="meta">
+      <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://alexn.org/blog/2018/05/06/bifunctor-io/"/>
+      <meta itemprop="datePublished" content="2018-05-06T00:00:00+0000"/>
+      
+      <time itemprop="dateCreated" datetime="2018-05-06T00:00:00+0000">May 6, 2018</time>
+      | <nobr><span class="time">20</span> minutes</nobr>
+    </p>
+
+    
+        <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+          <meta itemprop="url" content="https://alexn.org/assets/media/articles/bio.png" />
+          <img src="/assets/media/articles/bio.png?202203310904" alt="" />
+          
+        </figure>
+        
+    
+
+    <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Alexandru Nedelcu">
+      <meta itemprop="url" content="https://alexn.org/about/">
+      <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="https://alexn.org/assets/raw/logo-green.png">
+      </div>
+    </div>
+    <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="Alexandru Nedelcu" />
+        <meta itemprop="url" content="https://alexn.org/about/#alexelcu" />
+        <meta itemprop="url" content="https://twitter.com/alexelcu" />
+        <meta itemprop="url" content="https://github.com/alexandru" />
+      </div>
+    
+
+    
+    
+    
+    <nav class="toc">
+      <p class="toc-title">Table of Contents:</p>
+      <ul>
+  <li><a href="#what-is-io">What is IO?</a></li>
+  <li><a href="#whats-the-bifunctor-io">What’s the Bifunctor IO?</a></li>
+  <li><a href="#the-problems-of-javas-checked-exceptions">The Problems of Java’s Checked Exceptions</a>
+    <ul>
+      <li><a href="#1-composition-destroys-specific-error-types">1. Composition Destroys Specific Error Types</a></li>
+      <li><a href="#2-you-dont-recover-from-errors-often">2. You Don’t Recover From Errors Often</a></li>
+      <li><a href="#3-the-error-type-is-an-encapsulation-leak">3. The Error Type is an Encapsulation Leak</a></li>
+      <li><a href="#4-it-pushes-complexity-to-the-user">4. It Pushes Complexity to the User</a></li>
+      <li><a href="#5-the-bifunctor-io-doesnt-reflect-the-runtime">5. The Bifunctor IO Doesn’t Reflect the Runtime</a></li>
+    </ul>
+  </li>
+  <li><a href="#io-cannot-be-an-alias-of-the-bifunctor-io">IO Cannot Be an Alias of the Bifunctor IO</a></li>
+  <li><a href="#final-words">Final Words</a></li>
+</ul>
+    </nav>
+    </header>
+
+  <div id="content" itemprop="articleBody">
+    <p class="intro withcap">
+  The Bifunctor <code class="language-plaintext highlighter-rouge">IO</code> data type is a hot topic in the Scala community. In this article however I’m expressing my dislike for it because it shares the same problems as Java’s Checked Exceptions.
+</p>
+      <h2 id="what-is-io">
+        
+        
+          What is IO? <a href="#what-is-io" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Normally the <code class="language-plaintext highlighter-rouge">IO</code> data type is expressed as:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">sealed</span> <span class="k">trait</span> <span class="nc">IO</span><span class="o">[</span><span class="kt">+A</span><span class="o">]</span> <span class="o">{</span>
+  <span class="o">???</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>What this means is that <code class="language-plaintext highlighter-rouge">IO</code> is like a thunk, like a function with
+zero parameters, that upon execution will finally produce an <code class="language-plaintext highlighter-rouge">A</code>
+value, if successful. The type also signals possible side effects that
+might happen upon execution, but since it behaves like a function
+(that hasn’t been executed yet), when you are given an <code class="language-plaintext highlighter-rouge">IO</code> value you
+can consider it as being pure (and the function producing it has
+<em>referential transparency</em>). This means that <code class="language-plaintext highlighter-rouge">IO</code> can be used to
+describe pure computations.</p>
+
+<p>Modern <code class="language-plaintext highlighter-rouge">IO</code> implementations for JVM are also capable of describing
+asynchronous processes, therefore you can also think of <code class="language-plaintext highlighter-rouge">IO</code> as being:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="n">opaque</span> <span class="k">type</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">+A</span><span class="o">]</span> <span class="k">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="nc">Future</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span>
+</code></pre></div></div>
+
+<p>If we had <a href="https://docs.scala-lang.org/sips/opaque-types.html">opaque types</a>
+this would work well ;-)</p>
+
+<p>Available implementations are:</p>
+
+<ul>
+  <li><a href="https://typelevel.org/cats-effect/datatypes/io.html">cats.effect.IO</a></li>
+  <li><a href="https://monix.io/docs/3x/eval/task.html">monix.eval.Task</a></li>
+  <li><a href="https://github.com/scalaz/scalaz/blob/series/7.3.x/concurrent/src/main/scala/scalaz/concurrent/Task.scala">scalaz.concurrent.Task</a>
+(in the 7.2.x and 7.3.x series)</li>
+</ul>
+
+<p>Some cool presentations on this subject:</p>
+
+<ul>
+  <li><a href="https://www.youtube.com/watch?v=g_jP47HFpWA">The Making of an IO</a> (ScalaIO FR, 2017)</li>
+  <li><a href="https://www.youtube.com/watch?v=X-cEGEJMx_4">What Referential Transparency can do for you</a> (ScalaIO FR, 2017)</li>
+  <li><a href="https://monix.io/presentations/2016-task-flatmap-oslo.html">Monix Task: Lazy, Async and Awesome</a> (flatMap(Oslo), 2016)</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">IO[+A]</code> implements <code class="language-plaintext highlighter-rouge">MonadError[IO, Throwable]</code>. And if we’re talking
+of Cats-Effect or Monix, it also implements
+<a href="https://typelevel.org/cats-effect/typeclasses/sync.html">Sync</a> among
+others.</p>
+
+<p>This means that <code class="language-plaintext highlighter-rouge">IO[+A]</code> can terminate with error, it can terminate in
+a <code class="language-plaintext highlighter-rouge">Throwable</code>, actually reflecting the capabilities of the Java
+Runtime. This means that this code is legit:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">cats.effect.IO</span>
+<span class="k">import</span> <span class="nn">scala.util.Random</span>
+
+<span class="k">def</span> <span class="nf">genRandomPosInt</span><span class="o">(</span><span class="n">max</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nc">IO</span><span class="o">(</span><span class="nv">Math</span><span class="o">.</span><span class="py">floorMod</span><span class="o">(</span><span class="nv">Random</span><span class="o">.</span><span class="py">nextInt</span><span class="o">(),</span> <span class="n">max</span><span class="o">))</span>
+</code></pre></div></div>
+
+<p>The astute reader might notice that this isn’t a total function, as it
+could throw an <code class="language-plaintext highlighter-rouge">ArithmeticException</code>. An easy mistake to make.</p>
+      <h2 id="whats-the-bifunctor-io">
+        
+        
+          What’s the Bifunctor IO? <a href="#whats-the-bifunctor-io" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>I’m going to call this data type <code class="language-plaintext highlighter-rouge">BIO</code>, to differentiate it from <code class="language-plaintext highlighter-rouge">IO</code> above:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">sealed</span> <span class="k">trait</span> <span class="nc">BIO</span><span class="o">[</span><span class="kt">E</span>, <span class="kt">A</span><span class="o">]</span> <span class="o">{</span>
+  <span class="o">???</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Such a type parameterizes the error type in <code class="language-plaintext highlighter-rouge">E</code>. This is more or less like usage of
+<code class="language-plaintext highlighter-rouge">Either</code> to express the error, but as you shall see below, they aren’t exactly
+equivalent:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="n">opaque</span> <span class="k">type</span> <span class="kt">BIO</span><span class="o">[</span><span class="kt">E</span>, <span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="nc">IO</span><span class="o">[</span><span class="kt">Either</span><span class="o">[</span><span class="kt">E</span>, <span class="kt">A</span><span class="o">]]</span>
+</code></pre></div></div>
+
+<p>Or in case you’re throwing <code class="language-plaintext highlighter-rouge">EitherT</code> in the mix to make that less awkward:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">cats.data.EitherT</span>
+
+<span class="k">type</span> <span class="kt">BIO</span><span class="o">[</span><span class="kt">E</span>, <span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="nc">EitherT</span><span class="o">[</span><span class="kt">IO</span>, <span class="kt">E</span>, <span class="kt">A</span><span class="o">]</span>
+</code></pre></div></div>
+
+<p>Exposing the error type would allow one to be very explicit at compile time
+about the error:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">openFile</span><span class="o">(</span><span class="n">file</span><span class="k">:</span> <span class="kt">File</span><span class="o">)</span><span class="k">:</span> <span class="kt">BIO</span><span class="o">[</span><span class="kt">FileNotFoundException</span>, <span class="kt">BufferedReader</span><span class="o">]</span> <span class="k">=</span>
+  <span class="c1">// Made up API</span>
+  <span class="nv">BIO</span><span class="o">.</span><span class="py">delayE</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="nc">Right</span><span class="o">(</span><span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileReader</span><span class="o">(</span><span class="n">file</span><span class="o">)))</span>
+    <span class="k">catch</span> <span class="o">{</span> <span class="k">case</span> <span class="n">e</span><span class="k">:</span> <span class="kt">FileNotFoundException</span> <span class="o">=&gt;</span> <span class="nc">Left</span><span class="o">(</span><span class="n">e</span><span class="o">)</span> <span class="o">}</span>
+  <span class="o">}</span>
+
+<span class="k">def</span> <span class="nf">genRandomInt</span><span class="k">:</span> <span class="kt">BIO</span><span class="o">[</span><span class="kt">Nothing</span>, <span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nv">BIO</span><span class="o">.</span><span class="py">delayE</span><span class="o">(</span><span class="nc">Right</span><span class="o">(</span><span class="nv">Random</span><span class="o">.</span><span class="py">nextInt</span><span class="o">()))</span>
+</code></pre></div></div>
+
+<p>You can see in the first function that we are very explicit about
+<code class="language-plaintext highlighter-rouge">FileNotFoundException</code> being an error that could happen, instructing readers
+that they should probably do error recovery.</p>
+
+<p>And in the second function we could use <code class="language-plaintext highlighter-rouge">Nothing</code> as the error type to
+signal that this operation can in fact produce no error (not really, but
+let’s go with it 😉).</p>
+
+<p>Available implementations:</p>
+
+<ul>
+  <li><a href="https://github.com/scalaz/ioeffect">scalaz/ioeffect</a>, the Scalaz 8 <code class="language-plaintext highlighter-rouge">IO</code>,
+available as a backport for Scalaz 7, by John A. De Goes and other Scalaz contributors</li>
+  <li><a href="https://github.com/LukaJCB/cats-bio">cats-bio</a> by Luka Jacobowitz, inspired
+by Scalaz 8’s <code class="language-plaintext highlighter-rouge">IO</code>, he took Cats-Effect’s <code class="language-plaintext highlighter-rouge">IO</code> and changed <code class="language-plaintext highlighter-rouge">Throwable</code> to <code class="language-plaintext highlighter-rouge">E</code>
+as a proof of concept</li>
+  <li>Worthy to mention is also <a href="https://github.com/LukaJCB/cats-uio">Unexceptional IO</a>,
+Luka’s precursor to his BIO implementation, inspired by Haskell’s
+<a href="https://hackage.haskell.org/package/unexceptionalio">UIO</a> I think</li>
+</ul>
+
+<p>Some articles on this subject:</p>
+
+<ul>
+  <li><a href="http://degoes.net/articles/effects-without-transformers">No More Transformers: High-Performance Effects in Scalaz 8</a>,
+by John A. De Goes</li>
+  <li><a href="https://typelevel.org/blog/2018/04/13/rethinking-monaderror.html">Rethinking MonadError</a>,
+by Luka Jacobowitz</li>
+</ul>
+
+<p>The premise of these articles is that:</p>
+
+<ol>
+  <li>our type system should stop us from being able to write nonsensical error handling
+code and give us a way to show anyone reading the code that we’ve already handled errors</li>
+  <li>the performance of <code class="language-plaintext highlighter-rouge">EitherT</code> is bad and usage more awkward</li>
+</ol>
+
+<p>Naturally, I disagree with the first assertion and I don’t think the second assertion is a problem 😀</p>
+      <h2 id="the-problems-of-javas-checked-exceptions">
+        
+        
+          The Problems of Java’s Checked Exceptions <a href="#the-problems-of-javas-checked-exceptions" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>While I think that the Bifunctor IO is a cool implementation, that’s pretty useful
+for certain people, or certain use cases, I believe that ultimately it’s not a good
+default implementation, as it shares the same problems as Java’s Checked Exceptions.
+Or in other words, it’s ignoring decades of experience with exceptions, since
+their introduction in LISP and then in C++, Java, C# and other mainstream languages.</p>
+
+<p>The web is littered with articles on why checked exceptions were a bad idea and many
+of those reasons are also very relevant for an <code class="language-plaintext highlighter-rouge">IO[E, A]</code>. Here’s just two such
+interesting articles:</p>
+
+<ul>
+  <li><a href="https://testing.googleblog.com/2009/09/checked-exceptions-i-love-you-but-you.html">Checked exceptions I love you, but you have to go</a></li>
+  <li><a href="https://www.artima.com/intv/handcuffs.html">The Trouble with Checked Exceptions</a>, an interview with Anders Hejlsberg</li>
+</ul>
+
+<p>But let me explain in more detail …</p>
+      <h3 id="1-composition-destroys-specific-error-types">
+        
+        
+          1. Composition Destroys Specific Error Types <a href="#1-composition-destroys-specific-error-types" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Let’s go with a more serious example:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">java.io._</span>
+
+<span class="k">def</span> <span class="nf">openFile</span><span class="o">(</span><span class="n">file</span><span class="k">:</span> <span class="kt">File</span><span class="o">)</span><span class="k">:</span> <span class="kt">BIO</span><span class="o">[</span><span class="kt">FileNotFoundException</span>, <span class="kt">BufferedReader</span><span class="o">]</span> <span class="k">=</span>
+  <span class="c1">// Made up API</span>
+  <span class="nv">BIO</span><span class="o">.</span><span class="py">delayE</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="nc">Right</span><span class="o">(</span><span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileReader</span><span class="o">(</span><span class="n">file</span><span class="o">)))</span>
+    <span class="k">catch</span> <span class="o">{</span> <span class="k">case</span> <span class="n">e</span><span class="k">:</span> <span class="kt">FileNotFoundException</span> <span class="o">=&gt;</span> <span class="nc">Left</span><span class="o">(</span><span class="n">e</span><span class="o">)</span> <span class="o">}</span>
+  <span class="o">}</span>
+
+<span class="k">def</span> <span class="nf">readLine</span><span class="o">(</span><span class="n">in</span><span class="k">:</span> <span class="kt">BufferedReader</span><span class="o">)</span><span class="k">:</span> <span class="kt">BIO</span><span class="o">[</span><span class="kt">IOException</span>, <span class="kt">String</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nv">BIO</span><span class="o">.</span><span class="py">delayE</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="nc">Right</span><span class="o">(</span><span class="nv">in</span><span class="o">.</span><span class="py">readLine</span><span class="o">())</span>
+    <span class="k">catch</span> <span class="o">{</span> <span class="k">case</span> <span class="n">e</span><span class="k">:</span> <span class="kt">IOException</span> <span class="o">=&gt;</span> <span class="nc">Left</span><span class="o">(</span><span class="n">e</span><span class="o">)</span> <span class="o">}</span>
+    <span class="k">finally</span> <span class="nv">in</span><span class="o">.</span><span class="py">close</span><span class="o">()</span>
+  <span class="o">}</span>
+
+<span class="k">def</span> <span class="nf">convertToNumber</span><span class="o">(</span><span class="n">nr</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">BIO</span><span class="o">[</span><span class="kt">NumberFormatException</span>, <span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nv">BIO</span><span class="o">.</span><span class="py">delayE</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="nc">Right</span><span class="o">(</span><span class="nv">nr</span><span class="o">.</span><span class="py">toLong</span><span class="o">)</span>
+    <span class="k">catch</span> <span class="o">{</span> <span class="k">case</span> <span class="n">e</span><span class="k">:</span> <span class="kt">NumberFormatException</span> <span class="o">=&gt;</span> <span class="nc">Left</span><span class="o">(</span><span class="n">e</span><span class="o">)</span> <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+
+<p>What would be the type of a composition of multiple <code class="language-plaintext highlighter-rouge">IO</code> values like this?</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">for</span> <span class="o">{</span>
+  <span class="n">buffer</span> <span class="k">&lt;-</span> <span class="nf">openFile</span><span class="o">(</span><span class="n">file</span><span class="o">)</span>
+  <span class="n">line</span> <span class="k">&lt;-</span> <span class="nf">readLine</span><span class="o">(</span><span class="n">buffer</span><span class="o">)</span>
+  <span class="n">num</span> <span class="k">&lt;-</span> <span class="nf">convertToNumber</span><span class="o">(</span><span class="n">line</span><span class="o">)</span>
+<span class="o">}</span> <span class="k">yield</span> <span class="n">num</span>
+</code></pre></div></div>
+
+<p>That’s right, you’ll have a <code class="language-plaintext highlighter-rouge">Throwable</code> on your hands. And this is
+assuming that we’ve got a <code class="language-plaintext highlighter-rouge">flatMap</code> that widens the result to the most
+specific super-type, otherwise you’ll have to take care of conversions
+manually, at each step. Also note that our usage of <code class="language-plaintext highlighter-rouge">Throwable</code> is
+irrelevant for the problem at hand. You could come up with your own
+error type, but <code class="language-plaintext highlighter-rouge">Throwable</code> is actually more practical, because we can
+simply cast it.</p>
+
+<p>So assuming a <code class="language-plaintext highlighter-rouge">flatMap</code> that doesn’t automatically widen the error
+type of the result, what you’ll have to deal with is actually worse:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">for</span> <span class="o">{</span>
+  <span class="n">buffer</span> <span class="k">&lt;-</span> <span class="nf">openFile</span><span class="o">(</span><span class="n">file</span><span class="o">).</span><span class="py">leftWiden</span><span class="o">[</span><span class="kt">Throwable</span><span class="o">]</span>
+  <span class="n">line</span> <span class="k">&lt;-</span> <span class="nf">readLine</span><span class="o">(</span><span class="n">buffer</span><span class="o">).</span><span class="py">leftWiden</span><span class="o">[</span><span class="kt">Throwable</span><span class="o">]</span>
+  <span class="n">num</span> <span class="k">&lt;-</span> <span class="nf">convertToNumber</span><span class="o">(</span><span class="n">line</span><span class="o">).</span><span class="py">leftWiden</span><span class="o">[</span><span class="kt">Throwable</span><span class="o">]</span>
+<span class="o">}</span> <span class="k">yield</span> <span class="n">num</span>
+</code></pre></div></div>
+
+<p>Not sure how people feel about this, but to me this isn’t an
+improvement over the status quo, far from it, this is just noise
+polluting the code. And before you say anything in its defence, make
+sure the argument doesn’t also apply to Java and everything you
+dislike about it 😉</p>
+      <h3 id="2-you-dont-recover-from-errors-often">
+        
+        
+          2. You Don’t Recover From Errors Often <a href="#2-you-dont-recover-from-errors-often" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Imagine a piece of code like this:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">for</span> <span class="o">{</span>
+  <span class="n">r1</span> <span class="k">&lt;-</span> <span class="n">op1</span>
+  <span class="n">r2</span> <span class="k">&lt;-</span> <span class="n">op2</span>
+  <span class="n">r3</span> <span class="k">&lt;-</span> <span class="n">op3</span>
+<span class="o">}</span> <span class="k">yield</span> <span class="n">r1</span> <span class="o">+</span> <span class="n">r2</span> <span class="o">+</span> <span class="n">r3</span>
+</code></pre></div></div>
+
+<p>So we are executing 3 operations in sequence and each of them can fail,
+we don’t know which or how.</p>
+
+<p>Does it matter? Most of the time, you don’t care. Most of the time it is
+irrelevant. Most of the time you can’t even recover until later.</p>
+
+<p>Due to this uncertainty about which operations trigger errors and
+which don’t, the premise of a Bifunctor <code class="language-plaintext highlighter-rouge">IO</code> is that we’re forced to
+do <code class="language-plaintext highlighter-rouge">attempt</code> (error recovery) everywhere, but that is not a correct
+premise. The way exceptions work and why they were introduced in LISP
+and later in C++, is that you only catch exceptions at the point were
+you can actually do something about it, otherwise it’s fine to live in
+blissful ignorance.</p>
+
+<p>Empirical evidence suggests that most checked exceptions in Java are
+either ignored or re-thrown, forcing people to write catch blocks that
+are meaningless and even error prone.</p>
+
+<p>You can even find some studies on handling of checked exceptions in
+Java projects, although I’m unsure about how good they are. For
+example there’s
+<a href="https://ieeexplore.ieee.org/document/7832935/">Analysis of Exception Handling Patterns in Java Projects</a>,
+which states that:</p>
+
+<blockquote>
+  <p><em>“Results of this study indicate that most programmers ignore checked exceptions and
+leave them unnoticed. Additionally, it is observed that classes higher in the exception
+class hierarchy are more frequently used as compared to specific exception subclasses.”</em></p>
+</blockquote>
+
+<p>Consider that in case of a web server the recovery might be something
+as simple as showing the user an HTTP 500 status. HTTP 500 statuses are
+a problem, but only if they happen and when they start to show up,
+you can then go back and fix what needs to be fixed.</p>
+
+<p>Also remember the <code class="language-plaintext highlighter-rouge">FileNotFoundException</code> we mentioned above?
+Well, in most cases there’s not much you can do about it. It’s not like
+you’ve got much choice in the knowledge that the file is missing,
+most of the time the important bit being that an error, any error,
+happened.</p>
+
+<p>To quote Anders Hejlsberg, the original designer of C#:</p>
+
+<blockquote>
+  <p><em>“It is funny how people think that the important thing about
+exceptions is handling them. That is not the important thing about
+exceptions. In a well-written application there’s a ratio of ten to
+one, in my opinion, of try/finally to try/catch. Or in C#, <code class="language-plaintext highlighter-rouge">using</code>
+statements, which are like try/finally.”</em></p>
+</blockquote>
+
+<p>In other words the most important part of exceptions are the finalizers,
+recovery being less frequent.</p>
+      <h3 id="3-the-error-type-is-an-encapsulation-leak">
+        
+        
+          3. The Error Type is an Encapsulation Leak <a href="#3-the-error-type-is-an-encapsulation-leak" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Lets say that we have this function:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">foo</span><span class="o">(</span><span class="n">param</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">BIO</span><span class="o">[</span><span class="kt">FileNotFoundException</span>, <span class="kt">B</span><span class="o">]</span>
+</code></pre></div></div>
+
+<p>By saying that it can end with a <code class="language-plaintext highlighter-rouge">FileNotFoundException</code>, we are instructing
+all callers, at all call sites, to handle this error as part of the exposed API.</p>
+
+<p>It’s pretty obvious that <code class="language-plaintext highlighter-rouge">FileNotFoundException</code> can happen due to trying to
+open a file on disk that is missing. It’s a very specific error, isn’t it,
+the kind of error we’re supposed to like if we’re fans of <code class="language-plaintext highlighter-rouge">EitherT</code> or of the
+Bifunctor <code class="language-plaintext highlighter-rouge">IO</code>.</p>
+
+<p>Well, what happens if we change <code class="language-plaintext highlighter-rouge">foo</code> to make an HTTP request instead, or
+maybe we turn it into something that reads a memory location. Now all of a sudden
+<code class="language-plaintext highlighter-rouge">FileNotFoundException</code> is no longer a possibility.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">foo</span><span class="o">(</span><span class="n">param</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">BIO</span><span class="o">[</span><span class="kt">Unit</span>, <span class="kt">B</span><span class="o">]</span>
+</code></pre></div></div>
+
+<p>This then bubbles down to all call sites, effectively breaking backwards compatibility,
+so all that depend on your <code class="language-plaintext highlighter-rouge">foo</code> will have to upgrade and recompile. And as the author
+of <code class="language-plaintext highlighter-rouge">foo</code> you’ll be faced with two choices:</p>
+
+<ol>
+  <li>break compatibility</li>
+  <li>keep lying to your users that <code class="language-plaintext highlighter-rouge">foo</code> can end with a <code class="language-plaintext highlighter-rouge">FileNotFoundException</code> and
+thus leave them with <em>unreachable code</em> - which is something that some Java
+libraries are known to have done</li>
+</ol>
+
+<p>NOTE: there are cases in which <em>you want</em> to break binary compatibility in
+case the error type changes.  That is precisely the use case for which the
+Bifunctor IO or <code class="language-plaintext highlighter-rouge">EitherT</code> are recommended.</p>
+      <h3 id="4-it-pushes-complexity-to-the-user">
+        
+        
+          4. It Pushes Complexity to the User <a href="#4-it-pushes-complexity-to-the-user" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>On utility I deeply understand the need to parameterize all things. But the question is,
+what else could we parameterize and why aren’t we doing it?</p>
+
+<ul>
+  <li>we could have a type parameter that says whether the operation is blocking-IO bound,
+or CPU bound and  in this way we could avoid running an <code class="language-plaintext highlighter-rouge">IO</code> that’s CPU-bound on a
+thread-pool meant for blocking I/O or vice-versa</li>
+  <li>we could add a type parameter for the execution model — is it synchronous or asynchronous?</li>
+  <li>we could describe the side effect with a type parameter — i.e. is it doing PostgreSQL queries,
+or ElasticSearch inserts and in this way the type becomes more transparent and you could
+come up with rules for what’s safe to execute in parallel or what not</li>
+  <li>add your own pet peeve …</li>
+</ul>
+
+<p>I’m fairly sure that people have attempted these. I’m fairly sure that
+there might even be libraries around that are useful in certain
+specific instances. But they are not mainstream.</p>
+
+<p>We aren’t doing it because adding type parameters to the types we are
+using leads to the death of the compiler, not to mention our own
+understanding of the types involved, plus usage becomes that much
+harder, because by introducing type parameters, values with different
+type arguments no longer compose without explicit conversion /
+widening, pushing a lot of complexity to the user.</p>
+
+<p>This is why <code class="language-plaintext highlighter-rouge">EitherT</code> is cool, even with all of its problems. It’s cool
+because it can be bolted on, when you need it, adding that complexity
+only when necessary.</p>
+
+<p>The Bifunctor <code class="language-plaintext highlighter-rouge">IO[E, A]</code> looks cool, but what happens downstream to
+the types using it? Monix’s <code class="language-plaintext highlighter-rouge">Iterant</code> for example is
+<code class="language-plaintext highlighter-rouge">Iterant[F[_], A]</code>. Should it be <code class="language-plaintext highlighter-rouge">Iterant[F[_], E, A]</code>? Or maybe
+<code class="language-plaintext highlighter-rouge">Iterant[F[Throwable, _], A]</code>? Or <code class="language-plaintext highlighter-rouge">Iterant[F[_, _], E, A]</code>?</p>
+
+<p>If I parameterize the error in <code class="language-plaintext highlighter-rouge">Iterant</code>, how could it keep on working with
+the current <code class="language-plaintext highlighter-rouge">IO</code> that doesn’t have a <code class="language-plaintext highlighter-rouge">E</code> parameter? And if <code class="language-plaintext highlighter-rouge">Iterant</code> works with
+<code class="language-plaintext highlighter-rouge">IO[Throwable, _]</code>, then what’s the point of <code class="language-plaintext highlighter-rouge">IO[E, A]</code> anyway?</p>
+
+<p>Note that having multiple type parameters is a problem in Haskell too.
+Martin Odersky already expressed his dislike for type classes of multiple type
+parameters, such as <code class="language-plaintext highlighter-rouge">MonadError</code> and it’s pretty telling that type classes with
+multiple type parameters are not part of standard Haskell.</p>
+      <h3 id="5-the-bifunctor-io-doesnt-reflect-the-runtime">
+        
+        
+          5. The Bifunctor IO Doesn’t Reflect the Runtime <a href="#5-the-bifunctor-io-doesnt-reflect-the-runtime" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>I gave this piece of code above and I’m fairly sure that you missed the
+bug in it:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">readLine</span><span class="o">(</span><span class="n">in</span><span class="k">:</span> <span class="kt">BufferedReader</span><span class="o">)</span><span class="k">:</span> <span class="kt">BIO</span><span class="o">[</span><span class="kt">IOException</span>, <span class="kt">String</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nv">BIO</span><span class="o">.</span><span class="py">delayE</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="nc">Right</span><span class="o">(</span><span class="nv">in</span><span class="o">.</span><span class="py">readLine</span><span class="o">())</span>
+    <span class="k">catch</span> <span class="o">{</span> <span class="k">case</span> <span class="n">e</span><span class="k">:</span> <span class="kt">IOException</span> <span class="o">=&gt;</span> <span class="nc">Left</span><span class="o">(</span><span class="n">e</span><span class="o">)</span> <span class="o">}</span>
+    <span class="k">finally</span> <span class="nv">in</span><span class="o">.</span><span class="py">close</span><span class="o">()</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+
+<p>The bug is that <code class="language-plaintext highlighter-rouge">in.close()</code> can throw exceptions as well. Actually on top of the JVM
+even pure, total functions can throw <code class="language-plaintext highlighter-rouge">InterruptedException</code> for example.</p>
+
+<p>So what happens next?</p>
+
+<p>Well the Bifunctor <code class="language-plaintext highlighter-rouge">IO</code> cannot represent just any <code class="language-plaintext highlighter-rouge">Throwable</code>. By making <code class="language-plaintext highlighter-rouge">E</code> generic,
+it means that handling of <code class="language-plaintext highlighter-rouge">Throwable</code> is out. So at this point there are about 3 possibilities:</p>
+
+<ol>
+  <li>crash the process, which would be the default, naive implementation</li>
+  <li>your thread crashes without making a sound, logging to a stderr that gets redirected to <code class="language-plaintext highlighter-rouge">/dev/null</code></li>
+  <li>use something like a custom Java
+<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Thread.UncaughtExceptionHandler.html">Thread.UncaughtExceptionHandler</a>,
+or Scalaz’s specific “fiber” error reporter to report such errors somewhere</li>
+</ol>
+
+<p>Also the astute reader should notice that by replacing the <code class="language-plaintext highlighter-rouge">MonadError</code> handling and recovery
+by a simple reporter there’s no way to do <em>back-pressured retries</em>. The nature of bugs is that
+many bugs are non-deterministic. Maybe you’re doing an HTTP request and you’re expecting a
+number in return, but it gives you an unexpected response - maybe it has a maximum limit
+of concurrent connections or something.</p>
+
+<p>When making requests to web services, wouldn’t it be better to give them some slack?
+Wouldn’t it be better to do retries with <a href="https://en.wikipedia.org/wiki/Exponential_backoff">exponential backoff</a>
+a couple of times before crashing? Or maybe use utilities such as
+<a href="https://monix.io/docs/3x/eval/circuit-breaker.html">TaskCircuitBreaker</a>? Of course it is. And in
+the environments I worked on, such instances are very frequent and the processes have to be really
+resilient to failure and resiliency is built-in only when having the assumption that
+<em>everything can fail for unknown reasons</em>.</p>
+
+<p>In the grand scheme of things, the reason for why this is a huge problem is because
+<code class="language-plaintext highlighter-rouge">IO</code> should reflect the runtime, because <code class="language-plaintext highlighter-rouge">IO</code> effectively replaces Java’s call-stack.
+But the Bifunctor <code class="language-plaintext highlighter-rouge">IO</code> no longer does.</p>
+
+<p>In the words of <a href="https://twitter.com/djspiewak">Daniel Spiewak</a>, who initiated
+the Cats-Effect project:</p>
+
+<blockquote>
+  <p><em>“
+    The JVM runtime is typed to a first order. Which happens to be exactly what the type
+    parameter of IO reflects. I'm not talking about code in general, just IO.
+    IO is the runtime, the runtime is IO.    
+  ”</em></p>
+  <p>
+    <a href="https://twitter.com/djspiewak/status/983807277613236230">
+      Source
+    </a>
+  </p>
+  <p><em>“
+    The whole purpose of IO as an abstraction is to control the runtime.
+    If you pretend that the runtime has a property which it does not, then that
+    control is weakened and can be corrupted (in this case, by uncontrolled crashes).
+  ”</em></p>
+  <p>
+    <a href="https://twitter.com/djspiewak/status/983808880349073408">
+      Source
+    </a>
+  </p>
+  <p><em>“
+    IO needs to reflect and describe the capabilities of the runtime, for good or for bad.
+    All it takes is an "innocent" throw to turn it all into a lie, and you can't prevent that.
+  ”</em></p>
+  <p>
+    <a href="https://twitter.com/djspiewak/status/983805298526699520">
+      Source
+    </a>
+  </p>  
+</blockquote>
+
+<p>I agree with that and it shows which developers worked a lot in dynamic environments,
+this great divide being between those that think types can prove correctness in all cases
+and those that don’t.</p>
+
+<p>If you’re in the former camp, I think <a href="https://twitter.com/Hillelogram">Hillel Wayne</a>
+is eager to <a href="https://hillelwayne.com/post/theorem-prover-showdown/">prove you wrong</a> 😉</p>
+      <h2 id="io-cannot-be-an-alias-of-the-bifunctor-io">
+        
+        
+          IO Cannot Be an Alias of the Bifunctor IO <a href="#io-cannot-be-an-alias-of-the-bifunctor-io" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>You might be temped to say that:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">type</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="nc">BIO</span><span class="o">[</span><span class="kt">Throwable</span>, <span class="kt">A</span><span class="o">]</span>
+</code></pre></div></div>
+
+<p>This is not true and it gave birth to, what I like to call, the great
+“<em>No True Functor</em>” debate and fallacy 😜</p>
+
+<p>But details about it would take another article to explain.</p>
+
+<p>So it’s enough to say that <code class="language-plaintext highlighter-rouge">cats.effect.IO</code> and <code class="language-plaintext highlighter-rouge">monix.eval.Task</code> has got you
+covered in all cases, whereas a Bifunctor <code class="language-plaintext highlighter-rouge">IO</code> needs to pretend that developers
+on top of the JVM can work only with total functions, on top of an environment
+that actively proves you wrong, thus applying the “<em>let it crash</em>” philosophy
+on top of a runtime that makes this really expensive to do so
+(i.e. the JVM is not Erlang).</p>
+
+<p>This is another great divide in mentality, although I can see the merits of
+the arguments on the other side. In such cases it’s relevant by what kind
+of problems you got burned or not in the past I guess.</p>
+      <h2 id="final-words">
+        
+        
+          Final Words <a href="#final-words" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>I am not saying that the Bifunctor <code class="language-plaintext highlighter-rouge">IO[E, A]</code> is not useful.</p>
+
+<p>I’m pretty sure it will prove useful for some use-cases, the same kind of use-cases
+for which <code class="language-plaintext highlighter-rouge">EitherT</code> is useful, except with a less orthogonal design. Well you gain
+some performance in that process, although when you’re using <code class="language-plaintext highlighter-rouge">EitherT</code> it’s debatable
+whether it matters for those particular use cases.</p>
+
+<p>What I am saying is that:</p>
+
+<ol>
+  <li>let’s not ignore the two decades of experience we had with Java’s checked exceptions,
+preceded by another two decades of experience with exceptions in other languages</li>
+  <li><code class="language-plaintext highlighter-rouge">EitherT</code> is useful because it can be bolted on when the need arises, or otherwise
+it can be totally ignored by people like myself, so let’s not throw the baby with the
+bath water</li>
+</ol>
+
+<p>I do think that <code class="language-plaintext highlighter-rouge">IO[E, A]</code> will be a great addition to the ecosystem, as an option over
+the current status quo. Scala is a great environment.</p>
+
+<p>That’s all.</p>
+
+  </div>
+
+  <div id="article-details">
+    
+    <time itemprop="dateModified" content="2018-05-06T00:00:00+0000">
+        Published: May 6, 2018
+    </time>
+    
+      | Written by <a href="https://alexn.org/about/#alexelcu" itemprop="url" rel="author">Alexandru Nedelcu</a>
+    
+
+    <div id="all-categories">
+      Tags:
+      
+        
+        <a href="/blog/tag/best%20of/" class="category">Best Of</a>
+      
+         | 
+        <a href="/blog/tag/fp/" class="category">FP</a>
+      
+         | 
+        <a href="/blog/tag/typelevel/" class="category">Typelevel</a>
+      
+         | 
+        <a href="/blog/tag/scala/" class="category">Scala</a>
+      
+         | 
+        <a href="/blog/tag/haskell/" class="category">Haskell</a>
+      
+    </div>
+  </div>
+
+  
+  <div class="related">
+      <h2 id="related-articles">
+        
+        
+          Related Articles <a href="#related-articles" class="anchor">#</a>
+        
+        
+      </h2>
+    
+    <div class="container">
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2018/02/12/in-defense-oofp/">
+          In Defense of OOFP
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/best%20of" class="tag">Best Of</a>
+            
+               | <a href="/blog/tag/oop" class="tag">OOP</a>
+            
+               | <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/haskell" class="tag">Haskell</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+                        
+          </div>
+          <time>February 12, 2018</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2017/10/15/functional-programming/">
+          What is Functional Programming?
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/best%20of" class="tag">Best Of</a>
+            
+               | <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/haskell" class="tag">Haskell</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/javascript" class="tag">JavaScript</a>
+                        
+          </div>
+          <time>October 15, 2017</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2020/11/15/managing-database-migrations-scala/">
+          Managing Database Migrations in Scala
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/typelevel" class="tag">Typelevel</a>
+                        
+          </div>
+          <time>November 15, 2020</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  
+
+  
+</article>
+
+      </div>
+   </div><!-- end .content -->
+
+   <script async src="/assets/js/modernizr.custom.15390.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202203310904" type="text/javascript"></script>
+
+<script async src="/assets/js/scripts.js?202203310904" type="text/javascript"></script>
+
+   <div class="footer">
+  
+  <div class="container">
+    <div class="contributions">
+      <h2 id="comments">
+  Comments
+  <a href="#comments" class="anchor">#</a>
+</h2>
+
+<p>
+  Do you have suggestions? Want to chat? Email me at: <br>
+  <script>
+    (function () {
+      var lhs = "contact22+comments";
+      var rhs = "alexn.org";
+      document.write("<a target=\"_blank\" href=\"mailto");
+      document.write(":" + lhs + "@");
+      document.write(rhs);
+      document.write("?subject=Comment%20on%3A%20On%20Bifunctor%20IO%20and%20Java's%20Checked%20Exceptions")
+      document.write("\">" + lhs + "@" + rhs + "<\/a>");
+    })()
+  </script>
+  <noscript>
+    <em>Email address is protected via JavaScript, activate it to see it!</em>
+  </noscript>
+</p>
+
+<h2 id="contribute">
+  Contribute
+  <a href="#contribute" class="anchor">#</a>
+</h2>
+
+
+<p>
+  Fix or add to this article by submitting a pull request:<br/>
+  <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/main/_posts/2018-05-06-bifunctor-io.md" target="_blank">Edit Page on GitHub</a>
+</p>
+
+<p>
+  Donate to cover ongoing website costs, or buy me coffee ☕️😋 <br/>
+  <a href="https://www.patreon.com/bePatron?u=6102596" target="_blank">
+    <img label="Become a Patron!" alt="Become a Patron!" title="Become a Patron!" src="/assets/media/buttons/patreon.png" height="40" />
+  </a>
+</p>
+
+
+<h2 id="subscribe">
+  Subscribe
+  <a href="#subscribe" class="anchor">#</a>
+</h2>
+
+<!-- Begin Mailchimp Signup Form -->
+<div id="mc_embed_signup">
+  <form action="https://alexn.us4.list-manage.com/subscribe/post?u=5bffa2af025192a58345bd5dc&amp;id=1c9005b255"
+    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
+    novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="mc-field-group field">
+        <label for="mce-EMAIL">Email Address <sup class="asterisk">*</sup></label>
+        <input type="email" value="" name="EMAIL" class="required email full-width" id="mce-EMAIL" placeholder="user@domain.com" required>
+      </div>
+      <!-- <div class="mc-field-group field">
+        <label for="mce-FULLNAME">Name</label>
+        <input type="text" value="" name="FULLNAME" class="full-width" id="mce-FULLNAME" placeholder="John Doe">
+      </div> -->
+      <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+      </div>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+          name="b_5bffa2af025192a58345bd5dc_1c9005b255" tabindex="-1" value=""></div>
+      <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+          class="button"></div>
+    </div>
+  </form>
+</div>
+
+<div class="note">
+  <span class="extra">
+    Newsletter subscription uses Mailchimp, see <a href="/docs/privacy-policy/">privacy policy</a>.
+    If you're not seeing the form, it may be blocked by the browser; <a target="_blank" href="http://eepurl.com/g5ClAT"><em><span style="white-space: nowrap;">try the external subscribe page &#10141;</span></em></a>
+  </span>
+</div>
+
+
+    </div>  
+  </div>
+  
+
+  <div class="bottom">
+    <div class="container">
+      <span class="copy">
+          &copy; 2009-2022
+      </span>
+      <span class="links">
+        <a href="/docs/license/">License</a> |
+        <a href="/docs/privacy-policy/">Privacy Policy</a> |
+        <a href="/about/#contact">Contact</a>
+      </span>
+    </div>
+  </div>
+</div><!-- end .footer -->
+
+</body>
+</html>

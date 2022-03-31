@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <!-- https://github.com/darkreader/darkreader/issues/1114 -->
+    <!-- <meta name="darkreader" content="41637b04c7ddb955e533a5c76d68a2c8"> -->
+    <meta name="color-scheme" content="light dark">
+    <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
+    <meta name="theme-color" content="#493667">
+    
+    <title>FreeSWITCH - Tips for Creating a Dialer - Alexandru Nedelcu</title>
+    
+
+    <!-- Open Graph Meta -->
+    <meta content="Alexandru Nedelcu" property="og:site_name">
+    <meta content="FreeSWITCH - Tips for Creating a Dialer" property="og:title">
+    <meta content="FreeSWITCH is a free and open source application server for real-time communication, WebRTC, telecommunications, video and Voice over Internet Protocol. Let’s build a VoIP dialer with it." property="og:description">
+    <meta content="https://alexn.org/blog/2009/02/20/tips-for-creating-voip-dialer/" property="og:url">
+    <meta content="2009-02-20T00:00:00+00:00" property="article:published_time">
+    <meta content="2019-12-14T00:00:00+00:00" property="article:modified_time">
+    
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/freeswitch1.png?202203310904" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/freeswitch1.png?202203310904" />
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/freeswitch1.png?202203310904">
+    <meta name="twitter:site" content="@alexelcu">
+    <meta name="twitter:creator" content="@alexelcu">
+    <meta name="twitter:title" content="FreeSWITCH - Tips for Creating a Dialer">
+    <meta name="twitter:url" content="https://alexn.org/blog/2009/02/20/tips-for-creating-voip-dialer/">
+    <meta name="twitter:description" content="FreeSWITCH is a free and open source application server for real-time communication, WebRTC, telecommunications, video and Voice over Internet Protocol. Let’s build a VoIP dialer with it.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/logo/16px.png" sizes="16x16" />
+    <link rel="icon" href="/assets/logo/32px.png" sizes="32x32" />
+    <link rel="icon" href="/assets/logo/192px.png" sizes="192x192" />
+    <link rel="icon" href="/assets/logo/270px.png" sizes="270x270" />
+    <link rel="icon" href="/assets/logo/512px.png" sizes="512x512" />
+    <link rel="apple-touch-icon-precomposed" href="/assets/logo/180px.png" />
+    <meta name="msapplication-TileImage" content="/assets/logo/270px.png" />
+
+    <!-- Come and get me RSS readers -->
+    <link rel="alternate" type="application/rss+xml" title="All articles (blog, snippets, wiki, links)" href="/feeds/all.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Blog" href="/feeds/blog.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Snippets" href="/feeds/snippets.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Shared Links" href="/feeds/links.xml" />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/assets/css/style.css?202203310904">
+    <link rel="preload" as="style" href="/assets/css/style.css?202203310904">
+    
+    <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
+    <link rel="canonical" href="https://alexn.org/blog/2009/02/20/tips-for-creating-voip-dialer/">
+</head>
+
+
+<body>
+   <div class="header">
+  <div class="container">
+    <div class="inner-container">
+      <h1 class="logo"><a href="/">Alex<span class="wide2">andru</span> Nedelcu<span class="wide1"> =&lt;&lt;</span></a></h1>
+      <nav class="nav-collapse">
+        <ul class="noList">
+          
+          <li class="element first current ">
+            <a href="/blog/">Blog</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/wiki/">Wiki</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/snippets/">Snippets</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/links/">Links</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/about/">About</a>
+          </li>
+          
+          <li class="element   last">
+            <a href="/subscribe/">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav>  
+    </div>
+  </div>
+</div><!-- end .header -->
+
+
+   <div class="content">
+      <div class="container">
+         <article class="post" itemscope itemtype="http://schema.org/BlogPosting"><header>
+      <h1 class="postTitle" itemprop="headline">
+        
+        
+          
+      FreeSWITCH - Tips for Creating a Dialer
+    
+        
+        
+      </h1>
+    
+    <p class="meta">
+      <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://alexn.org/blog/2009/02/20/tips-for-creating-voip-dialer/"/>
+      <meta itemprop="datePublished" content="2009-02-20T00:00:00+0000"/>
+      
+      <time itemprop="dateCreated" datetime="2009-02-20T00:00:00+0000">February 20, 2009</time>
+      | <nobr><span class="time">13</span> minutes</nobr>
+    </p>
+
+    
+        <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+          <meta itemprop="url" content="https://alexn.org/assets/media/articles/freeswitch1.png" />
+          <img src="/assets/media/articles/freeswitch1.png?202203310904" alt="" />
+          
+        </figure>
+        
+    
+
+    <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Alexandru Nedelcu">
+      <meta itemprop="url" content="https://alexn.org/about/">
+      <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="https://alexn.org/assets/raw/logo-green.png">
+      </div>
+    </div>
+    <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="Alexandru Nedelcu" />
+        <meta itemprop="url" content="https://alexn.org/about/#alexelcu" />
+        <meta itemprop="url" content="https://twitter.com/alexelcu" />
+        <meta itemprop="url" content="https://github.com/alexandru" />
+      </div>
+    
+
+    
+    
+    
+    <nav class="toc">
+      <p class="toc-title">Table of Contents:</p>
+      <ul>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#prerequisites">Prerequisites</a></li>
+  <li><a href="#step-1-instalation">Step 1: Instalation</a></li>
+  <li><a href="#step-2-configuration">Step 2: Configuration</a></li>
+  <li><a href="#step-3-initiating-external-calls">Step 3: Initiating External Calls</a></li>
+  <li><a href="#step-4-scripting">Step 4: Scripting</a></li>
+  <li><a href="#step-5-more-scripting">Step 5: More Scripting</a>
+    <ul>
+      <li><a href="#how-to-send-a-caller-id-when-initiating-calls">How to send a caller-id when initiating calls?</a></li>
+      <li><a href="#how-to-retry-if-phone-is-busy">How to retry if phone is busy?</a></li>
+      <li><a href="#how-to-detect-phone-keys-pressed">How to detect phone keys pressed?</a></li>
+      <li><a href="#how-to-create-a-connection-between-your-session-and-another-phone">How to create a connection between your session and another phone?</a></li>
+      <li><a href="#how-to-execute-external-commands-from-your-script">How to execute external commands from your script?</a></li>
+    </ul>
+  </li>
+  <li><a href="#step-6-communicating-with-freeswitch-using-mod_event_socket">Step 6: Communicating with FreeSWITCH using mod_event_socket</a></li>
+  <li><a href="#wrapping-up">Wrapping up</a></li>
+</ul>
+    </nav>
+    </header>
+
+  <div id="content" itemprop="articleBody">
+      <h2 id="introduction">
+        
+        
+          Introduction <a href="#introduction" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p class="intro withcap">FreeSWITCH is a free and open source application server for real-time communication, WebRTC, telecommunications, video and Voice over Internet Protocol. Let's build a VoIP dialer with it.</p>
+
+<p class="info-bubble">
+  This article also refers to FreeSWITCH Revision <code class="language-plaintext highlighter-rouge">10694</code>. Things could have changed since then, there might be better ways for doing what’s described in this article; ask on their mailing list.
+</p>
+
+<p>We are trying to migrate one of our existing Asterisk setups to FreeSWITCH. These are some tips to walk you thorough the hard part of learning the inners of FreeSWITCH for creating a simple dialer.</p>
+
+<p>As you will learn, FreeSWITCH is a little overwhelming, while being flexible and easy to use.</p>
+
+<p>Being a software developer, I prefer the flexibility of a programming language, rather than working with XML configuration files. Fortunately the standard FreeSWITCH distribution comes with both a SpiderMonkey engine (javascript) and Lua embeded. And it works great for our needs.</p>
+      <h2 id="prerequisites">
+        
+        
+          Prerequisites <a href="#prerequisites" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Our setup is based on Debian Linux. You should have no problem following it for other Linux-distros or operating systems though.</p>
+
+<p>For external scripts, we prefer Perl, and I’ll give a code sample using it, but I don’t think it would be a problem porting it to the language of your choice.</p>
+
+<p>You’ll also need a <a href="http://en.wikipedia.org/wiki/Session_Initiation_Protocol">SIP</a> provider for initiating external VoIP calls.</p>
+      <h2 id="step-1-instalation">
+        
+        
+          Step 1: Instalation <a href="#step-1-instalation" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>You can find detailed installation instructions here: <a href="http://wiki.freeswitch.org/wiki/Installation_Guide">http://wiki.freeswitch.org/wiki/Installation_Guide</a>.</p>
+
+<p>Our setups are based on Debian, and there are also instructions for <a href="http://wiki.freeswitch.org/wiki/Installation_Guide#Debian_Linux">building Debian packages</a>.</p>
+
+<p>If you build Debian packages, the default instalation path is <code class="language-plaintext highlighter-rouge">/opt/freeswitch</code> (revision 10694). You can change that by modifying debian/rules in the sources directory (search for “<code class="language-plaintext highlighter-rouge">/opt/freeswitch</code>”, you’ll find a “<code class="language-plaintext highlighter-rouge">./configure</code>” section), once you download it. But this tutorial is based on the default settings.</p>
+      <h2 id="step-2-configuration">
+        
+        
+          Step 2: Configuration <a href="#step-2-configuration" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>I won’t dwell on details since the configuration can be a painful process, and you would be better served contacting the <a href="http://wiki.freeswitch.org/wiki/Main_Page#Community_and_Support">FreeSWITCH community</a>.</p>
+
+<p>But you’ll probably need to configure authentication settings for your SIP provider. To do that, look at the lead on the wiki: <a href="http://wiki.freeswitch.org/wiki/Getting_Started_Guide#External">external SIP profiles</a>. For us it was easy since our provider doesn’t require user/password authentication, and no extra configuration was necessary.</p>
+      <h2 id="step-3-initiating-external-calls">
+        
+        
+          Step 3: Initiating External Calls <a href="#step-3-initiating-external-calls" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>In case the FreeSWITCH daemon has started, you need to stop it for now …</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="code"><code>/etc/init.d/freeswitch stop
+</code></pre></div></div>
+
+<p>If you also have Asterisk up and runnings, you should stop it also, to avoid any conflicts.</p>
+
+<p>Then open the FreeSWITCH console:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="code"><code>/opt/freeswitch/bin/freeswitch <span class="nt">-c</span>
+</code></pre></div></div>
+
+<p>Calls can be initiated by using the <a href="http://wiki.freeswitch.org/wiki/Mod_commands#originate">originate command</a>. You’ll need a “call url” with the syntax described on the wiki: <a href="http://wiki.freeswitch.org/wiki/Sofia#Syntax">Sofia#Syntax</a>.</p>
+
+<p>To make a simple call, let’s setup a simple dialplan. Also, let’s also play a simple audio file, according <a href="http://wiki.freeswitch.org/wiki/Playing_recording_external_media#Play_wav">to the wiki example</a>.To do that, create a dialplan extension by creating a file named <code class="language-plaintext highlighter-rouge">/opt/freeswitch/conf/dialplan/default/2009_play.xml</code> with the following text:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nt">&lt;include&gt;</span>
+  <span class="nt">&lt;extension</span> <span class="na">name=</span><span class="s">"wavs"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;condition</span> <span class="na">field=</span><span class="s">"destination_number"</span> <span class="na">expression=</span><span class="s">"^2009$"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;action</span> <span class="na">application=</span><span class="s">"sleep"</span> <span class="na">data=</span><span class="s">"2000"</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;action</span> <span class="na">application=</span><span class="s">"playback"</span> <span class="na">data=</span><span class="s">"/path/to/your.wav"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/condition&gt;</span>
+
+  <span class="nt">&lt;/extension&gt;</span>
+<span class="nt">&lt;/include&gt;</span>
+</code></pre></div></div>
+
+<p>The file is self-descriptive. When the phone is answered, it waits 2 seconds before playing your audio file of choice.</p>
+
+<p>Now, in the Free console execute the following command (while providing a real number and your own SIP provider, of course):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="code"><code>originate sofia/external/<span class="nv">$number</span>@<span class="nv">$myprovider</span>.com 2009
+</code></pre></div></div>
+
+<p>If everything goes well (the phone rings, and you can hear the audion file), then <strong>congratulations</strong>, you’re well on your way :)</p>
+      <h2 id="step-4-scripting">
+        
+        
+          Step 4: Scripting <a href="#step-4-scripting" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Freeswitch comes with Spidermonkey, and Lua embedded, and also offers integration with other languages, like Python and Perl. I’m going to exemplify Javascript, because it’s a decent mainstream language that I like, but if you’re worried about performance or you just want to have some fun, you should give Lua a try.</p>
+
+<p>I also really, really hate XML configuration files. So I wanted to do everything from a script file, with these reasons on top of my head:</p>
+
+<ol>
+  <li>general-purpose scripting languages make me happy</li>
+  <li>you gain flexibility … and stuff like retrying the call based on certain conditions, or a finite state automata depending on the client/campaign … easy as pie</li>
+  <li>have I mentioned that I hate XML?</li>
+</ol>
+
+<p>In your favorite text editor, create a file “voice.js”, with the following code:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nx">session</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Session</span><span class="p">(</span><span class="dl">'</span><span class="s1">sofia/external/$number@provider</span><span class="dl">'</span><span class="p">);</span>
+<span class="c1">// The following line is a deprecated method</span>
+<span class="c1">// session.originate(undefined, 'sofia/external/$number@provider');</span>
+
+<span class="nx">session</span><span class="p">.</span><span class="nx">waitForAnswer</span><span class="p">(</span><span class="mi">10000</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">session</span><span class="p">.</span><span class="nx">ready</span><span class="p">())</span> <span class="p">{</span>
+    <span class="nx">session</span><span class="p">.</span><span class="nx">sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+    <span class="nx">session</span><span class="p">.</span><span class="nx">streamFile</span><span class="p">(</span><span class="dl">'</span><span class="s1">/path/to/your.wav</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>See:</p>
+
+<ul>
+  <li><a href="http://wiki.freeswitch.org/wiki/Session_waitForAnswer">waitForAnswer</a></li>
+  <li><a href="http://wiki.freeswitch.org/wiki/Session_streamFile">streamFile</a></li>
+</ul>
+
+<p>For our purposes, this snippet is almost equivalent to our initial dialplan extension. To execute it, in the FreeSWITCH console run the following command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="code"><code>jsrun /path/to/voice.js
+</code></pre></div></div>
+      <h2 id="step-5-more-scripting">
+        
+        
+          Step 5: More Scripting <a href="#step-5-more-scripting" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Now that we’ve got working code, lets expand it a little to make it more useful.</p>
+      <h3 id="how-to-send-a-caller-id-when-initiating-calls">
+        
+        
+          How to send a caller-id when initiating calls? <a href="#how-to-send-a-caller-id-when-initiating-calls" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>We want the call to have an associated caller-ID. The caller-ID is passed by setting the channel variables <em>origination_caller_id_number</em> and <em>origination_caller_id_name</em>. Try it in a FreeSWITCH console right now by executing this command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="code"><code>originate <span class="o">{</span><span class="nv">origination_caller_id_number</span><span class="o">=</span>123456, <span class="se">\</span>
+           <span class="nv">ignore_early_media</span><span class="o">=</span><span class="nb">true</span><span class="o">}</span>sofia/external/<span class="nv">$number</span>@provider &amp;
+</code></pre></div></div>
+
+<p>Or in your script:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="kd">var</span> <span class="nx">session</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Session</span><span class="p">(</span>
+  <span class="dl">"</span><span class="s2">{origination_caller_id_number=1234567}</span><span class="dl">"</span>
+  <span class="o">+</span> <span class="dl">"</span><span class="s2">sofia/external/$number@provider</span><span class="dl">"</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>For the B-leg of a bridged connection, you either set “<code class="language-plaintext highlighter-rouge">origination_caller_id_(name/number)</code>” on the new connection, or, as a shortcut, on the A-leg you can specify the channel variables <em>effective_caller_id_number</em> and <em>effective_caller_id_name</em> which are passed to any B-leg call initiated. Try it in a console:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="code"><code>originate <span class="o">{</span><span class="nv">origination_caller_id_number</span><span class="o">=</span>1111111111, <span class="se">\</span>
+           <span class="nv">effective_caller_id_number</span><span class="o">=</span>222222222, <span class="se">\</span>
+           <span class="nv">ignore_early_media</span><span class="o">=</span><span class="nb">true</span><span class="o">}</span>sofia/external/<span class="nv">$number</span>@provider <span class="se">\</span>
+           &amp;bridge<span class="o">(</span>sofia/external/<span class="nv">$second_number</span>@provider<span class="o">)</span>
+</code></pre></div></div>
+      <h3 id="how-to-retry-if-phone-is-busy">
+        
+        
+          How to retry if phone is busy? <a href="#how-to-retry-if-phone-is-busy" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>We want to retry the call immediately after, maybe the client pressed the wrong button and rejected the call. As in this <a href="http://wiki.freeswitch.org/wiki/Busy_Call_Retry">wiki page</a>, but with a twist: we wouldn’t want to retry more than once, because annoyed customers are not happy customers.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="kd">function</span> <span class="nx">makeCall</span><span class="p">(</span><span class="nx">nr_or_tries</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">session</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Session</span><span class="p">(</span><span class="dl">'</span><span class="s1">sofia/external/$number@provider</span><span class="dl">'</span><span class="p">);</span>
+    <span class="c1">// The following line is a deprecated method</span>
+    <span class="c1">//session.originate(undefined, 'sofia/external/$number@provider');</span>
+
+    <span class="nx">session</span><span class="p">.</span><span class="nx">waitForAnswer</span><span class="p">(</span><span class="mi">10000</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">session</span><span class="p">.</span><span class="nx">cause</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">USER_BUSY</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// not sure if this is necessary</span>
+	<span class="c1">// session.hangup();</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="nx">nr_or_tries</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+	    <span class="nx">console_log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Action: Trying again!</span><span class="dl">"</span><span class="p">);</span>
+	    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="nx">console_log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Action: Cannot try again, skipping!</span><span class="dl">"</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">session</span><span class="p">.</span><span class="nx">ready</span><span class="p">())</span> <span class="p">{</span>
+        <span class="nx">session</span><span class="p">.</span><span class="nx">sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+	<span class="nx">session</span><span class="p">.</span><span class="nx">streamFile</span><span class="p">(</span><span class="dl">'</span><span class="s1">/path/to/your.wav</span><span class="dl">'</span><span class="p">);</span>
+	<span class="nx">session</span><span class="p">.</span><span class="nx">hangup</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">nr_or_tries</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="nx">nr_or_tries</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">makeCall</span><span class="p">(</span><span class="nx">nr_or_tries</span><span class="o">++</span><span class="p">))</span> <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>See: <a href="http://wiki.freeswitch.org/wiki/Session_hangup">hangup</a>.</p>
+
+<p>Of course, this script retries the call immediately. This may not be what you want (you may want to wait 10 minutes for a retry), so our favorite way for retries is through an external script that handles the calls queue.</p>
+      <h3 id="how-to-detect-phone-keys-pressed">
+        
+        
+          How to detect phone keys pressed? <a href="#how-to-detect-phone-keys-pressed" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Now we’re getting somewhere :)</p>
+
+<p>The first thing you have to do, after the originate command, is activating <a href="http://wiki.freeswitch.org/wiki/Misc._Dialplan_Tools_start_dtmf">DTFM detection</a>. This can be done in an extension configuration file, but I prefer doing it from our script, for reasons stated above. So after you execute the <em>originate</em> command, you have to execute the following:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nx">session</span><span class="p">.</span><span class="nx">execute</span><span class="p">(</span><span class="dl">"</span><span class="s2">start_dtmf</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Now, when you play an audio file, the <code class="language-plaintext highlighter-rouge">streamFile</code> function accepts as parameter an event handler, which can be used to detect keys pressed. So, lets say than when you press “1”, you want to repeat your message, and when you press “2”, you want to play another audio file:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="kd">var</span> <span class="nx">session</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Session</span><span class="p">(</span><span class="cm">/*... params ... */</span><span class="p">);</span>
+<span class="c1">// The following line is a deprecated method</span>
+<span class="c1">//session.originate(/*... params ... */);</span>
+<span class="nx">session</span><span class="p">.</span><span class="nx">execute</span><span class="p">(</span><span class="dl">"</span><span class="s2">start_dtmf</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">on_event</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">session</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">arg</span> <span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">// we are only concerned with "dtmf" event types</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">type</span> <span class="o">!=</span> <span class="dl">"</span><span class="s2">dtmf</span><span class="dl">"</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">digit</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">1</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="dl">"</span><span class="s2">seek:0</span><span class="dl">"</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">digit</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">2</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="nx">session</span><span class="p">.</span><span class="nx">sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+	<span class="nx">session</span><span class="p">.</span><span class="nx">streamFile</span><span class="p">(</span><span class="dl">"</span><span class="s2">/path/to/another.wav</span><span class="dl">"</span><span class="p">);</span>
+
+	<span class="cm">/* current audio file is stopped
+	* on returning false
+	*/</span>
+	<span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+
+
+    <span class="cm">/* for any other key pressed
+    * returning true keeps the current audio playing
+    */</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">session</span><span class="p">.</span><span class="nx">ready</span><span class="p">())</span> <span class="p">{</span>
+    <span class="nx">session</span><span class="p">.</span><span class="nx">sleep</span><span class="p">(</span><span class="mi">2000</span><span class="p">);</span>
+    <span class="nx">session</span><span class="p">.</span><span class="nx">streamFile</span><span class="p">(</span><span class="dl">"</span><span class="s2">/path/to/your.wav</span><span class="dl">"</span><span class="p">,</span> <span class="nx">on_event</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Note:</strong> minutes cost money, so you should add a counter to limit the maximum times a message can be replayed. There are many weirdos out there 😉</p>
+      <h3 id="how-to-create-a-connection-between-your-session-and-another-phone">
+        
+        
+          How to create a connection between your session and another phone? <a href="#how-to-create-a-connection-between-your-session-and-another-phone" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Maybe you want your client to be connected to a real operator (when he’s pressing “0” on his phone keyboard maybe?). It’s easy, here’s how:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// the original session</span>
+<span class="nx">session</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Session</span><span class="p">(</span><span class="dl">'</span><span class="s1">sofia/external/$number@provider</span><span class="dl">'</span><span class="p">);</span>
+<span class="c1">// The following line is a deprecated method</span>
+<span class="c1">// session.originate(undefined, 'sofia/external/$number@provider');</span>
+
+<span class="nx">session</span><span class="p">.</span><span class="nx">answer</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">session</span><span class="p">.</span><span class="nx">ready</span><span class="p">())</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">new_session</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Session</span><span class="p">(</span><span class="dl">'</span><span class="s1">sofia/external/$another_number&gt;@provider</span><span class="dl">'</span><span class="p">);</span>
+    <span class="c1">// The following line is a deprecated method</span>
+    <span class="c1">//new_session.originate(session, 'sofia/external/$another_number@provider');</span>
+    <span class="nx">new_session</span><span class="p">.</span><span class="nx">answer</span><span class="p">();</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">new_session</span><span class="p">.</span><span class="nx">ready</span><span class="p">())</span> <span class="p">{</span>
+        <span class="nx">bridge</span><span class="p">(</span><span class="nx">session</span><span class="p">,</span> <span class="nx">new_session</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>See: <a href="http://wiki.freeswitch.org/wiki/Mod_commands#bridge">bridge</a>. If you want to add the actual key-press event, see the example above.</p>
+      <h3 id="how-to-execute-external-commands-from-your-script">
+        
+        
+          How to execute external commands from your script? <a href="#how-to-execute-external-commands-from-your-script" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>If you want to execute an external script (like for sending a notification when a certain event happens), you can use the <a href="http://wiki.freeswitch.org/wiki/Javascript_Misc_system">system</a> command.</p>
+
+<p>If you want to execute an external command, and process its output, you can open a pipe using the <a href="http://wiki.freeswitch.org/wiki/File">File</a> object. In FreeSWITCH you do have the possibility of accessing a database using ODBC, but I haven’t tried it, and in case it doesn’t work, you can always write an external script that does the processing you need, and then returns a JSON, or an XML file.</p>
+      <h2 id="step-6-communicating-with-freeswitch-using-mod_event_socket">
+        
+        
+          Step 6: Communicating with FreeSWITCH using mod_event_socket <a href="#step-6-communicating-with-freeswitch-using-mod_event_socket" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Playing in the FreeSWITCH console is fun, but what you need is a server who receives notifications from an external script.</p>
+
+<p>First, shut down the FreeSWITCH console, and start FS in daemon mode.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="code"><code>/etc/init.d/freeswitch start
+</code></pre></div></div>
+
+<p>Next, copy your work thus far (which I assume it’s located in <code class="language-plaintext highlighter-rouge">dialer.js</code>) to <code class="language-plaintext highlighter-rouge">/opt/freeswitch/scripts</code>. That’s where scripts are usually deployed in FreeSWITCH.</p>
+
+<p>FreeSWITCH can communicate through <a href="http://wiki.freeswitch.org/wiki/Mod_event_socket">mod_event_socket</a>. You can communicate using a simple telnet connection, but I’m lazy, and <a href="http://search.cpan.org/~jrogers/Net-Telnet-3.03/lib/Net/Telnet.pm">Net::Telnet</a> is complaining about a missing login prompt. Luckily, in the FreeSWITCH sources directory, you’ll find a sample <a href="http://wiki.freeswitch.org/wiki/Mod_event_socket#perl_command_client">perl command client</a>. The source code is located in <code class="language-plaintext highlighter-rouge">freeswitch_src/scripts/socket</code> and in there you’ll find the perl package <em>FreeSWITCH::Client</em>. Copy it to your project’s location, and create a script called <code class="language-plaintext highlighter-rouge">dialer.pl</code> with the following code:</p>
+
+<div class="language-perl highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">#!/usr/bin/perl</span>
+<span class="k">use</span> <span class="nv">strict</span><span class="p">;</span>
+<span class="k">use</span> <span class="nv">warnings</span><span class="p">;</span>
+
+<span class="c1"># make sure it's located in your @USE paths</span>
+<span class="k">use</span> <span class="nn">FreeSWITCH::</span><span class="nv">Client</span><span class="p">;</span>
+
+<span class="k">my</span> <span class="nv">$fs</span> <span class="o">=</span> <span class="nv">init</span> <span class="nn">FreeSWITCH::</span><span class="nv">Client</span> <span class="p">{</span><span class="o">-</span><span class="s">password</span> <span class="o">=&gt;</span> <span class="p">'</span><span class="s1">ClueCon</span><span class="p">'}</span> <span class="ow">or</span> <span class="nb">die</span> <span class="p">"</span><span class="s2">Error: $@</span><span class="p">";</span>
+
+<span class="c1"># shows number of active channels ...</span>
+<span class="c1"># useful when you want to control the maximum number of</span>
+<span class="c1"># calls made simultaneously</span>
+
+<span class="nv">$reply</span> <span class="o">=</span> <span class="nv">$fs</span><span class="o">-&gt;</span><span class="nv">command</span><span class="p">("</span><span class="s2">show channels</span><span class="p">");</span>
+<span class="k">print</span> <span class="p">"</span><span class="s2">Channels</span><span class="se">\n</span><span class="s2">------------</span><span class="se">\n</span><span class="si">$reply</span><span class="se">\n</span><span class="p">";</span>
+
+<span class="c1"># calls our script, that initiates a call</span>
+<span class="c1"># the command is non-blocking, so you can make multiple</span>
+<span class="c1"># calls in parallel</span>
+
+<span class="nv">$fs</span><span class="o">-&gt;</span><span class="nv">command</span><span class="p">("</span><span class="s2">jsrun dialer.js</span><span class="p">");</span>
+
+<span class="nv">$fs</span><span class="o">-&gt;</span><span class="nv">disconnect</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Btw, if you’re not feeling comfortable about communicating through plain-old sockets with FreeSWITCH, try <a href="http://wiki.freeswitch.org/wiki/Mod_http">mod_http</a>.</p>
+      <h2 id="wrapping-up">
+        
+        
+          Wrapping up <a href="#wrapping-up" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Congratulations, you’ve made it to the end. You just need to add you’re specific business logic, and you already have a kick-ass dialer.</p>
+
+<p>There are lots of scenarios not addressed by this tutorial. One need you might have would be to get the logs of your calls, and see what customers haven’t answered, what customers pressed what key, the average duration of a call, and other such niceties. Since this is a big topic to talk about, and since I still have some research to do, this deserves a whole new article.</p>
+
+  </div>
+
+  <div id="article-details">
+    
+    <time itemprop="dateModified" content="2019-12-14T00:00:00+0000">
+        Updated: December 14, 2019
+    </time>
+    
+      | Written by <a href="https://alexn.org/about/#alexelcu" itemprop="url" rel="author">Alexandru Nedelcu</a>
+    
+
+    <div id="all-categories">
+      Tags:
+      
+        
+        <a href="/blog/tag/best%20of/" class="category">Best Of</a>
+      
+         | 
+        <a href="/blog/tag/voip/" class="category">VoIP</a>
+      
+         | 
+        <a href="/blog/tag/freeswitch/" class="category">FreeSWITCH</a>
+      
+         | 
+        <a href="/blog/tag/javascript/" class="category">JavaScript</a>
+      
+         | 
+        <a href="/blog/tag/perl/" class="category">Perl</a>
+      
+    </div>
+  </div>
+
+  
+  <div class="related">
+      <h2 id="related-articles">
+        
+        
+          Related Articles <a href="#related-articles" class="anchor">#</a>
+        
+        
+      </h2>
+    
+    <div class="container">
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2017/10/15/functional-programming/">
+          What is Functional Programming?
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/best%20of" class="tag">Best Of</a>
+            
+               | <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/haskell" class="tag">Haskell</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/javascript" class="tag">JavaScript</a>
+                        
+          </div>
+          <time>October 15, 2017</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2020/04/21/javascript-semaphore/">
+          Parallelizing Work via a JavaScript Semaphore
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/asynchrony" class="tag">Asynchrony</a>
+            
+               | <a href="/blog/tag/concurrency" class="tag">Concurrency</a>
+            
+               | <a href="/blog/tag/javascript" class="tag">JavaScript</a>
+            
+               | <a href="/blog/tag/typescript" class="tag">TypeScript</a>
+                        
+          </div>
+          <time>April 21, 2020</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2019/08/11/isinstanceof-anti-pattern/">
+          Scala&#39;s isInstanceOf is an Anti-Pattern
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/best%20of" class="tag">Best Of</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+                        
+          </div>
+          <time>August 11, 2019</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  
+
+  
+</article>
+
+      </div>
+   </div><!-- end .content -->
+
+   <script async src="/assets/js/modernizr.custom.15390.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202203310904" type="text/javascript"></script>
+
+<script async src="/assets/js/scripts.js?202203310904" type="text/javascript"></script>
+
+   <div class="footer">
+  
+  <div class="container">
+    <div class="contributions">
+      <h2 id="comments">
+  Comments
+  <a href="#comments" class="anchor">#</a>
+</h2>
+
+<p>
+  Do you have suggestions? Want to chat? Email me at: <br>
+  <script>
+    (function () {
+      var lhs = "contact22+comments";
+      var rhs = "alexn.org";
+      document.write("<a target=\"_blank\" href=\"mailto");
+      document.write(":" + lhs + "@");
+      document.write(rhs);
+      document.write("?subject=Comment%20on%3A%20FreeSWITCH%20-%20Tips%20for%20Creating%20a%20Dialer")
+      document.write("\">" + lhs + "@" + rhs + "<\/a>");
+    })()
+  </script>
+  <noscript>
+    <em>Email address is protected via JavaScript, activate it to see it!</em>
+  </noscript>
+</p>
+
+<h2 id="contribute">
+  Contribute
+  <a href="#contribute" class="anchor">#</a>
+</h2>
+
+
+<p>
+  Fix or add to this article by submitting a pull request:<br/>
+  <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/main/_posts/2009-02-20-tips-for-creating-voip-dialer.md" target="_blank">Edit Page on GitHub</a>
+</p>
+
+<p>
+  Donate to cover ongoing website costs, or buy me coffee ☕️😋 <br/>
+  <a href="https://www.patreon.com/bePatron?u=6102596" target="_blank">
+    <img label="Become a Patron!" alt="Become a Patron!" title="Become a Patron!" src="/assets/media/buttons/patreon.png" height="40" />
+  </a>
+</p>
+
+
+<h2 id="subscribe">
+  Subscribe
+  <a href="#subscribe" class="anchor">#</a>
+</h2>
+
+<!-- Begin Mailchimp Signup Form -->
+<div id="mc_embed_signup">
+  <form action="https://alexn.us4.list-manage.com/subscribe/post?u=5bffa2af025192a58345bd5dc&amp;id=1c9005b255"
+    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
+    novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="mc-field-group field">
+        <label for="mce-EMAIL">Email Address <sup class="asterisk">*</sup></label>
+        <input type="email" value="" name="EMAIL" class="required email full-width" id="mce-EMAIL" placeholder="user@domain.com" required>
+      </div>
+      <!-- <div class="mc-field-group field">
+        <label for="mce-FULLNAME">Name</label>
+        <input type="text" value="" name="FULLNAME" class="full-width" id="mce-FULLNAME" placeholder="John Doe">
+      </div> -->
+      <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+      </div>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+          name="b_5bffa2af025192a58345bd5dc_1c9005b255" tabindex="-1" value=""></div>
+      <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+          class="button"></div>
+    </div>
+  </form>
+</div>
+
+<div class="note">
+  <span class="extra">
+    Newsletter subscription uses Mailchimp, see <a href="/docs/privacy-policy/">privacy policy</a>.
+    If you're not seeing the form, it may be blocked by the browser; <a target="_blank" href="http://eepurl.com/g5ClAT"><em><span style="white-space: nowrap;">try the external subscribe page &#10141;</span></em></a>
+  </span>
+</div>
+
+
+    </div>  
+  </div>
+  
+
+  <div class="bottom">
+    <div class="container">
+      <span class="copy">
+          &copy; 2009-2022
+      </span>
+      <span class="links">
+        <a href="/docs/license/">License</a> |
+        <a href="/docs/privacy-policy/">Privacy Policy</a> |
+        <a href="/about/#contact">Contact</a>
+      </span>
+    </div>
+  </div>
+</div><!-- end .footer -->
+
+</body>
+</html>

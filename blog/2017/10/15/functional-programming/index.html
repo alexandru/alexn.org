@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <!-- https://github.com/darkreader/darkreader/issues/1114 -->
+    <!-- <meta name="darkreader" content="41637b04c7ddb955e533a5c76d68a2c8"> -->
+    <meta name="color-scheme" content="light dark">
+    <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
+    <meta name="theme-color" content="#493667">
+    
+    <title>What is Functional Programming? - Alexandru Nedelcu</title>
+    
+
+    <!-- Open Graph Meta -->
+    <meta content="Alexandru Nedelcu" property="og:site_name">
+    <meta content="What is Functional Programming?" property="og:title">
+    <meta content="FP is programming with (mathematical) functions, there’s no room for interpretation." property="og:description">
+    <meta content="https://alexn.org/blog/2017/10/15/functional-programming/" property="og:url">
+    <meta content="2017-10-15T00:00:00+00:00" property="article:published_time">
+    
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/functions.png?202203310904" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/functions.png?202203310904" />
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/functions.png?202203310904">
+    <meta name="twitter:site" content="@alexelcu">
+    <meta name="twitter:creator" content="@alexelcu">
+    <meta name="twitter:title" content="What is Functional Programming?">
+    <meta name="twitter:url" content="https://alexn.org/blog/2017/10/15/functional-programming/">
+    <meta name="twitter:description" content="FP is programming with (mathematical) functions, there’s no room for interpretation.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/logo/16px.png" sizes="16x16" />
+    <link rel="icon" href="/assets/logo/32px.png" sizes="32x32" />
+    <link rel="icon" href="/assets/logo/192px.png" sizes="192x192" />
+    <link rel="icon" href="/assets/logo/270px.png" sizes="270x270" />
+    <link rel="icon" href="/assets/logo/512px.png" sizes="512x512" />
+    <link rel="apple-touch-icon-precomposed" href="/assets/logo/180px.png" />
+    <meta name="msapplication-TileImage" content="/assets/logo/270px.png" />
+
+    <!-- Come and get me RSS readers -->
+    <link rel="alternate" type="application/rss+xml" title="All articles (blog, snippets, wiki, links)" href="/feeds/all.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Blog" href="/feeds/blog.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Snippets" href="/feeds/snippets.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Shared Links" href="/feeds/links.xml" />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/assets/css/style.css?202203310904">
+    <link rel="preload" as="style" href="/assets/css/style.css?202203310904">
+    
+    <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
+    <link rel="canonical" href="https://alexn.org/blog/2017/10/15/functional-programming/">
+</head>
+
+
+<body>
+   <div class="header">
+  <div class="container">
+    <div class="inner-container">
+      <h1 class="logo"><a href="/">Alex<span class="wide2">andru</span> Nedelcu<span class="wide1"> =&lt;&lt;</span></a></h1>
+      <nav class="nav-collapse">
+        <ul class="noList">
+          
+          <li class="element first current ">
+            <a href="/blog/">Blog</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/wiki/">Wiki</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/snippets/">Snippets</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/links/">Links</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/about/">About</a>
+          </li>
+          
+          <li class="element   last">
+            <a href="/subscribe/">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav>  
+    </div>
+  </div>
+</div><!-- end .header -->
+
+
+   <div class="content">
+      <div class="container">
+         <article class="post" itemscope itemtype="http://schema.org/BlogPosting"><header>
+      <h1 class="postTitle" itemprop="headline">
+        
+        
+          
+      What is Functional Programming?
+    
+        
+        
+      </h1>
+    
+    <p class="meta">
+      <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://alexn.org/blog/2017/10/15/functional-programming/"/>
+      <meta itemprop="datePublished" content="2017-10-15T00:00:00+0000"/>
+      
+      <time itemprop="dateCreated" datetime="2017-10-15T00:00:00+0000">October 15, 2017</time>
+      | <nobr><span class="time">10</span> minutes</nobr>
+    </p>
+
+    
+        <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+          <meta itemprop="url" content="https://alexn.org/assets/media/articles/functions.png" />
+          <img src="/assets/media/articles/functions.png?202203310904" alt="" />
+          
+        </figure>
+        
+    
+
+    <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Alexandru Nedelcu">
+      <meta itemprop="url" content="https://alexn.org/about/">
+      <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="https://alexn.org/assets/raw/logo-green.png">
+      </div>
+    </div>
+    <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="Alexandru Nedelcu" />
+        <meta itemprop="url" content="https://alexn.org/about/#alexelcu" />
+        <meta itemprop="url" content="https://twitter.com/alexelcu" />
+        <meta itemprop="url" content="https://github.com/alexandru" />
+      </div>
+    
+
+    
+    
+    
+    <nav class="toc">
+      <p class="toc-title">Table of Contents:</p>
+      <ul>
+  <li><a href="#background">Background</a></li>
+  <li><a href="#why-functional-programming">Why Functional Programming?</a></li>
+  <li><a href="#procedural-programming">Procedural Programming</a>
+    <ul>
+      <li><a href="#impure-is-uninteresting">Impure is Uninteresting</a></li>
+    </ul>
+  </li>
+  <li><a href="#anti-intellectualism-phenomenon">Anti-intellectualism Phenomenon</a></li>
+  <li><a href="#can-we-do-fp-in-any-language">Can We do FP in Any Language?</a></li>
+  <li><a href="#learning-resources">Learning Resources</a></li>
+</ul>
+    </nav>
+    </header>
+
+  <div id="content" itemprop="articleBody">
+    <p class="intro withcap">Functional Programming (FP) is programming with <em>functions</em>. <a href="https://goo.gl/q8dToC">Mathematical functions</a>.</p>
+
+<p>There’s no other definition that’s correct, unless it’s equivalent
+to this one. There’s no other definition that matters.</p>
+      <h2 id="background">
+        
+        
+          Background <a href="#background" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>I first read the rigorous definition of a mathematical function
+in my first year of high-school, the 9-th grade. A <em>function</em>
+represents a unique association between elements of a domain
+(the input set) to the elements of a codomain (the output
+set). This means that applying the function to some input, you always
+get the same output.</p>
+
+<p>My 9-th grade self actually read this in a high-school math manual:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>Given f: A → B, ∀ x,y ∈ A
+If f(x) ≠ f(y) then x ≠ y
+</code></pre></div></div>
+
+<p>And in my young mind this condition seemed obvious and redundant, but
+that’s what you get with mathematical rigorosity, which in our
+profession is sorely needed.</p>
+
+<p class="info-bubble">
+Given that I’m from Romania, being exposed to an education centered
+on rote learning, influenced by the French and the Russian / Soviet
+educational systems, I’m now pretty sure that I have an atypical background,
+compared to my U.S. peers. <br /><br /> For example we learned some
+<a href="https://twitter.com/alexelcu/status/888343945649979392">category theory in our 12-th grade</a>,
+of which I’m grateful, being really intriguing to me how
+6-figures Ivy League graduates can complain about having to learn
+the math material of normal teenagers.
+</p>
+
+<p>If you want to get even more technical, functional programming has
+at its foundation the
+<a href="https://en.wikipedia.org/wiki/Lambda_calculus">Lambda Calculus</a>, a
+system for expressing computations that is equivalent to Turing
+machines, a universal model of computation built on function
+abstraction and application.</p>
+
+<p class="info-bubble">
+Some languages like Haskell are actually compiled / reduced to
+an intermediate language that’s very close to Lambda Calculus,
+which is cool to have as a theoretical foundation, because then you
+can prove things about your language and have the ability to add new
+features safely, e.g. without risking type unsoundness. As an aside, Scala 
+doesn’t have that luxury because it’s also an OOP language, so they are 
+developing <a href="http://lampwww.epfl.ch/%7Eamin/dot/soundness_oopsla16.pdf">DOT calculus</a>
+as an alternative. Interesting stuff.
+</p>
+      <h2 id="why-functional-programming">
+        
+        
+          Why Functional Programming? <a href="#why-functional-programming" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Many people are enamored with Functional Programming because it
+gives us:</p>
+
+<ol>
+  <li><a href="https://en.wikipedia.org/wiki/Referential_transparency">Referential Transparency</a></li>
+  <li><a href="https://wiki.haskell.org/Equational_reasoning_examples">Equational Reasoning</a></li>
+</ol>
+
+<p>Software has
+<a href="http://www.cs.nott.ac.uk/~pszcah/G51ISS/Documents/NoSilverBullet.html">essential complexity</a>
+in it and it doesn’t help that our tools also contribute a decent
+amount of accidental complexity. If for example you think about
+<a href="https://en.wikipedia.org/wiki/Asynchrony_(computer_programming)">asynchrony</a> and
+<a href="https://en.wikipedia.org/wiki/Concurrency_(computer_science)">concurrency</a>,
+which often lead to
+<a href="https://en.wikipedia.org/wiki/Nondeterministic_algorithm">non-determinism</a>,
+the challenges involved have had tremendous cost for this industry.</p>
+
+<p>Functional Programming keeps complexity at a manageable level because
+FP components can be divorced from their surrounding context and
+analysed independently. FP components can also be freely composed,
+an insanely useful property in an industry where software projects
+are seemingly built like houses of cards.</p>
+
+<p>Memory locks for example don’t compose. Two functions yielding
+asynchronous results might or might not compose, depending on what
+shared mutable state they access, or what condition they are waiting
+on for completion.</p>
+
+<p>There are a few alternatives to FP, like Rust’s draconic borrow
+checker, which essentially bans uncontrolled sharing. There are
+advantages and disadvantages to both approaches, however if you ever
+found it weird or frustrating to deal with pure functions, then
+fighting Rust’s borrow checker should be even more weird or
+frustrating (mind you, I think Rust is awesome, but that’s beside the
+point).</p>
+
+<p>If you no longer require purity, if you change the definition of what
+kind of “<em>functions</em>” we can accept, then we are no longer talking of
+Functional Programming, but about …</p>
+      <h2 id="procedural-programming">
+        
+        
+          Procedural Programming <a href="#procedural-programming" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>We wouldn’t need the “<em>pure</em>” qualification if we, as programmers,
+wouldn’t overload terms.</p>
+
+<p>Back in the day of assembly language and Turbo Pascal, we had perfectly
+good terms for impure functions, such as:
+<a href="https://en.wikipedia.org/wiki/Subroutine">procedure, routine, subroutine</a>,
+these being blocks of code on which you jumped with the code pointer,
+executed some side-effects, pushed some results on the stack, then
+jumped back to where you were, with the contract being that such
+subroutines had a single entry point and a single exit point.</p>
+
+<p>We have had a perfectly good term for describing programming made of
+procedures / subroutines: <a href="https://en.wikipedia.org/wiki/Procedural_programming">Procedural Programming</a> 😉</p>
+      <h3 id="impure-is-uninteresting">
+        
+        
+          Impure is Uninteresting <a href="#impure-is-uninteresting" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Lately the trend is to classify code making use of “lambda expressions”
+as functional programming and to classify programming languages that
+have “first-class functions” as being functional programming languages.</p>
+
+<p class="info-bubble">
+“Lambda expressions” are anonymous functions that can capture the
+variables in the scope they’ve been defined (implemented using closures).
+</p>
+
+<p>Well, the problem is that:</p>
+
+<ol>
+  <li>The venerable <a href="https://goo.gl/wfmLG6">C language</a> has had the
+ability to pass function pointers around since forever, I know
+of no mainstream language that doesn’t allow you to pass function
+references, which makes functions “first class”</li>
+  <li>You don’t actually need anonymous functions for doing functional
+programming — take a look at this
+<a href="http://www.functionaljava.org/">Functional.Java</a> library, which was
+built before those “lambda expressions” came to Java 8</li>
+  <li>It’s 2017 and most languages in use have usable lambda expressions, except
+for Python which has inherent limitations due to it being statement
+oriented and the developers refusing to introduce multi-line
+anonymous functions, which has led to a dozen or so non-orthogonal
+features to replace the need for it, under the mantra
+“<em>only one way of doing things</em>”, which by now is surely some
+kind of joke</li>
+</ol>
+
+<p>If you reduce your “<em>functional programming</em>” qualifier
+to usage of first class (impure) functions and lambda expressions,
+I think the top 15 languages and their use on GitHub qualifies.</p>
+
+<p>Which is ridiculous — like how society keeps changing the obesity
+threshold, because it takes less energy and is less depressing to
+change definitions, instead of attacking the problem head on.
+We should recognize a <em>rebranding</em> for what it is, an effort by
+marketing people to make turds more attractive by embracing trends
+only in name, but not in spirit.</p>
+      <h2 id="anti-intellectualism-phenomenon">
+        
+        
+          Anti-intellectualism Phenomenon <a href="#anti-intellectualism-phenomenon" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>For all the learning that we are doing, we software developers are
+a really conservative bunch, unwilling to accept new concepts easily
+and in this context “<em>new</em>” is relative to what we’ve
+learned either in university or at our first job. The vigour with which
+we defend what we already know is proportional with the 
+time we’ve invested in our knowledge and whatever it is that we
+are currently doing.</p>
+
+<p>Many people advise against mentioning “<em>Monad</em>”, because it will
+strike fear in the hearts of the unfaithful, the advice being apparently
+to either sidestep the issue, to rename it into something that can
+be supposedly easier to understand, or to compare it with burritos.</p>
+
+<p>Such efforts are like renaming “<em>Water</em>” into “<em>Drinkable</em>” —
+which obviously makes no sense in certain contexts and deprives
+people of the correct jargon for seeking help. Although I’ll grant
+that “<em>Monad</em>” is pretty awful if you’ll look at its etymology,
+but it doesn’t matter, because it has evolved into a proper noun and has
+been used by book authors and researchers.</p>
+
+<p>Anyway, want to discredit an idea, opinion, fact, or tool?
+Classify it as “<em>academic</em>”, a term that now has negative connotations,
+even though most interesting breakthroughs in computer science come
+from academia.</p>
+
+<p>Which is probably why we keep reinventing the same two languages,
+somehow expecting different results and personally I’m getting
+the feeling that we are in Groundhog Day, that movie from 1993.</p>
+      <h2 id="can-we-do-fp-in-any-language">
+        
+        
+          Can We do FP in Any Language? <a href="#can-we-do-fp-in-any-language" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Yes, although some programming languages are better than others.</p>
+
+<p>Doing FP in a programming language like Java feels like
+doing OOP in C with <a href="https://en.wikipedia.org/wiki/GObject">GObject</a>.
+Doable, but it makes one think of switching professions in the long run.</p>
+
+<p>But actually it’s not the programming language that’s the biggest
+problem, because
+<a href="https://www.cl.cam.ac.uk/~jdy22/papers/lightweight-higher-kinded-polymorphism.pdf">technical challenges</a>
+can usually be worked around, but the culture around it created by the
+community, along with the libraries available, because as a developer
+you won’t want to reinvent the wheel and swim against the tide.</p>
+
+<p>This is why in addition to Haskell and OCaml, which are the languages
+that people refer to when speaking of FP,
+<a href="https://scala-lang.org/">Scala</a> also shines amongst them, because it
+has managed to attract and retain talent to
+work on <a href="https://typelevel.org/projects/">awesome libraries for FP</a>,
+that don’t have an equal outside of Haskell.</p>
+
+<p>And for example, yes, you can do actual Functional Programming in
+JavaScript and there have been libraries helping with that, including
+really popular ones like
+<a href="https://github.com/Reactive-Extensions/RxJS">RxJS</a>,
+<a href="https://reactjs.org/">React</a>,
+<a href="http://redux.js.org/">Redux</a>,
+<a href="https://github.com/facebook/immutable-js/">Immutable.js</a>,
+<a href="http://underscorejs.org/">Underscore.js</a> among others,
+which were partially inspired by the community’s experience with
+<a href="https://clojurescript.org/">ClojureScript</a> and now
+<a href="https://github.com/reasonml">ReasonML</a>,
+<a href="http://www.purescript.org/">PureScript</a> and others.
+There are also community efforts, such as my own
+<a href="https://funfix.org">Funfix</a>, plus a growing ecosystem around
+<a href="https://github.com/fantasyland/fantasy-land">Fantasy Land</a>, etc.</p>
+
+<p>But bring up a problem like
+<a href="/blog/2017/10/11/javascript-promise-leaks-memory/">JavaScript’s Promise Leaks Memory</a>
+in <code class="language-plaintext highlighter-rouge">then</code> chains and dozens of developers will jump on you to
+re-educate you on how promises work and to make you understand that
+the concerns you have are a niche, functional programming be damned.</p>
+
+<p>Which does highlight that if you want functional programming,
+the communities of languages being bred for FP, like Haskell,
+PureScript, OCaml, Scala, etc are probably richer and bigger than
+the FP sub-communities of the top mainstream languages, Java and
+JavaScript included.</p>
+      <h2 id="learning-resources">
+        
+        
+          Learning Resources <a href="#learning-resources" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Don’t believe the opinions of people on the Internet, mine included.
+Learn some Functional Programming instead, the real stuff, not the
+pop lambda-infused mumbo jumbo, then you can make up your own mind.
+At the very least it’s fun and you’ve got nothing to lose.</p>
+
+<p>Thus far I found these two books to be really good as an introduction
+to FP:</p>
+
+<ul>
+  <li><a href="http://haskellbook.com/">Haskell Programming from First Principles</a></li>
+  <li><a href="https://www.manning.com/books/functional-programming-in-scala">Functional Programming in Scala</a></li>
+</ul>
+
+<p>Learning Haskell first is not a bad idea, because Haskell is currently
+the <em>lingua franca</em> of FP and most interesting research is happening in
+Haskell or in Haskell-derived languages (e.g. Idris, PureScript, etc).
+Even if you move on, you’ll still refer to concepts you learned in
+Haskell by name, you’ll still be inspired by ideas from Haskell’s
+ecosystem, etc. But if you’re into Scala already, then the “red book”
+is pretty awesome.</p>
+
+<p>After that, you might want to read
+<a href="https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/">Category Theory for Programmers</a>
+(<a href="https://github.com/hmemcpy/milewski-ctfp-pdf">PDF version</a>),
+which should come only after you’ve went through one of the above books
+from cover to cover.</p>
+
+<p class="info-bubble">
+Note you don’t need category theory for FP, but it’s better if you
+eventually learn the basics, since it’s a formal language for talking
+about <em>composition</em> and we want <em>composition</em> in our lives 😎 <br /><br />
+If you want motivation, remember that kids in Romania do it —
+put that on your fridge 😜
+</p>
+
+<p>More good books might be out there, but for learning FP I’d advise
+against going with anything that’s dynamically typed or LISP based. For one
+because dynamic languages tend to be more pragmatic, plus their limited
+type system don’t allow many of the useful abstractions that
+we’ve discovered in the last decade, so you’d be depriving yourself
+of many useful concepts and libraries. You should feel free to pick a
+dynamic language once you have the knowledge to make an informed choice.</p>
+
+<p>Also <a href="https://mitpress.mit.edu/sicp/full-text/book/book.html">SICP</a>
+(see <a href="https://github.com/sarabander/sicp-pdf">modern PDF compilation</a>)
+might have been good for its time and is still a good book,
+but it’s not that good for learning FP in 2017.</p>
+
+<p>Now go forth and spread the true FP love 💘</p>
+
+  </div>
+
+  <div id="article-details">
+    
+    <time itemprop="dateModified" content="2017-10-15T00:00:00+0000">
+        Published: October 15, 2017
+    </time>
+    
+      | Written by <a href="https://alexn.org/about/#alexelcu" itemprop="url" rel="author">Alexandru Nedelcu</a>
+    
+
+    <div id="all-categories">
+      Tags:
+      
+        
+        <a href="/blog/tag/best%20of/" class="category">Best Of</a>
+      
+         | 
+        <a href="/blog/tag/fp/" class="category">FP</a>
+      
+         | 
+        <a href="/blog/tag/haskell/" class="category">Haskell</a>
+      
+         | 
+        <a href="/blog/tag/scala/" class="category">Scala</a>
+      
+         | 
+        <a href="/blog/tag/javascript/" class="category">JavaScript</a>
+      
+    </div>
+  </div>
+
+  
+  <div class="related">
+      <h2 id="related-articles">
+        
+        
+          Related Articles <a href="#related-articles" class="anchor">#</a>
+        
+        
+      </h2>
+    
+    <div class="container">
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2018/05/06/bifunctor-io/">
+          On Bifunctor IO and Java&#39;s Checked Exceptions
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/best%20of" class="tag">Best Of</a>
+            
+               | <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/typelevel" class="tag">Typelevel</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/haskell" class="tag">Haskell</a>
+                        
+          </div>
+          <time>May 6, 2018</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2018/02/12/in-defense-oofp/">
+          In Defense of OOFP
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/best%20of" class="tag">Best Of</a>
+            
+               | <a href="/blog/tag/oop" class="tag">OOP</a>
+            
+               | <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/haskell" class="tag">Haskell</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+                        
+          </div>
+          <time>February 12, 2018</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2021/02/26/type-classes-in-scala-3-live-coding-session/">
+          ING Scala Meetup on Scala 3 (live coding session)
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/programming" class="tag">Programming</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/video" class="tag">Video</a>
+                        
+          </div>
+          <time>February 26, 2021</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  
+
+  
+</article>
+
+      </div>
+   </div><!-- end .content -->
+
+   <script async src="/assets/js/modernizr.custom.15390.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202203310904" type="text/javascript"></script>
+
+<script async src="/assets/js/scripts.js?202203310904" type="text/javascript"></script>
+
+   <div class="footer">
+  
+  <div class="container">
+    <div class="contributions">
+      <h2 id="comments">
+  Comments
+  <a href="#comments" class="anchor">#</a>
+</h2>
+
+<p>
+  Do you have suggestions? Want to chat? Email me at: <br>
+  <script>
+    (function () {
+      var lhs = "contact22+comments";
+      var rhs = "alexn.org";
+      document.write("<a target=\"_blank\" href=\"mailto");
+      document.write(":" + lhs + "@");
+      document.write(rhs);
+      document.write("?subject=Comment%20on%3A%20What%20is%20Functional%20Programming?")
+      document.write("\">" + lhs + "@" + rhs + "<\/a>");
+    })()
+  </script>
+  <noscript>
+    <em>Email address is protected via JavaScript, activate it to see it!</em>
+  </noscript>
+</p>
+
+<h2 id="contribute">
+  Contribute
+  <a href="#contribute" class="anchor">#</a>
+</h2>
+
+
+<p>
+  Fix or add to this article by submitting a pull request:<br/>
+  <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/main/_posts/2017-10-15-functional-programming.md" target="_blank">Edit Page on GitHub</a>
+</p>
+
+<p>
+  Donate to cover ongoing website costs, or buy me coffee ☕️😋 <br/>
+  <a href="https://www.patreon.com/bePatron?u=6102596" target="_blank">
+    <img label="Become a Patron!" alt="Become a Patron!" title="Become a Patron!" src="/assets/media/buttons/patreon.png" height="40" />
+  </a>
+</p>
+
+
+<h2 id="subscribe">
+  Subscribe
+  <a href="#subscribe" class="anchor">#</a>
+</h2>
+
+<!-- Begin Mailchimp Signup Form -->
+<div id="mc_embed_signup">
+  <form action="https://alexn.us4.list-manage.com/subscribe/post?u=5bffa2af025192a58345bd5dc&amp;id=1c9005b255"
+    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
+    novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="mc-field-group field">
+        <label for="mce-EMAIL">Email Address <sup class="asterisk">*</sup></label>
+        <input type="email" value="" name="EMAIL" class="required email full-width" id="mce-EMAIL" placeholder="user@domain.com" required>
+      </div>
+      <!-- <div class="mc-field-group field">
+        <label for="mce-FULLNAME">Name</label>
+        <input type="text" value="" name="FULLNAME" class="full-width" id="mce-FULLNAME" placeholder="John Doe">
+      </div> -->
+      <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+      </div>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+          name="b_5bffa2af025192a58345bd5dc_1c9005b255" tabindex="-1" value=""></div>
+      <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+          class="button"></div>
+    </div>
+  </form>
+</div>
+
+<div class="note">
+  <span class="extra">
+    Newsletter subscription uses Mailchimp, see <a href="/docs/privacy-policy/">privacy policy</a>.
+    If you're not seeing the form, it may be blocked by the browser; <a target="_blank" href="http://eepurl.com/g5ClAT"><em><span style="white-space: nowrap;">try the external subscribe page &#10141;</span></em></a>
+  </span>
+</div>
+
+
+    </div>  
+  </div>
+  
+
+  <div class="bottom">
+    <div class="container">
+      <span class="copy">
+          &copy; 2009-2022
+      </span>
+      <span class="links">
+        <a href="/docs/license/">License</a> |
+        <a href="/docs/privacy-policy/">Privacy Policy</a> |
+        <a href="/about/#contact">Contact</a>
+      </span>
+    </div>
+  </div>
+</div><!-- end .footer -->
+
+</body>
+</html>

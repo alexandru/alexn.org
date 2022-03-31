@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <!-- https://github.com/darkreader/darkreader/issues/1114 -->
+    <!-- <meta name="darkreader" content="41637b04c7ddb955e533a5c76d68a2c8"> -->
+    <meta name="color-scheme" content="light dark">
+    <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
+    <meta name="theme-color" content="#493667">
+    
+    <title>Automatic Releases to Maven Central with Travis and SBT - Alexandru Nedelcu</title>
+    
+
+    <!-- Open Graph Meta -->
+    <meta content="Alexandru Nedelcu" property="og:site_name">
+    <meta content="Automatic Releases to Maven Central with Travis and SBT" property="og:title">
+    <meta content="Enabling automatic releases for your open source Scala project with Travis and SBT." property="og:description">
+    <meta content="https://alexn.org/blog/2017/08/16/automatic-releases-sbt-travis/" property="og:url">
+    <meta content="2017-08-16T00:00:00+00:00" property="article:published_time">
+    
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/sbt.png?202203310904" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/sbt.png?202203310904" />
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/sbt.png?202203310904">
+    <meta name="twitter:site" content="@alexelcu">
+    <meta name="twitter:creator" content="@alexelcu">
+    <meta name="twitter:title" content="Automatic Releases to Maven Central with Travis and SBT">
+    <meta name="twitter:url" content="https://alexn.org/blog/2017/08/16/automatic-releases-sbt-travis/">
+    <meta name="twitter:description" content="Enabling automatic releases for your open source Scala project with Travis and SBT.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/logo/16px.png" sizes="16x16" />
+    <link rel="icon" href="/assets/logo/32px.png" sizes="32x32" />
+    <link rel="icon" href="/assets/logo/192px.png" sizes="192x192" />
+    <link rel="icon" href="/assets/logo/270px.png" sizes="270x270" />
+    <link rel="icon" href="/assets/logo/512px.png" sizes="512x512" />
+    <link rel="apple-touch-icon-precomposed" href="/assets/logo/180px.png" />
+    <meta name="msapplication-TileImage" content="/assets/logo/270px.png" />
+
+    <!-- Come and get me RSS readers -->
+    <link rel="alternate" type="application/rss+xml" title="All articles (blog, snippets, wiki, links)" href="/feeds/all.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Blog" href="/feeds/blog.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Snippets" href="/feeds/snippets.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Shared Links" href="/feeds/links.xml" />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/assets/css/style.css?202203310904">
+    <link rel="preload" as="style" href="/assets/css/style.css?202203310904">
+    
+    <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
+    <link rel="canonical" href="https://alexn.org/blog/2017/08/16/automatic-releases-sbt-travis/">
+</head>
+
+
+<body>
+   <div class="header">
+  <div class="container">
+    <div class="inner-container">
+      <h1 class="logo"><a href="/">Alex<span class="wide2">andru</span> Nedelcu<span class="wide1"> =&lt;&lt;</span></a></h1>
+      <nav class="nav-collapse">
+        <ul class="noList">
+          
+          <li class="element first current ">
+            <a href="/blog/">Blog</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/wiki/">Wiki</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/snippets/">Snippets</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/links/">Links</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/about/">About</a>
+          </li>
+          
+          <li class="element   last">
+            <a href="/subscribe/">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav>  
+    </div>
+  </div>
+</div><!-- end .header -->
+
+
+   <div class="content">
+      <div class="container">
+         <article class="post" itemscope itemtype="http://schema.org/BlogPosting"><header>
+      <h1 class="postTitle" itemprop="headline">
+        
+        
+          
+      Automatic Releases to Maven Central with Travis and SBT
+    
+        
+        
+      </h1>
+    
+    <p class="meta">
+      <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://alexn.org/blog/2017/08/16/automatic-releases-sbt-travis/"/>
+      <meta itemprop="datePublished" content="2017-08-16T00:00:00+0000"/>
+      
+      <time itemprop="dateCreated" datetime="2017-08-16T00:00:00+0000">August 16, 2017</time>
+      | <nobr><span class="time">13</span> minutes</nobr>
+    </p>
+
+    
+        <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+          <meta itemprop="url" content="https://alexn.org/assets/media/articles/sbt.png" />
+          <img src="/assets/media/articles/sbt.png?202203310904" alt="" />
+          
+        </figure>
+        
+    
+
+    <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Alexandru Nedelcu">
+      <meta itemprop="url" content="https://alexn.org/about/">
+      <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="https://alexn.org/assets/raw/logo-green.png">
+      </div>
+    </div>
+    <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="Alexandru Nedelcu" />
+        <meta itemprop="url" content="https://alexn.org/about/#alexelcu" />
+        <meta itemprop="url" content="https://twitter.com/alexelcu" />
+        <meta itemprop="url" content="https://github.com/alexandru" />
+      </div>
+    
+
+    </header>
+
+  <div id="content" itemprop="articleBody">
+    <p class="intro withcap">Builds and deployments of new versions and snapshots is a pain. This article is an explanation to how I automated this process for <a href="https://monix.io">monix.io</a>, an open source Scala library that’s making use of <a href="http://www.scala-sbt.org/">SBT</a> as the build tool and <a href="https://travis-ci.org/">travis-ci.org</a> as the continuous integration.</p>
+
+<p>What this setup does is to trigger a <code class="language-plaintext highlighter-rouge">publish</code> script that
+automatically deploys packages on Maven Central:</p>
+
+<ol>
+  <li>whenever you tag a release by pushing a version tag in Git, like
+<code class="language-plaintext highlighter-rouge">v1.10.0</code></li>
+  <li>whenever you push into the <code class="language-plaintext highlighter-rouge">snapshot</code> branch, the result being
+hashed versions, e.g. <code class="language-plaintext highlighter-rouge">1.10.0-36fa3d3</code>, where the hash appended
+as a suffix is the Git commit hash; these hashed versions are like
+snapshot releases, but better because people can rely on them to
+remain in Maven Central and thus less volatile</li>
+</ol>
+
+<p>After you read this article, you can use the setup of these projects
+for inspiration:</p>
+
+<ul>
+  <li><a href="https://github.com/monix/shade/">github.com/monix/shade</a></li>
+  <li><a href="https://github.com/monix/monix/">github.com/monix/monix</a></li>
+</ul>
+
+<p><strong>WARNING:</strong> with this process you’ll have to
+trust <a href="https://travis-ci.org/">Travis-ci.org</a> with your PGP private
+key for signing the published binaries. If that’s an acceptable risk
+or not, that’s up to you. See below.</p>
+      <h2 id="generating-a-pgp-key-pair">
+        
+        
+          Generating a PGP Key Pair <a href="#generating-a-pgp-key-pair" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>For deployments to Sonatype / Maven Central the built packages need to
+be signed. If you don’t have an existing PGP key, one can be easily
+generated.</p>
+
+<p><strong>WARNING:</strong> do not give out your personal PGP private key that you
+use to sign emails or for online transactions. Generate a special PGP
+key pair just for your project.</p>
+
+<p>I’m currently using a MacOS machine, so for managing PGP
+keys I’m using the open source <a href="https://gpgtools.org/">GPG Suite</a>,
+coming with a nice GUI interface.</p>
+
+<p>As far as I know GPG comes installed by default on all major Linux
+operating systems and for Windows checkout this
+<a href="https://www.gnupg.org/download/index.en.html">download page on gnupg.org</a>.</p>
+
+<p>With the GPG command line tools installed you can generate a PGP key pair
+like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>$ gpg --gen-key
+</code></pre></div></div>
+
+<p>Steps:</p>
+
+<ul>
+  <li>accept the default <code class="language-plaintext highlighter-rouge">RSA</code> for the kind of key</li>
+  <li>enter the desired key size, the bigger the better, so enter <code class="language-plaintext highlighter-rouge">4096</code></li>
+  <li>for expiration, I preferred a key that doesn’t expire, although this might not be wise</li>
+  <li>for an email address, enter a valid one</li>
+  <li>I recommend encrypting your private key with a generous passphrase
+that you then store in 1Password / LastPass ;-)</li>
+</ul>
+
+<p>To get the ID of the newly generated key you can do:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>$ gpg --list-secret-keys --keyid-format LONG
+</code></pre></div></div>
+
+<p>To export this newly generated key, assuming that <code class="language-plaintext highlighter-rouge">2673B174C4071B0E</code>
+is the key ID, you’ll need both the public key and the private one,
+but they can be dumped in the same file:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>gpg -a --export 2673B174C4071B0E &gt; my-key.asc
+gpg -a --export-secret-keys 2673B174C4071B0E &gt;&gt; my-key.asc
+</code></pre></div></div>
+
+<p>I also keep these in 1Password btw.</p>
+
+<p>To configure SBT to sign your packages with a key living in the
+project’s repository you’ll need a PGP key ring. Such a key ring is
+basically a database of multiple PGP keys. You need to have one to
+keep in the repository of your project. Normally these keys are kept
+in:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">$HOME/.gnupg/pubring.gpg</code> for the public keys</li>
+  <li><code class="language-plaintext highlighter-rouge">$HOME/.gnupg/secring.gpg</code> for the private keys</li>
+</ul>
+
+<p>In the <code class="language-plaintext highlighter-rouge">$PROJECT</code> root we need a custom key ring containing just the
+key we need, like this:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">$PROJECT/project/.gnupg/pubring.gpg</code> for the public keys</li>
+  <li><code class="language-plaintext highlighter-rouge">$PROJECT/project/.gnupg/secring.gpg</code> for the private keys</li>
+</ul>
+
+<p>These files are going to be encrypted, to provide minimal protection.
+To generate this ring in your project, go to you’re project’s root
+directory and then:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>gpg --no-default-keyring \
+  --primary-keyring `pwd`/project/.gnupg/pubring.gpg \
+  --secret-keyring `pwd`/project/.gnupg/secring.gpg \
+  --keyring `pwd`/project/.gnupg/pubring.gpg \
+  --fingerprint \
+  --import path/to/my-key.asc
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">my-key.asc</code> file is the one that you’ve created in the previous step.</p>
+
+<p>After you create these files, make sure to delete any junk from
+<code class="language-plaintext highlighter-rouge">$PROJECT/project/.gnupg</code>, so verify the newly created files with
+<code class="language-plaintext highlighter-rouge">git status</code>.</p>
+
+<p>NOTE: check the newly created files, because the <code class="language-plaintext highlighter-rouge">gpg</code> command line
+tools might generate junk. We only want those 2 files (<code class="language-plaintext highlighter-rouge">pubring.gpg</code>
+and <code class="language-plaintext highlighter-rouge">secring.gpg</code>), so check your project directory with <code class="language-plaintext highlighter-rouge">git status</code>
+and delete anything extra.</p>
+      <h2 id="configuring-sbt">
+        
+        
+          Configuring SBT <a href="#configuring-sbt" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Curently in <a href="https://monix.io">monix.io</a> I’m using the following plugins:</p>
+
+<ul>
+  <li><a href="https://github.com/sbt/sbt-pgp">sbt-pgp</a> for signing packages with PGP</li>
+  <li><a href="https://github.com/sbt/sbt-git">sbt-git</a> for making use of Git from
+SBT, relevant here if you want to do Git-enabled version hashes</li>
+  <li><a href="https://github.com/xerial/sbt-sonatype">sbt-sonatype</a> for automatically
+publishing artifacts to Maven Central</li>
+</ul>
+
+<p>For PGP the configuration is as follows:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="n">useGpg</span> <span class="o">:=</span> <span class="kc">false</span>
+<span class="nf">usePgpKeyHex</span><span class="o">(</span><span class="s">"2673B174C4071B0E"</span><span class="o">)</span>
+<span class="n">pgpPublicRing</span> <span class="o">:=</span> <span class="nv">baseDirectory</span><span class="o">.</span><span class="py">value</span> <span class="o">/</span> <span class="s">"project"</span> <span class="o">/</span> <span class="s">".gnupg"</span> <span class="o">/</span> <span class="s">"pubring.gpg"</span>
+<span class="n">pgpSecretRing</span> <span class="o">:=</span> <span class="nv">baseDirectory</span><span class="o">.</span><span class="py">value</span> <span class="o">/</span> <span class="s">"project"</span> <span class="o">/</span> <span class="s">".gnupg"</span> <span class="o">/</span> <span class="s">"secring.gpg"</span>
+<span class="n">pgpPassphrase</span> <span class="o">:=</span> <span class="nv">sys</span><span class="o">.</span><span class="py">env</span><span class="o">.</span><span class="py">get</span><span class="o">(</span><span class="s">"PGP_PASS"</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">toArray</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>Explanation:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">useGpg := false</code> says that we do not want to use the GPG tools
+installed on your computer, but rather the implementation that
+<code class="language-plaintext highlighter-rouge">sbt-pgp</code> ships with; in my experience this is a must, otherwise
+depending on the GPG tools you have, you won’t be able to make it
+use a different pgp ring</li>
+  <li><code class="language-plaintext highlighter-rouge">usePgpKeyHex</code> forces a certain key to be used for signing by
+specifying its key</li>
+  <li><code class="language-plaintext highlighter-rouge">pgpPublicRing</code> and <code class="language-plaintext highlighter-rouge">pgpPublicRing</code> specify the path to a GPG ring
+that contains the key you want, instead of the default one which is
+usually <code class="language-plaintext highlighter-rouge">$HOME/.gnupg/pubring.gpg</code> and <code class="language-plaintext highlighter-rouge">$HOME/.gnupg/secring.gpg</code></li>
+  <li><code class="language-plaintext highlighter-rouge">pgpPassphrase</code> is a GPG passphrase for the used key, that’s taken
+from the env variable named <code class="language-plaintext highlighter-rouge">PGP_PASS</code>; Travis has the ability to
+set such env variables to be available in your build</li>
+</ul>
+
+<p>For publishing to Sonatype, we’ll need these settings:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="n">sonatypeProfileName</span> <span class="o">:=</span> <span class="nv">organization</span><span class="o">.</span><span class="py">value</span>
+
+<span class="n">credentials</span> <span class="o">+=</span> <span class="nc">Credentials</span><span class="o">(</span>
+  <span class="s">"Sonatype Nexus Repository Manager"</span><span class="o">,</span>
+  <span class="s">"oss.sonatype.org"</span><span class="o">,</span>
+  <span class="nv">sys</span><span class="o">.</span><span class="py">env</span><span class="o">.</span><span class="py">getOrElse</span><span class="o">(</span><span class="s">"SONATYPE_USER"</span><span class="o">,</span> <span class="s">""</span><span class="o">),</span>
+  <span class="nv">sys</span><span class="o">.</span><span class="py">env</span><span class="o">.</span><span class="py">getOrElse</span><span class="o">(</span><span class="s">"SONATYPE_PASS"</span><span class="o">,</span> <span class="s">""</span><span class="o">)</span>
+<span class="o">)</span>
+
+<span class="n">isSnapshot</span> <span class="o">:=</span> <span class="nv">version</span><span class="o">.</span><span class="py">value</span> <span class="n">endsWith</span> <span class="s">"SNAPSHOT"</span>
+
+<span class="n">publishTo</span> <span class="o">:=</span> <span class="nc">Some</span><span class="o">(</span>
+  <span class="nf">if</span> <span class="o">(</span><span class="nv">isSnapshot</span><span class="o">.</span><span class="py">value</span><span class="o">)</span>
+    <span class="nv">Opts</span><span class="o">.</span><span class="py">resolver</span><span class="o">.</span><span class="py">sonatypeSnapshots</span>
+  <span class="k">else</span>
+    <span class="nv">Opts</span><span class="o">.</span><span class="py">resolver</span><span class="o">.</span><span class="py">sonatypeStaging</span>
+<span class="o">)</span>
+</code></pre></div></div>
+
+<p>In addition to these options, for Sonatype we also need the required
+artifact info (e.g. license, homepage, authors). Here’s what I have
+for Shade, adjust accordingly:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="n">licenses</span> <span class="o">:=</span> <span class="nc">Seq</span><span class="o">(</span><span class="s">"MIT"</span> <span class="o">-&gt;</span> <span class="nf">url</span><span class="o">(</span><span class="s">"https://opensource.org/licenses/MIT"</span><span class="o">))</span>
+<span class="n">homepage</span> <span class="o">:=</span> <span class="nc">Some</span><span class="o">(</span><span class="nf">url</span><span class="o">(</span><span class="s">"https://github.com/monix/shade"</span><span class="o">))</span>
+
+<span class="n">scmInfo</span> <span class="o">:=</span> <span class="nc">Some</span><span class="o">(</span>
+  <span class="nc">ScmInfo</span><span class="o">(</span>
+    <span class="nf">url</span><span class="o">(</span><span class="s">"https://github.com/monix/shade"</span><span class="o">),</span>
+    <span class="s">"scm:git@github.com:monix/shade.git"</span>
+  <span class="o">))</span>
+
+<span class="n">developers</span> <span class="o">:=</span> <span class="nc">List</span><span class="o">(</span>
+  <span class="nc">Developer</span><span class="o">(</span>
+    <span class="n">id</span><span class="o">=</span><span class="s">"alexelcu"</span><span class="o">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s">"Alexandru Nedelcu"</span><span class="o">,</span>
+    <span class="n">email</span><span class="o">=</span><span class="s">"noreply@alexn.org"</span><span class="o">,</span>
+    <span class="n">url</span><span class="k">=</span><span class="nf">url</span><span class="o">(</span><span class="s">"https://alexn.org"</span><span class="o">)</span>
+  <span class="o">))</span>
+</code></pre></div></div>
+
+<p>TIP, to find out the ID of a license type, see this cool list:
+<a href="https://spdx.org/licenses/">spdx.org/licenses/</a>.</p>
+
+<p>You’ll need those two environment variables set in Travis’s settings,
+more details below.</p>
+
+<p>And then to enable Git versioning for snapshots (e.g. <code class="language-plaintext highlighter-rouge">3.0.0-9d94d3d</code>)
+you can do:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nf">enablePlugins</span><span class="o">(</span><span class="nc">GitVersioning</span><span class="o">)</span>
+
+<span class="cm">/* The BaseVersion setting represents the in-development (upcoming) version,
+ * as an alternative to SNAPSHOTS.
+ */</span>
+<span class="nv">git</span><span class="o">.</span><span class="py">baseVersion</span> <span class="o">:=</span> <span class="s">"3.0.0"</span>
+
+<span class="k">val</span> <span class="nv">ReleaseTag</span> <span class="k">=</span> <span class="s">"""^v([\d\.]+)$"""</span><span class="o">.</span><span class="py">r</span>
+<span class="nv">git</span><span class="o">.</span><span class="py">gitTagToVersionNumber</span> <span class="o">:=</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="nc">ReleaseTag</span><span class="o">(</span><span class="n">v</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Some</span><span class="o">(</span><span class="n">v</span><span class="o">)</span>
+  <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="nc">None</span>
+<span class="o">}</span>
+
+<span class="nv">git</span><span class="o">.</span><span class="py">formattedShaVersion</span> <span class="o">:=</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="nv">suffix</span> <span class="k">=</span> <span class="nv">git</span><span class="o">.</span><span class="py">makeUncommittedSignifierSuffix</span><span class="o">(</span><span class="nv">git</span><span class="o">.</span><span class="py">gitUncommittedChanges</span><span class="o">.</span><span class="py">value</span><span class="o">,</span> <span class="nv">git</span><span class="o">.</span><span class="py">uncommittedSignifier</span><span class="o">.</span><span class="py">value</span><span class="o">)</span>
+
+  <span class="nv">git</span><span class="o">.</span><span class="py">gitHeadCommit</span><span class="o">.</span><span class="py">value</span> <span class="n">map</span> <span class="o">{</span> <span class="nv">_</span><span class="o">.</span><span class="py">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">7</span><span class="o">)</span> <span class="o">}</span> <span class="n">map</span> <span class="o">{</span> <span class="n">sha</span> <span class="k">=&gt;</span>
+    <span class="nv">git</span><span class="o">.</span><span class="py">baseVersion</span><span class="o">.</span><span class="py">value</span> <span class="o">+</span> <span class="s">"-"</span> <span class="o">+</span> <span class="n">sha</span> <span class="o">+</span> <span class="n">suffix</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Now test your setup with this command:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>$ PGP_PASS="xxxxxx" sbt publishLocalSigned
+</code></pre></div></div>
+
+<p>Replace <code class="language-plaintext highlighter-rouge">xxxxxx</code> with your passphrase. If this command works, then we
+are good thus far.</p>
+      <h2 id="configuring-travis">
+        
+        
+          Configuring Travis <a href="#configuring-travis" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>In <code class="language-plaintext highlighter-rouge">build.sbt</code> I configured these 2 commands:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nf">addCommandAlias</span><span class="o">(</span><span class="s">"ci-all"</span><span class="o">,</span>  <span class="s">";+clean ;+compile ;+test ;+package"</span><span class="o">)</span>
+<span class="nf">addCommandAlias</span><span class="o">(</span><span class="s">"release"</span><span class="o">,</span> <span class="s">";+publishSigned ;sonatypeReleaseAll"</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>Then the <code class="language-plaintext highlighter-rouge">.travis.yml</code> file has something like this:</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="na">language</span><span class="pi">:</span> <span class="s">scala</span>
+<span class="na">sudo</span><span class="pi">:</span> <span class="s">required</span>
+<span class="na">dist</span><span class="pi">:</span> <span class="s">trusty</span>
+<span class="na">group</span><span class="pi">:</span> <span class="s">edge</span>
+
+<span class="na">matrix</span><span class="pi">:</span>
+  <span class="na">include</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">jdk</span><span class="pi">:</span> <span class="s">oraclejdk8</span>
+      <span class="na">scala</span><span class="pi">:</span> <span class="s">2.12.3</span>
+      <span class="na">env</span><span class="pi">:</span> <span class="s">COMMAND=ci-all PUBLISH=true</span>
+
+<span class="na">script</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">sbt -J-Xmx6144m ++$TRAVIS_SCALA_VERSION $COMMAND</span>
+
+<span class="na">after_success</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">./project/publish</span>
+</code></pre></div></div>
+
+<p>And then the <code class="language-plaintext highlighter-rouge">project/publish</code> script, which I’ve built with Ruby
+(since I don’t know Bash well :)):</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">#!/usr/bin/env ruby</span>
+
+<span class="k">def</span> <span class="nf">exec</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+  <span class="nb">abort</span><span class="p">(</span><span class="s2">"Error encountered, aborting"</span><span class="p">)</span> <span class="k">unless</span> <span class="nb">system</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="nb">puts</span> <span class="s2">"CI=</span><span class="si">#{</span><span class="no">ENV</span><span class="p">[</span><span class="s1">'CI'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span>
+<span class="nb">puts</span> <span class="s2">"TRAVIS_BRANCH=</span><span class="si">#{</span><span class="no">ENV</span><span class="p">[</span><span class="s1">'TRAVIS_BRANCH'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span>
+<span class="nb">puts</span> <span class="s2">"TRAVIS_PULL_REQUEST=</span><span class="si">#{</span><span class="no">ENV</span><span class="p">[</span><span class="s1">'TRAVIS_PULL_REQUEST'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span>
+<span class="nb">puts</span> <span class="s2">"PUBLISH=</span><span class="si">#{</span><span class="no">ENV</span><span class="p">[</span><span class="s1">'PUBLISH'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span>
+<span class="nb">puts</span>
+
+<span class="k">unless</span> <span class="no">ENV</span><span class="p">[</span><span class="s1">'CI'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'true'</span>
+  <span class="nb">abort</span><span class="p">(</span><span class="s2">"ERROR: Not running on top of Travis, aborting!"</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">unless</span> <span class="no">ENV</span><span class="p">[</span><span class="s1">'PUBLISH'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'true'</span>
+  <span class="nb">puts</span> <span class="s2">"Publish is disabled"</span>
+  <span class="nb">exit</span>
+<span class="k">end</span>
+
+<span class="n">branch</span> <span class="o">=</span> <span class="no">ENV</span><span class="p">[</span><span class="s1">'TRAVIS_BRANCH'</span><span class="p">]</span>
+<span class="n">version</span> <span class="o">=</span> <span class="kp">nil</span>
+
+<span class="k">unless</span> <span class="n">branch</span> <span class="o">=~</span> <span class="sr">/^v(\d+\.\d+\.\d+)$/</span> <span class="o">||</span>
+  <span class="p">(</span><span class="n">branch</span> <span class="o">==</span> <span class="s2">"snapshot"</span> <span class="o">&amp;&amp;</span> <span class="no">ENV</span><span class="p">[</span><span class="s1">'TRAVIS_PULL_REQUEST'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'false'</span><span class="p">)</span>
+
+  <span class="nb">puts</span> <span class="s2">"Only triggering deployment on the `snapshot` branch, or for version tags "</span> <span class="o">+</span>
+       <span class="s2">"and not for pull requests or other branches, exiting!"</span>
+  <span class="nb">exit</span> <span class="mi">0</span>
+<span class="k">else</span>
+  <span class="n">version</span> <span class="o">=</span> <span class="vg">$1</span>
+  <span class="nb">puts</span> <span class="s2">"Version branch detected: </span><span class="si">#{</span><span class="n">version</span><span class="si">}</span><span class="s2">"</span> <span class="k">if</span> <span class="n">version</span>
+<span class="k">end</span>
+
+<span class="c1"># Forcing a change to the root directory, if not there already</span>
+<span class="no">Dir</span><span class="p">.</span><span class="nf">chdir</span><span class="p">(</span><span class="no">File</span><span class="p">.</span><span class="nf">absolute_path</span><span class="p">(</span><span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="no">File</span><span class="p">.</span><span class="nf">dirname</span><span class="p">(</span><span class="kp">__FILE__</span><span class="p">),</span> <span class="s2">".."</span><span class="p">)))</span>
+
+<span class="c1"># Go, go, go</span>
+<span class="nb">exec</span><span class="p">(</span><span class="s2">"sbt release"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Give execution permissions to this script:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>$ chmod +x ./project/publish
+</code></pre></div></div>
+
+<p>Remember to push your changes:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>$ git add .
+$ git commit -am 'Build changes for automatic releases'
+$ git push
+</code></pre></div></div>
+      <h3 id="setting-environment-variables">
+        
+        
+          Setting environment variables <a href="#setting-environment-variables" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>As a final step we need to set the following environment variables in Travis:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">PGP_PASS</code>: the passphrase we used to encrypt our private PGP key</li>
+  <li><code class="language-plaintext highlighter-rouge">SONATYPE_USER</code>: a user to login to Sonatype, used by SBT to publish and deploy releases on Sonatype</li>
+  <li><code class="language-plaintext highlighter-rouge">SONATYPE_PASS</code>: a password to login to Sonatype, used by SBT to publish and deploy releases on Sonatype</li>
+</ul>
+
+<p>See the article on
+<a href="https://docs.travis-ci.com/user/environment-variables/">adding environment variables to Travis</a>.</p>
+
+<p>NOTE: to get a <code class="language-plaintext highlighter-rouge">SONATYPE_USER</code> and a <code class="language-plaintext highlighter-rouge">SONATYPE_PASS</code> go to the
+<a href="https://oss.sonatype.org/#profile;User%20Token">User Profile on Sonatype</a> page
+and access the “<em>User Token</em>”, or generate a new one.</p>
+
+<p>Here’s a screenshot of how my setup currently looks like:</p>
+
+<figure>
+  <img src="/assets/media/articles/travis-env-vars.png" />
+</figure>
+      <h3 id="alternative-env-with-travis-encryption">
+        
+        
+          Alternative Env with Travis Encryption <a href="#alternative-env-with-travis-encryption" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>As an alternative to setting those environment variables in Travis’s
+UI, you can use Travis’s mechanism for encrypting stuff to set these
+values in <code class="language-plaintext highlighter-rouge">.travis.yml</code>. See
+the <a href="https://docs.travis-ci.com/user/encryption-keys">Encryption Keys</a>
+document.</p>
+
+<p>First install the <code class="language-plaintext highlighter-rouge">travis</code> command line tool:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>$ gem install travis
+</code></pre></div></div>
+
+<p>And then do the following, replacing <code class="language-plaintext highlighter-rouge">xxxxx</code> with your key:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>$ travis encrypt 'PGP_PASS=xxxxx' --add
+
+$ travis encrypt 'SONATYPE_USER=xxxxx' --add
+
+$ travis encrypt 'SONATYPE_PASS=xxxxx' --add
+</code></pre></div></div>
+
+<p>NOTE: if your env values have special chars, they might need to be
+escaped for Bash to not trigger any errors. See document above.</p>
+
+<p>These commands will modify your <code class="language-plaintext highlighter-rouge">.travis.yml</code> file, adding a section
+that resembles the following:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>env:
+  global:
+  - secure: GRdfKNrJn/zqjaDWE+16HCfuCSf/wsDpL...
+  - secure: SPSIblLKFVns7pVY1x3SEs4/16htY5HUz...
+  - secure: YVx2BSSsqF7LdYTwinf6o8nqJiYL9FeFA...
+</code></pre></div></div>
+
+<p>Now this can be committed in your repository and Travis will take care
+of decrypting those values.</p>
+      <h2 id="publishing">
+        
+        
+          Publishing <a href="#publishing" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>For publishing hashed snapshot versions, we need a <code class="language-plaintext highlighter-rouge">snapshot</code> branch,
+as that’s what the script above looks for.</p>
+
+<p>So create this branch by forking <code class="language-plaintext highlighter-rouge">master</code> and pushing it, like so:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>$ git checkout master
+
+$ git checkout -b snapshot
+$ git push --set-upstream origin snapshot
+</code></pre></div></div>
+
+<p>If everything goes well, we should have a new hashed version published,
+but watch the output of Travis for any problems.</p>
+      <h2 id="extra-resources">
+        
+        
+          Extra Resources <a href="#extra-resources" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>I’ve written this document while preparing the Shade project for
+automatic deployments. So here’s for inspiration:</p>
+
+<ul>
+  <li><a href="https://github.com/monix/shade/compare/1c373f8714e92b48a8bb2337158f61e5650d260a...d712897f122642835cbcd32d159e917c59e7685c">commits in monix/shade</a></li>
+  <li><a href="https://travis-ci.org/monix/shade/jobs/265215531">snapshot release sample</a>
+(that published <code class="language-plaintext highlighter-rouge">1.10.0-d712897</code> on Maven Central)</li>
+  <li><a href="https://travis-ci.org/monix/shade/jobs/265221087">release of v1.10.0</a>
+(that published the final <code class="language-plaintext highlighter-rouge">1.10.0</code> on Maven Central)</li>
+</ul>
+      <h2 id="in-closing">
+        
+        
+          In Closing <a href="#in-closing" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>So that’s about it. Pretty painful if you ask me, but hopefully we
+don’t have to do this too often.</p>
+
+<p>I’ve written this article for myself actually, because I keep
+forgetting what I did the first time.</p>
+
+  </div>
+
+  <div id="article-details">
+    
+    <time itemprop="dateModified" content="2017-08-16T00:00:00+0000">
+        Published: August 16, 2017
+    </time>
+    
+      | Written by <a href="https://alexn.org/about/#alexelcu" itemprop="url" rel="author">Alexandru Nedelcu</a>
+    
+
+    <div id="all-categories">
+      Tags:
+      
+        
+        <a href="/blog/tag/sbt/" class="category">SBT</a>
+      
+         | 
+        <a href="/blog/tag/scala/" class="category">Scala</a>
+      
+         | 
+        <a href="/blog/tag/sonatype/" class="category">Sonatype</a>
+      
+         | 
+        <a href="/blog/tag/travis/" class="category">Travis</a>
+      
+    </div>
+  </div>
+
+  
+  <div class="related">
+      <h2 id="related-articles">
+        
+        
+          Related Articles <a href="#related-articles" class="anchor">#</a>
+        
+        
+      </h2>
+    
+    <div class="container">
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2021/07/18/iterm-open-file-cmd-click-ide-semantic-history/">
+          Combining the terminal (iTerm) with the IDE
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/macos" class="tag">macOS</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+                        
+          </div>
+          <time>July 18, 2021</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2021/02/26/type-classes-in-scala-3-live-coding-session/">
+          ING Scala Meetup on Scala 3 (live coding session)
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/programming" class="tag">Programming</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/video" class="tag">Video</a>
+                        
+          </div>
+          <time>February 26, 2021</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2021/02/22/countdownlatch-async-dirty/">
+          Implementing a CountDownLatch (async and dirty)
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/concurrency" class="tag">Concurrency</a>
+            
+               | <a href="/blog/tag/jvm" class="tag">JVM</a>
+            
+               | <a href="/blog/tag/multithreading" class="tag">Multithreading</a>
+            
+               | <a href="/blog/tag/programming" class="tag">Programming</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/video" class="tag">Video</a>
+                        
+          </div>
+          <time>February 22, 2021</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  
+
+  
+</article>
+
+      </div>
+   </div><!-- end .content -->
+
+   <script async src="/assets/js/modernizr.custom.15390.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202203310904" type="text/javascript"></script>
+
+<script async src="/assets/js/scripts.js?202203310904" type="text/javascript"></script>
+
+   <div class="footer">
+  
+  <div class="container">
+    <div class="contributions">
+      <h2 id="comments">
+  Comments
+  <a href="#comments" class="anchor">#</a>
+</h2>
+
+<p>
+  Do you have suggestions? Want to chat? Email me at: <br>
+  <script>
+    (function () {
+      var lhs = "contact22+comments";
+      var rhs = "alexn.org";
+      document.write("<a target=\"_blank\" href=\"mailto");
+      document.write(":" + lhs + "@");
+      document.write(rhs);
+      document.write("?subject=Comment%20on%3A%20Automatic%20Releases%20to%20Maven%20Central%20with%20Travis%20and%20SBT")
+      document.write("\">" + lhs + "@" + rhs + "<\/a>");
+    })()
+  </script>
+  <noscript>
+    <em>Email address is protected via JavaScript, activate it to see it!</em>
+  </noscript>
+</p>
+
+<h2 id="contribute">
+  Contribute
+  <a href="#contribute" class="anchor">#</a>
+</h2>
+
+
+<p>
+  Fix or add to this article by submitting a pull request:<br/>
+  <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/main/_posts/2017-08-16-automatic-releases-sbt-travis.md" target="_blank">Edit Page on GitHub</a>
+</p>
+
+<p>
+  Donate to cover ongoing website costs, or buy me coffee ☕️😋 <br/>
+  <a href="https://www.patreon.com/bePatron?u=6102596" target="_blank">
+    <img label="Become a Patron!" alt="Become a Patron!" title="Become a Patron!" src="/assets/media/buttons/patreon.png" height="40" />
+  </a>
+</p>
+
+
+<h2 id="subscribe">
+  Subscribe
+  <a href="#subscribe" class="anchor">#</a>
+</h2>
+
+<!-- Begin Mailchimp Signup Form -->
+<div id="mc_embed_signup">
+  <form action="https://alexn.us4.list-manage.com/subscribe/post?u=5bffa2af025192a58345bd5dc&amp;id=1c9005b255"
+    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
+    novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="mc-field-group field">
+        <label for="mce-EMAIL">Email Address <sup class="asterisk">*</sup></label>
+        <input type="email" value="" name="EMAIL" class="required email full-width" id="mce-EMAIL" placeholder="user@domain.com" required>
+      </div>
+      <!-- <div class="mc-field-group field">
+        <label for="mce-FULLNAME">Name</label>
+        <input type="text" value="" name="FULLNAME" class="full-width" id="mce-FULLNAME" placeholder="John Doe">
+      </div> -->
+      <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+      </div>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+          name="b_5bffa2af025192a58345bd5dc_1c9005b255" tabindex="-1" value=""></div>
+      <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+          class="button"></div>
+    </div>
+  </form>
+</div>
+
+<div class="note">
+  <span class="extra">
+    Newsletter subscription uses Mailchimp, see <a href="/docs/privacy-policy/">privacy policy</a>.
+    If you're not seeing the form, it may be blocked by the browser; <a target="_blank" href="http://eepurl.com/g5ClAT"><em><span style="white-space: nowrap;">try the external subscribe page &#10141;</span></em></a>
+  </span>
+</div>
+
+
+    </div>  
+  </div>
+  
+
+  <div class="bottom">
+    <div class="container">
+      <span class="copy">
+          &copy; 2009-2022
+      </span>
+      <span class="links">
+        <a href="/docs/license/">License</a> |
+        <a href="/docs/privacy-policy/">Privacy Policy</a> |
+        <a href="/about/#contact">Contact</a>
+      </span>
+    </div>
+  </div>
+</div><!-- end .footer -->
+
+</body>
+</html>

@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <!-- https://github.com/darkreader/darkreader/issues/1114 -->
+    <!-- <meta name="darkreader" content="41637b04c7ddb955e533a5c76d68a2c8"> -->
+    <meta name="color-scheme" content="light dark">
+    <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
+    <meta name="theme-color" content="#493667">
+    
+    <title>Scala&#39;s isInstanceOf is an Anti-Pattern - Alexandru Nedelcu</title>
+    
+
+    <!-- Open Graph Meta -->
+    <meta content="Alexandru Nedelcu" property="og:site_name">
+    <meta content="Scala&amp;#39;s isInstanceOf is an Anti-Pattern" property="og:title">
+    <meta content="Scala has a much better way of discriminating between types. Scala has implicit parameters, with which you can describe type classes." property="og:description">
+    <meta content="https://alexn.org/blog/2019/08/11/isinstanceof-anti-pattern/" property="og:url">
+    <meta content="2019-08-11T00:00:00+00:00" property="article:published_time">
+    
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/scala-instanceof-antipattern.png?202203310904" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/scala-instanceof-antipattern.png?202203310904" />
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/scala-instanceof-antipattern.png?202203310904">
+    <meta name="twitter:site" content="@alexelcu">
+    <meta name="twitter:creator" content="@alexelcu">
+    <meta name="twitter:title" content="Scala&#39;s isInstanceOf is an Anti-Pattern">
+    <meta name="twitter:url" content="https://alexn.org/blog/2019/08/11/isinstanceof-anti-pattern/">
+    <meta name="twitter:description" content="Scala has a much better way of discriminating between types. Scala has implicit parameters, with which you can describe type classes.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/logo/16px.png" sizes="16x16" />
+    <link rel="icon" href="/assets/logo/32px.png" sizes="32x32" />
+    <link rel="icon" href="/assets/logo/192px.png" sizes="192x192" />
+    <link rel="icon" href="/assets/logo/270px.png" sizes="270x270" />
+    <link rel="icon" href="/assets/logo/512px.png" sizes="512x512" />
+    <link rel="apple-touch-icon-precomposed" href="/assets/logo/180px.png" />
+    <meta name="msapplication-TileImage" content="/assets/logo/270px.png" />
+
+    <!-- Come and get me RSS readers -->
+    <link rel="alternate" type="application/rss+xml" title="All articles (blog, snippets, wiki, links)" href="/feeds/all.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Blog" href="/feeds/blog.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Snippets" href="/feeds/snippets.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Shared Links" href="/feeds/links.xml" />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/assets/css/style.css?202203310904">
+    <link rel="preload" as="style" href="/assets/css/style.css?202203310904">
+    
+    <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
+    <link rel="canonical" href="https://alexn.org/blog/2019/08/11/isinstanceof-anti-pattern/">
+</head>
+
+
+<body>
+   <div class="header">
+  <div class="container">
+    <div class="inner-container">
+      <h1 class="logo"><a href="/">Alex<span class="wide2">andru</span> Nedelcu<span class="wide1"> =&lt;&lt;</span></a></h1>
+      <nav class="nav-collapse">
+        <ul class="noList">
+          
+          <li class="element first current ">
+            <a href="/blog/">Blog</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/wiki/">Wiki</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/snippets/">Snippets</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/links/">Links</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/about/">About</a>
+          </li>
+          
+          <li class="element   last">
+            <a href="/subscribe/">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav>  
+    </div>
+  </div>
+</div><!-- end .header -->
+
+
+   <div class="content">
+      <div class="container">
+         <article class="post" itemscope itemtype="http://schema.org/BlogPosting"><header>
+      <h1 class="postTitle" itemprop="headline">
+        
+        
+          
+      Scala&#39;s isInstanceOf is an Anti-Pattern
+    
+        
+        
+      </h1>
+    
+    <p class="meta">
+      <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://alexn.org/blog/2019/08/11/isinstanceof-anti-pattern/"/>
+      <meta itemprop="datePublished" content="2019-08-11T00:00:00+0000"/>
+      
+      <time itemprop="dateCreated" datetime="2019-08-11T00:00:00+0000">August 11, 2019</time>
+      | <nobr><span class="time">9</span> minutes</nobr>
+    </p>
+
+    
+        <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+          <meta itemprop="url" content="https://alexn.org/assets/media/articles/scala-instanceof-antipattern.png" />
+          <img src="/assets/media/articles/scala-instanceof-antipattern.png?202203310904" alt="" />
+          
+        </figure>
+        
+    
+
+    <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Alexandru Nedelcu">
+      <meta itemprop="url" content="https://alexn.org/about/">
+      <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="https://alexn.org/assets/raw/logo-green.png">
+      </div>
+    </div>
+    <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="Alexandru Nedelcu" />
+        <meta itemprop="url" content="https://alexn.org/about/#alexelcu" />
+        <meta itemprop="url" content="https://twitter.com/alexelcu" />
+        <meta itemprop="url" content="https://github.com/alexandru" />
+      </div>
+    
+
+    
+    
+    
+    <nav class="toc">
+      <p class="toc-title">Table of Contents:</p>
+      <ul>
+  <li><a href="#the-anti-pattern">The Anti-Pattern</a></li>
+  <li><a href="#type-classes-to-the-rescue">Type Classes to the rescue</a></li>
+  <li><a href="#the-problem-with-defaults">The problem with defaults</a></li>
+  <li><a href="#in-conclusion">In conclusion</a></li>
+</ul>
+    </nav>
+    </header>
+
+  <div id="content" itemprop="articleBody">
+    <p class="intro withcap">
+  When you use <code class="language-plaintext highlighter-rouge">isInstanceOf[Class]</code> checks, that’s an anti-pattern, as Scala has a much better way of discriminating between types. Scala has implicit parameters, with which you can describe <a href="https://en.wikipedia.org/wiki/Type_class">type classes</a>.
+</p>
+
+<p class="info-bubble">
+  When C# developers try Java, one primary complaint is about the lack of reification for Java’s generics and by that they mean the ability to discriminate between different type parameters, so to differentiate between <code class="language-plaintext highlighter-rouge">List[Int]</code> and <code class="language-plaintext highlighter-rouge">List[String]</code> via <code class="language-plaintext highlighter-rouge">isInstanceOf</code> checks. Java and Scala do type erasure so a <code class="language-plaintext highlighter-rouge">List[String]</code> at runtime becomes a <code class="language-plaintext highlighter-rouge">List[Any]</code>.
+  <br /><br />
+  Interestingly this complaint is not valid for Scala. Because of Scala’s expressiveness, you shouldn’t need to do <code class="language-plaintext highlighter-rouge">isInstanceOf</code> checks, unless it’s for interoperability or for awkward micro optimizations that have no place in high level code. Reification is a runtime construct and Scala solves the associated use cases by moving all of that at compile time, via implicit parameters.
+</p>
+
+<p>Let’s do an exercise …</p>
+      <h2 id="the-anti-pattern">
+        
+        
+          The Anti-Pattern <a href="#the-anti-pattern" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Given some piece of heavy logic, let’s say you want to describe a function that can execute a block of code, along with some finalizer, something like this:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">guarantee</span><span class="o">[</span><span class="kt">R</span><span class="o">](</span><span class="n">f</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="n">R</span><span class="o">)(</span><span class="n">finalizer</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="nc">Unit</span><span class="o">)</span><span class="k">:</span> <span class="kt">R</span> <span class="o">=</span>
+  <span class="k">try</span> <span class="n">f</span> <span class="k">finally</span> <span class="n">finalizer</span>
+</code></pre></div></div>
+
+<p>And usage:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="n">guarantee</span> <span class="o">{</span>
+  <span class="nf">println</span><span class="o">(</span><span class="s">"Executing!"</span><span class="o">)</span>
+  <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="o">}</span> <span class="o">{</span>
+  <span class="nf">println</span><span class="o">(</span><span class="s">"Done!"</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Then one of your colleagues comes along and tries it with <code class="language-plaintext highlighter-rouge">Future</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">scala.concurrent.Future</span>
+<span class="k">import</span> <span class="nn">scala.concurrent.ExecutionContext.Implicits.global</span>
+
+<span class="n">guarantee</span> <span class="o">{</span>
+  <span class="nc">Future</span> <span class="o">{</span>
+    <span class="nf">println</span><span class="o">(</span><span class="s">"Executing!"</span><span class="o">)</span>
+    <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span>
+  <span class="o">}</span>
+<span class="o">}</span> <span class="o">{</span>
+  <span class="nf">println</span><span class="o">(</span><span class="s">"Done!"</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">//=&gt; Done!</span>
+<span class="c1">//=&gt; Executing!</span>
+</code></pre></div></div>
+
+<p>Oops! This doesn’t work, so one of you might get the bright idea to do this instead:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">scala.util.control.NonFatal</span>
+
+<span class="k">def</span> <span class="nf">guarantee</span><span class="o">[</span><span class="kt">R</span><span class="o">](</span><span class="n">f</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="n">R</span><span class="o">)(</span><span class="n">finalizer</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="nc">Unit</span><span class="o">)</span><span class="k">:</span> <span class="kt">R</span> <span class="o">=</span>
+  <span class="k">try</span> <span class="o">{</span>
+    <span class="n">f</span> <span class="k">match</span> <span class="o">{</span>
+      <span class="c1">// Anti-pattern</span>
+      <span class="k">case</span> <span class="n">ref</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="k">_</span><span class="o">]</span> <span class="k">=&gt;</span>
+        <span class="nv">ref</span><span class="o">.</span><span class="py">transform</span> <span class="o">{</span> <span class="n">r</span> <span class="k">=&gt;</span> <span class="n">finalizer</span><span class="o">;</span> <span class="n">r</span> <span class="o">}</span>
+          <span class="o">.</span><span class="py">asInstanceOf</span><span class="o">[</span><span class="kt">R</span><span class="o">]</span>
+      <span class="k">case</span> <span class="n">result</span> <span class="k">=&gt;</span>
+        <span class="n">finalizer</span>
+        <span class="n">result</span>
+    <span class="o">}</span>
+  <span class="o">}</span> <span class="k">catch</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nc">NonFatal</span><span class="o">(</span><span class="n">e</span><span class="o">)</span> <span class="k">=&gt;</span>
+      <span class="n">finalizer</span>
+      <span class="k">throw</span> <span class="n">e</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+
+<p>This logic isn’t extensible — What happens when you’ll want to introduce logic for Java’s <code class="language-plaintext highlighter-rouge">CompletableFuture</code>, Monix’s <code class="language-plaintext highlighter-rouge">Task</code>, Cats-Effect’s <code class="language-plaintext highlighter-rouge">IO</code> and so on? Each type gets its own branch?</p>
+
+<p>We’ve run into the <a href="https://en.wikipedia.org/wiki/Expression_problem">expression problem</a> and yet our <code class="language-plaintext highlighter-rouge">R</code> data type is not a <a href="https://en.wikipedia.org/wiki/Tagged_union">tagged union</a>, meaning that the set of possible values in that pattern match is endless.</p>
+
+<p>The second problem is the default branch. We are assuming that, in case <code class="language-plaintext highlighter-rouge">R</code> is not a <code class="language-plaintext highlighter-rouge">Future</code>, then we are dealing with a side effectful function that executes synchronously. So one of your colleagues comes along and does this:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">monix.eval.Task</span>
+
+<span class="n">guarantee</span> <span class="o">{</span>
+  <span class="c1">// Oh noes!</span>
+  <span class="nc">Task</span> <span class="o">{</span>
+    <span class="nf">println</span><span class="o">(</span><span class="s">"Executing!"</span><span class="o">)</span>
+    <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span>
+  <span class="o">}</span>
+<span class="o">}</span> <span class="o">{</span>
+  <span class="nf">println</span><span class="o">(</span><span class="s">"Done!"</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">//=&gt; Done!</span>
+</code></pre></div></div>
+
+<p>Oops again! Now we’ve got a bug.</p>
+      <h2 id="type-classes-to-the-rescue">
+        
+        
+          Type Classes to the rescue <a href="#type-classes-to-the-rescue" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Let us define a type class for discriminating between types at <em>compile-time</em>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">trait</span> <span class="nc">CanGuarantee</span><span class="o">[</span><span class="kt">R</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="nf">guarantee</span><span class="o">(</span><span class="n">f</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="n">R</span><span class="o">)(</span><span class="n">finalizer</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="nc">Unit</span><span class="o">)</span><span class="k">:</span> <span class="kt">R</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Now our function can look like this:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">guarantee</span><span class="o">[</span><span class="kt">R:</span> <span class="kt">CanGuarantee</span><span class="o">](</span><span class="n">f</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="n">R</span><span class="o">)(</span><span class="n">finalizer</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="nc">Unit</span><span class="o">)</span><span class="k">:</span> <span class="kt">R</span> <span class="o">=</span>
+  <span class="n">implicitly</span><span class="o">[</span><span class="kt">CanGuarantee</span><span class="o">[</span><span class="kt">R</span><span class="o">]].</span><span class="py">guarantee</span><span class="o">(</span><span class="n">f</span><span class="o">)(</span><span class="n">finalizer</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>To get the behavior of the original sample, we can define the default instances in the companion object like this:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">object</span> <span class="nc">CanGuarantee</span>  <span class="o">{</span>
+  <span class="c1">// Future instance</span>
+  <span class="k">implicit</span> <span class="k">def</span> <span class="nf">futureInstance</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span><span class="k">:</span> <span class="kt">CanGuarantee</span><span class="o">[</span><span class="kt">Future</span><span class="o">[</span><span class="kt">A</span><span class="o">]]</span> <span class="k">=</span>
+    <span class="k">new</span> <span class="nc">CanGuarantee</span><span class="o">[</span><span class="kt">Future</span><span class="o">[</span><span class="kt">A</span><span class="o">]]</span> <span class="o">{</span>
+      <span class="k">def</span> <span class="nf">guarantee</span><span class="o">(</span><span class="n">f</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="nc">Future</span><span class="o">[</span><span class="kt">A</span><span class="o">])(</span><span class="n">finalizer</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="nc">Unit</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span>
+        <span class="nc">Future</span><span class="o">(</span><span class="n">f</span><span class="o">).</span><span class="py">flatten</span><span class="o">.</span><span class="py">transform</span> <span class="o">{</span> <span class="n">r</span> <span class="k">=&gt;</span>
+          <span class="n">finalizer</span>
+          <span class="n">r</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+  <span class="c1">// Default instance</span>
+  <span class="k">implicit</span> <span class="k">def</span> <span class="nf">syncInstance</span><span class="o">[</span><span class="kt">R</span><span class="o">]</span><span class="k">:</span> <span class="kt">CanGuarantee</span><span class="o">[</span><span class="kt">R</span><span class="o">]</span> <span class="k">=</span>
+    <span class="k">new</span> <span class="nc">CanGuarantee</span><span class="o">[</span><span class="kt">R</span><span class="o">]</span> <span class="o">{</span>
+      <span class="k">def</span> <span class="nf">guarantee</span><span class="o">(</span><span class="n">f</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="n">R</span><span class="o">)(</span><span class="n">finalizer</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="nc">Unit</span><span class="o">)</span><span class="k">:</span> <span class="kt">R</span> <span class="o">=</span>
+        <span class="k">try</span> <span class="n">f</span> <span class="k">finally</span> <span class="n">finalizer</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The upside is that now the mechanism is extensible, without modifying the original function:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">final</span> <span class="k">class</span> <span class="nc">Thunk</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="k">val</span> <span class="nv">run</span><span class="k">:</span> <span class="o">()</span> <span class="o">=&gt;</span> <span class="n">A</span><span class="o">)</span>
+
+<span class="k">object</span> <span class="nc">Thunk</span> <span class="o">{</span>
+  <span class="c1">// Extending our logic with a new data type</span>
+  <span class="k">implicit</span> <span class="k">def</span> <span class="nf">canGuarantee</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span><span class="k">:</span> <span class="kt">CanGuarantee</span><span class="o">[</span><span class="kt">Thunk</span><span class="o">[</span><span class="kt">A</span><span class="o">]]</span> <span class="k">=</span>
+    <span class="k">new</span> <span class="nc">CanGuarantee</span><span class="o">[</span><span class="kt">Thunk</span><span class="o">[</span><span class="kt">A</span><span class="o">]]</span> <span class="o">{</span>
+      <span class="k">def</span> <span class="nf">guarantee</span><span class="o">(</span><span class="n">f</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="nc">Thunk</span><span class="o">[</span><span class="kt">A</span><span class="o">])(</span><span class="n">finalizer</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="nc">Unit</span><span class="o">)</span><span class="k">:</span> <span class="kt">Thunk</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span>
+        <span class="k">new</span> <span class="nc">Thunk</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="o">{</span>
+          <span class="k">try</span> <span class="nv">f</span><span class="o">.</span><span class="py">run</span><span class="o">()</span> <span class="k">finally</span> <span class="n">finalizer</span>
+        <span class="o">})</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+      <h2 id="the-problem-with-defaults">
+        
+        
+          The problem with defaults <a href="#the-problem-with-defaults" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>What happens in case you don’t define <code class="language-plaintext highlighter-rouge">CanGuarantee[Thunk[A]]</code>?</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="n">guarantee</span> <span class="o">{</span>
+  <span class="k">new</span> <span class="nc">Thunk</span> <span class="o">{</span> <span class="o">()</span> <span class="k">=&gt;</span>
+    <span class="nf">println</span><span class="o">(</span><span class="s">"Calculating!"</span><span class="o">)</span>
+    <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span>
+  <span class="o">}</span>
+<span class="o">}</span> <span class="o">{</span>
+  <span class="nf">println</span><span class="o">(</span><span class="s">"Done!"</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">syncInstance</code> that we defined above is incorrect for <code class="language-plaintext highlighter-rouge">Thunk</code>. This means that we can introduce silent bugs. What should happen here?</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">java.util.concurrent.CompletableFuture</span>
+
+<span class="n">guarantee</span> <span class="o">{</span>
+  <span class="nv">CompletableFuture</span><span class="o">.</span><span class="py">runAsync</span> <span class="o">{</span> <span class="o">()</span> <span class="k">=&gt;</span>
+    <span class="nf">println</span><span class="o">(</span><span class="s">"Running!"</span><span class="o">)</span>
+  <span class="o">}</span>
+<span class="o">}</span> <span class="o">{</span>
+  <span class="nf">println</span><span class="o">(</span><span class="s">"Done!"</span><span class="o">)</span>
+<span class="o">}</span>
+<span class="c1">//=&gt; Done!</span>
+<span class="c1">//=&gt; Running!</span>
+</code></pre></div></div>
+
+<p>This is a bug waiting to happen.</p>
+
+<p>Therefore one can make the case that the default instance, if it doesn’t have the intended behavior for all data types, should not exist. But you can still provide a helper for creating one:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">scala.annotation.implicitNotFound</span>
+
+<span class="nd">@implicitNotFound</span><span class="o">(</span><span class="s">"""Cannot find implicit value for CanGuarantee[${R}].
+If this value is synchronously calculated via an effectful function,
+then use CanGuarantee.synchronous to create one."""</span><span class="o">)</span>
+<span class="k">trait</span> <span class="nc">CanGuarantee</span><span class="o">[</span><span class="kt">R</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="nf">guarantee</span><span class="o">(</span><span class="n">f</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="n">R</span><span class="o">)(</span><span class="n">finalizer</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="nc">Unit</span><span class="o">)</span><span class="k">:</span> <span class="kt">R</span>
+<span class="o">}</span>
+
+<span class="k">object</span> <span class="nc">CanGuarantee</span> <span class="o">{</span>
+  <span class="c1">// No longer implicit</span>
+  <span class="k">def</span> <span class="nf">synchronous</span><span class="o">[</span><span class="kt">R</span><span class="o">]</span><span class="k">:</span> <span class="kt">CanGuarantee</span><span class="o">[</span><span class="kt">R</span><span class="o">]</span> <span class="k">=</span>
+    <span class="k">new</span> <span class="nc">CanGuarantee</span><span class="o">[</span><span class="kt">R</span><span class="o">]</span> <span class="o">{</span>
+      <span class="k">def</span> <span class="nf">guarantee</span><span class="o">(</span><span class="n">f</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="n">R</span><span class="o">)(</span><span class="n">finalizer</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="nc">Unit</span><span class="o">)</span><span class="k">:</span> <span class="kt">R</span> <span class="o">=</span>
+        <span class="k">try</span> <span class="n">f</span> <span class="k">finally</span> <span class="n">finalizer</span>
+    <span class="o">}</span>
+
+  <span class="c1">// Future instance</span>
+  <span class="k">implicit</span> <span class="k">def</span> <span class="nf">futureInstance</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span><span class="k">:</span> <span class="kt">CanGuarantee</span><span class="o">[</span><span class="kt">Future</span><span class="o">[</span><span class="kt">A</span><span class="o">]]</span> <span class="k">=</span>
+    <span class="k">new</span> <span class="nc">CanGuarantee</span><span class="o">[</span><span class="kt">Future</span><span class="o">[</span><span class="kt">A</span><span class="o">]]</span> <span class="o">{</span>
+      <span class="k">def</span> <span class="nf">guarantee</span><span class="o">(</span><span class="n">f</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="nc">Future</span><span class="o">[</span><span class="kt">A</span><span class="o">])(</span><span class="n">finalizer</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="nc">Unit</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span>
+        <span class="nc">Future</span><span class="o">(</span><span class="n">f</span><span class="o">).</span><span class="py">flatten</span><span class="o">.</span><span class="py">transform</span> <span class="o">{</span> <span class="n">r</span> <span class="k">=&gt;</span>
+          <span class="n">finalizer</span>
+          <span class="n">r</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Notice the usage of Scala’s <a href="https://www.scala-lang.org/api/current/scala/annotation/implicitNotFound.html">@implicitNotFound</a> annotation for providing a nice error message.</p>
+
+<p>Let’s see what happens now when we try running the <code class="language-plaintext highlighter-rouge">CompletableFuture</code> code again:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>error: Cannot find implicit value for CanGuarantee[CompletableFuture[Void]].
+If this value is synchronously calculated via an effectful function,
+then use CanGuarantee.synchronous to create one.
+</code></pre></div></div>
+
+<p>That’s better. This now goes for <code class="language-plaintext highlighter-rouge">Unit</code> as well:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>scala&gt; guarantee { println("Executing!") } { println("Done!") }
+
+error: Cannot find implicit value for CanGuarantee[Unit].
+If this value is synchronously calculated via an effectful function,
+then use CanGuarantee.synchronous[Unit] to create one.
+       guarantee { println("Executing!") } { println("Done!") }
+                                           ^
+</code></pre></div></div>
+
+<p>If you want to work with <code class="language-plaintext highlighter-rouge">Unit</code>, you have to create an instance for it, but notice how the error message tells you exactly what to do:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">implicit</span> <span class="k">val</span> <span class="nv">ev</span> <span class="k">=</span> <span class="nv">CanGuarantee</span><span class="o">.</span><span class="py">synchronous</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span>
+
+<span class="n">guarantee</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Executing!"</span><span class="o">)</span> <span class="o">}</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Done!"</span><span class="o">)</span> <span class="o">}</span>
+</code></pre></div></div>
+      <h2 id="in-conclusion">
+        
+        
+          In conclusion <a href="#in-conclusion" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Friends don’t let friends use <code class="language-plaintext highlighter-rouge">isInstanceOf</code> checks, because Scala has better ways of handling the related use cases.</p>
+
+<p>Enjoy~</p>
+
+  </div>
+
+  <div id="article-details">
+    
+    <time itemprop="dateModified" content="2019-08-11T00:00:00+0000">
+        Published: August 11, 2019
+    </time>
+    
+      | Written by <a href="https://alexn.org/about/#alexelcu" itemprop="url" rel="author">Alexandru Nedelcu</a>
+    
+
+    <div id="all-categories">
+      Tags:
+      
+        
+        <a href="/blog/tag/best%20of/" class="category">Best Of</a>
+      
+         | 
+        <a href="/blog/tag/scala/" class="category">Scala</a>
+      
+    </div>
+  </div>
+
+  
+  <div class="related">
+      <h2 id="related-articles">
+        
+        
+          Related Articles <a href="#related-articles" class="anchor">#</a>
+        
+        
+      </h2>
+    
+    <div class="container">
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2018/05/06/bifunctor-io/">
+          On Bifunctor IO and Java&#39;s Checked Exceptions
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/best%20of" class="tag">Best Of</a>
+            
+               | <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/typelevel" class="tag">Typelevel</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/haskell" class="tag">Haskell</a>
+                        
+          </div>
+          <time>May 6, 2018</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2018/02/12/in-defense-oofp/">
+          In Defense of OOFP
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/best%20of" class="tag">Best Of</a>
+            
+               | <a href="/blog/tag/oop" class="tag">OOP</a>
+            
+               | <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/haskell" class="tag">Haskell</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+                        
+          </div>
+          <time>February 12, 2018</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2017/10/15/functional-programming/">
+          What is Functional Programming?
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/best%20of" class="tag">Best Of</a>
+            
+               | <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/haskell" class="tag">Haskell</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/javascript" class="tag">JavaScript</a>
+                        
+          </div>
+          <time>October 15, 2017</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  
+
+  
+</article>
+
+      </div>
+   </div><!-- end .content -->
+
+   <script async src="/assets/js/modernizr.custom.15390.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202203310904" type="text/javascript"></script>
+
+<script async src="/assets/js/scripts.js?202203310904" type="text/javascript"></script>
+
+   <div class="footer">
+  
+  <div class="container">
+    <div class="contributions">
+      <h2 id="comments">
+  Comments
+  <a href="#comments" class="anchor">#</a>
+</h2>
+
+<p>
+  Do you have suggestions? Want to chat? Email me at: <br>
+  <script>
+    (function () {
+      var lhs = "contact22+comments";
+      var rhs = "alexn.org";
+      document.write("<a target=\"_blank\" href=\"mailto");
+      document.write(":" + lhs + "@");
+      document.write(rhs);
+      document.write("?subject=Comment%20on%3A%20Scala's%20isInstanceOf%20is%20an%20Anti-Pattern")
+      document.write("\">" + lhs + "@" + rhs + "<\/a>");
+    })()
+  </script>
+  <noscript>
+    <em>Email address is protected via JavaScript, activate it to see it!</em>
+  </noscript>
+</p>
+
+<h2 id="contribute">
+  Contribute
+  <a href="#contribute" class="anchor">#</a>
+</h2>
+
+
+<p>
+  Fix or add to this article by submitting a pull request:<br/>
+  <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/main/_posts/2019-08-11-isinstanceof-anti-pattern.md" target="_blank">Edit Page on GitHub</a>
+</p>
+
+<p>
+  Donate to cover ongoing website costs, or buy me coffee ☕️😋 <br/>
+  <a href="https://www.patreon.com/bePatron?u=6102596" target="_blank">
+    <img label="Become a Patron!" alt="Become a Patron!" title="Become a Patron!" src="/assets/media/buttons/patreon.png" height="40" />
+  </a>
+</p>
+
+
+<h2 id="subscribe">
+  Subscribe
+  <a href="#subscribe" class="anchor">#</a>
+</h2>
+
+<!-- Begin Mailchimp Signup Form -->
+<div id="mc_embed_signup">
+  <form action="https://alexn.us4.list-manage.com/subscribe/post?u=5bffa2af025192a58345bd5dc&amp;id=1c9005b255"
+    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
+    novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="mc-field-group field">
+        <label for="mce-EMAIL">Email Address <sup class="asterisk">*</sup></label>
+        <input type="email" value="" name="EMAIL" class="required email full-width" id="mce-EMAIL" placeholder="user@domain.com" required>
+      </div>
+      <!-- <div class="mc-field-group field">
+        <label for="mce-FULLNAME">Name</label>
+        <input type="text" value="" name="FULLNAME" class="full-width" id="mce-FULLNAME" placeholder="John Doe">
+      </div> -->
+      <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+      </div>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+          name="b_5bffa2af025192a58345bd5dc_1c9005b255" tabindex="-1" value=""></div>
+      <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+          class="button"></div>
+    </div>
+  </form>
+</div>
+
+<div class="note">
+  <span class="extra">
+    Newsletter subscription uses Mailchimp, see <a href="/docs/privacy-policy/">privacy policy</a>.
+    If you're not seeing the form, it may be blocked by the browser; <a target="_blank" href="http://eepurl.com/g5ClAT"><em><span style="white-space: nowrap;">try the external subscribe page &#10141;</span></em></a>
+  </span>
+</div>
+
+
+    </div>  
+  </div>
+  
+
+  <div class="bottom">
+    <div class="container">
+      <span class="copy">
+          &copy; 2009-2022
+      </span>
+      <span class="links">
+        <a href="/docs/license/">License</a> |
+        <a href="/docs/privacy-policy/">Privacy Policy</a> |
+        <a href="/about/#contact">Contact</a>
+      </span>
+    </div>
+  </div>
+</div><!-- end .footer -->
+
+</body>
+</html>

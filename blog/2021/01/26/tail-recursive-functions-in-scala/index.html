@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <!-- https://github.com/darkreader/darkreader/issues/1114 -->
+    <!-- <meta name="darkreader" content="41637b04c7ddb955e533a5c76d68a2c8"> -->
+    <meta name="color-scheme" content="light dark">
+    <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
+    <meta name="theme-color" content="#493667">
+    
+    <title>Tail Recursive Functions (in Scala) - Alexandru Nedelcu</title>
+    
+
+    <!-- Open Graph Meta -->
+    <meta content="Alexandru Nedelcu" property="og:site_name">
+    <meta content="Tail Recursive Functions (in Scala)" property="og:title">
+    <meta content="Turning imperative algorithms to tail-recursive functions isn’t necessarily obvious. In this article (and video) I’m showing you the trick you need, and in doing so, we’ll discover the Zen of Functional Programming." property="og:description">
+    <meta content="https://alexn.org/blog/2021/01/26/tail-recursive-functions-in-scala/" property="og:url">
+    <meta content="2021-01-26T19:49:35+00:00" property="article:published_time">
+    <meta property="og:type" content="video.other" />
+    <meta property="og:video:url" content="https://www.youtube-nocookie.com/embed/Ua1iMD4icLU" />
+    <meta property="og:video:secure_url" content="https://www.youtube-nocookie.com/embed/Ua1iMD4icLU" />
+    <meta property="og:video:type" content="text/html" />
+    <meta property="og:video:width" content="560" />
+    <meta property="og:video:height" content="315" /> 
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/tail-recursive-functions.png?202203310904" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/tail-recursive-functions.png?202203310904" />
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="player" />
+    <meta name="twitter:player" content="https://www.youtube-nocookie.com/embed/Ua1iMD4icLU">
+    <meta name="twitter:player:width" content="560">
+    <meta name="twitter:player:height" content="315">
+    <meta name="twitter:image" content="https://alexn.org/assets/media/articles/tail-recursive-functions.png?202203310904" />
+    <meta name="twitter:site" content="@alexelcu">
+    <meta name="twitter:creator" content="@alexelcu">
+    <meta name="twitter:title" content="Tail Recursive Functions (in Scala)">
+    <meta name="twitter:url" content="https://alexn.org/blog/2021/01/26/tail-recursive-functions-in-scala/">
+    <meta name="twitter:description" content="Turning imperative algorithms to tail-recursive functions isn’t necessarily obvious. In this article (and video) I’m showing you the trick you need, and in doing so, we’ll discover the Zen of Functional Programming.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/logo/16px.png" sizes="16x16" />
+    <link rel="icon" href="/assets/logo/32px.png" sizes="32x32" />
+    <link rel="icon" href="/assets/logo/192px.png" sizes="192x192" />
+    <link rel="icon" href="/assets/logo/270px.png" sizes="270x270" />
+    <link rel="icon" href="/assets/logo/512px.png" sizes="512x512" />
+    <link rel="apple-touch-icon-precomposed" href="/assets/logo/180px.png" />
+    <meta name="msapplication-TileImage" content="/assets/logo/270px.png" />
+
+    <!-- Come and get me RSS readers -->
+    <link rel="alternate" type="application/rss+xml" title="All articles (blog, snippets, wiki, links)" href="/feeds/all.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Blog" href="/feeds/blog.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Snippets" href="/feeds/snippets.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Shared Links" href="/feeds/links.xml" />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/assets/css/style.css?202203310904">
+    <link rel="preload" as="style" href="/assets/css/style.css?202203310904">
+    
+    <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
+    <link rel="canonical" href="https://alexn.org/blog/2021/01/26/tail-recursive-functions-in-scala/">
+</head>
+
+
+<body>
+   <div class="header">
+  <div class="container">
+    <div class="inner-container">
+      <h1 class="logo"><a href="/">Alex<span class="wide2">andru</span> Nedelcu<span class="wide1"> =&lt;&lt;</span></a></h1>
+      <nav class="nav-collapse">
+        <ul class="noList">
+          
+          <li class="element first current ">
+            <a href="/blog/">Blog</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/wiki/">Wiki</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/snippets/">Snippets</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/links/">Links</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/about/">About</a>
+          </li>
+          
+          <li class="element   last">
+            <a href="/subscribe/">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav>  
+    </div>
+  </div>
+</div><!-- end .header -->
+
+
+   <div class="content">
+      <div class="container">
+         <article class="post" itemscope itemtype="http://schema.org/BlogPosting"><header>
+      <h1 class="postTitle" itemprop="headline">
+        
+        
+          
+      Tail Recursive Functions (in Scala)
+    
+        
+        
+      </h1>
+    
+    <p class="meta">
+      <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://alexn.org/blog/2021/01/26/tail-recursive-functions-in-scala/"/>
+      <meta itemprop="datePublished" content="2021-01-26T19:49:35+0000"/>
+      
+      <time itemprop="dateCreated" datetime="2021-01-26T19:49:35+0000">January 26, 2021</time>
+      | <nobr><span class="time">9</span> minutes</nobr>
+    </p>
+
+    
+        
+<figure class="featuredImage video" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+  <meta itemprop="url" content="https://alexn.org/assets/media/articles/tail-recursive-functions.png?202203310904" />
+  <a href="https://www.youtube.com/watch?v=Ua1iMD4icLU&autoplay=1" target="_blank" class="youtube-play-link" title="Go to YouTube video">
+    <img src="https://alexn.org/assets/media/articles/tail-recursive-functions.png?202203310904" alt="" class="play-thumb" width="100%;" />
+  </a>
+  <figcaption>
+    <a href="https://www.youtube.com/watch?v=Ua1iMD4icLU&autoplay=1" target="_blank">
+      Video link
+      (open on YouTube.com)
+    </a>
+  </figcaption>
+</figure>
+ 
+        
+    
+
+    <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Alexandru Nedelcu">
+      <meta itemprop="url" content="https://alexn.org/about/">
+      <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="https://alexn.org/assets/raw/logo-green.png">
+      </div>
+    </div>
+    <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="Alexandru Nedelcu" />
+        <meta itemprop="url" content="https://alexn.org/about/#alexelcu" />
+        <meta itemprop="url" content="https://twitter.com/alexelcu" />
+        <meta itemprop="url" content="https://github.com/alexandru" />
+      </div>
+    
+
+    
+    
+    
+    <nav class="toc">
+      <p class="toc-title">Table of Contents:</p>
+      <ul>
+  <li><a href="#the-trick">The Trick</a></li>
+  <li><a href="#actual-recursion">(Actual) Recursion</a></li>
+  <li><a href="#zen-of-functional-programming">Zen of Functional Programming?</a></li>
+</ul>
+    </nav>
+    </header>
+
+  <div id="content" itemprop="articleBody">
+    <p class="intro withcap">
+  Turning imperative algorithms to tail-recursive functions isn’t necessarily obvious. In this article (and video) I’m showing you the trick you need, and in doing so, we’ll discover the Zen of Functional Programming.
+</p>
+
+<p class="info-bubble">
+  Choose between watching the video on YouTube (linked above), or reading the article (below), or both.
+</p>
+      <h2 id="the-trick">
+        
+        
+          The Trick <a href="#the-trick" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Let’s start with a simple function that calculates the length of a list:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">len</span><span class="o">(</span><span class="n">l</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="k">_</span><span class="o">])</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span>
+  <span class="n">l</span> <span class="k">match</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nc">Nil</span> <span class="k">=&gt;</span> <span class="mi">0</span>
+    <span class="k">case</span> <span class="k">_</span> <span class="o">::</span> <span class="n">tail</span> <span class="k">=&gt;</span> <span class="nf">len</span><span class="o">(</span><span class="n">tail</span><span class="o">)</span> <span class="o">+</span> <span class="mi">1</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+
+<p>It’s a recursive function with a definition that is mathematically correct. However, if we try to test it, this will fail with a <code class="language-plaintext highlighter-rouge">StackOverflowError</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nf">len</span><span class="o">(</span><span class="nv">List</span><span class="o">.</span><span class="py">fill</span><span class="o">(</span><span class="mi">100000</span><span class="o">)(</span><span class="mi">1</span><span class="o">))</span>
+</code></pre></div></div>
+
+<p>The problem is that the input list is too big. And because the VM still has work to do after that recursive call, needing to do a <code class="language-plaintext highlighter-rouge">+ 1</code>, the call isn’t in “tail position”, so the <a href="https://en.wikipedia.org/wiki/Call_stack" target="_blank">call-stack</a> must be used. A <code class="language-plaintext highlighter-rouge">StackOverflowError</code> is a memory error, and in this case it’s a correctness issue, because the function will fail on reasonable input.</p>
+
+<p>First let’s describe it as a dirty <code class="language-plaintext highlighter-rouge">while</code> loop instead:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">len</span><span class="o">(</span><span class="n">l</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="k">_</span><span class="o">])</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="k">var</span> <span class="n">count</span> <span class="k">=</span> <span class="mi">0</span>
+  <span class="k">var</span> <span class="n">cursor</span> <span class="k">=</span> <span class="n">l</span>
+
+  <span class="nf">while</span> <span class="o">(</span><span class="n">cursor</span> <span class="o">!=</span> <span class="nc">Nil</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">cursor</span> <span class="k">=</span> <span class="nv">cursor</span><span class="o">.</span><span class="py">tail</span>
+  <span class="o">}</span>
+  <span class="n">count</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>THE TRICK for turning such functions into tail-recursions is to turn those variables, holding state, into <em>function parameters</em>.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">len</span><span class="o">(</span><span class="n">l</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="k">_</span><span class="o">])</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="c1">// Using an inner function to encapsulate this implementation</span>
+  <span class="nd">@tailrec</span>
+  <span class="k">def</span> <span class="nf">loop</span><span class="o">(</span><span class="n">cursor</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="k">_</span><span class="o">],</span> <span class="n">count</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span>
+    <span class="n">cursor</span> <span class="k">match</span> <span class="o">{</span>
+      <span class="c1">// Our end condition, copied after that while</span>
+      <span class="k">case</span> <span class="nc">Nil</span> <span class="k">=&gt;</span> <span class="n">count</span>
+      <span class="k">case</span> <span class="k">_</span> <span class="o">::</span> <span class="n">tail</span> <span class="k">=&gt;</span>
+        <span class="c1">// Copying the same logic from that while statement</span>
+        <span class="nf">loop</span><span class="o">(</span><span class="n">cursor</span> <span class="k">=</span> <span class="n">tail</span><span class="o">,</span> <span class="n">count</span> <span class="k">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span>
+    <span class="o">}</span>
+  <span class="c1">// Go, go, go</span>
+  <span class="nf">loop</span><span class="o">(</span><span class="n">l</span><span class="o">,</span> <span class="mi">0</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Now this version is fine. Note the use of the <code class="language-plaintext highlighter-rouge">@tailrec</code> annotation — all this annotation does is to make the compiler throw an error in case the function is not actually tail-recursive. That’s because that call is error-prone, and it needs repeating, this is an issue of correctness.</p>
+
+<p>Let’s do a more complex example to really internalize this. Let’s calculate the N-th number in the Fibonacci sequence — here’s the memory unsafe recursive version:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">fib</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">BigInt</span> <span class="o">=</span> 
+  <span class="nf">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="mi">0</span>
+  <span class="k">else</span> <span class="nf">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="o">)</span> <span class="mi">1</span>
+  <span class="k">else</span> <span class="nf">fib</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span> <span class="o">+</span> <span class="nf">fib</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="o">)</span>
+
+<span class="nf">fib</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="c1">// 0</span>
+<span class="nf">fib</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span> <span class="c1">// 1</span>
+<span class="nf">fib</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span> <span class="c1">// 1</span>
+<span class="nf">fib</span><span class="o">(</span><span class="mi">3</span><span class="o">)</span> <span class="c1">// 2</span>
+<span class="nf">fib</span><span class="o">(</span><span class="mi">4</span><span class="o">)</span> <span class="c1">// 3</span>
+<span class="nf">fib</span><span class="o">(</span><span class="mi">5</span><span class="o">)</span> <span class="c1">// 5</span>
+
+<span class="nf">fib</span><span class="o">(</span><span class="mi">100000</span><span class="o">)</span> <span class="c1">// StackOverflowError (also, really slow)</span>
+</code></pre></div></div>
+
+<p>First turn this into a dirty <code class="language-plaintext highlighter-rouge">while</code> loop:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">fib</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">BigInt</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="c1">// Kids, don't do this at home 😅</span>
+  <span class="nf">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="k">return</span> <span class="mi">0</span>
+  <span class="c1">// Going from 0 to n, instead of vice-versa  </span>
+  <span class="k">var</span> <span class="n">a</span><span class="k">:</span> <span class="kt">BigInt</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">// instead of fib(n - 2)</span>
+  <span class="k">var</span> <span class="n">b</span><span class="k">:</span> <span class="kt">BigInt</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1">// instead of fib(n - 1)</span>
+  <span class="k">var</span> <span class="n">i</span> <span class="k">=</span> <span class="n">n</span>
+
+  <span class="nf">while</span> <span class="o">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">val</span> <span class="nv">tmp</span> <span class="k">=</span> <span class="n">a</span>
+    <span class="n">a</span> <span class="k">=</span> <span class="n">b</span>
+    <span class="n">b</span> <span class="k">=</span> <span class="n">tmp</span> <span class="o">+</span> <span class="n">b</span>
+    <span class="n">i</span> <span class="o">-=</span> <span class="mi">1</span>
+  <span class="o">}</span>
+  <span class="n">b</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Then turn its 3 variables into function parameters:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">fib</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">BigInt</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="nd">@tailrec</span>
+  <span class="k">def</span> <span class="nf">loop</span><span class="o">(</span><span class="n">a</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">,</span> <span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">BigInt</span> <span class="o">=</span>
+    <span class="c1">// first condition</span>
+    <span class="nf">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="mi">0</span>
+    <span class="c1">// end of while loop</span>
+    <span class="k">else</span> <span class="nf">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="o">)</span> <span class="n">b</span>     
+    <span class="c1">// logic inside while loop statement</span>
+    <span class="k">else</span> <span class="nf">loop</span><span class="o">(</span><span class="n">a</span> <span class="k">=</span> <span class="n">b</span><span class="o">,</span> <span class="n">b</span> <span class="k">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">,</span> <span class="n">i</span> <span class="k">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span>
+
+  <span class="nf">loop</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="n">n</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+      <h2 id="actual-recursion">
+        
+        
+          (Actual) Recursion <a href="#actual-recursion" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Tail-recursions are just loops. But some algorithms are actually <em>recursive</em>, and can’t be described via a <code class="language-plaintext highlighter-rouge">while</code> loop that uses constant memory. What makes an algorithm actually recursive is <em>usage of a stack</em>. In imperative programming, for low-level implementations, that’s how you can tell if recursion is required … does it use a manually managed stack or not?</p>
+
+<p>But even in such cases we can use a <code class="language-plaintext highlighter-rouge">while</code> loop, or a <code class="language-plaintext highlighter-rouge">@tailrec</code> function. Doing so has some advantages. Let’s start with a <code class="language-plaintext highlighter-rouge">Tree</code> data-structure:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">sealed</span> <span class="k">trait</span> <span class="nc">Tree</span><span class="o">[</span><span class="kt">+A</span><span class="o">]</span>
+
+<span class="nc">case</span> <span class="k">class</span> <span class="nc">Node</span><span class="o">[</span><span class="kt">+A</span><span class="o">](</span><span class="n">value</span><span class="k">:</span> <span class="kt">A</span><span class="o">,</span> <span class="n">left</span><span class="k">:</span> <span class="kt">Tree</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span> <span class="n">right</span><span class="k">:</span> <span class="kt">Tree</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span>
+  <span class="k">extends</span> <span class="nc">Tree</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span>
+<span class="k">case</span> <span class="k">object</span> <span class="nc">Empty</span>
+  <span class="k">extends</span> <span class="nc">Tree</span><span class="o">[</span><span class="kt">Nothing</span><span class="o">]</span>
+</code></pre></div></div>
+
+<p>Defining a fold, which we could use to sum-up all values for example, will be challenging:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">foldTree</span><span class="o">[</span><span class="kt">A</span>, <span class="kt">R</span><span class="o">](</span><span class="n">tree</span><span class="k">:</span> <span class="kt">Tree</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span> <span class="n">seed</span><span class="k">:</span> <span class="kt">R</span><span class="o">)(</span><span class="n">f</span><span class="k">:</span> <span class="o">(</span><span class="kt">R</span><span class="o">,</span> <span class="kt">A</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">R</span><span class="o">)</span><span class="k">:</span> <span class="kt">R</span> <span class="o">=</span>
+  <span class="n">tree</span> <span class="k">match</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nc">Empty</span> <span class="k">=&gt;</span> <span class="n">seed</span>
+    <span class="k">case</span> <span class="nc">Node</span><span class="o">(</span><span class="n">value</span><span class="o">,</span> <span class="n">left</span><span class="o">,</span> <span class="n">right</span><span class="o">)</span> <span class="k">=&gt;</span>
+      <span class="c1">// Recursive call for the left child</span>
+      <span class="k">val</span> <span class="nv">leftR</span> <span class="k">=</span> <span class="nf">foldTree</span><span class="o">(</span><span class="n">left</span><span class="o">,</span> <span class="nf">f</span><span class="o">(</span><span class="n">seed</span><span class="o">,</span> <span class="n">value</span><span class="o">))(</span><span class="n">f</span><span class="o">)</span>
+      <span class="c1">// Recursive call for the right child</span>
+      <span class="nf">foldTree</span><span class="o">(</span><span class="n">right</span><span class="o">,</span> <span class="n">leftR</span><span class="o">)(</span><span class="n">f</span><span class="o">)</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+
+<p>This is the simple version. And it should be clear that the size of the call-stack will be directly proportional to <em>the height of the tree</em>. And turning it into a <code class="language-plaintext highlighter-rouge">@tailrec</code> version means we need to <em>manually manage a stack</em>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">foldTree</span><span class="o">[</span><span class="kt">A</span>, <span class="kt">R</span><span class="o">](</span><span class="n">tree</span><span class="k">:</span> <span class="kt">Tree</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span> <span class="n">seed</span><span class="k">:</span> <span class="kt">R</span><span class="o">)(</span><span class="n">f</span><span class="k">:</span> <span class="o">(</span><span class="kt">R</span><span class="o">,</span> <span class="kt">A</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">R</span><span class="o">)</span><span class="k">:</span> <span class="kt">R</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="nd">@tailrec</span> <span class="k">def</span> <span class="nf">loop</span><span class="o">(</span><span class="n">stack</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Tree</span><span class="o">[</span><span class="kt">A</span><span class="o">]],</span> <span class="n">state</span><span class="k">:</span> <span class="kt">R</span><span class="o">)</span><span class="k">:</span> <span class="kt">R</span> <span class="o">=</span>
+    <span class="n">stack</span> <span class="k">match</span> <span class="o">{</span>
+      <span class="c1">// End condition, nothing left to do</span>
+      <span class="k">case</span> <span class="nc">Nil</span> <span class="k">=&gt;</span> <span class="n">state</span>
+      <span class="c1">// Ignore empty elements</span>
+      <span class="k">case</span> <span class="nc">Empty</span> <span class="o">::</span> <span class="n">tail</span> <span class="k">=&gt;</span> <span class="nf">loop</span><span class="o">(</span><span class="n">tail</span><span class="o">,</span> <span class="n">state</span><span class="o">)</span>
+      <span class="c1">// Step in our loop</span>
+      <span class="k">case</span> <span class="nc">Node</span><span class="o">(</span><span class="n">value</span><span class="o">,</span> <span class="n">left</span><span class="o">,</span> <span class="n">right</span><span class="o">)</span> <span class="o">::</span> <span class="n">tail</span> <span class="k">=&gt;</span>
+        <span class="c1">// Adds left and right nodes to stack, evolves the state</span>
+        <span class="nf">loop</span><span class="o">(</span><span class="n">left</span> <span class="o">::</span> <span class="n">right</span> <span class="o">::</span> <span class="n">tail</span><span class="o">,</span> <span class="nf">f</span><span class="o">(</span><span class="n">state</span><span class="o">,</span> <span class="n">value</span><span class="o">))</span>
+    <span class="o">}</span>
+  <span class="c1">// Go, go, go!</span>
+  <span class="nf">loop</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="n">tree</span><span class="o">),</span> <span class="n">seed</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p class="info-bubble">
+  If you want to internalize this notion — recursion == usage of a stack — a great exercise is the <a href="https://en.wikipedia.org/wiki/Backtracking">backtracking algorithm</a>. Implement it with recursive functions, or with dirty loops and a manually managed stack, and compare. The plot thickens for backtracking solutions using 2 stacks 🙂
+</p>
+
+<p>Does this manually managed stack buy us anything?</p>
+
+<p>Well yes, if you need such recursive algorithms, such a stack can take up your whole heap memory, which means it can handle a bigger input. But note that with the right input, your process can still blow up, this time with an out-of-memory error (OOM).</p>
+
+<p class="info-bubble">
+  NOTE — in real life, shining examples of algorithms using manually managed stacks are <a href="https://typelevel.org/cats-effect/">Cats-Effect’s IO</a> and <a href="https://monix.io/">Monix’s Task</a>, since they literally replace the JVM’s call-stack 😄
+</p>
+      <h2 id="zen-of-functional-programming">
+        
+        
+          Zen of Functional Programming? <a href="#zen-of-functional-programming" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>In FP, you turn variables into (immutable) function parameters. And state gets evolved via function calls 💡</p>
+
+<p>That’s it, that’s all there is to FP (plus the design patterns, and the pain of dealing with I/O 🙂).</p>
+
+<p>Enjoy!</p>
+
+  </div>
+
+  <div id="article-details">
+    
+    <time itemprop="dateModified" content="2021-01-26T19:49:35+0000">
+        Published: January 26, 2021
+    </time>
+    
+      | Written by <a href="https://alexn.org/about/#alexelcu" itemprop="url" rel="author">Alexandru Nedelcu</a>
+    
+
+    <div id="all-categories">
+      Tags:
+      
+        
+        <a href="/blog/tag/algorithms/" class="category">Algorithms</a>
+      
+         | 
+        <a href="/blog/tag/fp/" class="category">FP</a>
+      
+         | 
+        <a href="/blog/tag/programming/" class="category">Programming</a>
+      
+         | 
+        <a href="/blog/tag/scala/" class="category">Scala</a>
+      
+         | 
+        <a href="/blog/tag/video/" class="category">Video</a>
+      
+    </div>
+  </div>
+
+  
+  <div class="related">
+      <h2 id="related-articles">
+        
+        
+          Related Articles <a href="#related-articles" class="anchor">#</a>
+        
+        
+      </h2>
+    
+    <div class="container">
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2021/02/26/type-classes-in-scala-3-live-coding-session/">
+          ING Scala Meetup on Scala 3 (live coding session)
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/programming" class="tag">Programming</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/video" class="tag">Video</a>
+                        
+          </div>
+          <time>February 26, 2021</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2021/02/22/countdownlatch-async-dirty/">
+          Implementing a CountDownLatch (async and dirty)
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/concurrency" class="tag">Concurrency</a>
+            
+               | <a href="/blog/tag/jvm" class="tag">JVM</a>
+            
+               | <a href="/blog/tag/multithreading" class="tag">Multithreading</a>
+            
+               | <a href="/blog/tag/programming" class="tag">Programming</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/video" class="tag">Video</a>
+                        
+          </div>
+          <time>February 22, 2021</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2021/02/12/scala-list-secret/">
+          Scala&#39;s List has a Secret
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/multithreading" class="tag">Multithreading</a>
+            
+               | <a href="/blog/tag/programming" class="tag">Programming</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+                        
+          </div>
+          <time>February 12, 2021</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  
+
+  
+</article>
+
+      </div>
+   </div><!-- end .content -->
+
+   <script async src="/assets/js/modernizr.custom.15390.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202203310904" type="text/javascript"></script>
+
+<script async src="/assets/js/scripts.js?202203310904" type="text/javascript"></script>
+
+   <div class="footer">
+  
+  <div class="container">
+    <div class="contributions">
+      <h2 id="comments">
+  Comments
+  <a href="#comments" class="anchor">#</a>
+</h2>
+
+<p>
+  Do you have suggestions? Want to chat? Email me at: <br>
+  <script>
+    (function () {
+      var lhs = "contact22+comments";
+      var rhs = "alexn.org";
+      document.write("<a target=\"_blank\" href=\"mailto");
+      document.write(":" + lhs + "@");
+      document.write(rhs);
+      document.write("?subject=Comment%20on%3A%20Tail%20Recursive%20Functions%20(in%20Scala)")
+      document.write("\">" + lhs + "@" + rhs + "<\/a>");
+    })()
+  </script>
+  <noscript>
+    <em>Email address is protected via JavaScript, activate it to see it!</em>
+  </noscript>
+</p>
+
+<h2 id="contribute">
+  Contribute
+  <a href="#contribute" class="anchor">#</a>
+</h2>
+
+
+<p>
+  Fix or add to this article by submitting a pull request:<br/>
+  <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/main/_posts/2021-01-26-tail-recursive-functions-in-scala-.md" target="_blank">Edit Page on GitHub</a>
+</p>
+
+<p>
+  Donate to cover ongoing website costs, or buy me coffee ☕️😋 <br/>
+  <a href="https://www.patreon.com/bePatron?u=6102596" target="_blank">
+    <img label="Become a Patron!" alt="Become a Patron!" title="Become a Patron!" src="/assets/media/buttons/patreon.png" height="40" />
+  </a>
+</p>
+
+
+<h2 id="subscribe">
+  Subscribe
+  <a href="#subscribe" class="anchor">#</a>
+</h2>
+
+<!-- Begin Mailchimp Signup Form -->
+<div id="mc_embed_signup">
+  <form action="https://alexn.us4.list-manage.com/subscribe/post?u=5bffa2af025192a58345bd5dc&amp;id=1c9005b255"
+    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
+    novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="mc-field-group field">
+        <label for="mce-EMAIL">Email Address <sup class="asterisk">*</sup></label>
+        <input type="email" value="" name="EMAIL" class="required email full-width" id="mce-EMAIL" placeholder="user@domain.com" required>
+      </div>
+      <!-- <div class="mc-field-group field">
+        <label for="mce-FULLNAME">Name</label>
+        <input type="text" value="" name="FULLNAME" class="full-width" id="mce-FULLNAME" placeholder="John Doe">
+      </div> -->
+      <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+      </div>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+          name="b_5bffa2af025192a58345bd5dc_1c9005b255" tabindex="-1" value=""></div>
+      <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+          class="button"></div>
+    </div>
+  </form>
+</div>
+
+<div class="note">
+  <span class="extra">
+    Newsletter subscription uses Mailchimp, see <a href="/docs/privacy-policy/">privacy policy</a>.
+    If you're not seeing the form, it may be blocked by the browser; <a target="_blank" href="http://eepurl.com/g5ClAT"><em><span style="white-space: nowrap;">try the external subscribe page &#10141;</span></em></a>
+  </span>
+</div>
+
+
+    </div>  
+  </div>
+  
+
+  <div class="bottom">
+    <div class="container">
+      <span class="copy">
+          &copy; 2009-2022
+      </span>
+      <span class="links">
+        <a href="/docs/license/">License</a> |
+        <a href="/docs/privacy-policy/">Privacy Policy</a> |
+        <a href="/about/#contact">Contact</a>
+      </span>
+    </div>
+  </div>
+</div><!-- end .footer -->
+
+</body>
+</html>

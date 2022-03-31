@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <!-- https://github.com/darkreader/darkreader/issues/1114 -->
+    <!-- <meta name="darkreader" content="41637b04c7ddb955e533a5c76d68a2c8"> -->
+    <meta name="color-scheme" content="light dark">
+    <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
+    <meta name="theme-color" content="#493667">
+    
+    <title>Why I Find Heroku Suboptimal - Alexandru Nedelcu</title>
+    
+
+    <!-- Open Graph Meta -->
+    <meta content="Alexandru Nedelcu" property="og:site_name">
+    <meta content="Why I Find Heroku Suboptimal" property="og:title">
+    <meta content="Heroku is great. It basically allows you to avoid growing-up. The deployment itself couldn’t be simpler, and when browsing their web interface for available add-ons, I feel like a child in a candy-store. But I’ve outgrown it." property="og:description">
+    <meta content="https://alexn.org/blog/2011/10/23/why-i-find-heroku-suboptimal/" property="og:url">
+    <meta content="2011-10-23T00:00:00+00:00" property="article:published_time">
+    <meta content="2019-12-18T00:00:00+00:00" property="article:modified_time">
+    
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/heroku.png?202203310904" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/heroku.png?202203310904" />
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/heroku.png?202203310904">
+    <meta name="twitter:site" content="@alexelcu">
+    <meta name="twitter:creator" content="@alexelcu">
+    <meta name="twitter:title" content="Why I Find Heroku Suboptimal">
+    <meta name="twitter:url" content="https://alexn.org/blog/2011/10/23/why-i-find-heroku-suboptimal/">
+    <meta name="twitter:description" content="Heroku is great. It basically allows you to avoid growing-up. The deployment itself couldn’t be simpler, and when browsing their web interface for available add-ons, I feel like a child in a candy-store. But I’ve outgrown it.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/logo/16px.png" sizes="16x16" />
+    <link rel="icon" href="/assets/logo/32px.png" sizes="32x32" />
+    <link rel="icon" href="/assets/logo/192px.png" sizes="192x192" />
+    <link rel="icon" href="/assets/logo/270px.png" sizes="270x270" />
+    <link rel="icon" href="/assets/logo/512px.png" sizes="512x512" />
+    <link rel="apple-touch-icon-precomposed" href="/assets/logo/180px.png" />
+    <meta name="msapplication-TileImage" content="/assets/logo/270px.png" />
+
+    <!-- Come and get me RSS readers -->
+    <link rel="alternate" type="application/rss+xml" title="All articles (blog, snippets, wiki, links)" href="/feeds/all.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Blog" href="/feeds/blog.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Snippets" href="/feeds/snippets.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Shared Links" href="/feeds/links.xml" />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/assets/css/style.css?202203310904">
+    <link rel="preload" as="style" href="/assets/css/style.css?202203310904">
+    
+    <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
+    <link rel="canonical" href="https://alexn.org/blog/2011/10/23/why-i-find-heroku-suboptimal/">
+</head>
+
+
+<body>
+   <div class="header">
+  <div class="container">
+    <div class="inner-container">
+      <h1 class="logo"><a href="/">Alex<span class="wide2">andru</span> Nedelcu<span class="wide1"> =&lt;&lt;</span></a></h1>
+      <nav class="nav-collapse">
+        <ul class="noList">
+          
+          <li class="element first current ">
+            <a href="/blog/">Blog</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/wiki/">Wiki</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/snippets/">Snippets</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/links/">Links</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/about/">About</a>
+          </li>
+          
+          <li class="element   last">
+            <a href="/subscribe/">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav>  
+    </div>
+  </div>
+</div><!-- end .header -->
+
+
+   <div class="content">
+      <div class="container">
+         <article class="post" itemscope itemtype="http://schema.org/BlogPosting"><header>
+      <h1 class="postTitle" itemprop="headline">
+        
+        
+          
+      Why I Find Heroku Suboptimal
+    
+        
+        
+      </h1>
+    
+    <p class="meta">
+      <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://alexn.org/blog/2011/10/23/why-i-find-heroku-suboptimal/"/>
+      <meta itemprop="datePublished" content="2011-10-23T00:00:00+0000"/>
+      
+      <time itemprop="dateCreated" datetime="2011-10-23T00:00:00+0000">October 23, 2011</time>
+      | <nobr><span class="time">9</span> minutes</nobr>
+    </p>
+
+    
+        <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+          <meta itemprop="url" content="https://alexn.org/assets/media/articles/heroku.png" />
+          <img src="/assets/media/articles/heroku.png?202203310904" alt="" />
+          
+        </figure>
+        
+    
+
+    <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Alexandru Nedelcu">
+      <meta itemprop="url" content="https://alexn.org/about/">
+      <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="https://alexn.org/assets/raw/logo-green.png">
+      </div>
+    </div>
+    <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="Alexandru Nedelcu" />
+        <meta itemprop="url" content="https://alexn.org/about/#alexelcu" />
+        <meta itemprop="url" content="https://twitter.com/alexelcu" />
+        <meta itemprop="url" content="https://github.com/alexandru" />
+      </div>
+    
+
+    
+    
+    
+    <nav class="toc">
+      <p class="toc-title">Table of Contents:</p>
+      <ul>
+  <li><a href="#git-push-heroku-master">git push heroku master</a></li>
+  <li><a href="#example-1-nginx">Example 1: Nginx</a></li>
+  <li><a href="#example-2-varnish">Example 2: Varnish</a></li>
+  <li><a href="#example-3-asynchronous-jobs">Example 3: asynchronous jobs</a></li>
+  <li><a href="#price-comparison-with-linode">Price comparison with Linode</a></li>
+  <li><a href="#linode-sucks-too-but-thats-besides-the-point">Linode sucks too, but that’s besides the point</a></li>
+</ul>
+    </nav>
+    </header>
+
+  <div id="content" itemprop="articleBody">
+    <p class="intro withcap">
+  I love freebies. I often find myself compelled to search for the best price / convenience ratio, and from this perspective you cannot really argue against something offered for free. And yet, here I am bitching and moaning about Heroku.
+</p>
+
+<p>Heroku provides a free-quota that’s a LOT more reasonable than all the shitty PHP hosting offerings out there. And when time comes to scale, it lets you scale nicely for a price.</p>
+
+<p class="info-bubble">
+  <strong>UPDATE (Oct 21, 2013):</strong> This article is outdated, sort of. Heroku’s Cedar stack is awesome and cost-effective if you can design your app to be efficient in terms of throughput (which you can only achieve if you use a platform capable of high performance, like the JVM). I still think that when starting out, the next step after the free Heroku dyno, is to get your own VPS.
+</p>
+
+<p class="info-bubble">
+  <strong>UPDATE (Dec 18, 2019):</strong> this is an old article, listing resources that may be obsolete and content that may not reflect my current views.
+</p>
+
+<p>Normally you develop your app on your localhost (which is like this warm and cozy place for all developers, <em>no place like 127.0.0.1</em> and all that), but then you want to deploy. You have to get out of your comfort zone and face the jungle and it’s a true jungle out there, filled with shitty / underpowered and expensive hosting offerings. If going for a normal VPS, you’ll have to configure your application server, your database server, your webserver that sits on top, maybe a reverse proxy cache, a memcached instance or two, a load balancer, a firewall, an email server and it goes on and on. And if going for a classic shared-hosting environment, then God help you.</p>
+
+<p>There’s a reason children with happy childhoods don’t want to grow up - the world is an ugly and scary place.</p>
+      <h2 id="git-push-heroku-master">
+        
+        
+          git push heroku master <a href="#git-push-heroku-master" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Heroku is great. It basically allows you to avoid growing-up. The deployment itself couldn’t be simpler, and when browsing their web interface for available add-ons, I feel like a child in a candy-store.</p>
+
+<p>Basically you start with a free worker, to which you can add other “free” services, like a 5MB PostgreSql database and a 5MB Memcached instance, allowing you to prototype stuff. They even have plugins from third-parties that give you freebies, like a 250MB CouchDB, or a 240MB MongoDB. Then as you grow, you start adding more and more resources as needed. This has been labeled as <em>platform as a service</em> and it’s what the cool kids are talking about these days. Heck, there are people that are living within that free-quota without problems. One such example that I know of is <a href="http://tzigla.com">http://tzigla.com</a> … or it was last time I talked to the authors, both acquaintances of mine, and Cristi described how he ended-up doing lots of workarounds to get around limitations and he was really excited about how everything fell into place.</p>
+
+<p>But as I was sitting there admiring their determination and skill, I started wondering why the hell haven’t they rented a normal VPS?</p>
+
+<p>I mean really, if you end up pulling all kinds of crap to get around limitations, wouldn’t it be better to just pay up? And if you’re short on cash or you’re the kind of entrepreneur that likes to spend frugally, then wouldn’t you be better just renting a normal VPS? I asked him just that of course, and his reply was basically:</p>
+
+<p><em>I hate to do sys-admin stuff, installing and upgrading packages and all that</em></p>
+
+<p>But it doesn’t have to be that way. It’s really not that hard. The reason for these feelings is the Ubuntu I have had installed on my primary laptop for 5 years already. Once you work with Ubuntu or your favorite Linux distribution, every day, configuring a web-server for starters is something like a half-an-hour chore. Or let’s say 1 hour, and then it’s done. And you don’t have to worry about it again.</p>
+
+<p><strong>And there are disadvantages to Heroku</strong>, lots of them: that’s because you lose control and end up on top of a platform that’s designed as a common denominator to appeal to all needs in an equally substandard manner.</p>
+      <h2 id="example-1-nginx">
+        
+        
+          Example 1: Nginx <a href="#example-1-nginx" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Nginx is a freakishly fast web server that consumes really few resources. Its main appeal is in serving static files and you do have static files to serve. When you grow you may want to move those static files to a CDN, like CloudFront, which serves content from locations closer to the actual users, but for serving css/javascript and small images - a properly configured Nginx is all you need. And you can’t really move any files served from your main domain to a CDN (like HTML content).</p>
+
+<p>You can also be smart about semi-static pages in Rails - you can cache the output inside the <em>public/</em> directory to be served by Nginx. And if you still want to hit your controller on every request, like when doing A/B Testing on a page, you can send an <em>X-Accel-Redirect</em> header in your response to Nginx and let Nginx to the actual content streaming for you. You can also instruct Nginx to serve files from different locations, based on certain variables like the domain name, thus avoiding hitting the Rails application server on every request.</p>
+
+<p>There’s a lot you can do with Nginx if you’re on a budget, and yet this is not possible within Heroku … which even though it may use Nginx as an http reverse proxy, it certainly doesn’t use it for serving static files. All files are thus served by hitting the Rails server, unless Varnish is involved.</p>
+      <h2 id="example-2-varnish">
+        
+        
+          Example 2: Varnish <a href="#example-2-varnish" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p><a href="https://www.varnish-cache.org/">Varnish</a> is described as being a <em>web application accelerator</em> and the things it can do are truly mind-blowing.</p>
+
+<p>Varnish sits in front of your application servers. It can do <em>load-balancing</em> for you with extreme efficiency, although that’s not its main purpose. Its main purpose is to cache content.</p>
+
+<p>When caching content you have an extreme freedom to specify the Key for fetching cached items. You can use anything when instructing Varnish on what and how to cache, like cookies or the user’s IP or any HTTP header. Do you want to also cache content for logged-in users, even though that content is slightly different from user to user? Not a problem. The configuration language is also extremely flexible, allowing you to tap in the request pipeline with any custom behavior you want. The performance of Varnish coupled with this extreme flexibility is what makes it great. It also has this uncanny ability to reload its configuration without restarting or dropping active connections.</p>
+
+<p>Heroku has Varnish in its stable stack, called Bamboo. But you cannot configure it. The configuration is the same for everybody … you basically set expiry headers on your response, Varnish caches it for you and the cache gets invalidated on every new deployment.</p>
+
+<p>This is actually good and has given rise to the famous Heroku use-case: hosting mostly static websites on it. But Varnish can be much more than that, otherwise it kind of gets in your way, and surprise - Heroku is pulling Varnish out of the configuration, starting with the new Celadon Cedar stack. This is because Varnish gets in the way of their ambitious plans: to make heroku platform-agnostic, thus adding support for Node.js and long-pooling.</p>
+
+<p>The now recommended alternative for serving cached static content is to use Rack::Cache in combination with their Memcached add-on. But this sucks because (1) it hits the Rails server on every request and in the free plan you only have a single process to serve those requests + (2) the free plan for Memcached is only 5MB.</p>
+      <h2 id="example-3-asynchronous-jobs">
+        
+        
+          Example 3: asynchronous jobs <a href="#example-3-asynchronous-jobs" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>One common-sense approach to not having a sluggish web interface is to get slow code out of your HTTP process. Lots of libraries and plugins are available for all web frameworks, like <em>delayed_job</em> for Rails or <em>Celery</em> for Django. And you can just write your own half-baked jobs queue and shove it in your cron.</p>
+
+<p>You cannot have asynchronous jobs using Heroku’s free plan. You must get an extra dyno for that.</p>
+      <h2 id="price-comparison-with-linode">
+        
+        
+          Price comparison with Linode <a href="#price-comparison-with-linode" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>The cheapest <a href="http://www.linode.com/?r=c7376c22b7853329bfb629a54dc9a843be935c36">Linode instance</a> is <strong>$20</strong> per month, and for starters you can have …</p>
+
+<ul>
+  <li>1 Nginx server</li>
+  <li>2 Passenger/Rails processes</li>
+  <li>1 worker for processing asynchronous jobs, it can even be a plain cron-job ; you do have complete flexibility in configuring cron-jobs</li>
+  <li>1 PostgreSQL database, configured for 256MB RAM usage, with 18 GB of storage. It’s not much, but it isn’t <em>shared</em> either and does just fine, trust me … btw, the <a href="http://pgmag.org/">PostgreSQL magazine</a> (first issue) has an article about configuring/optimizing PostgreSQL’s memory usage</li>
+  <li>1 Postfix email server, for bug reports + sending all the spam you want (Linode lets you configure reverse DNS lookup, so you can have a cheap email server that doesn’t trigger spam alerts)</li>
+  <li>ability to serve for any domain you want, including wildcard subdomains</li>
+  <li>your own SSL certificate, for free depending on provider</li>
+</ul>
+
+<p>The equivalent Heroku configuration would cost a minimum of <strong>$114 per month</strong>.</p>
+
+<p>So lets say that you’re growing and you want to add Ronin, Heroku’s plan for a database of 1.7 GB <em>hot data set</em> (whatever the fuck that means). That will cost you a whooping <strong>$200 per month</strong> extra, versus <strong>$80</strong> for a 2GB of RAM instance on Linode, or even better, $160 for a 4GB of RAM instance.</p>
+      <h2 id="linode-sucks-too-but-thats-besides-the-point">
+        
+        
+          Linode sucks too, but that’s besides the point <a href="#linode-sucks-too-but-thats-besides-the-point" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>You lose the ability to increase your dynos in response to traffic surges. On the other hand you’ll be amazed at how much you can squeeze out of your rented hardware and if a properly configured setup fails to serve, then the problems you have probably can’t be solved by just adding extra web servers.</p>
+
+<p>Really, do some reading on why Reddit is down so often. Do some reading on why Amazon’s EBS is completely unreliable for databases (btw, Heroku does use EBS and they’ve also had their share of downtime due to AWS experiencing problems).</p>
+
+<p>Stop fearing the penguin and start configuring your own damn servers. As with everything that’s actually worth it in life (like having children of your own), it’s hard at first but the return of investment will be tenfold.</p>
+
+  </div>
+
+  <div id="article-details">
+    
+    <time itemprop="dateModified" content="2019-12-18T00:00:00+0000">
+        Updated: December 18, 2019
+    </time>
+    
+      | Written by <a href="https://alexn.org/about/#alexelcu" itemprop="url" rel="author">Alexandru Nedelcu</a>
+    
+
+    <div id="all-categories">
+      Tags:
+      
+        
+        <a href="/blog/tag/devops/" class="category">DevOps</a>
+      
+         | 
+        <a href="/blog/tag/heroku/" class="category">Heroku</a>
+      
+         | 
+        <a href="/blog/tag/server/" class="category">Server</a>
+      
+         | 
+        <a href="/blog/tag/cloud/" class="category">Cloud</a>
+      
+         | 
+        <a href="/blog/tag/nginx/" class="category">Nginx</a>
+      
+         | 
+        <a href="/blog/tag/varnish/" class="category">Varnish</a>
+      
+    </div>
+  </div>
+
+  
+  <div class="related">
+      <h2 id="related-articles">
+        
+        
+          Related Articles <a href="#related-articles" class="anchor">#</a>
+        
+        
+      </h2>
+    
+    <div class="container">
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2012/01/05/blogging-for-hackers/">
+          Blogging Platform for Hackers
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/blogging" class="tag">Blogging</a>
+            
+               | <a href="/blog/tag/server" class="tag">Server</a>
+            
+               | <a href="/blog/tag/cloud" class="tag">Cloud</a>
+            
+               | <a href="/blog/tag/heroku" class="tag">Heroku</a>
+            
+               | <a href="/blog/tag/ruby" class="tag">Ruby</a>
+            
+               | <a href="/blog/tag/jekyll" class="tag">Jekyll</a>
+                        
+          </div>
+          <time>January 5, 2012</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2020/11/11/organize-index-screenshots-ocr-macos/">
+          Organize and Index Your Screenshots (OCR) on macOS
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/cloud" class="tag">Cloud</a>
+            
+               | <a href="/blog/tag/macos" class="tag">macOS</a>
+            
+               | <a href="/blog/tag/ruby" class="tag">Ruby</a>
+                        
+          </div>
+          <time>November 11, 2020</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2011/10/29/how-i-use-flickr/">
+          How I Use Flickr: For Backup
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/cloud" class="tag">Cloud</a>
+            
+               | <a href="/blog/tag/api" class="tag">API</a>
+            
+               | <a href="/blog/tag/ruby" class="tag">Ruby</a>
+                        
+          </div>
+          <time>October 29, 2011</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  
+
+  
+</article>
+
+      </div>
+   </div><!-- end .content -->
+
+   <script async src="/assets/js/modernizr.custom.15390.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202203310904" type="text/javascript"></script>
+
+<script async src="/assets/js/scripts.js?202203310904" type="text/javascript"></script>
+
+   <div class="footer">
+  
+  <div class="container">
+    <div class="contributions">
+      <h2 id="comments">
+  Comments
+  <a href="#comments" class="anchor">#</a>
+</h2>
+
+<p>
+  Do you have suggestions? Want to chat? Email me at: <br>
+  <script>
+    (function () {
+      var lhs = "contact22+comments";
+      var rhs = "alexn.org";
+      document.write("<a target=\"_blank\" href=\"mailto");
+      document.write(":" + lhs + "@");
+      document.write(rhs);
+      document.write("?subject=Comment%20on%3A%20Why%20I%20Find%20Heroku%20Suboptimal")
+      document.write("\">" + lhs + "@" + rhs + "<\/a>");
+    })()
+  </script>
+  <noscript>
+    <em>Email address is protected via JavaScript, activate it to see it!</em>
+  </noscript>
+</p>
+
+<h2 id="contribute">
+  Contribute
+  <a href="#contribute" class="anchor">#</a>
+</h2>
+
+
+<p>
+  Fix or add to this article by submitting a pull request:<br/>
+  <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/main/_posts/2011-10-23-why-i-find-heroku-suboptimal.md" target="_blank">Edit Page on GitHub</a>
+</p>
+
+<p>
+  Donate to cover ongoing website costs, or buy me coffee ☕️😋 <br/>
+  <a href="https://www.patreon.com/bePatron?u=6102596" target="_blank">
+    <img label="Become a Patron!" alt="Become a Patron!" title="Become a Patron!" src="/assets/media/buttons/patreon.png" height="40" />
+  </a>
+</p>
+
+
+<h2 id="subscribe">
+  Subscribe
+  <a href="#subscribe" class="anchor">#</a>
+</h2>
+
+<!-- Begin Mailchimp Signup Form -->
+<div id="mc_embed_signup">
+  <form action="https://alexn.us4.list-manage.com/subscribe/post?u=5bffa2af025192a58345bd5dc&amp;id=1c9005b255"
+    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
+    novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="mc-field-group field">
+        <label for="mce-EMAIL">Email Address <sup class="asterisk">*</sup></label>
+        <input type="email" value="" name="EMAIL" class="required email full-width" id="mce-EMAIL" placeholder="user@domain.com" required>
+      </div>
+      <!-- <div class="mc-field-group field">
+        <label for="mce-FULLNAME">Name</label>
+        <input type="text" value="" name="FULLNAME" class="full-width" id="mce-FULLNAME" placeholder="John Doe">
+      </div> -->
+      <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+      </div>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+          name="b_5bffa2af025192a58345bd5dc_1c9005b255" tabindex="-1" value=""></div>
+      <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+          class="button"></div>
+    </div>
+  </form>
+</div>
+
+<div class="note">
+  <span class="extra">
+    Newsletter subscription uses Mailchimp, see <a href="/docs/privacy-policy/">privacy policy</a>.
+    If you're not seeing the form, it may be blocked by the browser; <a target="_blank" href="http://eepurl.com/g5ClAT"><em><span style="white-space: nowrap;">try the external subscribe page &#10141;</span></em></a>
+  </span>
+</div>
+
+
+    </div>  
+  </div>
+  
+
+  <div class="bottom">
+    <div class="container">
+      <span class="copy">
+          &copy; 2009-2022
+      </span>
+      <span class="links">
+        <a href="/docs/license/">License</a> |
+        <a href="/docs/privacy-policy/">Privacy Policy</a> |
+        <a href="/about/#contact">Contact</a>
+      </span>
+    </div>
+  </div>
+</div><!-- end .footer -->
+
+</body>
+</html>

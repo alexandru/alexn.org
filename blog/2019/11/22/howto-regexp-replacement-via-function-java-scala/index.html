@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <!-- https://github.com/darkreader/darkreader/issues/1114 -->
+    <!-- <meta name="darkreader" content="41637b04c7ddb955e533a5c76d68a2c8"> -->
+    <meta name="color-scheme" content="light dark">
+    <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
+    <meta name="theme-color" content="#493667">
+    
+    <title>Regexp Replacement via Function in Java/Scala - Alexandru Nedelcu</title>
+    
+
+    <!-- Open Graph Meta -->
+    <meta content="Alexandru Nedelcu" property="og:site_name">
+    <meta content="Regexp Replacement via Function in Java/Scala" property="og:title">
+    <meta content="Replace in strings via regexp, with the replacement being calculated via a function." property="og:description">
+    <meta content="https://alexn.org/blog/2019/11/22/howto-regexp-replacement-via-function-java-scala/" property="og:url">
+    <meta content="2019-11-22T00:00:00+00:00" property="article:published_time">
+    
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/scala-replace-all-function.png?202203310904" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/scala-replace-all-function.png?202203310904" />
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/scala-replace-all-function.png?202203310904">
+    <meta name="twitter:site" content="@alexelcu">
+    <meta name="twitter:creator" content="@alexelcu">
+    <meta name="twitter:title" content="Regexp Replacement via Function in Java/Scala">
+    <meta name="twitter:url" content="https://alexn.org/blog/2019/11/22/howto-regexp-replacement-via-function-java-scala/">
+    <meta name="twitter:description" content="Replace in strings via regexp, with the replacement being calculated via a function.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/logo/16px.png" sizes="16x16" />
+    <link rel="icon" href="/assets/logo/32px.png" sizes="32x32" />
+    <link rel="icon" href="/assets/logo/192px.png" sizes="192x192" />
+    <link rel="icon" href="/assets/logo/270px.png" sizes="270x270" />
+    <link rel="icon" href="/assets/logo/512px.png" sizes="512x512" />
+    <link rel="apple-touch-icon-precomposed" href="/assets/logo/180px.png" />
+    <meta name="msapplication-TileImage" content="/assets/logo/270px.png" />
+
+    <!-- Come and get me RSS readers -->
+    <link rel="alternate" type="application/rss+xml" title="All articles (blog, snippets, wiki, links)" href="/feeds/all.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Blog" href="/feeds/blog.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Snippets" href="/feeds/snippets.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Shared Links" href="/feeds/links.xml" />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/assets/css/style.css?202203310904">
+    <link rel="preload" as="style" href="/assets/css/style.css?202203310904">
+    
+    <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
+    <link rel="canonical" href="https://alexn.org/blog/2019/11/22/howto-regexp-replacement-via-function-java-scala/">
+</head>
+
+
+<body>
+   <div class="header">
+  <div class="container">
+    <div class="inner-container">
+      <h1 class="logo"><a href="/">Alex<span class="wide2">andru</span> Nedelcu<span class="wide1"> =&lt;&lt;</span></a></h1>
+      <nav class="nav-collapse">
+        <ul class="noList">
+          
+          <li class="element first current ">
+            <a href="/blog/">Blog</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/wiki/">Wiki</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/snippets/">Snippets</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/links/">Links</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/about/">About</a>
+          </li>
+          
+          <li class="element   last">
+            <a href="/subscribe/">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav>  
+    </div>
+  </div>
+</div><!-- end .header -->
+
+
+   <div class="content">
+      <div class="container">
+         <article class="post" itemscope itemtype="http://schema.org/BlogPosting"><header>
+      <h1 class="postTitle" itemprop="headline">
+        
+        
+          
+      Regexp Replacement via Function in Java/Scala
+    
+        
+        
+      </h1>
+    
+    <p class="meta">
+      <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://alexn.org/blog/2019/11/22/howto-regexp-replacement-via-function-java-scala/"/>
+      <meta itemprop="datePublished" content="2019-11-22T00:00:00+0000"/>
+      
+      <time itemprop="dateCreated" datetime="2019-11-22T00:00:00+0000">November 22, 2019</time>
+      | <nobr><span class="time">4</span> minutes</nobr>
+    </p>
+
+    
+        <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+          <meta itemprop="url" content="https://alexn.org/assets/media/articles/scala-replace-all-function.png" />
+          <img src="/assets/media/articles/scala-replace-all-function.png?202203310904" alt="" />
+          
+        </figure>
+        
+    
+
+    <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Alexandru Nedelcu">
+      <meta itemprop="url" content="https://alexn.org/about/">
+      <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="https://alexn.org/assets/raw/logo-green.png">
+      </div>
+    </div>
+    <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="Alexandru Nedelcu" />
+        <meta itemprop="url" content="https://alexn.org/about/#alexelcu" />
+        <meta itemprop="url" content="https://twitter.com/alexelcu" />
+        <meta itemprop="url" content="https://github.com/alexandru" />
+      </div>
+    
+
+    </header>
+
+  <div id="content" itemprop="articleBody">
+    <p class="intro withcap">
+  Article explains how to have fine grained control over replacements when using <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#replaceAll(java.lang.String,java.lang.String)">String.replaceAll</a> or similar in Java or Scala. The samples given are in Scala, but if you’re a Java user, the snippets can be easily translated without any issues.
+</p>
+
+<p class="info-bubble">
+  The following task should be obvious to accomplish in Scala / Java,
+  yet I’ve lost 2 hours on it, because Java’s standard library is aged
+  and arcane.
+  <br /><br />
+  Writing this article mostly for myself, to dump this somewhere 🙂
+</p>
+
+<p>In Ruby if  you want to replace all occurrences of a string, via a regular expression, you can use <a href="https://ruby-doc.org/core-2.6.5/String.html#method-i-gsub">gsub</a>:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="s2">"HelloWorld!"</span><span class="p">.</span><span class="nf">gsub</span><span class="p">(</span><span class="sr">/(?&lt;=[a-z0-9_])[A-Z]/</span><span class="p">,</span> <span class="s1">' \0'</span><span class="p">)</span>
+<span class="c1">#=&gt; Hello World!</span>
+</code></pre></div></div>
+
+<p>This API is available in Scala/Java as well:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="s">"HelloWorld!"</span><span class="o">.</span><span class="py">replaceAll</span><span class="o">(</span><span class="s">"(?&lt;=[a-z0-9_])[A-Z]"</span><span class="o">,</span> <span class="s">" $0"</span><span class="o">)</span>
+<span class="c1">// res: String = Hello World!</span>
+</code></pre></div></div>
+
+<p>However Ruby goes one step further and accepts as the replacement a function block:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="s2">"HelloWorld!"</span><span class="p">.</span><span class="nf">gsub</span><span class="p">(</span><span class="sr">/(?&lt;=[a-z0-9_])[A-Z]/</span><span class="p">)</span> <span class="p">{</span><span class="o">|</span><span class="n">ch</span><span class="o">|</span> <span class="n">ch</span><span class="p">.</span><span class="nf">downcase</span> <span class="p">}</span>
+<span class="c1">#=&gt; Hello world!</span>
+
+<span class="s2">"Apollo 12"</span><span class="p">.</span><span class="nf">gsub</span><span class="p">(</span><span class="sr">/\d+/</span><span class="p">)</span> <span class="p">{</span><span class="o">|</span><span class="n">num</span><span class="o">|</span> <span class="n">num</span><span class="p">.</span><span class="nf">to_i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">}</span>
+<span class="c1">#=&gt; "Apollo 13"</span>
+</code></pre></div></div>
+
+<p>The Java API exposed by <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/regex/Pattern.html">Pattern</a> is a little awkward, so lets see how to do this in Scala / Java:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">type</span> <span class="kt">Index</span> <span class="o">=</span> <span class="nc">Int</span>
+<span class="k">type</span> <span class="kt">MatchGroup</span> <span class="o">=</span> <span class="nc">String</span>
+
+<span class="k">def</span> <span class="nf">replaceAll</span><span class="o">(</span><span class="n">regex</span><span class="k">:</span> <span class="kt">Pattern</span><span class="o">,</span> <span class="n">input</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
+  <span class="o">(</span><span class="n">f</span><span class="k">:</span> <span class="o">(</span><span class="kt">Index</span><span class="o">,</span> <span class="kt">MatchGroup</span><span class="o">,</span> <span class="nc">List</span><span class="o">[</span><span class="kt">MatchGroup</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="o">{</span>
+
+  <span class="k">val</span> <span class="nv">m</span> <span class="k">=</span> <span class="nv">regex</span><span class="o">.</span><span class="py">matcher</span><span class="o">(</span><span class="n">input</span><span class="o">)</span>
+  <span class="k">val</span> <span class="nv">sb</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">StringBuffer</span>
+
+  <span class="nf">while</span> <span class="o">(</span><span class="nv">m</span><span class="o">.</span><span class="py">find</span><span class="o">())</span> <span class="o">{</span>
+    <span class="k">val</span> <span class="nv">groups</span> <span class="k">=</span> <span class="o">{</span>
+      <span class="k">val</span> <span class="nv">buffer</span> <span class="k">=</span> <span class="nv">ListBuffer</span><span class="o">.</span><span class="py">empty</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span>
+      <span class="k">var</span> <span class="n">i</span> <span class="k">=</span> <span class="mi">0</span>
+      <span class="nf">while</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="nv">m</span><span class="o">.</span><span class="py">groupCount</span><span class="o">())</span> <span class="o">{</span>
+        <span class="n">buffer</span> <span class="o">+=</span> <span class="nv">m</span><span class="o">.</span><span class="py">group</span><span class="o">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+      <span class="o">}</span>
+      <span class="nv">buffer</span><span class="o">.</span><span class="py">toList</span>
+    <span class="o">}</span>
+    <span class="k">val</span> <span class="nv">replacement</span> <span class="k">=</span> <span class="nf">f</span><span class="o">(</span><span class="nv">m</span><span class="o">.</span><span class="py">start</span><span class="o">(),</span> <span class="nv">m</span><span class="o">.</span><span class="py">group</span><span class="o">(),</span> <span class="n">groups</span><span class="o">)</span>
+    <span class="nv">m</span><span class="o">.</span><span class="py">appendReplacement</span><span class="o">(</span><span class="n">sb</span><span class="o">,</span> <span class="nv">Matcher</span><span class="o">.</span><span class="py">quoteReplacement</span><span class="o">(</span><span class="n">replacement</span><span class="o">))</span>
+  <span class="o">}</span>
+
+  <span class="nv">m</span><span class="o">.</span><span class="py">appendTail</span><span class="o">(</span><span class="n">sb</span><span class="o">)</span>
+  <span class="nv">sb</span><span class="o">.</span><span class="py">toString</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>What happens here is that <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/regex/Matcher.html">Matcher</a> allows you to replace all occurrences of a string with an iterator-like protocol by using:</p>
+
+<ul>
+  <li><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/regex/Matcher.html#find()">.find</a>: for finding the next occurrence in a <code class="language-plaintext highlighter-rouge">while</code> loop</li>
+  <li><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/regex/Matcher.html#appendReplacement(java.lang.StringBuilder,java.lang.String)">.appendReplacement</a>: which appends the remaining text after the discovery of the last match and the current one, plus the replacement that you’ve calculated for the current match
+    <ul>
+      <li>Note this requires the usage of <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/regex/Matcher.html#quoteReplacement(java.lang.String)">quoteReplacement</a>, because otherwise the logic in <code class="language-plaintext highlighter-rouge">appendReplacement</code> will treat certain special chars like <code class="language-plaintext highlighter-rouge">\</code> and <code class="language-plaintext highlighter-rouge">$</code>, so this specifies that you want the replacement to be verbatim</li>
+    </ul>
+  </li>
+  <li><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/regex/Matcher.html#appendTail(java.lang.StringBuilder)">.appendTail</a>: to append to the final string whatever is left</li>
+</ul>
+
+<p>We can now describe something like this:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">camelCaseToSnakeCase</span><span class="o">(</span><span class="n">input</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span>
+  <span class="nf">replaceAll</span><span class="o">(</span><span class="s">"[A-Z](?=[a-z0-9_])"</span><span class="o">.</span><span class="py">r</span><span class="o">.</span><span class="py">pattern</span><span class="o">,</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span> <span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">ch</span><span class="o">,</span> <span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span>
+    <span class="o">(</span><span class="nf">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="s">"_"</span> <span class="k">else</span> <span class="s">""</span><span class="o">)</span> <span class="o">+</span> <span class="nv">ch</span><span class="o">.</span><span class="py">toLowerCase</span>
+  <span class="o">}</span>
+
+<span class="c1">// And usage:</span>
+<span class="nf">camelCaseToSnakeCase</span><span class="o">(</span><span class="s">"RebuildSubscribersCounts"</span><span class="o">)</span>
+<span class="c1">//=&gt; res: String = rebuild_subscribers_counts</span>
+</code></pre></div></div>
+
+<p>Or like this:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">incrementNumbersIn</span><span class="o">(</span><span class="n">input</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span>
+  <span class="nf">replaceAll</span><span class="o">(</span><span class="s">"\\d+"</span><span class="o">.</span><span class="py">r</span><span class="o">.</span><span class="py">pattern</span><span class="o">,</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span> <span class="o">(</span><span class="k">_</span><span class="o">,</span> <span class="n">num</span><span class="o">,</span> <span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span>
+    <span class="o">(</span><span class="nv">num</span><span class="o">.</span><span class="py">toInt</span> <span class="o">+</span> <span class="mi">1</span><span class="o">).</span><span class="py">toString</span>
+  <span class="o">}</span>
+
+<span class="c1">// And usage:</span>
+<span class="nf">incrementNumbersIn</span><span class="o">(</span><span class="s">"Apollo 12"</span><span class="o">)</span>
+<span class="c1">//=&gt; res: String = Apollo 13</span>
+</code></pre></div></div>
+
+<p>Enjoy ~</p>
+
+  </div>
+
+  <div id="article-details">
+    
+    <time itemprop="dateModified" content="2019-11-22T00:00:00+0000">
+        Published: November 22, 2019
+    </time>
+    
+      | Written by <a href="https://alexn.org/about/#alexelcu" itemprop="url" rel="author">Alexandru Nedelcu</a>
+    
+
+    <div id="all-categories">
+      Tags:
+      
+        
+        <a href="/blog/tag/scala/" class="category">Scala</a>
+      
+         | 
+        <a href="/blog/tag/ruby/" class="category">Ruby</a>
+      
+    </div>
+  </div>
+
+  
+  <div class="related">
+      <h2 id="related-articles">
+        
+        
+          Related Articles <a href="#related-articles" class="anchor">#</a>
+        
+        
+      </h2>
+    
+    <div class="container">
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2021/07/18/iterm-open-file-cmd-click-ide-semantic-history/">
+          Combining the terminal (iTerm) with the IDE
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/macos" class="tag">macOS</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+                        
+          </div>
+          <time>July 18, 2021</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2021/02/26/type-classes-in-scala-3-live-coding-session/">
+          ING Scala Meetup on Scala 3 (live coding session)
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/programming" class="tag">Programming</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/video" class="tag">Video</a>
+                        
+          </div>
+          <time>February 26, 2021</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2021/02/22/countdownlatch-async-dirty/">
+          Implementing a CountDownLatch (async and dirty)
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/concurrency" class="tag">Concurrency</a>
+            
+               | <a href="/blog/tag/jvm" class="tag">JVM</a>
+            
+               | <a href="/blog/tag/multithreading" class="tag">Multithreading</a>
+            
+               | <a href="/blog/tag/programming" class="tag">Programming</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/video" class="tag">Video</a>
+                        
+          </div>
+          <time>February 22, 2021</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  
+
+  
+</article>
+
+      </div>
+   </div><!-- end .content -->
+
+   <script async src="/assets/js/modernizr.custom.15390.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202203310904" type="text/javascript"></script>
+
+<script async src="/assets/js/scripts.js?202203310904" type="text/javascript"></script>
+
+   <div class="footer">
+  
+  <div class="container">
+    <div class="contributions">
+      <h2 id="comments">
+  Comments
+  <a href="#comments" class="anchor">#</a>
+</h2>
+
+<p>
+  Do you have suggestions? Want to chat? Email me at: <br>
+  <script>
+    (function () {
+      var lhs = "contact22+comments";
+      var rhs = "alexn.org";
+      document.write("<a target=\"_blank\" href=\"mailto");
+      document.write(":" + lhs + "@");
+      document.write(rhs);
+      document.write("?subject=Comment%20on%3A%20Regexp%20Replacement%20via%20Function%20in%20Java/Scala")
+      document.write("\">" + lhs + "@" + rhs + "<\/a>");
+    })()
+  </script>
+  <noscript>
+    <em>Email address is protected via JavaScript, activate it to see it!</em>
+  </noscript>
+</p>
+
+<h2 id="contribute">
+  Contribute
+  <a href="#contribute" class="anchor">#</a>
+</h2>
+
+
+<p>
+  Fix or add to this article by submitting a pull request:<br/>
+  <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/main/_posts/2019-11-22-howto-regexp-replacement-via-function-java-scala.md" target="_blank">Edit Page on GitHub</a>
+</p>
+
+<p>
+  Donate to cover ongoing website costs, or buy me coffee ☕️😋 <br/>
+  <a href="https://www.patreon.com/bePatron?u=6102596" target="_blank">
+    <img label="Become a Patron!" alt="Become a Patron!" title="Become a Patron!" src="/assets/media/buttons/patreon.png" height="40" />
+  </a>
+</p>
+
+
+<h2 id="subscribe">
+  Subscribe
+  <a href="#subscribe" class="anchor">#</a>
+</h2>
+
+<!-- Begin Mailchimp Signup Form -->
+<div id="mc_embed_signup">
+  <form action="https://alexn.us4.list-manage.com/subscribe/post?u=5bffa2af025192a58345bd5dc&amp;id=1c9005b255"
+    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
+    novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="mc-field-group field">
+        <label for="mce-EMAIL">Email Address <sup class="asterisk">*</sup></label>
+        <input type="email" value="" name="EMAIL" class="required email full-width" id="mce-EMAIL" placeholder="user@domain.com" required>
+      </div>
+      <!-- <div class="mc-field-group field">
+        <label for="mce-FULLNAME">Name</label>
+        <input type="text" value="" name="FULLNAME" class="full-width" id="mce-FULLNAME" placeholder="John Doe">
+      </div> -->
+      <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+      </div>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+          name="b_5bffa2af025192a58345bd5dc_1c9005b255" tabindex="-1" value=""></div>
+      <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+          class="button"></div>
+    </div>
+  </form>
+</div>
+
+<div class="note">
+  <span class="extra">
+    Newsletter subscription uses Mailchimp, see <a href="/docs/privacy-policy/">privacy policy</a>.
+    If you're not seeing the form, it may be blocked by the browser; <a target="_blank" href="http://eepurl.com/g5ClAT"><em><span style="white-space: nowrap;">try the external subscribe page &#10141;</span></em></a>
+  </span>
+</div>
+
+
+    </div>  
+  </div>
+  
+
+  <div class="bottom">
+    <div class="container">
+      <span class="copy">
+          &copy; 2009-2022
+      </span>
+      <span class="links">
+        <a href="/docs/license/">License</a> |
+        <a href="/docs/privacy-policy/">Privacy Policy</a> |
+        <a href="/about/#contact">Contact</a>
+      </span>
+    </div>
+  </div>
+</div><!-- end .footer -->
+
+</body>
+</html>

@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <!-- https://github.com/darkreader/darkreader/issues/1114 -->
+    <!-- <meta name="darkreader" content="41637b04c7ddb955e533a5c76d68a2c8"> -->
+    <meta name="color-scheme" content="light dark">
+    <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
+    <meta name="theme-color" content="#493667">
+    
+    <title>Ubuntu Server - Alexandru Nedelcu</title>
+    
+
+    <!-- Open Graph Meta -->
+    <meta content="Alexandru Nedelcu" property="og:site_name">
+    <meta content="Ubuntu Server" property="og:title">
+    <meta content="Personal, volatile wiki documentation" property="og:description">
+    <meta content="https://alexn.org/wiki/ubuntu-server/" property="og:url">
+    <meta content="2022-03-11T11:59:24+00:00" property="article:published_time">
+    <meta content="2022-03-29T15:30:00+00:00" property="article:modified_time">
+    
+    <meta content="website" property="og:type">
+    <meta property="og:image" content="https://alexn.org/assets/logo/800px-bordered.png" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/logo/800px-bordered.png" />
+    <!-- Twitter Cards -->
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/logo/800px-bordered.png">
+    <meta name="twitter:site" content="@alexelcu">
+    <meta name="twitter:creator" content="@alexelcu">
+    <meta name="twitter:title" content="Ubuntu Server">
+    <meta name="twitter:url" content="https://alexn.org/wiki/ubuntu-server/">
+    <meta name="twitter:description" content="Personal, volatile wiki documentation">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/logo/16px.png" sizes="16x16" />
+    <link rel="icon" href="/assets/logo/32px.png" sizes="32x32" />
+    <link rel="icon" href="/assets/logo/192px.png" sizes="192x192" />
+    <link rel="icon" href="/assets/logo/270px.png" sizes="270x270" />
+    <link rel="icon" href="/assets/logo/512px.png" sizes="512x512" />
+    <link rel="apple-touch-icon-precomposed" href="/assets/logo/180px.png" />
+    <meta name="msapplication-TileImage" content="/assets/logo/270px.png" />
+
+    <!-- Come and get me RSS readers -->
+    <link rel="alternate" type="application/rss+xml" title="All articles (blog, snippets, wiki, links)" href="/feeds/all.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Blog" href="/feeds/blog.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Snippets" href="/feeds/snippets.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Shared Links" href="/feeds/links.xml" />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/assets/css/style.css?202203310904">
+    <link rel="preload" as="style" href="/assets/css/style.css?202203310904">
+    
+    <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
+    <link rel="canonical" href="https://alexn.org/wiki/ubuntu-server/">
+</head>
+
+
+<body>
+   <div class="header">
+  <div class="container">
+    <div class="inner-container">
+      <h1 class="logo"><a href="/">Alex<span class="wide2">andru</span> Nedelcu<span class="wide1"> =&lt;&lt;</span></a></h1>
+      <nav class="nav-collapse">
+        <ul class="noList">
+          
+          <li class="element first  ">
+            <a href="/blog/">Blog</a>
+          </li>
+          
+          <li class="element  current ">
+            <a href="/wiki/">Wiki</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/snippets/">Snippets</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/links/">Links</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/about/">About</a>
+          </li>
+          
+          <li class="element   last">
+            <a href="/subscribe/">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav>  
+    </div>
+  </div>
+</div><!-- end .header -->
+
+
+   <div class="content">
+      <div class="container">
+         <article class="post " itemscope itemtype="http://schema.org/Article">
+      <h1 class="postTitle" itemprop="headline">
+        
+        
+          Ubuntu Server
+        
+        
+      </h1>
+    
+  
+  <p class="meta">
+    <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://alexn.org/wiki/ubuntu-server/"/>
+    
+      <meta itemprop="datePublished" content="2022-03-11T11:59:24+0000"/>
+      
+      
+      <time itemprop="dateModified" content="2022-03-29T18:30:00+0300">
+        Updated: March 29, 2022
+      </time>
+      
+    
+  </p>
+
+  <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+    <meta itemprop="name" content="Alexandru Nedelcu">
+    <meta itemprop="url" content="https://alexn.org/about/">
+    <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+      <meta itemprop="url" content="https://alexn.org/assets/raw/logo-green.png">
+    </div>
+  </div>
+
+  <div id="content" itemprop="articleBody">
+    
+
+  <p><strong>Contents:</strong></p>
+  <ul>
+  <li><a href="#initial-setup-firewall-user-updates">Initial setup (firewall, user, updates)</a></li>
+  <li><a href="#secure-openssh">Secure OpenSSH</a></li>
+  <li><a href="#configure-sending-emails-via-fastmail-or-another-smtp-server">Configure sending emails via FastMail (or another SMTP server)</a></li>
+  <li><a href="#install-clamav-anti-virus">Install ClamAV anti-virus</a></li>
+  <li><a href="#install-swap-file">Install swap file</a></li>
+</ul>
+      <h2 id="initial-setup-firewall-user-updates">
+        
+        
+          Initial setup (firewall, user, updates) <a href="#initial-setup-firewall-user-updates" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>As <code class="language-plaintext highlighter-rouge">root</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c"># Installing available security updates</span>
+apt update <span class="o">&amp;&amp;</span> apt upgrade
+
+<span class="c"># Enabling firewall (super important!)</span>
+apt <span class="nb">install </span>ufw
+ufw default deny incoming
+<span class="c"># I've decided to be super strict and block everything by default</span>
+
+<span class="c"># SSH</span>
+ufw allow <span class="k">in </span>22
+<span class="c"># HTTP(S)</span>
+ufw allow <span class="k">in </span>80
+ufw allow <span class="k">in </span>443
+</code></pre></div></div>
+
+<p>We can also configure the firewall to deny outgoing connections:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="code"><code>ufw default deny outgoing
+<span class="c"># SSH</span>
+ufw allow out 22
+<span class="c"># HTTP(S)</span>
+ufw allow out 80
+ufw allow out 443
+
+<span class="c"># Allow DNS requests</span>
+ufw allow out 53
+
+<span class="c"># Allow outgoing SMTP via FastMail</span>
+ufw allow out 587
+</code></pre></div></div>
+
+<p>Enable ufw (after making sure that SSH is enabled):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="code"><code>ufw <span class="nt">--force</span> <span class="nb">enable</span>
+</code></pre></div></div>
+
+<p>Status should now look like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>root@vm~# ufw status
+Status: active
+
+To                         Action      From
+--                         ------      ----
+OpenSSH                    ALLOW       Anywhere
+80                         ALLOW       Anywhere
+443                        ALLOW       Anywhere
+OpenSSH (v6)               ALLOW       Anywhere (v6)
+80 (v6)                    ALLOW       Anywhere (v6)
+443 (v6)                   ALLOW       Anywhere (v6)
+
+80                         ALLOW OUT   Anywhere
+443                        ALLOW OUT   Anywhere
+53                         ALLOW OUT   Anywhere
+587                        ALLOW OUT   Anywhere
+80 (v6)                    ALLOW OUT   Anywhere (v6)
+443 (v6)                   ALLOW OUT   Anywhere (v6)
+53 (v6)                    ALLOW OUT   Anywhere (v6)
+587 (v6)                   ALLOW OUT   Anywhere (v6)
+</code></pre></div></div>
+
+<p>Fix the UFW+Docker combination via <a href="https://github.com/chaifeng/ufw-docker">ufw-docker</a> utility (otherwise Docker will just ignore your firewall rules):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>wget -O /usr/local/bin/ufw-docker \
+  https://github.com/chaifeng/ufw-docker/raw/master/ufw-docker
+
+chmod +x /usr/local/bin/ufw-docker
+
+ufw-docker install
+
+systemctl restart ufw
+</code></pre></div></div>
+
+<p>Creating a new user and disabling <code class="language-plaintext highlighter-rouge">root</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="code"><code>adduser alex
+<span class="c"># Adds the user to sudoers</span>
+usermod <span class="nt">-aG</span> <span class="nb">sudo </span>alex
+
+<span class="c"># Create its OpenSSH config</span>
+<span class="nb">mkdir</span> /home/alex/.ssh
+vim /home/alex/.ssh/authorized_keys
+<span class="nb">chmod</span> <span class="nt">-R</span> go-rwx /home/alex/.ssh
+<span class="nb">chown</span> <span class="nt">-R</span> alex:alex /home/alex/.ssh
+
+<span class="c"># Disable root's password</span>
+passwd <span class="nt">-l</span> root
+
+<span class="c"># It's a good time to reboot</span>
+reboot
+</code></pre></div></div>
+
+<p>Setup automatic updates:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nb">sudo </span>apt-get <span class="nb">install </span>unattended-upgrades
+<span class="nb">sudo </span>dpkg-reconfigure <span class="nt">-plow</span> unattended-upgrades
+</code></pre></div></div>
+
+<p>Edit <code class="language-plaintext highlighter-rouge">/etc/apt/apt.conf.d/50unattended-upgrades</code> for customizations.</p>
+      <h2 id="secure-openssh">
+        
+        
+          Secure OpenSSH <a href="#secure-openssh" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Edit the config file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nb">sudo </span>vim /etc/ssh/sshd_config
+</code></pre></div></div>
+
+<p>Add these options:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>Port 22
+Protocol 2
+LoginGraceTime 30
+PermitRootLogin no
+AllowUsers alex
+StrictModes yes
+MaxAuthTries 3
+IgnoreRhosts yes
+PasswordAuthentication no
+PermitEmptyPasswords no
+ChallengeResponseAuthentication no
+KerberosAuthentication no
+GSSAPIAuthentication no
+UsePAM no
+AllowAgentForwarding no
+AllowTcpForwarding no
+X11Forwarding no
+PrintMotd yes
+ClientAliveInterval 6m
+ClientAliveCountMax 0
+UseDNS no
+PermitTunnel no
+</code></pre></div></div>
+      <h2 id="configure-sending-emails-via-fastmail-or-another-smtp-server">
+        
+        
+          Configure sending emails via FastMail (or another SMTP server) <a href="#configure-sending-emails-via-fastmail-or-another-smtp-server" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>sudo apt-get install postfix mailutils libsasl2-2 ca-certificates libsasl2-modules
+</code></pre></div></div>
+
+<p>Add the following lines in <code class="language-plaintext highlighter-rouge">/etc/postfix/main.cf</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>relayhost = [smtp.fastmail.com]:587
+smtp_sasl_auth_enable = yes
+smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+smtp_sasl_security_options = noanonymous
+smtp_tls_CAfile = /etc/postfix/cacert.pem
+smtp_use_tls = yes
+</code></pre></div></div>
+
+<p>Create <code class="language-plaintext highlighter-rouge">/etc/postfix/sasl_passwd</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>[smtp.fastmail.com]:587 username:password
+</code></pre></div></div>
+
+<p>Fix the permissions:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nb">sudo chmod </span>400 /etc/postfix/sasl_passwd
+</code></pre></div></div>
+
+<p>Tell postfix about the password entry:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nb">sudo </span>postmap /etc/postfix/sasl_passwd
+</code></pre></div></div>
+
+<p>Download the <a href="https://www.thawte.com/roots/">Thawte Primary Root CA</a> if not available:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>cd /etc/ssl/certs/
+sudo wget https://www.thawte.com/roots/thawte_Primary_Root_CA.pem
+</code></pre></div></div>
+
+<p>Then create <code class="language-plaintext highlighter-rouge">cacert.pem</code>:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nb">sudo cp</span> /etc/ssl/certs/thawte_Primary_Root_CA.pem /etc/postfix/cacert.pem
+</code></pre></div></div>
+
+<p>Restart the service:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nb">sudo</span> /etc/init.d/postfix reload
+</code></pre></div></div>
+
+<p>Test it:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nb">echo</span> <span class="s2">"Test Email message body"</span> | mail <span class="nt">-s</span> <span class="s2">"Email test subject"</span>  <span class="nb">test</span>@domain.tld
+</code></pre></div></div>
+      <h2 id="install-clamav-anti-virus">
+        
+        
+          Install ClamAV anti-virus <a href="#install-clamav-anti-virus" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nb">sudo </span>apt <span class="nb">install </span>clamav <span class="nt">-y</span>
+</code></pre></div></div>
+
+<p>Update its definitions:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nb">sudo </span>systemctl stop clamav-freshclam
+
+<span class="nb">sudo </span>freshclam
+
+<span class="nb">sudo </span>systemctl start clamav-freshclam
+</code></pre></div></div>
+      <h2 id="install-swap-file">
+        
+        
+          Install swap file <a href="#install-swap-file" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Source: <a href="https://bookofzeus.com/harden-ubuntu/server-setup/add-swap/">https://bookofzeus.com/harden-ubuntu/server-setup/add-swap/</a></p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c"># Let's check if a SWAP file exists and it's enabled before we create one.</span>
+<span class="nb">sudo </span>swapon <span class="nt">-s</span>
+
+<span class="c"># To create the SWAP file, you will need to use this.</span>
+<span class="nb">sudo </span>fallocate <span class="nt">-l</span> 4G /swapfile
+
+<span class="c"># Secure swap.</span>
+<span class="nb">sudo chown </span>root:root /swapfile
+<span class="nb">sudo chmod </span>0600 /swapfile
+
+<span class="c"># Prepare the swap file by creating a Linux swap area.</span>
+<span class="nb">sudo </span>mkswap /swapfile
+
+<span class="c"># Activate the swap file.</span>
+<span class="nb">sudo </span>swapon /swapfile
+
+<span class="c"># Confirm that the swap partition exists.</span>
+<span class="nb">sudo </span>swapon <span class="nt">-s</span>
+
+<span class="c"># This will last until the server reboots. Let's create the entry in the fstab.</span>
+<span class="nb">sudo </span>nano /etc/fstab
+: /swapfile	none	swap	sw	0 0
+
+<span class="c"># Swappiness in the file should be set to 0. Skipping this step may cause both poor performance,</span>
+<span class="c"># whereas setting it to 0 will cause swap to act as an emergency buffer, preventing out-of-memory crashes.</span>
+<span class="nb">echo </span>0 | <span class="nb">sudo tee</span> /proc/sys/vm/swappiness
+<span class="nb">echo </span>vm.swappiness <span class="o">=</span> 0 | <span class="nb">sudo tee</span> <span class="nt">-a</span> /etc/sysctl.conf
+</code></pre></div></div>
+
+  </div>
+</article>
+
+      </div>
+   </div><!-- end .content -->
+
+   <script async src="/assets/js/modernizr.custom.15390.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202203310904" type="text/javascript"></script>
+
+<script async src="/assets/js/scripts.js?202203310904" type="text/javascript"></script>
+
+   <div class="footer">
+  
+  <div class="container">
+    <div class="contributions">
+      <h2 id="comments">
+  Comments
+  <a href="#comments" class="anchor">#</a>
+</h2>
+
+<p>
+  Do you have suggestions? Want to chat? Email me at: <br>
+  <script>
+    (function () {
+      var lhs = "contact22+comments";
+      var rhs = "alexn.org";
+      document.write("<a target=\"_blank\" href=\"mailto");
+      document.write(":" + lhs + "@");
+      document.write(rhs);
+      document.write("?subject=Comment%20on%3A%20Ubuntu%20Server")
+      document.write("\">" + lhs + "@" + rhs + "<\/a>");
+    })()
+  </script>
+  <noscript>
+    <em>Email address is protected via JavaScript, activate it to see it!</em>
+  </noscript>
+</p>
+
+<h2 id="contribute">
+  Contribute
+  <a href="#contribute" class="anchor">#</a>
+</h2>
+
+
+<p>
+  Fix or add to this article by submitting a pull request:<br/>
+  <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/main/_wiki/ubuntu-server.md" target="_blank">Edit Page on GitHub</a>
+</p>
+
+<p>
+  Donate to cover ongoing website costs, or buy me coffee ☕️😋 <br/>
+  <a href="https://www.patreon.com/bePatron?u=6102596" target="_blank">
+    <img label="Become a Patron!" alt="Become a Patron!" title="Become a Patron!" src="/assets/media/buttons/patreon.png" height="40" />
+  </a>
+</p>
+
+
+<h2 id="subscribe">
+  Subscribe
+  <a href="#subscribe" class="anchor">#</a>
+</h2>
+
+<!-- Begin Mailchimp Signup Form -->
+<div id="mc_embed_signup">
+  <form action="https://alexn.us4.list-manage.com/subscribe/post?u=5bffa2af025192a58345bd5dc&amp;id=1c9005b255"
+    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
+    novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="mc-field-group field">
+        <label for="mce-EMAIL">Email Address <sup class="asterisk">*</sup></label>
+        <input type="email" value="" name="EMAIL" class="required email full-width" id="mce-EMAIL" placeholder="user@domain.com" required>
+      </div>
+      <!-- <div class="mc-field-group field">
+        <label for="mce-FULLNAME">Name</label>
+        <input type="text" value="" name="FULLNAME" class="full-width" id="mce-FULLNAME" placeholder="John Doe">
+      </div> -->
+      <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+      </div>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+          name="b_5bffa2af025192a58345bd5dc_1c9005b255" tabindex="-1" value=""></div>
+      <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+          class="button"></div>
+    </div>
+  </form>
+</div>
+
+<div class="note">
+  <span class="extra">
+    Newsletter subscription uses Mailchimp, see <a href="/docs/privacy-policy/">privacy policy</a>.
+    If you're not seeing the form, it may be blocked by the browser; <a target="_blank" href="http://eepurl.com/g5ClAT"><em><span style="white-space: nowrap;">try the external subscribe page &#10141;</span></em></a>
+  </span>
+</div>
+
+
+    </div>  
+  </div>
+  
+
+  <div class="bottom">
+    <div class="container">
+      <span class="copy">
+          &copy; 2009-2022
+      </span>
+      <span class="links">
+        <a href="/docs/license/">License</a> |
+        <a href="/docs/privacy-policy/">Privacy Policy</a> |
+        <a href="/about/#contact">Contact</a>
+      </span>
+    </div>
+  </div>
+</div><!-- end .footer -->
+
+</body>
+</html>

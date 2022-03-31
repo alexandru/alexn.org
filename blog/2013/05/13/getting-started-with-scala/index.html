@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <!-- https://github.com/darkreader/darkreader/issues/1114 -->
+    <!-- <meta name="darkreader" content="41637b04c7ddb955e533a5c76d68a2c8"> -->
+    <meta name="color-scheme" content="light dark">
+    <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
+    <meta name="theme-color" content="#493667">
+    
+    <title>Resources for Learning Scala - Alexandru Nedelcu</title>
+    
+
+    <!-- Open Graph Meta -->
+    <meta content="Alexandru Nedelcu" property="og:site_name">
+    <meta content="Resources for Learning Scala" property="og:title">
+    
+      <meta content="On programming and personal projects" property="og:description">
+    <meta content="https://alexn.org/blog/2013/05/13/getting-started-with-scala/" property="og:url">
+    <meta content="2013-05-13T00:00:00+00:00" property="article:published_time">
+    
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/scala.png?202203310904" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/scala.png?202203310904" />
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/scala.png?202203310904">
+    <meta name="twitter:site" content="@alexelcu">
+    <meta name="twitter:creator" content="@alexelcu">
+    <meta name="twitter:title" content="Resources for Learning Scala">
+    <meta name="twitter:url" content="https://alexn.org/blog/2013/05/13/getting-started-with-scala/">
+    
+      <meta name="twitter:description" content="On programming and personal projects">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/logo/16px.png" sizes="16x16" />
+    <link rel="icon" href="/assets/logo/32px.png" sizes="32x32" />
+    <link rel="icon" href="/assets/logo/192px.png" sizes="192x192" />
+    <link rel="icon" href="/assets/logo/270px.png" sizes="270x270" />
+    <link rel="icon" href="/assets/logo/512px.png" sizes="512x512" />
+    <link rel="apple-touch-icon-precomposed" href="/assets/logo/180px.png" />
+    <meta name="msapplication-TileImage" content="/assets/logo/270px.png" />
+
+    <!-- Come and get me RSS readers -->
+    <link rel="alternate" type="application/rss+xml" title="All articles (blog, snippets, wiki, links)" href="/feeds/all.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Blog" href="/feeds/blog.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Snippets" href="/feeds/snippets.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Shared Links" href="/feeds/links.xml" />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/assets/css/style.css?202203310904">
+    <link rel="preload" as="style" href="/assets/css/style.css?202203310904">
+    
+    <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
+    <link rel="canonical" href="https://alexn.org/blog/2013/05/13/getting-started-with-scala/">
+</head>
+
+
+<body>
+   <div class="header">
+  <div class="container">
+    <div class="inner-container">
+      <h1 class="logo"><a href="/">Alex<span class="wide2">andru</span> Nedelcu<span class="wide1"> =&lt;&lt;</span></a></h1>
+      <nav class="nav-collapse">
+        <ul class="noList">
+          
+          <li class="element first current ">
+            <a href="/blog/">Blog</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/wiki/">Wiki</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/snippets/">Snippets</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/links/">Links</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/about/">About</a>
+          </li>
+          
+          <li class="element   last">
+            <a href="/subscribe/">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav>  
+    </div>
+  </div>
+</div><!-- end .header -->
+
+
+   <div class="content">
+      <div class="container">
+         <article class="post" itemscope itemtype="http://schema.org/BlogPosting"><header>
+      <h1 class="postTitle" itemprop="headline">
+        
+        
+          
+      Resources for Learning Scala
+    
+        
+        
+      </h1>
+    
+    <p class="meta">
+      <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://alexn.org/blog/2013/05/13/getting-started-with-scala/"/>
+      <meta itemprop="datePublished" content="2013-05-13T00:00:00+0000"/>
+      
+      <time itemprop="dateCreated" datetime="2013-05-13T00:00:00+0000">May 13, 2013</time>
+      | <nobr><span class="time">6</span> minutes</nobr>
+    </p>
+
+    
+        <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+          <meta itemprop="url" content="https://alexn.org/assets/media/articles/scala.png" />
+          <img src="/assets/media/articles/scala.png?202203310904" alt="" />
+          
+        </figure>
+        
+    
+
+    <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Alexandru Nedelcu">
+      <meta itemprop="url" content="https://alexn.org/about/">
+      <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="https://alexn.org/assets/raw/logo-green.png">
+      </div>
+    </div>
+    <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="Alexandru Nedelcu" />
+        <meta itemprop="url" content="https://alexn.org/about/#alexelcu" />
+        <meta itemprop="url" content="https://twitter.com/alexelcu" />
+        <meta itemprop="url" content="https://github.com/alexandru" />
+      </div>
+    
+
+    
+    
+    
+    <nav class="toc">
+      <p class="toc-title">Table of Contents:</p>
+      <ul>
+  <li><a href="#1-tools-of-the-trade">1. Tools of the Trade</a></li>
+  <li><a href="#2-books">2. Books</a></li>
+  <li><a href="#3-online-resources">3. Online Resources</a></li>
+  <li><a href="#4-whom-to-follow">4. Whom to Follow</a></li>
+  <li><a href="#5-seeking-help">5. Seeking Help</a></li>
+</ul>
+    </nav>
+    </header>
+
+  <div id="content" itemprop="articleBody">
+    <p class="intro withcap">
+  Getting started with a new programming language shouldn't be hard,
+  however navigating the web for resources on getting started with Scala
+  can be a doubting experience, as many such resources are either out of
+  date, or wrong, or both. This post is intended to reduce the noise for
+  my colleagues and other people that are interested in Scala
+  development.
+</p>
+
+<!-- read more -->
+      <h2 id="1-tools-of-the-trade">
+        
+        
+          1. Tools of the Trade <a href="#1-tools-of-the-trade" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>All you need for getting started is the Scala interpreter and a good
+text editor.</p>
+
+<p>First, download the archive from
+<strong><a href="http://www.scala-lang.org/downloads">scala-lang.org/downloads</a></strong>,
+uncompress it and place the <code class="language-plaintext highlighter-rouge">bin/</code> subdirectory on your local
+<code class="language-plaintext highlighter-rouge">PATH</code>. Then start the “scala” interpreter and test if it works:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>$ scala
+Welcome to Scala version 2.10.1
+Type in expressions to have them evaluated.
+Type :help for more information.
+
+scala&gt; 1 + 1
+res0: Int = 2
+</code></pre></div></div>
+
+<p>You also need a good and simple text editor that can do syntax
+highlighting for Scala. Your choice should be done in this order:</p>
+
+<ul>
+  <li>your existing favorite text editor, if you have one</li>
+  <li><strong><a href="https://www.sublimetext.com/">Sublime Text 2</a></strong> for a good
+out-of-the-box experience, although for reasons I won’t go into
+here, I really keep away from text-editors that aren’t open-source</li>
+  <li><strong><a href="http://www.vim.org/">Vim</a></strong> or
+<strong><a href="http://www.gnu.org/software/emacs/">Emacs</a></strong> (in combination with
+<a href="https://github.com/hvesalai/scala-mode2">scala-mode2</a> and
+<a href="https://github.com/capitaomorte/yasnippet">yasnippet</a>). These text
+editors are eternal and extremely productive, however if you’re unfamiliar with neither of
+them, adding the overhead of learning them on top of learning Scala
+is a bit too much</li>
+</ul>
+
+<p>Other tools you may need for <em>serious development</em> (TM), but not
+necessarily for learning:</p>
+
+<ul>
+  <li><strong><a href="http://www.scala-sbt.org/">SBT</a></strong> for building projects and
+managing dependencies, being much like Maven for Java, or Leiningen
+for Clojure, or Rake+Bundler for Ruby</li>
+  <li><strong><a href="http://www.jetbrains.com/idea/">IntelliJ IDEA</a></strong>, in combination
+with the <a href="https://github.com/mpeltonen/sbt-idea">sbt-idea</a> plugin,
+if you need a good IDE, but seriously, when getting your feet wet,
+stay away from IDEs. The community edition is open-source and fit
+for Scala development</li>
+  <li><strong><a href="http://typesafe.com/platform/getstarted">Typesafe Activator</a></strong> is a
+pretty recent development if you want to play with the TypeSafe stack
+(which really means the
+<a href="http://www.playframework.com/">Play Framework</a> and
+<a href="http://akka.io/">Akka</a>). I haven’t played with it, but it looks like
+a neat way to get some sample apps running quickly. It also includes SBT.</li>
+</ul>
+
+<p>But really, for playing around, start with just the Scala compiler + a
+text editor that does syntax highlighting for Scala. I can’t stress
+this enough.</p>
+      <h2 id="2-books">
+        
+        
+          2. Books <a href="#2-books" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>For getting started, at the moment (<em>May 2013</em>) ignore all books
+(seriously) other than these 3:</p>
+
+<p><a href="http://www.amazon.com/gp/product/0321774094/ref=as_li_ss_il?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=0321774094&amp;linkCode=as2&amp;tag=bionicspirit-20"><b>Scala for the Impatient</b></a>
+by Cay S. Horstmann, is a good pragmatic book on Scala (not so much on
+functional programming), but it’s for developers experienced in other
+languages, so it’s fast-paced while not scaring you away with endless
+discussions on types. The PDF for the first part (out of 3) is 
+available from the 
+<a href="http://typesafe.com/resources/free-books">Typesafe website</a>.</p>
+
+<div class="clear"></div>
+
+<p><a href="http://www.amazon.com/gp/product/B004Z1FTXS/ref=as_li_ss_il?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=B004Z1FTXS&amp;linkCode=as2&amp;tag=bionicspirit-20"><b>Programming in Scala</b></a> 
+by Martin Odersky is a good book on programming, not just Scala - many
+of the exercises in
+<a href="http://mitpress.mit.edu/sicp/">Structure and Interpretation of Computer Programs</a>
+are also present in this book, giving you the Scala-approach for
+solving those problems, which is good.</p>
+
+<div class="clear"></div>
+
+<p><a href="http://www.amazon.com/gp/product/1935182706/ref=as_li_ss_il?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=1935182706&amp;linkCode=as2&amp;tag=bionicspirit-20"><b>Scala in Depth</b></a>
+by Joshua Suereth D. - this is an advanced book on Scala, with many
+insights into how functional idioms work in it or advice on best practices. I’ve yet to finish it, 
+as it’s not really an easy lecture. But it’s a good book. Get
+the eBook straight from <a href="http://www.manning.com/suereth/">Manning</a>.</p>
+
+<div class="clear"></div>
+
+<p><em>NOTE:</em> these are Amazon links (with my affiliate tag) placed here for
+convenience and for reading other people’s reviews, but if you want
+the eBook version don’t buy from Amazon, prefer buying directly from
+the publisher, as you’ll get both a DRM-free Kindle version and a PDF,
+useful for desktops or iPads.</p>
+      <h2 id="3-online-resources">
+        
+        
+          3. Online Resources <a href="#3-online-resources" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>An unspoken rule when searching for online resources about Scala is
+that you should stay away from the <em>www.scala-lang.org</em> website,
+because many links are outdated and the website is not properly
+maintained, as most of the effort these days is going to the
+documention project (mentioned below), which will probably become the
+homepage for Scala at some point.</p>
+
+<p><strong><a href="https://www.coursera.org/course/progfun">Functional Programming Principles in Scala</a></strong>
+is an excellent course provided by Coursera / EPFL, taught by Martin
+Odersky. The course is almost over, so register right now if you want
+access to the videos and assignments, or you’ll probably have to wait
+for the next iteration.</p>
+
+<p><strong><a href="http://docs.scala-lang.org/">Scala Documentation Project</a></strong> -
+definitely checkout this website, as they aggregate everything good
+here. If you want to learn more about Scala’s library, especially the
+collections, this is the place to learn from. Checkout for instance
+this <strong><a href="http://docs.scala-lang.org/cheatsheets/">Scala cheatsheet</a></strong>.</p>
+
+<p><strong><a href="http://twitter.github.com/scala_school/">Scala School</a></strong> - a freely
+available online tutorial by Twitter, which is very friendly to
+newbies. I’ve read it and it’s pretty good.</p>
+
+<p><strong><a href="http://aperiodic.net/phil/scala/s-99/">Ninety-Nine Scala Problems</a></strong></p>
+<ul>
+  <li>a collection of 99 problems to be solved with Scala. If you get
+stuck, you can view a solution which is often idiomatic. See also this
+<a href="https://github.com/etorreborre/s99">GitHub project</a> that gives you a
+complete test-suite, to spare you of the
+effort. <a href="http://projecteuler.net/">Project Euler</a> is also a pretty
+cool source of problems to solve.</li>
+</ul>
+
+<p><strong><a href="http://stackoverflow.com/tags/scala/info">The Scala Overview at StackOverflow.com</a></strong>
+is a pretty cool aggregate of popular Scala questions. I don’t know if
+they are compiling this automatically, or by hand, but it almost feels
+like an online book.</p>
+
+<p><strong><a href="http://nescala.org/">Online videos from nescala.org</a></strong>. These
+presentations are pure gold and a must see. At the moment, the
+homepage features the videos from 2013, so start with the
+<a href="http://nescala.org/2012">2012 archive</a>.</p>
+      <h2 id="4-whom-to-follow">
+        
+        
+          4. Whom to Follow <a href="#4-whom-to-follow" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p><a href="http://typesafe.com/blog">The Typesafe Blog</a> usually contains news
+regarding Scala adoptions in the enterprise, or release announcements
+about Akka, Play, Scala-IDE, or whatever Typesafe is doing these days
+and it’s useful to follow their RSS feed.</p>
+
+<p><a href="http://www.cakesolutions.net/teamblogs/">This Week in #Scala</a> is a
+weekly-ish article series written by Chris Cundill of Cake Solutions,
+aggregating the most interesting news happening in the Scala
+community. I subscribed to their newsletter.</p>
+
+<p>My Twitter and my RSS feed does have subscriptions to interesting
+people from the Scala community, however following people tends to add
+noise to your news stream. If you want to learn Scala, then following
+people’s blogs and tweats is a waist of time.</p>
+      <h2 id="5-seeking-help">
+        
+        
+          5. Seeking Help <a href="#5-seeking-help" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>For seeking help for language usage:</p>
+
+<ul>
+  <li><a href="https://groups.google.com/forum/?fromgroups=#!forum/scala-user">The Scala-User mailing-list</a></li>
+  <li><a href="http://stackoverflow.com/questions/tagged/scala">StackOverflow.com</a>,
+where I got some pretty cool answers on Scala-tagged questions</li>
+</ul>
+
+<p>For seeking help related to usage of various Scala frameworks or
+libraries, you may want to subscribe to their specific
+mailing-list. For instance
+<a href="https://groups.google.com/forum/?fromgroups=#!forum/play-framework">play-framework</a>
+for problems related to the Play framework.</p>
+
+  </div>
+
+  <div id="article-details">
+    
+    <time itemprop="dateModified" content="2013-05-13T00:00:00+0000">
+        Published: May 13, 2013
+    </time>
+    
+      | Written by <a href="https://alexn.org/about/#alexelcu" itemprop="url" rel="author">Alexandru Nedelcu</a>
+    
+
+    <div id="all-categories">
+      Tags:
+      
+        
+        <a href="/blog/tag/languages/" class="category">Languages</a>
+      
+         | 
+        <a href="/blog/tag/fp/" class="category">FP</a>
+      
+         | 
+        <a href="/blog/tag/scala/" class="category">Scala</a>
+      
+         | 
+        <a href="/blog/tag/books/" class="category">Books</a>
+      
+    </div>
+  </div>
+
+  
+  <div class="related">
+      <h2 id="related-articles">
+        
+        
+          Related Articles <a href="#related-articles" class="anchor">#</a>
+        
+        
+      </h2>
+    
+    <div class="container">
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2014/10/20/scala-best-practices/">
+          Scala Best Practices
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/languages" class="tag">Languages</a>
+            
+               | <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/best%20practices" class="tag">Best Practices</a>
+                        
+          </div>
+          <time>October 20, 2014</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2013/05/07/towards-better-atomicreference-scala/">
+          Towards a Better AtomicReference
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/languages" class="tag">Languages</a>
+            
+               | <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/java" class="tag">Java</a>
+            
+               | <a href="/blog/tag/multithreading" class="tag">Multithreading</a>
+            
+               | <a href="/blog/tag/concurrency" class="tag">Concurrency</a>
+                        
+          </div>
+          <time>May 7, 2013</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2013/03/14/jvm-multithreading-monitor-locks-visibility/">
+          JVM Multithreading: Monitor Locks and Visibility
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/languages" class="tag">Languages</a>
+            
+               | <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/java" class="tag">Java</a>
+            
+               | <a href="/blog/tag/multithreading" class="tag">Multithreading</a>
+            
+               | <a href="/blog/tag/concurrency" class="tag">Concurrency</a>
+                        
+          </div>
+          <time>March 14, 2013</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  
+
+  
+</article>
+
+      </div>
+   </div><!-- end .content -->
+
+   <script async src="/assets/js/modernizr.custom.15390.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202203310904" type="text/javascript"></script>
+
+<script async src="/assets/js/scripts.js?202203310904" type="text/javascript"></script>
+
+   <div class="footer">
+  
+  <div class="container">
+    <div class="contributions">
+      <h2 id="comments">
+  Comments
+  <a href="#comments" class="anchor">#</a>
+</h2>
+
+<p>
+  Do you have suggestions? Want to chat? Email me at: <br>
+  <script>
+    (function () {
+      var lhs = "contact22+comments";
+      var rhs = "alexn.org";
+      document.write("<a target=\"_blank\" href=\"mailto");
+      document.write(":" + lhs + "@");
+      document.write(rhs);
+      document.write("?subject=Comment%20on%3A%20Resources%20for%20Learning%20Scala")
+      document.write("\">" + lhs + "@" + rhs + "<\/a>");
+    })()
+  </script>
+  <noscript>
+    <em>Email address is protected via JavaScript, activate it to see it!</em>
+  </noscript>
+</p>
+
+<h2 id="contribute">
+  Contribute
+  <a href="#contribute" class="anchor">#</a>
+</h2>
+
+
+<p>
+  Fix or add to this article by submitting a pull request:<br/>
+  <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/main/_posts/2013-05-13-getting-started-with-scala.md" target="_blank">Edit Page on GitHub</a>
+</p>
+
+<p>
+  Donate to cover ongoing website costs, or buy me coffee ☕️😋 <br/>
+  <a href="https://www.patreon.com/bePatron?u=6102596" target="_blank">
+    <img label="Become a Patron!" alt="Become a Patron!" title="Become a Patron!" src="/assets/media/buttons/patreon.png" height="40" />
+  </a>
+</p>
+
+
+<h2 id="subscribe">
+  Subscribe
+  <a href="#subscribe" class="anchor">#</a>
+</h2>
+
+<!-- Begin Mailchimp Signup Form -->
+<div id="mc_embed_signup">
+  <form action="https://alexn.us4.list-manage.com/subscribe/post?u=5bffa2af025192a58345bd5dc&amp;id=1c9005b255"
+    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
+    novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="mc-field-group field">
+        <label for="mce-EMAIL">Email Address <sup class="asterisk">*</sup></label>
+        <input type="email" value="" name="EMAIL" class="required email full-width" id="mce-EMAIL" placeholder="user@domain.com" required>
+      </div>
+      <!-- <div class="mc-field-group field">
+        <label for="mce-FULLNAME">Name</label>
+        <input type="text" value="" name="FULLNAME" class="full-width" id="mce-FULLNAME" placeholder="John Doe">
+      </div> -->
+      <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+      </div>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+          name="b_5bffa2af025192a58345bd5dc_1c9005b255" tabindex="-1" value=""></div>
+      <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+          class="button"></div>
+    </div>
+  </form>
+</div>
+
+<div class="note">
+  <span class="extra">
+    Newsletter subscription uses Mailchimp, see <a href="/docs/privacy-policy/">privacy policy</a>.
+    If you're not seeing the form, it may be blocked by the browser; <a target="_blank" href="http://eepurl.com/g5ClAT"><em><span style="white-space: nowrap;">try the external subscribe page &#10141;</span></em></a>
+  </span>
+</div>
+
+
+    </div>  
+  </div>
+  
+
+  <div class="bottom">
+    <div class="container">
+      <span class="copy">
+          &copy; 2009-2022
+      </span>
+      <span class="links">
+        <a href="/docs/license/">License</a> |
+        <a href="/docs/privacy-policy/">Privacy Policy</a> |
+        <a href="/about/#contact">Contact</a>
+      </span>
+    </div>
+  </div>
+</div><!-- end .footer -->
+
+</body>
+</html>

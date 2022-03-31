@@ -1,0 +1,1878 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <!-- https://github.com/darkreader/darkreader/issues/1114 -->
+    <!-- <meta name="darkreader" content="41637b04c7ddb955e533a5c76d68a2c8"> -->
+    <meta name="color-scheme" content="light dark">
+    <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
+    <meta name="theme-color" content="#493667">
+    
+    <title>Asynchronous Programming and Scala - Alexandru Nedelcu</title>
+    
+
+    <!-- Open Graph Meta -->
+    <meta content="Alexandru Nedelcu" property="og:site_name">
+    <meta content="Asynchronous Programming and Scala" property="og:title">
+    <meta content="Asynchrony is everywhere and it subsumes concurrency. This article explains what asynchronous processing is and its challenges." property="og:description">
+    <meta content="https://alexn.org/blog/2017/01/30/asynchronous-programming-scala/" property="og:url">
+    <meta content="2017-01-30T00:00:00+00:00" property="article:published_time">
+    
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/nondet.png?202203310904" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/nondet.png?202203310904" />
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/nondet.png?202203310904">
+    <meta name="twitter:site" content="@alexelcu">
+    <meta name="twitter:creator" content="@alexelcu">
+    <meta name="twitter:title" content="Asynchronous Programming and Scala">
+    <meta name="twitter:url" content="https://alexn.org/blog/2017/01/30/asynchronous-programming-scala/">
+    <meta name="twitter:description" content="Asynchrony is everywhere and it subsumes concurrency. This article explains what asynchronous processing is and its challenges.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/logo/16px.png" sizes="16x16" />
+    <link rel="icon" href="/assets/logo/32px.png" sizes="32x32" />
+    <link rel="icon" href="/assets/logo/192px.png" sizes="192x192" />
+    <link rel="icon" href="/assets/logo/270px.png" sizes="270x270" />
+    <link rel="icon" href="/assets/logo/512px.png" sizes="512x512" />
+    <link rel="apple-touch-icon-precomposed" href="/assets/logo/180px.png" />
+    <meta name="msapplication-TileImage" content="/assets/logo/270px.png" />
+
+    <!-- Come and get me RSS readers -->
+    <link rel="alternate" type="application/rss+xml" title="All articles (blog, snippets, wiki, links)" href="/feeds/all.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Blog" href="/feeds/blog.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Snippets" href="/feeds/snippets.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Shared Links" href="/feeds/links.xml" />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/assets/css/style.css?202203310904">
+    <link rel="preload" as="style" href="/assets/css/style.css?202203310904">
+    
+    <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
+    <link rel="canonical" href="https://alexn.org/blog/2017/01/30/asynchronous-programming-scala/">
+</head>
+
+
+<body>
+   <div class="header">
+  <div class="container">
+    <div class="inner-container">
+      <h1 class="logo"><a href="/">Alex<span class="wide2">andru</span> Nedelcu<span class="wide1"> =&lt;&lt;</span></a></h1>
+      <nav class="nav-collapse">
+        <ul class="noList">
+          
+          <li class="element first current ">
+            <a href="/blog/">Blog</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/wiki/">Wiki</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/snippets/">Snippets</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/links/">Links</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/about/">About</a>
+          </li>
+          
+          <li class="element   last">
+            <a href="/subscribe/">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav>  
+    </div>
+  </div>
+</div><!-- end .header -->
+
+
+   <div class="content">
+      <div class="container">
+         <article class="post" itemscope itemtype="http://schema.org/BlogPosting"><header>
+      <h1 class="postTitle" itemprop="headline">
+        
+        
+          
+      Asynchronous Programming and Scala
+    
+        
+        
+      </h1>
+    
+    <p class="meta">
+      <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://alexn.org/blog/2017/01/30/asynchronous-programming-scala/"/>
+      <meta itemprop="datePublished" content="2017-01-30T00:00:00+0000"/>
+      
+      <time itemprop="dateCreated" datetime="2017-01-30T00:00:00+0000">January 30, 2017</time>
+      | <nobr><span class="time">53</span> minutes</nobr>
+    </p>
+
+    
+      <div class="hidden" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="https://alexn.org/assets/media/articles/nondet.png" />
+        
+      </div>
+      
+    
+
+    <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Alexandru Nedelcu">
+      <meta itemprop="url" content="https://alexn.org/about/">
+      <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="https://alexn.org/assets/raw/logo-green.png">
+      </div>
+    </div>
+    <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="Alexandru Nedelcu" />
+        <meta itemprop="url" content="https://alexn.org/about/#alexelcu" />
+        <meta itemprop="url" content="https://twitter.com/alexelcu" />
+        <meta itemprop="url" content="https://github.com/alexandru" />
+      </div>
+    
+
+    
+    
+    
+    <nav class="toc">
+      <p class="toc-title">Table of Contents:</p>
+      <ul>
+  <li><a href="#1-introduction">1. Introduction</a></li>
+  <li><a href="#2-the-big-illusion">2. The Big Illusion</a></li>
+  <li><a href="#3-callback-hell">3. Callback Hell</a>
+    <ul>
+      <li><a href="#31-sequencing-purgatory-of-side-effects">3.1. Sequencing (Purgatory of Side-effects)</a></li>
+      <li><a href="#32-parallelism-limbo-of-nondeterminism">3.2. Parallelism (Limbo of Nondeterminism)</a></li>
+      <li><a href="#33-recursivity-wrath-of-stackoverflow">3.3. Recursivity (Wrath of StackOverflow)</a></li>
+    </ul>
+  </li>
+  <li><a href="#4-futures-and-promises">4. Futures and Promises</a>
+    <ul>
+      <li><a href="#41-sequencing">4.1. Sequencing</a></li>
+      <li><a href="#42-parallelism">4.2. Parallelism</a></li>
+      <li><a href="#43-recursivity">4.3. Recursivity</a></li>
+      <li><a href="#44-performance-considerations">4.4. Performance Considerations</a></li>
+    </ul>
+  </li>
+  <li><a href="#5-task-scalas-io-monad">5. Task, Scala’s IO Monad</a>
+    <ul>
+      <li><a href="#51-sequencing">5.1. Sequencing</a></li>
+      <li><a href="#52-parallelism">5.2. Parallelism</a></li>
+      <li><a href="#53-recursivity">5.3. Recursivity</a></li>
+    </ul>
+  </li>
+  <li><a href="#6-functional-programming-and-type-classes">6. Functional Programming and Type-classes</a>
+    <ul>
+      <li><a href="#61-monad-sequencing-and-recursivity">6.1. Monad (Sequencing and Recursivity)</a></li>
+      <li><a href="#62-applicative-parallelism">6.2. Applicative (Parallelism)</a></li>
+      <li><a href="#63-can-we-define-a-type-class-for-async-evaluation">6.3. Can We Define a Type-class for Async Evaluation?</a></li>
+    </ul>
+  </li>
+  <li><a href="#7-picking-the-right-tool">7. Picking the Right Tool</a></li>
+</ul>
+    </nav>
+    </header>
+
+  <div id="content" itemprop="articleBody">
+    <p class="intro withcap">Asynchrony is everywhere and it subsumes concurrency. This article explains what asynchronous processing is and its challenges.</p>
+      <h2 id="1-introduction">
+        
+        
+          1. Introduction <a href="#1-introduction" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>As a concept it is more general than <em>multithreading</em>, although some
+people confuse the two. If you’re looking for a relationship, you
+could say:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nc">Multithreading</span> <span class="k">&lt;:</span> <span class="nc">Asynchrony</span>
+</code></pre></div></div>
+
+<p>We can represent asynchronous computations with a type:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">type</span> <span class="kt">Async</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="o">(</span><span class="nc">Try</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="nc">Unit</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Unit</span>
+</code></pre></div></div>
+
+<p>If it looks ugly with those <code class="language-plaintext highlighter-rouge">Unit</code> return types, that’s because
+asynchrony is ugly. An asynchronous computation is any task, thread,
+process, node somewhere on the network that:</p>
+
+<ol>
+  <li>executes outside of your program’s main flow or from the point of
+view of the caller, it doesn’t execute on the current call-stack</li>
+  <li>receives a callback that will get called once the result is
+finished processing</li>
+  <li>it provides no guarantee about when the result is signaled, no
+guarantee that a result will be signaled at all</li>
+</ol>
+
+<p>It’s important to note asynchrony subsumes <em>concurrency</em>, but not
+necessarily <em>multithreading</em>. Remember that in Javascript the majority
+of all I/O actions (input or output) are asynchronous and even heavy
+business logic is made asynchronous (with <code class="language-plaintext highlighter-rouge">setTimeout</code> based scheduling)
+in order to keep the interface responsive. But no kernel-level
+multithreading is involved, Javascript being an N:1 multithreaded
+platform.</p>
+
+<p>Introducing asynchrony into your program means you’ll have concurrency
+problems because you never know when asynchronous computations will be
+finished, so <em>composing</em> the results of multiple asynchronous
+computations running at the same time means you have to do
+synchronization, as you can no longer rely on ordering. And not
+relying on an order is a recipe for <em>nondeterminism</em>.</p>
+
+<p class="info-bubble">
+<a href="https://en.wikipedia.org/wiki/Nondeterministic_algorithm">Wikipedia says</a>:
+a <em>nondeterministic</em> algorithm is an algorithm that, even for the same
+input, can exhibit different behaviors on different runs, as opposed
+to a <em>deterministic</em> algorithm … A <em>concurrent</em> algorithm can perform
+differently on different runs due to a race condition.
+</p>
+
+<figure>
+  <img src="/assets/media/articles/nondet.png" />
+</figure>
+
+<p>The astute reader could notice that the type in question can be seen <em>everywhere</em>,
+with some modifications depending on use-case and contract:</p>
+
+<ul>
+  <li>in the <a href="https://en.wikipedia.org/wiki/Observer_pattern">Observer pattern</a>
+from the <a href="https://en.wikipedia.org/wiki/Design_Patterns">Gang of Four</a></li>
+  <li>in Scala’s <a href="http://www.scala-lang.org/api/current/scala/concurrent/Future.html">Future</a>,
+which is defined by its abstract <code class="language-plaintext highlighter-rouge">onComplete</code> method</li>
+  <li>in Java’s <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ExecutorService.html#submit-java.util.concurrent.Callable-">ExecutorService.submit(Callable)</a></li>
+  <li>in Javascript’s <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener">EventTarget.addEventListener</a></li>
+  <li>in <a href="http://akka.io/">Akka</a> actors, although there the given callback
+is replaced by the <code class="language-plaintext highlighter-rouge">sender()</code> reference</li>
+  <li>in the Monix <a href="https://github.com/monix/monix/blob/v2.2.1/monix-eval/shared/src/main/scala/monix/eval/Task.scala#L1253">Task.Async</a> definition</li>
+  <li>in the Monix <a href="https://monix.io/api/2.2/monix/reactive/Observable.html">Observable</a>
+and <a href="https://monix.io/api/2.2/monix/reactive/Observer.html">Observer</a> pair</li>
+  <li>in the <a href="http://www.reactive-streams.org/reactive-streams-1.0.0-javadoc/">Reactive Streams</a> specification</li>
+</ul>
+
+<p>What do all of these abstractions have in common? They provide ways to
+deal with asynchrony, some more successful than others.</p>
+      <h2 id="2-the-big-illusion">
+        
+        
+          2. The Big Illusion <a href="#2-the-big-illusion" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>We like to pretend that we can describe functions that can convert
+asynchronous results to synchronous ones:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">await</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">fa</span><span class="k">:</span> <span class="kt">Async</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">A</span>
+</code></pre></div></div>
+
+<p>Fact of the matter is that we can’t pretend that asynchronous
+processes are equivalent with normal functions. If you need a lesson
+in history for why we can’t pretend that, you only need to take a look
+at why CORBA failed.</p>
+
+<p>With asynchronous processes we have the following very common
+<a href="https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing">fallacies of distributed computing</a>:</p>
+
+<ol>
+  <li>The network is reliable</li>
+  <li>Latency is zero</li>
+  <li>Bandwidth is infinite</li>
+  <li>The network is secure</li>
+  <li>Topology doesn’t change</li>
+  <li>There is one administrator</li>
+  <li>Transport cost is zero</li>
+  <li>The network is homogeneous</li>
+</ol>
+
+<p>None of them are true of course. Which means code gets written with
+little error handling for network failures, ignorance of network
+latency or packet loss, ignorance of bandwidth limits and in general
+ignorance of the ensuing nondeterminism.</p>
+
+<p>People have tried to cope with this by:</p>
+
+<ul>
+  <li>callbacks, callbacks everywhere, equivalent to basically ignoring
+the problem, as it happens in Javascript, which leads to the well
+known effect of <em>callback hell</em>, paid for with the sweat and blood
+of programmers that constantly imagine having chosen a different
+life path</li>
+  <li>blocking threads, on top of
+<a href="https://en.wikipedia.org/wiki/Thread_(computing)#1:1_.28kernel-level_threading.29">1:1 (kernel-level) multithreading</a>
+platforms</li>
+  <li><a href="https://en.wikipedia.org/wiki/Continuation">first-class continuations</a>,
+implemented for example by Scheme in
+<a href="https://en.wikipedia.org/wiki/Call-with-current-continuation">call/cc</a>,
+being the ability to save the execution state at any point and
+return to that point at a later point in the program</li>
+  <li>The <code class="language-plaintext highlighter-rouge">async</code> / <code class="language-plaintext highlighter-rouge">await</code> language extension from C#, also implemented in
+the <a href="https://github.com/scala/async">scala-async</a> library and in the
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function">latest ECMAScript</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Green_threads">Green threads</a>
+managed by the runtime, possibly in combination with
+<a href="https://en.wikipedia.org/wiki/Thread_(computing)#M:N_.28hybrid_threading.29">M:N multithreading</a>,
+to simulate blocking for asynchronous actions; examples including
+Golang but also Haskell</li>
+  <li>The <a href="https://en.wikipedia.org/wiki/Actor_model">actor model</a> as implemented in Erlang or Akka,
+or <a href="https://en.wikipedia.org/wiki/Communicating_sequential_processes">CSP</a> such as
+in <a href="https://github.com/clojure/core.async">Clojure’s core.async</a> or in Golang</li>
+  <li>Monads being used for ordering and composition, such as Haskell’s
+<a href="https://hackage.haskell.org/package/async-2.1.1/docs/Control-Concurrent-Async.html">Async</a> type
+in combination with the <a href="https://wiki.haskell.org/IO_inside">IO</a> type, or
+<a href="https://docs.microsoft.com/en-us/dotnet/articles/fsharp/language-reference/asynchronous-workflows">F# asynchronous workflows</a>,
+or <a href="http://docs.scala-lang.org/overviews/core/futures.html">Scala’s Futures and Promises</a>,
+or the <a href="https://monix.io/docs/2x/eval/task.html">Monix Task</a>
+or the <a href="https://github.com/scalaz/scalaz/blob/scalaz-seven/concurrent/src/main/scala/scalaz/concurrent/Task.scala">Scalaz Task</a>,
+etc, etc.</li>
+</ul>
+
+<p>If there are so many solutions, that’s because none of them is
+suitable as a general purpose mechanism for dealing with asynchrony.
+The <a href="https://en.wikipedia.org/wiki/No_Silver_Bullet">no silver bullet</a>
+dilemma is relevant here, with memory management and concurrency being
+the biggest problems that we face as software developers.</p>
+
+<p class="info-bubble">
+<strong>WARNING - personal opinion and rant:</strong> People like to boast about M:N
+platforms like Golang, however I prefer 1:1 multithreaded platforms,
+like the JVM or dotNET.
+<br /><br />
+Because you can build M:N multithreading on top of 1:1 given enough
+expressiveness in the programming language (e.g. Scala’s Futures and
+Promises, Task, Clojure’s core.async, etc), but if that M:N runtime starts being
+unsuitable for your usecase, then you can’t fix it or replace it
+without replacing the platform. And yes, most M:N platforms are broken
+in one way or another.
+<br /><br />
+Indeed learning about all the possible solutions and making choices is
+freaking painful, but it is much less painful than making uninformed
+choices, with the TOOWTDI and “worse is better” mentalities being in
+this case actively harmful. People complaining about the difficulty of
+learning a new and expressive language like Scala or Haskell are
+missing the point, because if they have to deal with concurrency, then
+learning a new programming language is going to be the least of their
+problems. I know people that have quit the software industry because
+of the shift to concurrency.
+</p>
+      <h2 id="3-callback-hell">
+        
+        
+          3. Callback Hell <a href="#3-callback-hell" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Let’s build an artificial example made to illustrate our challenges.
+Say we need to initiate two asynchronous processes and combine their
+result.</p>
+
+<p>First let’s define a function that executes stuff asynchronously:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">scala.concurrent.ExecutionContext.global</span>
+
+<span class="k">type</span> <span class="kt">Async</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="o">(</span><span class="n">A</span> <span class="k">=&gt;</span> <span class="nc">Unit</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Unit</span>
+
+<span class="k">def</span> <span class="nf">timesTwo</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Async</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+  <span class="n">onFinish</span> <span class="k">=&gt;</span> <span class="o">{</span>
+    <span class="nv">global</span><span class="o">.</span><span class="py">execute</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span> <span class="o">{</span>
+      <span class="k">def</span> <span class="nf">run</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+        <span class="k">val</span> <span class="nv">result</span> <span class="k">=</span> <span class="n">n</span> <span class="o">*</span> <span class="mi">2</span>
+        <span class="nf">onFinish</span><span class="o">(</span><span class="n">result</span><span class="o">)</span>
+      <span class="o">}</span>
+    <span class="o">})</span>
+  <span class="o">}</span>
+
+<span class="c1">// Usage</span>
+<span class="nf">timesTwo</span><span class="o">(</span><span class="mi">20</span><span class="o">)</span> <span class="o">{</span> <span class="n">result</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Result: $result"</span><span class="o">)</span> <span class="o">}</span>
+<span class="c1">//=&gt; Result: 40</span>
+</code></pre></div></div>
+      <h3 id="31-sequencing-purgatory-of-side-effects">
+        
+        
+          3.1. Sequencing (Purgatory of Side-effects) <a href="#31-sequencing-purgatory-of-side-effects" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Let’s combine two asynchronous results, with the execution happening
+one after another, in a neat sequence:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">timesFour</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Async</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+  <span class="n">onFinish</span> <span class="k">=&gt;</span> <span class="o">{</span>
+    <span class="nf">timesTwo</span><span class="o">(</span><span class="n">n</span><span class="o">)</span> <span class="o">{</span> <span class="n">a</span> <span class="k">=&gt;</span>
+      <span class="nf">timesTwo</span><span class="o">(</span><span class="n">n</span><span class="o">)</span> <span class="o">{</span> <span class="n">b</span> <span class="k">=&gt;</span>
+        <span class="c1">// Combining the two results</span>
+        <span class="nf">onFinish</span><span class="o">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">)</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+<span class="c1">// Usage</span>
+<span class="nf">timesFour</span><span class="o">(</span><span class="mi">20</span><span class="o">)</span> <span class="o">{</span> <span class="n">result</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Result: $result"</span><span class="o">)</span> <span class="o">}</span>
+<span class="c1">//=&gt; Result: 80</span>
+</code></pre></div></div>
+
+<p>Looks simple now, but we are only combining two results, one after another.</p>
+
+<p>The big problem however is that <em>asynchrony infects everything it touches</em>.
+Let’s assume for  the sake of argument that we start with a pure function:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">timesFour</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="mi">4</span>
+</code></pre></div></div>
+
+<p>But then your enterprise architect, after hearing about these Enterprise JavaBeans and
+a lap dance, decides that you should depend on this asynchronous <code class="language-plaintext highlighter-rouge">timesTwo</code>
+function. And now our <code class="language-plaintext highlighter-rouge">timesFour</code> implementation changes from a pure mathematical
+function to a side-effectful one and we have no choice in the matter.
+And without a well grown <code class="language-plaintext highlighter-rouge">Async</code> type, we are forced to deal with side-effectful
+callbacks for the whole pipeline. And blocking for the result won’t help,
+as you’re just hiding the problem, see <a href="#2-the-big-illusion">section 2</a> for why.</p>
+
+<p>But wait, things are about to get worse 😷</p>
+      <h3 id="32-parallelism-limbo-of-nondeterminism">
+        
+        
+          3.2. Parallelism (Limbo of Nondeterminism) <a href="#32-parallelism-limbo-of-nondeterminism" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>The second call we made above is not dependent on the first call,
+therefore it can run in parallel. On the JVM we can run CPU-bound
+tasks in parallel, but this is relevant for Javascript as well, as we
+could be making Ajax requests or talking with web workers.</p>
+
+<p>Unfortunately here things can get a little complicated. First of all
+the naive way to do it is terribly wrong:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// REALLY BAD SAMPLE</span>
+
+<span class="k">def</span> <span class="nf">timesFourInParallel</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Async</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+  <span class="n">onFinish</span> <span class="k">=&gt;</span> <span class="o">{</span>
+    <span class="k">var</span> <span class="n">cacheA</span> <span class="k">=</span> <span class="mi">0</span>
+
+    <span class="nf">timesTwo</span><span class="o">(</span><span class="n">n</span><span class="o">)</span> <span class="o">{</span> <span class="n">a</span> <span class="k">=&gt;</span> <span class="n">cacheA</span> <span class="k">=</span> <span class="n">a</span> <span class="o">}</span>
+
+    <span class="nf">timesTwo</span><span class="o">(</span><span class="n">n</span><span class="o">)</span> <span class="o">{</span> <span class="n">b</span> <span class="k">=&gt;</span>
+      <span class="c1">// Combining the two results</span>
+      <span class="nf">onFinish</span><span class="o">(</span><span class="n">cacheA</span> <span class="o">+</span> <span class="n">b</span><span class="o">)</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+<span class="nf">timesFourInParallel</span><span class="o">(</span><span class="mi">20</span><span class="o">)</span> <span class="o">{</span> <span class="n">result</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Result: $result"</span><span class="o">)</span> <span class="o">}</span>
+<span class="c1">//=&gt; Result: 80</span>
+
+<span class="nf">timesFourInParallel</span><span class="o">(</span><span class="mi">20</span><span class="o">)</span> <span class="o">{</span> <span class="n">result</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Result: $result"</span><span class="o">)</span> <span class="o">}</span>
+<span class="c1">//=&gt; Result: 40</span>
+</code></pre></div></div>
+
+<p>This right here is an example showing <em>nondeterminism</em> in action. We
+get <em>no ordering guarantees</em> about which one finishes first, so if we
+want parallel processing, we need to model a mini state machine for
+doing synchronization.</p>
+
+<p>First, we define our ADT describing the state-machine:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Defines the state machine</span>
+<span class="k">sealed</span> <span class="k">trait</span> <span class="nc">State</span>
+<span class="c1">// Initial state</span>
+<span class="k">case</span> <span class="k">object</span> <span class="nc">Start</span> <span class="k">extends</span> <span class="nc">State</span>
+<span class="c1">// We got a B, waiting for an A</span>
+<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">WaitForA</span><span class="o">(</span><span class="n">b</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">State</span>
+<span class="c1">// We got a A, waiting for a B</span>
+<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">WaitForB</span><span class="o">(</span><span class="n">a</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">State</span>
+</code></pre></div></div>
+
+<p>And then we can evolve this state machine asynchronously:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// BAD SAMPLE FOR THE JVM (only works for Javascript)</span>
+
+<span class="k">def</span> <span class="nf">timesFourInParallel</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Async</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="n">onFinish</span> <span class="k">=&gt;</span> <span class="o">{</span>
+    <span class="k">var</span> <span class="n">state</span><span class="k">:</span> <span class="kt">State</span> <span class="o">=</span> <span class="nc">Start</span>
+
+    <span class="nf">timesTwo</span><span class="o">(</span><span class="n">n</span><span class="o">)</span> <span class="o">{</span> <span class="n">a</span> <span class="k">=&gt;</span>
+      <span class="n">state</span> <span class="k">match</span> <span class="o">{</span>
+        <span class="k">case</span> <span class="nc">Start</span> <span class="k">=&gt;</span>
+          <span class="n">state</span> <span class="k">=</span> <span class="nc">WaitForB</span><span class="o">(</span><span class="n">a</span><span class="o">)</span>
+        <span class="k">case</span> <span class="nc">WaitForA</span><span class="o">(</span><span class="n">b</span><span class="o">)</span> <span class="k">=&gt;</span>
+          <span class="nf">onFinish</span><span class="o">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">)</span>
+        <span class="k">case</span> <span class="nc">WaitForB</span><span class="o">(</span><span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span>
+          <span class="c1">// Can't be caught b/c async, hopefully it gets reported</span>
+          <span class="k">throw</span> <span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">(</span><span class="nv">state</span><span class="o">.</span><span class="py">toString</span><span class="o">)</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nf">timesTwo</span><span class="o">(</span><span class="n">n</span><span class="o">)</span> <span class="o">{</span> <span class="n">b</span> <span class="k">=&gt;</span>
+      <span class="n">state</span> <span class="k">match</span> <span class="o">{</span>
+        <span class="k">case</span> <span class="nc">Start</span> <span class="k">=&gt;</span>
+          <span class="n">state</span> <span class="k">=</span> <span class="nc">WaitForA</span><span class="o">(</span><span class="n">b</span><span class="o">)</span>
+        <span class="k">case</span> <span class="nc">WaitForB</span><span class="o">(</span><span class="n">a</span><span class="o">)</span> <span class="k">=&gt;</span>
+          <span class="nf">onFinish</span><span class="o">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">)</span>
+        <span class="k">case</span> <span class="nc">WaitForA</span><span class="o">(</span><span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span>
+          <span class="c1">// Can't be caught b/c async, hopefully it gets reported</span>
+          <span class="k">throw</span> <span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">(</span><span class="nv">state</span><span class="o">.</span><span class="py">toString</span><span class="o">)</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>To better visualize what we’re dealing with, here’s the state machine:</p>
+
+<figure>
+  <img src="/assets/media/articles/callback-hell-stm.png" />
+</figure>
+
+<p>But wait, we aren’t over because the JVM has true 1:1 multi-threading, which means
+we get to enjoy <em>shared memory concurrency</em> and thus access to that <code class="language-plaintext highlighter-rouge">state</code> has to
+be synchronized.</p>
+
+<p>One solution is to use <code class="language-plaintext highlighter-rouge">synchronized</code> blocks, also called <em>intrinsic locks</em>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// We need a common reference to act as our monitor</span>
+<span class="k">val</span> <span class="nv">lock</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">AnyRef</span>
+<span class="k">var</span> <span class="n">state</span><span class="k">:</span> <span class="kt">State</span> <span class="o">=</span> <span class="nc">Start</span>
+
+<span class="nf">timesTwo</span><span class="o">(</span><span class="n">n</span><span class="o">)</span> <span class="o">{</span> <span class="n">a</span> <span class="k">=&gt;</span>
+  <span class="nv">lock</span><span class="o">.</span><span class="py">synchronized</span> <span class="o">{</span>
+    <span class="n">state</span> <span class="k">match</span> <span class="o">{</span>
+      <span class="k">case</span> <span class="nc">Start</span> <span class="k">=&gt;</span>
+        <span class="n">state</span> <span class="k">=</span> <span class="nc">WaitForB</span><span class="o">(</span><span class="n">a</span><span class="o">)</span>
+      <span class="k">case</span> <span class="nc">WaitForA</span><span class="o">(</span><span class="n">b</span><span class="o">)</span> <span class="k">=&gt;</span>
+        <span class="nf">onFinish</span><span class="o">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">)</span>
+      <span class="k">case</span> <span class="nc">WaitForB</span><span class="o">(</span><span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span>
+        <span class="c1">// Can't be caught b/c async, hopefully it gets reported</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">(</span><span class="nv">state</span><span class="o">.</span><span class="py">toString</span><span class="o">)</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">//...</span>
+</code></pre></div></div>
+
+<p>Such high-level locks protect resources (such as our <code class="language-plaintext highlighter-rouge">state</code>) from
+being accessed in parallel by multiple threads. But I personally
+prefer to avoid high-level locks because the kernel’s scheduler can
+freeze any thread for any reason, including threads that hold locks,
+freezing a thread holding a lock means that other threads will be
+unable to make progress and if you want to guarantee constant progress
+(e.g. soft real-time characteristics), then
+<a href="https://en.wikipedia.org/wiki/Non-blocking_algorithm">non-blocking</a>
+logic is preferred when possible.</p>
+
+<p>So an alternative is to use an
+<a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicReference.html">AtomicReference</a>,
+which is perfect for this case:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// CORRECT VERSION FOR JVM</span>
+
+<span class="k">import</span> <span class="nn">scala.annotation.tailrec</span>
+<span class="k">import</span> <span class="nn">java.util.concurrent.atomic.AtomicReference</span>
+
+<span class="k">def</span> <span class="nf">timesFourInParallel</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Async</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="n">onFinish</span> <span class="k">=&gt;</span> <span class="o">{</span>
+    <span class="k">val</span> <span class="nv">state</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">AtomicReference</span><span class="o">[</span><span class="kt">State</span><span class="o">](</span><span class="nc">Start</span><span class="o">)</span>
+
+    <span class="nd">@tailrec</span> <span class="k">def</span> <span class="nf">onValueA</span><span class="o">(</span><span class="n">a</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span>
+      <span class="nv">state</span><span class="o">.</span><span class="py">get</span> <span class="k">match</span> <span class="o">{</span>
+        <span class="k">case</span> <span class="nc">Start</span> <span class="k">=&gt;</span>
+          <span class="nf">if</span> <span class="o">(!</span><span class="nv">state</span><span class="o">.</span><span class="py">compareAndSet</span><span class="o">(</span><span class="nc">Start</span><span class="o">,</span> <span class="nc">WaitForB</span><span class="o">(</span><span class="n">a</span><span class="o">)))</span>
+            <span class="nf">onValueA</span><span class="o">(</span><span class="n">a</span><span class="o">)</span> <span class="c1">// retry</span>
+        <span class="k">case</span> <span class="nc">WaitForA</span><span class="o">(</span><span class="n">b</span><span class="o">)</span> <span class="k">=&gt;</span>
+          <span class="nf">onFinish</span><span class="o">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">)</span>
+        <span class="k">case</span> <span class="nc">WaitForB</span><span class="o">(</span><span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span>
+          <span class="c1">// Can't be caught b/c async, hopefully it gets reported</span>
+          <span class="k">throw</span> <span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">(</span><span class="nv">state</span><span class="o">.</span><span class="py">toString</span><span class="o">)</span>
+      <span class="o">}</span>
+
+    <span class="nf">timesTwo</span><span class="o">(</span><span class="n">n</span><span class="o">)(</span><span class="n">onValueA</span><span class="o">)</span>
+
+    <span class="nd">@tailrec</span> <span class="k">def</span> <span class="nf">onValueB</span><span class="o">(</span><span class="n">b</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span>
+      <span class="nv">state</span><span class="o">.</span><span class="py">get</span> <span class="k">match</span> <span class="o">{</span>
+        <span class="k">case</span> <span class="nc">Start</span> <span class="k">=&gt;</span>
+          <span class="nf">if</span> <span class="o">(!</span><span class="nv">state</span><span class="o">.</span><span class="py">compareAndSet</span><span class="o">(</span><span class="nc">Start</span><span class="o">,</span> <span class="nc">WaitForA</span><span class="o">(</span><span class="n">b</span><span class="o">)))</span>
+            <span class="nf">onValueB</span><span class="o">(</span><span class="n">b</span><span class="o">)</span> <span class="c1">// retry</span>
+        <span class="k">case</span> <span class="nc">WaitForB</span><span class="o">(</span><span class="n">a</span><span class="o">)</span> <span class="k">=&gt;</span>
+          <span class="nf">onFinish</span><span class="o">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">)</span>
+        <span class="k">case</span> <span class="nc">WaitForA</span><span class="o">(</span><span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span>
+          <span class="c1">// Can't be caught b/c async, hopefully it gets reported</span>
+          <span class="k">throw</span> <span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">(</span><span class="nv">state</span><span class="o">.</span><span class="py">toString</span><span class="o">)</span>
+      <span class="o">}</span>
+
+    <span class="nf">timesTwo</span><span class="o">(</span><span class="n">n</span><span class="o">)(</span><span class="n">onValueB</span><span class="o">)</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p class="info-bubble">
+<strong>PRO-TIP:</strong> if you want code that cross-compiles to Javascript / Scala.js,
+along with performance tweaks and cool utilities for manipulating atomic references,
+try the <a href="https://monix.io/docs/2x/execution/atomic.html">Atomic</a> type
+from <a href="https://monix.io/">Monix</a>.
+</p>
+
+<p>Are you getting pumped? Let’s take it up a notch 😝</p>
+      <h3 id="33-recursivity-wrath-of-stackoverflow">
+        
+        
+          3.3. Recursivity (Wrath of StackOverflow) <a href="#33-recursivity-wrath-of-stackoverflow" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>What if I were to tell you that the above <code class="language-plaintext highlighter-rouge">onFinish</code> call is
+stack-unsafe and if you aren’t going to force an <em>asynchronous
+boundary</em> when calling it, then your program can blow up
+with a <code class="language-plaintext highlighter-rouge">StackOverflowError</code>?</p>
+
+<p>You shouldn’t take my word for it. Let’s first have some fun and
+define the above operation in a generic way:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">scala.annotation.tailrec</span>
+<span class="k">import</span> <span class="nn">java.util.concurrent.atomic.AtomicReference</span>
+
+<span class="k">type</span> <span class="kt">Async</span><span class="o">[</span><span class="kt">+A</span><span class="o">]</span> <span class="k">=</span> <span class="o">(</span><span class="n">A</span> <span class="k">=&gt;</span> <span class="nc">Unit</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Unit</span>
+
+<span class="k">def</span> <span class="nf">mapBoth</span><span class="o">[</span><span class="kt">A</span>,<span class="kt">B</span>,<span class="kt">R</span><span class="o">](</span><span class="n">fa</span><span class="k">:</span> <span class="kt">Async</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span> <span class="n">fb</span><span class="k">:</span> <span class="kt">Async</span><span class="o">[</span><span class="kt">B</span><span class="o">])(</span><span class="n">f</span><span class="k">:</span> <span class="o">(</span><span class="kt">A</span><span class="o">,</span><span class="kt">B</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">R</span><span class="o">)</span><span class="k">:</span> <span class="kt">Async</span><span class="o">[</span><span class="kt">R</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="c1">// Defines the state machine</span>
+  <span class="k">sealed</span> <span class="k">trait</span> <span class="nc">State</span><span class="o">[</span><span class="kt">+A</span>,<span class="kt">+B</span><span class="o">]</span>
+  <span class="c1">// Initial state</span>
+  <span class="k">case</span> <span class="k">object</span> <span class="nc">Start</span> <span class="k">extends</span> <span class="nc">State</span><span class="o">[</span><span class="kt">Nothing</span>, <span class="kt">Nothing</span><span class="o">]</span>
+  <span class="c1">// We got a B, waiting for an A</span>
+  <span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">WaitForA</span><span class="o">[</span><span class="kt">+B</span><span class="o">](</span><span class="n">b</span><span class="k">:</span> <span class="kt">B</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">State</span><span class="o">[</span><span class="kt">Nothing</span>,<span class="kt">B</span><span class="o">]</span>
+  <span class="c1">// We got a A, waiting for a B</span>
+  <span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">WaitForB</span><span class="o">[</span><span class="kt">+A</span><span class="o">](</span><span class="n">a</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">State</span><span class="o">[</span><span class="kt">A</span>,<span class="kt">Nothing</span><span class="o">]</span>
+
+  <span class="n">onFinish</span> <span class="k">=&gt;</span> <span class="o">{</span>
+    <span class="k">val</span> <span class="nv">state</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">AtomicReference</span><span class="o">[</span><span class="kt">State</span><span class="o">[</span><span class="kt">A</span>,<span class="kt">B</span><span class="o">]](</span><span class="nc">Start</span><span class="o">)</span>
+
+    <span class="nd">@tailrec</span> <span class="k">def</span> <span class="nf">onValueA</span><span class="o">(</span><span class="n">a</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span>
+      <span class="nv">state</span><span class="o">.</span><span class="py">get</span> <span class="k">match</span> <span class="o">{</span>
+        <span class="k">case</span> <span class="nc">Start</span> <span class="k">=&gt;</span>
+          <span class="nf">if</span> <span class="o">(!</span><span class="nv">state</span><span class="o">.</span><span class="py">compareAndSet</span><span class="o">(</span><span class="nc">Start</span><span class="o">,</span> <span class="nc">WaitForB</span><span class="o">(</span><span class="n">a</span><span class="o">)))</span>
+            <span class="nf">onValueA</span><span class="o">(</span><span class="n">a</span><span class="o">)</span> <span class="c1">// retry</span>
+        <span class="k">case</span> <span class="nc">WaitForA</span><span class="o">(</span><span class="n">b</span><span class="o">)</span> <span class="k">=&gt;</span>
+          <span class="nf">onFinish</span><span class="o">(</span><span class="nf">f</span><span class="o">(</span><span class="n">a</span><span class="o">,</span><span class="n">b</span><span class="o">))</span>
+        <span class="k">case</span> <span class="nc">WaitForB</span><span class="o">(</span><span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span>
+          <span class="c1">// Can't be caught b/c async, hopefully it gets reported</span>
+          <span class="k">throw</span> <span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">(</span><span class="nv">state</span><span class="o">.</span><span class="py">toString</span><span class="o">)</span>
+      <span class="o">}</span>
+
+    <span class="nd">@tailrec</span> <span class="k">def</span> <span class="nf">onValueB</span><span class="o">(</span><span class="n">b</span><span class="k">:</span> <span class="kt">B</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span>
+      <span class="nv">state</span><span class="o">.</span><span class="py">get</span> <span class="k">match</span> <span class="o">{</span>
+        <span class="k">case</span> <span class="nc">Start</span> <span class="k">=&gt;</span>
+          <span class="nf">if</span> <span class="o">(!</span><span class="nv">state</span><span class="o">.</span><span class="py">compareAndSet</span><span class="o">(</span><span class="nc">Start</span><span class="o">,</span> <span class="nc">WaitForA</span><span class="o">(</span><span class="n">b</span><span class="o">)))</span>
+            <span class="nf">onValueB</span><span class="o">(</span><span class="n">b</span><span class="o">)</span> <span class="c1">// retry</span>
+        <span class="k">case</span> <span class="nc">WaitForB</span><span class="o">(</span><span class="n">a</span><span class="o">)</span> <span class="k">=&gt;</span>
+          <span class="nf">onFinish</span><span class="o">(</span><span class="nf">f</span><span class="o">(</span><span class="n">a</span><span class="o">,</span><span class="n">b</span><span class="o">))</span>
+        <span class="k">case</span> <span class="nc">WaitForA</span><span class="o">(</span><span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span>
+          <span class="c1">// Can't be caught b/c async, hopefully it gets reported</span>
+          <span class="k">throw</span> <span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">(</span><span class="nv">state</span><span class="o">.</span><span class="py">toString</span><span class="o">)</span>
+      <span class="o">}</span>
+
+    <span class="nf">fa</span><span class="o">(</span><span class="n">onValueA</span><span class="o">)</span>
+    <span class="nf">fb</span><span class="o">(</span><span class="n">onValueB</span><span class="o">)</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>And now we can define an operation similar to Scala’s <code class="language-plaintext highlighter-rouge">Future.sequence</code>,
+because our will is strong and our courage immensurable 😇</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">sequence</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">list</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Async</span><span class="o">[</span><span class="kt">A</span><span class="o">]])</span><span class="k">:</span> <span class="kt">Async</span><span class="o">[</span><span class="kt">List</span><span class="o">[</span><span class="kt">A</span><span class="o">]]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nd">@tailrec</span> <span class="k">def</span> <span class="nf">loop</span><span class="o">(</span><span class="n">list</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Async</span><span class="o">[</span><span class="kt">A</span><span class="o">]],</span> <span class="n">acc</span><span class="k">:</span> <span class="kt">Async</span><span class="o">[</span><span class="kt">List</span><span class="o">[</span><span class="kt">A</span><span class="o">]])</span><span class="k">:</span> <span class="kt">Async</span><span class="o">[</span><span class="kt">List</span><span class="o">[</span><span class="kt">A</span><span class="o">]]</span> <span class="k">=</span>
+    <span class="n">list</span> <span class="k">match</span> <span class="o">{</span>
+      <span class="k">case</span> <span class="nc">Nil</span> <span class="k">=&gt;</span>
+        <span class="n">onFinish</span> <span class="k">=&gt;</span> <span class="nf">acc</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="nf">onFinish</span><span class="o">(</span><span class="nv">r</span><span class="o">.</span><span class="py">reverse</span><span class="o">))</span>
+      <span class="k">case</span> <span class="n">x</span> <span class="o">::</span> <span class="n">xs</span> <span class="k">=&gt;</span>
+        <span class="k">val</span> <span class="nv">update</span> <span class="k">=</span> <span class="nf">mapBoth</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">acc</span><span class="o">)(</span><span class="k">_</span> <span class="o">::</span> <span class="k">_</span><span class="o">)</span>
+        <span class="nf">loop</span><span class="o">(</span><span class="n">xs</span><span class="o">,</span> <span class="n">update</span><span class="o">)</span>
+    <span class="o">}</span>
+
+  <span class="k">val</span> <span class="nv">empty</span><span class="k">:</span> <span class="kt">Async</span><span class="o">[</span><span class="kt">List</span><span class="o">[</span><span class="kt">A</span><span class="o">]]</span> <span class="k">=</span> <span class="nf">_</span><span class="o">(</span><span class="nc">Nil</span><span class="o">)</span>
+  <span class="nf">loop</span><span class="o">(</span><span class="n">list</span><span class="o">,</span> <span class="n">empty</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">// Invocation</span>
+<span class="nf">sequence</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="nf">timesTwo</span><span class="o">(</span><span class="mi">10</span><span class="o">),</span> <span class="nf">timesTwo</span><span class="o">(</span><span class="mi">20</span><span class="o">),</span> <span class="nf">timesTwo</span><span class="o">(</span><span class="mi">30</span><span class="o">)))</span> <span class="o">{</span> <span class="n">r</span> <span class="k">=&gt;</span>
+  <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Result: $r"</span><span class="o">)</span>
+<span class="o">}</span>
+<span class="c1">//=&gt; Result: List(20, 40, 60)</span>
+</code></pre></div></div>
+
+<p>Oh, you really think we are done?</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">val</span> <span class="nv">list</span> <span class="k">=</span> <span class="mf">0.</span><span class="nf">until</span><span class="o">(</span><span class="mi">10000</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="n">timesTwo</span><span class="o">).</span><span class="py">toList</span>
+<span class="nf">sequence</span><span class="o">(</span><span class="n">list</span><span class="o">)(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Sum: ${r.sum}"</span><span class="o">))</span>
+</code></pre></div></div>
+
+<p>Behold the glorious memory error that will probably crash your program in production,
+being considered a fatal error that Scala’s <code class="language-plaintext highlighter-rouge">NonFatal</code> does not catch:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>java.lang.StackOverflowError
+  at java.util.concurrent.ForkJoinPool.externalPush(ForkJoinPool.java:2414)
+  at java.util.concurrent.ForkJoinPool.execute(ForkJoinPool.java:2630)
+  at scala.concurrent.impl.ExecutionContextImpl$$anon$3.execute(ExecutionContextImpl.scala:131)
+  at scala.concurrent.impl.ExecutionContextImpl.execute(ExecutionContextImpl.scala:20)
+  at .$anonfun$timesTwo$1(&lt;pastie&gt;:27)
+  at .$anonfun$timesTwo$1$adapted(&lt;pastie&gt;:26)
+  at .$anonfun$mapBoth$1(&lt;pastie&gt;:66)
+  at .$anonfun$mapBoth$1$adapted(&lt;pastie&gt;:40)
+  at .$anonfun$mapBoth$1(&lt;pastie&gt;:67)
+  at .$anonfun$mapBoth$1$adapted(&lt;pastie&gt;:40)
+  at .$anonfun$mapBoth$1(&lt;pastie&gt;:67)
+  at .$anonfun$mapBoth$1$adapted(&lt;pastie&gt;:40)
+  at .$anonfun$mapBoth$1(&lt;pastie&gt;:67)
+</code></pre></div></div>
+
+<p>As I said, that <code class="language-plaintext highlighter-rouge">onFinish</code> call being made without a <em>forced async
+boundary</em> can lead to a stack-overflow error. On top of Javascript
+this can be solved by scheduling it with <code class="language-plaintext highlighter-rouge">setTimeout</code> and on top of
+the JVM you need a thread-pool or a Scala <code class="language-plaintext highlighter-rouge">ExecutionContext</code>.</p>
+
+<p>Are you feeling the fire yet? 🔥</p>
+      <h2 id="4-futures-and-promises">
+        
+        
+          4. Futures and Promises <a href="#4-futures-and-promises" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>The <code class="language-plaintext highlighter-rouge">scala.concurrent.Future</code> describes strictly evaluated
+asynchronous computations, being similar to our <code class="language-plaintext highlighter-rouge">Async</code> type used
+above.</p>
+
+<p class="info-bubble">
+<a href="https://en.wikipedia.org/wiki/Futures_and_promises">Wikipedia says</a>:
+Future and Promise are constructs used for synchronizing program
+execution in some concurrent programming languages. They describe an
+object that acts as a proxy for a result that is initially unknown,
+usually because the computation of its value is yet incomplete.
+</p>
+
+<p class="info-bubble">
+<strong>Author’s Rant:</strong> The <code class="language-plaintext highlighter-rouge">docs.scala-lang.org</code> article on
+<a href="http://docs.scala-lang.org/overviews/core/futures.html">Futures and Promises</a> currently
+says that “<em>Futures provide a way to reason about performing many
+operations in parallel– in an efficient and non-blocking way</em>”, but
+that is misleading, a source of confusion.
+<br /><br />
+The <code class="language-plaintext highlighter-rouge">Future</code> type describes <em>asynchrony</em> and not parallelism. Yes, you
+can do things in parallel with it, but it’s not meant only for
+parallelism (async != parallelism) and for people looking into ways to
+use their CPU capacity to its fullest, working with <code class="language-plaintext highlighter-rouge">Future</code> can prove
+to be expensive and unwise, because in certain cases it has performance
+issues, see <a href="#44-performance-considerations">section 4.4</a>.
+</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">Future</code> is an interface defined by 2 primary operations, along with
+many combinators defined based on those primary operations:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">scala.util.Try</span>
+<span class="k">import</span> <span class="nn">scala.concurrent.ExecutionContext</span>
+
+<span class="k">trait</span> <span class="nc">Future</span><span class="o">[</span><span class="kt">+T</span><span class="o">]</span> <span class="o">{</span>
+  <span class="c1">// abstract</span>
+  <span class="k">def</span> <span class="nf">value</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Try</span><span class="o">[</span><span class="kt">T</span><span class="o">]]</span>
+
+  <span class="c1">// abstract</span>
+  <span class="k">def</span> <span class="nf">onComplete</span><span class="o">(</span><span class="n">f</span><span class="k">:</span> <span class="kt">Try</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="nc">Unit</span><span class="o">)(</span><span class="k">implicit</span> <span class="n">ec</span><span class="k">:</span> <span class="kt">ExecutionContext</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span>
+
+  <span class="c1">// Transforms values</span>
+  <span class="k">def</span> <span class="nf">map</span><span class="o">[</span><span class="kt">U</span><span class="o">](</span><span class="n">f</span><span class="k">:</span> <span class="kt">T</span> <span class="o">=&gt;</span> <span class="n">U</span><span class="o">)(</span><span class="k">implicit</span> <span class="n">ec</span><span class="k">:</span> <span class="kt">ExecutionContext</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">U</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+  <span class="c1">// Sequencing ;-)</span>
+  <span class="k">def</span> <span class="nf">flatMap</span><span class="o">[</span><span class="kt">U</span><span class="o">](</span><span class="n">f</span><span class="k">:</span> <span class="kt">T</span> <span class="o">=&gt;</span> <span class="nc">Future</span><span class="o">[</span><span class="kt">U</span><span class="o">])(</span><span class="k">implicit</span> <span class="n">ec</span><span class="k">:</span> <span class="kt">ExecutionContext</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">U</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+  <span class="c1">// ...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The properties of <code class="language-plaintext highlighter-rouge">Future</code>:</p>
+
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/Eager_evaluation">Eagerly evaluated</a>
+(strict and not lazy), meaning that when the caller of a function
+receives a <code class="language-plaintext highlighter-rouge">Future</code> reference, whatever asynchronous process that
+should complete it has probably started already.</li>
+  <li><a href="https://en.wikipedia.org/wiki/Memoization">Memoized</a> (cached),
+since being eagerly evaluated means that it behaves like a normal
+value instead of a function and the final result needs to be
+available to all listeners. The purpose of the <code class="language-plaintext highlighter-rouge">value</code> property is
+to return that memoized result or <code class="language-plaintext highlighter-rouge">None</code> if it isn’t complete
+yet. Goes without saying that calling its <code class="language-plaintext highlighter-rouge">def value</code> yields a
+non-deterministic result.</li>
+  <li>Streams a single result and it shows because of the memoization
+applied. So when listeners are registered for completion, they’ll
+only get called once at most.</li>
+</ul>
+
+<p>Explanatory notes about the <code class="language-plaintext highlighter-rouge">ExecutionContext</code>:</p>
+
+<ul>
+  <li>The <code class="language-plaintext highlighter-rouge">ExecutionContext</code> manages asynchronous execution and although
+you can view it as a thread-pool, it’s not necessarily a thread-pool
+(because async != multithreading or parallelism).</li>
+  <li>The <code class="language-plaintext highlighter-rouge">onComplete</code> is basically our <code class="language-plaintext highlighter-rouge">Async</code> type defined above,
+however it takes an <code class="language-plaintext highlighter-rouge">ExecutionContext</code> because all completion
+callbacks need to be called asynchronously.</li>
+  <li>All combinators and utilities are built on top of <code class="language-plaintext highlighter-rouge">onComplete</code>,
+therefore all combinators and utilities must also take an
+<code class="language-plaintext highlighter-rouge">ExecutionContext</code> parameter.</li>
+</ul>
+
+<p>If you don’t understand why that <code class="language-plaintext highlighter-rouge">ExecutionContext</code> is needed in all
+those signatures, go back and re-read <a href="#33-recursivity-wrath-of-stackoverflow">section 3.3</a> and don’t
+come back until you do.</p>
+      <h3 id="41-sequencing">
+        
+        
+          4.1. Sequencing <a href="#41-sequencing" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Let’s redefine our function from <a href="#3-callback-hell">section 3</a> in terms of <code class="language-plaintext highlighter-rouge">Future</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">scala.concurrent.</span><span class="o">{</span><span class="nc">Future</span><span class="o">,</span> <span class="nc">ExecutionContext</span><span class="o">}</span>
+
+<span class="k">def</span> <span class="nf">timesTwo</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)(</span><span class="k">implicit</span> <span class="n">ec</span><span class="k">:</span> <span class="kt">ExecutionContext</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nc">Future</span><span class="o">(</span><span class="n">n</span> <span class="o">*</span> <span class="mi">2</span><span class="o">)</span>
+
+<span class="c1">// Usage</span>
+<span class="o">{</span>
+  <span class="k">import</span> <span class="nn">scala.concurrent.ExecutionContext.Implicits.global</span>
+
+  <span class="nf">timesTwo</span><span class="o">(</span><span class="mi">20</span><span class="o">).</span><span class="py">onComplete</span> <span class="o">{</span> <span class="n">result</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Result: $result"</span><span class="o">)</span> <span class="o">}</span>
+  <span class="c1">//=&gt; Result: Success(40)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Easy enough, the <code class="language-plaintext highlighter-rouge">Future.apply</code> builder executes the given computation
+on the given <code class="language-plaintext highlighter-rouge">ExecutionContext</code>. So on the JVM, assuming the <code class="language-plaintext highlighter-rouge">global</code>
+execution context, it’s going to run on a different thread.</p>
+
+<p>Now to do sequencing like in <a href="#31-sequencing-purgatory-of-side-effects">section 3.1</a>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">timesFour</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)(</span><span class="k">implicit</span> <span class="n">ec</span><span class="k">:</span> <span class="kt">ExecutionContext</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nf">for</span> <span class="o">(</span><span class="n">a</span> <span class="k">&lt;-</span> <span class="nf">timesTwo</span><span class="o">(</span><span class="n">n</span><span class="o">);</span> <span class="n">b</span> <span class="k">&lt;-</span> <span class="nf">timesTwo</span><span class="o">(</span><span class="n">n</span><span class="o">))</span> <span class="k">yield</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+
+<span class="c1">// Usage</span>
+<span class="o">{</span>
+  <span class="k">import</span> <span class="nn">scala.concurrent.ExecutionContext.Implicits.global</span>
+
+  <span class="nf">timesFour</span><span class="o">(</span><span class="mi">20</span><span class="o">).</span><span class="py">onComplete</span> <span class="o">{</span> <span class="n">result</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Result: $result"</span><span class="o">)</span> <span class="o">}</span>
+  <span class="c1">//=&gt; Result: Success(80)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Easy enough. That “<em>for comprehension</em>” magic right there is
+translated to nothing more than calls to <code class="language-plaintext highlighter-rouge">flatMap</code> and <code class="language-plaintext highlighter-rouge">map</code>, being
+literally equivalent with:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">timesFour</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)(</span><span class="k">implicit</span> <span class="n">ec</span><span class="k">:</span> <span class="kt">ExecutionContext</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nf">timesTwo</span><span class="o">(</span><span class="n">n</span><span class="o">).</span><span class="py">flatMap</span> <span class="o">{</span> <span class="n">a</span> <span class="k">=&gt;</span>
+    <span class="nf">timesTwo</span><span class="o">(</span><span class="n">n</span><span class="o">).</span><span class="py">map</span> <span class="o">{</span> <span class="n">b</span> <span class="k">=&gt;</span>
+      <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+
+<p>And if you import <a href="https://github.com/scala/async">scala-async</a> in
+your project, then you can do it like:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">scala.async.Async.</span><span class="o">{</span><span class="n">async</span><span class="o">,</span> <span class="n">await</span><span class="o">}</span>
+
+<span class="k">def</span> <span class="nf">timesFour</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)(</span><span class="k">implicit</span> <span class="n">ec</span><span class="k">:</span> <span class="kt">ExecutionContext</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+  <span class="n">async</span> <span class="o">{</span>
+    <span class="k">val</span> <span class="nv">a</span> <span class="k">=</span> <span class="nf">await</span><span class="o">(</span><span class="nf">timesTwo</span><span class="o">(</span><span class="n">a</span><span class="o">))</span>
+    <span class="k">val</span> <span class="nv">b</span> <span class="k">=</span> <span class="nf">await</span><span class="o">(</span><span class="nf">timesTwo</span><span class="o">(</span><span class="n">b</span><span class="o">))</span>
+    <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">scala-async</code> library is powered by macros and will translate your
+code to something equivalent to <code class="language-plaintext highlighter-rouge">flatMap</code> and <code class="language-plaintext highlighter-rouge">map</code> calls. So in other
+words <code class="language-plaintext highlighter-rouge">await</code> does not block threads, even though it gives the
+illusion that it does.</p>
+
+<p>This looks great actually, unfortunately it has many limitations.  The
+library <em>cannot rewrite</em> your code in case the <code class="language-plaintext highlighter-rouge">await</code> is inside an
+anonymous function and unfortunately Scala code is usually full of
+such expressions. This does not work:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// BAD SAMPLE</span>
+<span class="k">def</span> <span class="nf">sum</span><span class="o">(</span><span class="n">list</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Future</span><span class="o">[</span><span class="kt">Int</span><span class="o">]])(</span><span class="k">implicit</span> <span class="n">ec</span><span class="o">;</span> <span class="nc">ExecutionContext</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+  <span class="n">async</span> <span class="o">{</span>
+    <span class="k">var</span> <span class="n">sum</span> <span class="k">=</span> <span class="mi">0</span>
+    <span class="c1">// Nope, not going to work because "for" is translated to "foreach"</span>
+    <span class="nf">for</span> <span class="o">(</span><span class="n">f</span> <span class="k">&lt;-</span> <span class="n">list</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">sum</span> <span class="o">+=</span> <span class="nf">await</span><span class="o">(</span><span class="n">f</span><span class="o">)</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+
+<p>This approach gives the illusion of having <em>first-class
+continuations</em>, but these continuations are unfortunately not first
+class, being just a compiler-managed rewrite of the code. And yes,
+this restriction applies to C# and ECMAScript as well. Which is a
+pity, because it means <code class="language-plaintext highlighter-rouge">async</code> code will not be heavy on FP.</p>
+
+<p>Remember my rant from above about the no silver bullet? 😞</p>
+      <h3 id="42-parallelism">
+        
+        
+          4.2. Parallelism <a href="#42-parallelism" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Just as in <a href="#32-parallelism-limbo-of-nondeterminism">section 3.2</a> those two function calls are
+independent of each other, which means that we can call them in
+parallel. With <code class="language-plaintext highlighter-rouge">Future</code> this is easier, although its evaluation
+semantics can be a little confusing for beginners:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">timesFourInParallel</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)(</span><span class="k">implicit</span> <span class="n">ec</span><span class="k">:</span> <span class="kt">ExecutionContext</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="c1">// Future is eagerly evaluated, so this will trigger the</span>
+  <span class="c1">// execution of both before the composition happens</span>
+  <span class="k">val</span> <span class="nv">fa</span> <span class="k">=</span> <span class="nf">timesTwo</span><span class="o">(</span><span class="n">n</span><span class="o">)</span>
+  <span class="k">val</span> <span class="nv">fb</span> <span class="k">=</span> <span class="nf">timesTwo</span><span class="o">(</span><span class="n">n</span><span class="o">)</span>
+
+  <span class="nf">for</span> <span class="o">(</span><span class="n">a</span> <span class="k">&lt;-</span> <span class="n">fa</span><span class="o">;</span> <span class="n">b</span> <span class="k">&lt;-</span> <span class="n">fb</span><span class="o">)</span> <span class="k">yield</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+  <span class="c1">// fa.flatMap(a =&gt; fb.map(b =&gt; a + b))</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>It can be a little confusing and it catches beginners
+off-guard. Because of its execution model, in order to execute things
+in parallel, you simply have to initialize those future references
+before the composition happens.</p>
+
+<p>An alternative would be to use <code class="language-plaintext highlighter-rouge">Future.sequence</code>, which works for
+arbitrary collections:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">timesFourInParallel</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)(</span><span class="k">implicit</span> <span class="n">ec</span><span class="k">:</span> <span class="kt">ExecutionContext</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nv">Future</span><span class="o">.</span><span class="py">sequence</span><span class="o">(</span><span class="nf">timesTwo</span><span class="o">(</span><span class="n">n</span><span class="o">)</span> <span class="o">::</span> <span class="nf">timesTwo</span><span class="o">(</span><span class="n">n</span><span class="o">)</span> <span class="o">::</span> <span class="nc">Nil</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">sum</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>This too can catch beginners by surprise, because those futures are
+going to be executed in parallel only if the collection given to
+<code class="language-plaintext highlighter-rouge">sequence</code> is strict (not like Scala’s <code class="language-plaintext highlighter-rouge">Stream</code> or some <code class="language-plaintext highlighter-rouge">Iterator</code>). And
+the name is sort of a misnomer obviously.</p>
+      <h3 id="43-recursivity">
+        
+        
+          4.3. Recursivity <a href="#43-recursivity" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>The <code class="language-plaintext highlighter-rouge">Future</code> type is entirely safe for recursive operations (because
+of the reliance on the <code class="language-plaintext highlighter-rouge">ExecutionContext</code> for executing callbacks). So
+retrying the sample in <a href="#33-recursivity-wrath-of-stackoverflow">section 3.3</a>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">mapBoth</span><span class="o">[</span><span class="kt">A</span>,<span class="kt">B</span>,<span class="kt">R</span><span class="o">](</span><span class="n">fa</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span> <span class="n">fb</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">B</span><span class="o">])(</span><span class="n">f</span><span class="k">:</span> <span class="o">(</span><span class="kt">A</span><span class="o">,</span><span class="kt">B</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">R</span><span class="o">)</span>
+  <span class="o">(</span><span class="k">implicit</span> <span class="n">ec</span><span class="k">:</span> <span class="kt">ExecutionContext</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">R</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+
+  <span class="nf">for</span> <span class="o">(</span><span class="n">a</span> <span class="k">&lt;-</span> <span class="n">fa</span><span class="o">;</span> <span class="n">b</span> <span class="k">&lt;-</span> <span class="n">fb</span><span class="o">)</span> <span class="k">yield</span> <span class="nf">f</span><span class="o">(</span><span class="n">a</span><span class="o">,</span><span class="n">b</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="k">def</span> <span class="nf">sequence</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">list</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Future</span><span class="o">[</span><span class="kt">A</span><span class="o">]])</span>
+  <span class="o">(</span><span class="k">implicit</span> <span class="n">ec</span><span class="k">:</span> <span class="kt">ExecutionContext</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">List</span><span class="o">[</span><span class="kt">A</span><span class="o">]]</span> <span class="k">=</span> <span class="o">{</span>
+
+  <span class="k">val</span> <span class="nv">seed</span> <span class="k">=</span> <span class="nv">Future</span><span class="o">.</span><span class="py">successful</span><span class="o">(</span><span class="nv">List</span><span class="o">.</span><span class="py">empty</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span>
+  <span class="nv">list</span><span class="o">.</span><span class="py">foldLeft</span><span class="o">(</span><span class="n">seed</span><span class="o">)((</span><span class="n">acc</span><span class="o">,</span><span class="n">f</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nf">for</span> <span class="o">(</span><span class="n">l</span> <span class="k">&lt;-</span> <span class="n">acc</span><span class="o">;</span> <span class="n">a</span> <span class="k">&lt;-</span> <span class="n">f</span><span class="o">)</span> <span class="k">yield</span> <span class="n">a</span> <span class="o">::</span> <span class="n">l</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">reverse</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">// Invocation</span>
+<span class="o">{</span>
+  <span class="k">import</span> <span class="nn">scala.concurrent.ExecutionContext.Implicits.global</span>
+
+  <span class="nf">sequence</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="nf">timesTwo</span><span class="o">(</span><span class="mi">10</span><span class="o">),</span> <span class="nf">timesTwo</span><span class="o">(</span><span class="mi">20</span><span class="o">),</span> <span class="nf">timesTwo</span><span class="o">(</span><span class="mi">30</span><span class="o">))).</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+  <span class="c1">// =&gt; List(20, 40, 60)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>And this time we get no <code class="language-plaintext highlighter-rouge">StackOverflowError</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">val</span> <span class="nv">list</span> <span class="k">=</span> <span class="mf">0.</span><span class="nf">until</span><span class="o">(</span><span class="mi">10000</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="n">timesTwo</span><span class="o">).</span><span class="py">toList</span>
+<span class="nf">sequence</span><span class="o">(</span><span class="n">list</span><span class="o">).</span><span class="py">foreach</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Sum: ${r.sum}"</span><span class="o">))</span>
+<span class="c1">//=&gt; Sum: 99990000</span>
+</code></pre></div></div>
+      <h3 id="44-performance-considerations">
+        
+        
+          4.4. Performance Considerations <a href="#44-performance-considerations" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>The trouble with <code class="language-plaintext highlighter-rouge">Future</code> is that each call to <code class="language-plaintext highlighter-rouge">onComplete</code> will use
+an <code class="language-plaintext highlighter-rouge">ExecutionContext</code> for execution and in general this means that a
+<code class="language-plaintext highlighter-rouge">Runnable</code> is sent in a thread-pool, thus forking a (logical) thread.
+If you have CPU-bounded tasks, this implementation detail is actually
+a disaster for performance because jumping threads means
+<a href="https://en.wikipedia.org/wiki/Context_switch">context switches</a>,
+along with the CPU
+<a href="https://en.wikipedia.org/wiki/Locality_of_reference">cache locality</a>
+being destroyed. Of course, the implementation does have certain optimizations,
+like the <code class="language-plaintext highlighter-rouge">flatMap</code> implementation using an internal execution context that’s
+trampolined, in order to avoid forks when chaining those internal
+callbacks, but it’s not enough and benchmarking doesn’t lie.</p>
+
+<p>Also due to it being memoized means that upon completion the
+implementation is forced to execute at least one
+<code class="language-plaintext highlighter-rouge">AtomicReference.compareAndSet</code> per producer, plus one <code class="language-plaintext highlighter-rouge">compareAndSet</code>
+call per listener registered before the <code class="language-plaintext highlighter-rouge">Future</code> is complete. And such
+calls are quite expensive, all because we need memoization that plays
+well with multithreading.</p>
+
+<p>In other words if you want to exploit your CPU to its fullest for CPU-bound
+tasks, then working with futures and promises is not such a good idea.</p>
+
+<p>If you want to see how Scala’s <code class="language-plaintext highlighter-rouge">Future</code> implementation compares with
+<code class="language-plaintext highlighter-rouge">Task</code>, see the following
+<a href="https://github.com/rossabaker/benchmarks/pull/4">recent benchmark</a>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>[info] Benchmark                   (size)   Mode  Cnt     Score     Error  Units
+[info] FlatMap.fs2Apply             10000  thrpt   20   291.459 ±   6.321  ops/s
+[info] FlatMap.fs2Delay             10000  thrpt   20  2606.864 ±  26.442  ops/s
+[info] FlatMap.fs2Now               10000  thrpt   20  3867.300 ± 541.241  ops/s
+[info] FlatMap.futureApply          10000  thrpt   20   212.691 ±   9.508  ops/s
+[info] FlatMap.futureSuccessful     10000  thrpt   20   418.736 ±  29.121  ops/s
+[info] FlatMap.futureTrampolineEc   10000  thrpt   20   423.647 ±   8.543  ops/s
+[info] FlatMap.monixApply           10000  thrpt   20   399.916 ±  15.858  ops/s
+[info] FlatMap.monixDelay           10000  thrpt   20  4994.156 ±  40.014  ops/s
+[info] FlatMap.monixNow             10000  thrpt   20  6253.182 ±  53.388  ops/s
+[info] FlatMap.scalazApply          10000  thrpt   20   188.387 ±   2.989  ops/s
+[info] FlatMap.scalazDelay          10000  thrpt   20  1794.680 ±  24.173  ops/s
+[info] FlatMap.scalazNow            10000  thrpt   20  2041.300 ± 128.729  ops/s
+</code></pre></div></div>
+
+<p>As you can see the <a href="https://monix.io/docs/2x/eval/task.html">Monix Task</a> destroys
+Scala’s <code class="language-plaintext highlighter-rouge">Future</code> for CPU-bound tasks.</p>
+
+<p class="info-bubble">
+<strong>NOTE:</strong> this benchmark is limited, there are still use-cases where
+usage of <code class="language-plaintext highlighter-rouge">Future</code> is faster (e.g. the Monix <a href="https://monix.io/docs/2x/reactive/observers.html">Observer</a>
+uses <code class="language-plaintext highlighter-rouge">Future</code> for back-pressure for a good reason) and performance is
+often not relevant, like when doing I/O, in which case throughput
+will not be CPU-bound.
+</p>
+      <h2 id="5-task-scalas-io-monad">
+        
+        
+          5. Task, Scala’s IO Monad <a href="#5-task-scalas-io-monad" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p><code class="language-plaintext highlighter-rouge">Task</code> is a data type for controlling possibly lazy &amp; asynchronous computations,
+useful for controlling side-effects, avoiding nondeterminism and callback-hell.</p>
+
+<p>The <a href="https://monix.io/">Monix</a> library provides a very sophisticated
+<a href="https://monix.io/docs/2x/eval/task.html">Task</a> implementation, inspired by the
+<a href="https://github.com/scalaz/scalaz/blob/scalaz-seven/concurrent/src/main/scala/scalaz/concurrent/Task.scala">Task in Scalaz</a>.
+Same concept, different implementation.</p>
+
+<p class="info-bubble">
+The <code class="language-plaintext highlighter-rouge">Task</code> type is also inspired by <a href="https://wiki.haskell.org/IO_inside">Haskell’s IO monad</a>,
+being in this author’s opinion the true <code class="language-plaintext highlighter-rouge">IO</code> type for Scala.
+<br /><br />
+This is a matter of debate, as Scalaz also exposes a separate <code class="language-plaintext highlighter-rouge">IO</code> type
+that only deals with synchronous execution. The Scalaz <code class="language-plaintext highlighter-rouge">IO</code> is not async, which
+means that it doesn’t tell the whole story, because on top of the JVM you need
+to represent async computations somehow. In Haskell on the other hand you have
+the <code class="language-plaintext highlighter-rouge">Async</code> type which is converted to <code class="language-plaintext highlighter-rouge">IO</code>, possibly managed by the runtime
+(green-threads and all).
+<br /><br />
+On the JVM, with the Scalaz implementation, we can’t represent async
+computations with <code class="language-plaintext highlighter-rouge">IO</code> and without blocking threads on evaluation, which is
+something to avoid, because
+<a href="https://monix.io/docs/2x/best-practices/blocking.html">blocking threads is error prone</a>.
+</p>
+
+<p>In summary the <code class="language-plaintext highlighter-rouge">Task</code> type:</p>
+
+<ul>
+  <li>models lazy &amp; asynchronous evaluation</li>
+  <li>models a producer pushing only one value to one or multiple consumers</li>
+  <li>it is lazily evaluated, so compared with <code class="language-plaintext highlighter-rouge">Future</code> it doesn’t trigger the execution, or any effects until <code class="language-plaintext highlighter-rouge">runAsync</code></li>
+  <li>it is not memoized by default on evaluation, but the Monix <code class="language-plaintext highlighter-rouge">Task</code> can be</li>
+  <li>doesn’t necessarily execute on another logical thread</li>
+</ul>
+
+<p>Specific to the Monix implementation:</p>
+
+<ul>
+  <li>allows for cancelling of a running computation</li>
+  <li>never blocks any threads in its implementation</li>
+  <li>does not expose any API calls that can block threads</li>
+  <li>all async operations are stack safe</li>
+</ul>
+
+<p>A visual representation of where <code class="language-plaintext highlighter-rouge">Task</code> sits in the design space:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center">Eager</th>
+      <th style="text-align: center">Lazy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><strong>Synchronous</strong></td>
+      <td style="text-align: center">A</td>
+      <td style="text-align: center">() =&gt; A</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"><a href="https://monix.io/docs/2x/eval/coeval.html">Coeval[A]</a>, <a href="https://github.com/scalaz/scalaz/blob/scalaz-seven/effect/src/main/scala/scalaz/effect/IO.scala">IO[A]</a></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><strong>Asynchronous</strong></td>
+      <td style="text-align: center">(A =&gt; Unit) =&gt; Unit</td>
+      <td style="text-align: center">(A =&gt; Unit) =&gt; Unit</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">Future[A]</td>
+      <td style="text-align: center"><a href="https://monix.io/docs/2x/eval/task.html">Task[A]</a></td>
+    </tr>
+  </tbody>
+</table>
+      <h3 id="51-sequencing">
+        
+        
+          5.1. Sequencing <a href="#51-sequencing" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Redefining our function from <a href="#3-callback-hell">section 3</a> in terms of <code class="language-plaintext highlighter-rouge">Task</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">monix.eval.Task</span>
+
+<span class="k">def</span> <span class="nf">timesTwo</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nc">Task</span><span class="o">(</span><span class="n">n</span> <span class="o">*</span> <span class="mi">2</span><span class="o">)</span>
+
+<span class="c1">// Usage</span>
+<span class="o">{</span>
+  <span class="c1">// Our ExecutionContext needed on evaluation</span>
+  <span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
+
+  <span class="nf">timesTwo</span><span class="o">(</span><span class="mi">20</span><span class="o">).</span><span class="py">foreach</span> <span class="o">{</span> <span class="n">result</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Result: $result"</span><span class="o">)</span> <span class="o">}</span>
+  <span class="c1">//=&gt; Result: 40</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The code seems to be almost the same as the <code class="language-plaintext highlighter-rouge">Future</code> version in
+<a href="#41-sequencing">section 4.1</a>, the only difference is that our <code class="language-plaintext highlighter-rouge">timesTwo</code>
+function no longer takes an <code class="language-plaintext highlighter-rouge">ExecutionContext</code> as a parameter.
+This is because <code class="language-plaintext highlighter-rouge">Task</code> references are lazy, being like functions,
+so nothing gets printed until the call to <code class="language-plaintext highlighter-rouge">foreach</code> which forces
+the evaluation to happen. It is there that we need a
+<a href="https://monix.io/docs/2x/execution/scheduler.html">Scheduler</a>,
+which is Monix’s enhanced <code class="language-plaintext highlighter-rouge">ExecutionContext</code>.</p>
+
+<p>Now to do sequencing like in <a href="#31-sequencing-purgatory-of-side-effects">section 3.1</a>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">timesFour</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nf">for</span> <span class="o">(</span><span class="n">a</span> <span class="k">&lt;-</span> <span class="nf">timesTwo</span><span class="o">(</span><span class="n">n</span><span class="o">);</span> <span class="n">b</span> <span class="k">&lt;-</span> <span class="nf">timesTwo</span><span class="o">(</span><span class="n">n</span><span class="o">))</span> <span class="k">yield</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+
+<span class="c1">// Usage</span>
+<span class="o">{</span>
+  <span class="c1">// Our ExecutionContext needed on evaluation</span>
+  <span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
+
+  <span class="nf">timesFour</span><span class="o">(</span><span class="mi">20</span><span class="o">).</span><span class="py">foreach</span> <span class="o">{</span> <span class="n">result</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Result: $result"</span><span class="o">)</span> <span class="o">}</span>
+  <span class="c1">//=&gt; Result: 80</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>And just like with the <code class="language-plaintext highlighter-rouge">Future</code> type, that “<em>for comprehension</em>” magic
+is translated by the Scala compiler to nothing more than calls to
+<code class="language-plaintext highlighter-rouge">flatMap</code> and <code class="language-plaintext highlighter-rouge">map</code>, literally equivalent with:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">timesFour</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nf">timesTwo</span><span class="o">(</span><span class="n">n</span><span class="o">).</span><span class="py">flatMap</span> <span class="o">{</span> <span class="n">a</span> <span class="k">=&gt;</span>
+    <span class="nf">timesTwo</span><span class="o">(</span><span class="n">n</span><span class="o">).</span><span class="py">map</span> <span class="o">{</span> <span class="n">b</span> <span class="k">=&gt;</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+      <h3 id="52-parallelism">
+        
+        
+          5.2. Parallelism <a href="#52-parallelism" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>The story for <code class="language-plaintext highlighter-rouge">Task</code> and parallelism is better than with <code class="language-plaintext highlighter-rouge">Future</code>, because
+<code class="language-plaintext highlighter-rouge">Task</code> allows fine-grained control when forking tasks, while trying
+to execute transformations (e.g. <code class="language-plaintext highlighter-rouge">map</code>, <code class="language-plaintext highlighter-rouge">flatMap</code>) on the current thread
+and call-stack, thus preserving cache locality and avoiding context
+switches for what is in essence sequential work.</p>
+
+<p>But first, translating the sample using <code class="language-plaintext highlighter-rouge">Future</code> does not work:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// BAD SAMPLE (for achieving parallelism, as this will be sequential)</span>
+<span class="k">def</span> <span class="nf">timesFour</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="c1">// Will not trigger execution b/c Task is lazy</span>
+  <span class="k">val</span> <span class="nv">fa</span> <span class="k">=</span> <span class="nf">timesTwo</span><span class="o">(</span><span class="n">n</span><span class="o">)</span>
+  <span class="k">val</span> <span class="nv">fb</span> <span class="k">=</span> <span class="nf">timesTwo</span><span class="o">(</span><span class="n">n</span><span class="o">)</span>
+  <span class="c1">// Evaluation will be sequential b/c of laziness</span>
+  <span class="nf">for</span> <span class="o">(</span><span class="n">a</span> <span class="k">&lt;-</span> <span class="n">fa</span><span class="o">;</span> <span class="n">b</span> <span class="k">&lt;-</span> <span class="n">fb</span><span class="o">)</span> <span class="k">yield</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In order to achieve parallelism <code class="language-plaintext highlighter-rouge">Task</code> requires you to be explicit about it:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">timesFour</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nv">Task</span><span class="o">.</span><span class="py">mapBoth</span><span class="o">(</span><span class="nf">timesTwo</span><span class="o">(</span><span class="n">n</span><span class="o">),</span> <span class="nf">timesTwo</span><span class="o">(</span><span class="n">n</span><span class="o">))(</span><span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>Oh, does <code class="language-plaintext highlighter-rouge">mapBoth</code> seem familiar? If those two tasks fork threads on
+execution, then they will get executed in parallel as <code class="language-plaintext highlighter-rouge">mapBoth</code> starts
+them both at the same time.</p>
+      <h3 id="53-recursivity">
+        
+        
+          5.3. Recursivity <a href="#53-recursivity" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p><code class="language-plaintext highlighter-rouge">Task</code> is recursive and stack-safe (in <code class="language-plaintext highlighter-rouge">flatMap</code>) and incredibly efficient, being powered
+by an internal trampoline. You can checkout this cool paper by Rúnar Bjarnason on
+<a href="http://blog.higher-order.com/assets/trampolines.pdf">Stackless Scala with Free Monads</a>
+for getting a hint on how <code class="language-plaintext highlighter-rouge">Task</code> got implemented so efficiently.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">sequence</code> implementation looks similar with the one for <code class="language-plaintext highlighter-rouge">Future</code>
+in <a href="#43-recursivity">section 4.3</a>, except that you can see the laziness in
+the signature of <code class="language-plaintext highlighter-rouge">sequence</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">sequence</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">list</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Task</span><span class="o">[</span><span class="kt">A</span><span class="o">]])</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">List</span><span class="o">[</span><span class="kt">A</span><span class="o">]]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="nv">seed</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="nv">List</span><span class="o">.</span><span class="py">empty</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span>
+  <span class="nv">list</span><span class="o">.</span><span class="py">foldLeft</span><span class="o">(</span><span class="n">seed</span><span class="o">)((</span><span class="n">acc</span><span class="o">,</span><span class="n">f</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nf">for</span> <span class="o">(</span><span class="n">l</span> <span class="k">&lt;-</span> <span class="n">acc</span><span class="o">;</span> <span class="n">a</span> <span class="k">&lt;-</span> <span class="n">f</span><span class="o">)</span> <span class="k">yield</span> <span class="n">a</span> <span class="o">::</span> <span class="n">l</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">reverse</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">// Invocation</span>
+<span class="o">{</span>
+  <span class="c1">// Our ExecutionContext needed on evaluation</span>
+  <span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
+
+  <span class="nf">sequence</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="nf">timesTwo</span><span class="o">(</span><span class="mi">10</span><span class="o">),</span> <span class="nf">timesTwo</span><span class="o">(</span><span class="mi">20</span><span class="o">),</span> <span class="nf">timesTwo</span><span class="o">(</span><span class="mi">30</span><span class="o">))).</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+  <span class="c1">// =&gt; List(20, 40, 60)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+      <h2 id="6-functional-programming-and-type-classes">
+        
+        
+          6. Functional Programming and Type-classes <a href="#6-functional-programming-and-type-classes" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>When working with well grown functions such as <code class="language-plaintext highlighter-rouge">map</code>, <code class="language-plaintext highlighter-rouge">flatMap</code> and <code class="language-plaintext highlighter-rouge">mapBoth</code>,
+we no longer care that underlying it all is an “<code class="language-plaintext highlighter-rouge">(A =&gt; Unit) =&gt; Unit</code>”, because these
+functions are, assuming lawfulness, pure and referentially transparent.
+This means we can reason about them and their result, divorced from their
+surrounding context.</p>
+
+<p>This is the great achievement of Haskell’s <code class="language-plaintext highlighter-rouge">IO</code>. Haskell does not “fake” side-effects,
+as functions returning <code class="language-plaintext highlighter-rouge">IO</code> values are literally pure, the side-effects being
+pushed at the edges of the program where they belong. And we can say the same
+thing about <code class="language-plaintext highlighter-rouge">Task</code>. Well, for <code class="language-plaintext highlighter-rouge">Future</code> it’s more complicated given its eager
+nature, but working with <code class="language-plaintext highlighter-rouge">Future</code> is not bad either.</p>
+
+<p>And can we build interfaces that abstract over such types as <code class="language-plaintext highlighter-rouge">Task</code>, <code class="language-plaintext highlighter-rouge">Future</code>,
+<code class="language-plaintext highlighter-rouge">Coeval</code>, <code class="language-plaintext highlighter-rouge">Eval</code>, <code class="language-plaintext highlighter-rouge">IO</code>, <code class="language-plaintext highlighter-rouge">Id</code>, <code class="language-plaintext highlighter-rouge">Observable</code> and others?</p>
+
+<p>Yes we can, we’ve already seen that <code class="language-plaintext highlighter-rouge">flatMap</code> describes sequencing, while
+<code class="language-plaintext highlighter-rouge">mapBoth</code> describes parallelism. But we can’t describe them with classic
+OOP interfaces, for one because due to the covariance and contravariance rules of
+<code class="language-plaintext highlighter-rouge">Function1</code> parameters we’d lose type info in <code class="language-plaintext highlighter-rouge">flatMap</code> (unless you use
+F-bounded polymorphic types, which are more suitable for implementation reuse and
+aren’t available in other OOP languages),
+but also because we need to describe a data constructor that can’t be a
+method (i.e. OOP subtyping applies to instances and not whole classes).</p>
+
+<p>Fortunately Scala is one of the very few languages capable of higher kinded
+types and with the ability to encode
+<a href="https://en.wikipedia.org/wiki/Type_class">type-classes</a>, which means we’ve got
+everything needed to port concepts from Haskell 😄</p>
+
+<p class="info-bubble">
+<strong>Author’s Rant:</strong> The dreaded <code class="language-plaintext highlighter-rouge">Monad</code>, <code class="language-plaintext highlighter-rouge">Applicative</code> and <code class="language-plaintext highlighter-rouge">Functor</code> words
+strike fear in the hearts of the unfaithful, having given rise to the belief
+that they are  “academic” notions disconnected from real-world concerns,
+with book authors going to great length to avoid using these words, which
+includes Scala’s API documentation and official tutorials.
+<br /><br />
+But this is a disservice to both the Scala language and its users.
+In other languages they are only design patterns that are hard to explain
+primarily because they can’t be expressed as types. You can count the
+languages having this expressive capability with one hand. And users suffer
+because in case of trouble they don’t know how to search for existing
+literature on the subject, having been deprived of learning
+the correct jargon.
+<br /><br />
+I also feel this is a flavor of
+<a href="https://en.wikipedia.org/wiki/Anti-intellectualism">anti-intellectualism</a>,
+as usual born out of fear of the unknown. You can see it coming from people
+that really know what they are doing, as none of us is immune. For example Java’s
+<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html">Optional</a>
+type violates the functor laws (e.g. <code class="language-plaintext highlighter-rouge">opt.map(f).map(g) != opt.map(f andThen g)</code>),
+in Swift <code class="language-plaintext highlighter-rouge">5 == Some(5)</code> which is preposterous and good luck explaining to
+people that <code class="language-plaintext highlighter-rouge">Some(null)</code> actually makes sense for as long as <code class="language-plaintext highlighter-rouge">null</code> is a valid
+value of <code class="language-plaintext highlighter-rouge">AnyRef</code> and because otherwise you can’t define <code class="language-plaintext highlighter-rouge">Applicative[Option]</code>.
+</p>
+      <h3 id="61-monad-sequencing-and-recursivity">
+        
+        
+          6.1. Monad (Sequencing and Recursivity) <a href="#61-monad-sequencing-and-recursivity" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>This article is not about explaining Monads. There are other great articles
+for that. But if you’re looking to build an intuition, here’s another one: in the
+context of data types such as <code class="language-plaintext highlighter-rouge">Future</code> or <code class="language-plaintext highlighter-rouge">Task</code>, Monads describe sequencing
+of operations and is the <em>only reliable</em> way to ensure ordering.</p>
+
+<blockquote>
+  <p>“<em>Observation: programmers doing concurrency with imperative languages
+are tripped by the unchallenged belief that “;” defines sequencing.</em>”
+– <a href="https://twitter.com/shipilev/status/822004316605206529">Aleksey Shipilëv</a></p>
+</blockquote>
+
+<p>A simple encoding of the <code class="language-plaintext highlighter-rouge">Monad</code> type in Scala:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// We shouldn't need to do this :-(</span>
+<span class="k">import</span> <span class="nn">scala.language.higherKinds</span>
+
+<span class="k">trait</span> <span class="nc">Monad</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]]</span> <span class="o">{</span>
+  <span class="cm">/** Constructor (said to lift a value `A` in the `F[A]`
+    * monadic context). Also part of `Applicative`, see below.
+    */</span>
+  <span class="k">def</span> <span class="nf">pure</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">a</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span>
+
+  <span class="cm">/** FTW */</span>
+  <span class="k">def</span> <span class="nf">flatMap</span><span class="o">[</span><span class="kt">A</span>,<span class="kt">B</span><span class="o">](</span><span class="n">fa</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">A</span><span class="o">])(</span><span class="n">f</span><span class="k">:</span> <span class="kt">A</span> <span class="o">=&gt;</span> <span class="n">F</span><span class="o">[</span><span class="kt">B</span><span class="o">])</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">B</span><span class="o">]</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>And providing an implementation for <code class="language-plaintext highlighter-rouge">Future</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">scala.concurrent._</span>
+
+<span class="c1">// Supplying an instance for Future isn't clean, ExecutionContext needed</span>
+<span class="k">class</span> <span class="nc">FutureMonad</span><span class="o">(</span><span class="k">implicit</span> <span class="n">ec</span><span class="k">:</span> <span class="kt">ExecutionContext</span><span class="o">)</span>
+  <span class="k">extends</span> <span class="nc">Monad</span><span class="o">[</span><span class="kt">Future</span><span class="o">]</span> <span class="o">{</span>
+
+  <span class="k">def</span> <span class="nf">pure</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">a</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span>
+    <span class="nv">Future</span><span class="o">.</span><span class="py">successful</span><span class="o">(</span><span class="n">a</span><span class="o">)</span>
+
+  <span class="k">def</span> <span class="nf">flatMap</span><span class="o">[</span><span class="kt">A</span>,<span class="kt">B</span><span class="o">](</span><span class="n">fa</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">A</span><span class="o">])(</span><span class="n">f</span><span class="k">:</span> <span class="kt">A</span> <span class="o">=&gt;</span> <span class="nc">Future</span><span class="o">[</span><span class="kt">B</span><span class="o">])</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">B</span><span class="o">]</span> <span class="k">=</span>
+    <span class="nv">fa</span><span class="o">.</span><span class="py">flatMap</span><span class="o">(</span><span class="n">f</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="k">object</span> <span class="nc">FutureMonad</span> <span class="o">{</span>
+  <span class="k">implicit</span> <span class="k">def</span> <span class="nf">instance</span><span class="o">(</span><span class="k">implicit</span> <span class="n">ec</span><span class="k">:</span> <span class="kt">ExecutionContext</span><span class="o">)</span><span class="k">:</span> <span class="kt">FutureMonad</span> <span class="o">=</span>
+    <span class="k">new</span> <span class="nc">FutureMonad</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>This is really powerful stuff. We can now describe a generic function
+that works with <code class="language-plaintext highlighter-rouge">Task</code>, <code class="language-plaintext highlighter-rouge">Future</code>, <code class="language-plaintext highlighter-rouge">IO</code>, whatever, although it would be
+great if the <code class="language-plaintext highlighter-rouge">flatMap</code> operation is stack-safe:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="cm">/** Calculates the N-th number in a Fibonacci series. */</span>
+<span class="k">def</span> <span class="nf">fib</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]](</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)(</span><span class="k">implicit</span> <span class="n">F</span><span class="k">:</span> <span class="kt">Monad</span><span class="o">[</span><span class="kt">F</span><span class="o">])</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">BigInt</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="nf">loop</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">a</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">)</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">BigInt</span><span class="o">]</span> <span class="k">=</span>
+    <span class="nv">F</span><span class="o">.</span><span class="py">flatMap</span><span class="o">(</span><span class="nv">F</span><span class="o">.</span><span class="py">pure</span><span class="o">(</span><span class="n">n</span><span class="o">))</span> <span class="o">{</span> <span class="n">n</span> <span class="k">=&gt;</span>
+      <span class="nf">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="o">)</span> <span class="nv">F</span><span class="o">.</span><span class="py">pure</span><span class="o">(</span><span class="n">b</span><span class="o">)</span>
+      <span class="k">else</span> <span class="nf">loop</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="o">,</span> <span class="n">b</span><span class="o">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">)</span>
+    <span class="o">}</span>
+
+  <span class="nf">loop</span><span class="o">(</span><span class="n">n</span><span class="o">,</span> <span class="nc">BigInt</span><span class="o">(</span><span class="mi">0</span><span class="o">),</span> <span class="nc">BigInt</span><span class="o">(</span><span class="mi">1</span><span class="o">))</span>
+<span class="o">}</span>
+
+<span class="c1">// Usage:</span>
+<span class="o">{</span>
+  <span class="c1">// Needed in scope</span>
+  <span class="k">import</span> <span class="nn">FutureMonad.instance</span>
+  <span class="k">import</span> <span class="nn">scala.concurrent.ExecutionContext.Implicits.global</span>
+
+  <span class="c1">// Invocation</span>
+  <span class="n">fib</span><span class="o">[</span><span class="kt">Future</span><span class="o">](</span><span class="mi">40</span><span class="o">).</span><span class="py">foreach</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Result: $r"</span><span class="o">))</span>
+  <span class="c1">//=&gt; Result: 102334155</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p class="info-bubble">
+<strong>PRO-TIP:</strong> this is just a toy example. For getting serious,
+see <a href="http://typelevel.org/cats/">Typelevel’s Cats</a>
+</p>
+      <h3 id="62-applicative-parallelism">
+        
+        
+          6.2. Applicative (Parallelism) <a href="#62-applicative-parallelism" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Monads define sequencing of operations, but sometimes we want to compose
+the results of computations that are independent of each other,
+that can be evaluated at the same time, possibly in parallel.
+There’s also a case to be made that applicatives are more composable
+than monads 😏</p>
+
+<p>Let’s expand our mini Typeclassopedia to put on your wall:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">trait</span> <span class="nc">Functor</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]]</span> <span class="o">{</span>
+  <span class="cm">/** I hope we are all familiar with this one. */</span>
+  <span class="k">def</span> <span class="nf">map</span><span class="o">[</span><span class="kt">A</span>,<span class="kt">B</span><span class="o">](</span><span class="n">fa</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">A</span><span class="o">])(</span><span class="n">f</span><span class="k">:</span> <span class="kt">A</span> <span class="o">=&gt;</span> <span class="n">B</span><span class="o">)</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">B</span><span class="o">]</span>
+<span class="o">}</span>
+
+<span class="k">trait</span> <span class="nc">Applicative</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]]</span> <span class="nc">extends</span> <span class="nc">Functor</span><span class="o">[</span><span class="kt">F</span><span class="o">]</span> <span class="o">{</span>
+  <span class="cm">/** Constructor (lifts a value `A` in the `F[A]` applicative context). */</span>
+  <span class="k">def</span> <span class="nf">pure</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">a</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span>
+
+  <span class="cm">/** Maps over two references at the same time.
+    *
+    * In other implementations the applicative operation is `ap`,
+    * but `map2` is easier to understand.
+    */</span>
+  <span class="k">def</span> <span class="nf">map2</span><span class="o">[</span><span class="kt">A</span>,<span class="kt">B</span>,<span class="kt">R</span><span class="o">](</span><span class="n">fa</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span> <span class="n">fb</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">B</span><span class="o">])(</span><span class="n">f</span><span class="k">:</span> <span class="o">(</span><span class="kt">A</span><span class="o">,</span><span class="kt">B</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">R</span><span class="o">)</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">R</span><span class="o">]</span>
+<span class="o">}</span>
+
+<span class="k">trait</span> <span class="nc">Monad</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]]</span> <span class="nc">extends</span> <span class="nc">Applicative</span><span class="o">[</span><span class="kt">F</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="nf">flatMap</span><span class="o">[</span><span class="kt">A</span>,<span class="kt">B</span><span class="o">](</span><span class="n">fa</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">A</span><span class="o">])(</span><span class="n">f</span><span class="k">:</span> <span class="kt">A</span> <span class="o">=&gt;</span> <span class="n">F</span><span class="o">[</span><span class="kt">B</span><span class="o">])</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">B</span><span class="o">]</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>And to expand our <code class="language-plaintext highlighter-rouge">Future</code> implementation:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Supplying an instance for Future isn't clean, ExecutionContext needed</span>
+<span class="k">class</span> <span class="nc">FutureMonad</span><span class="o">(</span><span class="k">implicit</span> <span class="n">ec</span><span class="k">:</span> <span class="kt">ExecutionContext</span><span class="o">)</span>
+  <span class="k">extends</span> <span class="nc">Monad</span><span class="o">[</span><span class="kt">Future</span><span class="o">]</span> <span class="o">{</span>
+
+  <span class="k">def</span> <span class="nf">pure</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">a</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span>
+    <span class="nv">Future</span><span class="o">.</span><span class="py">successful</span><span class="o">(</span><span class="n">a</span><span class="o">)</span>
+
+  <span class="k">def</span> <span class="nf">flatMap</span><span class="o">[</span><span class="kt">A</span>,<span class="kt">B</span><span class="o">](</span><span class="n">fa</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">A</span><span class="o">])(</span><span class="n">f</span><span class="k">:</span> <span class="kt">A</span> <span class="o">=&gt;</span> <span class="nc">Future</span><span class="o">[</span><span class="kt">B</span><span class="o">])</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">B</span><span class="o">]</span> <span class="k">=</span>
+    <span class="nv">fa</span><span class="o">.</span><span class="py">flatMap</span><span class="o">(</span><span class="n">f</span><span class="o">)</span>
+
+  <span class="k">def</span> <span class="nf">map2</span><span class="o">[</span><span class="kt">A</span>,<span class="kt">B</span>,<span class="kt">R</span><span class="o">](</span><span class="n">fa</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span> <span class="n">fb</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">B</span><span class="o">])(</span><span class="n">f</span><span class="k">:</span> <span class="o">(</span><span class="kt">A</span><span class="o">,</span><span class="kt">B</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">R</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">R</span><span class="o">]</span> <span class="k">=</span>
+    <span class="c1">// For Future there's no point in supplying an implementation that's</span>
+    <span class="c1">// not based on flatMap, but that's not the case for Task ;-)</span>
+    <span class="nf">for</span> <span class="o">(</span><span class="n">a</span> <span class="k">&lt;-</span> <span class="n">fa</span><span class="o">;</span> <span class="n">b</span> <span class="k">&lt;-</span> <span class="n">fb</span><span class="o">)</span> <span class="k">yield</span> <span class="nf">f</span><span class="o">(</span><span class="n">a</span><span class="o">,</span><span class="n">b</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="k">object</span> <span class="nc">FutureMonad</span> <span class="o">{</span>
+  <span class="k">implicit</span> <span class="k">def</span> <span class="nf">instance</span><span class="o">(</span><span class="k">implicit</span> <span class="n">ec</span><span class="k">:</span> <span class="kt">ExecutionContext</span><span class="o">)</span><span class="k">:</span> <span class="kt">FutureMonad</span> <span class="o">=</span>
+    <span class="k">new</span> <span class="nc">FutureMonad</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>So we can now define generic functions based on <code class="language-plaintext highlighter-rouge">Applicative</code> which is going
+to work for <code class="language-plaintext highlighter-rouge">Future</code>, <code class="language-plaintext highlighter-rouge">Task</code>, etc:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">sequence</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]</span>, <span class="kt">A</span><span class="o">](</span><span class="n">list</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="kt">A</span><span class="o">]])</span>
+  <span class="o">(</span><span class="k">implicit</span> <span class="n">F</span><span class="k">:</span> <span class="kt">Applicative</span><span class="o">[</span><span class="kt">F</span><span class="o">])</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">List</span><span class="o">[</span><span class="kt">A</span><span class="o">]]</span> <span class="k">=</span> <span class="o">{</span>
+
+  <span class="k">val</span> <span class="nv">seed</span> <span class="k">=</span> <span class="nv">F</span><span class="o">.</span><span class="py">pure</span><span class="o">(</span><span class="nv">List</span><span class="o">.</span><span class="py">empty</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span>
+  <span class="k">val</span> <span class="nv">r</span> <span class="k">=</span> <span class="nv">list</span><span class="o">.</span><span class="py">foldLeft</span><span class="o">(</span><span class="n">seed</span><span class="o">)((</span><span class="n">acc</span><span class="o">,</span><span class="n">e</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nv">F</span><span class="o">.</span><span class="py">map2</span><span class="o">(</span><span class="n">acc</span><span class="o">,</span><span class="n">e</span><span class="o">)((</span><span class="n">l</span><span class="o">,</span><span class="n">a</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">a</span> <span class="o">::</span> <span class="n">l</span><span class="o">))</span>
+  <span class="nv">F</span><span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="n">r</span><span class="o">)(</span><span class="nv">_</span><span class="o">.</span><span class="py">reverse</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p class="info-bubble">
+<strong>PRO-TIP:</strong> worth repeating, this is just a toy example. For getting serious,
+see <a href="http://typelevel.org/cats/">Typelevel’s Cats</a>
+</p>
+      <h3 id="63-can-we-define-a-type-class-for-async-evaluation">
+        
+        
+          6.3. Can We Define a Type-class for Async Evaluation? <a href="#63-can-we-define-a-type-class-for-async-evaluation" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Missing from above is a way to actually trigger an evaluation and
+get a value out. Thinking of Scala’s <code class="language-plaintext highlighter-rouge">Future</code>, we want a way to abstract
+over <code class="language-plaintext highlighter-rouge">onComplete</code>. Thinking of Monix’s <code class="language-plaintext highlighter-rouge">Task</code> we want to abstract over <code class="language-plaintext highlighter-rouge">runAsync</code>.
+Thinking of Haskell’s and Scalaz’s <code class="language-plaintext highlighter-rouge">IO</code>, we want a way to abstract over
+<code class="language-plaintext highlighter-rouge">unsafePerformIO</code>.</p>
+
+<p>The <a href="https://github.com/functional-streams-for-scala/fs2/">FS2</a> library has
+defined a type-class called <a href="https://github.com/functional-streams-for-scala/fs2/blob/series/1.0/core/shared/src/main/scala/fs2/util/Effect.scala">Effect</a> that goes like this (simplified):</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">trait</span> <span class="nc">Effect</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]]</span> <span class="nc">extends</span> <span class="nc">Monad</span><span class="o">[</span><span class="kt">F</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="nf">unsafeRunAsync</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">fa</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">A</span><span class="o">])(</span><span class="n">cb</span><span class="k">:</span> <span class="kt">Try</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="nc">Unit</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>This looks like our initial <code class="language-plaintext highlighter-rouge">Async</code> type, very much similar with
+<code class="language-plaintext highlighter-rouge">Future.onComplete</code>, with <code class="language-plaintext highlighter-rouge">Task.runAsync</code> and could be applied to
+<code class="language-plaintext highlighter-rouge">IO.unsafePerformIO</code>.</p>
+
+<p>However, this is not a real type-class because:</p>
+
+<ol>
+  <li>it is lawless and while that’s not enough to disqualify it (after all,
+useful lawless type-classes like <code class="language-plaintext highlighter-rouge">Show</code> exist), the bigger problem is …</li>
+  <li>as shown in <a href="#33-recursivity-wrath-of-stackoverflow">section 3.3</a>, in order to avoid the Wrath of <code class="language-plaintext highlighter-rouge">StackOverflowError</code>,
+we need some sort of execution context or thread-pool that can execute tasks
+asynchronously without blowing up the stack</li>
+</ol>
+
+<p>And such an execution context is different from implementation to implementation.
+Java will use <code class="language-plaintext highlighter-rouge">Executor</code>, the Scala <code class="language-plaintext highlighter-rouge">Future</code> uses <code class="language-plaintext highlighter-rouge">ExecutionContext</code>, Monix
+uses <code class="language-plaintext highlighter-rouge">Scheduler</code> which is an enhanced <code class="language-plaintext highlighter-rouge">ExecutionContext</code>, FS2 and Scalaz
+use <code class="language-plaintext highlighter-rouge">Strategy</code> which wraps an <code class="language-plaintext highlighter-rouge">Executor</code> for forking threads and don’t inject
+a context when their <code class="language-plaintext highlighter-rouge">unsafePerformIO</code> or <code class="language-plaintext highlighter-rouge">runAsync</code> gets called
+(which is why many of the Scalaz combinators are in fact unsafe), etc.</p>
+
+<p>We could apply the same strategy as with <code class="language-plaintext highlighter-rouge">Future</code>, to build the type-class
+instance by taking a <code class="language-plaintext highlighter-rouge">implicit whatever: Context</code> from the scope. But that’s
+a little awkward and inefficient. It’s also telling that we can’t define
+<code class="language-plaintext highlighter-rouge">flatMap</code> only in terms of <code class="language-plaintext highlighter-rouge">Effect.unsafePerformIO</code>, not without that
+execution context. And if we can’t do it, then the type should probably
+not inherit from <code class="language-plaintext highlighter-rouge">Monad</code> because it’s not necessarily a <code class="language-plaintext highlighter-rouge">Monad</code>.</p>
+
+<p>So I’m personally not sure - if you have suggestions for what should be
+introduced in <a href="http://typelevel.org/cats">Cats</a>, I’d love to hear them.</p>
+
+<p>I do hope you enjoyed this thought experiment, designing things is fun 😎</p>
+      <h2 id="7-picking-the-right-tool">
+        
+        
+          7. Picking the Right Tool <a href="#7-picking-the-right-tool" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Some abstractions are more general purpose than others and personally
+I think the mantra of “<em>picking the right tool for the job</em>” is
+overused to defend poor choices.</p>
+
+<p>That said, there’s this wonderful presentation by Rúnar Bjarnason called
+<a href="https://www.youtube.com/watch?v=GqmsQeSzMdw">Constraints Liberate, Liberties Constrain</a>
+that really drives the point home with concurrency abstractions at least.</p>
+
+<p>As said, there is no silver bullet that can be generally applied for dealing with concurrency.
+The more high-level the abstraction, the less scope it has in solving issues. But the less scope
+and power it has, the simpler and more composable the model is.
+For example many developers in the Scala community are overusing Akka Actors -
+which is a great library, but not when misapplied. Like don’t use an
+Akka <code class="language-plaintext highlighter-rouge">Actor</code> when a <code class="language-plaintext highlighter-rouge">Future</code> or a <code class="language-plaintext highlighter-rouge">Task</code> would do. Ditto for other abstractions,
+like the <code class="language-plaintext highlighter-rouge">Observable</code> pattern in Monix and ReactiveX.</p>
+
+<p>Also learn by heart these 2 very simple rules:</p>
+
+<ol>
+  <li>avoid dealing with callbacks, threads and locks, because they are very error
+prone and not composable at all</li>
+  <li>avoid concurrency like the plague it is</li>
+</ol>
+
+<p>And let me tell you, concurrency experts are first of all experts in
+avoiding concurrency 💀</p>
+
+  </div>
+
+  <div id="article-details">
+    
+    <time itemprop="dateModified" content="2017-01-30T00:00:00+0000">
+        Published: January 30, 2017
+    </time>
+    
+      | Written by <a href="https://alexn.org/about/#alexelcu" itemprop="url" rel="author">Alexandru Nedelcu</a>
+    
+
+    <div id="all-categories">
+      Tags:
+      
+        
+        <a href="/blog/tag/asynchrony/" class="category">Asynchrony</a>
+      
+         | 
+        <a href="/blog/tag/best%20of/" class="category">Best Of</a>
+      
+         | 
+        <a href="/blog/tag/concurrency/" class="category">Concurrency</a>
+      
+         | 
+        <a href="/blog/tag/multithreading/" class="category">Multithreading</a>
+      
+         | 
+        <a href="/blog/tag/scala/" class="category">Scala</a>
+      
+    </div>
+  </div>
+
+  
+  <div class="related">
+      <h2 id="related-articles">
+        
+        
+          Related Articles <a href="#related-articles" class="anchor">#</a>
+        
+        
+      </h2>
+    
+    <div class="container">
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2021/02/22/countdownlatch-async-dirty/">
+          Implementing a CountDownLatch (async and dirty)
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/concurrency" class="tag">Concurrency</a>
+            
+               | <a href="/blog/tag/jvm" class="tag">JVM</a>
+            
+               | <a href="/blog/tag/multithreading" class="tag">Multithreading</a>
+            
+               | <a href="/blog/tag/programming" class="tag">Programming</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/video" class="tag">Video</a>
+                        
+          </div>
+          <time>February 22, 2021</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2013/05/07/towards-better-atomicreference-scala/">
+          Towards a Better AtomicReference
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/languages" class="tag">Languages</a>
+            
+               | <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/java" class="tag">Java</a>
+            
+               | <a href="/blog/tag/multithreading" class="tag">Multithreading</a>
+            
+               | <a href="/blog/tag/concurrency" class="tag">Concurrency</a>
+                        
+          </div>
+          <time>May 7, 2013</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2013/03/14/jvm-multithreading-monitor-locks-visibility/">
+          JVM Multithreading: Monitor Locks and Visibility
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/languages" class="tag">Languages</a>
+            
+               | <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/java" class="tag">Java</a>
+            
+               | <a href="/blog/tag/multithreading" class="tag">Multithreading</a>
+            
+               | <a href="/blog/tag/concurrency" class="tag">Concurrency</a>
+                        
+          </div>
+          <time>March 14, 2013</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  
+
+  
+</article>
+
+      </div>
+   </div><!-- end .content -->
+
+   <script async src="/assets/js/modernizr.custom.15390.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202203310904" type="text/javascript"></script>
+
+<script async src="/assets/js/scripts.js?202203310904" type="text/javascript"></script>
+
+   <div class="footer">
+  
+  <div class="container">
+    <div class="contributions">
+      <h2 id="comments">
+  Comments
+  <a href="#comments" class="anchor">#</a>
+</h2>
+
+<p>
+  Do you have suggestions? Want to chat? Email me at: <br>
+  <script>
+    (function () {
+      var lhs = "contact22+comments";
+      var rhs = "alexn.org";
+      document.write("<a target=\"_blank\" href=\"mailto");
+      document.write(":" + lhs + "@");
+      document.write(rhs);
+      document.write("?subject=Comment%20on%3A%20Asynchronous%20Programming%20and%20Scala")
+      document.write("\">" + lhs + "@" + rhs + "<\/a>");
+    })()
+  </script>
+  <noscript>
+    <em>Email address is protected via JavaScript, activate it to see it!</em>
+  </noscript>
+</p>
+
+<h2 id="contribute">
+  Contribute
+  <a href="#contribute" class="anchor">#</a>
+</h2>
+
+
+<p>
+  Fix or add to this article by submitting a pull request:<br/>
+  <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/main/_posts/2017-01-30-asynchronous-programming-scala.md" target="_blank">Edit Page on GitHub</a>
+</p>
+
+<p>
+  Donate to cover ongoing website costs, or buy me coffee ☕️😋 <br/>
+  <a href="https://www.patreon.com/bePatron?u=6102596" target="_blank">
+    <img label="Become a Patron!" alt="Become a Patron!" title="Become a Patron!" src="/assets/media/buttons/patreon.png" height="40" />
+  </a>
+</p>
+
+
+<h2 id="subscribe">
+  Subscribe
+  <a href="#subscribe" class="anchor">#</a>
+</h2>
+
+<!-- Begin Mailchimp Signup Form -->
+<div id="mc_embed_signup">
+  <form action="https://alexn.us4.list-manage.com/subscribe/post?u=5bffa2af025192a58345bd5dc&amp;id=1c9005b255"
+    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
+    novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="mc-field-group field">
+        <label for="mce-EMAIL">Email Address <sup class="asterisk">*</sup></label>
+        <input type="email" value="" name="EMAIL" class="required email full-width" id="mce-EMAIL" placeholder="user@domain.com" required>
+      </div>
+      <!-- <div class="mc-field-group field">
+        <label for="mce-FULLNAME">Name</label>
+        <input type="text" value="" name="FULLNAME" class="full-width" id="mce-FULLNAME" placeholder="John Doe">
+      </div> -->
+      <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+      </div>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+          name="b_5bffa2af025192a58345bd5dc_1c9005b255" tabindex="-1" value=""></div>
+      <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+          class="button"></div>
+    </div>
+  </form>
+</div>
+
+<div class="note">
+  <span class="extra">
+    Newsletter subscription uses Mailchimp, see <a href="/docs/privacy-policy/">privacy policy</a>.
+    If you're not seeing the form, it may be blocked by the browser; <a target="_blank" href="http://eepurl.com/g5ClAT"><em><span style="white-space: nowrap;">try the external subscribe page &#10141;</span></em></a>
+  </span>
+</div>
+
+
+    </div>  
+  </div>
+  
+
+  <div class="bottom">
+    <div class="container">
+      <span class="copy">
+          &copy; 2009-2022
+      </span>
+      <span class="links">
+        <a href="/docs/license/">License</a> |
+        <a href="/docs/privacy-policy/">Privacy Policy</a> |
+        <a href="/about/#contact">Contact</a>
+      </span>
+    </div>
+  </div>
+</div><!-- end .footer -->
+
+</body>
+</html>

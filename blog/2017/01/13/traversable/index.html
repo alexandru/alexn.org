@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <!-- https://github.com/darkreader/darkreader/issues/1114 -->
+    <!-- <meta name="darkreader" content="41637b04c7ddb955e533a5c76d68a2c8"> -->
+    <meta name="color-scheme" content="light dark">
+    <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
+    <meta name="theme-color" content="#493667">
+    
+    <title>Why Scala&#39;s Traversable Is Bad Design - Alexandru Nedelcu</title>
+    
+
+    <!-- Open Graph Meta -->
+    <meta content="Alexandru Nedelcu" property="og:site_name">
+    <meta content="Why Scala&amp;#39;s Traversable Is Bad Design" property="og:title">
+    <meta content="Traversable was a design mistake, is redundant and we should remove it." property="og:description">
+    <meta content="https://alexn.org/blog/2017/01/13/traversable/" property="og:url">
+    <meta content="2017-01-13T00:00:00+00:00" property="article:published_time">
+    
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/scala.png?202203310904" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/scala.png?202203310904" />
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/scala.png?202203310904">
+    <meta name="twitter:site" content="@alexelcu">
+    <meta name="twitter:creator" content="@alexelcu">
+    <meta name="twitter:title" content="Why Scala&#39;s Traversable Is Bad Design">
+    <meta name="twitter:url" content="https://alexn.org/blog/2017/01/13/traversable/">
+    <meta name="twitter:description" content="Traversable was a design mistake, is redundant and we should remove it.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/logo/16px.png" sizes="16x16" />
+    <link rel="icon" href="/assets/logo/32px.png" sizes="32x32" />
+    <link rel="icon" href="/assets/logo/192px.png" sizes="192x192" />
+    <link rel="icon" href="/assets/logo/270px.png" sizes="270x270" />
+    <link rel="icon" href="/assets/logo/512px.png" sizes="512x512" />
+    <link rel="apple-touch-icon-precomposed" href="/assets/logo/180px.png" />
+    <meta name="msapplication-TileImage" content="/assets/logo/270px.png" />
+
+    <!-- Come and get me RSS readers -->
+    <link rel="alternate" type="application/rss+xml" title="All articles (blog, snippets, wiki, links)" href="/feeds/all.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Blog" href="/feeds/blog.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Snippets" href="/feeds/snippets.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Shared Links" href="/feeds/links.xml" />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/assets/css/style.css?202203310904">
+    <link rel="preload" as="style" href="/assets/css/style.css?202203310904">
+    
+    <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
+    <link rel="canonical" href="https://alexn.org/blog/2017/01/13/traversable/">
+</head>
+
+
+<body>
+   <div class="header">
+  <div class="container">
+    <div class="inner-container">
+      <h1 class="logo"><a href="/">Alex<span class="wide2">andru</span> Nedelcu<span class="wide1"> =&lt;&lt;</span></a></h1>
+      <nav class="nav-collapse">
+        <ul class="noList">
+          
+          <li class="element first current ">
+            <a href="/blog/">Blog</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/wiki/">Wiki</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/snippets/">Snippets</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/links/">Links</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/about/">About</a>
+          </li>
+          
+          <li class="element   last">
+            <a href="/subscribe/">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav>  
+    </div>
+  </div>
+</div><!-- end .header -->
+
+
+   <div class="content">
+      <div class="container">
+         <article class="post" itemscope itemtype="http://schema.org/BlogPosting"><header>
+      <h1 class="postTitle" itemprop="headline">
+        
+        
+          
+      Why Scala&#39;s Traversable Is Bad Design
+    
+        
+        
+      </h1>
+    
+    <p class="meta">
+      <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://alexn.org/blog/2017/01/13/traversable/"/>
+      <meta itemprop="datePublished" content="2017-01-13T00:00:00+0000"/>
+      
+      <time itemprop="dateCreated" datetime="2017-01-13T00:00:00+0000">January 13, 2017</time>
+      | <nobr><span class="time">5</span> minutes</nobr>
+    </p>
+
+    
+        <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+          <meta itemprop="url" content="https://alexn.org/assets/media/articles/scala.png" />
+          <img src="/assets/media/articles/scala.png?202203310904" alt="" />
+          
+        </figure>
+        
+    
+
+    <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Alexandru Nedelcu">
+      <meta itemprop="url" content="https://alexn.org/about/">
+      <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="https://alexn.org/assets/raw/logo-green.png">
+      </div>
+    </div>
+    <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="Alexandru Nedelcu" />
+        <meta itemprop="url" content="https://alexn.org/about/#alexelcu" />
+        <meta itemprop="url" content="https://twitter.com/alexelcu" />
+        <meta itemprop="url" content="https://github.com/alexandru" />
+      </div>
+    
+
+    </header>
+
+  <div id="content" itemprop="articleBody">
+    <p class="intro withcap">Given there’s a
+<a href="https://contributors.scala-lang.org/t/ongoing-work-on-standard-collections-redesign/293">Scala collection redesign</a>
+discussion going on, it’s a good time to talk about one of my personal pet peeves:
+the existence of <a href="http://www.scala-lang.org/api/2.12.1/scala/collection/Traversable.html">Traversable</a>
+in the standard library, along with its variants like <code class="language-plaintext highlighter-rouge">TraversableLike</code> and <code class="language-plaintext highlighter-rouge">TraversableOnce</code>.
+Apparently this interface is missing in the new design and that’s awesome.</p>
+
+<p>It’s easy to make API mistakes, we all do it and it’s important to
+learn from past mistakes, this document serving as a lesson for why
+<code class="language-plaintext highlighter-rouge">Traversable</code> is a bad idea.</p>
+
+<p>Claims:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">Traversable</code> has implicit behavior assumptions that are not visible
+in its exposed signature, the API being error prone</li>
+  <li>Iterating over a <code class="language-plaintext highlighter-rouge">Traversable</code> has worse performance than <code class="language-plaintext highlighter-rouge">Iterator</code></li>
+  <li>There exists no <code class="language-plaintext highlighter-rouge">Traversable</code> data type that doesn’t admit an efficient
+<code class="language-plaintext highlighter-rouge">Iterator</code> implementation, thus <code class="language-plaintext highlighter-rouge">Traversable</code> being completely redundant</li>
+</ol>
+
+<p>As a reminder and you can also
+<a href="http://docs.scala-lang.org/overviews/collections/trait-traversable.html">read the docs</a>,
+the <code class="language-plaintext highlighter-rouge">Traversable</code> is a trait like the following:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">trait</span> <span class="nc">Traversable</span><span class="o">[</span><span class="kt">+A</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="nf">foreach</span><span class="o">(</span><span class="n">f</span><span class="k">:</span> <span class="kt">A</span> <span class="o">=&gt;</span> <span class="nc">Unit</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The standard library also has the venerable <code class="language-plaintext highlighter-rouge">Iterable</code> / <code class="language-plaintext highlighter-rouge">Iterator</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">trait</span> <span class="nc">Iterable</span><span class="o">[</span><span class="kt">+A</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="nf">iterator</span><span class="o">()</span><span class="k">:</span> <span class="kt">Iterator</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span>
+<span class="o">}</span>
+
+<span class="k">trait</span> <span class="nc">Iterator</span><span class="o">[</span><span class="kt">+A</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="nf">hasNext</span><span class="k">:</span> <span class="kt">Boolean</span>
+  <span class="k">def</span> <span class="nf">next</span><span class="o">()</span><span class="k">:</span> <span class="kt">A</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Can you spot the similarities?</p>
+
+<p>You should, because these 2 interfaces are supposed to be
+<a href="https://en.wikipedia.org/wiki/Duality_(mathematics)">duals</a>.
+So if you think of <code class="language-plaintext highlighter-rouge">Traversable</code> as being defined by that
+<code class="language-plaintext highlighter-rouge">foreach</code> function, then <code class="language-plaintext highlighter-rouge">Iterable</code> is that function with
+its arrows reversed:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">type</span> <span class="kt">Traversable</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="o">(</span><span class="n">A</span> <span class="k">=&gt;</span> <span class="o">())</span> <span class="k">=&gt;</span> <span class="o">()</span>
+
+<span class="k">type</span> <span class="kt">Iterable</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="o">(()</span> <span class="k">=&gt;</span> <span class="n">A</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>Now this is interesting. For one <code class="language-plaintext highlighter-rouge">Traversable</code> is a sort of
+inversion of control technique, so instead of having a cursor
+that you have to manually advance, you now register a callback to
+a function and that callback gets called for you on each element.
+This actually frees us from certain <code class="language-plaintext highlighter-rouge">Iterator</code> constraints.
+For example with a push-based API we should no longer care when
+those function calls happen.</p>
+
+<p>But you should already spot problems with the above
+definition. Our <code class="language-plaintext highlighter-rouge">Iterable</code> function signature isn’t complete,
+this one is:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">type</span> <span class="kt">Iterable</span><span class="o">[</span><span class="kt">+A</span><span class="o">]</span> <span class="k">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="nc">Iterator</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span>
+
+<span class="k">type</span> <span class="kt">Iterator</span><span class="o">[</span><span class="kt">+A</span><span class="o">]</span> <span class="k">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="nc">Try</span><span class="o">[</span><span class="kt">Option</span><span class="o">[</span><span class="kt">A</span><span class="o">]]</span>
+</code></pre></div></div>
+
+<p>Or in other words any <code class="language-plaintext highlighter-rouge">Iterator</code> can:</p>
+
+<ol>
+  <li>give us the next element,</li>
+  <li>or signal completion or failure</li>
+</ol>
+
+<p>This means that the actual dual of <code class="language-plaintext highlighter-rouge">Iterator</code> is:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">type</span> <span class="kt">Observer</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Try</span><span class="o">[</span><span class="kt">Option</span><span class="o">[</span><span class="kt">A</span><span class="o">]]</span> <span class="k">=&gt;</span> <span class="nc">Unit</span>
+</code></pre></div></div>
+
+<p>Or for those OOP-oriented among us, I give you the <code class="language-plaintext highlighter-rouge">Observer</code>
+as championed by <a href="https://github.com/Reactive-Extensions/Rx.NET">Rx.NET</a>,
+as the true dual of <code class="language-plaintext highlighter-rouge">Iterator</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">trait</span> <span class="nc">Observer</span><span class="o">[</span><span class="kt">-A</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="nf">onNext</span><span class="o">(</span><span class="n">a</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span>
+  <span class="k">def</span> <span class="nf">onComplete</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span>
+  <span class="k">def</span> <span class="nf">onError</span><span class="o">(</span><span class="n">ex</span><span class="k">:</span> <span class="kt">Throwable</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>(Hello <strong><a href="https://monix.io/">Monix</a></strong> :-))</p>
+
+<p>This matters because <code class="language-plaintext highlighter-rouge">Traversable</code> has <strong>no way to signal completion or failure</strong>,
+unless you get a guarantee that all the processing happens synchronously, everything
+being over after the invocation of its <code class="language-plaintext highlighter-rouge">foreach</code>.</p>
+
+<p>As an abstraction, this makes it useless when compared with <code class="language-plaintext highlighter-rouge">Iterable</code>
+and <code class="language-plaintext highlighter-rouge">Iterator</code>. If you introduce the synchronous execution constraint,
+there exists no data type that can implement <code class="language-plaintext highlighter-rouge">Traversable</code> and that doesn’t
+admit an <code class="language-plaintext highlighter-rouge">Iterator</code> implementation. None.</p>
+
+<p>Even more problematic in my opinion is that this restriction isn’t
+visible in its API, unless your eyes are trained for it. With
+<code class="language-plaintext highlighter-rouge">Iterator.next()</code> whether you want it or not, you have to process things
+synchronously, because <em>the signature says so</em>.</p>
+
+<p>Also problematic is <code class="language-plaintext highlighter-rouge">TraversableOnce</code>, which is supposed to be a
+traversable that can only be traversed once, like its name says.
+We’ve got this:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">trait</span> <span class="nc">TraversableOnce</span><span class="o">[</span><span class="kt">+A</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="nf">foreach</span><span class="o">(</span><span class="n">f</span><span class="k">:</span> <span class="kt">A</span> <span class="o">=&gt;</span> <span class="nc">Unit</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span>
+<span class="o">}</span>
+
+<span class="k">trait</span> <span class="nc">Traversable</span><span class="o">[</span><span class="kt">+A</span><span class="o">]</span> <span class="nc">extends</span> <span class="nc">TraversableOnce</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span>
+</code></pre></div></div>
+
+<p>Besides the name and the inheritance relationship, there is no difference.
+This is another problem. Even if the API is effectful/impure, we should still
+be able to use types serving as documentation. Contrast with the
+<code class="language-plaintext highlighter-rouge">Iterable</code> / <code class="language-plaintext highlighter-rouge">Iterator</code> separation. Iterating over an <code class="language-plaintext highlighter-rouge">Iterator</code> is known to
+consume it and you can see this in its API. And the generator/factory part is in
+<code class="language-plaintext highlighter-rouge">Iterable</code>, which is good separation of concerns.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Traversable</code> also has worse performance than <code class="language-plaintext highlighter-rouge">Iterator</code>.
+The ugly truth is that the JVM hasn’t been doing a good job at
+inlining that function reference you pass to <code class="language-plaintext highlighter-rouge">foreach</code>. This is called
+<a href="http://www.azulsystems.com/blog/cliff/2011-04-04-fixing-the-inlining-problem">the inlining problem</a>,
+which happens for megamorphic function calls in hot inner loops.</p>
+
+<p>So there you have it and I hope that along with the redesign we’ll get rid
+of <code class="language-plaintext highlighter-rouge">Traversable</code>.</p>
+
+<p class="info-bubble">
+My opinions have been highly influenced by the work of Erik Meijer,
+if you want to learn more checkout this presentation:
+
+<a href="https://vimeo.com/98922027">Contravariance is the Dual of Covariance Implies Iterable is the Dual of Observable</a>.
+</p>
+
+  </div>
+
+  <div id="article-details">
+    
+    <time itemprop="dateModified" content="2017-01-13T00:00:00+0000">
+        Published: January 13, 2017
+    </time>
+    
+      | Written by <a href="https://alexn.org/about/#alexelcu" itemprop="url" rel="author">Alexandru Nedelcu</a>
+    
+
+    <div id="all-categories">
+      Tags:
+      
+        
+        <a href="/blog/tag/scala/" class="category">Scala</a>
+      
+    </div>
+  </div>
+
+  
+  <div class="related">
+      <h2 id="related-articles">
+        
+        
+          Related Articles <a href="#related-articles" class="anchor">#</a>
+        
+        
+      </h2>
+    
+    <div class="container">
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2021/07/18/iterm-open-file-cmd-click-ide-semantic-history/">
+          Combining the terminal (iTerm) with the IDE
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/macos" class="tag">macOS</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+                        
+          </div>
+          <time>July 18, 2021</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2021/02/26/type-classes-in-scala-3-live-coding-session/">
+          ING Scala Meetup on Scala 3 (live coding session)
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/programming" class="tag">Programming</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/video" class="tag">Video</a>
+                        
+          </div>
+          <time>February 26, 2021</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2021/02/22/countdownlatch-async-dirty/">
+          Implementing a CountDownLatch (async and dirty)
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/concurrency" class="tag">Concurrency</a>
+            
+               | <a href="/blog/tag/jvm" class="tag">JVM</a>
+            
+               | <a href="/blog/tag/multithreading" class="tag">Multithreading</a>
+            
+               | <a href="/blog/tag/programming" class="tag">Programming</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/video" class="tag">Video</a>
+                        
+          </div>
+          <time>February 22, 2021</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  
+
+  
+</article>
+
+      </div>
+   </div><!-- end .content -->
+
+   <script async src="/assets/js/modernizr.custom.15390.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202203310904" type="text/javascript"></script>
+
+<script async src="/assets/js/scripts.js?202203310904" type="text/javascript"></script>
+
+   <div class="footer">
+  
+  <div class="container">
+    <div class="contributions">
+      <h2 id="comments">
+  Comments
+  <a href="#comments" class="anchor">#</a>
+</h2>
+
+<p>
+  Do you have suggestions? Want to chat? Email me at: <br>
+  <script>
+    (function () {
+      var lhs = "contact22+comments";
+      var rhs = "alexn.org";
+      document.write("<a target=\"_blank\" href=\"mailto");
+      document.write(":" + lhs + "@");
+      document.write(rhs);
+      document.write("?subject=Comment%20on%3A%20Why%20Scala's%20Traversable%20Is%20Bad%20Design")
+      document.write("\">" + lhs + "@" + rhs + "<\/a>");
+    })()
+  </script>
+  <noscript>
+    <em>Email address is protected via JavaScript, activate it to see it!</em>
+  </noscript>
+</p>
+
+<h2 id="contribute">
+  Contribute
+  <a href="#contribute" class="anchor">#</a>
+</h2>
+
+
+<p>
+  Fix or add to this article by submitting a pull request:<br/>
+  <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/main/_posts/2017-01-13-traversable.md" target="_blank">Edit Page on GitHub</a>
+</p>
+
+<p>
+  Donate to cover ongoing website costs, or buy me coffee ☕️😋 <br/>
+  <a href="https://www.patreon.com/bePatron?u=6102596" target="_blank">
+    <img label="Become a Patron!" alt="Become a Patron!" title="Become a Patron!" src="/assets/media/buttons/patreon.png" height="40" />
+  </a>
+</p>
+
+
+<h2 id="subscribe">
+  Subscribe
+  <a href="#subscribe" class="anchor">#</a>
+</h2>
+
+<!-- Begin Mailchimp Signup Form -->
+<div id="mc_embed_signup">
+  <form action="https://alexn.us4.list-manage.com/subscribe/post?u=5bffa2af025192a58345bd5dc&amp;id=1c9005b255"
+    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
+    novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="mc-field-group field">
+        <label for="mce-EMAIL">Email Address <sup class="asterisk">*</sup></label>
+        <input type="email" value="" name="EMAIL" class="required email full-width" id="mce-EMAIL" placeholder="user@domain.com" required>
+      </div>
+      <!-- <div class="mc-field-group field">
+        <label for="mce-FULLNAME">Name</label>
+        <input type="text" value="" name="FULLNAME" class="full-width" id="mce-FULLNAME" placeholder="John Doe">
+      </div> -->
+      <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+      </div>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+          name="b_5bffa2af025192a58345bd5dc_1c9005b255" tabindex="-1" value=""></div>
+      <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+          class="button"></div>
+    </div>
+  </form>
+</div>
+
+<div class="note">
+  <span class="extra">
+    Newsletter subscription uses Mailchimp, see <a href="/docs/privacy-policy/">privacy policy</a>.
+    If you're not seeing the form, it may be blocked by the browser; <a target="_blank" href="http://eepurl.com/g5ClAT"><em><span style="white-space: nowrap;">try the external subscribe page &#10141;</span></em></a>
+  </span>
+</div>
+
+
+    </div>  
+  </div>
+  
+
+  <div class="bottom">
+    <div class="container">
+      <span class="copy">
+          &copy; 2009-2022
+      </span>
+      <span class="links">
+        <a href="/docs/license/">License</a> |
+        <a href="/docs/privacy-policy/">Privacy Policy</a> |
+        <a href="/about/#contact">Contact</a>
+      </span>
+    </div>
+  </div>
+</div><!-- end .footer -->
+
+</body>
+</html>

@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <!-- https://github.com/darkreader/darkreader/issues/1114 -->
+    <!-- <meta name="darkreader" content="41637b04c7ddb955e533a5c76d68a2c8"> -->
+    <meta name="color-scheme" content="light dark">
+    <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
+    <meta name="theme-color" content="#493667">
+    
+    <title>How To Build a Naive Bayes Classifier - Alexandru Nedelcu</title>
+    
+
+    <!-- Open Graph Meta -->
+    <meta content="Alexandru Nedelcu" property="og:site_name">
+    <meta content="How To Build a Naive Bayes Classifier" property="og:title">
+    <meta content="In machine learning a classifier is able to predict, given an input, a probability distribution over a set of categories. Some use-cases for building a classifier: spam detection, for example you could build your own Akismet API, automatic assignment of categories to a set of items, automatic detection of the primary language (e.g. Google Translate), sentiment analysis, which in simple terms refers to discovering if an opinion is about love or hate about a certain topic." property="og:description">
+    <meta content="https://alexn.org/blog/2012/02/09/howto-build-naive-bayes-classifier/" property="og:url">
+    <meta content="2012-02-09T00:00:00+00:00" property="article:published_time">
+    <meta content="2020-01-25T00:00:00+00:00" property="article:modified_time">
+    
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/conditional-prob.png?202203310904" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/conditional-prob.png?202203310904" />
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/conditional-prob.png?202203310904">
+    <meta name="twitter:site" content="@alexelcu">
+    <meta name="twitter:creator" content="@alexelcu">
+    <meta name="twitter:title" content="How To Build a Naive Bayes Classifier">
+    <meta name="twitter:url" content="https://alexn.org/blog/2012/02/09/howto-build-naive-bayes-classifier/">
+    <meta name="twitter:description" content="In machine learning a classifier is able to predict, given an input, a probability distribution over a set of categories. Some use-cases for building a classifier: spam detection, for example you could build your own Akismet API, automatic assignment of categories to a set of items, automatic detection of the primary language (e.g. Google Translate), sentiment analysis, which in simple terms refers to discovering if an opinion is about love or hate about a certain topic.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/logo/16px.png" sizes="16x16" />
+    <link rel="icon" href="/assets/logo/32px.png" sizes="32x32" />
+    <link rel="icon" href="/assets/logo/192px.png" sizes="192x192" />
+    <link rel="icon" href="/assets/logo/270px.png" sizes="270x270" />
+    <link rel="icon" href="/assets/logo/512px.png" sizes="512x512" />
+    <link rel="apple-touch-icon-precomposed" href="/assets/logo/180px.png" />
+    <meta name="msapplication-TileImage" content="/assets/logo/270px.png" />
+
+    <!-- Come and get me RSS readers -->
+    <link rel="alternate" type="application/rss+xml" title="All articles (blog, snippets, wiki, links)" href="/feeds/all.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Blog" href="/feeds/blog.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Snippets" href="/feeds/snippets.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Shared Links" href="/feeds/links.xml" />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/assets/css/style.css?202203310904">
+    <link rel="preload" as="style" href="/assets/css/style.css?202203310904">
+    
+    <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
+    <link rel="canonical" href="https://alexn.org/blog/2012/02/09/howto-build-naive-bayes-classifier/">
+</head>
+
+
+<body>
+   <div class="header">
+  <div class="container">
+    <div class="inner-container">
+      <h1 class="logo"><a href="/">Alex<span class="wide2">andru</span> Nedelcu<span class="wide1"> =&lt;&lt;</span></a></h1>
+      <nav class="nav-collapse">
+        <ul class="noList">
+          
+          <li class="element first current ">
+            <a href="/blog/">Blog</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/wiki/">Wiki</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/snippets/">Snippets</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/links/">Links</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/about/">About</a>
+          </li>
+          
+          <li class="element   last">
+            <a href="/subscribe/">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav>  
+    </div>
+  </div>
+</div><!-- end .header -->
+
+
+   <div class="content">
+      <div class="container">
+         <article class="post" itemscope itemtype="http://schema.org/BlogPosting"><header>
+      <h1 class="postTitle" itemprop="headline">
+        
+        
+          
+      How To Build a Naive Bayes Classifier
+    
+        
+        
+      </h1>
+    
+    <p class="meta">
+      <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://alexn.org/blog/2012/02/09/howto-build-naive-bayes-classifier/"/>
+      <meta itemprop="datePublished" content="2012-02-09T00:00:00+0000"/>
+      
+      <time itemprop="dateCreated" datetime="2012-02-09T00:00:00+0000">February 9, 2012</time>
+      | <nobr><span class="time">11</span> minutes</nobr>
+    </p>
+
+    
+      <div class="hidden" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="https://alexn.org/assets/media/articles/conditional-prob.png" />
+        
+      </div>
+      
+    
+
+    <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Alexandru Nedelcu">
+      <meta itemprop="url" content="https://alexn.org/about/">
+      <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="https://alexn.org/assets/raw/logo-green.png">
+      </div>
+    </div>
+    <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="Alexandru Nedelcu" />
+        <meta itemprop="url" content="https://alexn.org/about/#alexelcu" />
+        <meta itemprop="url" content="https://twitter.com/alexelcu" />
+        <meta itemprop="url" content="https://github.com/alexandru" />
+      </div>
+    
+
+    
+    
+    
+    <nav class="toc">
+      <p class="toc-title">Table of Contents:</p>
+      <ul>
+  <li><a href="#0-the-source-code">0. The Source Code</a></li>
+  <li><a href="#1-introduction-to-probabilities">1. Introduction to Probabilities</a>
+    <ul>
+      <li><a href="#11-events-and-event-types">1.1. Events and Event Types</a></li>
+      <li><a href="#12-conditional-probabilities-and-the-bayes-theorem">1.2. Conditional Probabilities and The Bayes Theorem</a></li>
+      <li><a href="#13-the-naive-bayes-approach">1.3. The Naive Bayes Approach</a></li>
+    </ul>
+  </li>
+  <li><a href="#2-implementation">2. Implementation</a>
+    <ul>
+      <li><a href="#21-general-algorithm">2.1. General Algorithm</a></li>
+      <li><a href="#22-avoiding-floating-point-underflow-update-feb-27-2012">2.2. Avoiding Floating Point Underflow (UPDATE Feb 27, 2012)</a></li>
+      <li><a href="#23-training">2.3. Training</a></li>
+      <li><a href="#24-getting-rid-of-stop-words--stemming">2.4. Getting Rid of Stop Words / Stemming</a></li>
+      <li><a href="#25-implementation-guidelines">2.5. Implementation Guidelines</a></li>
+    </ul>
+  </li>
+  <li><a href="#final-words">Final Words</a></li>
+</ul>
+    </nav>
+    </header>
+
+  <div id="content" itemprop="articleBody">
+    <p class="intro withcap">
+  In machine learning a classifier is able to predict, given an input, a probability distribution over a set of categories. Some use-cases for building a classifier:
+</p>
+
+<ul>
+  <li>Spam detection, for example you could build your own
+<a href="https://akismet.com/">Akismet</a> API</li>
+  <li>Automatic assignment of categories to a set of items</li>
+  <li>Automatic detection of the primary language (e.g. Google Translate)</li>
+  <li>Sentiment analysis, which in simple terms refers to discovering if
+an opinion is about love or hate about a certain topic</li>
+</ul>
+
+<p>In general you can do a lot better with more specialized techniques,
+however the Naive Bayes classifier is general-purpose, simple to
+implement and good-enough for most applications. And while other
+algorithms give better accuracy, in general I discovered that having
+better data in combination with an algorithm that you can tweak does
+give better results for less effort.</p>
+
+<p>In this article I’m describing the math behind it. Don’t fear the
+math, as this is simple enough that a high schooler understands. And
+even though there are a lot of libraries out there that already do
+this, you’re far better off for understanding the concept behind it,
+otherwise you won’t be able to tweak the implementation in response to
+your needs.</p>
+      <h2 id="0-the-source-code">
+        
+        
+          0. The Source Code <a href="#0-the-source-code" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>I published the source-code associated at
+<a href="https://github.com/alexandru/stuff-classifier">github.com/alexandru/stuff-classifier</a>. The
+implementation itself is at
+<a href="https://github.com/alexandru/stuff-classifier/blob/master/lib/stuff-classifier/bayes.rb">lib/bayes.rb</a>,
+with the corresponding
+<a href="https://github.com/alexandru/stuff-classifier/blob/master/test/test_003_naive_bayes.rb">test/test_003_naive_bayes.rb</a>.</p>
+      <h2 id="1-introduction-to-probabilities">
+        
+        
+          1. Introduction to Probabilities <a href="#1-introduction-to-probabilities" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Let’s start by refreshing forgotten knowledge. Again, this is very
+basic stuff, but if you can’t follow the theory here, you can always
+go to the
+<a href="https://www.khanacademy.org/math/statistics-probability/probability-library">probabilities section on khanacademy.org</a>.</p>
+      <h3 id="11-events-and-event-types">
+        
+        
+          1.1. Events and Event Types <a href="#11-events-and-event-types" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>An “event” is a set of outcomes (a subset of all possible outcomes)
+with a probability attached. So when flipping a coin, we can have one
+of these 2 events happening: tail or head. Each of them has a
+probability of 50%. Using a Venn diagram, this would look like this:</p>
+
+<figure>
+  <img src="/assets/media/articles/coin-flip.png" />
+</figure>
+
+<p>And another example which clearly shows the <em>dependence</em> between
+“rain” and “cloud formation”, as raining can only happen if there are
+clouds:</p>
+
+<figure>
+  <img src="/assets/media/articles/inclusive.png" />
+</figure>
+
+<p>The relationship between events is very important, as you’ll see next:</p>
+
+<ul>
+  <li>2 events are <strong>disjoint (exclusive)</strong> if they can’t happen at the same
+time (a single coin flip cannot yield a tail and a head at the same
+time). For Bayes classification, we are not concerned with disjoint
+events.</li>
+  <li>2 events are <strong>independent</strong> when they can happen at the same time,
+but the occurrence of one event does not make the occurrence of
+another more or less probable. For example the second coin-flip you
+make is not affected by the outcome of the first coin-flip.</li>
+  <li>2 events are <strong>dependent</strong> if the outcome of one affects the other. In
+the example above, clearly it cannot rain without a cloud
+formation. Also, in a horse race, some horses have better
+performance on rainy days.</li>
+</ul>
+
+<p>What we are concerned here is the difference between dependent and
+independent events, because calculating the intersection (both
+happening at the same time) depends on it. So for independent events,
+calculating the intersection is easy:</p>
+
+\[P(A \cap B) = P(A) \cdot P(B)\]
+
+<p>Some examples:</p>
+
+<ul>
+  <li>if you have 2 hard-drives, each of them having a 0.3 (30%)
+probability of failure within the next year, that means there’s a
+0.09 (9%) probability of them failing both within the next year</li>
+  <li>if you flip a coin 4 times, there’s a 0.0625 probability of getting
+a tail 4 times in a row (0.5 ^ 4)</li>
+</ul>
+
+<p>Things are not so simple for dependent events, which is where the
+Bayes Theorem comes into play.</p>
+      <h3 id="12-conditional-probabilities-and-the-bayes-theorem">
+        
+        
+          1.2. Conditional Probabilities and The Bayes Theorem <a href="#12-conditional-probabilities-and-the-bayes-theorem" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Let’s take one example. So we have the following stats:</p>
+
+<ul>
+  <li>30 emails out of a total of 74 are spam messages</li>
+  <li>51 emails out of those 74 contain the word “penis”</li>
+  <li>20 emails containing the word “penis” have been marked as spam</li>
+</ul>
+
+<p>So the question is: what is the probability that the latest received
+email is a spam message, given that it contains the word “penis”?</p>
+
+<p>So these 2 events are clearly dependent, which is why you must use the
+simple form of the Bayes Theorem:</p>
+
+\[P(A | B) = \frac{P(A \cap B)}{P(B)} = \frac{P(B|A) P(A)}{P(B)}\]
+
+<p>Or visually:</p>
+
+<figure>
+  <img src="/assets/media/articles/conditional-prob.png" />
+</figure>
+
+<p>With the solution being:</p>
+
+\[\begin{eqnarray}
+r &amp;=&amp; P(spam|penis) \\[6pt]
+  &amp;=&amp; \frac{P(penis|spam) \cdot P(spam)}{ P(penis) } \\[6pt]
+  &amp;=&amp; \frac{\frac{20}{30} \cdot \frac{30}{74}}{\frac{51}{74}}
+  = \frac{20}{51} = 0.39
+\end{eqnarray}\]
+
+<p>This was a simple one, you could definitely see the result without
+complicating yourself with the Bayes formula.</p>
+      <h3 id="13-the-naive-bayes-approach">
+        
+        
+          1.3. The Naive Bayes Approach <a href="#13-the-naive-bayes-approach" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Let us complicate the problem above by adding to it:</p>
+
+<ul>
+  <li>25 emails out of the total contain the word “viagra”</li>
+  <li>24 emails out of those have been marked as spam</li>
+  <li>so what’s the probability that an email is spam, given that it
+contains both “viagra” and “penis”?</li>
+</ul>
+
+<p>Shit just got more complicated, because now the formula is this one:</p>
+
+\[\frac{
+  P(penis|spam \cap viagra) \cdot P(viagra|spam) \cdot P(spam)
+}{
+  P(penis|viagra) \cdot P(viagra)
+}\]
+
+<p>And you definitely don’t want to bother with it if we keep adding
+words. But what if we simplified our assumptions and just say that the
+occurrence of <em>penis</em> is totally independent from the occurrence of
+<em>viagra</em>? Then the formula just got much simpler:</p>
+
+\[\begin{eqnarray}
+r &amp;=&amp; P(spam|penis,viagra) \\[6pt]
+&amp;=&amp; \frac{
+  P(penis|spam) \cdot P(viagra|spam) \cdot P(spam)
+}{
+  P(penis)\cdot P(viagra)
+} \\[6pt]
+&amp;=&amp; \frac{
+  \frac{24}{30} \cdot \frac{20}{30} \cdot \frac{30}{74}
+}{
+  \frac{25}{74} \cdot \frac{51}{74}
+} = 0.928
+\end{eqnarray}\]
+
+<p>To classify an email as spam, you’ll have to calculate the conditional
+probability by taking hints from the words contained. And the Naive
+Bayes approach is exactly what I described above: we make the
+assumption that the occurrence of one word is totally unrelated to the
+occurrence of another, to simplify the processing and complexity
+involved.</p>
+
+<p>This does highlight the flaw of this method of classification, because
+clearly those 2 events we’ve picked (viagra and penis) are correlated
+and our assumption is wrong. But this just means our results will be
+less accurate.</p>
+      <h2 id="2-implementation">
+        
+        
+          2. Implementation <a href="#2-implementation" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>I mention it again, you can take a look at the source-code published
+at
+<a href="https://github.com/alexandru/stuff-classifier/">github.com/alexandru/stuff-classifier</a>.</p>
+      <h3 id="21-general-algorithm">
+        
+        
+          2.1. General Algorithm <a href="#21-general-algorithm" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>You simply get the probability for a text to belong to each of the
+categories you test against. The category with the highest probability
+for the given text wins:</p>
+
+\[classify(word_1, word_2 \ldots word_n) = \\[6pt]
+  \operatorname*{argmax}_{cat} P(cat)  \cdot \prod_{i=1}^{n} P(word_i|cat)\]
+
+<p>Do note that above I also eliminated the <em>denominator</em> from our original
+formula, because it is a constant that we do not need (called
+<em>evidence</em>).</p>
+      <h3 id="22-avoiding-floating-point-underflow-update-feb-27-2012">
+        
+        
+          2.2. Avoiding Floating Point Underflow (UPDATE Feb 27, 2012) <a href="#22-avoiding-floating-point-underflow-update-feb-27-2012" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Because of the underlying limits of floating points, if you’re working
+with big documents (not the case in this example), you do have to make
+one important optimization to the above formula:</p>
+
+<ul>
+  <li>instead of the probabilities of each word, you store the (natural)
+logarithms of those probabilities</li>
+  <li>instead of multiplying the numbers, you add them instead</li>
+</ul>
+
+<p>So instead of the above formula, if you need this optimization, then
+use this one:</p>
+
+\[classify(word_1, word_2 \ldots word_n) = \\[6pt]
+  \operatorname*{argmax}_{cat} log_{e} (P(cat))  + \sum_{i=1}^{n} log_{e} (P(word_i|cat))\]
+      <h3 id="23-training">
+        
+        
+          2.3. Training <a href="#23-training" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Your implementation must have a training method. Here’s how mine looks like:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">category</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+  <span class="n">each_word</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="p">{</span><span class="o">|</span><span class="n">w</span><span class="o">|</span> <span class="n">increment_word</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span> <span class="p">}</span>
+  <span class="n">increment_cat</span><span class="p">(</span><span class="n">category</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>And its usage:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="n">classifier</span><span class="p">.</span><span class="nf">train</span> <span class="ss">:spam</span><span class="p">,</span> <span class="s2">"Grow your penis to 20 inches in just 1 week"</span>
+<span class="n">classifier</span><span class="p">.</span><span class="nf">train</span> <span class="ss">:ham</span><span class="p">,</span>  <span class="s2">"I'm hungry, no I don't want your penis"</span>
+</code></pre></div></div>
+
+<p>For the full implementation, take a look at
+<a href="https://github.com/alexandru/stuff-classifier/blob/master/lib/stuff-classifier/base.rb">base.rb</a>.</p>
+      <h3 id="24-getting-rid-of-stop-words--stemming">
+        
+        
+          2.4. Getting Rid of Stop Words / Stemming <a href="#24-getting-rid-of-stop-words--stemming" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>First of all, you must get rid of the junk. Every language has words
+that are so commonly used that make them meaningless for any kind of
+classification you may want to do. For instance in English you have
+words such as “the”, “to”, “you”, “he”, “only”, “if”, “it” that you
+can safely strip out from the text.</p>
+
+<p>I’ve compiled a list of such words in this file:
+<a href="https://github.com/alexandru/stuff-classifier/blob/master/lib/stuff-classifier/stop_words.rb">stop_words.rb</a>. You
+can compile such a list by yourself if you’re not using English for
+example. Head over to <a href="http://www.gutenberg.org/">Project Gutenberg</a>,
+download some books in the language you want, count the words in them,
+sort by popularity in descending order and keep the top words as words
+that you can safely ignore.</p>
+
+<p>Also, our classifier is really dumb in the sense that it does not care
+about the meaning or context of a word. So there’s a problem: consider
+the word “running”. What you want is to treat this just as “run”,
+which is the morphological root of the word. You also want to treat
+“parenting” and “parents” as “parent”.</p>
+
+<p>This process is called <em>stemming</em> and there are lots of libraries for
+it. I think currently the most up-to-date and comprehensive library
+for stemming is Snowball. It’s a C library with lots of bindings
+available, including for Ruby and Python and it even has support for
+my native language (Romanian).</p>
+
+<p>Take a look at what I’m doing in
+<a href="https://github.com/alexandru/stuff-classifier/blob/master/lib/stuff-classifier/tokenizer.rb">tokenizer.rb</a>,
+where I’m getting rid of stop words and stemming the remaining.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="n">each_word</span><span class="p">(</span><span class="s1">'Hello world! How are you?'</span><span class="p">)</span>
+
+<span class="c1"># =&gt; ["hello", "world"]</span>
+
+<span class="n">each_word</span><span class="p">(</span><span class="s1">'Lots of dogs, lots of cats!
+  This is the information highway'</span><span class="p">)</span>
+
+<span class="c1"># =&gt; ["lot", "dog", "lot", "cat", "inform", "highwai"]</span>
+
+<span class="n">each_word</span><span class="p">(</span><span class="s2">"I don't really get what you want to
+  accomplish. There is a class TestEval2, you can do test_eval2 =
+  TestEval2.new afterwards. And: class A ... end always yields nil, so
+  your output is ok I guess ;-)"</span><span class="p">)</span>
+
+<span class="c1"># =&gt; ["really", "want", "accomplish", "class",</span>
+<span class="c1">#     "testeval", "test", "eval", "testeval", "new",</span>
+<span class="c1">#     "class", "end", "yields", "nil", "output",</span>
+<span class="c1">#     "ok", "guess"]</span>
+</code></pre></div></div>
+
+<p><strong>NOTE:</strong> depending on the size of your training data, this may not be
+a good idea. Stemming is useful in the beginning when you don’t have a
+lot of data. Otherwise consider “<em>house</em>” and “<em>housing</em>” … the
+former is used less frequently in a spammy context then the later.</p>
+      <h3 id="25-implementation-guidelines">
+        
+        
+          2.5. Implementation Guidelines <a href="#25-implementation-guidelines" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>When classifying emails for spam, it is a good idea to be sure that a
+certain message is a spam message, otherwise users may get pissed by
+too many false positives.</p>
+
+<p>Therefore it is a good idea to have <em>thresholds</em>. This is how my
+implementation looks like:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">classify</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kp">nil</span><span class="p">)</span>
+  <span class="c1"># Find the category with the highest probability</span>
+
+  <span class="n">max_prob</span> <span class="o">=</span> <span class="mf">0.0</span>
+  <span class="n">best</span> <span class="o">=</span> <span class="kp">nil</span>
+
+  <span class="n">scores</span> <span class="o">=</span> <span class="n">cat_scores</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+  <span class="n">scores</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">score</span><span class="o">|</span>
+    <span class="n">cat</span><span class="p">,</span> <span class="n">prob</span> <span class="o">=</span> <span class="n">score</span>
+    <span class="k">if</span> <span class="n">prob</span> <span class="o">&gt;</span> <span class="n">max_prob</span>
+      <span class="n">max_prob</span> <span class="o">=</span> <span class="n">prob</span>
+      <span class="n">best</span> <span class="o">=</span> <span class="n">cat</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="c1"># Return the default category in case the threshold condition was</span>
+  <span class="c1"># not met. For example, if the threshold for :spam is 1.2</span>
+  <span class="c1">#</span>
+  <span class="c1">#    :spam =&gt; 0.73, :ham =&gt; 0.40  (OK)</span>
+  <span class="c1">#    :spam =&gt; 0.80, :ham =&gt; 0.70  (Fail, :ham is too close)</span>
+
+  <span class="k">return</span> <span class="n">default</span> <span class="k">unless</span> <span class="n">best</span>
+  <span class="n">threshold</span> <span class="o">=</span> <span class="vi">@thresholds</span><span class="p">[</span><span class="n">best</span><span class="p">]</span> <span class="o">||</span> <span class="mf">1.0</span>
+
+  <span class="n">scores</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">score</span><span class="o">|</span>
+    <span class="n">cat</span><span class="p">,</span> <span class="n">prob</span> <span class="o">=</span> <span class="n">score</span>
+    <span class="k">next</span> <span class="k">if</span> <span class="n">cat</span> <span class="o">==</span> <span class="n">best</span>
+    <span class="k">return</span> <span class="n">default</span> <span class="k">if</span> <span class="n">prob</span> <span class="o">*</span> <span class="n">threshold</span> <span class="o">&gt;</span> <span class="n">max_prob</span>
+  <span class="k">end</span>
+
+  <span class="k">return</span> <span class="n">best</span>
+<span class="k">end</span>
+</code></pre></div></div>
+      <h2 id="final-words">
+        
+        
+          Final Words <a href="#final-words" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>My example involved spam classification, however this is not how
+modern spam classifiers work btw. Because the independence assumptions
+are often inaccurate, this type of classifier can be gamed by spammers
+to trigger a lot of false positives, which will make the user turn the
+feature off eventually.</p>
+
+<p>But it is general purpose, being good enough not only for spam
+detection, but also for lots of other use-cases and it’s enough to get
+you started.</p>
+
+  </div>
+
+  <div id="article-details">
+    
+    <time itemprop="dateModified" content="2020-01-25T00:00:00+0000">
+        Updated: January 25, 2020
+    </time>
+    
+      | Written by <a href="https://alexn.org/about/#alexelcu" itemprop="url" rel="author">Alexandru Nedelcu</a>
+    
+
+    <div id="all-categories">
+      Tags:
+      
+        
+        <a href="/blog/tag/best%20of/" class="category">Best Of</a>
+      
+         | 
+        <a href="/blog/tag/algorithms/" class="category">Algorithms</a>
+      
+         | 
+        <a href="/blog/tag/mining/" class="category">Mining</a>
+      
+         | 
+        <a href="/blog/tag/ruby/" class="category">Ruby</a>
+      
+    </div>
+  </div>
+
+  
+  <div class="related">
+      <h2 id="related-articles">
+        
+        
+          Related Articles <a href="#related-articles" class="anchor">#</a>
+        
+        
+      </h2>
+    
+    <div class="container">
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2012/01/16/cosine-similarity-euclidean-distance/">
+          Data Mining: Finding Similar Items and Users
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/best%20of" class="tag">Best Of</a>
+            
+               | <a href="/blog/tag/algorithms" class="tag">Algorithms</a>
+            
+               | <a href="/blog/tag/mining" class="tag">Mining</a>
+            
+               | <a href="/blog/tag/ruby" class="tag">Ruby</a>
+                        
+          </div>
+          <time>January 16, 2012</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2021/01/26/tail-recursive-functions-in-scala/">
+          Tail Recursive Functions (in Scala)
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/algorithms" class="tag">Algorithms</a>
+            
+               | <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/programming" class="tag">Programming</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/video" class="tag">Video</a>
+                        
+          </div>
+          <time>January 26, 2021</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2020/11/11/organize-index-screenshots-ocr-macos/">
+          Organize and Index Your Screenshots (OCR) on macOS
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/cloud" class="tag">Cloud</a>
+            
+               | <a href="/blog/tag/macos" class="tag">macOS</a>
+            
+               | <a href="/blog/tag/ruby" class="tag">Ruby</a>
+                        
+          </div>
+          <time>November 11, 2020</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  
+
+  
+</article>
+
+      </div>
+   </div><!-- end .content -->
+
+   <script async src="/assets/js/modernizr.custom.15390.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/load-mathjax.js?202203310904"></script>
+<script async src="/assets/js/scripts.js?202203310904" type="text/javascript"></script>
+
+   <div class="footer">
+  
+  <div class="container">
+    <div class="contributions">
+      <h2 id="comments">
+  Comments
+  <a href="#comments" class="anchor">#</a>
+</h2>
+
+<p>
+  Do you have suggestions? Want to chat? Email me at: <br>
+  <script>
+    (function () {
+      var lhs = "contact22+comments";
+      var rhs = "alexn.org";
+      document.write("<a target=\"_blank\" href=\"mailto");
+      document.write(":" + lhs + "@");
+      document.write(rhs);
+      document.write("?subject=Comment%20on%3A%20How%20To%20Build%20a%20Naive%20Bayes%20Classifier")
+      document.write("\">" + lhs + "@" + rhs + "<\/a>");
+    })()
+  </script>
+  <noscript>
+    <em>Email address is protected via JavaScript, activate it to see it!</em>
+  </noscript>
+</p>
+
+<h2 id="contribute">
+  Contribute
+  <a href="#contribute" class="anchor">#</a>
+</h2>
+
+
+<p>
+  Fix or add to this article by submitting a pull request:<br/>
+  <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/main/_posts/2012-02-09-howto-build-naive-bayes-classifier.md" target="_blank">Edit Page on GitHub</a>
+</p>
+
+<p>
+  Donate to cover ongoing website costs, or buy me coffee ☕️😋 <br/>
+  <a href="https://www.patreon.com/bePatron?u=6102596" target="_blank">
+    <img label="Become a Patron!" alt="Become a Patron!" title="Become a Patron!" src="/assets/media/buttons/patreon.png" height="40" />
+  </a>
+</p>
+
+
+<h2 id="subscribe">
+  Subscribe
+  <a href="#subscribe" class="anchor">#</a>
+</h2>
+
+<!-- Begin Mailchimp Signup Form -->
+<div id="mc_embed_signup">
+  <form action="https://alexn.us4.list-manage.com/subscribe/post?u=5bffa2af025192a58345bd5dc&amp;id=1c9005b255"
+    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
+    novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="mc-field-group field">
+        <label for="mce-EMAIL">Email Address <sup class="asterisk">*</sup></label>
+        <input type="email" value="" name="EMAIL" class="required email full-width" id="mce-EMAIL" placeholder="user@domain.com" required>
+      </div>
+      <!-- <div class="mc-field-group field">
+        <label for="mce-FULLNAME">Name</label>
+        <input type="text" value="" name="FULLNAME" class="full-width" id="mce-FULLNAME" placeholder="John Doe">
+      </div> -->
+      <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+      </div>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+          name="b_5bffa2af025192a58345bd5dc_1c9005b255" tabindex="-1" value=""></div>
+      <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+          class="button"></div>
+    </div>
+  </form>
+</div>
+
+<div class="note">
+  <span class="extra">
+    Newsletter subscription uses Mailchimp, see <a href="/docs/privacy-policy/">privacy policy</a>.
+    If you're not seeing the form, it may be blocked by the browser; <a target="_blank" href="http://eepurl.com/g5ClAT"><em><span style="white-space: nowrap;">try the external subscribe page &#10141;</span></em></a>
+  </span>
+</div>
+
+
+    </div>  
+  </div>
+  
+
+  <div class="bottom">
+    <div class="container">
+      <span class="copy">
+          &copy; 2009-2022
+      </span>
+      <span class="links">
+        <a href="/docs/license/">License</a> |
+        <a href="/docs/privacy-policy/">Privacy Policy</a> |
+        <a href="/about/#contact">Contact</a>
+      </span>
+    </div>
+  </div>
+</div><!-- end .footer -->
+
+</body>
+</html>

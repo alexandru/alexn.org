@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <!-- https://github.com/darkreader/darkreader/issues/1114 -->
+    <!-- <meta name="darkreader" content="41637b04c7ddb955e533a5c76d68a2c8"> -->
+    <meta name="color-scheme" content="light dark">
+    <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
+    <meta name="theme-color" content="#493667">
+    
+    <title>Implementing a CountDownLatch (async and dirty) - Alexandru Nedelcu</title>
+    
+
+    <!-- Open Graph Meta -->
+    <meta content="Alexandru Nedelcu" property="og:site_name">
+    <meta content="Implementing a CountDownLatch (async and dirty)" property="og:title">
+    <meta content="Yo dawg, I heard you liked concurrency primitives. Let’s implement our own asynchronous, dirty CountDownLatch." property="og:description">
+    <meta content="https://alexn.org/blog/2021/02/22/countdownlatch-async-dirty/" property="og:url">
+    <meta content="2021-02-22T13:39:35+00:00" property="article:published_time">
+    
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/countdownlatch-async-dirty.png?202203310904" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/countdownlatch-async-dirty.png?202203310904" />
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/countdownlatch-async-dirty.png?202203310904">
+    <meta name="twitter:site" content="@alexelcu">
+    <meta name="twitter:creator" content="@alexelcu">
+    <meta name="twitter:title" content="Implementing a CountDownLatch (async and dirty)">
+    <meta name="twitter:url" content="https://alexn.org/blog/2021/02/22/countdownlatch-async-dirty/">
+    <meta name="twitter:description" content="Yo dawg, I heard you liked concurrency primitives. Let’s implement our own asynchronous, dirty CountDownLatch.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/logo/16px.png" sizes="16x16" />
+    <link rel="icon" href="/assets/logo/32px.png" sizes="32x32" />
+    <link rel="icon" href="/assets/logo/192px.png" sizes="192x192" />
+    <link rel="icon" href="/assets/logo/270px.png" sizes="270x270" />
+    <link rel="icon" href="/assets/logo/512px.png" sizes="512x512" />
+    <link rel="apple-touch-icon-precomposed" href="/assets/logo/180px.png" />
+    <meta name="msapplication-TileImage" content="/assets/logo/270px.png" />
+
+    <!-- Come and get me RSS readers -->
+    <link rel="alternate" type="application/rss+xml" title="All articles (blog, snippets, wiki, links)" href="/feeds/all.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Blog" href="/feeds/blog.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Snippets" href="/feeds/snippets.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Shared Links" href="/feeds/links.xml" />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/assets/css/style.css?202203310904">
+    <link rel="preload" as="style" href="/assets/css/style.css?202203310904">
+    
+    <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
+    <link rel="canonical" href="https://alexn.org/blog/2021/02/22/countdownlatch-async-dirty/">
+</head>
+
+
+<body>
+   <div class="header">
+  <div class="container">
+    <div class="inner-container">
+      <h1 class="logo"><a href="/">Alex<span class="wide2">andru</span> Nedelcu<span class="wide1"> =&lt;&lt;</span></a></h1>
+      <nav class="nav-collapse">
+        <ul class="noList">
+          
+          <li class="element first current ">
+            <a href="/blog/">Blog</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/wiki/">Wiki</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/snippets/">Snippets</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/links/">Links</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/about/">About</a>
+          </li>
+          
+          <li class="element   last">
+            <a href="/subscribe/">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav>  
+    </div>
+  </div>
+</div><!-- end .header -->
+
+
+   <div class="content">
+      <div class="container">
+         <article class="post" itemscope itemtype="http://schema.org/BlogPosting"><header>
+      <h1 class="postTitle" itemprop="headline">
+        
+        
+          
+      Implementing a CountDownLatch (async and dirty)
+    
+        
+        
+      </h1>
+    
+    <p class="meta">
+      <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://alexn.org/blog/2021/02/22/countdownlatch-async-dirty/"/>
+      <meta itemprop="datePublished" content="2021-02-22T13:39:35+0000"/>
+      
+      <time itemprop="dateCreated" datetime="2021-02-22T13:39:35+0000">February 22, 2021</time>
+      | <nobr><span class="time">9</span> minutes</nobr>
+    </p>
+
+    
+      <div class="hidden" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="https://alexn.org/assets/media/articles/countdownlatch-async-dirty.png" />
+        
+      </div>
+      
+    
+
+    <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Alexandru Nedelcu">
+      <meta itemprop="url" content="https://alexn.org/about/">
+      <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="https://alexn.org/assets/raw/logo-green.png">
+      </div>
+    </div>
+    <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="Alexandru Nedelcu" />
+        <meta itemprop="url" content="https://alexn.org/about/#alexelcu" />
+        <meta itemprop="url" content="https://twitter.com/alexelcu" />
+        <meta itemprop="url" content="https://github.com/alexandru" />
+      </div>
+    
+
+    </header>
+
+  <div id="content" itemprop="articleBody">
+    
+<figure class="video">
+  
+  <a href="https://www.youtube.com/watch?v=R6pl91IRVaI&amp;autoplay=1" target="_blank" class="youtube-play-link" title="Go to YouTube video">
+    <img src="https://alexn.org/assets/media/articles/countdownlatch-async-dirty.png?202203310904" alt="" class="play-thumb" width="100%;" />
+  </a>
+  <figcaption>
+    <a href="https://www.youtube.com/watch?v=R6pl91IRVaI&amp;autoplay=1" target="_blank">
+      Video link
+      (open on YouTube.com)
+    </a>
+  </figcaption>
+</figure>
+
+<p>Yo dawg, I heard you liked concurrency primitives. Let’s implement our own asynchronous, dirty <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CountDownLatch.html">CountDownLatch</a>.</p>
+
+<p>Just to be clear, what we are implementing here is probably not production ready (please do some testing first, as I didn’t 😅). Also this is not functional programming, and it’s not using <a href="https://monix.io">Monix</a> or <a href="https://typelevel.org/cats-effect/">Cats-Effect</a>, or any other libraries that might have helped. This is implemented using just the standard library.</p>
+
+<p>Also, you might want the classic <code class="language-plaintext highlighter-rouge">java.util.concurrent.CountDownLatch</code>, which is pretty awesome, and it might be exactly what you need, although this one is useful too.</p>
+
+<p>Why implement one? Because we can 💪</p>
+
+<ol>
+  <li>Watch the <a href="https://www.youtube.com/watch?v=R6pl91IRVaI&amp;autoplay=1" target="_blank">YouTube video</a> for full explanations</li>
+  <li>Checkout the following code for digesting it at your own pace</li>
+  <li>See the usage examples at the end</li>
+</ol>
+      <h2 id="the-code">
+        
+        
+          The Code <a href="#the-code" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">java.util.concurrent.</span><span class="o">{</span><span class="nc">Executors</span><span class="o">,</span> <span class="nc">RejectedExecutionException</span><span class="o">}</span>
+<span class="k">import</span> <span class="nn">java.util.concurrent.atomic.AtomicReference</span>
+<span class="k">import</span> <span class="nn">scala.annotation.tailrec</span>
+<span class="k">import</span> <span class="nn">scala.concurrent.duration.</span><span class="o">{</span><span class="nc">Duration</span><span class="o">,</span> <span class="nc">FiniteDuration</span><span class="o">}</span>
+<span class="k">import</span> <span class="nn">scala.concurrent.</span><span class="o">{</span><span class="nc">ExecutionContext</span><span class="o">,</span> <span class="nc">Future</span><span class="o">,</span> <span class="nc">Promise</span><span class="o">,</span> <span class="nc">TimeoutException</span><span class="o">}</span>
+
+<span class="k">final</span> <span class="k">class</span> <span class="nc">AsyncCountDownLatch</span><span class="o">(</span><span class="n">count</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)(</span><span class="k">implicit</span> <span class="n">ec</span><span class="k">:</span> <span class="kt">ExecutionContext</span><span class="o">)</span>
+  <span class="k">extends</span> <span class="nc">AutoCloseable</span> <span class="o">{</span>
+
+  <span class="c1">// Shared mutable state, managed by my favorite</span>
+  <span class="c1">// synchronization primitive</span>
+  <span class="k">private</span><span class="o">[</span><span class="kt">this</span><span class="o">]</span> <span class="k">val</span> <span class="nv">state</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">AtomicReference</span><span class="o">(</span><span class="nc">State</span><span class="o">(</span><span class="n">count</span><span class="o">,</span> <span class="nv">Set</span><span class="o">.</span><span class="py">empty</span><span class="o">))</span>
+  <span class="k">private</span> <span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">State</span><span class="o">(</span>
+    <span class="n">count</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span>
+    <span class="n">tasks</span><span class="k">:</span> <span class="kt">Set</span><span class="o">[</span><span class="kt">Promise</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]]</span>
+  <span class="o">)</span>
+
+  <span class="cm">/**
+    * INTERNAL — scheduler for managing timeouts, must be destroyed
+    * internally too. Note that this isn't the only possible design,
+    * we could of course take this as a parameter in the class's
+    * constructor, or use a globally shared one 🤷‍
+    *
+    * One cool alternative is to use Monix's `Scheduler` instead of
+    * `ExecutionContext` (`monix.execution.Scheduler`).
+    */</span>
+  <span class="k">private</span><span class="o">[</span><span class="kt">this</span><span class="o">]</span> <span class="k">val</span> <span class="nv">scheduler</span> <span class="k">=</span>
+    <span class="nv">Executors</span><span class="o">.</span><span class="py">newSingleThreadScheduledExecutor</span><span class="o">((</span><span class="n">r</span><span class="k">:</span> <span class="kt">Runnable</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="o">{</span>
+      <span class="k">val</span> <span class="nv">th</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="n">r</span><span class="o">)</span>
+      <span class="nv">th</span><span class="o">.</span><span class="py">setDaemon</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+      <span class="nv">th</span><span class="o">.</span><span class="py">setName</span><span class="o">(</span><span class="n">s</span><span class="s">"countdownlatch-${hashCode()}"</span><span class="o">)</span>
+      <span class="n">th</span>
+    <span class="o">})</span>
+
+  <span class="cm">/**
+    * INTERNAL — Given a `Promise`, install a timeout for it.
+    */</span>
+  <span class="k">private</span> <span class="k">def</span> <span class="nf">installTimeout</span><span class="o">(</span><span class="n">p</span><span class="k">:</span> <span class="kt">Promise</span><span class="o">[</span><span class="kt">Unit</span><span class="o">],</span> <span class="n">timeout</span><span class="k">:</span> <span class="kt">FiniteDuration</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="c1">// Removing the promise from our internal `state` is necessary to avoid leaks.</span>
+    <span class="nd">@tailrec</span> <span class="k">def</span> <span class="nf">removePromise</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span>
+      <span class="nv">state</span><span class="o">.</span><span class="py">get</span><span class="o">()</span> <span class="k">match</span> <span class="o">{</span>
+        <span class="k">case</span> <span class="n">current</span> <span class="k">@</span> <span class="nc">State</span><span class="o">(</span><span class="k">_</span><span class="o">,</span> <span class="n">tasks</span><span class="o">)</span> <span class="k">=&gt;</span>
+          <span class="k">val</span> <span class="nv">update</span> <span class="k">=</span> <span class="nv">current</span><span class="o">.</span><span class="py">copy</span><span class="o">(</span><span class="n">tasks</span> <span class="k">=</span> <span class="n">tasks</span> <span class="o">-</span> <span class="n">p</span><span class="o">)</span>
+          <span class="nf">if</span> <span class="o">(!</span><span class="nv">state</span><span class="o">.</span><span class="py">compareAndSet</span><span class="o">(</span><span class="n">current</span><span class="o">,</span> <span class="n">update</span><span class="o">))</span>
+            <span class="nf">removePromise</span><span class="o">()</span>
+        <span class="k">case</span> <span class="kc">null</span> <span class="k">=&gt;</span>
+          <span class="o">()</span> <span class="c1">// countDown reached zero</span>
+      <span class="o">}</span>
+    <span class="c1">// Keeping this as a value in order to avoid duplicate work</span>
+    <span class="k">val</span> <span class="nv">ex</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">TimeoutException</span><span class="o">(</span>
+      <span class="n">s</span><span class="s">"AsyncCountDownLatch.await($timeout)"</span>
+    <span class="o">)</span>
+    <span class="k">val</span> <span class="nv">timeoutTask</span><span class="k">:</span> <span class="kt">Runnable</span> <span class="o">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="o">{</span>
+      <span class="c1">// Timeout won, get rid of promise from our state</span>
+      <span class="nf">removePromise</span><span class="o">()</span>
+      <span class="nv">p</span><span class="o">.</span><span class="py">tryFailure</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span>
+    <span class="o">}</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="c1">// Finally, installing our timeout, w00t!</span>
+      <span class="k">val</span> <span class="nv">cancelToken</span> <span class="k">=</span> <span class="nv">scheduler</span><span class="o">.</span><span class="py">schedule</span><span class="o">(</span>
+        <span class="n">timeoutTask</span><span class="o">,</span> 
+        <span class="nv">timeout</span><span class="o">.</span><span class="py">length</span><span class="o">,</span> 
+        <span class="nv">timeout</span><span class="o">.</span><span class="py">unit</span>
+      <span class="o">)</span>
+      <span class="c1">// Canceling our timeout task, if primary completes first</span>
+      <span class="nv">p</span><span class="o">.</span><span class="py">future</span><span class="o">.</span><span class="py">onComplete</span> <span class="o">{</span> <span class="n">r</span> <span class="k">=&gt;</span>
+        <span class="c1">// Avoiding duplicate work</span>
+        <span class="nf">if</span> <span class="o">(</span><span class="nv">r</span><span class="o">.</span><span class="py">fold</span><span class="o">(</span><span class="k">_</span> <span class="o">!=</span> <span class="n">ex</span><span class="o">,</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="kc">true</span><span class="o">))</span>
+          <span class="nv">cancelToken</span><span class="o">.</span><span class="py">cancel</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
+      <span class="o">}</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">{</span>
+      <span class="k">case</span> <span class="k">_:</span> <span class="kt">RejectedExecutionException</span> <span class="o">=&gt;</span>
+        <span class="c1">// This exception can happen due to a race condition:</span>
+        <span class="c1">// When countDown() reaches zero, the scheduler is being</span>
+        <span class="c1">// shut down, however while that happens we may be in</span>
+        <span class="c1">// the process of installing a timeout — but this is no</span>
+        <span class="c1">// longer necessary, since the promise will be completed;</span>
+        <span class="c1">// NOTE — for extra-safety, we might want to check the</span>
+        <span class="c1">// promise's state, to ensure that it is complete, and</span>
+        <span class="c1">// a happens-before relationship probably exists (TBD)</span>
+        <span class="o">()</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="k">override</span> <span class="k">def</span> <span class="nf">close</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="nv">state</span><span class="o">.</span><span class="py">lazySet</span><span class="o">(</span><span class="kc">null</span><span class="o">)</span> <span class="c1">// GC purposes</span>
+    <span class="nv">scheduler</span><span class="o">.</span><span class="py">shutdown</span><span class="o">()</span>
+  <span class="o">}</span>
+
+  <span class="cm">/**
+    * Decrements the count of the latch, releasing all waiting
+    * consumers if the count reaches zero.
+    *
+    * If the current count is already zero, then nothing happens.
+    */</span>
+  <span class="nd">@tailrec</span> <span class="k">def</span> <span class="nf">countDown</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span>
+    <span class="nv">state</span><span class="o">.</span><span class="py">get</span><span class="o">()</span> <span class="k">match</span> <span class="o">{</span>
+      <span class="k">case</span> <span class="n">current</span> <span class="k">@</span> <span class="nc">State</span><span class="o">(</span><span class="n">count</span><span class="o">,</span> <span class="n">tasks</span><span class="o">)</span> <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">=&gt;</span>
+        <span class="k">val</span> <span class="nv">update</span> <span class="k">=</span> <span class="nc">State</span><span class="o">(</span><span class="n">count</span> <span class="o">-</span> <span class="mi">1</span><span class="o">,</span> <span class="n">tasks</span><span class="o">)</span>
+        <span class="nf">if</span> <span class="o">(!</span><span class="nv">state</span><span class="o">.</span><span class="py">compareAndSet</span><span class="o">(</span><span class="n">current</span><span class="o">,</span> <span class="n">update</span><span class="o">))</span>
+          <span class="nf">countDown</span><span class="o">()</span> <span class="c1">// retry</span>
+        <span class="k">else</span> <span class="nf">if</span> <span class="o">(</span><span class="nv">update</span><span class="o">.</span><span class="py">count</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+          <span class="c1">// Deferring execution to another thread, as it might </span>
+          <span class="c1">// be expensive (TBD if this is a good idea or not)</span>
+          <span class="nv">ec</span><span class="o">.</span><span class="py">execute</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="o">{</span>
+            <span class="nf">for</span> <span class="o">(</span><span class="n">r</span> <span class="k">&lt;-</span> <span class="n">tasks</span><span class="o">)</span> <span class="nv">r</span><span class="o">.</span><span class="py">trySuccess</span><span class="o">(())</span>
+            <span class="c1">// Releasing resources</span>
+            <span class="nf">close</span><span class="o">()</span>
+          <span class="o">})</span>
+        <span class="o">}</span>
+      <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span>
+        <span class="o">()</span>
+    <span class="o">}</span>
+
+  <span class="cm">/**
+    * Causes the consumer to wait until the latch has counted down 
+    * to zero, or the specified waiting time elapses.
+    *
+    * If the timeout gets triggered, then the returned `Future`
+    * will complete with a `TimeoutException`.
+    */</span>
+  <span class="nd">@tailrec</span> <span class="k">def</span> <span class="nf">await</span><span class="o">(</span><span class="n">timeout</span><span class="k">:</span> <span class="kt">Duration</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span>
+    <span class="nv">state</span><span class="o">.</span><span class="py">get</span><span class="o">()</span> <span class="k">match</span> <span class="o">{</span>
+      <span class="k">case</span> <span class="n">current</span> <span class="k">@</span> <span class="nc">State</span><span class="o">(</span><span class="n">count</span><span class="o">,</span> <span class="n">tasks</span><span class="o">)</span> <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">=&gt;</span>
+        <span class="k">val</span> <span class="nv">p</span> <span class="k">=</span> <span class="nc">Promise</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]()</span>
+        <span class="k">val</span> <span class="nv">update</span> <span class="k">=</span> <span class="nc">State</span><span class="o">(</span><span class="n">count</span><span class="o">,</span> <span class="n">tasks</span> <span class="o">+</span> <span class="n">p</span><span class="o">)</span>
+        <span class="n">timeout</span> <span class="k">match</span> <span class="o">{</span>
+          <span class="k">case</span> <span class="n">d</span><span class="k">:</span> <span class="kt">FiniteDuration</span> <span class="o">=&gt;</span> <span class="nf">installTimeout</span><span class="o">(</span><span class="n">p</span><span class="o">,</span> <span class="n">d</span><span class="o">)</span>
+          <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="o">()</span>
+        <span class="o">}</span>
+        <span class="nf">if</span> <span class="o">(!</span><span class="nv">state</span><span class="o">.</span><span class="py">compareAndSet</span><span class="o">(</span><span class="n">current</span><span class="o">,</span> <span class="n">update</span><span class="o">))</span>
+          <span class="nf">await</span><span class="o">(</span><span class="n">timeout</span><span class="o">)</span> <span class="c1">// retry</span>
+        <span class="k">else</span>
+          <span class="nv">p</span><span class="o">.</span><span class="py">future</span>
+      <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span>
+        <span class="nv">Future</span><span class="o">.</span><span class="py">unit</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Usage sample of the classic <code class="language-plaintext highlighter-rouge">java.util.concurrent.CountDownLatch</code> that we’re trying to mimic:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">java.util.concurrent.CountDownLatch</span>
+<span class="k">import</span> <span class="nn">scala.concurrent.ExecutionContext.Implicits.global</span>
+
+<span class="k">val</span> <span class="nv">threadCount</span> <span class="k">=</span> <span class="mi">4</span>
+<span class="k">val</span> <span class="nv">iterations</span> <span class="k">=</span> <span class="mi">10000</span>
+<span class="k">var</span> <span class="n">results</span> <span class="k">=</span> <span class="nv">Map</span><span class="o">.</span><span class="py">empty</span><span class="o">[</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">]</span>
+
+<span class="nf">for</span> <span class="o">(</span><span class="k">_</span> <span class="k">&lt;-</span> <span class="mi">0</span> <span class="n">until</span> <span class="n">iterations</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="nv">consumersStarted</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">CountDownLatch</span><span class="o">(</span><span class="n">threadCount</span><span class="o">)</span>
+  <span class="k">val</span> <span class="nv">mainThreadProceed</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">CountDownLatch</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+  <span class="k">val</span> <span class="nv">consumersFinished</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">CountDownLatch</span><span class="o">(</span><span class="n">threadCount</span><span class="o">)</span>
+  <span class="k">var</span> <span class="n">sharedState</span> <span class="k">=</span> <span class="mi">0</span>
+
+  <span class="nf">for</span> <span class="o">(</span><span class="k">_</span> <span class="k">&lt;-</span> <span class="mi">0</span> <span class="n">until</span> <span class="n">threadCount</span><span class="o">)</span>
+    <span class="nv">global</span><span class="o">.</span><span class="py">execute</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="o">{</span>
+      <span class="nv">consumersStarted</span><span class="o">.</span><span class="py">countDown</span><span class="o">()</span>
+      <span class="nv">mainThreadProceed</span><span class="o">.</span><span class="py">await</span><span class="o">()</span>
+      <span class="n">sharedState</span> <span class="o">+=</span> <span class="mi">1</span>
+      <span class="nv">consumersFinished</span><span class="o">.</span><span class="py">countDown</span><span class="o">()</span>
+    <span class="o">})</span>
+
+  <span class="nv">consumersStarted</span><span class="o">.</span><span class="py">await</span><span class="o">()</span>
+  <span class="nv">mainThreadProceed</span><span class="o">.</span><span class="py">countDown</span><span class="o">()</span>
+  <span class="nv">consumersFinished</span><span class="o">.</span><span class="py">await</span><span class="o">()</span>
+
+  <span class="n">results</span> <span class="k">=</span> <span class="nv">results</span><span class="o">.</span><span class="py">updated</span><span class="o">(</span><span class="n">sharedState</span><span class="o">,</span> <span class="nv">results</span><span class="o">.</span><span class="py">getOrElse</span><span class="o">(</span><span class="n">sharedState</span><span class="o">,</span> <span class="mi">0</span><span class="o">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="nf">println</span><span class="o">(</span><span class="s">"Done ... "</span><span class="o">)</span>
+<span class="nf">println</span><span class="o">(</span><span class="n">results</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>Usage sample of our <code class="language-plaintext highlighter-rouge">AsyncCountDownLatch</code>, again, testing faulty concurrent update:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">scala.concurrent.ExecutionContext.Implicits.global</span>
+<span class="k">import</span> <span class="nn">scala.concurrent.</span><span class="o">{</span><span class="nc">Await</span><span class="o">,</span> <span class="nc">Future</span><span class="o">,</span> <span class="nc">TimeoutException</span><span class="o">}</span>
+<span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
+
+<span class="k">val</span> <span class="nv">threadCount</span> <span class="k">=</span> <span class="mi">4</span>
+<span class="k">val</span> <span class="nv">iterations</span> <span class="k">=</span> <span class="mi">100000</span>
+<span class="k">var</span> <span class="n">results</span> <span class="k">=</span> <span class="nv">Map</span><span class="o">.</span><span class="py">empty</span><span class="o">[</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">]</span>
+
+<span class="nf">for</span> <span class="o">(</span><span class="k">_</span> <span class="k">&lt;-</span> <span class="mi">0</span> <span class="n">until</span> <span class="n">iterations</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="nv">consumersStarted</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">AsyncCountDownLatch</span><span class="o">(</span><span class="n">threadCount</span><span class="o">)</span>
+  <span class="k">val</span> <span class="nv">mainThreadProceed</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">AsyncCountDownLatch</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+  <span class="k">val</span> <span class="nv">consumersFinished</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">AsyncCountDownLatch</span><span class="o">(</span><span class="n">threadCount</span><span class="o">)</span>
+  <span class="k">var</span> <span class="n">sharedState</span> <span class="k">=</span> <span class="mi">0</span>
+
+  <span class="nf">for</span> <span class="o">(</span><span class="k">_</span> <span class="k">&lt;-</span> <span class="mi">0</span> <span class="n">until</span> <span class="n">threadCount</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">{</span>
+      <span class="k">_</span> <span class="k">&lt;-</span> <span class="nv">Future</span><span class="o">.</span><span class="py">unit</span>
+      <span class="k">_</span> <span class="k">=</span> <span class="nv">consumersStarted</span><span class="o">.</span><span class="py">countDown</span><span class="o">()</span>
+      <span class="k">_</span> <span class="k">&lt;-</span> <span class="nv">mainThreadProceed</span><span class="o">.</span><span class="py">await</span><span class="o">(</span><span class="nv">Duration</span><span class="o">.</span><span class="py">Inf</span><span class="o">)</span>
+    <span class="o">}</span> <span class="k">yield</span> <span class="o">{</span>
+      <span class="n">sharedState</span> <span class="o">+=</span> <span class="mi">1</span>
+      <span class="nv">consumersFinished</span><span class="o">.</span><span class="py">countDown</span><span class="o">()</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="k">val</span> <span class="nv">await</span> <span class="k">=</span> <span class="k">for</span> <span class="o">{</span>
+    <span class="k">_</span> <span class="k">&lt;-</span> <span class="nv">consumersStarted</span><span class="o">.</span><span class="py">await</span><span class="o">(</span><span class="nv">Duration</span><span class="o">.</span><span class="py">Inf</span><span class="o">)</span>
+    <span class="k">_</span> <span class="k">=</span> <span class="nv">mainThreadProceed</span><span class="o">.</span><span class="py">countDown</span><span class="o">()</span>
+    <span class="k">_</span> <span class="k">&lt;-</span> <span class="nv">consumersFinished</span><span class="o">.</span><span class="py">await</span><span class="o">(</span><span class="mf">1.</span><span class="n">millis</span><span class="o">)</span>
+  <span class="o">}</span> <span class="k">yield</span> <span class="o">{</span>
+    <span class="n">results</span> <span class="k">=</span> <span class="nv">results</span><span class="o">.</span><span class="py">updated</span><span class="o">(</span><span class="n">sharedState</span><span class="o">,</span> <span class="nv">results</span><span class="o">.</span><span class="py">getOrElse</span><span class="o">(</span><span class="n">sharedState</span><span class="o">,</span> <span class="mi">0</span><span class="o">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span>
+  <span class="o">}</span>
+  <span class="nv">Await</span><span class="o">.</span><span class="py">result</span><span class="o">(</span><span class="n">await</span><span class="o">,</span> <span class="nv">Duration</span><span class="o">.</span><span class="py">Inf</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="nf">println</span><span class="o">(</span><span class="s">"Done ... "</span><span class="o">)</span>
+<span class="nf">println</span><span class="o">(</span><span class="n">results</span><span class="o">)</span>
+</code></pre></div></div>
+
+  </div>
+
+  <div id="article-details">
+    
+    <time itemprop="dateModified" content="2021-02-22T13:39:35+0000">
+        Published: February 22, 2021
+    </time>
+    
+      | Written by <a href="https://alexn.org/about/#alexelcu" itemprop="url" rel="author">Alexandru Nedelcu</a>
+    
+
+    <div id="all-categories">
+      Tags:
+      
+        
+        <a href="/blog/tag/concurrency/" class="category">Concurrency</a>
+      
+         | 
+        <a href="/blog/tag/jvm/" class="category">JVM</a>
+      
+         | 
+        <a href="/blog/tag/multithreading/" class="category">Multithreading</a>
+      
+         | 
+        <a href="/blog/tag/programming/" class="category">Programming</a>
+      
+         | 
+        <a href="/blog/tag/scala/" class="category">Scala</a>
+      
+         | 
+        <a href="/blog/tag/video/" class="category">Video</a>
+      
+    </div>
+  </div>
+
+  
+  <div class="related">
+      <h2 id="related-articles">
+        
+        
+          Related Articles <a href="#related-articles" class="anchor">#</a>
+        
+        
+      </h2>
+    
+    <div class="container">
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2021/02/26/type-classes-in-scala-3-live-coding-session/">
+          ING Scala Meetup on Scala 3 (live coding session)
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/programming" class="tag">Programming</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/video" class="tag">Video</a>
+                        
+          </div>
+          <time>February 26, 2021</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2021/02/12/scala-list-secret/">
+          Scala&#39;s List has a Secret
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/multithreading" class="tag">Multithreading</a>
+            
+               | <a href="/blog/tag/programming" class="tag">Programming</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+                        
+          </div>
+          <time>February 12, 2021</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2021/01/26/tail-recursive-functions-in-scala/">
+          Tail Recursive Functions (in Scala)
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/algorithms" class="tag">Algorithms</a>
+            
+               | <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/programming" class="tag">Programming</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/video" class="tag">Video</a>
+                        
+          </div>
+          <time>January 26, 2021</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  
+
+  
+</article>
+
+      </div>
+   </div><!-- end .content -->
+
+   <script async src="/assets/js/modernizr.custom.15390.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202203310904" type="text/javascript"></script>
+
+<script async src="/assets/js/scripts.js?202203310904" type="text/javascript"></script>
+
+   <div class="footer">
+  
+  <div class="container">
+    <div class="contributions">
+      <h2 id="comments">
+  Comments
+  <a href="#comments" class="anchor">#</a>
+</h2>
+
+<p>
+  Do you have suggestions? Want to chat? Email me at: <br>
+  <script>
+    (function () {
+      var lhs = "contact22+comments";
+      var rhs = "alexn.org";
+      document.write("<a target=\"_blank\" href=\"mailto");
+      document.write(":" + lhs + "@");
+      document.write(rhs);
+      document.write("?subject=Comment%20on%3A%20Implementing%20a%20CountDownLatch%20(async%20and%20dirty)")
+      document.write("\">" + lhs + "@" + rhs + "<\/a>");
+    })()
+  </script>
+  <noscript>
+    <em>Email address is protected via JavaScript, activate it to see it!</em>
+  </noscript>
+</p>
+
+<h2 id="contribute">
+  Contribute
+  <a href="#contribute" class="anchor">#</a>
+</h2>
+
+
+<p>
+  Fix or add to this article by submitting a pull request:<br/>
+  <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/main/_posts/2021-02-22-countdownlatch-async-dirty.md" target="_blank">Edit Page on GitHub</a>
+</p>
+
+<p>
+  Donate to cover ongoing website costs, or buy me coffee ☕️😋 <br/>
+  <a href="https://www.patreon.com/bePatron?u=6102596" target="_blank">
+    <img label="Become a Patron!" alt="Become a Patron!" title="Become a Patron!" src="/assets/media/buttons/patreon.png" height="40" />
+  </a>
+</p>
+
+
+<h2 id="subscribe">
+  Subscribe
+  <a href="#subscribe" class="anchor">#</a>
+</h2>
+
+<!-- Begin Mailchimp Signup Form -->
+<div id="mc_embed_signup">
+  <form action="https://alexn.us4.list-manage.com/subscribe/post?u=5bffa2af025192a58345bd5dc&amp;id=1c9005b255"
+    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
+    novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="mc-field-group field">
+        <label for="mce-EMAIL">Email Address <sup class="asterisk">*</sup></label>
+        <input type="email" value="" name="EMAIL" class="required email full-width" id="mce-EMAIL" placeholder="user@domain.com" required>
+      </div>
+      <!-- <div class="mc-field-group field">
+        <label for="mce-FULLNAME">Name</label>
+        <input type="text" value="" name="FULLNAME" class="full-width" id="mce-FULLNAME" placeholder="John Doe">
+      </div> -->
+      <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+      </div>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+          name="b_5bffa2af025192a58345bd5dc_1c9005b255" tabindex="-1" value=""></div>
+      <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+          class="button"></div>
+    </div>
+  </form>
+</div>
+
+<div class="note">
+  <span class="extra">
+    Newsletter subscription uses Mailchimp, see <a href="/docs/privacy-policy/">privacy policy</a>.
+    If you're not seeing the form, it may be blocked by the browser; <a target="_blank" href="http://eepurl.com/g5ClAT"><em><span style="white-space: nowrap;">try the external subscribe page &#10141;</span></em></a>
+  </span>
+</div>
+
+
+    </div>  
+  </div>
+  
+
+  <div class="bottom">
+    <div class="container">
+      <span class="copy">
+          &copy; 2009-2022
+      </span>
+      <span class="links">
+        <a href="/docs/license/">License</a> |
+        <a href="/docs/privacy-policy/">Privacy Policy</a> |
+        <a href="/about/#contact">Contact</a>
+      </span>
+    </div>
+  </div>
+</div><!-- end .footer -->
+
+</body>
+</html>

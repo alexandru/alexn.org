@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <!-- https://github.com/darkreader/darkreader/issues/1114 -->
+    <!-- <meta name="darkreader" content="41637b04c7ddb955e533a5c76d68a2c8"> -->
+    <meta name="color-scheme" content="light dark">
+    <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
+    <meta name="theme-color" content="#493667">
+    
+    <title>Monix Task vs Scalaz vs Future, The Benchmark - Alexandru Nedelcu</title>
+    
+
+    <!-- Open Graph Meta -->
+    <meta content="Alexandru Nedelcu" property="og:site_name">
+    <meta content="Monix Task vs Scalaz vs Future, The Benchmark" property="og:title">
+    <meta content="The Task in Monix has really good performance. See the benchmark." property="og:description">
+    <meta content="https://alexn.org/blog/2016/08/25/monix-task-performance/" property="og:url">
+    <meta content="2016-08-25T00:00:00+00:00" property="article:published_time">
+    
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/monix-1024.png?202203310904" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/monix-1024.png?202203310904" />
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/monix-1024.png?202203310904">
+    <meta name="twitter:site" content="@alexelcu">
+    <meta name="twitter:creator" content="@alexelcu">
+    <meta name="twitter:title" content="Monix Task vs Scalaz vs Future, The Benchmark">
+    <meta name="twitter:url" content="https://alexn.org/blog/2016/08/25/monix-task-performance/">
+    <meta name="twitter:description" content="The Task in Monix has really good performance. See the benchmark.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/logo/16px.png" sizes="16x16" />
+    <link rel="icon" href="/assets/logo/32px.png" sizes="32x32" />
+    <link rel="icon" href="/assets/logo/192px.png" sizes="192x192" />
+    <link rel="icon" href="/assets/logo/270px.png" sizes="270x270" />
+    <link rel="icon" href="/assets/logo/512px.png" sizes="512x512" />
+    <link rel="apple-touch-icon-precomposed" href="/assets/logo/180px.png" />
+    <meta name="msapplication-TileImage" content="/assets/logo/270px.png" />
+
+    <!-- Come and get me RSS readers -->
+    <link rel="alternate" type="application/rss+xml" title="All articles (blog, snippets, wiki, links)" href="/feeds/all.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Blog" href="/feeds/blog.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Snippets" href="/feeds/snippets.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Shared Links" href="/feeds/links.xml" />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/assets/css/style.css?202203310904">
+    <link rel="preload" as="style" href="/assets/css/style.css?202203310904">
+    
+    <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
+    <link rel="canonical" href="https://alexn.org/blog/2016/08/25/monix-task-performance/">
+</head>
+
+
+<body>
+   <div class="header">
+  <div class="container">
+    <div class="inner-container">
+      <h1 class="logo"><a href="/">Alex<span class="wide2">andru</span> Nedelcu<span class="wide1"> =&lt;&lt;</span></a></h1>
+      <nav class="nav-collapse">
+        <ul class="noList">
+          
+          <li class="element first current ">
+            <a href="/blog/">Blog</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/wiki/">Wiki</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/snippets/">Snippets</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/links/">Links</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/about/">About</a>
+          </li>
+          
+          <li class="element   last">
+            <a href="/subscribe/">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav>  
+    </div>
+  </div>
+</div><!-- end .header -->
+
+
+   <div class="content">
+      <div class="container">
+         <article class="post" itemscope itemtype="http://schema.org/BlogPosting"><header>
+      <h1 class="postTitle" itemprop="headline">
+        
+        
+          
+      Monix Task vs Scalaz vs Future, The Benchmark
+    
+        
+        
+      </h1>
+    
+    <p class="meta">
+      <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://alexn.org/blog/2016/08/25/monix-task-performance/"/>
+      <meta itemprop="datePublished" content="2016-08-25T00:00:00+0000"/>
+      
+      <time itemprop="dateCreated" datetime="2016-08-25T00:00:00+0000">August 25, 2016</time>
+      | <nobr><span class="time">4</span> minutes</nobr>
+    </p>
+
+    
+        <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+          <meta itemprop="url" content="https://alexn.org/assets/media/articles/monix-1024.png" />
+          <img src="/assets/media/articles/monix-1024.png?202203310904" alt="" />
+          
+        </figure>
+        
+    
+
+    <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Alexandru Nedelcu">
+      <meta itemprop="url" content="https://alexn.org/about/">
+      <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="https://alexn.org/assets/raw/logo-green.png">
+      </div>
+    </div>
+    <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="Alexandru Nedelcu" />
+        <meta itemprop="url" content="https://alexn.org/about/#alexelcu" />
+        <meta itemprop="url" content="https://twitter.com/alexelcu" />
+        <meta itemprop="url" content="https://github.com/alexandru" />
+      </div>
+    
+
+    </header>
+
+  <div id="content" itemprop="articleBody">
+    <p class="intro withcap">The Monix <a href="https://monix.io/docs/2x/eval/task.html">Task</a> was heavily inspired by <code class="language-plaintext highlighter-rouge">scalaz.concurrent.Task</code> and by <code class="language-plaintext highlighter-rouge">scala.concurrent.Future</code>. That’s not a secret and I’ll be forever grateful to their authors. I’ve ran a benchmark and I’m glad to report that the Monix <a href="https://monix.io/docs/2x/eval/task.html">Task</a> beats in performance both.</p>
+
+<p>Such results are actually unexpected, because the Monix <code class="language-plaintext highlighter-rouge">Task</code> has to
+do tricks in order to be “<em>cancelable</em>”, a trait that allows it to
+close opened resources when race conditions happen, which really means
+extra footwork. But no, right now, it beats both in performance and by
+quite the margin.</p>
+
+<p>Details:</p>
+
+<ul>
+  <li>Benchmark used is
+<a href="https://github.com/monixio/monix/blob/v2.0-RC13/benchmarks/src/main/scala/monix/TaskGatherBenchmark.scala">TaskGatherBenchmark</a>
+in the repository</li>
+  <li>Monix version: <code class="language-plaintext highlighter-rouge">2.0-RC13</code></li>
+  <li>Scalaz version: <code class="language-plaintext highlighter-rouge">7.2.4</code></li>
+  <li>Scala version: <code class="language-plaintext highlighter-rouge">2.11.8</code></li>
+  <li>Java version: <code class="language-plaintext highlighter-rouge">1.8.0_60</code></li>
+  <li>OS: OS X El Captain, version <code class="language-plaintext highlighter-rouge">10.11.6</code></li>
+</ul>
+      <h3 id="sequence">
+        
+        
+          Sequence <a href="#sequence" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>The purpose of this test is the performance of <code class="language-plaintext highlighter-rouge">flatMap</code>, or in other
+words the performance of the run-loop, on both normal/synchronous
+tasks and tasks that are forked in separate (logical) threads. So in
+other words:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nv">Task</span><span class="o">.</span><span class="py">sequence</span><span class="o">(</span><span class="n">tasks</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>Which is translated more or less into this:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nv">tasks</span><span class="o">.</span><span class="py">foldLeft</span><span class="o">(</span><span class="n">init</span><span class="o">)((</span><span class="n">acc</span><span class="o">,</span><span class="n">et</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nv">acc</span><span class="o">.</span><span class="py">flatMap</span><span class="o">(</span><span class="n">b</span> <span class="k">=&gt;</span> <span class="nv">et</span><span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">b</span> <span class="o">+=</span> <span class="n">e</span><span class="o">)))</span>
+</code></pre></div></div>
+
+<p>So for synchronous tasks (that evaluate immediately), and note here
+that Scala’s <code class="language-plaintext highlighter-rouge">Future</code> is not applicable since <code class="language-plaintext highlighter-rouge">Future</code> is not
+trampolined:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Source</th>
+      <th>Type</th>
+      <th>Operation</th>
+      <th>Score</th>
+      <th>Error</th>
+      <th>Units</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Monix</td>
+      <td>Sync</td>
+      <td>Sequence</td>
+      <td>6716.906</td>
+      <td>157.947</td>
+      <td>ops/s</td>
+    </tr>
+    <tr>
+      <td>Scalaz</td>
+      <td>Sync</td>
+      <td>Sequence</td>
+      <td>3518.888</td>
+      <td>167.148</td>
+      <td>ops/s</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>And for tasks that fork threads on execution:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Source</th>
+      <th>Type</th>
+      <th>Operation</th>
+      <th>Score</th>
+      <th>Error</th>
+      <th>Units</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Monix</td>
+      <td>Forked</td>
+      <td>Sequence</td>
+      <td>2044.624</td>
+      <td>24.852</td>
+      <td>ops/s</td>
+    </tr>
+    <tr>
+      <td>Scalaz</td>
+      <td>Forked</td>
+      <td>Sequence</td>
+      <td>1090.355</td>
+      <td>15.851</td>
+      <td>ops/s</td>
+    </tr>
+    <tr>
+      <td>S.Future</td>
+      <td>Forked</td>
+      <td>Sequence</td>
+      <td>1753.614</td>
+      <td>20.871</td>
+      <td>ops/s</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>As you can see, the Monix <code class="language-plaintext highlighter-rouge">Task</code> has twice the throughput of Scalaz
+and fares quite better compared with Scala’s standard <code class="language-plaintext highlighter-rouge">Future</code>.</p>
+      <h3 id="gather">
+        
+        
+          Gather <a href="#gather" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>The gather operation would be:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nv">Task</span><span class="o">.</span><span class="py">gather</span><span class="o">(</span><span class="n">tasks</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>This works like <code class="language-plaintext highlighter-rouge">sequence</code>, except that the evaluation has non-ordered
+effects. What this means is that, if the tasks are forking threads,
+then they get executed in parallel.</p>
+
+<p>For synchronous/immediate tasks the numbers are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Source</th>
+      <th>Type</th>
+      <th>Operation</th>
+      <th>Score</th>
+      <th>Error</th>
+      <th>Units</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Monix</td>
+      <td>Sync</td>
+      <td>Gather</td>
+      <td>3800.559</td>
+      <td>341.509</td>
+      <td>ops/s</td>
+    </tr>
+    <tr>
+      <td>Scalaz</td>
+      <td>Sync</td>
+      <td>Gather</td>
+      <td>2152.441</td>
+      <td>13.569</td>
+      <td>ops/s</td>
+    </tr>
+    <tr>
+      <td>S.Future</td>
+      <td>Forked</td>
+      <td>Sequence</td>
+      <td>1753.614</td>
+      <td>20.871</td>
+      <td>ops/s</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>And for forked tasks:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Source</th>
+      <th>Type</th>
+      <th>Operation</th>
+      <th>Score</th>
+      <th>Error</th>
+      <th>Units</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Monix</td>
+      <td>Forked</td>
+      <td>Gather</td>
+      <td>1396.797</td>
+      <td>17.098</td>
+      <td>ops/s</td>
+    </tr>
+    <tr>
+      <td>Scalaz</td>
+      <td>Forked</td>
+      <td>Gather</td>
+      <td>1014.452</td>
+      <td>13.569</td>
+      <td>ops/s</td>
+    </tr>
+    <tr>
+      <td>S.Future</td>
+      <td>Forked</td>
+      <td>Sequence</td>
+      <td>1753.614</td>
+      <td>20.871</td>
+      <td>ops/s</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Including the results of <code class="language-plaintext highlighter-rouge">Future.sequence</code> as well, because <code class="language-plaintext highlighter-rouge">Future</code>
+has strict evaluation and it can be used to execute futures in
+parallel. The performance of <code class="language-plaintext highlighter-rouge">gather</code> can be worse than
+<code class="language-plaintext highlighter-rouge">Future.sequence</code>, because of the execution model. But if it executes
+tasks that have immediate execution, or a mixed batch, then it is much
+better.</p>
+      <h3 id="gather-unordered">
+        
+        
+          Gather Unordered <a href="#gather-unordered" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>The <code class="language-plaintext highlighter-rouge">gatherUnordered</code> operation would be:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nv">Task</span><span class="o">.</span><span class="py">gatherUnordered</span><span class="o">(</span><span class="n">tasks</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>This behaves like <code class="language-plaintext highlighter-rouge">gather</code>, except that it does not care for the order
+in which the results are served. Can have much better performance if
+you don’t care about order.</p>
+
+<p>For synchronous/immediate tasks:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Source</th>
+      <th>Type</th>
+      <th>Operation</th>
+      <th>Score</th>
+      <th>Error</th>
+      <th>Units</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Monix</td>
+      <td>Sync</td>
+      <td>Unordered</td>
+      <td>5654.462</td>
+      <td>150.792</td>
+      <td>ops/s</td>
+    </tr>
+    <tr>
+      <td>Scalaz</td>
+      <td>Sync</td>
+      <td>Unordered</td>
+      <td>3340.645</td>
+      <td>244.145</td>
+      <td>ops/s</td>
+    </tr>
+    <tr>
+      <td>S.Future</td>
+      <td>Forked</td>
+      <td>Sequence</td>
+      <td>1753.614</td>
+      <td>20.871</td>
+      <td>ops/s</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For forked tasks:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Source</th>
+      <th>Type</th>
+      <th>Operation</th>
+      <th>Score</th>
+      <th>Error</th>
+      <th>Units</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Monix</td>
+      <td>Forked</td>
+      <td>Unordered</td>
+      <td>1658.055</td>
+      <td>12.114</td>
+      <td>ops/s</td>
+    </tr>
+    <tr>
+      <td>Scalaz</td>
+      <td>Forked</td>
+      <td>Unordered</td>
+      <td>1657.454</td>
+      <td>35.218</td>
+      <td>ops/s</td>
+    </tr>
+    <tr>
+      <td>S.Future</td>
+      <td>Forked</td>
+      <td>Sequence</td>
+      <td>1753.614</td>
+      <td>20.871</td>
+      <td>ops/s</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Again, performance is really good for synchronous tasks, whereas for
+forked tasks it evens out with the performance of <code class="language-plaintext highlighter-rouge">Future.sequence</code>.</p>
+      <h3 id="raw-output">
+        
+        
+          Raw output <a href="#raw-output" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>[info] # Run complete. Total time: 00:04:28
+[info]
+[info] Benchmark                              Mode  Cnt     Score     Error  Units
+[info] TaskGatherBenchmark.gatherMonixA      thrpt   10  1396.797 ±  17.098  ops/s
+[info] TaskGatherBenchmark.gatherMonixS      thrpt   10  3800.559 ± 341.509  ops/s
+[info] TaskGatherBenchmark.gatherScalazA     thrpt   10  1014.452 ±  13.569  ops/s
+[info] TaskGatherBenchmark.gatherScalazS     thrpt   10  2152.441 ±  24.811  ops/s
+[info] TaskGatherBenchmark.sequenceFutureA   thrpt   10  1753.614 ±  20.871  ops/s
+[info] TaskGatherBenchmark.sequenceMonixA    thrpt   10  2044.624 ±  24.852  ops/s
+[info] TaskGatherBenchmark.sequenceMonixS    thrpt   10  6716.906 ± 157.947  ops/s
+[info] TaskGatherBenchmark.sequenceScalazA   thrpt   10  1090.355 ±  15.851  ops/s
+[info] TaskGatherBenchmark.sequenceScalazS   thrpt   10  3518.888 ± 167.148  ops/s
+[info] TaskGatherBenchmark.unorderedMonixA   thrpt   10  1658.055 ±  12.114  ops/s
+[info] TaskGatherBenchmark.unorderedMonixS   thrpt   10  5654.462 ± 150.792  ops/s
+[info] TaskGatherBenchmark.unorderedScalazA  thrpt   10  1657.454 ±  35.218  ops/s
+[info] TaskGatherBenchmark.unorderedScalazS  thrpt   10  3340.645 ± 244.145  ops/s
+</code></pre></div></div>
+
+<p>Cheers!</p>
+
+  </div>
+
+  <div id="article-details">
+    
+    <time itemprop="dateModified" content="2016-08-25T00:00:00+0000">
+        Published: August 25, 2016
+    </time>
+    
+      | Written by <a href="https://alexn.org/about/#alexelcu" itemprop="url" rel="author">Alexandru Nedelcu</a>
+    
+
+    <div id="all-categories">
+      Tags:
+      
+        
+        <a href="/blog/tag/fp/" class="category">FP</a>
+      
+         | 
+        <a href="/blog/tag/scala/" class="category">Scala</a>
+      
+         | 
+        <a href="/blog/tag/monix/" class="category">Monix</a>
+      
+         | 
+        <a href="/blog/tag/typelevel/" class="category">Typelevel</a>
+      
+    </div>
+  </div>
+
+  
+  <div class="related">
+      <h2 id="related-articles">
+        
+        
+          Related Articles <a href="#related-articles" class="anchor">#</a>
+        
+        
+      </h2>
+    
+    <div class="container">
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2020/11/15/managing-database-migrations-scala/">
+          Managing Database Migrations in Scala
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/typelevel" class="tag">Typelevel</a>
+                        
+          </div>
+          <time>November 15, 2020</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2018/05/06/bifunctor-io/">
+          On Bifunctor IO and Java&#39;s Checked Exceptions
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/best%20of" class="tag">Best Of</a>
+            
+               | <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/typelevel" class="tag">Typelevel</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/haskell" class="tag">Haskell</a>
+                        
+          </div>
+          <time>May 6, 2018</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2017/10/13/scaladays-copenhagen/">
+          Scala Days 2017 — Monix Task
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/monix" class="tag">Monix</a>
+            
+               | <a href="/blog/tag/video" class="tag">Video</a>
+                        
+          </div>
+          <time>October 13, 2017</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  
+
+  
+</article>
+
+      </div>
+   </div><!-- end .content -->
+
+   <script async src="/assets/js/modernizr.custom.15390.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202203310904" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202203310904" type="text/javascript"></script>
+
+<script async src="/assets/js/scripts.js?202203310904" type="text/javascript"></script>
+
+   <div class="footer">
+  
+  <div class="container">
+    <div class="contributions">
+      <h2 id="comments">
+  Comments
+  <a href="#comments" class="anchor">#</a>
+</h2>
+
+<p>
+  Do you have suggestions? Want to chat? Email me at: <br>
+  <script>
+    (function () {
+      var lhs = "contact22+comments";
+      var rhs = "alexn.org";
+      document.write("<a target=\"_blank\" href=\"mailto");
+      document.write(":" + lhs + "@");
+      document.write(rhs);
+      document.write("?subject=Comment%20on%3A%20Monix%20Task%20vs%20Scalaz%20vs%20Future,%20The%20Benchmark")
+      document.write("\">" + lhs + "@" + rhs + "<\/a>");
+    })()
+  </script>
+  <noscript>
+    <em>Email address is protected via JavaScript, activate it to see it!</em>
+  </noscript>
+</p>
+
+<h2 id="contribute">
+  Contribute
+  <a href="#contribute" class="anchor">#</a>
+</h2>
+
+
+<p>
+  Fix or add to this article by submitting a pull request:<br/>
+  <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/main/_posts/2016-08-25-monix-task-performance.md" target="_blank">Edit Page on GitHub</a>
+</p>
+
+<p>
+  Donate to cover ongoing website costs, or buy me coffee ☕️😋 <br/>
+  <a href="https://www.patreon.com/bePatron?u=6102596" target="_blank">
+    <img label="Become a Patron!" alt="Become a Patron!" title="Become a Patron!" src="/assets/media/buttons/patreon.png" height="40" />
+  </a>
+</p>
+
+
+<h2 id="subscribe">
+  Subscribe
+  <a href="#subscribe" class="anchor">#</a>
+</h2>
+
+<!-- Begin Mailchimp Signup Form -->
+<div id="mc_embed_signup">
+  <form action="https://alexn.us4.list-manage.com/subscribe/post?u=5bffa2af025192a58345bd5dc&amp;id=1c9005b255"
+    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
+    novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="mc-field-group field">
+        <label for="mce-EMAIL">Email Address <sup class="asterisk">*</sup></label>
+        <input type="email" value="" name="EMAIL" class="required email full-width" id="mce-EMAIL" placeholder="user@domain.com" required>
+      </div>
+      <!-- <div class="mc-field-group field">
+        <label for="mce-FULLNAME">Name</label>
+        <input type="text" value="" name="FULLNAME" class="full-width" id="mce-FULLNAME" placeholder="John Doe">
+      </div> -->
+      <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+      </div>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+          name="b_5bffa2af025192a58345bd5dc_1c9005b255" tabindex="-1" value=""></div>
+      <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+          class="button"></div>
+    </div>
+  </form>
+</div>
+
+<div class="note">
+  <span class="extra">
+    Newsletter subscription uses Mailchimp, see <a href="/docs/privacy-policy/">privacy policy</a>.
+    If you're not seeing the form, it may be blocked by the browser; <a target="_blank" href="http://eepurl.com/g5ClAT"><em><span style="white-space: nowrap;">try the external subscribe page &#10141;</span></em></a>
+  </span>
+</div>
+
+
+    </div>  
+  </div>
+  
+
+  <div class="bottom">
+    <div class="container">
+      <span class="copy">
+          &copy; 2009-2022
+      </span>
+      <span class="links">
+        <a href="/docs/license/">License</a> |
+        <a href="/docs/privacy-policy/">Privacy Policy</a> |
+        <a href="/about/#contact">Contact</a>
+      </span>
+    </div>
+  </div>
+</div><!-- end .footer -->
+
+</body>
+</html>
