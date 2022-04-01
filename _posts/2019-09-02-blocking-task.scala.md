@@ -1,10 +1,20 @@
 ---
+title: 'Scala Snippet: Blocking Task'
+feed_guid: /snippets/2019/09/02/blocking-task.scala/
+redirect_from:
+  - /snippets/2019/09/02/blocking-task.scala/
+  - /snippets/2019/09/02/blocking-task.scala.html
+last_modified_at: 2022-04-01 15:15:08 +03:00
 tags:
   - Async
   - Monix
   - Scala
+  - Snippet
 ---
 
+Monix Task implementation for wrapping (suspending) blocking I/O such
+that it can be canceled.
+s
 Imported from [gist.github.com](https://gist.github.com/alexandru/d04c23e3ebd918c6144b5ad33c69f48f).
 
 WARN: not sure if this code is correct.

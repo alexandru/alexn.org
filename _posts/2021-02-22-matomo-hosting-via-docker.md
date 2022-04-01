@@ -1,10 +1,16 @@
 ---
 title: "Matomo (Analytics) Hosting via Docker"
-date: 2021-02-22 00:12:25+0200
 tags:
   - Blogging
   - Self-hosting
   - Web
+feed_guid: /snippets/2021/02/22/matomo-hosting-via-docker/
+redirect_from:
+  - /snippets/2021/02/22/matomo-hosting-via-docker/
+  - /snippets/2021/02/22/matomo-hosting-via-docker.html
+description: >
+  Docker setup for self-hosting Matomo, an open-source alternative to Google Analytics.
+last_modified_at: 2022-04-01 15:52:01 +03:00
 ---
 
 For self-hosting [Matomo](https://matomo.org/), a FOSS alternative to Google Analytics — via [docker-compose](https://docs.docker.com/compose/):

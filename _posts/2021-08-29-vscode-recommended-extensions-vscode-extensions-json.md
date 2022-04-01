@@ -1,11 +1,17 @@
 ---
 title: "VSCode workplace recommended extensions"
-date: 2021-08-29 11:46:24+0300
+feed_guid: /snippets/2021/08/29/vscode-recommended-extensions-vscode-extensions-json/
+redirect_from:
+  - /snippets/2021/08/29/vscode-recommended-extensions-vscode-extensions-json/
+  - /snippets/2021/08/29/vscode-recommended-extensions-vscode-extensions-json.html
 image: /assets/media/snippets/recommended-extensions.png
+image_hide_in_post: true
 tags:
   - IDE
   - Programming
   - Scala
+  - Snippet
+last_modified_at: 2022-04-01 15:38:34 +03:00
 ---
 
 You can recommend the required [VSCode](https://code.visualstudio.com/){:target="_blank",rel="nofollow"} extensions per repository to your fellow programmers. This is what VSCode calls "[workspace recommended extensions](http://go.microsoft.com/fwlink/?LinkId=827846){:target="_blank"}".

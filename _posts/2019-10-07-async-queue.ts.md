@@ -1,7 +1,13 @@
 ---
+feed_guid: /snippets/2019/10/07/async-queue.ts/
+redirect_from:
+  - /snippets/2019/10/07/async-queue.ts/
+  - /snippets/2019/10/07/async-queue.ts.html
+last_modified_at: 2022-04-01 14:52:58 +03:00
 tags:
   - Async
   - JavaScript
+  - Snippet
   - TypeScript
 ---
 

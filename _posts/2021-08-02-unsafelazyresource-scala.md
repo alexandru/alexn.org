@@ -1,9 +1,17 @@
 ---
 title: "Unsafe Lazy Resource.scala"
-date: 2021-08-02 13:13:07+0300
+feed_guid: /snippets/2021/08/02/unsafelazyresource-scala/
+redirect_from: 
+  - /snippets/2021/08/02/unsafelazyresource-scala/
+  - /snippets/2021/08/02/unsafelazyresource-scala.html
 tags:
-- Scala
+  - Scala
+  - Snippet
 image: /assets/media/snippets/unsafe-lazy-resource.png
+image_hide_in_post: true
+last_modified_at: 2022-04-01 15:42:12 +03:00
+description: >
+  Snippet for an impure way (no IO) to create a resource that can later be closed.
 ---
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr"><em>I need an impure way (no IO) to create a resource atomically only once and later be able to know if it was created or not, so I can close this resource safely. 🤔</em><br><br>Jules Ivanic (@guizmaii) ⬇️ <a href="https://twitter.com/guizmaii/status/1422111131556974592" target="_blank" rel="nofollow">August 2, 2021</a></p></blockquote>

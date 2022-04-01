@@ -1,7 +1,17 @@
 ---
+title: 'ExecutionContext Must Be Stack-safe'
+feed_guid: /snippets/2020/05/27/future-stack-overflow.scala/
+redirect_from:
+  - /snippets/2020/05/27/future-stack-overflow.scala/
+  - /snippets/2020/05/27/future-stack-overflow.scala.html
 tags:
   - Async
   - Scala
+  - Snippet
+description:
+  Sample demonstrating that directly executing runnables in your
+  `ExecutionContext` (with no stack-safety) is a really bad idea.
+last_modified_at: 2022-04-01 15:47:40 +03:00
 ---
 
 ```scala

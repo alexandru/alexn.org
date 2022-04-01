@@ -1,9 +1,16 @@
 ---
 title: "Cleanup Scala/Java project"
-date: 2022-01-22 11:16:00+0200
+feed_guid: /snippets/2022/01/22/cleanup-scala-project/
+redirect_from: 
+  - /snippets/2022/01/22/cleanup-scala-project/
+  - /snippets/2022/01/22/cleanup-scala-project.html
 tags:
   - Bash
   - CLI
+  - Shell
+description: >
+  Snippet for cleaning up a Scala project's directory of all compiled files.
+last_modified_at: 2022-04-01 15:30:15 +03:00
 ---
 
 ```sh

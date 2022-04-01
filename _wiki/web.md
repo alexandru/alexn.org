@@ -1,44 +1,8 @@
 ---
 title: "Web"
 date: 2020-11-30 17:38:13 +03:00
-last_modified_at: 2022-04-01 09:19:33 +03:00
+last_modified_at: 2022-04-01 09:45:15 +03:00
 ---
-
-## Client Tricks
-
-### Detect the Brave Browser
-
-```js
-(navigator.brave && await navigator.brave.isBrave() || false)
-```
-
-Credit: <https://stackoverflow.com/a/60954062>
-
-### Detect Dark Mode
-
-From JavaScript:
-
-```js
-"matchMedia" in window && 
-window.matchMedia('(prefers-color-scheme: dark)').matches
-```
-
-From CSS:
-
-```css
-@media (prefers-color-scheme: dark) {
-    /* ... */
-}
-```
-
-### Detect Dark Reader (browser extension)
-
-For detecting the [Dark Reader](https://darkreader.org/) browser extension:
-
-```js
-"querySelector" in document &&
-!!document.querySelector("meta[name=darkreader]")
-```
 
 ## Browser benchmarks
 
@@ -104,3 +68,40 @@ nativefier \
 
 - [Firefox and Chromium Security (2020)](https://madaidans-insecurities.github.io/firefox-chromium.html) ([archive](https://web.archive.org/web/20210105142528/https://madaidans-insecurities.github.io/firefox-chromium.html))
 - [Brave vs Firefox](https://itsfoss.com/brave-vs-firefox/)
+
+## Client Tricks
+
+### Detect the Brave Browser
+
+```js
+(navigator.brave && await navigator.brave.isBrave() || false)
+```
+
+Credit: <https://stackoverflow.com/a/60954062>
+
+### Detect Dark Mode
+
+From JavaScript:
+
+```js
+"matchMedia" in window && 
+window.matchMedia('(prefers-color-scheme: dark)').matches
+```
+
+From CSS:
+
+```css
+@media (prefers-color-scheme: dark) {
+    /* ... */
+}
+```
+
+### Detect Dark Reader (browser extension)
+
+For detecting the [Dark Reader](https://darkreader.org/) browser extension:
+
+```js
+"querySelector" in document &&
+!!document.querySelector("meta[name=darkreader]")
+```
+

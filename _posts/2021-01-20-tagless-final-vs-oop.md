@@ -1,11 +1,19 @@
 ---
-title: "Tagless Final vs OOP"
-date: 2021-01-20 11:24:14+0200
+title: "Snippet: Tagless Final vs OOP"
 image: /assets/media/snippets/tagless-final-vs-oop.png
+image_hide_in_post: true
 tags: 
   - FP
   - OOP
   - Scala
+  - Snippet
+feed_guid: /snippets/2021/01/20/tagless-final-vs-oop/
+redirect_from:
+  - /snippets/2021/01/20/tagless-final-vs-oop/
+  - /snippets/2021/01/20/tagless-final-vs-oop.html
+description: >
+  Snippet of code discussing Tagless Final vs OOP-style dependency injection.
+last_modified_at: 2022-04-01 15:55:01 +03:00
 ---
 
 These may as well be interview questions for Scala developers:
