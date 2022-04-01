@@ -1,15 +1,23 @@
 ---
-title: "EffectTestSuite[F].scala"
-date: 2020-11-22 12:41:11+0200
+title: "Using ScalaTest for Effects"
 image: /assets/media/snippets/test-effect-suite.png
+image_hide_in_post: true
 tags:
   - Cats Effect
   - FP
   - Programming
   - Scala
+  - Snippet
+feed_guid: /snippets/2020/11/22/effecttestsuite-scala/
+redirect_from:
+  - /snippets/2020/11/22/effecttestsuite-scala/
+  - /snippets/2020/11/22/effecttestsuite-scala.html
+description: >
+  Helpers for integrating with `cats.effect.IO`.
+last_modified_at: 2022-04-01 16:22:01 +03:00
 ---
 
-Helpers for [ScalaTest](https://www.scalatest.org/) for testing effects (e.g. `cats.effect.IO`, `monix.eval.Task`). This is similar to [PureApp]({% link _snippets/2020-10-15-generic-ioapp-alternative.md %}).
+[ScalaTest](https://www.scalatest.org/) helpers for testing effects (e.g. `cats.effect.IO`, `monix.eval.Task`). This is similar to [PureApp]({% link _snippets/2020-10-15-generic-ioapp-alternative.md %}).
 
 **Requirement:** [EffectRuntime]({% link _snippets/2020-10-12-effect-runtime.md %}) (snippet)
 

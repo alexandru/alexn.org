@@ -1,11 +1,22 @@
 ---
-title: "Execute shell command in F#"
-date: 2020-12-06 18:43:50+0200
+title: "Execute shell commands in F#"
 tags:
-  - FSharp
+  - Bash
+  - Shell
   - dotNet
+  - FSharp
+  - Snippet
+feed_guid: /snippets/2020/12/06/execute-shell-command-in-fsharp/
+redirect_from:
+  - /snippets/2020/12/06/execute-shell-command-in-fsharp/
+  - /snippets/2020/12/06/execute-shell-command-in-fsharp.html
+image: /assets/media/snippets/execute-shell-command-fsharp.png
+image_hide_in_post: true
+description: >
+  Snippet in plain F# with no dependencies. Features a neat shebang.
+last_modified_at: 2022-04-01 16:17:48 +03:00
 ---
-
+  
 ```fsharp
 #!/usr/bin/env -S dotnet fsi
 
@@ -57,4 +68,14 @@ if r.ExitCode = 0 then
 else
   eprintfn "%s" r.StandardError
   Environment.Exit(r.ExitCode)
+```
+
+If you create the file `test.fsi` with the code above, under Linux you can make it executable:
+
+```sh
+# Make it executable
+chmod +x ./test.fsi
+
+# Execute it
+./test.fsi
 ```
