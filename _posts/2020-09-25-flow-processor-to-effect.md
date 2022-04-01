@@ -11,12 +11,12 @@ redirect_from:
   - /snippets/2020/09/25/flow-processor-to-effect/
   - /snippets/2020/09/25/flow-processor-to-effect.html
 description: >
-  For converting Flow/Processor from Akka stream into Cats-Effect's IO.
-last_modified_at: 2022-04-01 16:43:35 +03:00
+  Converts an Akka Streams `Flow` into an `In => IO[Out]` method, thus wrapping `Flow` into Cats-Effect's `IO`.
+last_modified_at: 2022-04-01 18:56:30 +03:00
 ---
 
-**WARNING:** this implementation doesn't actually work, because `Processor`
-from Reactive Streams isn't meant to stream resources, doesn't do back-pressure on `complete`, so this snippet will fail.
+Converts an Akka Streams `Flow` into an `In => IO[Out]` method,
+thus wrapping `Flow` into Cats-Effect's `IO`.
 
 ```scala
 import akka.actor.ActorSystem
