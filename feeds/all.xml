@@ -20,17 +20,13 @@ layout: null
 	  <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v{{ jekyll.version }}</generator>
 
-    {% assign everything = site.posts | concat: site.links | concat: site.wiki | rss_sort_all -%}
+    {% assign everything = site.posts | concat: site.wiki | rss_sort_all -%}
     {% for post in everything limit:200 %}
       {% unless post.secret -%}
         {% if post.collection == 'posts' -%}
           {% include feed-item-blog.xml utm_medium="all" post=post with_full_post=true %}
-        {% elsif post.collection == 'links' -%}
-          {% include feed-item-link.xml utm_medium="all" post=post prefix="Shared Link — " %}
         {% elsif post.collection == 'wiki' -%}
-          {% unless post.path == '_wiki/readme.md' %}          
-            {% include feed-item-wiki.xml utm_medium="all" post=post prefix="Wiki — " %}
-          {% endunless %}
+          {% include feed-item-wiki.xml utm_medium="all" post=post prefix="Wiki — " %}
         {% endif -%}
       {% endunless -%}
     {% endfor -%}

@@ -7,10 +7,11 @@ redirect_from:
 tags:
   - Bash
   - CLI
+  - Scala
   - Shell
 description: >
   Snippet for cleaning up a Scala project's directory of all compiled files.
-last_modified_at: 2022-04-01 15:30:15 +03:00
+last_modified_at: 2022-04-01 18:37:16 +03:00
 ---
 
 ```sh
