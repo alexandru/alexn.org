@@ -1,7 +1,7 @@
 ---
 title: "Web"
 date: 2020-11-30 17:38:13 +03:00
-last_modified_at: 2022-03-29 10:45:53 +03:00
+last_modified_at: 2022-04-01 09:19:33 +03:00
 ---
 
 ## Client Tricks
@@ -55,12 +55,13 @@ Performance:
 Features:
 
 - [PWA feature detector](https://tomayac.github.io/pwa-feature-detector){:target="_blank"}
+- [Web Notifications Test](https://www.bennish.net/web-notifications.html){:target="_blank"}
 
 ### For testing tracking & ads blocking
 
 - <https://adblock-tester.com/>{:target="_blank"}
 - <https://coveryourtracks.eff.org/>{:target="_blank"}
-- <https://d3ward.github.io/toolz/src/adblock>{:target="_blank"}
+- <https://d3ward.github.io/toolz/adblock.html>{:target="_blank"}
 - <https://blockads.fivefilters.org/>{:target="_blank"}
 
 ## Progressive Web Apps (PWAs)
