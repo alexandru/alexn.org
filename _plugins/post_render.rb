@@ -1,11 +1,5 @@
 require 'json'
 
-# Jekyll::Hooks.register([:pages, :posts], :post_render) do |post|
-#   if post.url == "/redirects.json"
-#     puts post.url
-#   end
-# end
-
 Jekyll::Hooks.register([:site], :post_write) do |post|
   all_redirects = JSON.parse(File.read("_site/redirects.json"))
 
