@@ -10,11 +10,11 @@
     <description>Feed meant for publishing notifications to Twitter.</description>
     <link>https://alexn.org/</link>
     <atom:link href="https://alexn.org/feeds/twitter.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 01 Apr 2022 06:20:17 +0000</pubDate>
-    <lastBuildDate>Fri, 01 Apr 2022 06:20:17 +0000</lastBuildDate>
-  	<language>en</language>
+    <pubDate>Fri, 01 Apr 2022 16:07:03 +0000</pubDate>
+    <lastBuildDate>Fri, 01 Apr 2022 16:07:03 +0000</lastBuildDate>
+    <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
-	  <sy:updateFrequency>1</sy:updateFrequency>
+    <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v4.2.2</generator>
 
     
@@ -40,45 +40,53 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Cleanup Scala/Java project</title>
-  <description>Code snippet #Bash #CLI</description>
-  <content:encoded>&lt;p&gt;Code snippet #Bash #CLI 
+  <description>Blog article #Bash #CLI #Scala #Shell</description>
+  <content:encoded>&lt;p&gt;Blog article #Bash #CLI #Scala #Shell 
   
 &lt;/p&gt;</content:encoded>
-  <pubDate>Sat, 22 Jan 2022 09:16:00 +0000</pubDate>
-  <link>https://alexn.org/snippets/2022/01/22/cleanup-scala-project/</link>
+  <pubDate>Sat, 22 Jan 2022 00:00:00 +0000</pubDate>
+  <dc:modified>Fri, 01 Apr 2022 15:37:16 +0000</dc:modified>
+  <atom:modified>Fri, 01 Apr 2022 15:37:16 +0000</atom:modified>
+  <link>https://alexn.org/blog/2022/01/22/cleanup-scala-project/</link>
   <guid isPermaLink="true">https://alexn.org/snippets/2022/01/22/cleanup-scala-project/</guid>
   
   
   <dc:creator>Alexandru Nedelcu</dc:creator>
   
-  <category>Snippet</category>
+  <category>Blog</category>
   
   <category>Bash</category>
   
   <category>CLI</category>
   
-</item>
+  <category>Scala</category>
   
-        
+  <category>Shell</category>
+  
+</item>
+
+      
       
 <item>
   <title>VSCode workplace recommended extensions</title>
-  <description>Code snippet #IDE #Programming #Scala</description>
-  <content:encoded>&lt;p&gt;Code snippet #IDE #Programming #Scala 
+  <description>Blog article #IDE #Programming #Scala #Snippet</description>
+  <content:encoded>&lt;p&gt;Blog article #IDE #Programming #Scala #Snippet 
   
 &lt;/p&gt;</content:encoded>
-  <pubDate>Sun, 29 Aug 2021 08:46:24 +0000</pubDate>
-  <link>https://alexn.org/snippets/2021/08/29/vscode-recommended-extensions-vscode-extensions-json/</link>
+  <pubDate>Sun, 29 Aug 2021 00:00:00 +0000</pubDate>
+  <dc:modified>Fri, 01 Apr 2022 12:38:34 +0000</dc:modified>
+  <atom:modified>Fri, 01 Apr 2022 12:38:34 +0000</atom:modified>
+  <link>https://alexn.org/blog/2021/08/29/vscode-recommended-extensions-vscode-extensions-json/</link>
   <guid isPermaLink="true">https://alexn.org/snippets/2021/08/29/vscode-recommended-extensions-vscode-extensions-json/</guid>
   
   
   <dc:creator>Alexandru Nedelcu</dc:creator>
   
-  <category>Snippet</category>
+  <category>Blog</category>
   
   <category>IDE</category>
   
@@ -86,30 +94,36 @@
   
   <category>Scala</category>
   
-</item>
+  <category>Snippet</category>
   
-        
+</item>
+
+      
       
 <item>
   <title>Unsafe Lazy Resource.scala</title>
-  <description>Code snippet #Scala</description>
-  <content:encoded>&lt;p&gt;Code snippet #Scala 
+  <description>Blog article #Scala #Snippet</description>
+  <content:encoded>&lt;p&gt;Blog article #Scala #Snippet 
   
 &lt;/p&gt;</content:encoded>
-  <pubDate>Mon, 02 Aug 2021 10:13:07 +0000</pubDate>
-  <link>https://alexn.org/snippets/2021/08/02/unsafelazyresource-scala/</link>
+  <pubDate>Mon, 02 Aug 2021 00:00:00 +0000</pubDate>
+  <dc:modified>Fri, 01 Apr 2022 12:42:12 +0000</dc:modified>
+  <atom:modified>Fri, 01 Apr 2022 12:42:12 +0000</atom:modified>
+  <link>https://alexn.org/blog/2021/08/02/unsafelazyresource-scala/</link>
   <guid isPermaLink="true">https://alexn.org/snippets/2021/08/02/unsafelazyresource-scala/</guid>
   
   
   <dc:creator>Alexandru Nedelcu</dc:creator>
   
-  <category>Snippet</category>
+  <category>Blog</category>
   
   <category>Scala</category>
   
-</item>
+  <category>Snippet</category>
   
-        
+</item>
+
+      
       
 <item>
   <title>Combining the terminal (iTerm) with the IDE</title>
@@ -132,7 +146,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Tolerance</title>
@@ -159,7 +173,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Atom/RSS Feeds are the Best Way to Consume the Web</title>
@@ -184,57 +198,7 @@
   
 </item>
 
-        
       
-<item>
-  <title>Cats Effect 3.0.0</title>
-  <description>Shared link #FP #Programming #Scala #Typelevel</description>
-  <content:encoded>&lt;p&gt;Shared link #FP #Programming #Scala #Typelevel 
-  
-&lt;/p&gt;</content:encoded>
-  <pubDate>Mon, 29 Mar 2021 06:52:13 +0000</pubDate>
-  <link>https://github.com/typelevel/cats-effect/releases/tag/v3.0.0</link>
-  <guid isPermaLink="false">https://alexn.org/links/2021/03/29/cats-effect-3-0-0/</guid>
-  
-  <dc:creator>Typelevel Contributors</dc:creator>
-  
-  <category>Shared link</category>
-  
-  <category>FP</category>
-  
-  <category>Programming</category>
-  
-  <category>Scala</category>
-  
-  <category>Typelevel</category>
-  
-</item>
-
-        
-      
-<item>
-  <title>Happiest Man on Earth</title>
-  <description>Shared link #Meditation #Video #YouTube</description>
-  <content:encoded>&lt;p&gt;Shared link #Meditation #Video #YouTube 
-  
-&lt;/p&gt;</content:encoded>
-  <pubDate>Sun, 21 Mar 2021 08:47:06 +0000</pubDate>
-  <link>https://www.youtube.com/watch?v=kaNO09cPS6c</link>
-  <guid isPermaLink="false">https://alexn.org/links/2021/03/21/happiest-man-on-earth/</guid>
-  
-  <dc:creator>Mingyur Rinpoche</dc:creator>
-  
-  <category>Shared link</category>
-  
-  <category>Meditation</category>
-  
-  <category>Video</category>
-  
-  <category>YouTube</category>
-  
-</item>
-
-        
       
 <item>
   <title>ING Scala Meetup on Scala 3 (live coding session)</title>
@@ -261,7 +225,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Implementing a CountDownLatch (async and dirty)</title>
@@ -292,22 +256,24 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Matomo (Analytics) Hosting via Docker</title>
-  <description>Code snippet #Blogging #Self-hosting #Web</description>
-  <content:encoded>&lt;p&gt;Code snippet #Blogging #Self-hosting #Web 
+  <description>Blog article #Blogging #Self-hosting #Web</description>
+  <content:encoded>&lt;p&gt;Blog article #Blogging #Self-hosting #Web 
   
 &lt;/p&gt;</content:encoded>
-  <pubDate>Sun, 21 Feb 2021 22:12:25 +0000</pubDate>
-  <link>https://alexn.org/snippets/2021/02/21/matomo-hosting-via-docker/</link>
-  <guid isPermaLink="true">https://alexn.org/snippets/2021/02/21/matomo-hosting-via-docker/</guid>
+  <pubDate>Mon, 22 Feb 2021 00:00:00 +0000</pubDate>
+  <dc:modified>Fri, 01 Apr 2022 12:52:01 +0000</dc:modified>
+  <atom:modified>Fri, 01 Apr 2022 12:52:01 +0000</atom:modified>
+  <link>https://alexn.org/blog/2021/02/22/matomo-hosting-via-docker/</link>
+  <guid isPermaLink="true">https://alexn.org/snippets/2021/02/22/matomo-hosting-via-docker/</guid>
   
   
   <dc:creator>Alexandru Nedelcu</dc:creator>
   
-  <category>Snippet</category>
+  <category>Blog</category>
   
   <category>Blogging</category>
   
@@ -316,38 +282,8 @@
   <category>Web</category>
   
 </item>
-  
-        
-      
-<item>
-  <title>OOP vs Type Classes (Slides, PDF)</title>
-  <description>Shared link #CategoryTheory #FP #OOP #PDF #Programming #Scala</description>
-  <content:encoded>&lt;p&gt;Shared link #CategoryTheory #FP #OOP #PDF #Programming #Scala 
-  
-&lt;/p&gt;</content:encoded>
-  <pubDate>Sat, 13 Feb 2021 16:14:21 +0000</pubDate>
-  <link>https://alexn.org/assets/pdfs/OOP-vs-Type-Classes-Scala-Love-2021.pdf</link>
-  <guid isPermaLink="false">https://alexn.org/links/2021/02/13/oop-vs-type-classes-slides-from-scala-love-in-the-city-2021/</guid>
-  
-  <dc:creator>Alexandru Nedelcu</dc:creator>
-  
-  <category>Shared link</category>
-  
-  <category>Category Theory</category>
-  
-  <category>FP</category>
-  
-  <category>OOP</category>
-  
-  <category>PDF</category>
-  
-  <category>Programming</category>
-  
-  <category>Scala</category>
-  
-</item>
 
-        
+      
       
 <item>
   <title>Scala&#39;s List has a Secret</title>
@@ -374,35 +310,7 @@
   
 </item>
 
-        
       
-<item>
-  <title>FP vs OO: Choose Two</title>
-  <description>Shared link #FP #Java #OOP #Programming #Video</description>
-  <content:encoded>&lt;p&gt;Shared link #FP #Java #OOP #Programming #Video 
-  
-&lt;/p&gt;</content:encoded>
-  <pubDate>Sun, 07 Feb 2021 12:00:28 +0000</pubDate>
-  <link>https://www.youtube.com/watch?v=8GWZE2Y2O9E</link>
-  <guid isPermaLink="false">https://alexn.org/links/2021/02/07/fp-vs-oo-choose-two/</guid>
-  
-  <dc:creator>Brian Goetz</dc:creator>
-  
-  <category>Shared link</category>
-  
-  <category>FP</category>
-  
-  <category>Java</category>
-  
-  <category>OOP</category>
-  
-  <category>Programming</category>
-  
-  <category>Video</category>
-  
-</item>
-
-        
       
 <item>
   <title>Tail Recursive Functions (in Scala)</title>
@@ -431,22 +339,24 @@
   
 </item>
 
-        
+      
       
 <item>
-  <title>Tagless Final vs OOP</title>
-  <description>Code snippet #FP #OOP #Scala</description>
-  <content:encoded>&lt;p&gt;Code snippet #FP #OOP #Scala 
+  <title>Snippet: Tagless Final vs OOP</title>
+  <description>Blog article #FP #OOP #Scala #Snippet</description>
+  <content:encoded>&lt;p&gt;Blog article #FP #OOP #Scala #Snippet 
   
 &lt;/p&gt;</content:encoded>
-  <pubDate>Wed, 20 Jan 2021 09:24:14 +0000</pubDate>
-  <link>https://alexn.org/snippets/2021/01/20/tagless-final-vs-oop/</link>
+  <pubDate>Wed, 20 Jan 2021 00:00:00 +0000</pubDate>
+  <dc:modified>Fri, 01 Apr 2022 12:55:01 +0000</dc:modified>
+  <atom:modified>Fri, 01 Apr 2022 12:55:01 +0000</atom:modified>
+  <link>https://alexn.org/blog/2021/01/20/tagless-final-vs-oop/</link>
   <guid isPermaLink="true">https://alexn.org/snippets/2021/01/20/tagless-final-vs-oop/</guid>
   
   
   <dc:creator>Alexandru Nedelcu</dc:creator>
   
-  <category>Snippet</category>
+  <category>Blog</category>
   
   <category>FP</category>
   
@@ -454,24 +364,28 @@
   
   <category>Scala</category>
   
-</item>
+  <category>Snippet</category>
   
-        
+</item>
+
+      
       
 <item>
-  <title>Remove blank lines from text in Java/Scala</title>
-  <description>Code snippet #Java #Programming #Regexp #Scala</description>
-  <content:encoded>&lt;p&gt;Code snippet #Java #Programming #Regexp #Scala 
+  <title>Snippet: Remove blank lines from text</title>
+  <description>Blog article #Java #Programming #Regexp #Scala #Snippet</description>
+  <content:encoded>&lt;p&gt;Blog article #Java #Programming #Regexp #Scala #Snippet 
   
 &lt;/p&gt;</content:encoded>
-  <pubDate>Thu, 14 Jan 2021 13:29:25 +0000</pubDate>
-  <link>https://alexn.org/snippets/2021/01/14/remove-blank-lines/</link>
+  <pubDate>Thu, 14 Jan 2021 00:00:00 +0000</pubDate>
+  <dc:modified>Fri, 01 Apr 2022 12:57:33 +0000</dc:modified>
+  <atom:modified>Fri, 01 Apr 2022 12:57:33 +0000</atom:modified>
+  <link>https://alexn.org/blog/2021/01/14/remove-blank-lines/</link>
   <guid isPermaLink="true">https://alexn.org/snippets/2021/01/14/remove-blank-lines/</guid>
   
   
   <dc:creator>Alexandru Nedelcu</dc:creator>
   
-  <category>Snippet</category>
+  <category>Blog</category>
   
   <category>Java</category>
   
@@ -481,31 +395,11 @@
   
   <category>Scala</category>
   
-</item>
-  
-        
-      
-<item>
-  <title>You might not need jQuery</title>
-  <description>Shared link #JavaScript #Programming</description>
-  <content:encoded>&lt;p&gt;Shared link #JavaScript #Programming 
-  
-&lt;/p&gt;</content:encoded>
-  <pubDate>Thu, 14 Jan 2021 08:38:13 +0000</pubDate>
-  <link>http://youmightnotneedjquery.com/</link>
-  <guid isPermaLink="false">https://alexn.org/links/2021/01/14/you-might-not-need-jquery/</guid>
-  
-  <dc:creator>Adam Schwartz</dc:creator>
-  
-  <category>Shared link</category>
-  
-  <category>JavaScript</category>
-  
-  <category>Programming</category>
+  <category>Snippet</category>
   
 </item>
 
-        
+      
       
 <item>
   <title>There are No Acceptable Ads</title>
@@ -526,67 +420,55 @@
   
 </item>
 
-        
+      
       
 <item>
-  <title>Execute shell command in F#</title>
-  <description>Code snippet #FSharp #dotNet</description>
-  <content:encoded>&lt;p&gt;Code snippet #FSharp #dotNet 
+  <title>Execute shell commands in F#</title>
+  <description>Blog article #Bash #Shell #dotNet #FSharp #Snippet</description>
+  <content:encoded>&lt;p&gt;Blog article #Bash #Shell #dotNet #FSharp #Snippet 
   
 &lt;/p&gt;</content:encoded>
-  <pubDate>Sun, 06 Dec 2020 16:43:50 +0000</pubDate>
-  <link>https://alexn.org/snippets/2020/12/06/execute-shell-command-in-fsharp/</link>
+  <pubDate>Sun, 06 Dec 2020 00:00:00 +0000</pubDate>
+  <dc:modified>Fri, 01 Apr 2022 13:17:48 +0000</dc:modified>
+  <atom:modified>Fri, 01 Apr 2022 13:17:48 +0000</atom:modified>
+  <link>https://alexn.org/blog/2020/12/06/execute-shell-command-in-fsharp/</link>
   <guid isPermaLink="true">https://alexn.org/snippets/2020/12/06/execute-shell-command-in-fsharp/</guid>
   
   
   <dc:creator>Alexandru Nedelcu</dc:creator>
   
-  <category>Snippet</category>
+  <category>Blog</category>
   
-  <category>FSharp</category>
+  <category>Bash</category>
+  
+  <category>Shell</category>
   
   <category>dotNet</category>
   
-</item>
+  <category>FSharp</category>
   
-        
-      
-<item>
-  <title>Michael Jackson – They Don’t Care About Us</title>
-  <description>Shared link #Music #Video</description>
-  <content:encoded>&lt;p&gt;Shared link #Music #Video 
-  
-&lt;/p&gt;</content:encoded>
-  <pubDate>Sun, 29 Nov 2020 12:04:45 +0000</pubDate>
-  <link>https://www.youtube.com/watch?v=PoEa9bzeTu0</link>
-  <guid isPermaLink="false">https://alexn.org/links/2020/11/29/they-dont-care-about-us/</guid>
-  
-  <dc:creator>Michael Jackson</dc:creator>
-  
-  <category>Shared link</category>
-  
-  <category>Music</category>
-  
-  <category>Video</category>
+  <category>Snippet</category>
   
 </item>
 
-        
+      
       
 <item>
-  <title>EffectTestSuite[F].scala</title>
-  <description>Code snippet #CatsEffect #FP #Programming #Scala</description>
-  <content:encoded>&lt;p&gt;Code snippet #CatsEffect #FP #Programming #Scala 
+  <title>Using ScalaTest for Effects</title>
+  <description>Blog article #CatsEffect #FP #Programming #Scala #Snippet</description>
+  <content:encoded>&lt;p&gt;Blog article #CatsEffect #FP #Programming #Scala #Snippet 
   
 &lt;/p&gt;</content:encoded>
-  <pubDate>Sun, 22 Nov 2020 10:41:11 +0000</pubDate>
-  <link>https://alexn.org/snippets/2020/11/22/effecttestsuite-scala/</link>
+  <pubDate>Sun, 22 Nov 2020 00:00:00 +0000</pubDate>
+  <dc:modified>Fri, 01 Apr 2022 13:31:29 +0000</dc:modified>
+  <atom:modified>Fri, 01 Apr 2022 13:31:29 +0000</atom:modified>
+  <link>https://alexn.org/blog/2020/11/22/effecttestsuite-scala/</link>
   <guid isPermaLink="true">https://alexn.org/snippets/2020/11/22/effecttestsuite-scala/</guid>
   
   
   <dc:creator>Alexandru Nedelcu</dc:creator>
   
-  <category>Snippet</category>
+  <category>Blog</category>
   
   <category>Cats Effect</category>
   
@@ -596,31 +478,11 @@
   
   <category>Scala</category>
   
-</item>
-  
-        
-      
-<item>
-  <title>Graphics for JVM</title>
-  <description>Shared link #JVM #Programming</description>
-  <content:encoded>&lt;p&gt;Shared link #JVM #Programming 
-  
-&lt;/p&gt;</content:encoded>
-  <pubDate>Tue, 17 Nov 2020 13:58:46 +0000</pubDate>
-  <link>https://tonsky.me/blog/skija/</link>
-  <guid isPermaLink="false">https://alexn.org/links/2020/11/17/graphics-for-jvm/</guid>
-  
-  <dc:creator>Nikita Prokopov</dc:creator>
-  
-  <category>Shared link</category>
-  
-  <category>JVM</category>
-  
-  <category>Programming</category>
+  <category>Snippet</category>
   
 </item>
 
-        
+      
       
 <item>
   <title>Best practice for natural Ordering</title>
@@ -643,7 +505,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Managing Database Migrations in Scala</title>
@@ -668,22 +530,24 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>List static blog tags in folder (Jekyll, etc)</title>
-  <description>Code snippet #Blogging #Jekyll #Ruby</description>
-  <content:encoded>&lt;p&gt;Code snippet #Blogging #Jekyll #Ruby 
+  <description>Blog article #Blogging #Jekyll #Ruby #Snippet</description>
+  <content:encoded>&lt;p&gt;Blog article #Blogging #Jekyll #Ruby #Snippet 
   
 &lt;/p&gt;</content:encoded>
-  <pubDate>Fri, 13 Nov 2020 13:59:43 +0000</pubDate>
-  <link>https://alexn.org/snippets/2020/11/13/list-blog-tags-in-folder/</link>
+  <pubDate>Fri, 13 Nov 2020 00:00:00 +0000</pubDate>
+  <dc:modified>Fri, 01 Apr 2022 13:24:12 +0000</dc:modified>
+  <atom:modified>Fri, 01 Apr 2022 13:24:12 +0000</atom:modified>
+  <link>https://alexn.org/blog/2020/11/13/list-blog-tags-in-folder/</link>
   <guid isPermaLink="true">https://alexn.org/snippets/2020/11/13/list-blog-tags-in-folder/</guid>
   
   
   <dc:creator>Alexandru Nedelcu</dc:creator>
   
-  <category>Snippet</category>
+  <category>Blog</category>
   
   <category>Blogging</category>
   
@@ -691,9 +555,11 @@
   
   <category>Ruby</category>
   
-</item>
+  <category>Snippet</category>
   
-        
+</item>
+
+      
       
 <item>
   <title>I like Option.get</title>
@@ -718,33 +584,7 @@
   
 </item>
 
-        
       
-<item>
-  <title>Announcing .NET 5.0, C# 9, F# 5</title>
-  <description>Shared link #Programming #dotNET #CSharp #FSharp</description>
-  <content:encoded>&lt;p&gt;Shared link #Programming #dotNET #CSharp #FSharp 
-  
-&lt;/p&gt;</content:encoded>
-  <pubDate>Wed, 11 Nov 2020 13:56:50 +0000</pubDate>
-  <link>https://devblogs.microsoft.com/dotnet/announcing-net-5-0/</link>
-  <guid isPermaLink="false">https://alexn.org/links/2020/11/11/announcing-dotnet-5/</guid>
-  
-  <dc:creator>Richard Lander</dc:creator>
-  
-  <category>Shared link</category>
-  
-  <category>Programming</category>
-  
-  <category>dotNET</category>
-  
-  <category>CSharp</category>
-  
-  <category>FSharp</category>
-  
-</item>
-
-        
       
 <item>
   <title>Organize and Index Your Screenshots (OCR) on macOS</title>
@@ -769,95 +609,7 @@
   
 </item>
 
-        
       
-<item>
-  <title>TIMELAPSE OF THE FUTURE: A Journey to the End of Time</title>
-  <description>Shared link #Entertainment #Video</description>
-  <content:encoded>&lt;p&gt;Shared link #Entertainment #Video 
-  
-&lt;/p&gt;</content:encoded>
-  <pubDate>Tue, 10 Nov 2020 08:51:12 +0000</pubDate>
-  <link>https://www.youtube.com/watch?v=uD4izuDMUQA</link>
-  <guid isPermaLink="false">https://alexn.org/links/2020/11/10/timelapse-of-the-future-a-journey-to-the-end-of-time/</guid>
-  
-  <dc:creator>melodysheep</dc:creator>
-  
-  <category>Shared link</category>
-  
-  <category>Entertainment</category>
-  
-  <category>Video</category>
-  
-</item>
-
-        
-      
-<item>
-  <title>Explicit term inference with Scala 3</title>
-  <description>Shared link #Programming #Scala</description>
-  <content:encoded>&lt;p&gt;Shared link #Programming #Scala 
-  
-&lt;/p&gt;</content:encoded>
-  <pubDate>Tue, 10 Nov 2020 08:35:46 +0000</pubDate>
-  <link>https://www.scala-lang.org/2020/11/06/explicit-term-inference-in-scala-3.html</link>
-  <guid isPermaLink="false">https://alexn.org/links/2020/11/10/explicit-term-inference-with-scala-3/</guid>
-  
-  <dc:creator>Meriam Lachkar, Vincenzo Bazzucchi, Scala Center</dc:creator>
-  
-  <category>Shared link</category>
-  
-  <category>Programming</category>
-  
-  <category>Scala</category>
-  
-</item>
-
-        
-      
-<item>
-  <title>BSP Support in sbt 1.4</title>
-  <description>Shared link #Programming #Scala</description>
-  <content:encoded>&lt;p&gt;Shared link #Programming #Scala 
-  
-&lt;/p&gt;</content:encoded>
-  <pubDate>Wed, 28 Oct 2020 08:00:00 +0000</pubDate>
-  <link>https://www.scala-lang.org/blog/2020/10/27/bsp-in-sbt.html</link>
-  <guid isPermaLink="false">https://alexn.org/links/2020/10/28/bsp-in-sbt/</guid>
-  
-  <dc:creator>Scala Center</dc:creator>
-  
-  <category>Shared link</category>
-  
-  <category>Programming</category>
-  
-  <category>Scala</category>
-  
-</item>
-
-        
-      
-<item>
-  <title>Donald Trump vs Joe Biden — Epic Rap Battles Of History</title>
-  <description>Shared link #Entertainment #Politics #Video</description>
-  <content:encoded>&lt;p&gt;Shared link #Entertainment #Politics #Video 
-  
-&lt;/p&gt;</content:encoded>
-  <pubDate>Sat, 24 Oct 2020 20:41:03 +0000</pubDate>
-  <link>https://www.youtube.com/watch?v=FkGK7bitav0</link>
-  <guid isPermaLink="false">https://alexn.org/links/2020/10/24/donald-trump-vs-joe-biden/</guid>
-  
-  <category>Shared link</category>
-  
-  <category>Entertainment</category>
-  
-  <category>Politics</category>
-  
-  <category>Video</category>
-  
-</item>
-
-        
       
 <item>
   <title>Block comments on the web</title>
@@ -882,22 +634,24 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Generic IOApp alternative</title>
-  <description>Code snippet #CatsEffect #FP #Scala</description>
-  <content:encoded>&lt;p&gt;Code snippet #CatsEffect #FP #Scala 
+  <description>Blog article #CatsEffect #FP #Scala #Snippet</description>
+  <content:encoded>&lt;p&gt;Blog article #CatsEffect #FP #Scala #Snippet 
   
 &lt;/p&gt;</content:encoded>
-  <pubDate>Thu, 15 Oct 2020 07:05:19 +0000</pubDate>
-  <link>https://alexn.org/snippets/2020/10/15/generic-ioapp-alternative/</link>
+  <pubDate>Thu, 15 Oct 2020 00:00:00 +0000</pubDate>
+  <dc:modified>Fri, 01 Apr 2022 13:31:09 +0000</dc:modified>
+  <atom:modified>Fri, 01 Apr 2022 13:31:09 +0000</atom:modified>
+  <link>https://alexn.org/blog/2020/10/15/generic-ioapp-alternative/</link>
   <guid isPermaLink="true">https://alexn.org/snippets/2020/10/15/generic-ioapp-alternative/</guid>
   
   
   <dc:creator>Alexandru Nedelcu</dc:creator>
   
-  <category>Snippet</category>
+  <category>Blog</category>
   
   <category>Cats Effect</category>
   
@@ -905,50 +659,28 @@
   
   <category>Scala</category>
   
-</item>
-  
-        
-      
-<item>
-  <title>Haskell: Monads. A 5-minute introduction</title>
-  <description>Shared link #FP #Haskell #Programming #Video</description>
-  <content:encoded>&lt;p&gt;Shared link #FP #Haskell #Programming #Video 
-  
-&lt;/p&gt;</content:encoded>
-  <pubDate>Tue, 13 Oct 2020 07:50:16 +0000</pubDate>
-  <link>https://www.youtube.com/watch?v=_Gk_lwhJMzk</link>
-  <guid isPermaLink="false">https://alexn.org/links/2020/10/13/haskell-monads-a-5-minute-introduction/</guid>
-  
-  <dc:creator>Stephen Edwards</dc:creator>
-  
-  <category>Shared link</category>
-  
-  <category>FP</category>
-  
-  <category>Haskell</category>
-  
-  <category>Programming</category>
-  
-  <category>Video</category>
+  <category>Snippet</category>
   
 </item>
 
-        
+      
       
 <item>
   <title>Effect Runtime</title>
-  <description>Code snippet #CatsEffect #FP #Scala</description>
-  <content:encoded>&lt;p&gt;Code snippet #CatsEffect #FP #Scala 
+  <description>Blog article #CatsEffect #FP #Scala #Snippet</description>
+  <content:encoded>&lt;p&gt;Blog article #CatsEffect #FP #Scala #Snippet 
   
 &lt;/p&gt;</content:encoded>
-  <pubDate>Mon, 12 Oct 2020 14:17:42 +0000</pubDate>
-  <link>https://alexn.org/snippets/2020/10/12/effect-runtime/</link>
+  <pubDate>Mon, 12 Oct 2020 00:00:00 +0000</pubDate>
+  <dc:modified>Fri, 01 Apr 2022 13:30:23 +0000</dc:modified>
+  <atom:modified>Fri, 01 Apr 2022 13:30:23 +0000</atom:modified>
+  <link>https://alexn.org/blog/2020/10/12/effect-runtime/</link>
   <guid isPermaLink="true">https://alexn.org/snippets/2020/10/12/effect-runtime/</guid>
   
   
   <dc:creator>Alexandru Nedelcu</dc:creator>
   
-  <category>Snippet</category>
+  <category>Blog</category>
   
   <category>Cats Effect</category>
   
@@ -956,49 +688,11 @@
   
   <category>Scala</category>
   
-</item>
-  
-        
-      
-<item>
-  <title>Typelevel Cats Effect 3.0.0-M1</title>
-  <description>Shared link #Programming #Scala #Typelevel</description>
-  <content:encoded>&lt;p&gt;Shared link #Programming #Scala #Typelevel 
-  
-&lt;/p&gt;</content:encoded>
-  <pubDate>Sat, 10 Oct 2020 19:28:07 +0000</pubDate>
-  <link>https://github.com/typelevel/cats-effect/releases/tag/v3.0.0-M1</link>
-  <guid isPermaLink="false">https://alexn.org/links/2020/10/10/cats-effect-3-0-0-m1/</guid>
-  
-  <category>Shared link</category>
-  
-  <category>Programming</category>
-  
-  <category>Scala</category>
-  
-  <category>Typelevel</category>
+  <category>Snippet</category>
   
 </item>
 
-        
       
-<item>
-  <title>Practice typing by retyping ENTIRE classic novels</title>
-  <description>Shared link #TechSkills</description>
-  <content:encoded>&lt;p&gt;Shared link #TechSkills 
-  
-&lt;/p&gt;</content:encoded>
-  <pubDate>Sat, 10 Oct 2020 19:13:12 +0000</pubDate>
-  <link>https://www.typelit.io/</link>
-  <guid isPermaLink="false">https://alexn.org/links/2020/10/10/practice-typing-by-retyping-entire-classic-novels/</guid>
-  
-  <category>Shared link</category>
-  
-  <category>Tech Skills</category>
-  
-</item>
-
-        
       
 <item>
   <title>When My World Vanishes</title>
@@ -1019,119 +713,51 @@
   
 </item>
 
-        
+      
       
 <item>
-  <title>Countdown to Scala 3</title>
-  <description>Shared link #Programming #Scala #YouTube</description>
-  <content:encoded>&lt;p&gt;Shared link #Programming #Scala #YouTube 
-  
-&lt;/p&gt;</content:encoded>
-  <pubDate>Sat, 10 Oct 2020 00:00:00 +0000</pubDate>
-  <link>https://www.youtube.com/watch?v=n9LPwOPACj4</link>
-  <guid isPermaLink="false">https://alexn.org/links/2020/10/10/countdown-to-scala-3/</guid>
-  
-  <dc:creator>Martin Odersky</dc:creator>
-  
-  <category>Shared link</category>
-  
-  <category>Programming</category>
-  
-  <category>Scala</category>
-  
-  <category>YouTube</category>
-  
-</item>
-
-        
-      
-<item>
-  <title>State of the Haskell ecosystem</title>
-  <description>Shared link #Programming #Haskell</description>
-  <content:encoded>&lt;p&gt;Shared link #Programming #Haskell 
-  
-&lt;/p&gt;</content:encoded>
-  <pubDate>Fri, 09 Oct 2020 00:00:00 +0000</pubDate>
-  <link>https://github.com/Gabriel439/post-rfc/blob/master/sotu.md</link>
-  <guid isPermaLink="false">https://alexn.org/links/2020/10/09/state-of-the-haskell-ecosystem/</guid>
-  
-  <dc:creator>Gabriel Gonzalez</dc:creator>
-  
-  <category>Shared link</category>
-  
-  <category>Programming</category>
-  
-  <category>Haskell</category>
-  
-</item>
-
-        
-      
-<item>
-  <title>Unlawful Effect.scala</title>
-  <description>Code snippet #CatsEffect #Scala</description>
-  <content:encoded>&lt;p&gt;Code snippet #CatsEffect #Scala 
+  <title>Scala Snippet: Unlawful Effects</title>
+  <description>Blog article #CatsEffect #Scala #Snippet</description>
+  <content:encoded>&lt;p&gt;Blog article #CatsEffect #Scala #Snippet 
   
 &lt;/p&gt;</content:encoded>
   <pubDate>Thu, 08 Oct 2020 00:00:00 +0000</pubDate>
-  <link>https://alexn.org/snippets/2020/10/08/unlawful-effect.scala/</link>
+  <dc:modified>Fri, 01 Apr 2022 13:36:39 +0000</dc:modified>
+  <atom:modified>Fri, 01 Apr 2022 13:36:39 +0000</atom:modified>
+  <link>https://alexn.org/blog/2020/10/08/unlawful-effect.scala/</link>
   <guid isPermaLink="true">https://alexn.org/snippets/2020/10/08/unlawful-effect.scala/</guid>
   
   
   <dc:creator>Alexandru Nedelcu</dc:creator>
   
-  <category>Snippet</category>
+  <category>Blog</category>
   
   <category>Cats Effect</category>
   
   <category>Scala</category>
   
-</item>
-  
-        
-      
-<item>
-  <title>Category Theory for the Working Hacker</title>
-  <description>Shared link #Programming #CategoryTheory #FP #Haskell #Video</description>
-  <content:encoded>&lt;p&gt;Shared link #Programming #CategoryTheory #FP #Haskell #Video 
-  
-&lt;/p&gt;</content:encoded>
-  <pubDate>Thu, 08 Oct 2020 00:00:00 +0000</pubDate>
-  <link>https://www.youtube.com/watch?v=V10hzjgoklA</link>
-  <guid isPermaLink="false">https://alexn.org/links/2020/10/08/category-theory-for-the-working-hacker/</guid>
-  
-  <dc:creator>Philip Wadler</dc:creator>
-  
-  <category>Shared link</category>
-  
-  <category>Programming</category>
-  
-  <category>Category Theory</category>
-  
-  <category>FP</category>
-  
-  <category>Haskell</category>
-  
-  <category>Video</category>
+  <category>Snippet</category>
   
 </item>
 
-        
+      
       
 <item>
   <title>Running integration tests, with Scala + sbt</title>
-  <description>Code snippet #sbt #Scala #Testing</description>
-  <content:encoded>&lt;p&gt;Code snippet #sbt #Scala #Testing 
+  <description>Blog article #sbt #Scala #Testing #Snippet</description>
+  <content:encoded>&lt;p&gt;Blog article #sbt #Scala #Testing #Snippet 
   
 &lt;/p&gt;</content:encoded>
   <pubDate>Mon, 05 Oct 2020 00:00:00 +0000</pubDate>
-  <link>https://alexn.org/snippets/2020/10/05/running-integration-tests.scala/</link>
+  <dc:modified>Fri, 01 Apr 2022 13:38:35 +0000</dc:modified>
+  <atom:modified>Fri, 01 Apr 2022 13:38:35 +0000</atom:modified>
+  <link>https://alexn.org/blog/2020/10/05/running-integration-tests.scala/</link>
   <guid isPermaLink="true">https://alexn.org/snippets/2020/10/05/running-integration-tests.scala/</guid>
   
   
   <dc:creator>Alexandru Nedelcu</dc:creator>
   
-  <category>Snippet</category>
+  <category>Blog</category>
   
   <category>sbt</category>
   
@@ -1139,24 +765,28 @@
   
   <category>Testing</category>
   
-</item>
+  <category>Snippet</category>
   
-        
+</item>
+
+      
       
 <item>
-  <title>Flow Processor To Effect</title>
-  <description>Code snippet #Akka #CatsEffect #ReactiveStreams #Scala</description>
-  <content:encoded>&lt;p&gt;Code snippet #Akka #CatsEffect #ReactiveStreams #Scala 
+  <title>Scala Snippet: Flow/Processor to Effect</title>
+  <description>Blog article #Akka #CatsEffect #ReactiveStreams #Scala #Snippet</description>
+  <content:encoded>&lt;p&gt;Blog article #Akka #CatsEffect #ReactiveStreams #Scala #Snippet 
   
 &lt;/p&gt;</content:encoded>
   <pubDate>Fri, 25 Sep 2020 00:00:00 +0000</pubDate>
-  <link>https://alexn.org/snippets/2020/09/25/flow-processor-to-effect/</link>
+  <dc:modified>Fri, 01 Apr 2022 15:56:30 +0000</dc:modified>
+  <atom:modified>Fri, 01 Apr 2022 15:56:30 +0000</atom:modified>
+  <link>https://alexn.org/blog/2020/09/25/flow-processor-to-effect/</link>
   <guid isPermaLink="true">https://alexn.org/snippets/2020/09/25/flow-processor-to-effect/</guid>
   
   
   <dc:creator>Alexandru Nedelcu</dc:creator>
   
-  <category>Snippet</category>
+  <category>Blog</category>
   
   <category>Akka</category>
   
@@ -1166,9 +796,11 @@
   
   <category>Scala</category>
   
-</item>
+  <category>Snippet</category>
   
-        
+</item>
+
+      
       
 <item>
   <title>Privilege</title>
@@ -1189,95 +821,111 @@
   
 </item>
 
-        
+      
       
 <item>
-  <title>Safe Password.scala</title>
-  <description>Code snippet #JVM #Scala</description>
-  <content:encoded>&lt;p&gt;Code snippet #JVM #Scala 
+  <title>Scala Snippet: Safe Passwords</title>
+  <description>Blog article #JVM #Scala #Snippet</description>
+  <content:encoded>&lt;p&gt;Blog article #JVM #Scala #Snippet 
   
 &lt;/p&gt;</content:encoded>
   <pubDate>Thu, 27 Aug 2020 00:00:00 +0000</pubDate>
-  <link>https://alexn.org/snippets/2020/08/27/safe-password.scala/</link>
+  <dc:modified>Fri, 01 Apr 2022 13:45:46 +0000</dc:modified>
+  <atom:modified>Fri, 01 Apr 2022 13:45:46 +0000</atom:modified>
+  <link>https://alexn.org/blog/2020/08/27/safe-password.scala/</link>
   <guid isPermaLink="true">https://alexn.org/snippets/2020/08/27/safe-password.scala/</guid>
   
   
   <dc:creator>Alexandru Nedelcu</dc:creator>
   
-  <category>Snippet</category>
+  <category>Blog</category>
   
   <category>JVM</category>
   
   <category>Scala</category>
   
-</item>
+  <category>Snippet</category>
   
-        
+</item>
+
+      
       
 <item>
-  <title>Error Hierarchy.scala</title>
-  <description>Code snippet #Scala</description>
-  <content:encoded>&lt;p&gt;Code snippet #Scala 
+  <title>Sample Error Hierarchy in Scala</title>
+  <description>Blog article #Scala #Snippet</description>
+  <content:encoded>&lt;p&gt;Blog article #Scala #Snippet 
   
 &lt;/p&gt;</content:encoded>
   <pubDate>Fri, 14 Aug 2020 00:00:00 +0000</pubDate>
-  <link>https://alexn.org/snippets/2020/08/14/error-hierarchy.scala/</link>
+  <dc:modified>Fri, 01 Apr 2022 13:51:57 +0000</dc:modified>
+  <atom:modified>Fri, 01 Apr 2022 13:51:57 +0000</atom:modified>
+  <link>https://alexn.org/blog/2020/08/14/error-hierarchy.scala/</link>
   <guid isPermaLink="true">https://alexn.org/snippets/2020/08/14/error-hierarchy.scala/</guid>
   
   
   <dc:creator>Alexandru Nedelcu</dc:creator>
   
-  <category>Snippet</category>
+  <category>Blog</category>
   
   <category>Scala</category>
   
-</item>
+  <category>Snippet</category>
   
-        
+</item>
+
+      
       
 <item>
-  <title>Sbt Fork Debug.sbt</title>
-  <description>Code snippet #sbt #Scala</description>
-  <content:encoded>&lt;p&gt;Code snippet #sbt #Scala 
+  <title>Snippet: turn on JVM debugging in sbt</title>
+  <description>Blog article #sbt #Scala #Snippet</description>
+  <content:encoded>&lt;p&gt;Blog article #sbt #Scala #Snippet 
   
 &lt;/p&gt;</content:encoded>
   <pubDate>Thu, 13 Aug 2020 00:00:00 +0000</pubDate>
-  <link>https://alexn.org/snippets/2020/08/13/sbt-fork-debug.sbt/</link>
+  <dc:modified>Fri, 01 Apr 2022 14:00:47 +0000</dc:modified>
+  <atom:modified>Fri, 01 Apr 2022 14:00:47 +0000</atom:modified>
+  <link>https://alexn.org/blog/2020/08/13/sbt-fork-debug.sbt/</link>
   <guid isPermaLink="true">https://alexn.org/snippets/2020/08/13/sbt-fork-debug.sbt/</guid>
   
   
   <dc:creator>Alexandru Nedelcu</dc:creator>
   
-  <category>Snippet</category>
+  <category>Blog</category>
   
   <category>sbt</category>
   
   <category>Scala</category>
   
-</item>
+  <category>Snippet</category>
   
-        
+</item>
+
+      
       
 <item>
-  <title>Flow Sensitive Typing.ts</title>
-  <description>Code snippet #TypeScript</description>
-  <content:encoded>&lt;p&gt;Code snippet #TypeScript 
+  <title>TypeScript Sample: Flow Sensitive Typing</title>
+  <description>Blog article #TypeScript #Snippet</description>
+  <content:encoded>&lt;p&gt;Blog article #TypeScript #Snippet 
   
 &lt;/p&gt;</content:encoded>
   <pubDate>Tue, 11 Aug 2020 00:00:00 +0000</pubDate>
-  <link>https://alexn.org/snippets/2020/08/11/flow-sensitive-typing.ts/</link>
+  <dc:modified>Fri, 01 Apr 2022 14:02:35 +0000</dc:modified>
+  <atom:modified>Fri, 01 Apr 2022 14:02:35 +0000</atom:modified>
+  <link>https://alexn.org/blog/2020/08/11/flow-sensitive-typing.ts/</link>
   <guid isPermaLink="true">https://alexn.org/snippets/2020/08/11/flow-sensitive-typing.ts/</guid>
   
   
   <dc:creator>Alexandru Nedelcu</dc:creator>
   
-  <category>Snippet</category>
+  <category>Blog</category>
   
   <category>TypeScript</category>
   
-</item>
+  <category>Snippet</category>
   
-        
+</item>
+
+      
       
 <item>
   <title>Retry Failing Tasks with Cats and Scala</title>
@@ -1300,91 +948,24 @@
   
 </item>
 
-        
+      
       
 <item>
-  <title>On Error Retry Loop.scala</title>
-  <description>Code snippet #CatsEffect #Scala</description>
-  <content:encoded>&lt;p&gt;Code snippet #CatsEffect #Scala 
-  
-&lt;/p&gt;</content:encoded>
-  <pubDate>Mon, 03 Aug 2020 00:00:00 +0000</pubDate>
-  <link>https://alexn.org/snippets/2020/08/03/on-error-retry-loop.scala/</link>
-  <guid isPermaLink="true">https://alexn.org/snippets/2020/08/03/on-error-retry-loop.scala/</guid>
-  
-  
-  <dc:creator>Alexandru Nedelcu</dc:creator>
-  
-  <category>Snippet</category>
-  
-  <category>Cats Effect</category>
-  
-  <category>Scala</category>
-  
-</item>
-  
-        
-      
-<item>
-  <title>Akka Streams Buffer Test.scala</title>
-  <description>Code snippet #Akka #Scala #ReactiveStreams</description>
-  <content:encoded>&lt;p&gt;Code snippet #Akka #Scala #ReactiveStreams 
+  <title>Scala Snippet: Cats-Effect Resource to Reactive Streams</title>
+  <description>Blog article #Akka #CatsEffect #ReactiveStreams #Scala #Snippet</description>
+  <content:encoded>&lt;p&gt;Blog article #Akka #CatsEffect #ReactiveStreams #Scala #Snippet 
   
 &lt;/p&gt;</content:encoded>
   <pubDate>Thu, 30 Jul 2020 00:00:00 +0000</pubDate>
-  <link>https://alexn.org/snippets/2020/07/30/akka-streams-buffer-test.scala/</link>
-  <guid isPermaLink="true">https://alexn.org/snippets/2020/07/30/akka-streams-buffer-test.scala/</guid>
-  
-  
-  <dc:creator>Alexandru Nedelcu</dc:creator>
-  
-  <category>Snippet</category>
-  
-  <category>Akka</category>
-  
-  <category>Scala</category>
-  
-  <category>Reactive Streams</category>
-  
-</item>
-  
-        
-      
-<item>
-  <title>Enumeratum.scala</title>
-  <description>Code snippet #Scala</description>
-  <content:encoded>&lt;p&gt;Code snippet #Scala 
-  
-&lt;/p&gt;</content:encoded>
-  <pubDate>Thu, 30 Jul 2020 00:00:00 +0000</pubDate>
-  <link>https://alexn.org/snippets/2020/07/30/enumeratum.scala/</link>
-  <guid isPermaLink="true">https://alexn.org/snippets/2020/07/30/enumeratum.scala/</guid>
-  
-  
-  <dc:creator>Alexandru Nedelcu</dc:creator>
-  
-  <category>Snippet</category>
-  
-  <category>Scala</category>
-  
-</item>
-  
-        
-      
-<item>
-  <title>From Resource To Reactivestreams.scala</title>
-  <description>Code snippet #Akka #CatsEffect #ReactiveStreams #Scala</description>
-  <content:encoded>&lt;p&gt;Code snippet #Akka #CatsEffect #ReactiveStreams #Scala 
-  
-&lt;/p&gt;</content:encoded>
-  <pubDate>Thu, 30 Jul 2020 00:00:00 +0000</pubDate>
-  <link>https://alexn.org/snippets/2020/07/30/from-resource-to-reactivestreams.scala/</link>
+  <dc:modified>Fri, 01 Apr 2022 14:13:37 +0000</dc:modified>
+  <atom:modified>Fri, 01 Apr 2022 14:13:37 +0000</atom:modified>
+  <link>https://alexn.org/blog/2020/07/30/from-resource-to-reactivestreams.scala/</link>
   <guid isPermaLink="true">https://alexn.org/snippets/2020/07/30/from-resource-to-reactivestreams.scala/</guid>
   
   
   <dc:creator>Alexandru Nedelcu</dc:creator>
   
-  <category>Snippet</category>
+  <category>Blog</category>
   
   <category>Akka</category>
   
@@ -1394,80 +975,38 @@
   
   <category>Scala</category>
   
-</item>
-  
-        
-      
-<item>
-  <title>Python Proxy.py</title>
-  <description>Code snippet #Python</description>
-  <content:encoded>&lt;p&gt;Code snippet #Python 
-  
-&lt;/p&gt;</content:encoded>
-  <pubDate>Thu, 30 Jul 2020 00:00:00 +0000</pubDate>
-  <link>https://alexn.org/snippets/2020/07/30/python-proxy.py/</link>
-  <guid isPermaLink="true">https://alexn.org/snippets/2020/07/30/python-proxy.py/</guid>
-  
-  
-  <dc:creator>Alexandru Nedelcu</dc:creator>
-  
   <category>Snippet</category>
   
-  <category>Python</category>
-  
 </item>
-  
-        
+
+      
       
 <item>
-  <title>Resource As Publisher.scala</title>
-  <description>Code snippet #Akka #CatsEffect #ReactiveStreams #Scala</description>
-  <content:encoded>&lt;p&gt;Code snippet #Akka #CatsEffect #ReactiveStreams #Scala 
-  
-&lt;/p&gt;</content:encoded>
-  <pubDate>Thu, 30 Jul 2020 00:00:00 +0000</pubDate>
-  <link>https://alexn.org/snippets/2020/07/30/resource-as-publisher.scala/</link>
-  <guid isPermaLink="true">https://alexn.org/snippets/2020/07/30/resource-as-publisher.scala/</guid>
-  
-  
-  <dc:creator>Alexandru Nedelcu</dc:creator>
-  
-  <category>Snippet</category>
-  
-  <category>Akka</category>
-  
-  <category>Cats Effect</category>
-  
-  <category>Reactive Streams</category>
-  
-  <category>Scala</category>
-  
-</item>
-  
-        
-      
-<item>
-  <title>Future Stack Overflow.scala</title>
-  <description>Code snippet #Async #Scala</description>
-  <content:encoded>&lt;p&gt;Code snippet #Async #Scala 
+  <title>ExecutionContext Must Be Stack-safe</title>
+  <description>Blog article #Async #Scala #Snippet</description>
+  <content:encoded>&lt;p&gt;Blog article #Async #Scala #Snippet 
   
 &lt;/p&gt;</content:encoded>
   <pubDate>Wed, 27 May 2020 00:00:00 +0000</pubDate>
-  <link>https://alexn.org/snippets/2020/05/27/future-stack-overflow.scala/</link>
+  <dc:modified>Fri, 01 Apr 2022 12:47:40 +0000</dc:modified>
+  <atom:modified>Fri, 01 Apr 2022 12:47:40 +0000</atom:modified>
+  <link>https://alexn.org/blog/2020/05/27/future-stack-overflow.scala/</link>
   <guid isPermaLink="true">https://alexn.org/snippets/2020/05/27/future-stack-overflow.scala/</guid>
   
   
   <dc:creator>Alexandru Nedelcu</dc:creator>
   
-  <category>Snippet</category>
+  <category>Blog</category>
   
   <category>Async</category>
   
   <category>Scala</category>
   
-</item>
+  <category>Snippet</category>
   
-        
+</item>
+
+      
       
 <item>
   <title>Fatal Warnings and Linting in Scala</title>
@@ -1488,7 +1027,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Parallelizing Work via a JavaScript Semaphore</title>
@@ -1515,7 +1054,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Blog Updates</title>
@@ -1538,76 +1077,88 @@
   
 </item>
 
-        
+      
       
 <item>
-  <title>Send Mail.py</title>
-  <description>Code snippet #CLI #Python</description>
-  <content:encoded>&lt;p&gt;Code snippet #CLI #Python 
+  <title>Python Snippet: Send Email via SMTP</title>
+  <description>Blog article #CLI #Python #Snippet</description>
+  <content:encoded>&lt;p&gt;Blog article #CLI #Python #Snippet 
   
 &lt;/p&gt;</content:encoded>
   <pubDate>Wed, 18 Mar 2020 00:00:00 +0000</pubDate>
-  <link>https://alexn.org/snippets/2020/03/18/send-mail.py/</link>
+  <dc:modified>Fri, 01 Apr 2022 12:33:25 +0000</dc:modified>
+  <atom:modified>Fri, 01 Apr 2022 12:33:25 +0000</atom:modified>
+  <link>https://alexn.org/blog/2020/03/18/send-mail.py/</link>
   <guid isPermaLink="true">https://alexn.org/snippets/2020/03/18/send-mail.py/</guid>
   
   
   <dc:creator>Alexandru Nedelcu</dc:creator>
   
-  <category>Snippet</category>
+  <category>Blog</category>
   
   <category>CLI</category>
   
   <category>Python</category>
   
-</item>
+  <category>Snippet</category>
   
-        
+</item>
+
+      
       
 <item>
-  <title>Encrypt.sh</title>
-  <description>Code snippet #CLI #Bash</description>
-  <content:encoded>&lt;p&gt;Code snippet #CLI #Bash 
+  <title>Shell Snippet: Encrypt Files with AES256</title>
+  <description>Blog article #Bash #CLI #Snippet</description>
+  <content:encoded>&lt;p&gt;Blog article #Bash #CLI #Snippet 
   
 &lt;/p&gt;</content:encoded>
   <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
-  <link>https://alexn.org/snippets/2020/02/18/encrypt.sh/</link>
+  <dc:modified>Fri, 01 Apr 2022 12:24:50 +0000</dc:modified>
+  <atom:modified>Fri, 01 Apr 2022 12:24:50 +0000</atom:modified>
+  <link>https://alexn.org/blog/2020/02/18/encrypt.sh/</link>
   <guid isPermaLink="true">https://alexn.org/snippets/2020/02/18/encrypt.sh/</guid>
   
   
   <dc:creator>Alexandru Nedelcu</dc:creator>
   
-  <category>Snippet</category>
-  
-  <category>CLI</category>
+  <category>Blog</category>
   
   <category>Bash</category>
   
-</item>
+  <category>CLI</category>
   
-        
+  <category>Snippet</category>
+  
+</item>
+
+      
       
 <item>
-  <title>Sierpinski.hs</title>
-  <description>Code snippet #Fun #Haskell</description>
-  <content:encoded>&lt;p&gt;Code snippet #Fun #Haskell 
+  <title>Haskell Snippet: Sierpinski Triangle</title>
+  <description>Blog article #Fun #Haskell #Snippet</description>
+  <content:encoded>&lt;p&gt;Blog article #Fun #Haskell #Snippet 
   
 &lt;/p&gt;</content:encoded>
   <pubDate>Fri, 29 Nov 2019 00:00:00 +0000</pubDate>
-  <link>https://alexn.org/snippets/2019/11/29/sierpinski.hs/</link>
+  <dc:modified>Fri, 01 Apr 2022 12:10:31 +0000</dc:modified>
+  <atom:modified>Fri, 01 Apr 2022 12:10:31 +0000</atom:modified>
+  <link>https://alexn.org/blog/2019/11/29/sierpinski.hs/</link>
   <guid isPermaLink="true">https://alexn.org/snippets/2019/11/29/sierpinski.hs/</guid>
   
   
   <dc:creator>Alexandru Nedelcu</dc:creator>
   
-  <category>Snippet</category>
+  <category>Blog</category>
   
   <category>Fun</category>
   
   <category>Haskell</category>
   
-</item>
+  <category>Snippet</category>
   
-        
+</item>
+
+      
       
 <item>
   <title>Regexp Replacement via Function in Java/Scala</title>
@@ -1630,47 +1181,53 @@
   
 </item>
 
-        
+      
       
 <item>
-  <title>Async Queue.ts</title>
-  <description>Code snippet #Async #JavaScript #TypeScript</description>
-  <content:encoded>&lt;p&gt;Code snippet #Async #JavaScript #TypeScript 
+  <title>Async Queue in TypeScript</title>
+  <description>Blog article #Async #JavaScript #Snippet #TypeScript</description>
+  <content:encoded>&lt;p&gt;Blog article #Async #JavaScript #Snippet #TypeScript 
   
 &lt;/p&gt;</content:encoded>
   <pubDate>Mon, 07 Oct 2019 00:00:00 +0000</pubDate>
-  <link>https://alexn.org/snippets/2019/10/07/async-queue.ts/</link>
+  <dc:modified>Fri, 01 Apr 2022 15:50:37 +0000</dc:modified>
+  <atom:modified>Fri, 01 Apr 2022 15:50:37 +0000</atom:modified>
+  <link>https://alexn.org/blog/2019/10/07/async-queue.ts/</link>
   <guid isPermaLink="true">https://alexn.org/snippets/2019/10/07/async-queue.ts/</guid>
   
   
   <dc:creator>Alexandru Nedelcu</dc:creator>
   
-  <category>Snippet</category>
+  <category>Blog</category>
   
   <category>Async</category>
   
   <category>JavaScript</category>
   
+  <category>Snippet</category>
+  
   <category>TypeScript</category>
   
 </item>
-  
-        
+
+      
       
 <item>
-  <title>Blocking Task.scala</title>
-  <description>Code snippet #Async #Monix #Scala</description>
-  <content:encoded>&lt;p&gt;Code snippet #Async #Monix #Scala 
+  <title>Scala Snippet: Blocking Task</title>
+  <description>Blog article #Async #Monix #Scala #Snippet</description>
+  <content:encoded>&lt;p&gt;Blog article #Async #Monix #Scala #Snippet 
   
 &lt;/p&gt;</content:encoded>
   <pubDate>Mon, 02 Sep 2019 00:00:00 +0000</pubDate>
-  <link>https://alexn.org/snippets/2019/09/02/blocking-task.scala/</link>
+  <dc:modified>Fri, 01 Apr 2022 12:15:08 +0000</dc:modified>
+  <atom:modified>Fri, 01 Apr 2022 12:15:08 +0000</atom:modified>
+  <link>https://alexn.org/blog/2019/09/02/blocking-task.scala/</link>
   <guid isPermaLink="true">https://alexn.org/snippets/2019/09/02/blocking-task.scala/</guid>
   
   
   <dc:creator>Alexandru Nedelcu</dc:creator>
   
-  <category>Snippet</category>
+  <category>Blog</category>
   
   <category>Async</category>
   
@@ -1678,9 +1235,11 @@
   
   <category>Scala</category>
   
-</item>
+  <category>Snippet</category>
   
-        
+</item>
+
+      
       
 <item>
   <title>Scala&#39;s isInstanceOf is an Anti-Pattern</title>
@@ -1703,7 +1262,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>On Bifunctor IO and Java&#39;s Checked Exceptions</title>
@@ -1732,7 +1291,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>In Defense of OOFP</title>
@@ -1761,7 +1320,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Minitest: Zero Crap Scala Testing Library</title>
@@ -1784,7 +1343,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>What is Functional Programming?</title>
@@ -1813,7 +1372,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Scala Days 2017 — Monix Task</title>
@@ -1840,7 +1399,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>JavaScript&#39;s Promise Leaks Memory</title>
@@ -1867,7 +1426,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Automatic Releases to Maven Central with Travis and SBT</title>
@@ -1894,7 +1453,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Functional Programming Inception (Presentation)</title>
@@ -1919,7 +1478,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Asynchronous Programming and Scala</title>
@@ -1948,7 +1507,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Fixing scala.collection.Iterator</title>
@@ -1969,7 +1528,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Why Scala&#39;s Traversable Is Bad Design</title>
@@ -1990,7 +1549,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Add to NewsBlur Bookmarklet</title>
@@ -2013,7 +1572,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Monix Task vs Scalaz vs Future, The Benchmark</title>
@@ -2040,7 +1599,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Akka &amp; Monix - Typelevel Summit, Oslo 2016</title>
@@ -2067,7 +1626,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Monix Task - flatMap(Oslo) 2016</title>
@@ -2094,7 +1653,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Avoid Javaisms: Mocks, Stubs, DI is Code Smell</title>
@@ -2119,7 +1678,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Monifu vs Akka Streams</title>
@@ -2146,7 +1705,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Scala Best Practices</title>
@@ -2173,7 +1732,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Resources for Learning Scala</title>
@@ -2200,7 +1759,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Towards a Better AtomicReference</title>
@@ -2231,7 +1790,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>JVM Multithreading: Monitor Locks and Visibility</title>
@@ -2262,7 +1821,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Notes On JavaScript Client-side Development</title>
@@ -2289,7 +1848,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>On Scala, Functional Programming and Type-Classes</title>
@@ -2318,7 +1877,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>How To Build a Naive Bayes Classifier</title>
@@ -2347,7 +1906,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Data Mining: Finding Similar Items and Users</title>
@@ -2376,7 +1935,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Blogging Platform for Hackers</title>
@@ -2409,7 +1968,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Crawling the Android Marketplace</title>
@@ -2438,7 +1997,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Android Learning Resources</title>
@@ -2463,7 +2022,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Earning Money as an Amazon Affiliate</title>
@@ -2490,7 +2049,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>4 Books For Learning to Design, The Hard Way</title>
@@ -2519,7 +2078,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>How I Use Flickr: For Backup</title>
@@ -2546,7 +2105,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Why I Find Heroku Suboptimal</title>
@@ -2579,7 +2138,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Cross-Domain, Cross-Browser AJAX Requests</title>
@@ -2606,7 +2165,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>I hate NULL and all its variants!</title>
@@ -2627,7 +2186,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>FreeSWITCH - Tips for Creating a Dialer</title>
@@ -2636,8 +2195,8 @@
   
 &lt;/p&gt;</content:encoded>
   <pubDate>Fri, 20 Feb 2009 00:00:00 +0000</pubDate>
-  <dc:modified>Sat, 14 Dec 2019 00:00:00 +0000</dc:modified>
-  <atom:modified>Sat, 14 Dec 2019 00:00:00 +0000</atom:modified>
+  <dc:modified>Fri, 01 Apr 2022 14:21:30 +0000</dc:modified>
+  <atom:modified>Fri, 01 Apr 2022 14:21:30 +0000</atom:modified>
   <link>https://alexn.org/blog/2009/02/20/tips-for-creating-voip-dialer/</link>
   <guid isPermaLink="true">https://alexn.org/blog/2009/02/20/tips-for-creating-voip-dialer/</guid>
   
@@ -2658,7 +2217,7 @@
   
 </item>
 
-        
+      
       
 <item>
   <title>Using the Best Tools in Programming: Not Really Doable</title>
@@ -2687,5 +2246,5 @@
   
 </item>
 
-        </channel>
+      </channel>
 </rss>

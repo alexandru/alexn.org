@@ -49,15 +49,13 @@
     <meta name="msapplication-TileImage" content="/assets/logo/270px.png" />
 
     <!-- Come and get me RSS readers -->
-    <link rel="alternate" type="application/rss+xml" title="All articles (blog, snippets, wiki, links)" href="/feeds/all.xml" />
+    <link rel="alternate" type="application/rss+xml" title="All articles (blog + wiki)" href="/feeds/all.xml" />
     <link rel="alternate" type="application/rss+xml" title="Blog" href="/feeds/blog.xml" />
-    <link rel="alternate" type="application/rss+xml" title="Snippets" href="/feeds/snippets.xml" />
     <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
-    <link rel="alternate" type="application/rss+xml" title="Shared Links" href="/feeds/links.xml" />
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="/assets/css/style.css?202204010620">
-    <link rel="preload" as="style" href="/assets/css/style.css?202204010620">
+    <link rel="stylesheet" href="/assets/css/style.css?202204011607">
+    <link rel="preload" as="style" href="/assets/css/style.css?202204011607">
     
     <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
     <link rel="canonical" href="https://alexn.org/blog/page/3/">
@@ -78,14 +76,6 @@
           
           <li class="element   ">
             <a href="/wiki/">Wiki</a>
-          </li>
-          
-          <li class="element   ">
-            <a href="/snippets/">Snippets</a>
-          </li>
-          
-          <li class="element   ">
-            <a href="/links/">Links</a>
           </li>
           
           <li class="element   ">
@@ -121,805 +111,11 @@
         
           
 <div class="meta">
-  <time class="date" datetime="2013-05-13">May 13, 2013</time>
+  <time class="date" datetime="2020-03-18">March 18, 2020</time>
   
   
     
-      <a href="/blog/tag/languages/" class="tag">Languages</a>
-    
-  
-    
-       | <a href="/blog/tag/fp/" class="tag">FP</a>
-    
-  
-    
-       | <a href="/blog/tag/scala/" class="tag">Scala</a>
-    
-  
-    
-       | <a href="/blog/tag/books/" class="tag">Books</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2013/05/13/getting-started-with-scala/">Resources for Learning Scala</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2013/05/13/getting-started-with-scala/"><img src="/assets/media/articles/scala.png" alt=""  /></a>
-</figure>
-
-<p>
-  Getting started with a new programming language shouldn't be hard,
-  however navigating the web for resources on getting started with Scala
-  can be a doubting experience, as many such resources are either out of
-  date, or wrong, or both. This post is intended to reduce the noise for
-  my colleagues and other people that are interested in Scala
-  development.
-
-</p>
-<a href="/blog/2013/05/13/getting-started-with-scala/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2013-05-07">May 7, 2013</time>
-  
-  
-    
-      <a href="/blog/tag/languages/" class="tag">Languages</a>
-    
-  
-    
-       | <a href="/blog/tag/fp/" class="tag">FP</a>
-    
-  
-    
-       | <a href="/blog/tag/scala/" class="tag">Scala</a>
-    
-  
-    
-       | <a href="/blog/tag/java/" class="tag">Java</a>
-    
-  
-    
-       | <a href="/blog/tag/multithreading/" class="tag">Multithreading</a>
-    
-  
-    
-       | <a href="/blog/tag/concurrency/" class="tag">Concurrency</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2013/05/07/towards-better-atomicreference-scala/">Towards a Better AtomicReference</a>
-        
-        
-      </h3>
-    
-
-<p>
-  The
-  AtomicReference
-  is like a container for a volatile reference. Usage of volatile
-  references is useful for the issue of
-  visibility
-  in concurrent code, however AtomicReference also supports the atomic
-  Compare-and-Swap
-  operation (CAS for short), which is the pillar of all non-blocking
-  data-structures and algorithms built on top of the JVM, including
-  complex ones like the ConcurrentLinkedQueue, an implementation based
-  on the
-  Michael-Scott non-blocking queues.
-
-</p>
-<a href="/blog/2013/05/07/towards-better-atomicreference-scala/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2013-03-14">March 14, 2013</time>
-  
-  
-    
-      <a href="/blog/tag/languages/" class="tag">Languages</a>
-    
-  
-    
-       | <a href="/blog/tag/fp/" class="tag">FP</a>
-    
-  
-    
-       | <a href="/blog/tag/scala/" class="tag">Scala</a>
-    
-  
-    
-       | <a href="/blog/tag/java/" class="tag">Java</a>
-    
-  
-    
-       | <a href="/blog/tag/multithreading/" class="tag">Multithreading</a>
-    
-  
-    
-       | <a href="/blog/tag/concurrency/" class="tag">Concurrency</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2013/03/14/jvm-multithreading-monitor-locks-visibility/">JVM Multithreading: Monitor Locks and Visibility</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2013/03/14/jvm-multithreading-monitor-locks-visibility/"><img src="/assets/media/articles/ferrari.jpg" alt="" loading="lazy" /></a>
-</figure>
-
-<p>
-  Multithreading is a pain to deal with. While interviewing developers,
-  I noticed that surprisingly many don't have knowledge about this topic
-  and I can't blame them really. However, in this day and age, for some
-  problem domains building highly-concurrent architectures may be
-  paramount to the success of demanding projects. As you'll see, there
-  are many high level solutions, but I personally prefer to learn with a
-  bottom up approach, starting from the basic and unsafe primitives, as
-  understanding the problem is always the first step to real solutions.
-
-</p>
-<a href="/blog/2013/03/14/jvm-multithreading-monitor-locks-visibility/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2012-11-07">November 7, 2012</time>
-  
-  
-    
-      <a href="/blog/tag/javascript/" class="tag">JavaScript</a>
-    
-  
-    
-       | <a href="/blog/tag/fp/" class="tag">FP</a>
-    
-  
-    
-       | <a href="/blog/tag/browser/" class="tag">Browser</a>
-    
-  
-    
-       | <a href="/blog/tag/web/" class="tag">Web</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2012/11/07/notes-javascript-development/">Notes On JavaScript Client-side Development</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2012/11/07/notes-javascript-development/"><img src="/assets/media/articles/javascript.jpg" alt="" loading="lazy" /></a>
-</figure>
-
-<p><p>Client-side JavaScript development can be quite overwhelming, even for senior developers. I’m describing here what I did in a recent piece of client-side functionality to keep my sanity. This interface I’m talking about is served on mobile-phones, so it must be pretty bloat-free, adding salt over injury.</p>
-</p>
-<a href="/blog/2012/11/07/notes-javascript-development/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2012-11-02">November 2, 2012</time>
-  
-  
-    
-      <a href="/blog/tag/languages/" class="tag">Languages</a>
-    
-  
-    
-       | <a href="/blog/tag/fp/" class="tag">FP</a>
-    
-  
-    
-       | <a href="/blog/tag/scala/" class="tag">Scala</a>
-    
-  
-    
-       | <a href="/blog/tag/clojure/" class="tag">Clojure</a>
-    
-  
-    
-       | <a href="/blog/tag/java/" class="tag">Java</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2012/11/02/scala-functional-programming-type-classes/">On Scala, Functional Programming and Type-Classes</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2012/11/02/scala-functional-programming-type-classes/"><img src="/assets/media/articles/scala.png" alt="" loading="lazy" /></a>
-</figure>
-
-<p><p>I’ve been following the excellent Coursera course on <a href="https://www.coursera.org/course/progfun">Functional Programming Principles in Scala</a> led by Martin Odersky. This was not my first encounter with Scala as I’ve been using it including for my day job.
-In this article I’m describing my impressions of the Scala programming language and why I fel in love with it.</p>
-</p>
-<a href="/blog/2012/11/02/scala-functional-programming-type-classes/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2012-02-09">February 9, 2012</time>
-  
-  
-    
-      <a href="/blog/tag/best%20of/" class="tag">Best Of</a>
-    
-  
-    
-       | <a href="/blog/tag/algorithms/" class="tag">Algorithms</a>
-    
-  
-    
-       | <a href="/blog/tag/mining/" class="tag">Mining</a>
-    
-  
-    
-       | <a href="/blog/tag/ruby/" class="tag">Ruby</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2012/02/09/howto-build-naive-bayes-classifier/">How To Build a Naive Bayes Classifier</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2012/02/09/howto-build-naive-bayes-classifier/"><img src="/assets/media/articles/conditional-prob.png" alt="" loading="lazy" /></a>
-</figure>
-
-<p><p>In machine learning a classifier is able to predict, given an input, a probability distribution over a set of categories. Some use-cases for building a classifier: spam detection, for example you could build your own Akismet API, automatic assignment of categories to a set of items, automatic detection of the primary language (e.g. Google Translate), sentiment analysis, which in simple terms refers to discovering if an opinion is about love or hate about a certain topic.</p>
-</p>
-<a href="/blog/2012/02/09/howto-build-naive-bayes-classifier/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2012-01-16">January 16, 2012</time>
-  
-  
-    
-      <a href="/blog/tag/best%20of/" class="tag">Best Of</a>
-    
-  
-    
-       | <a href="/blog/tag/algorithms/" class="tag">Algorithms</a>
-    
-  
-    
-       | <a href="/blog/tag/mining/" class="tag">Mining</a>
-    
-  
-    
-       | <a href="/blog/tag/ruby/" class="tag">Ruby</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2012/01/16/cosine-similarity-euclidean-distance/">Data Mining: Finding Similar Items and Users</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2012/01/16/cosine-similarity-euclidean-distance/"><img src="/assets/media/articles/cosine-distance.png" alt="" loading="lazy" /></a>
-</figure>
-
-<p><p>How to find related items? Here are recipes based on really simple formulas. If you pay attention, this technique is used all over the web (like on Amazon) to personalize the user experience and increase conversion rates. Because we want to give kick-ass product recommendations.</p>
-</p>
-<a href="/blog/2012/01/16/cosine-similarity-euclidean-distance/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2012-01-05">January 5, 2012</time>
-  
-  
-    
-      <a href="/blog/tag/blogging/" class="tag">Blogging</a>
-    
-  
-    
-       | <a href="/blog/tag/server/" class="tag">Server</a>
-    
-  
-    
-       | <a href="/blog/tag/cloud/" class="tag">Cloud</a>
-    
-  
-    
-       | <a href="/blog/tag/heroku/" class="tag">Heroku</a>
-    
-  
-    
-       | <a href="/blog/tag/ruby/" class="tag">Ruby</a>
-    
-  
-    
-       | <a href="/blog/tag/jekyll/" class="tag">Jekyll</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2012/01/05/blogging-for-hackers/">Blogging Platform for Hackers</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2012/01/05/blogging-for-hackers/"><img src="/assets/media/articles/jekyll.png" alt="" loading="lazy" /></a>
-</figure>
-
-<p><p>Host your own static website on Heroku’s free plan, use Google’s App Engine as a CDN, keep Heroku’s free dyno alive, generate the website via Jekyll.</p>
-</p>
-<a href="/blog/2012/01/05/blogging-for-hackers/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2011-12-15">December 15, 2011</time>
-  
-  
-    
-      <a href="/blog/tag/python/" class="tag">Python</a>
-    
-  
-    
-       | <a href="/blog/tag/android/" class="tag">Android</a>
-    
-  
-    
-       | <a href="/blog/tag/web/" class="tag">Web</a>
-    
-  
-    
-       | <a href="/blog/tag/api/" class="tag">API</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2011/12/15/crawling-the-android-marketplace-155200-apps/">Crawling the Android Marketplace</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2011/12/15/crawling-the-android-marketplace-155200-apps/"><img src="/assets/media/articles/wolf-spider.jpg" alt="" loading="lazy" /></a>
-</figure>
-
-<p><p>I had a very specific need for fetching the details for some apps in the Android marketplace, in an automated manner. Here I’m describing a script that I used to crawl the marketplace back in 2011.</p>
-</p>
-<a href="/blog/2011/12/15/crawling-the-android-marketplace-155200-apps/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2011-12-12">December 12, 2011</time>
-  
-  
-    
-      <a href="/blog/tag/books/" class="tag">Books</a>
-    
-  
-    
-       | <a href="/blog/tag/android/" class="tag">Android</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2011/12/12/android-learning-resources/">Android Learning Resources</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2011/12/12/android-learning-resources/"><img src="/assets/media/articles/android-development.jpg" alt="" loading="lazy" /></a>
-</figure>
-
-<p><p>Starting out learning Android development may be intimidating at first, as with any new platform of reasonable complexity you’ll have a lot to learn. However the learning process is fun. So here are some learning resources that I’m currently following.</p>
-</p>
-<a href="/blog/2011/12/12/android-learning-resources/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2011-11-29">November 29, 2011</time>
-  
-  
-    
-      <a href="/blog/tag/publishing/" class="tag">Publishing</a>
-    
-  
-    
-       | <a href="/blog/tag/income/" class="tag">Income</a>
-    
-  
-    
-       | <a href="/blog/tag/amazon/" class="tag">Amazon</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2011/11/29/earning-money-as-an-amazon-affiliate/">Earning Money as an Amazon Affiliate</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2011/11/29/earning-money-as-an-amazon-affiliate/"><img src="/assets/media/articles/amazon-associates.jpg" alt="" loading="lazy" /></a>
-</figure>
-
-<p>
-  I published an article that I've meant to publish for a long
-  time. I'm usually lazy to not bother writing many articles, however
-  this time I also thought about doing an experiment - you see I'm (1)
-  on a tight budget and (2) a cheap bastard - so what if I could get
-  enough money to pay for my monthly hosting on Linode, while
-  satisfying my urge to write from time to time?
-</p>
-<a href="/blog/2011/11/29/earning-money-as-an-amazon-affiliate/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2011-11-25">November 25, 2011</time>
-  
-  
-    
-      <a href="/blog/tag/best%20of/" class="tag">Best Of</a>
-    
-  
-    
-       | <a href="/blog/tag/design/" class="tag">Design</a>
-    
-  
-    
-       | <a href="/blog/tag/ux/" class="tag">UX</a>
-    
-  
-    
-       | <a href="/blog/tag/books/" class="tag">Books</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2011/11/25/4-books-for-learning-to-design-the-hard-way/">4 Books For Learning to Design, The Hard Way</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2011/11/25/4-books-for-learning-to-design-the-hard-way/"><img src="/assets/media/articles/book-design-all.jpg" alt="" loading="lazy" /></a>
-</figure>
-
-<p><p>I present some books I enjoyed, which is the path I’m taking to get better at design and user experience.</p>
-</p>
-<a href="/blog/2011/11/25/4-books-for-learning-to-design-the-hard-way/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2011-10-29">October 29, 2011</time>
-  
-  
-    
-      <a href="/blog/tag/cloud/" class="tag">Cloud</a>
-    
-  
-    
-       | <a href="/blog/tag/api/" class="tag">API</a>
-    
-  
-    
-       | <a href="/blog/tag/ruby/" class="tag">Ruby</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2011/10/29/how-i-use-flickr/">How I Use Flickr: For Backup</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2011/10/29/how-i-use-flickr/"><img src="/assets/media/articles/flickr.jpg" alt="&lt;a href='https://flic.kr/p/qYPVGA' target='_blank'&gt;Source&lt;/a&gt;" loading="lazy" /></a>
-</figure>
-
-<p><p>I’ve got a growing number of personal pictures and the collection is growing since 2003 … Pro accounts on Flickr have unlimited storage and can upload and access full-resolution pictures.</p>
-</p>
-<a href="/blog/2011/10/29/how-i-use-flickr/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2011-10-23">October 23, 2011</time>
-  
-  
-    
-      <a href="/blog/tag/devops/" class="tag">DevOps</a>
-    
-  
-    
-       | <a href="/blog/tag/heroku/" class="tag">Heroku</a>
-    
-  
-    
-       | <a href="/blog/tag/server/" class="tag">Server</a>
-    
-  
-    
-       | <a href="/blog/tag/cloud/" class="tag">Cloud</a>
-    
-  
-    
-       | <a href="/blog/tag/nginx/" class="tag">Nginx</a>
-    
-  
-    
-       | <a href="/blog/tag/varnish/" class="tag">Varnish</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2011/10/23/why-i-find-heroku-suboptimal/">Why I Find Heroku Suboptimal</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2011/10/23/why-i-find-heroku-suboptimal/"><img src="/assets/media/articles/heroku.png" alt="" loading="lazy" /></a>
-</figure>
-
-<p><p>Heroku is great. It basically allows you to avoid growing-up. The deployment itself couldn’t be simpler, and when browsing their web interface for available add-ons, I feel like a child in a candy-store. But I’ve outgrown it.</p>
-</p>
-<a href="/blog/2011/10/23/why-i-find-heroku-suboptimal/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2011-03-24">March 24, 2011</time>
-  
-  
-    
-      <a href="/blog/tag/javascript/" class="tag">JavaScript</a>
-    
-  
-    
-       | <a href="/blog/tag/browser/" class="tag">Browser</a>
-    
-  
-    
-       | <a href="/blog/tag/web/" class="tag">Web</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2011/03/24/cross-domain-requests/">Cross-Domain, Cross-Browser AJAX Requests</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2011/03/24/cross-domain-requests/"><img src="/assets/media/articles/cors-ajax.png" alt="" loading="lazy" /></a>
-</figure>
-
-<p><p>This article describes how to make cross-browser requests, in all browsers (including IExplorer 6), using web standards along with fallbacks and without using a proxy or JSONP (which is limited and awkward) – as long as you control the destination server, or if the destination server allows.</p>
-</p>
-<a href="/blog/2011/03/24/cross-domain-requests/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2010-05-25">May 25, 2010</time>
-  
-  
-    
-      <a href="/blog/tag/python/" class="tag">Python</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2010/05/25/i-hate-null/">I hate NULL and all its variants!</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2010/05/25/i-hate-null/"><img src="/assets/media/articles/beautiful-soup.png" alt="" loading="lazy" /></a>
-</figure>
-
-<p>
-    How many times have you had a chain of methods like this (example showing BeautifulSoup in action) …
-
-</p>
-<a href="/blog/2010/05/25/i-hate-null/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2009-02-20">February 20, 2009</time>
-  
-  
-    
-      <a href="/blog/tag/best%20of/" class="tag">Best Of</a>
-    
-  
-    
-       | <a href="/blog/tag/voip/" class="tag">VoIP</a>
-    
-  
-    
-       | <a href="/blog/tag/freeswitch/" class="tag">FreeSWITCH</a>
-    
-  
-    
-       | <a href="/blog/tag/javascript/" class="tag">JavaScript</a>
-    
-  
-    
-       | <a href="/blog/tag/perl/" class="tag">Perl</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2009/02/20/tips-for-creating-voip-dialer/">FreeSWITCH - Tips for Creating a Dialer</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2009/02/20/tips-for-creating-voip-dialer/"><img src="/assets/media/articles/freeswitch1.png" alt="" loading="lazy" /></a>
-</figure>
-
-<p><p>FreeSWITCH is a free and open source application server for real-time communication, WebRTC, telecommunications, video and Voice over Internet Protocol. Let’s build a VoIP dialer with it.</p>
-</p>
-<a href="/blog/2009/02/20/tips-for-creating-voip-dialer/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2009-02-01">February 1, 2009</time>
-  
-  
-    
-      <a href="/blog/tag/java/" class="tag">Java</a>
-    
-  
-    
-       | <a href="/blog/tag/perl/" class="tag">Perl</a>
+      <a href="/blog/tag/cli/" class="tag">CLI</a>
     
   
     
@@ -927,6 +123,118 @@ In this article I’m describing my impressions of the Scala programming languag
     
   
     
+       | <a href="/blog/tag/snippet/" class="tag">Snippet</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2020/03/18/send-mail.py/">Python Snippet: Send Email via SMTP</a>
+        
+        
+      </h3>
+    
+
+<p><p>Python snippet for sending an email via SMTP.</p>
+</p>
+<a href="/blog/2020/03/18/send-mail.py/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2020-02-18">February 18, 2020</time>
+  
+  
+    
+      <a href="/blog/tag/bash/" class="tag">Bash</a>
+    
+  
+    
+       | <a href="/blog/tag/cli/" class="tag">CLI</a>
+    
+  
+    
+       | <a href="/blog/tag/snippet/" class="tag">Snippet</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2020/02/18/encrypt.sh/">Shell Snippet: Encrypt Files with AES256</a>
+        
+        
+      </h3>
+    
+
+<figure>
+  <a href="/blog/2020/02/18/encrypt.sh/"><img src="/assets/media/snippets/encrypt.sh.png" alt="" loading="lazy" /></a>
+</figure>
+
+<p><p>Quickly encrypt a message or a file for sending to your colleagues over unsecure messengers (Slack, etc).</p>
+</p>
+<a href="/blog/2020/02/18/encrypt.sh/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2019-11-29">November 29, 2019</time>
+  
+  
+    
+      <a href="/blog/tag/fun/" class="tag">Fun</a>
+    
+  
+    
+       | <a href="/blog/tag/haskell/" class="tag">Haskell</a>
+    
+  
+    
+       | <a href="/blog/tag/snippet/" class="tag">Snippet</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2019/11/29/sierpinski.hs/">Haskell Snippet: Sierpinski Triangle</a>
+        
+        
+      </h3>
+    
+
+<figure>
+  <a href="/blog/2019/11/29/sierpinski.hs/"><img src="/assets/media/snippets/haskell-sierpinski.png" alt="" loading="lazy" /></a>
+</figure>
+
+<p><p>A fun Haskell sample that draws a Sierpinski triangle via ASCII characters.</p>
+</p>
+<a href="/blog/2019/11/29/sierpinski.hs/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2019-11-22">November 22, 2019</time>
+  
+  
+    
+      <a href="/blog/tag/scala/" class="tag">Scala</a>
+    
+  
+    
        | <a href="/blog/tag/ruby/" class="tag">Ruby</a>
     
   
@@ -934,21 +242,682 @@ In this article I’m describing my impressions of the Scala programming languag
       <h3>
         
         
-          <a class="post-link" href="/blog/2009/02/01/using-best-tools-programming-not-doable/">Using the Best Tools in Programming: Not Really Doable</a>
+          <a class="post-link" href="/blog/2019/11/22/howto-regexp-replacement-via-function-java-scala/">Regexp Replacement via Function in Java/Scala</a>
         
         
       </h3>
     
 
 <figure>
-  <a href="/blog/2009/02/01/using-best-tools-programming-not-doable/"><img src="/assets/media/articles/tools.png" alt="" loading="lazy" /></a>
+  <a href="/blog/2019/11/22/howto-regexp-replacement-via-function-java-scala/"><img src="/assets/media/articles/scala-replace-all-function.png" alt="" loading="lazy" /></a>
 </figure>
 
-<p>
-  There's something that bothers me when it comes to starting a new project. You can't really use the best tool for a certain job, if that tool is not integrated with the rest of your platform. Let me explain.
-
+<p><p>Replace in strings via regexp, with the replacement being calculated via a function.</p>
 </p>
-<a href="/blog/2009/02/01/using-best-tools-programming-not-doable/" class="read-more">Read article &rarr;</a>
+<a href="/blog/2019/11/22/howto-regexp-replacement-via-function-java-scala/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2019-10-07">October 7, 2019</time>
+  
+  
+    
+      <a href="/blog/tag/async/" class="tag">Async</a>
+    
+  
+    
+       | <a href="/blog/tag/javascript/" class="tag">JavaScript</a>
+    
+  
+    
+       | <a href="/blog/tag/snippet/" class="tag">Snippet</a>
+    
+  
+    
+       | <a href="/blog/tag/typescript/" class="tag">TypeScript</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2019/10/07/async-queue.ts/">Async Queue in TypeScript</a>
+        
+        
+      </h3>
+    
+
+<p><p>Production-ready, Promise-enabled async queue.</p>
+</p>
+<a href="/blog/2019/10/07/async-queue.ts/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2019-09-02">September 2, 2019</time>
+  
+  
+    
+      <a href="/blog/tag/async/" class="tag">Async</a>
+    
+  
+    
+       | <a href="/blog/tag/monix/" class="tag">Monix</a>
+    
+  
+    
+       | <a href="/blog/tag/scala/" class="tag">Scala</a>
+    
+  
+    
+       | <a href="/blog/tag/snippet/" class="tag">Snippet</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2019/09/02/blocking-task.scala/">Scala Snippet: Blocking Task</a>
+        
+        
+      </h3>
+    
+
+<p>Monix Task implementation for wrapping (suspending) blocking I/O such
+that it can be canceled.
+s
+Imported from gist.github.com.
+</p>
+<a href="/blog/2019/09/02/blocking-task.scala/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2019-08-11">August 11, 2019</time>
+  
+  
+    
+      <a href="/blog/tag/best%20of/" class="tag">Best Of</a>
+    
+  
+    
+       | <a href="/blog/tag/scala/" class="tag">Scala</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2019/08/11/isinstanceof-anti-pattern/">Scala&#39;s isInstanceOf is an Anti-Pattern</a>
+        
+        
+      </h3>
+    
+
+<figure>
+  <a href="/blog/2019/08/11/isinstanceof-anti-pattern/"><img src="/assets/media/articles/scala-instanceof-antipattern.png" alt="" loading="lazy" /></a>
+</figure>
+
+<p><p>Scala has a much better way of discriminating between types. Scala has implicit parameters, with which you can describe type classes.</p>
+</p>
+<a href="/blog/2019/08/11/isinstanceof-anti-pattern/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2018-05-06">May 6, 2018</time>
+  
+  
+    
+      <a href="/blog/tag/best%20of/" class="tag">Best Of</a>
+    
+  
+    
+       | <a href="/blog/tag/fp/" class="tag">FP</a>
+    
+  
+    
+       | <a href="/blog/tag/typelevel/" class="tag">Typelevel</a>
+    
+  
+    
+       | <a href="/blog/tag/scala/" class="tag">Scala</a>
+    
+  
+    
+       | <a href="/blog/tag/haskell/" class="tag">Haskell</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2018/05/06/bifunctor-io/">On Bifunctor IO and Java&#39;s Checked Exceptions</a>
+        
+        
+      </h3>
+    
+
+<figure>
+  <a href="/blog/2018/05/06/bifunctor-io/"><img src="/assets/media/articles/bio.png" alt="" loading="lazy" /></a>
+</figure>
+
+<p><p>Bifunctor IO is a hot topic in the Scala community. Herein I’m expressing my dislike for it, as it shares the problems of Java’s Checked Exceptions.</p>
+</p>
+<a href="/blog/2018/05/06/bifunctor-io/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2018-02-12">February 12, 2018</time>
+  
+  
+    
+      <a href="/blog/tag/best%20of/" class="tag">Best Of</a>
+    
+  
+    
+       | <a href="/blog/tag/oop/" class="tag">OOP</a>
+    
+  
+    
+       | <a href="/blog/tag/fp/" class="tag">FP</a>
+    
+  
+    
+       | <a href="/blog/tag/haskell/" class="tag">Haskell</a>
+    
+  
+    
+       | <a href="/blog/tag/scala/" class="tag">Scala</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2018/02/12/in-defense-oofp/">In Defense of OOFP</a>
+        
+        
+      </h3>
+    
+
+<figure>
+  <a href="/blog/2018/02/12/in-defense-oofp/"><img src="/assets/media/articles/scala-stairs.jpg" alt="&lt;a href=&quot;https://www.flickr.com/photos/gilles_dubochet/7327041044&quot; target=&quot;_blank&quot;&gt;Credits&lt;/a&gt;" loading="lazy" /></a>
+</figure>
+
+<p><p>OOP versus Type Classes, exemplified and in defense of the Scala collections redesign.</p>
+</p>
+<a href="/blog/2018/02/12/in-defense-oofp/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2017-11-10">November 10, 2017</time>
+  
+  
+    
+      <a href="/blog/tag/testing/" class="tag">Testing</a>
+    
+  
+    
+       | <a href="/blog/tag/scala/" class="tag">Scala</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2017/11/10/minitest-no-crap-scala-library/">Minitest: Zero Crap Scala Testing Library</a>
+        
+        
+      </h3>
+    
+
+<figure>
+  <a href="/blog/2017/11/10/minitest-no-crap-scala-library/"><img src="/assets/media/articles/scala.png" alt="" loading="lazy" /></a>
+</figure>
+
+<p>Minitest is my minimal testing library that I’ve been using for developing Monix.
+</p>
+<a href="/blog/2017/11/10/minitest-no-crap-scala-library/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2017-10-15">October 15, 2017</time>
+  
+  
+    
+      <a href="/blog/tag/best%20of/" class="tag">Best Of</a>
+    
+  
+    
+       | <a href="/blog/tag/fp/" class="tag">FP</a>
+    
+  
+    
+       | <a href="/blog/tag/haskell/" class="tag">Haskell</a>
+    
+  
+    
+       | <a href="/blog/tag/scala/" class="tag">Scala</a>
+    
+  
+    
+       | <a href="/blog/tag/javascript/" class="tag">JavaScript</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2017/10/15/functional-programming/">What is Functional Programming?</a>
+        
+        
+      </h3>
+    
+
+<figure>
+  <a href="/blog/2017/10/15/functional-programming/"><img src="/assets/media/articles/functions.png" alt="" loading="lazy" /></a>
+</figure>
+
+<p><p>FP is programming with (mathematical) functions, there’s no room for interpretation.</p>
+</p>
+<a href="/blog/2017/10/15/functional-programming/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2017-10-13">October 13, 2017</time>
+  
+  
+    
+      <a href="/blog/tag/fp/" class="tag">FP</a>
+    
+  
+    
+       | <a href="/blog/tag/scala/" class="tag">Scala</a>
+    
+  
+    
+       | <a href="/blog/tag/monix/" class="tag">Monix</a>
+    
+  
+    
+       | <a href="/blog/tag/video/" class="tag">Video</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2017/10/13/scaladays-copenhagen/">Scala Days 2017 — Monix Task</a>
+        
+        
+      </h3>
+    
+
+<figure>
+  <a href="/blog/2017/10/13/scaladays-copenhagen/"><img src="https://img.youtube.com/vi/wi97X8_JQUk/maxresdefault.jpg" alt="" loading="lazy" /></a>
+</figure>
+
+<p><p>My presentation from Scala Days 2017, Chicago (April) and Copenhagen (June), on the design of Monix’s Task.</p>
+</p>
+<a href="/blog/2017/10/13/scaladays-copenhagen/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2017-10-11">October 11, 2017</time>
+  
+  
+    
+      <a href="/blog/tag/concurrency/" class="tag">Concurrency</a>
+    
+  
+    
+       | <a href="/blog/tag/fp/" class="tag">FP</a>
+    
+  
+    
+       | <a href="/blog/tag/funfix/" class="tag">Funfix</a>
+    
+  
+    
+       | <a href="/blog/tag/javascript/" class="tag">JavaScript</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2017/10/11/javascript-promise-leaks-memory/">JavaScript&#39;s Promise Leaks Memory</a>
+        
+        
+      </h3>
+    
+
+<figure>
+  <a href="/blog/2017/10/11/javascript-promise-leaks-memory/"><img src="/assets/media/articles/js-then.png" alt="" loading="lazy" /></a>
+</figure>
+
+<p><p>JavaScript’s Promise leaks memory in recursive loops and what you can do about it.</p>
+</p>
+<a href="/blog/2017/10/11/javascript-promise-leaks-memory/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2017-08-16">August 16, 2017</time>
+  
+  
+    
+      <a href="/blog/tag/sbt/" class="tag">SBT</a>
+    
+  
+    
+       | <a href="/blog/tag/scala/" class="tag">Scala</a>
+    
+  
+    
+       | <a href="/blog/tag/sonatype/" class="tag">Sonatype</a>
+    
+  
+    
+       | <a href="/blog/tag/travis/" class="tag">Travis</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2017/08/16/automatic-releases-sbt-travis/">Automatic Releases to Maven Central with Travis and SBT</a>
+        
+        
+      </h3>
+    
+
+<figure>
+  <a href="/blog/2017/08/16/automatic-releases-sbt-travis/"><img src="/assets/media/articles/sbt.png" alt="" loading="lazy" /></a>
+</figure>
+
+<p><p>Enabling automatic releases for your open source Scala project with Travis and SBT.</p>
+</p>
+<a href="/blog/2017/08/16/automatic-releases-sbt-travis/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2017-03-15">March 15, 2017</time>
+  
+  
+    
+      <a href="/blog/tag/fp/" class="tag">FP</a>
+    
+  
+    
+       | <a href="/blog/tag/scala/" class="tag">Scala</a>
+    
+  
+    
+       | <a href="/blog/tag/monix/" class="tag">Monix</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2017/03/15/fp-inception/">Functional Programming Inception (Presentation)</a>
+        
+        
+      </h3>
+    
+
+<figure>
+  <a href="/blog/2017/03/15/fp-inception/"><img src="/assets/media/articles/2017-fp-inception.png" alt="" loading="lazy" /></a>
+</figure>
+
+<p><p>My presentation from the Bucharest FP meetup.</p>
+</p>
+<a href="/blog/2017/03/15/fp-inception/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2017-01-30">January 30, 2017</time>
+  
+  
+    
+      <a href="/blog/tag/asynchrony/" class="tag">Asynchrony</a>
+    
+  
+    
+       | <a href="/blog/tag/best%20of/" class="tag">Best Of</a>
+    
+  
+    
+       | <a href="/blog/tag/concurrency/" class="tag">Concurrency</a>
+    
+  
+    
+       | <a href="/blog/tag/multithreading/" class="tag">Multithreading</a>
+    
+  
+    
+       | <a href="/blog/tag/scala/" class="tag">Scala</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2017/01/30/asynchronous-programming-scala/">Asynchronous Programming and Scala</a>
+        
+        
+      </h3>
+    
+
+<figure>
+  <a href="/blog/2017/01/30/asynchronous-programming-scala/"><img src="/assets/media/articles/nondet.png" alt="" loading="lazy" /></a>
+</figure>
+
+<p><p>Asynchrony is everywhere and it subsumes concurrency. This article explains what asynchronous processing is and its challenges.</p>
+</p>
+<a href="/blog/2017/01/30/asynchronous-programming-scala/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2017-01-16">January 16, 2017</time>
+  
+  
+    
+      <a href="/blog/tag/scala/" class="tag">Scala</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2017/01/16/iterator/">Fixing scala.collection.Iterator</a>
+        
+        
+      </h3>
+    
+
+<figure>
+  <a href="/blog/2017/01/16/iterator/"><img src="/assets/media/articles/scala.png" alt="" loading="lazy" /></a>
+</figure>
+
+<p>The venerable Iterator interface we all love and hate could use some improvements. This is a follow-up to my previous article, in which I talked about getting rid of Traversable because the Iterable and Iterator duo is enough for Scala’s standard library.
+</p>
+<a href="/blog/2017/01/16/iterator/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2017-01-13">January 13, 2017</time>
+  
+  
+    
+      <a href="/blog/tag/scala/" class="tag">Scala</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2017/01/13/traversable/">Why Scala&#39;s Traversable Is Bad Design</a>
+        
+        
+      </h3>
+    
+
+<figure>
+  <a href="/blog/2017/01/13/traversable/"><img src="/assets/media/articles/scala.png" alt="" loading="lazy" /></a>
+</figure>
+
+<p><p>Traversable was a design mistake, is redundant and we should remove it.</p>
+</p>
+<a href="/blog/2017/01/13/traversable/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2016-11-11">November 11, 2016</time>
+  
+  
+    
+      <a href="/blog/tag/utils/" class="tag">Utils</a>
+    
+  
+    
+       | <a href="/blog/tag/web/" class="tag">Web</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2016/11/11/newsblur-bookmarklet/">Add to NewsBlur Bookmarklet</a>
+        
+        
+      </h3>
+    
+
+<figure>
+  <a href="/blog/2016/11/11/newsblur-bookmarklet/"><img src="/assets/media/articles/newsblur.png" alt="" loading="lazy" /></a>
+</figure>
+
+<p><p>An Add to NewsBlur bookmarklet that you can copy-paste for iPhone/iPad/Android usage</p>
+</p>
+<a href="/blog/2016/11/11/newsblur-bookmarklet/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2016-08-25">August 25, 2016</time>
+  
+  
+    
+      <a href="/blog/tag/fp/" class="tag">FP</a>
+    
+  
+    
+       | <a href="/blog/tag/scala/" class="tag">Scala</a>
+    
+  
+    
+       | <a href="/blog/tag/monix/" class="tag">Monix</a>
+    
+  
+    
+       | <a href="/blog/tag/typelevel/" class="tag">Typelevel</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2016/08/25/monix-task-performance/">Monix Task vs Scalaz vs Future, The Benchmark</a>
+        
+        
+      </h3>
+    
+
+<figure>
+  <a href="/blog/2016/08/25/monix-task-performance/"><img src="/assets/media/articles/monix-1024.png" alt="" loading="lazy" /></a>
+</figure>
+
+<p><p>The Task in Monix has really good performance. See the benchmark.</p>
+</p>
+<a href="/blog/2016/08/25/monix-task-performance/" class="read-more">Read article &rarr;</a>
 
         
       </li>
@@ -959,7 +928,7 @@ In this article I’m describing my impressions of the Scala programming languag
   
   <div class="pagination">
     <div class="page_number ">
-      Page: 3 of 3
+      Page: 3 of 5
     </div>
 
     
@@ -968,18 +937,22 @@ In this article I’m describing my impressions of the Scala programming languag
     </a>
     
     
+    <a href="/blog/page/4/" class="next button__outline">
+      ⬅ Older Articles
+    </a>
+    
   </div>
   </div>
 
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202204010620" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202204010620" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202204010620" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202204010620" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202204011607" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202204011607" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202204011607" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202204011607" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202204010620" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202204011607" type="text/javascript"></script>
 
    <div class="footer">
   

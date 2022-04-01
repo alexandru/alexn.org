@@ -49,15 +49,13 @@
     <meta name="msapplication-TileImage" content="/assets/logo/270px.png" />
 
     <!-- Come and get me RSS readers -->
-    <link rel="alternate" type="application/rss+xml" title="All articles (blog, snippets, wiki, links)" href="/feeds/all.xml" />
+    <link rel="alternate" type="application/rss+xml" title="All articles (blog + wiki)" href="/feeds/all.xml" />
     <link rel="alternate" type="application/rss+xml" title="Blog" href="/feeds/blog.xml" />
-    <link rel="alternate" type="application/rss+xml" title="Snippets" href="/feeds/snippets.xml" />
     <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
-    <link rel="alternate" type="application/rss+xml" title="Shared Links" href="/feeds/links.xml" />
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="/assets/css/style.css?202204010620">
-    <link rel="preload" as="style" href="/assets/css/style.css?202204010620">
+    <link rel="stylesheet" href="/assets/css/style.css?202204011607">
+    <link rel="preload" as="style" href="/assets/css/style.css?202204011607">
     
     <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
     <link rel="canonical" href="https://alexn.org/blog/page/2/">
@@ -78,14 +76,6 @@
           
           <li class="element   ">
             <a href="/wiki/">Wiki</a>
-          </li>
-          
-          <li class="element   ">
-            <a href="/snippets/">Snippets</a>
-          </li>
-          
-          <li class="element   ">
-            <a href="/links/">Links</a>
           </li>
           
           <li class="element   ">
@@ -121,11 +111,55 @@
         
           
 <div class="meta">
-  <time class="date" datetime="2019-11-22">November 22, 2019</time>
+  <time class="date" datetime="2020-11-12">November 12, 2020</time>
   
   
     
-      <a href="/blog/tag/scala/" class="tag">Scala</a>
+      <a href="/blog/tag/fp/" class="tag">FP</a>
+    
+  
+    
+       | <a href="/blog/tag/scala/" class="tag">Scala</a>
+    
+  
+    
+       | <a href="/blog/tag/typescript/" class="tag">TypeScript</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2020/11/12/i-like-option-get/">I like Option.get</a>
+        
+        
+      </h3>
+    
+
+<figure>
+  <a href="/blog/2020/11/12/i-like-option-get/"><img src="/assets/media/articles/option.get.png" alt=""  /></a>
+</figure>
+
+<p><p>We should strive to make illegal states unrepresentable. <code class="language-plaintext highlighter-rouge">Option.get</code> is a partial function that, according to many, shouldn’t be in the standard library. Yet it doesn’t bother me; the inability of Scala to make it safe is the problem.</p>
+</p>
+<a href="/blog/2020/11/12/i-like-option-get/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2020-11-11">November 11, 2020</time>
+  
+  
+    
+      <a href="/blog/tag/cloud/" class="tag">Cloud</a>
+    
+  
+    
+       | <a href="/blog/tag/macos/" class="tag">macOS</a>
     
   
     
@@ -136,19 +170,19 @@
       <h3>
         
         
-          <a class="post-link" href="/blog/2019/11/22/howto-regexp-replacement-via-function-java-scala/">Regexp Replacement via Function in Java/Scala</a>
+          <a class="post-link" href="/blog/2020/11/11/organize-index-screenshots-ocr-macos/">Organize and Index Your Screenshots (OCR) on macOS</a>
         
         
       </h3>
     
 
 <figure>
-  <a href="/blog/2019/11/22/howto-regexp-replacement-via-function-java-scala/"><img src="/assets/media/articles/scala-replace-all-function.png" alt=""  /></a>
+  <a href="/blog/2020/11/11/organize-index-screenshots-ocr-macos/"><img src="/assets/media/articles/spotlight-search.png" alt="" loading="lazy" /></a>
 </figure>
 
-<p><p>Replace in strings via regexp, with the replacement being calculated via a function.</p>
+<p><p>Screenshots contain text, text that should be searchable, as finding a screenshot later is the whole point of creating it.</p>
 </p>
-<a href="/blog/2019/11/22/howto-regexp-replacement-via-function-java-scala/" class="read-more">Read article &rarr;</a>
+<a href="/blog/2020/11/11/organize-index-screenshots-ocr-macos/" class="read-more">Read article &rarr;</a>
 
         
       </li>
@@ -157,511 +191,15 @@
         
           
 <div class="meta">
-  <time class="date" datetime="2019-08-11">August 11, 2019</time>
+  <time class="date" datetime="2020-10-20">October 20, 2020</time>
   
   
     
-      <a href="/blog/tag/best%20of/" class="tag">Best Of</a>
+      <a href="/blog/tag/browser/" class="tag">Browser</a>
     
   
     
-       | <a href="/blog/tag/scala/" class="tag">Scala</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2019/08/11/isinstanceof-anti-pattern/">Scala&#39;s isInstanceOf is an Anti-Pattern</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2019/08/11/isinstanceof-anti-pattern/"><img src="/assets/media/articles/scala-instanceof-antipattern.png" alt="" loading="lazy" /></a>
-</figure>
-
-<p><p>Scala has a much better way of discriminating between types. Scala has implicit parameters, with which you can describe type classes.</p>
-</p>
-<a href="/blog/2019/08/11/isinstanceof-anti-pattern/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2018-05-06">May 6, 2018</time>
-  
-  
-    
-      <a href="/blog/tag/best%20of/" class="tag">Best Of</a>
-    
-  
-    
-       | <a href="/blog/tag/fp/" class="tag">FP</a>
-    
-  
-    
-       | <a href="/blog/tag/typelevel/" class="tag">Typelevel</a>
-    
-  
-    
-       | <a href="/blog/tag/scala/" class="tag">Scala</a>
-    
-  
-    
-       | <a href="/blog/tag/haskell/" class="tag">Haskell</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2018/05/06/bifunctor-io/">On Bifunctor IO and Java&#39;s Checked Exceptions</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2018/05/06/bifunctor-io/"><img src="/assets/media/articles/bio.png" alt="" loading="lazy" /></a>
-</figure>
-
-<p><p>Bifunctor IO is a hot topic in the Scala community. Herein I’m expressing my dislike for it, as it shares the problems of Java’s Checked Exceptions.</p>
-</p>
-<a href="/blog/2018/05/06/bifunctor-io/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2018-02-12">February 12, 2018</time>
-  
-  
-    
-      <a href="/blog/tag/best%20of/" class="tag">Best Of</a>
-    
-  
-    
-       | <a href="/blog/tag/oop/" class="tag">OOP</a>
-    
-  
-    
-       | <a href="/blog/tag/fp/" class="tag">FP</a>
-    
-  
-    
-       | <a href="/blog/tag/haskell/" class="tag">Haskell</a>
-    
-  
-    
-       | <a href="/blog/tag/scala/" class="tag">Scala</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2018/02/12/in-defense-oofp/">In Defense of OOFP</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2018/02/12/in-defense-oofp/"><img src="/assets/media/articles/scala-stairs.jpg" alt="&lt;a href=&quot;https://www.flickr.com/photos/gilles_dubochet/7327041044&quot; target=&quot;_blank&quot;&gt;Credits&lt;/a&gt;" loading="lazy" /></a>
-</figure>
-
-<p><p>OOP versus Type Classes, exemplified and in defense of the Scala collections redesign.</p>
-</p>
-<a href="/blog/2018/02/12/in-defense-oofp/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2017-11-10">November 10, 2017</time>
-  
-  
-    
-      <a href="/blog/tag/testing/" class="tag">Testing</a>
-    
-  
-    
-       | <a href="/blog/tag/scala/" class="tag">Scala</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2017/11/10/minitest-no-crap-scala-library/">Minitest: Zero Crap Scala Testing Library</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2017/11/10/minitest-no-crap-scala-library/"><img src="/assets/media/articles/scala.png" alt="" loading="lazy" /></a>
-</figure>
-
-<p>Minitest is my minimal testing library that I’ve been using for developing Monix.
-</p>
-<a href="/blog/2017/11/10/minitest-no-crap-scala-library/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2017-10-15">October 15, 2017</time>
-  
-  
-    
-      <a href="/blog/tag/best%20of/" class="tag">Best Of</a>
-    
-  
-    
-       | <a href="/blog/tag/fp/" class="tag">FP</a>
-    
-  
-    
-       | <a href="/blog/tag/haskell/" class="tag">Haskell</a>
-    
-  
-    
-       | <a href="/blog/tag/scala/" class="tag">Scala</a>
-    
-  
-    
-       | <a href="/blog/tag/javascript/" class="tag">JavaScript</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2017/10/15/functional-programming/">What is Functional Programming?</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2017/10/15/functional-programming/"><img src="/assets/media/articles/functions.png" alt="" loading="lazy" /></a>
-</figure>
-
-<p><p>FP is programming with (mathematical) functions, there’s no room for interpretation.</p>
-</p>
-<a href="/blog/2017/10/15/functional-programming/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2017-10-13">October 13, 2017</time>
-  
-  
-    
-      <a href="/blog/tag/fp/" class="tag">FP</a>
-    
-  
-    
-       | <a href="/blog/tag/scala/" class="tag">Scala</a>
-    
-  
-    
-       | <a href="/blog/tag/monix/" class="tag">Monix</a>
-    
-  
-    
-       | <a href="/blog/tag/video/" class="tag">Video</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2017/10/13/scaladays-copenhagen/">Scala Days 2017 — Monix Task</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2017/10/13/scaladays-copenhagen/"><img src="https://img.youtube.com/vi/wi97X8_JQUk/maxresdefault.jpg" alt="" loading="lazy" /></a>
-</figure>
-
-<p><p>My presentation from Scala Days 2017, Chicago (April) and Copenhagen (June), on the design of Monix’s Task.</p>
-</p>
-<a href="/blog/2017/10/13/scaladays-copenhagen/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2017-10-11">October 11, 2017</time>
-  
-  
-    
-      <a href="/blog/tag/concurrency/" class="tag">Concurrency</a>
-    
-  
-    
-       | <a href="/blog/tag/fp/" class="tag">FP</a>
-    
-  
-    
-       | <a href="/blog/tag/funfix/" class="tag">Funfix</a>
-    
-  
-    
-       | <a href="/blog/tag/javascript/" class="tag">JavaScript</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2017/10/11/javascript-promise-leaks-memory/">JavaScript&#39;s Promise Leaks Memory</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2017/10/11/javascript-promise-leaks-memory/"><img src="/assets/media/articles/js-then.png" alt="" loading="lazy" /></a>
-</figure>
-
-<p><p>JavaScript’s Promise leaks memory in recursive loops and what you can do about it.</p>
-</p>
-<a href="/blog/2017/10/11/javascript-promise-leaks-memory/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2017-08-16">August 16, 2017</time>
-  
-  
-    
-      <a href="/blog/tag/sbt/" class="tag">SBT</a>
-    
-  
-    
-       | <a href="/blog/tag/scala/" class="tag">Scala</a>
-    
-  
-    
-       | <a href="/blog/tag/sonatype/" class="tag">Sonatype</a>
-    
-  
-    
-       | <a href="/blog/tag/travis/" class="tag">Travis</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2017/08/16/automatic-releases-sbt-travis/">Automatic Releases to Maven Central with Travis and SBT</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2017/08/16/automatic-releases-sbt-travis/"><img src="/assets/media/articles/sbt.png" alt="" loading="lazy" /></a>
-</figure>
-
-<p><p>Enabling automatic releases for your open source Scala project with Travis and SBT.</p>
-</p>
-<a href="/blog/2017/08/16/automatic-releases-sbt-travis/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2017-03-15">March 15, 2017</time>
-  
-  
-    
-      <a href="/blog/tag/fp/" class="tag">FP</a>
-    
-  
-    
-       | <a href="/blog/tag/scala/" class="tag">Scala</a>
-    
-  
-    
-       | <a href="/blog/tag/monix/" class="tag">Monix</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2017/03/15/fp-inception/">Functional Programming Inception (Presentation)</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2017/03/15/fp-inception/"><img src="/assets/media/articles/2017-fp-inception.png" alt="" loading="lazy" /></a>
-</figure>
-
-<p><p>My presentation from the Bucharest FP meetup.</p>
-</p>
-<a href="/blog/2017/03/15/fp-inception/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2017-01-30">January 30, 2017</time>
-  
-  
-    
-      <a href="/blog/tag/asynchrony/" class="tag">Asynchrony</a>
-    
-  
-    
-       | <a href="/blog/tag/best%20of/" class="tag">Best Of</a>
-    
-  
-    
-       | <a href="/blog/tag/concurrency/" class="tag">Concurrency</a>
-    
-  
-    
-       | <a href="/blog/tag/multithreading/" class="tag">Multithreading</a>
-    
-  
-    
-       | <a href="/blog/tag/scala/" class="tag">Scala</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2017/01/30/asynchronous-programming-scala/">Asynchronous Programming and Scala</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2017/01/30/asynchronous-programming-scala/"><img src="/assets/media/articles/nondet.png" alt="" loading="lazy" /></a>
-</figure>
-
-<p><p>Asynchrony is everywhere and it subsumes concurrency. This article explains what asynchronous processing is and its challenges.</p>
-</p>
-<a href="/blog/2017/01/30/asynchronous-programming-scala/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2017-01-16">January 16, 2017</time>
-  
-  
-    
-      <a href="/blog/tag/scala/" class="tag">Scala</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2017/01/16/iterator/">Fixing scala.collection.Iterator</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2017/01/16/iterator/"><img src="/assets/media/articles/scala.png" alt="" loading="lazy" /></a>
-</figure>
-
-<p>The venerable Iterator interface we all love and hate could use some improvements. This is a follow-up to my previous article, in which I talked about getting rid of Traversable because the Iterable and Iterator duo is enough for Scala’s standard library.
-</p>
-<a href="/blog/2017/01/16/iterator/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2017-01-13">January 13, 2017</time>
-  
-  
-    
-      <a href="/blog/tag/scala/" class="tag">Scala</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2017/01/13/traversable/">Why Scala&#39;s Traversable Is Bad Design</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2017/01/13/traversable/"><img src="/assets/media/articles/scala.png" alt="" loading="lazy" /></a>
-</figure>
-
-<p><p>Traversable was a design mistake, is redundant and we should remove it.</p>
-</p>
-<a href="/blog/2017/01/13/traversable/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2016-11-11">November 11, 2016</time>
-  
-  
-    
-      <a href="/blog/tag/utils/" class="tag">Utils</a>
+       | <a href="/blog/tag/privacy/" class="tag">Privacy</a>
     
   
     
@@ -672,19 +210,19 @@
       <h3>
         
         
-          <a class="post-link" href="/blog/2016/11/11/newsblur-bookmarklet/">Add to NewsBlur Bookmarklet</a>
+          <a class="post-link" href="/blog/2020/10/20/block-comments-on-the-web/">Block comments on the web</a>
         
         
       </h3>
     
 
 <figure>
-  <a href="/blog/2016/11/11/newsblur-bookmarklet/"><img src="/assets/media/articles/newsblur.png" alt="" loading="lazy" /></a>
+  <a href="/blog/2020/10/20/block-comments-on-the-web/"><img src="/assets/media/articles/block-comments.png" alt="" loading="lazy" /></a>
 </figure>
 
-<p><p>An Add to NewsBlur bookmarklet that you can copy-paste for iPhone/iPad/Android usage</p>
+<p><p>Comments on the web can be toxic, and a waste of time. Here’s how to block them…</p>
 </p>
-<a href="/blog/2016/11/11/newsblur-bookmarklet/" class="read-more">Read article &rarr;</a>
+<a href="/blog/2020/10/20/block-comments-on-the-web/" class="read-more">Read article &rarr;</a>
 
         
       </li>
@@ -693,233 +231,11 @@
         
           
 <div class="meta">
-  <time class="date" datetime="2016-08-25">August 25, 2016</time>
+  <time class="date" datetime="2020-10-15">October 15, 2020</time>
   
   
     
-      <a href="/blog/tag/fp/" class="tag">FP</a>
-    
-  
-    
-       | <a href="/blog/tag/scala/" class="tag">Scala</a>
-    
-  
-    
-       | <a href="/blog/tag/monix/" class="tag">Monix</a>
-    
-  
-    
-       | <a href="/blog/tag/typelevel/" class="tag">Typelevel</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2016/08/25/monix-task-performance/">Monix Task vs Scalaz vs Future, The Benchmark</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2016/08/25/monix-task-performance/"><img src="/assets/media/articles/monix-1024.png" alt="" loading="lazy" /></a>
-</figure>
-
-<p><p>The Task in Monix has really good performance. See the benchmark.</p>
-</p>
-<a href="/blog/2016/08/25/monix-task-performance/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2016-05-15">May 15, 2016</time>
-  
-  
-    
-      <a href="/blog/tag/fp/" class="tag">FP</a>
-    
-  
-    
-       | <a href="/blog/tag/scala/" class="tag">Scala</a>
-    
-  
-    
-       | <a href="/blog/tag/monix/" class="tag">Monix</a>
-    
-  
-    
-       | <a href="/blog/tag/video/" class="tag">Video</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2016/05/15/monix-observable/">Akka &amp; Monix - Typelevel Summit, Oslo 2016</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2016/05/15/monix-observable/"><img src="https://img.youtube.com/vi/CQxviYlAKaY/maxresdefault.jpg" alt="" loading="lazy" /></a>
-</figure>
-
-<p><p>Presentation from Typelevel Summit, Oslo, 2016, about my experience in dealing with modeling behavior by processing asynchronous soft-real time signals using Akka &amp; Monix.</p>
-</p>
-<a href="/blog/2016/05/15/monix-observable/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2016-05-10">May 10, 2016</time>
-  
-  
-    
-      <a href="/blog/tag/fp/" class="tag">FP</a>
-    
-  
-    
-       | <a href="/blog/tag/monix/" class="tag">Monix</a>
-    
-  
-    
-       | <a href="/blog/tag/scala/" class="tag">Scala</a>
-    
-  
-    
-       | <a href="/blog/tag/video/" class="tag">Video</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2016/05/10/monix-task/">Monix Task - flatMap(Oslo) 2016</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2016/05/10/monix-task/"><img src="https://img.youtube.com/vi/rftcbxj7et0/maxresdefault.jpg" alt="" loading="lazy" /></a>
-</figure>
-
-<p><p>My presentation from flatMap(Oslo) 2016. It’s about the Monix Task, a new type for dealing with asynchronous processing on top of Scala and Scala.js.</p>
-</p>
-<a href="/blog/2016/05/10/monix-task/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2015-12-15">December 15, 2015</time>
-  
-  
-    
-      <a href="/blog/tag/fp/" class="tag">FP</a>
-    
-  
-    
-       | <a href="/blog/tag/scala/" class="tag">Scala</a>
-    
-  
-    
-       | <a href="/blog/tag/rx/" class="tag">Rx</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2015/12/15/avoid-javaisms-code-smell/">Avoid Javaisms: Mocks, Stubs, DI is Code Smell</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2015/12/15/avoid-javaisms-code-smell/"><img src="/assets/media/articles/skunk.jpg" alt="" loading="lazy" /></a>
-</figure>
-
-<p><p>Such practices represent clear signals for code smell, meaning code that sucks as a symptom of a bigger problem, one of design. The lumping together of these practices is not an accident, as they are related.</p>
-</p>
-<a href="/blog/2015/12/15/avoid-javaisms-code-smell/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2015-09-06">September 6, 2015</time>
-  
-  
-    
-      <a href="/blog/tag/fp/" class="tag">FP</a>
-    
-  
-    
-       | <a href="/blog/tag/scala/" class="tag">Scala</a>
-    
-  
-    
-       | <a href="/blog/tag/rx/" class="tag">Rx</a>
-    
-  
-    
-       | <a href="/blog/tag/reactive%20streams/" class="tag">Reactive Streams</a>
-    
-  
-</div>
-      <h3>
-        
-        
-          <a class="post-link" href="/blog/2015/09/06/monifu-vs-akka-streams/">Monifu vs Akka Streams</a>
-        
-        
-      </h3>
-    
-
-<figure>
-  <a href="/blog/2015/09/06/monifu-vs-akka-streams/"><img src="/assets/media/articles/monifu.png" alt="" loading="lazy" /></a>
-</figure>
-
-<p>Back in June I attended
-Scala Days in
-Amsterdam and participated at a talk by Mathias Doenitz on
-The Reactive Streams Implementation Landscape.
-It was a good talk, yet I felt a little bias towards Akka Streams,
-which is natural coming from somebody that is contributing to Akka,
-but let me give you the perspective from the other side.
-</p>
-<a href="/blog/2015/09/06/monifu-vs-akka-streams/" class="read-more">Read article &rarr;</a>
-
-        
-      </li>
-    
-      <li>
-        
-          
-<div class="meta">
-  <time class="date" datetime="2014-10-20">October 20, 2014</time>
-  
-  
-    
-      <a href="/blog/tag/languages/" class="tag">Languages</a>
+      <a href="/blog/tag/cats%20effect/" class="tag">Cats Effect</a>
     
   
     
@@ -931,26 +247,634 @@ but let me give you the perspective from the other side.
     
   
     
-       | <a href="/blog/tag/best%20practices/" class="tag">Best Practices</a>
+       | <a href="/blog/tag/snippet/" class="tag">Snippet</a>
     
   
 </div>
       <h3>
         
         
-          <a class="post-link" href="/blog/2014/10/20/scala-best-practices/">Scala Best Practices</a>
+          <a class="post-link" href="/blog/2020/10/15/generic-ioapp-alternative/">Generic IOApp alternative</a>
         
         
       </h3>
     
 
 <figure>
-  <a href="/blog/2014/10/20/scala-best-practices/"><img src="/assets/media/articles/scala.png" alt="" loading="lazy" /></a>
+  <a href="/blog/2020/10/15/generic-ioapp-alternative/"><img src="/assets/media/links/pureapp.png" alt="" loading="lazy" /></a>
 </figure>
 
-<p>This is a collection of best practices for Scala, something to get you started.
+<p><p><code class="language-plaintext highlighter-rouge">IOApp</code> alternative, for Cats Effect v2, that can work with any effect type.</p>
 </p>
-<a href="/blog/2014/10/20/scala-best-practices/" class="read-more">Read article &rarr;</a>
+<a href="/blog/2020/10/15/generic-ioapp-alternative/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2020-10-12">October 12, 2020</time>
+  
+  
+    
+      <a href="/blog/tag/cats%20effect/" class="tag">Cats Effect</a>
+    
+  
+    
+       | <a href="/blog/tag/fp/" class="tag">FP</a>
+    
+  
+    
+       | <a href="/blog/tag/scala/" class="tag">Scala</a>
+    
+  
+    
+       | <a href="/blog/tag/snippet/" class="tag">Snippet</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2020/10/12/effect-runtime/">Effect Runtime</a>
+        
+        
+      </h3>
+    
+
+<figure>
+  <a href="/blog/2020/10/12/effect-runtime/"><img src="/assets/media/snippets/effect-runtime.png" alt="" loading="lazy" /></a>
+</figure>
+
+<p><p>Defining a “runtime” for Cats-Effect v2 that provides the underlying environment necessary (i.e. <code class="language-plaintext highlighter-rouge">ContextShift</code>, <code class="language-plaintext highlighter-rouge">Timer</code>, <code class="language-plaintext highlighter-rouge">Clock</code>).</p>
+</p>
+<a href="/blog/2020/10/12/effect-runtime/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2020-10-10">October 10, 2020</time>
+  
+  
+    
+      <a href="/blog/tag/personal/" class="tag">Personal</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2020/10/10/when-my-world-vanishes/">When My World Vanishes</a>
+        
+        
+      </h3>
+    
+
+<figure>
+  <a href="/blog/2020/10/10/when-my-world-vanishes/"><img src="/assets/media/articles/earth.jpg" alt="" loading="lazy" /></a>
+</figure>
+
+<p><p>It’s me, facing a hard to solve problem. It’s a difficult one, and I’m having problems focusing. I make some coffee, I move to another room, and I’m already thinking of running to some coffee shop, forgetting that we’re still in a pandemic.</p>
+</p>
+<a href="/blog/2020/10/10/when-my-world-vanishes/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2020-10-08">October 8, 2020</time>
+  
+  
+    
+      <a href="/blog/tag/cats%20effect/" class="tag">Cats Effect</a>
+    
+  
+    
+       | <a href="/blog/tag/scala/" class="tag">Scala</a>
+    
+  
+    
+       | <a href="/blog/tag/snippet/" class="tag">Snippet</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2020/10/08/unlawful-effect.scala/">Scala Snippet: Unlawful Effects</a>
+        
+        
+      </h3>
+    
+
+<figure>
+  <a href="/blog/2020/10/08/unlawful-effect.scala/"><img src="/assets/media/snippets/unlawful-effect.png" alt="" loading="lazy" /></a>
+</figure>
+
+<p><p>Unlawful/independent version of <code class="language-plaintext highlighter-rouge">cats.effect.Effect</code>.</p>
+</p>
+<a href="/blog/2020/10/08/unlawful-effect.scala/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2020-10-05">October 5, 2020</time>
+  
+  
+    
+      <a href="/blog/tag/sbt/" class="tag">sbt</a>
+    
+  
+    
+       | <a href="/blog/tag/scala/" class="tag">Scala</a>
+    
+  
+    
+       | <a href="/blog/tag/testing/" class="tag">Testing</a>
+    
+  
+    
+       | <a href="/blog/tag/snippet/" class="tag">Snippet</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2020/10/05/running-integration-tests.scala/">Running integration tests, with Scala + sbt</a>
+        
+        
+      </h3>
+    
+
+<figure>
+  <a href="/blog/2020/10/05/running-integration-tests.scala/"><img src="/assets/media/snippets/sbt-integration-tests.png" alt="" loading="lazy" /></a>
+</figure>
+
+<p><p>Scala sbt setup for separating unit tests from integrationt tests.</p>
+</p>
+<a href="/blog/2020/10/05/running-integration-tests.scala/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2020-09-25">September 25, 2020</time>
+  
+  
+    
+      <a href="/blog/tag/akka/" class="tag">Akka</a>
+    
+  
+    
+       | <a href="/blog/tag/cats%20effect/" class="tag">Cats Effect</a>
+    
+  
+    
+       | <a href="/blog/tag/reactive%20streams/" class="tag">Reactive Streams</a>
+    
+  
+    
+       | <a href="/blog/tag/scala/" class="tag">Scala</a>
+    
+  
+    
+       | <a href="/blog/tag/snippet/" class="tag">Snippet</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2020/09/25/flow-processor-to-effect/">Scala Snippet: Flow/Processor to Effect</a>
+        
+        
+      </h3>
+    
+
+<p><p>Converts an Akka Streams <code class="language-plaintext highlighter-rouge">Flow</code> into an <code class="language-plaintext highlighter-rouge">In =&gt; IO[Out]</code> method, thus wrapping <code class="language-plaintext highlighter-rouge">Flow</code> into Cats-Effect’s <code class="language-plaintext highlighter-rouge">IO</code>.</p>
+</p>
+<a href="/blog/2020/09/25/flow-processor-to-effect/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2020-09-10">September 10, 2020</time>
+  
+  
+    
+      <a href="/blog/tag/personal/" class="tag">Personal</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2020/09/10/privilege/">Privilege</a>
+        
+        
+      </h3>
+    
+
+<figure>
+  <a href="/blog/2020/09/10/privilege/"><img src="/assets/media/articles/fi-miu.jpg" alt="My son ❤️" loading="lazy" /></a>
+</figure>
+
+<p><p>Today it’s my 38ᵗʰ birthday. I was born into privilege. Other people aren’t as lucky.</p>
+</p>
+<a href="/blog/2020/09/10/privilege/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2020-08-27">August 27, 2020</time>
+  
+  
+    
+      <a href="/blog/tag/jvm/" class="tag">JVM</a>
+    
+  
+    
+       | <a href="/blog/tag/scala/" class="tag">Scala</a>
+    
+  
+    
+       | <a href="/blog/tag/snippet/" class="tag">Snippet</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2020/08/27/safe-password.scala/">Scala Snippet: Safe Passwords</a>
+        
+        
+      </h3>
+    
+
+<figure>
+  <a href="/blog/2020/08/27/safe-password.scala/"><img src="/assets/media/snippets/safe-password-snippet.png" alt="" loading="lazy" /></a>
+</figure>
+
+<p><p>For security, it’s not a good practice to keep sensitive data in RAM indefinitely.</p>
+</p>
+<a href="/blog/2020/08/27/safe-password.scala/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2020-08-14">August 14, 2020</time>
+  
+  
+    
+      <a href="/blog/tag/scala/" class="tag">Scala</a>
+    
+  
+    
+       | <a href="/blog/tag/snippet/" class="tag">Snippet</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2020/08/14/error-hierarchy.scala/">Sample Error Hierarchy in Scala</a>
+        
+        
+      </h3>
+    
+
+<figure>
+  <a href="/blog/2020/08/14/error-hierarchy.scala/"><img src="/assets/media/snippets/error-hierarchy.png" alt="" loading="lazy" /></a>
+</figure>
+
+<p><p>Mimicking the HTTP error codes.</p>
+</p>
+<a href="/blog/2020/08/14/error-hierarchy.scala/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2020-08-13">August 13, 2020</time>
+  
+  
+    
+      <a href="/blog/tag/sbt/" class="tag">sbt</a>
+    
+  
+    
+       | <a href="/blog/tag/scala/" class="tag">Scala</a>
+    
+  
+    
+       | <a href="/blog/tag/snippet/" class="tag">Snippet</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2020/08/13/sbt-fork-debug.sbt/">Snippet: turn on JVM debugging in sbt</a>
+        
+        
+      </h3>
+    
+
+<p><p>Remote debugging can be used to debug externally executed programs, useful to activate in <code class="language-plaintext highlighter-rouge">sbt</code> in order to keep using it while debugging with your favorite IDE.</p>
+</p>
+<a href="/blog/2020/08/13/sbt-fork-debug.sbt/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2020-08-11">August 11, 2020</time>
+  
+  
+    
+      <a href="/blog/tag/typescript/" class="tag">TypeScript</a>
+    
+  
+    
+       | <a href="/blog/tag/snippet/" class="tag">Snippet</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2020/08/11/flow-sensitive-typing.ts/">TypeScript Sample: Flow Sensitive Typing</a>
+        
+        
+      </h3>
+    
+
+<p><p>Demonstrating Typescript’s untagged union types.</p>
+</p>
+<a href="/blog/2020/08/11/flow-sensitive-typing.ts/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2020-08-03">August 3, 2020</time>
+  
+  
+    
+      <a href="/blog/tag/fp/" class="tag">FP</a>
+    
+  
+    
+       | <a href="/blog/tag/scala/" class="tag">Scala</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2020/08/03/on-error-retry-loop/">Retry Failing Tasks with Cats and Scala</a>
+        
+        
+      </h3>
+    
+
+<figure>
+  <a href="/blog/2020/08/03/on-error-retry-loop/"><img src="/assets/media/snippets/on-error-retry-loop.png" alt="" loading="lazy" /></a>
+</figure>
+
+<p><p>Retry actions ending in failure via simple functions and Typelevel Cats type-classes.</p>
+</p>
+<a href="/blog/2020/08/03/on-error-retry-loop/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2020-07-30">July 30, 2020</time>
+  
+  
+    
+      <a href="/blog/tag/akka/" class="tag">Akka</a>
+    
+  
+    
+       | <a href="/blog/tag/cats%20effect/" class="tag">Cats Effect</a>
+    
+  
+    
+       | <a href="/blog/tag/reactive%20streams/" class="tag">Reactive Streams</a>
+    
+  
+    
+       | <a href="/blog/tag/scala/" class="tag">Scala</a>
+    
+  
+    
+       | <a href="/blog/tag/snippet/" class="tag">Snippet</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2020/07/30/from-resource-to-reactivestreams.scala/">Scala Snippet: Cats-Effect Resource to Reactive Streams</a>
+        
+        
+      </h3>
+    
+
+<p><p>Cats-Effect’s Resource can’t be converted directly into a Reactive Streams Publisher. Beware!</p>
+</p>
+<a href="/blog/2020/07/30/from-resource-to-reactivestreams.scala/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2020-05-27">May 27, 2020</time>
+  
+  
+    
+      <a href="/blog/tag/async/" class="tag">Async</a>
+    
+  
+    
+       | <a href="/blog/tag/scala/" class="tag">Scala</a>
+    
+  
+    
+       | <a href="/blog/tag/snippet/" class="tag">Snippet</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2020/05/27/future-stack-overflow.scala/">ExecutionContext Must Be Stack-safe</a>
+        
+        
+      </h3>
+    
+
+<p><p>Sample demonstrating that directly executing runnables in your <code class="language-plaintext highlighter-rouge">ExecutionContext</code> (with no stack-safety) is a really bad idea.</p>
+</p>
+<a href="/blog/2020/05/27/future-stack-overflow.scala/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2020-05-26">May 26, 2020</time>
+  
+  
+    
+      <a href="/blog/tag/scala/" class="tag">Scala</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2020/05/26/scala-fatal-warnings/">Fatal Warnings and Linting in Scala</a>
+        
+        
+      </h3>
+    
+
+<figure>
+  <a href="/blog/2020/05/26/scala-fatal-warnings/"><img src="/assets/media/articles/scala-xfatal-warnings.png" alt="" loading="lazy" /></a>
+</figure>
+
+<p><p>Strengthen your code via <code class="language-plaintext highlighter-rouge">-Xfatal-warnings</code>, linting and piss off your colleagues with useful compiler errors.</p>
+</p>
+<a href="/blog/2020/05/26/scala-fatal-warnings/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2020-04-21">April 21, 2020</time>
+  
+  
+    
+      <a href="/blog/tag/asynchrony/" class="tag">Asynchrony</a>
+    
+  
+    
+       | <a href="/blog/tag/concurrency/" class="tag">Concurrency</a>
+    
+  
+    
+       | <a href="/blog/tag/javascript/" class="tag">JavaScript</a>
+    
+  
+    
+       | <a href="/blog/tag/typescript/" class="tag">TypeScript</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2020/04/21/javascript-semaphore/">Parallelizing Work via a JavaScript Semaphore</a>
+        
+        
+      </h3>
+    
+
+<figure>
+  <a href="/blog/2020/04/21/javascript-semaphore/"><img src="/assets/media/articles/async-semaphore-typescript.png" alt="" loading="lazy" /></a>
+</figure>
+
+<p><p>Simple and very effective implementation of a Semaphore, used for easily parallelizing work in JavaScript/TypeScript.</p>
+</p>
+<a href="/blog/2020/04/21/javascript-semaphore/" class="read-more">Read article &rarr;</a>
+
+        
+      </li>
+    
+      <li>
+        
+          
+<div class="meta">
+  <time class="date" datetime="2020-04-21">April 21, 2020</time>
+  
+  
+    
+      <a href="/blog/tag/blogging/" class="tag">Blogging</a>
+    
+  
+    
+       | <a href="/blog/tag/personal/" class="tag">Personal</a>
+    
+  
+</div>
+      <h3>
+        
+        
+          <a class="post-link" href="/blog/2020/04/21/blog-updates/">Blog Updates</a>
+        
+        
+      </h3>
+    
+
+<figure>
+  <a href="/blog/2020/04/21/blog-updates/"><img src="https://img.youtube.com/vi/RYmGT905Skc/maxresdefault.jpg" alt="" loading="lazy" /></a>
+</figure>
+
+<p><p>Dusted off my website, with big plans ahead.</p>
+</p>
+<a href="/blog/2020/04/21/blog-updates/" class="read-more">Read article &rarr;</a>
 
         
       </li>
@@ -961,7 +885,7 @@ but let me give you the perspective from the other side.
   
   <div class="pagination">
     <div class="page_number ">
-      Page: 2 of 3
+      Page: 2 of 5
     </div>
 
     
@@ -980,12 +904,12 @@ but let me give you the perspective from the other side.
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202204010620" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202204010620" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202204010620" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202204010620" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202204011607" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202204011607" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202204011607" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202204011607" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202204010620" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202204011607" type="text/javascript"></script>
 
    <div class="footer">
   
