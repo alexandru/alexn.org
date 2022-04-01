@@ -1,11 +1,21 @@
 ---
+title: "Scala Snippet: Unlawful Effects"
 image: /assets/media/snippets/unlawful-effect.png
+image_hide_in_post: true
 tags:
   - Cats Effect
   - Scala
+  - Snippet
+feed_guid: /snippets/2020/10/08/unlawful-effect.scala/
+redirect_from:
+  - /snippets/2020/10/08/unlawful-effect.scala/
+  - /snippets/2020/10/08/unlawful-effect.scala.html
+description: >
+  Unlawful/independent version of `cats.effect.Effect`.
+last_modified_at: 2022-04-01 16:36:39 +03:00
 ---
 
-Unlawful version of [cats.effect.Effect](https://typelevel.org/cats-effect/typeclasses/effect.html):
+Unlawful/independent version of `cats.effect.Effect` from Cats Effect v2. Allows for converting (and executing) `IO`-like values to `scala.concurrent.Future`, being also good for a graceful migration to Cats Effect v3:
 
 ```scala
 import cats.ApplicativeError
@@ -15,10 +25,10 @@ import simulacrum.typeclass
 import scala.concurrent.{ Future, Promise }
 
 /**
-  * Type class defining an "unlawful" variant of
-  * [[https://typelevel.org/cats-effect/typeclasses/effect.html cats.effect.Effect]]
+  * Type class defining an "unlawful" variant of `cats.effect.Effect`.
   *
   * This allows it to work with plain `Future`, which cannot implement `Effect`.
+  * It also allows for a graceful migration to Cats Effect v3.
   *
   * NOTE: if the requirement is `F[_] : Sync : UnlawfulEffect` then this
   * is de facto equivalent with `Effect`, therefore `UnlawfulEffect` shouldn't
