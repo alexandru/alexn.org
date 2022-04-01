@@ -20,14 +20,9 @@ layout: null
 	  <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v{{ jekyll.version }}</generator>
 
-    {% assign everything = site.posts | concat: site.snippets | rss_sort_all -%}
-    {% for post in everything limit:200 %}
+    {% for post in site.posts limit:200 %}
       {% unless post.secret or post.is_noise -%}
-        {% if post.collection == 'posts' -%}
-          {% include feed-item-blog.xml post=post utm_medium="reddit" write_tags_as_content=true %}
-        {% elsif post.collection == 'snippets' -%}
-          {% include feed-item-snippet.xml post=post utm_medium="reddit" write_tags_as_content=true %}  
-        {% endif -%}
+        {% include feed-item-blog.xml post=post utm_medium="reddit" write_tags_as_content=true %}
       {% endunless -%}
     {% endfor -%}
   </channel>

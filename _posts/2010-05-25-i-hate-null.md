@@ -4,6 +4,9 @@ date:   2010-05-25
 tags:
   - Python
 image: /assets/media/articles/beautiful-soup.png
+redirect_from:
+  - /snippets/2020/07/30/python-proxy.py/
+  - /snippets/2020/07/30/python-proxy.py.html
 ---
 
 <p class="intro withcap" markdown='1'>
@@ -106,5 +109,3 @@ all_td_elems = soup.find('table', {'class':'search-params'})\
 ```
 
 Yeah, it's just a small hack, but it's so damn useful sometimes. 
-
-See [full code snippet]({% link _snippets/2020-07-30-python-proxy.py.md %}) for copy/pasting.

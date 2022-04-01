@@ -16,7 +16,7 @@ has_full_title: true
     <h3>Recent Blog Articles</h3>
   
     <div class="container">
-      {% for post in site.posts offset:1 limit:3 %}
+      {% for post in site.posts offset:1 limit:5 %}
       <div class="item">
         <a class="related-link" href="{{ site.baseurl }}{{ post.url }}">
           {{ post.title | xml_smart_escape }}
@@ -42,34 +42,11 @@ has_full_title: true
   </div>
 
   <div class="archive_list">
-    <h3>Recent Snippets</h3>
-  
-    {% assign all_snippets = site.snippets | rss_sort_all -%}
-    <div class="container">
-      {% for post in all_snippets offset:0 limit:3 %}
-      <div class="item">
-        <a class="related-link" href="{{ site.baseurl }}{{ post.url }}">
-          {{ post.title | xml_smart_escape }}
-        </a>
-        <div class="related-meta">
-          <time>{{ post.date | date_to_long_string }}</time>
-        </div>
-        <div class="clearfix"></div>
-      </div>
-      {% endfor %}
-      <div class="clearfix"></div>
-      <div>
-        <a href="{{ '/snippets/' | absolute_url }}" class="button__outline">See full archive</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="archive_list">
     <h3>Recent Wiki Articles</h3>
   
     {% assign all_wiki = site.wiki | rss_sort_all -%}
     <div class="container">
-      {% for post in all_wiki offset:0 limit:3 %}
+      {% for post in all_wiki offset:0 limit:5 %}
       <div class="item">
         <a class="related-link" href="{{ site.baseurl }}{{ post.url }}">
           {{ post.title | xml_smart_escape }}
@@ -83,28 +60,6 @@ has_full_title: true
       <div class="clearfix"></div>
       <div>
         <a href="{{ '/wiki/' | absolute_url }}" class="button__outline">See full archive</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="archive_list last">
-    <h3>Recent Shared Links</h3>
-  
-    {% assign all_links = site.links | rss_sort_all -%}
-    <div class="container">
-      {% for post in all_links offset:0 limit:3 %}
-      <div class="item">
-        <a class="related-link" href="{{ site.baseurl }}{{ post.url }}">{{ post.title | xml_smart_escape }}</a> 
-        {% if post.author %} by {{ post.author }}{% endif %}
-        <div class="related-meta">
-          <time>{{ post.date | date_to_long_string }}</time>
-        </div>
-        <div class="clearfix"></div>
-      </div>
-      {% endfor %}
-      <div class="clearfix"></div>
-      <div>
-        <a href="{{ '/links/' | absolute_url }}" class="button__outline">See full archive</a>
       </div>
     </div>
   </div>

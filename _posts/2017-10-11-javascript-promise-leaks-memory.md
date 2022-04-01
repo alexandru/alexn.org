@@ -1,5 +1,7 @@
 ---
 title: "JavaScript's Promise Leaks Memory"
+redirect_from:
+  - /blog/2017/10/11/javascript-promise-memory-unsafe.html
 description:
   JavaScript's Promise leaks memory in recursive loops and what you can do about it.
 tags:

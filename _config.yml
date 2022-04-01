@@ -53,31 +53,10 @@ defaults:
       has_contributions: true
       nav_id: /wiki/
       description: Personal, volatile wiki documentation
-  # Snippets (collection)
-  - scope:
-      path: "_snippets"
-    values:
-      layout: snippet
-      nav_id: /snippets/
-      has_contributions: true
-      author: alexelcu
-  # Links (collection)
-  - scope:
-      path: "_links"
-    values:
-      nav_id: /links/
-      layout: link
-      has_contributions: true
 
 collections:
   posts:
     permalink: /blog/:year/:month/:day/:title/
-    output: true
-  snippets:
-    permalink: /:collection/:year/:month/:day/:title/
-    output: true
-  links:
-    permalink: /:collection/:year/:month/:day/:title/
     output: true
   wiki:
     output: true
@@ -98,6 +77,7 @@ plugins:
   - jekyll-paginate-v2
   - jekyll-sitemap
   - jekyll-relative-links
+  - jekyll-redirect-from
 
 relative_links:
   enabled: true
@@ -134,8 +114,6 @@ autopages:
   tags:
     layouts:
       - "auto-posts-tag.html"
-      - "auto-links-tag.html"
-      - "auto-snippets-tag.html"
   categories:
     enabled: false
   collections:
@@ -148,12 +126,6 @@ navigation:
   - title: Wiki
     url: /wiki/
     id: /wiki/
-  - title: Snippets
-    url: /snippets/
-    id: /snippets/
-  - title: Links
-    url: /links/
-    id: /links/
   - title: About
     url: /about/
     id: /about/

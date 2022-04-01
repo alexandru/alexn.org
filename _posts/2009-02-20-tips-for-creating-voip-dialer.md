@@ -1,7 +1,8 @@
 ---
 title: "FreeSWITCH - Tips for Creating a Dialer"
-date:   2009-02-20
-last_modified_at: 2019-12-14
+last_modified_at: 2022-04-01 17:21:30 +03:00
+redirect_from:
+  - /docs/dialer.html
 tags:
   - Best Of
   - VoIP

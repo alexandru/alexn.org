@@ -1,5 +1,8 @@
 ---
 title: "Retry Failing Tasks with Cats and Scala"
+redirect_from:
+  - /snippets/2020/08/03/on-error-retry-loop.scala/
+  - /snippets/2020/08/03/on-error-retry-loop.scala.html
 description:
   Retry actions ending in failure via simple functions and Typelevel Cats type-classes.
 tags:
@@ -318,15 +321,4 @@ object Playground extends LazyLogging with IOApp {
 }
 ```
 
-## TL;DR Full Code Sample
-
-See here for the full code sample:<br/>
-[on-error-retry-loop.scala]({% link _snippets/2020-08-03-on-error-retry-loop.scala.md %})
-
 Enjoy~
-
-<figure>
-  <img src="{% link assets/media/articles/cute-cat.jpg %}" loading="lazy" 
-    alt="Cute cat surprised by a job well done" 
-    title="Cute cat surprised by a job well done" />
-</figure>
