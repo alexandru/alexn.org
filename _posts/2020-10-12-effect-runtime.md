@@ -1,11 +1,19 @@
 ---
 title: "Effect Runtime"
-date: 2020-10-12 17:17:42+0300
 image: /assets/media/snippets/effect-runtime.png
+image_hide_in_post: true
 tags:
   - Cats Effect
   - FP
   - Scala
+  - Snippet
+feed_guid: /snippets/2020/10/12/effect-runtime/
+redirect_from:
+  - /snippets/2020/10/12/effect-runtime/
+  - /snippets/2020/10/12/effect-runtime.html
+description: >
+  Defining a "runtime" for Cats-Effect v2 that provides the underlying environment necessary (i.e. `ContextShift`, `Timer`, `Clock`).
+last_modified_at: 2022-04-01 16:30:23 +03:00
 ---
 
 Defining an `EffectRuntime` that is used to build IO effects. This would be a replacement for [ContextShift](https://typelevel.org/cats-effect/datatypes/contextshift.html) (Cats Effect 2.x), with an integrated `Logger`, [Scheduler](https://monix.io/docs/current/execution/scheduler.html) (thus having access to [Timer](https://typelevel.org/cats-effect/datatypes/timer.html) too), and utilities for monitoring.

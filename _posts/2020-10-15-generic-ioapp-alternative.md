@@ -13,14 +13,14 @@ redirect_from:
   - /snippets/2020/10/15/generic-ioapp-alternative.html
 description: >
   `IOApp` alternative, for Cats Effect v2, that can work with any effect type.
-last_modified_at: 2022-04-01 16:26:10 +03:00
+last_modified_at: 2022-04-01 16:31:09 +03:00
 ---
 
 This is a simple and generic [IOApp](https://typelevel.org/cats-effect/datatypes/ioapp.html) and [TaskApp](https://monix.io/api/current/monix/eval/TaskApp.html) replacement. For those instances in which you want to work with `F[_]` and not `IO` or `Task`, even in `main` apps.
 
 Requirements:
 
-- [EffectRuntime]({% link _snippets/2020-10-12-effect-runtime.md %}) (snippet); or if not in the mood for that, replace it with the basic [cats.effect.ContextShift](https://typelevel.org/cats-effect/datatypes/contextshift.html)
+- [EffectRuntime]({% link _posts/2020-10-12-effect-runtime.md %}) (snippet); or if not in the mood for that, replace it with the basic [cats.effect.ContextShift](https://typelevel.org/cats-effect/datatypes/contextshift.html)
 - [Monix Catnap](https://monix.io/docs/3x/#monix-catnap)
 
 ```scala
