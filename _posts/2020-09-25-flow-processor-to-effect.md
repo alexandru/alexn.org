@@ -1,14 +1,22 @@
 ---
+title: "Scala Snippet: Flow/Processor to Effect"
 tags:
   - Akka
   - Cats Effect
   - Reactive Streams
   - Scala
+  - Snippet
+feed_guid: /snippets/2020/09/25/flow-processor-to-effect/
+redirect_from:
+  - /snippets/2020/09/25/flow-processor-to-effect/
+  - /snippets/2020/09/25/flow-processor-to-effect.html
+description: >
+  For converting Flow/Processor from Akka stream into Cats-Effect's IO.
+last_modified_at: 2022-04-01 16:43:35 +03:00
 ---
 
-# Flow/Processor to Effect
-
-Possibly broken implementation, take it with a grain of salt:
+**WARNING:** this implementation doesn't actually work, because `Processor`
+from Reactive Streams isn't meant to stream resources, doesn't do back-pressure on `complete`, so this snippet will fail.
 
 ```scala
 import akka.actor.ActorSystem

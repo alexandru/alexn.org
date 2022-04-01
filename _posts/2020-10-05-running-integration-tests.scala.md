@@ -1,10 +1,19 @@
 ---
 title: "Running integration tests, with Scala + sbt"
 image: /assets/media/snippets/sbt-integration-tests.png
+image_hide_in_post: true
 tags:
   - sbt
   - Scala
   - Testing
+  - Snippet
+feed_guid: /snippets/2020/10/05/running-integration-tests.scala/
+redirect_from:
+  - /snippets/2020/10/05/running-integration-tests.scala/
+  - /snippets/2020/10/05/running-integration-tests.scala.html
+description: >
+  Scala sbt setup for separating unit tests from integrationt tests.
+last_modified_at: 2022-04-01 16:38:35 +03:00
 ---
 
 For separating integration tests, from unit tests, in `build.sbt`:
