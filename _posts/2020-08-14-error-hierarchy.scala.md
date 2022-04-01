@@ -1,7 +1,7 @@
 ---
 title: "Sample Error Hierarchy in Scala"
 image: /assets/media/snippets/error-hierarchy.png
-image_hide_in_post:
+image_hide_in_post: true
 tags:
   - Scala
   - Snippet
@@ -11,7 +11,7 @@ redirect_from:
   - /snippets/2020/08/14/error-hierarchy.scala.html
 description: >
   Mimicking the HTTP error codes.
-last_modified_at: 2022-04-01 16:51:32 +03:00
+last_modified_at: 2022-04-01 16:51:57 +03:00
 ---
 
 <figure>
