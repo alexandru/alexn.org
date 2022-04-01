@@ -1,12 +1,10 @@
 ---
 title: "FreeSWITCH - Tips for Creating a Dialer"
-last_modified_at: 2022-04-01 17:21:30 +03:00
+last_modified_at: 2022-04-01 19:13:50 +03:00
 redirect_from:
   - /docs/dialer.html
 tags:
   - Best Of
-  - VoIP
-  - FreeSWITCH
   - JavaScript
   - Perl
 image: /assets/media/articles/freeswitch1.png

@@ -4,9 +4,8 @@ feed_guid: /snippets/2019/11/29/sierpinski.hs/
 redirect_from:
   - /snippets/2019/11/29/sierpinski.hs/
   - /snippets/2019/11/29/sierpinski.hs.html
-last_modified_at: 2022-04-01 15:10:31 +03:00
+last_modified_at: 2022-04-01 19:13:24 +03:00
 tags:
-  - Fun
   - Haskell
   - Snippet
 image: /assets/media/snippets/haskell-sierpinski.png

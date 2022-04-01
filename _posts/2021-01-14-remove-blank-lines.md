@@ -5,7 +5,6 @@ image_hide_in_post: true
 tags:
   - Java
   - Programming
-  - Regexp
   - Scala
   - Snippet
 feed_guid: /snippets/2021/01/14/remove-blank-lines/
@@ -14,7 +13,7 @@ redirect_from:
   - /snippets/2021/01/14/remove-blank-lines.html
 description: >
   Just a regular expression.
-last_modified_at: 2022-04-01 15:57:33 +03:00
+last_modified_at: 2022-04-01 19:14:08 +03:00
 ---
 
 ```scala

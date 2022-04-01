@@ -1,10 +1,8 @@
 ---
 title: "Automatic Releases to Maven Central with Travis and SBT"
 tags:
-  - SBT
+  - sbt
   - Scala
-  - Sonatype
-  - Travis
 description:
   Enabling automatic releases for your open source Scala project with Travis and SBT.
 image: /assets/media/articles/sbt.png

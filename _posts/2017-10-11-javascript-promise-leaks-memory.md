@@ -7,7 +7,6 @@ description:
 tags:
   - Concurrency
   - FP
-  - Funfix
   - JavaScript
 image: /assets/media/articles/js-then.png
 image_hide_in_post: true

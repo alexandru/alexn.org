@@ -2,8 +2,6 @@
 title: "There are No Acceptable Ads"
 date: 2020-12-20 17:16:08+0200
 description: "Retracted article"
-tags:
-  - Retracted
 ---
 
 <p class="warn-bubble" markdown="1">

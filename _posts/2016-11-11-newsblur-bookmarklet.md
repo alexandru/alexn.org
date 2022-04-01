@@ -1,7 +1,6 @@
 ---
 title: "Add to NewsBlur Bookmarklet"
 tags:
-  - Utils
   - Web
 description:
   An Add to NewsBlur bookmarklet that you can copy-paste for iPhone/iPad/Android usage

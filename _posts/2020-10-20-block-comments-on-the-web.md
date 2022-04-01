@@ -5,7 +5,6 @@ image: /assets/media/articles/block-comments.png
 image_hide_in_post: true
 tags:
   - Browser
-  - Privacy
   - Web
 description: "Comments on the web can be toxic, and a waste of time. Here's how to block them..."
 ---
