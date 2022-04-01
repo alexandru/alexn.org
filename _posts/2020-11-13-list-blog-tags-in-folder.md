@@ -1,11 +1,19 @@
 ---
 title: "List static blog tags in folder (Jekyll, etc)"
-date: 2020-11-13 15:59:43+0200
 tags:
   - Blogging
   - Jekyll
   - Ruby
+  - Snippet
+feed_guid: /snippets/2020/11/13/list-blog-tags-in-folder/
+redirect_from:
+  - /snippets/2020/11/13/list-blog-tags-in-folder/
+  - /snippets/2020/11/13/list-blog-tags-in-folder.html
 image: /assets/media/snippets/script-list-tags.png
+image_hide_in_post: true
+description: >
+  Script for listing the used tags of a Jekyll directory of articles.
+last_modified_at: 2022-04-01 16:24:12 +03:00
 ---
 
 I maintain a Jekyll blog, with tagged articles (tags specified in the Markdown front-matter), but maintaining tags isn't easy, because I often forget what tags I used. E.g. is it `Functional`, or `FP`? I can never remember.
