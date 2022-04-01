@@ -1,11 +1,19 @@
 ---
 title: "Generic IOApp alternative"
-date: 2020-10-15 10:05:19+0300
 image: /assets/media/links/pureapp.png
+image_hide_in_post: true
 tags:
   - Cats Effect
   - FP
   - Scala
+  - Snippet
+feed_guid: /snippets/2020/10/15/generic-ioapp-alternative/
+redirect_from:
+  - /snippets/2020/10/15/generic-ioapp-alternative/
+  - /snippets/2020/10/15/generic-ioapp-alternative.html
+description: >
+  `IOApp` alternative, for Cats Effect v2, that can work with any effect type.
+last_modified_at: 2022-04-01 16:26:10 +03:00
 ---
 
 This is a simple and generic [IOApp](https://typelevel.org/cats-effect/datatypes/ioapp.html) and [TaskApp](https://monix.io/api/current/monix/eval/TaskApp.html) replacement. For those instances in which you want to work with `F[_]` and not `IO` or `Task`, even in `main` apps.
