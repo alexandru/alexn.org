@@ -1,7 +1,18 @@
 ---
+title: "TypeScript Sample: Flow Sensitive Typing"
 tags:
   - TypeScript
+  - Snippet
+feed_guid: /snippets/2020/08/11/flow-sensitive-typing.ts/
+redirect_from:
+  - /snippets/2020/08/11/flow-sensitive-typing.ts/
+  - /snippets/2020/08/11/flow-sensitive-typing.ts.html
+description: >
+  Demonstrating Typescript's untagged union types.
+last_modified_at: 2022-04-01 17:02:35 +03:00
 ---
+
+Demonstrating Typescript's untagged union types:
 
 ```typescript
 type Left<L> = {
