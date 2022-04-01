@@ -18,12 +18,12 @@ begin
   text = %{
 ---
 title: #{options[:title].to_json}
-date: #{now.strftime("%Y-%m-%d %H:%M:%S %Z")}
-tags: []
+tags:
+  - Snippet
 ---
   }.strip
 
-  dir_path = File.expand_path(File.join(File.dirname(File.expand_path(__FILE__)), "..", "_snippets"))
+  dir_path = File.expand_path(File.join(File.dirname(File.expand_path(__FILE__)), "..", "_posts"))
   path = File.join(dir_path, slug)
   File.open(path, 'w') { |file| file.write(text) }
   exec("code #{path}")

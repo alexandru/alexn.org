@@ -10,7 +10,7 @@ layout: null
 
   <channel>
     <title>{{ site.title | xml_smart_escape }} — All articles</title>
-    <description>Feed of blog articles, snippets, wiki, shared links, published at {{ site.domain }}{{ site.baseurl }}</description>
+    <description>Feed of blog articles, wiki, shared links, published at {{ site.domain }}{{ site.baseurl }}</description>
     <link>{{ site.url }}{{ site.baseurl }}/</link>
     <atom:link href="{{ site.url }}{% link feeds/all.xml %}" rel="self" type="application/rss+xml"/>
     <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
@@ -20,13 +20,11 @@ layout: null
 	  <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v{{ jekyll.version }}</generator>
 
-    {% assign everything = site.posts | concat: site.snippets | concat: site.links | concat: site.wiki | rss_sort_all -%}
+    {% assign everything = site.posts | concat: site.links | concat: site.wiki | rss_sort_all -%}
     {% for post in everything limit:200 %}
       {% unless post.secret -%}
         {% if post.collection == 'posts' -%}
           {% include feed-item-blog.xml utm_medium="all" post=post with_full_post=true %}
-        {% elsif post.collection == 'snippets' -%}
-          {% include feed-item-snippet.xml utm_medium="all" post=post prefix="Snippet — " %}  
         {% elsif post.collection == 'links' -%}
           {% include feed-item-link.xml utm_medium="all" post=post prefix="Shared Link — " %}
         {% elsif post.collection == 'wiki' -%}

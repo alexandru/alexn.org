@@ -20,15 +20,11 @@ layout: null
 	  <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v{{ jekyll.version }}</generator>
 
-    {% assign everything = site.posts | concat: site.snippets | concat: site.links | rss_sort_all -%}
+    {% assign everything = site.posts | rss_sort_all -%}
     {% for post in everything limit:200 %}
       {% unless post.secret -%}
         {% if post.collection == 'posts' -%}
           {% include feed-item-blog.xml post=post utm_medium="twitter" write_tags_as_content=true %}
-        {% elsif post.collection == 'snippets' -%}
-          {% include feed-item-snippet.xml post=post utm_medium="twitter" write_tags_as_content=true %}  
-        {% elsif post.collection == 'links' -%}
-          {% include feed-item-link.xml post=post utm_medium="twitter" write_tags_as_content=true %}
         {% elsif post.collection == 'wiki' -%}
           {% unless post.path == '_wiki/readme.md' %}          
             {% include feed-item-wiki.xml post=post utm_medium="twitter" write_tags_as_content=true %}
