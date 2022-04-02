@@ -86,9 +86,9 @@ module Jekyll
         link + "?"
       end
 
-      l = l + "utm_source=rss"
-      l = l + "&utm_medium=#{medium}" if medium and !medium.empty?
-      l = l + "&utm_content=" + content if content and !content.empty?
+      l = l + "pk_source=rss"
+      l = l + "&pk_medium=#{medium}" if medium and !medium.empty?
+      l = l + "&pk_content=#{content}" if content and !content.empty?
       l
     end
 

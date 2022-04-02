@@ -10,7 +10,7 @@ include: ["_redirects", ".well-known"]
 exclude: ["scripts", "package.json", "package-lock.json", "vendor", "README.md"]
 
 analytics:
-  enabled: false
+  enabled: true
 
 defaults:
   # HTML pages
