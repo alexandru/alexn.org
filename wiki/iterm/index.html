@@ -54,8 +54,8 @@
     <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="/assets/css/style.css?202204011904">
-    <link rel="preload" as="style" href="/assets/css/style.css?202204011904">
+    <link rel="stylesheet" href="/assets/css/style.css?202204020815">
+    <link rel="preload" as="style" href="/assets/css/style.css?202204020815">
     
     <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
     <link rel="canonical" href="https://alexn.org/wiki/iterm/">
@@ -228,12 +228,58 @@ History</code>, and set <code class="language-plaintext highlighter-rouge">Run c
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202204011904" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202204011904" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202204011904" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202204011904" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202204020815" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202204020815" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202204020815" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202204020815" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202204011904" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202204020815" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+  (function () {
+    var h = "hostname" in document.location && document.location.hostname || "";
+    if (h != "" && h.indexOf("alexn.org") == -1) {
+      return
+    }
+    var p = (function () {
+      var query = window.location.search.substring(1);
+      var vars = query.split('&');
+      var p = {};
+      for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        p[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+      }
+      return p;
+    })();
+
+    var now = new Date();
+    var url = "https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=iTerm2&url=https%3A%2F%2Falexn.org%2Fwiki%2Fiterm%2F" + 
+      "&rand=" + encodeURIComponent(Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)) +
+      "&h=" + now.getHours() +
+      "&m=" + now.getMinutes() +
+      "&s=" + now.getSeconds();
+
+    if ("pk_campaign" in p)
+      url += "&_rcn=" + encodeURIComponent(p["pk_campaign"]);
+    if ("pk_kwd" in p)
+      url += "&_rck=" + encodeURIComponent(p["pk_kwd"]);
+    if ("referrer" in document && document.referrer) 
+      url += "&urlref=" + encodeURIComponent(document.referrer);
+    if ("screen" in window) 
+      url += "&res=" + screen.width + "x" + screen.height;
+
+    var d=document, i=d.createElement("img"),s0=d.getElementsByTagName("script"),s=s0[s0.length-1];
+    i.setAttribute("alt", "");
+    i.setAttribute("referrerpolicy", "no-referrer-when-downgrade");
+    i.setAttribute("src", url);
+    i.setAttribute("style", "border:0");
+    s.parentNode.insertBefore(i,s);
+  })();
+</script>
+<noscript>
+  <img referrerpolicy="no-referrer-when-downgrade" src="https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=iTerm2&url=https%3A%2F%2Falexn.org%2Fwiki%2Fiterm%2F" style="border:0" alt="" />
+</noscript>
 
    <div class="footer">
   
