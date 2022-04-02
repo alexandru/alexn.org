@@ -1,4 +1,4 @@
-{% assign utm_medium = include.utm_medium | default: "wiki" -%}
+{% assign pk_campaign = include.pk_campaign | default: "rss" -%}
 {% capture item_content -%}
   {% if include.write_tags_as_content %}
     Wiki article {% for tag in include.post.tags %}#{{ tag | twitter_taggify }} {% endfor %}
@@ -30,7 +30,7 @@
   <dc:modified>{{ include.post.last_modified_at | date_to_rfc822 }}</dc:modified>
   <atom:modified>{{ include.post.last_modified_at | date_to_rfc822 }}</atom:modified>
   {% endif -%}
-  <link>{{ include.post.url | prepend: site.baseurl | prepend: site.url | rss_campaign_link: utm_medium, 'link' | xml_escape }}</link>
+  <link>{{ include.post.url | prepend: site.baseurl | prepend: site.url | rss_campaign_link: pk_campaign, 'link' | xml_escape }}</link>
   <guid isPermaLink="true">{{ include.post.url | prepend: site.baseurl | prepend: site.url }}</guid>
   {% if include.post.author %}
   {% assign author = site.authors | map: include.post.author | map: "name" %}

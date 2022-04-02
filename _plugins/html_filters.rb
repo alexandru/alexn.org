@@ -77,7 +77,7 @@ module Jekyll
   module MyRSSFilter
     @@site = Jekyll.configuration({})
 
-    def rss_campaign_link(link, medium=nil, content=nil)
+    def rss_campaign_link(link, campaign=nil, keyword=nil)
       return link unless @@site['analytics']['enabled']
 
       l = if link.include? '?'
@@ -86,9 +86,8 @@ module Jekyll
         link + "?"
       end
 
-      l = l + "pk_source=rss"
-      l = l + "&pk_medium=#{medium}" if medium and !medium.empty?
-      l = l + "&pk_content=#{content}" if content and !content.empty?
+      l = l + "pk_campaign=" + (campaign && !campaign.empty? ? campaign : "rss")
+      l = l + "&pk_kwd=#{keyword}" if keyword and !keyword.empty?
       l
     end
 

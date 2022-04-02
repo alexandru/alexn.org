@@ -22,7 +22,7 @@ layout: null
 
     {% for post in site.posts limit:200 %}
       {% unless post.secret or post.is_noise -%}
-        {% include feed-item-blog.xml post=post utm_medium="newsletter" %}
+        {% include feed-item-blog.xml post=post pk_campaign="newsletter" %}
       {% endunless -%}
     {% endfor -%}
   </channel>

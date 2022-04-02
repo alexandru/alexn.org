@@ -22,7 +22,7 @@ layout: null
 
     {% for post in site.posts limit:200 %}
       {% unless post.secret or post.is_noise -%}
-        {% include feed-item-blog.xml post=post utm_medium="reddit" write_tags_as_content=true %}
+        {% include feed-item-blog.xml post=post pk_campaign="reddit" write_tags_as_content=true %}
       {% endunless -%}
     {% endfor -%}
   </channel>

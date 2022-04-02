@@ -22,7 +22,7 @@ layout: null
 
     {% for post in site.posts limit:200 %}
       {% unless post.secret -%}
-        {% include feed-item-blog.xml post=post utm_medium="twitter" write_tags_as_content=true %}
+        {% include feed-item-blog.xml post=post pk_campaign="twitter" write_tags_as_content=true %}
       {% endunless -%}
     {% endfor -%}
   </channel>
