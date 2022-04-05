@@ -7,7 +7,7 @@ tags:
 image: /assets/media/articles/2022-04-monix.png
 description: >
   Planning the future is difficult, but can bring clarity and purpose. I'm stepping down from the Typelevel Steering Committee. I also have plans for Monix's future.
-last_modified_at: 2022-04-06 00:05:20 +03:00
+last_modified_at: 2022-04-06 00:16:52 +03:00
 ---
 
 <p class="intro withcap" markdown=1>
@@ -39,7 +39,7 @@ I'm always reminded of Rich Hickey's thoughts from his [Spec-ulation Keynote](ht
 I will be resuming the work on Monix, and will be calling for volunteers. And I hope I won't let people down again. My current plan is:
 
 - Monix will be upgraded to the Cats-Effect 3 model, which will include project-wide changes;
-- The dependency on Cats and Cats-Effect 3, however, will probably be separated in different sub-projects; while this involves "orphaned instances", this decision is made easier by tooling:
+- The dependency on Cats and Cats-Effect 3, however, will probably be separated in different subprojects; while this involves "orphaned instances", this decision is made easier by tooling (modularity, ftw):
   - the Scala compiler supports custom implicit imports via `-Yimports`; I don't recommend it, but the option is there;
   - Scala 3 automatically suggests possible imports for missing implicits;
   - IntelliJ IDEA too automatically suggests imports;
@@ -48,4 +48,4 @@ I will be resuming the work on Monix, and will be calling for volunteers. And I 
 
 Looking forward to having fun, I'm very excited about it, actually 🤩
 
-If you'd like to help in building the next version of Monix, please email me.
+If you'd like to help in building the next version of Monix, contact me.

@@ -9,5 +9,9 @@
   "editor.formatOnSave": false,
   "lpubsppop01.autoTimeStamp.modifiedTimeStart": "last_modified_at *: *(?=\\d+)",
   "lpubsppop01.autoTimeStamp.momentFormat": "YYYY-MM-DD HH:mm:ss Z",
-  "lpubsppop01.autoTimeStamp.lineLimit": 30
+  "lpubsppop01.autoTimeStamp.lineLimit": 30,
+  "languageToolLinter.languageTool.ignoredWordsInWorkspace": [
+    "monix-newtypes",
+    "spec-ulation"
+  ]
 }
