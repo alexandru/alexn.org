@@ -34,6 +34,7 @@ defaults:
       layout: post
       author: alexelcu
       has_contributions: true
+      has_comments: true
       nav_id: /blog/
   # Blog drafts
   - scope:
@@ -43,6 +44,7 @@ defaults:
       layout: post
       author: alexelcu
       has_contributions: false
+      has_comments: false
       nav_id: /blog/
   # Wiki pages (collection)
   - scope:
@@ -51,6 +53,7 @@ defaults:
       permalink: wiki/:title/
       layout: wiki
       has_contributions: true
+      has_comments: true
       nav_id: /wiki/
       description: Personal, volatile wiki documentation
 

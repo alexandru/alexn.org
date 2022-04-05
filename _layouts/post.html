@@ -14,9 +14,9 @@ has_subscribe: true
       {% capture minutes %}{% capture value %}{{ page.content | number_of_words | divided_by:180 }}{% endcapture %}{% if value == "0" %}1{% else %}{{ value }}{% endif %}{% endcapture %}
       <time itemprop="dateCreated" datetime="{{ page.date | date: '%Y-%m-%dT%H:%M:%S%z' }}">{{ page.date | date_to_long_string }}</time>
       | <span class="nobr"><span class="time">{{ minutes }}</span> {% if minutes == "1" %}minute{% else %}minutes{% endif %}</span>
-      {% unless page.disable_comments %}
+      {% if page.has_contributions and page.has_comments %}
       | <a href="{{ page.url | prepend: site.baseurl }}#isso-thread" class="nobr">comments</a>
-      {% endunless %}
+      {% endif %}
     </p>
 
     {% if page.image -%}
