@@ -15,29 +15,28 @@
     <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
     <meta name="theme-color" content="#493667">
     
-    <title>Snippet: turn on JVM debugging in sbt - Alexandru Nedelcu</title>
+    <title>On Typelevel and Monix - Alexandru Nedelcu</title>
     
 
     <!-- Open Graph Meta -->
     <meta content="Alexandru Nedelcu" property="og:site_name">
-    <meta content="Snippet: turn on JVM debugging in sbt" property="og:title">
-    <meta content="Remote debugging can be used to debug externally executed programs, useful to activate in sbt in order to keep using it while debugging with your favorite IDE." property="og:description">
-    <meta content="https://alexn.org/blog/2020/08/13/sbt-fork-debug.sbt/" property="og:url">
-    <meta content="2020-08-13T00:00:00+00:00" property="article:published_time">
-    <meta content="2022-04-01T14:00:47+00:00" property="article:modified_time">
+    <meta content="On Typelevel and Monix" property="og:title">
+    <meta content="Planning the future is difficult, but can bring clarity and purpose. I’m stepping down from the Typelevel Steering Committee. I also have plans for Monix’s future." property="og:description">
+    <meta content="https://alexn.org/blog/2022/04/05/future-monix-typelevel/" property="og:url">
+    <meta content="2022-04-05T00:00:00+00:00" property="article:published_time">
+    <meta content="2022-04-05T21:05:20+00:00" property="article:modified_time">
     
-    <meta content="website" property="og:type">
-    <meta property="og:image" content="https://alexn.org/assets/logo/800px-bordered.png" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/logo/800px-bordered.png" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-04-monix.png?202204052106" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-04-monix.png?202204052106" />
     <!-- Twitter Cards -->
-    
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/logo/800px-bordered.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-04-monix.png?202204052106">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
-    <meta name="twitter:title" content="Snippet: turn on JVM debugging in sbt">
-    <meta name="twitter:url" content="https://alexn.org/blog/2020/08/13/sbt-fork-debug.sbt/">
-    <meta name="twitter:description" content="Remote debugging can be used to debug externally executed programs, useful to activate in sbt in order to keep using it while debugging with your favorite IDE.">
+    <meta name="twitter:title" content="On Typelevel and Monix">
+    <meta name="twitter:url" content="https://alexn.org/blog/2022/04/05/future-monix-typelevel/">
+    <meta name="twitter:description" content="Planning the future is difficult, but can bring clarity and purpose. I’m stepping down from the Typelevel Steering Committee. I also have plans for Monix’s future.">
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/assets/logo/16px.png" sizes="16x16" />
@@ -58,7 +57,7 @@
     <link rel="preload" as="style" href="/assets/css/style.css?202204052106">
     
     <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
-    <link rel="canonical" href="https://alexn.org/blog/2020/08/13/sbt-fork-debug.sbt/">
+    <link rel="canonical" href="https://alexn.org/blog/2022/04/05/future-monix-typelevel/">
 </head>
 
 
@@ -100,23 +99,30 @@
         
         
           
-      Snippet: turn on JVM debugging in sbt
+      On Typelevel and Monix
     
         
         
       </h1>
     
     <p class="meta">
-      <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://alexn.org/blog/2020/08/13/sbt-fork-debug.sbt/"/>
-      <meta itemprop="datePublished" content="2020-08-13T00:00:00+0000"/>
+      <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://alexn.org/blog/2022/04/05/future-monix-typelevel/"/>
+      <meta itemprop="datePublished" content="2022-04-05T00:00:00+0000"/>
       
-      <time itemprop="dateCreated" datetime="2020-08-13T00:00:00+0000">August 13, 2020</time>
-      | <span class="nobr"><span class="time">1</span> minute</span>
+      <time itemprop="dateCreated" datetime="2022-04-05T00:00:00+0000">April 5, 2022</time>
+      | <span class="nobr"><span class="time">3</span> minutes</span>
       
-      | <a href="/blog/2020/08/13/sbt-fork-debug.sbt/#isso-thread" class="nobr">comments</a>
+      | <a href="/blog/2022/04/05/future-monix-typelevel/#isso-thread" class="nobr">comments</a>
       
     </p>
 
+    
+        <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+          <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-04-monix.png" />
+          <img src="/assets/media/articles/2022-04-monix.png?202204052106" alt="" />
+          
+        </figure>
+        
     
 
     <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
@@ -137,41 +143,69 @@
     </header>
 
   <div id="content" itemprop="articleBody">
-    <p>Remote debugging can be used to debug externally executed programs, useful to activate in <code class="language-plaintext highlighter-rouge">sbt</code> in order to keep using it while debugging with your favorite IDE. See for example <a href="https://www.jetbrains.com/help/idea/tutorial-remote-debug.html">IntelliJ IDEA’s documentation</a>:</p>
+    <p class="intro withcap">
+Planning the future is difficult, but can bring clarity and purpose. See <a href="/blog/2022/03/30/focus/">Finding Focus in Harsh Times</a> for context.
+</p>
+      <h2 id="on-typelevel">
+        
+        
+          On Typelevel <a href="#on-typelevel" class="anchor">#</a>
+        
+        
+      </h2>
+    
 
-<p><strong>UPDATE:</strong> there is now a <code class="language-plaintext highlighter-rouge">--jvm-debug &lt;port&gt;</code> parameter to the <code class="language-plaintext highlighter-rouge">sbt</code> executable …</p>
+<p><a href="https://typelevel.org/">Typelevel</a> is a great community of builders that want to practice FP in Scala. Its “<em>steering committee</em>” (<a href="https://github.com/typelevel/governance/blob/main/STEERING-COMMITTEE.md">link</a> / <a href="https://web.archive.org/web/20220405203006/https://github.com/typelevel/governance/blob/main/STEERING-COMMITTEE.md">archive</a>) is a group of brilliant and kind people that are doing great work in keeping the community welcoming and inclusive.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="code"><code>sbt <span class="nt">--jvm-debug</span> 5005
-</code></pre></div></div>
+<p><strong>I’m stepping down from the Typelevel “Steering Committee”.</strong></p>
 
-<p><strong>OLD WAY:</strong> — if the above is not suitable, you can do a manual config like this:</p>
+<p>Moderating and leading a community is gruesome work made by unsung heroes, and I can’t be a part of it anymore. For some time now I’ve been absent, with my only contributions to steering having been rants, and frankly I’d rather get back to coding or other contributions to Open Source that I can manage.</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="n">fork</span> <span class="o">:=</span> <span class="kc">true</span>
+<p>Typelevel is growing, and you can make a difference. If you feel you’re a fit, get involved, as there’s a <a href="https://typelevel.org/blog/2022/04/01/call-for-steering-committee-members.html">call for ‘steering committee’ members</a>.</p>
+      <h2 id="the-future-of-monix">
+        
+        
+          The Future of Monix <a href="#the-future-of-monix" class="anchor">#</a>
+        
+        
+      </h2>
+    
 
-<span class="n">javaOptions</span> <span class="o">++=</span> <span class="o">{</span>
-  <span class="k">val</span> <span class="nv">Digits</span> <span class="k">=</span> <span class="s">"^(\\d+)$"</span><span class="o">.</span><span class="py">r</span>
-  <span class="nv">sys</span><span class="o">.</span><span class="py">env</span><span class="o">.</span><span class="py">get</span><span class="o">(</span><span class="s">"JVM_DEBUG"</span><span class="o">)</span> <span class="k">match</span> <span class="o">{</span>
-    <span class="k">case</span> <span class="nc">Some</span><span class="o">(</span><span class="s">"true"</span><span class="o">)</span> <span class="k">=&gt;</span>
-      <span class="nc">Seq</span><span class="o">(</span><span class="s">"-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005"</span><span class="o">)</span>
-    <span class="k">case</span> <span class="nc">Some</span><span class="o">(</span><span class="nc">Digits</span><span class="o">(</span><span class="n">port</span><span class="o">))</span> <span class="k">=&gt;</span>
-      <span class="nc">Seq</span><span class="o">(</span><span class="n">s</span><span class="s">"-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=$port"</span><span class="o">)</span>
-    <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span>
-      <span class="nv">Seq</span><span class="o">.</span><span class="py">empty</span>
-  <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
+<p><a href="https://monix.io">Monix</a> has been my love project, but due to events unfolding since 2019, with life and the world going mad, I’ve been on an unplanned hiatus from Open Source contributions. I did contribute <a href="https://github.com/monix/newtypes">monix-newtypes</a>, as contributing a new project, scratching an immediate itch, felt easier 🙂</p>
 
-<p>And then set a <code class="language-plaintext highlighter-rouge">JVM_DEBUG</code> environment variable, before executing <code class="language-plaintext highlighter-rouge">sbt</code>:</p>
+<p>I’ll be forever grateful to Piotr Gawryś, who helped in maintaining and developing Monix, but eventually development stalled. Development of Monix was stalled primarily because small, incremental improvements are no longer possible. And this happened due to the release of Cats-Effect 3.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nv">JVM_DEBUG</span><span class="o">=</span>5005 sbt
-</code></pre></div></div>
+<p><a href="https://typelevel.org/cats-effect/">Cats Effect 3</a> is an awesome new version of an already good library. But while being a necessary upgrade, it fundamentally <a href="https://github.com/typelevel/cats-effect/discussions/1979">changes the concurrency model</a> it was based on. The changes are so profound that it’s arguably an entirely new library, and upgrading Monix isn’t easy, because compatibility means updating <em>everything</em>. This means not just <code class="language-plaintext highlighter-rouge">Task</code>, but also <code class="language-plaintext highlighter-rouge">Cancelable</code>, <code class="language-plaintext highlighter-rouge">CancelableFuture</code>, <code class="language-plaintext highlighter-rouge">Observable</code>, <code class="language-plaintext highlighter-rouge">Iterant</code>, and I mean everything.</p>
+
+<p>When Monix started, it had the goal of having “<em>zero dependencies</em>”. Having no dependencies is a virtue, precisely because those dependencies can seriously break compatibility. There is no way for Monix and CE 3 to currently coexist in the same project, due to JVM’s limitations and the decision for Monix to depend directly on Cats-Effect. If Monix were independent of such base dependencies, it could coexist while its maintainers could afford a hiatus.</p>
+
+<p>I’m always reminded of Rich Hickey’s thoughts from his <a href="https://www.youtube.com/watch?v=oyLBGkS5ICk">Spec-ulation Keynote</a>. TLDR — when you break compatibility, maybe it’s better to change the namespace too. Given in static FP we care about correctness a lot, how to evolve APIs is a really tough problem. I’m still thinking that Monix’s major versions should be allowed to coexist by changing the package name (e.g. <code class="language-plaintext highlighter-rouge">monix.v4</code>), but few other projects are doing it.</p>
+
+<p>I will be resuming the work on Monix, and will be calling for volunteers. And I hope I won’t let people down again. My current plan is:</p>
+
+<ul>
+  <li>Monix will be upgraded to the Cats-Effect 3 model, which will include project-wide changes;</li>
+  <li>The dependency on Cats and Cats-Effect 3, however, will probably be separated in different sub-projects; while this involves “orphaned instances”, this decision is made easier by tooling:
+    <ul>
+      <li>the Scala compiler supports custom implicit imports via <code class="language-plaintext highlighter-rouge">-Yimports</code>; I don’t recommend it, but the option is there;</li>
+      <li>Scala 3 automatically suggests possible imports for missing implicits;</li>
+      <li>IntelliJ IDEA too automatically suggests imports;</li>
+    </ul>
+  </li>
+  <li>I’d like to make <a href="https://github.com/monix/monix-bio">monix-bio</a> be part of the main project;</li>
+  <li>I have some new functionality in mind that will make Monix an unbeatable replacement for <code class="language-plaintext highlighter-rouge">scala.concurrent</code>, RxJava, Akka Streams, and the middle-ground that people need in adopting FP in Scala;</li>
+</ul>
+
+<p>Looking forward to having fun, I’m very excited about it, actually 🤩</p>
+
+<p>If you’d like to help in building the next version of Monix, please email me.</p>
 
   </div>
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2022-04-01T17:00:47+0300">
-        Updated: April 1, 2022
+    <time itemprop="dateModified" content="2022-04-06T00:05:20+0300">
+        Updated: April 5, 2022
     </time>
     
       | Written by <a href="https://alexn.org/about/#alexelcu" itemprop="url" rel="author">Alexandru Nedelcu</a>
@@ -181,13 +215,13 @@
       Tags:
       
         
-        <a href="/blog/tag/sbt/" class="category">sbt</a>
+        <a href="/blog/tag/monix/" class="category">Monix</a>
       
          | 
-        <a href="/blog/tag/scala/" class="category">Scala</a>
+        <a href="/blog/tag/personal/" class="category">Personal</a>
       
          | 
-        <a href="/blog/tag/snippet/" class="category">Snippet</a>
+        <a href="/blog/tag/typelevel/" class="category">Typelevel</a>
       
     </div>
   </div>
@@ -206,23 +240,23 @@
       
       
       <div class="item">
-        <a class="related-link" href="/blog/2020/10/05/running-integration-tests.scala/">
-          Running integration tests, with Scala + sbt
+        <a class="related-link" href="/blog/2016/08/25/monix-task-performance/">
+          Monix Task vs Scalaz vs Future, The Benchmark
         </a>
         <div class="related-meta">
           <div class="tags">
             
             
-              <a href="/blog/tag/sbt" class="tag">sbt</a>
+              <a href="/blog/tag/fp" class="tag">FP</a>
             
                | <a href="/blog/tag/scala" class="tag">Scala</a>
             
-               | <a href="/blog/tag/testing" class="tag">Testing</a>
+               | <a href="/blog/tag/monix" class="tag">Monix</a>
             
-               | <a href="/blog/tag/snippet" class="tag">Snippet</a>
+               | <a href="/blog/tag/typelevel" class="tag">Typelevel</a>
                         
           </div>
-          <time>October 5, 2020</time>
+          <time>August 25, 2016</time>
         </div>
         <div class="clearfix"></div>
       </div>
@@ -230,21 +264,19 @@
       
       
       <div class="item">
-        <a class="related-link" href="/blog/2021/08/29/vscode-recommended-extensions-vscode-extensions-json/">
-          VSCode workplace recommended extensions
+        <a class="related-link" href="/blog/2022/04/01/blogging/">
+          A Return to Blogging
         </a>
         <div class="related-meta">
           <div class="tags">
             
             
-              <a href="/blog/tag/programming" class="tag">Programming</a>
+              <a href="/blog/tag/blogging" class="tag">Blogging</a>
             
-               | <a href="/blog/tag/scala" class="tag">Scala</a>
-            
-               | <a href="/blog/tag/snippet" class="tag">Snippet</a>
+               | <a href="/blog/tag/personal" class="tag">Personal</a>
                         
           </div>
-          <time>August 29, 2021</time>
+          <time>April 1, 2022</time>
         </div>
         <div class="clearfix"></div>
       </div>
@@ -252,19 +284,17 @@
       
       
       <div class="item">
-        <a class="related-link" href="/blog/2021/08/02/unsafelazyresource-scala/">
-          Unsafe Lazy Resource.scala
+        <a class="related-link" href="/blog/2022/03/30/focus/">
+          Finding Focus in Harsh Times
         </a>
         <div class="related-meta">
           <div class="tags">
             
             
-              <a href="/blog/tag/scala" class="tag">Scala</a>
-            
-               | <a href="/blog/tag/snippet" class="tag">Snippet</a>
+              <a href="/blog/tag/personal" class="tag">Personal</a>
                         
           </div>
-          <time>August 2, 2021</time>
+          <time>March 30, 2022</time>
         </div>
         <div class="clearfix"></div>
       </div>
@@ -307,7 +337,7 @@
     })();
 
     var now = new Date();
-    var url = "https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=Snippet%3A+turn+on+JVM+debugging+in+sbt&url=https%3A%2F%2Falexn.org%2Fblog%2F2020%2F08%2F13%2Fsbt-fork-debug.sbt%2F" + 
+    var url = "https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=On+Typelevel+and+Monix&url=https%3A%2F%2Falexn.org%2Fblog%2F2022%2F04%2F05%2Ffuture-monix-typelevel%2F" + 
       "&rand=" + encodeURIComponent(Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)) +
       "&h=" + now.getHours() +
       "&m=" + now.getMinutes() +
@@ -331,7 +361,7 @@
   })();
 </script>
 <noscript>
-  <img referrerpolicy="no-referrer-when-downgrade" src="https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=Snippet%3A+turn+on+JVM+debugging+in+sbt&url=https%3A%2F%2Falexn.org%2Fblog%2F2020%2F08%2F13%2Fsbt-fork-debug.sbt%2F" style="border:0" alt="" />
+  <img referrerpolicy="no-referrer-when-downgrade" src="https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=On+Typelevel+and+Monix&url=https%3A%2F%2Falexn.org%2Fblog%2F2022%2F04%2F05%2Ffuture-monix-typelevel%2F" style="border:0" alt="" />
 </noscript>
 
    <div class="footer">
@@ -353,7 +383,7 @@
       document.write("<a target=\"_blank\" href=\"mailto");
       document.write(":" + lhs + "@");
       document.write(rhs);
-      document.write("?subject=Comment%20on%3A%20Snippet:%20turn%20on%20JVM%20debugging%20in%20sbt")
+      document.write("?subject=Comment%20on%3A%20On%20Typelevel%20and%20Monix")
       document.write("\">" + lhs + "@" + rhs + "<\/a>");
     })()
   </script>
@@ -376,7 +406,7 @@
           data-isso-vote="false"
           data-vote-levels=""
           src="https://alexn.org/comments/alexn/js/embed.min.js"></script>
-  <section id="isso-thread" data-title="Snippet: turn on JVM debugging in sbt">
+  <section id="isso-thread" data-title="On Typelevel and Monix">
   </section>
 </div>
 <div class="note-warning only-js">
@@ -402,7 +432,7 @@
 
 <p>
   Fix or add to this article by submitting a pull request:<br/>
-  <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/main/_posts/2020-08-13-sbt-fork-debug.sbt.md" target="_blank">Edit Page on GitHub</a>
+  <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/main/_posts/2022-04-05-future-monix-typelevel.md" target="_blank">Edit Page on GitHub</a>
 </p>
 
 <p>
