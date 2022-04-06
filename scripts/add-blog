@@ -18,9 +18,15 @@ begin
   text = %{
 ---
 title: #{options[:title].to_json}
-date: #{now.strftime("%Y-%m-%d %H:%M:%S %:z")}
+image:
 tags: []
+description: >
+  Description here...
 ---
+
+<p class="intro withcap">
+  Intro here...
+</p>
   }.strip
 
   dir_path = File.expand_path(File.join(File.dirname(File.expand_path(__FILE__)), "..", "_posts"))
