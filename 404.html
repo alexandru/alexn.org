@@ -49,7 +49,7 @@ has_full_title: true
     <h2>Recent Wiki Articles</h2>
 
     <div class="container">
-      {% assign wikis = site.wiki | rss_sort_all | slice: 0, 3 -%}
+      {% assign wikis = site.wiki | rss_filter_and_sort | slice: 0, 3 -%}
       {% for post in wikis %}
       <div class="item">
         <a class="related-link" href="{{ site.baseurl }}{{ post.url }}">

@@ -44,7 +44,7 @@ has_full_title: true
   <div class="archive_list">
     <h3>Recent Wiki Articles</h3>
   
-    {% assign all_wiki = site.wiki | rss_sort_all -%}
+    {% assign all_wiki = site.wiki | rss_filter_and_sort -%}
     <div class="container">
       {% for post in all_wiki offset:0 limit:5 %}
       <div class="item">
