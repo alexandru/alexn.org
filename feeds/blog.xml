@@ -15,13 +15,14 @@ layout: null
     <atom:link href="{{ site.url }}{% link feeds/blog.xml %}" rel="self" type="application/rss+xml"/>
     <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
     <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
-  	<language>en</language>
+    <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
-	  <sy:updateFrequency>1</sy:updateFrequency>
+    <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v{{ jekyll.version }}</generator>
 
-    {% for post in site.posts limit:200 %}
-      {% include feed-item-blog.xml post=post with_full_post=true %}
+    {% assign items = site.posts | rss_filter_and_sort %}
+    {% for post in items %}
+      {% include feed-item-blog.xml post=post with_full_post=true add_pixel=forloop.first %}
     {% endfor %}
   </channel>
 </rss>

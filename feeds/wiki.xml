@@ -15,15 +15,14 @@ layout: null
     <atom:link href="{{ site.url }}{% link feeds/wiki.xml %}" rel="self" type="application/rss+xml"/>
     <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
     <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
-  	<language>en</language>
+    <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
-	  <sy:updateFrequency>1</sy:updateFrequency>
+    <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v{{ jekyll.version }}</generator>
 
-    {% for post in site.wiki reversed limit:300 %}
-      {% unless post.secret or post.path == '_wiki/readme.md' %}
-        {% include feed-item-wiki.xml post=post %}
-      {% endunless %}
+    {% assign items = site.wiki | rss_filter_and_sort %}
+    {% for post in items %}
+      {% include feed-item-wiki.xml post=post add_pixel=forloop.first %}
     {% endfor %}
   </channel>
 </rss>

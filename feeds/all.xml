@@ -15,20 +15,18 @@ layout: null
     <atom:link href="{{ site.url }}{% link feeds/all.xml %}" rel="self" type="application/rss+xml"/>
     <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
     <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
-  	<language>en</language>
+    <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
-	  <sy:updateFrequency>1</sy:updateFrequency>
+    <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v{{ jekyll.version }}</generator>
 
-    {% assign everything = site.posts | concat: site.wiki | rss_sort_all -%}
-    {% for post in everything limit:200 %}
-      {% unless post.secret -%}
-        {% if post.collection == 'posts' -%}
-          {% include feed-item-blog.xml post=post with_full_post=true %}
-        {% elsif post.collection == 'wiki' -%}
-          {% include feed-item-wiki.xml post=post prefix="Wiki — " %}
-        {% endif -%}
-      {% endunless -%}
+    {% assign items = site.posts | concat: site.wiki | rss_filter_and_sort -%}
+    {% for post in items %}
+      {% if post.collection == 'posts' -%}
+        {% include feed-item-blog.xml post=post with_full_post=true add_pixel=forloop.first %}
+      {% elsif post.collection == 'wiki' -%}
+        {% include feed-item-wiki.xml post=post prefix="Wiki — " add_pixel=forloop.first %}
+      {% endif -%}
     {% endfor -%}
   </channel>
 </rss>

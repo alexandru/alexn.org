@@ -91,13 +91,14 @@ module Jekyll
       l
     end
 
-    def rss_sort_all(posts)
-      posts.sort { |a, b| 
-        -1 * (
-          a['date'] <=> b['date'] ||
+    def rss_filter_and_sort(posts, max_count=300)
+      (posts || [])
+        .filter {|x| !x['secret'] }
+        .sort { |a, b| 
+          (-1 * (a['date'] <=> b['date'])) ||
           a['slug'] <=> b['slug']
-        )
-      }
+        }
+        .take(max_count)
     end
 
     def twitter_taggify(tag)
@@ -126,7 +127,11 @@ module Jekyll
       end
 
       body = doc.at_css("body")
-      body ? body.inner_html : ""
+      if body 
+        CGI.unescapeHTML(body.inner_html)
+      else 
+        ""
+      end 
     end
   end
 end

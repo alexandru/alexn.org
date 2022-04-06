@@ -18,9 +18,13 @@
   {% endunless -%}
   {% endif -%}
 {% endcapture -%}
+{% capture tracking_pixel %}{% if include.add_pixel %}
+    {% capture tracker_url %}https://ly.alexn.org/m.php?idsite=1&rec=1&action_name={{ "RSS Feed" | url_encode }}&url={{ page.url | absolute_url | url_encode }}&pk_campaign={{ pk_campaign | url_encode }}&pk_kwd=open{% endcapture -%}
+    <img referrerpolicy="no-referrer-when-downgrade" src="{{ tracker_url }}" style="border:0" alt="" />
+{% endif -%}{% endcapture -%}
 {% capture item_content -%}
   {% if include.with_full_post %}
-    {{ item_image }}
+    {{ tracking_pixel | strip }}{{ item_image }}
     {{ include.post.content }}
     <hr/>
     <p>
@@ -29,7 +33,7 @@
   {% elsif include.write_tags_as_content %}
     Blog article {% for tag in include.post.tags %}#{{ tag | twitter_taggify }} {% endfor %}
   {% else %}
-    {{ item_image }}
+    {{ tracking_pixel | strip }}{{ item_image }}
     {% if include.post.description %}{{ include.post.description | markdownify }}{% else %}{{ include.post.excerpt | strip_html }}{% endif %}
     <p>
       <a href="{{ include.post.url | absolute_url | rss_campaign_link: pk_campaign, 'read-more' }}">Read article →</a>

@@ -1,4 +1,8 @@
 {% assign pk_campaign = include.pk_campaign | default: "rss" -%}
+{% capture tracking_pixel %}{% if include.add_pixel %}
+  {% capture tracker_url %}https://ly.alexn.org/m.php?idsite=1&rec=1&action_name={{ page.url | url_encode }}&url={{ page.url | absolute_url | url_encode }}&pk_campaign={{ pk_campaign | url_encode }}&pk_kwd=open{% endcapture -%}
+  <img referrerpolicy="no-referrer-when-downgrade" src="{{ tracker_url }}" style="border:0" alt="" />
+{% endif -%}{% endcapture -%}
 {% capture item_content -%}
   {% if include.write_tags_as_content %}
     Wiki article {% for tag in include.post.tags %}#{{ tag | twitter_taggify }} {% endfor %}
@@ -9,7 +13,7 @@
       created at {{ include.post.date | date_to_long_string }}.
     </p>
     <hr>
-    {{ include.post.content }}
+    {{ tracking_pixel }}{{ include.post.content }}
   {% endif %}
 {% endcapture -%}
 {% capture item_description %}
