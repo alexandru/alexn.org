@@ -38,3 +38,13 @@ I was triggered by the news that [Thunderbird](https://matrix.org/blog/2022/04/0
 Open Source needs open platforms for teaching. We need the web to stay decentralized. And decentralization is always inconvenient at first, solutions evolve more slowly, but think of how pervasive and awesome email or the web are. I'm not even advertising for Gitter, I'm just anti-Discord. Personally, I'd wish for [Discourse.org](https://www.discourse.org/) servers to be more common in the community. Shout-out to [users.scala-lang.org](https://users.scala-lang.org/),[contributors.scala-lang.org](https://contributors.scala-lang.org/) or [discuss.lightbend.com](https://discuss.lightbend.com/). Real-time chat isn't good for providing support or for spreading knowledge IMO, but that's a personal preference that wouldn't exclude people out of the conversation or lock information behind proprietary walls. 
 
 If you're an Open Source contributor, or user, what I ask of you is to not give up on the open web. That ship may have sailed, but one can hope.
+
+## Update (2022-04-09 14:52:31 +03:00):
+
+To answer one concern — Gitter may not be good for finding information in it, however we are comparing a technical problem with a system that is "defective by design", just [like DRM is](https://en.wikipedia.org/wiki/Defective_by_Design). There is nothing you can do to fix DRM's issues, just like there is nothing that can be done to fix Discord.
+
+I remember legendary conversations that happened on Gitter, and they are still accessible. The web is filled, for example, with bits of wisdom by Fabio Labella (SystemFw) — here's where he exposed his ideas for what became Cats-Effect 3's new interruption model:
+
+[gitter.im/typelevel/cats-effect?at=5c5f1a2fef98455ea4096756](https://gitter.im/typelevel/cats-effect?at=5c5f1a2fef98455ea4096756)
+
+Such bits may be hard to find, but there, I just pointed you to a useful conversation on Gitter, which is accessible, and you don't have to have a Discord account in order for you to read it. When comparing how much they suck, they aren't in the same league.
