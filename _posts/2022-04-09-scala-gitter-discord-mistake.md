@@ -39,7 +39,7 @@ Open Source needs open platforms for teaching. We need the web to stay decentral
 
 If you're an Open Source contributor, or user, what I ask of you is to not give up on the open web. That ship may have sailed, but one can hope.
 
-## Update (2022-04-09 14:52:31 +03:00):
+## Update:
 
 To answer one concern — Gitter may not be good for finding information in it, however we are comparing a technical problem with a system that is "defective by design", just [like DRM is](https://en.wikipedia.org/wiki/Defective_by_Design). There is nothing you can do to fix DRM's issues, just like there is nothing that can be done to fix Discord.
 
