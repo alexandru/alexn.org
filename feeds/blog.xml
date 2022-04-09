@@ -10,8 +10,8 @@
     <description>Feed of blog articles, published at alexn.org/blog/</description>
     <link>https://alexn.org/</link>
     <atom:link href="https://alexn.org/feeds/blog.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 08 Apr 2022 16:12:55 +0000</pubDate>
-    <lastBuildDate>Fri, 08 Apr 2022 16:12:55 +0000</lastBuildDate>
+    <pubDate>Sat, 09 Apr 2022 08:30:45 +0000</pubDate>
+    <lastBuildDate>Sat, 09 Apr 2022 08:30:45 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -21,16 +21,84 @@
     
       
 <item>
-  <title>On Typelevel and Monix</title>
-  <description>Planning the future is difficult, but can bring clarity and purpose. I’m stepping down from the Typelevel Steering Committee. I also have plans for Monix’s future.</description>
+  <title>Scala&#39;s Gitter to Discord migration mistake</title>
+  <description>The Scala community is increasingly using Discord for “real-time chat”. This was announced in December, and the community page lists several Discord “servers”, one of them belonging to Typelevel. I think this move from Gitter to Discord is probably a mistake.</description>
   <content:encoded>&lt;img referrerpolicy=&quot;no-referrer-when-downgrade&quot; src=&quot;https://ly.alexn.org/m.php?idsite=1&amp;rec=1&amp;action_name=RSS+Feed&amp;url=https%3A%2F%2Falexn.org%2Ffeeds%2Fblog.xml&amp;pk_campaign=rss&amp;pk_kwd=open&quot; style=&quot;border:0&quot; alt=&quot;&quot;&gt;
   
   
     &lt;div class=&quot;post-featured-image&quot;&gt;
     
       &lt;figure&gt;
+        &lt;a href=&quot;https://alexn.org/blog/2022/04/09/scala-gitter-discord-mistake/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+        &lt;/a&gt;
+        
+      &lt;/figure&gt;
+    &lt;/div&gt;
+  
+    &lt;p class=&quot;intro withcap&quot;&gt;
+The Scala community is increasingly using Discord for “real-time chat”. This was &lt;a href=&quot;https://www.scala-lang.org/blog/2021/12/21/discord.html&quot;&gt;announced in December&lt;/a&gt;, and the &lt;a href=&quot;https://www.scala-lang.org/community/&quot;&gt;community page&lt;/a&gt; lists several Discord “servers”, one of them belonging to Typelevel. I think this move from Gitter to Discord is probably a mistake.
+&lt;/p&gt;
+
+&lt;p&gt;I participated in &lt;a href=&quot;https://typelevel.org/blog/2021/05/05/discord-migration.html&quot;&gt;Typelevel’s migration&lt;/a&gt; as well. The migration was done out of genuine concern for the health of the community, and I considered Discord as a good experiment to have. One can also argue that the community simply went to where the users wanted to be, although in our case it was definitely a decision pushed forward by a committee that helped the migration. Can’t speak for others, but I went after a couple of contributors to convince them to join Discord.&lt;/p&gt;
+
+&lt;p&gt;When comparing Gitter to Discord, the main reasons for why I now believe Gitter is better is because:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Information on Gitter is public, it does not require an account to read;&lt;/li&gt;
+  &lt;li&gt;Information on Gitter can be linked from across the web;&lt;/li&gt;
+  &lt;li&gt;Information on Gitter being public, is indexed by search engines and is being archived;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;By contrast, Discord is an information black hole, Discord is a closed ecosystem, Discord is anti-web. It doesn’t matter how much Gitter’s client used to annoy you, these reasons alone make Gitter better than Discord, with Discord unable to have any redeeming quality that make it better for Open Source contributors that want to provide support or to spread knowledge.&lt;/p&gt;
+
+&lt;p&gt;If engagement of new people is a concern, Discord can’t be better because it can’t be read without having an account. If the slowed growth of the community is a concern, I don’t think Gitter was to blame, or that Discord made things better. I could be convinced with numbers, but I don’t think those numbers exist.&lt;/p&gt;
+
+&lt;p&gt;If per-repo silos are a concern, Discord can’t be better because its servers and channels can’t be linked from across the web. Compare the discoverability of &lt;a href=&quot;https://gitter.im/typelevel/cats&quot;&gt;https://gitter.im/typelevel/cats&lt;/a&gt; or &lt;a href=&quot;https://gitter.im/http4s/http4s&quot;&gt;https://gitter.im/http4s/http4s&lt;/a&gt; with &lt;a href=&quot;https://discord.gg/XF3CXcMzqD&quot;&gt;https://discord.gg/XF3CXcMzqD&lt;/a&gt;. On Gitter, people in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scala/scala&lt;/code&gt; Gitter chat room could be redirected to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http4s/http4s&lt;/code&gt; chat room, via web links (an outstanding technology). On Discord, however, that’s not how it works, because Scala-lang and Typelevel have different servers. You must convince people to jump between servers, and to join a server you need an invitation. Discord servers are islands, which makes them silos in a way that Gitter chat rooms have never been.&lt;/p&gt;
+
+&lt;p&gt;As an Open Source contributor, to open a support channel, your project has to be either very popular, or be part of / related to Scalameta, or Typelevel, or ZIO, or Play Framework. Otherwise, you’ll have an uphill battle to convince people in joining Discord, or if they already are Discord users, to convince them to join your server. And creating a support channel on a server that you don’t own means giving up control of that channel to the server’s admins, which has pros and cons. Giving up control means there’s better enforcement of a code of conduct, making people feel safer however, I’m not convinced that the chat rooms are nicer/safer than they were on Gitter.&lt;/p&gt;
+
+&lt;p&gt;Maybe I’m wrong, and moderation is indeed a soul-wrecking job made by unsung heroes. I will also add that there is value in having a Gitter channel per repo, with separate moderators, because on big servers moderation isn’t a job that can be done by one or a couple of individuals. Not without it leading to burnout. We are burning out our most valuable contributors by pushing them to pick up administrative tasks.&lt;/p&gt;
+
+&lt;p&gt;If inclusivity is a concern, usage of Discord discriminates against those that cannot or will not use Discord, either because Discord blocks them, or because of privacy concerns. Discord’s Terms of Service has been controversial, and they are known for having banned people for discussing cheats in games. AFAIK they once banned a server that discussed anti-cheating solutions. It also asks for phone numbers if it detects VPNs or Tor, and their app does not work from behind our corporate VPN/proxy, which I believe is a deliberate strategy, not a bug.  If you live in a country that’s problematic for the US, which of Discord or Gitter do you think is more likely to ban you?&lt;/p&gt;
+
+&lt;p&gt;I was triggered by the news that &lt;a href=&quot;https://matrix.org/blog/2022/04/08/this-week-in-matrix-2022-04-08#thunderbird&quot;&gt;Thunderbird&lt;/a&gt; now supports Matrix. Matrix is an &lt;a href=&quot;https://matrix.org/&quot;&gt;open standard for decentralized chat&lt;/a&gt;. &lt;a href=&quot;https://element.io/blog/gitter-is-joining-element/&quot;&gt;Gitter has joined Element&lt;/a&gt;, and it &lt;a href=&quot;https://matrix.org/blog/2020/12/07/gitter-now-speaks-matrix&quot;&gt;speaks Matrix&lt;/a&gt;, which means you can use the &lt;a href=&quot;https://element.io/&quot;&gt;Element app&lt;/a&gt; to connect to it. It’s not perfect, but it works.&lt;/p&gt;
+
+&lt;p&gt;Open Source needs open platforms for teaching. We need the web to stay decentralized. And decentralization is always inconvenient at first, solutions evolve more slowly, but think of how pervasive and awesome email or the web are. I’m not even advertising for Gitter, I’m just anti-Discord. Personally, I’d wish for &lt;a href=&quot;https://www.discourse.org/&quot;&gt;Discourse.org&lt;/a&gt; servers to be more common in the community. Shout-out to &lt;a href=&quot;https://users.scala-lang.org/&quot;&gt;users.scala-lang.org&lt;/a&gt;,&lt;a href=&quot;https://contributors.scala-lang.org/&quot;&gt;contributors.scala-lang.org&lt;/a&gt; or &lt;a href=&quot;https://discuss.lightbend.com/&quot;&gt;discuss.lightbend.com&lt;/a&gt;. Real-time chat isn’t good for providing support or for spreading knowledge IMO, but that’s a personal preference that wouldn’t exclude people out of the conversation or lock information behind proprietary walls.&lt;/p&gt;
+
+&lt;p&gt;If you’re an Open Source contributor, or user, what I ask of you is to not give up on the open web. That ship may have sailed, but one can hope.&lt;/p&gt;
+
+    &lt;hr&gt;
+    &lt;p&gt;
+      &lt;i&gt;The article &lt;a href=&quot;https://alexn.org/blog/2022/04/09/scala-gitter-discord-mistake/?pk_campaign=rss&amp;pk_kwd=footer-link&quot;&gt;Scala's Gitter to Discord migration mistake&lt;/a&gt; first appeared on &lt;a href=&quot;https://alexn.org?pk_campaign=rss&amp;pk_kwd=footer-link&quot;&gt;alexn.org&lt;/a&gt;.&lt;/i&gt;
+    &lt;/p&gt;</content:encoded>
+  <pubDate>Sat, 09 Apr 2022 00:00:00 +0000</pubDate>
+  <link>https://alexn.org/blog/2022/04/09/scala-gitter-discord-mistake/?pk_campaign=rss&amp;pk_kwd=link</link>
+  <guid isPermaLink="true">https://alexn.org/blog/2022/04/09/scala-gitter-discord-mistake/</guid>
+  
+  
+  <dc:creator>Alexandru Nedelcu</dc:creator>
+  
+  <category>Blog</category>
+  
+  <category>Open Source</category>
+  
+  <category>Opinion</category>
+  
+  <category>Scala</category>
+  
+</item>
+
+    
+      
+<item>
+  <title>On Typelevel and Monix</title>
+  <description>Planning the future is difficult, but can bring clarity and purpose. I’m stepping down from the Typelevel Steering Committee. I also have plans for Monix’s future.</description>
+  <content:encoded>&lt;div class=&quot;post-featured-image&quot;&gt;
+    
+      &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/04/05/future-monix-typelevel/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-04-monix.png?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-04-monix.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -113,7 +181,7 @@ Planning the future is difficult, but can bring clarity and purpose. See &lt;a h
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/04/01/blogging/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/writing.jpg?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/writing.jpg?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -142,8 +210,8 @@ This blog is undergoing a re-organization/simplification. For those that follow 
       &lt;i&gt;The article &lt;a href=&quot;https://alexn.org/blog/2022/04/01/blogging/?pk_campaign=rss&amp;pk_kwd=footer-link&quot;&gt;A Return to Blogging&lt;/a&gt; first appeared on &lt;a href=&quot;https://alexn.org?pk_campaign=rss&amp;pk_kwd=footer-link&quot;&gt;alexn.org&lt;/a&gt;.&lt;/i&gt;
     &lt;/p&gt;</content:encoded>
   <pubDate>Fri, 01 Apr 2022 00:00:00 +0000</pubDate>
-  <dc:modified>Fri, 01 Apr 2022 19:03:46 +0000</dc:modified>
-  <atom:modified>Fri, 01 Apr 2022 19:03:46 +0000</atom:modified>
+  <dc:modified>Sat, 09 Apr 2022 08:25:41 +0000</dc:modified>
+  <atom:modified>Sat, 09 Apr 2022 08:25:41 +0000</atom:modified>
   <link>https://alexn.org/blog/2022/04/01/blogging/?pk_campaign=rss&amp;pk_kwd=link</link>
   <guid isPermaLink="true">https://alexn.org/blog/2022/04/01/blogging/</guid>
   
@@ -153,6 +221,8 @@ This blog is undergoing a re-organization/simplification. For those that follow 
   <category>Blog</category>
   
   <category>Blogging</category>
+  
+  <category>Opinion</category>
   
   <category>Personal</category>
   
@@ -680,7 +750,7 @@ fi&lt;/span&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2021/03/29/atom-rss-feeds-are-the-best-way-to-consume-the-web/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/highway.jpg?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/highway.jpg?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -779,7 +849,7 @@ fi&lt;/span&gt;
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=qqqfImDtduE&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://alexn.org/assets/media/articles/ing-meetup-working-with-dotty-2.jpg?202204081612&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;100%;&quot;&gt;
+    &lt;img src=&quot;https://alexn.org/assets/media/articles/ing-meetup-working-with-dotty-2.jpg?202204090830&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;100%;&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=qqqfImDtduE&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -794,7 +864,7 @@ fi&lt;/span&gt;
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=qqqfImDtduE&amp;autoplay=1&amp;t=4963&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://alexn.org/assets/media/articles/ing-meetup-working-with-dotty-1.jpg?202204081612&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;100%;&quot;&gt;
+    &lt;img src=&quot;https://alexn.org/assets/media/articles/ing-meetup-working-with-dotty-1.jpg?202204090830&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;100%;&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=qqqfImDtduE&amp;autoplay=1&amp;t=4963&quot; target=&quot;_blank&quot;&gt;
@@ -836,7 +906,7 @@ fi&lt;/span&gt;
   <content:encoded>&lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=R6pl91IRVaI&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://alexn.org/assets/media/articles/countdownlatch-async-dirty.png?202204081612&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;100%;&quot;&gt;
+    &lt;img src=&quot;https://alexn.org/assets/media/articles/countdownlatch-async-dirty.png?202204090830&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;100%;&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=R6pl91IRVaI&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -1314,7 +1384,7 @@ fi&lt;/span&gt;
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=Ua1iMD4icLU&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://alexn.org/assets/media/articles/tail-recursive-functions.png?202204081612&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;100%;&quot;&gt;
+    &lt;img src=&quot;https://alexn.org/assets/media/articles/tail-recursive-functions.png?202204090830&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;100%;&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=Ua1iMD4icLU&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -1931,7 +2001,7 @@ fi&lt;/span&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2020/11/17/best-practice-for-ordering-comparable/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/ordering.png?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/ordering.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -2077,7 +2147,7 @@ fi&lt;/span&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2020/11/15/managing-database-migrations-scala/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/db-migrations-scala.png?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/db-migrations-scala.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -2579,7 +2649,7 @@ docker run &lt;span class=&quot;nt&quot;&gt;--rm&lt;/span&gt; &lt;span class=&qu
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2020/11/12/i-like-option-get/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/option.get.png?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/option.get.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -2709,7 +2779,7 @@ docker run &lt;span class=&quot;nt&quot;&gt;--rm&lt;/span&gt; &lt;span class=&qu
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2020/11/11/organize-index-screenshots-ocr-macos/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/spotlight-search.png?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/spotlight-search.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -2983,7 +3053,7 @@ youtube.com###comments
 &lt;p&gt;Here’s how it should look like:&lt;/p&gt;
 
 &lt;figure&gt;
-  &lt;img src=&quot;https://alexn.org/assets/media/articles/block-comments.png?202204081612&quot; alt=&quot;Screenshot of uBlock Origin's My Filters section&quot;&gt;
+  &lt;img src=&quot;https://alexn.org/assets/media/articles/block-comments.png?202204090830&quot; alt=&quot;Screenshot of uBlock Origin's My Filters section&quot;&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;These rules block comments from:&lt;/p&gt;
@@ -3034,7 +3104,7 @@ youtube.com###comments
 &lt;p&gt;You can then import it in uBlock Origin easily:&lt;/p&gt;
 
 &lt;figure&gt;
-  &lt;img src=&quot;https://alexn.org/assets/media/articles/block-comments2.png?202204081612&quot; alt=&quot;Screenshot of uBlock Origin's Filter List&quot;&gt;
+  &lt;img src=&quot;https://alexn.org/assets/media/articles/block-comments2.png?202204090830&quot; alt=&quot;Screenshot of uBlock Origin's Filter List&quot;&gt;
 &lt;/figure&gt;
 
 &lt;h2 id=&quot;safari--ios-iphone-ipad&quot;&gt;Safari / iOS (iPhone, iPad)&lt;/h2&gt;
@@ -3373,7 +3443,7 @@ see &lt;a href=&quot;https://alexn.org/blog/2020/08/03/on-error-retry-loop/&quot
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=mlXtwZY4ko4&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/mlXtwZY4ko4/maxresdefault.jpg?202204081612&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;100%;&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/mlXtwZY4ko4/maxresdefault.jpg?202204090830&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;100%;&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=mlXtwZY4ko4&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -3816,7 +3886,7 @@ thus wrapping &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2020/09/10/privilege/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/fi-miu.jpg?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/fi-miu.jpg?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;My son ❤️&lt;/em&gt;&lt;/p&gt;&lt;/figcaption&gt;
       &lt;/figure&gt;
@@ -4205,7 +4275,7 @@ thus wrapping &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2020/08/03/on-error-retry-loop/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/snippets/on-error-retry-loop.png?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/snippets/on-error-retry-loop.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -4645,7 +4715,7 @@ thus wrapping &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2020/05/26/scala-fatal-warnings/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-xfatal-warnings.png?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-xfatal-warnings.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -4972,7 +5042,7 @@ thus wrapping &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2020/04/21/javascript-semaphore/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/async-semaphore-typescript.png?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/async-semaphore-typescript.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -5157,7 +5227,7 @@ thus wrapping &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=RYmGT905Skc&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/RYmGT905Skc/maxresdefault.jpg?202204081612&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;100%;&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/RYmGT905Skc/maxresdefault.jpg?202204090830&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;100%;&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=RYmGT905Skc&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -5196,7 +5266,7 @@ thus wrapping &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=RYmGT905Skc&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/RYmGT905Skc/maxresdefault.jpg?202204081612&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;100%;&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/RYmGT905Skc/maxresdefault.jpg?202204090830&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;100%;&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=RYmGT905Skc&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -5427,7 +5497,7 @@ thus wrapping &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2019/11/22/howto-regexp-replacement-via-function-java-scala/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-replace-all-function.png?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-replace-all-function.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -5834,7 +5904,7 @@ Imported from &lt;a href=&quot;https://gist.github.com/alexandru/d04c23e3ebd918c
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2019/08/11/isinstanceof-anti-pattern/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-instanceof-antipattern.png?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-instanceof-antipattern.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -6109,7 +6179,7 @@ then use CanGuarantee.synchronous[Unit] to create one.
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2018/05/06/bifunctor-io/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/bio.png?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/bio.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -6666,7 +6736,7 @@ the current status quo. Scala is a great environment.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2018/02/12/in-defense-oofp/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-stairs.jpg?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-stairs.jpg?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;&lt;a href=&quot;https://www.flickr.com/photos/gilles_dubochet/7327041044&quot; target=&quot;_blank&quot;&gt;Credits&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;&lt;/figcaption&gt;
       &lt;/figure&gt;
@@ -7664,7 +7734,7 @@ Scala’s OOP and the new collections.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2017/11/10/minitest-no-crap-scala-library/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -8017,7 +8087,7 @@ codebase much.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2017/10/15/functional-programming/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/functions.png?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/functions.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -8346,7 +8416,7 @@ but it’s not that good for learning FP in 2017.&lt;/p&gt;
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=wi97X8_JQUk&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/wi97X8_JQUk/maxresdefault.jpg?202204081612&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;100%;&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/wi97X8_JQUk/maxresdefault.jpg?202204090830&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;100%;&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=wi97X8_JQUk&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -8370,7 +8440,7 @@ and &lt;a href=&quot;http://event.scaladays.org/scaladays-cph-2017&quot;&gt;Cope
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=wi97X8_JQUk&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/wi97X8_JQUk/maxresdefault.jpg?202204081612&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;100%;&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/wi97X8_JQUk/maxresdefault.jpg?202204090830&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;100%;&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=wi97X8_JQUk&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -8815,7 +8885,7 @@ where people are afraid to take on dependencies.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2017/08/16/automatic-releases-sbt-travis/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/sbt.png?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/sbt.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -10720,7 +10790,7 @@ avoiding concurrency 💀&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2017/01/16/iterator/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -11021,7 +11091,7 @@ grandparents, I’m afraid to wish for it.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2017/01/13/traversable/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -11200,7 +11270,7 @@ if you want to learn more checkout this presentation:
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2016/11/11/newsblur-bookmarklet/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/newsblur.png?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/newsblur.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -11267,7 +11337,7 @@ and you should see all bookmarks, press and hold on the new
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2016/08/25/monix-task-performance/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/monix-1024.png?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/monix-1024.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -11645,7 +11715,7 @@ forked tasks it evens out with the performance of &lt;code class=&quot;language-
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=CQxviYlAKaY&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/CQxviYlAKaY/maxresdefault.jpg?202204081612&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;100%;&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/CQxviYlAKaY/maxresdefault.jpg?202204090830&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;100%;&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=CQxviYlAKaY&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -11661,7 +11731,7 @@ forked tasks it evens out with the performance of &lt;code class=&quot;language-
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=CQxviYlAKaY&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/CQxviYlAKaY/maxresdefault.jpg?202204081612&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;100%;&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/CQxviYlAKaY/maxresdefault.jpg?202204090830&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;100%;&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=CQxviYlAKaY&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -11742,7 +11812,7 @@ presentation of Monix Observable and how that helps.&lt;/p&gt;
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=rftcbxj7et0&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/rftcbxj7et0/maxresdefault.jpg?202204081612&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;100%;&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/rftcbxj7et0/maxresdefault.jpg?202204090830&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;100%;&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=rftcbxj7et0&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -11758,7 +11828,7 @@ presentation of Monix Observable and how that helps.&lt;/p&gt;
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=rftcbxj7et0&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/rftcbxj7et0/maxresdefault.jpg?202204081612&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;100%;&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/rftcbxj7et0/maxresdefault.jpg?202204090830&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;100%;&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=rftcbxj7et0&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -11840,7 +11910,7 @@ instead of blocking threads.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2015/12/15/avoid-javaisms-code-smell/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/skunk.jpg?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/skunk.jpg?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -12586,7 +12656,7 @@ which is why I’m dumbfounded by claims of parallelism&lt;/li&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2014/10/20/scala-best-practices/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -12637,7 +12707,7 @@ which is why I’m dumbfounded by claims of parallelism&lt;/li&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2013/05/13/getting-started-with-scala/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -13204,7 +13274,7 @@ orchestrate multiple atomic references at once.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2013/03/14/jvm-multithreading-monitor-locks-visibility/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/ferrari.jpg?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/ferrari.jpg?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -13694,7 +13764,7 @@ that you can’t do with plain volatiles.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2012/11/07/notes-javascript-development/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/javascript.jpg?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/javascript.jpg?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -13899,7 +13969,7 @@ In this article I’m describing my impressions of the Scala programming languag
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2012/11/02/scala-functional-programming-type-classes/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -15299,7 +15369,7 @@ you started.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2012/01/16/cosine-similarity-euclidean-distance/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/cosine-distance.png?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/cosine-distance.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -15735,7 +15805,7 @@ some text into another.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2012/01/05/blogging-for-hackers/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/jekyll.png?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/jekyll.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -16282,7 +16352,7 @@ anyway, but this was fun.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2011/12/15/crawling-the-android-marketplace-155200-apps/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/wolf-spider.jpg?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/wolf-spider.jpg?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -16421,7 +16491,7 @@ distribution is freemium based.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2011/12/12/android-learning-resources/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/android-development.jpg?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/android-development.jpg?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -16557,7 +16627,7 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2011/11/29/earning-money-as-an-amazon-affiliate/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/amazon-associates.jpg?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/amazon-associates.jpg?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -16805,7 +16875,7 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2011/11/25/4-books-for-learning-to-design-the-hard-way/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/book-design-all.jpg?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/book-design-all.jpg?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -17063,7 +17133,7 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2011/10/29/how-i-use-flickr/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/flickr.jpg?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/flickr.jpg?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;&lt;a href=&quot;https://flic.kr/p/qYPVGA&quot; target=&quot;_blank&quot;&gt;Source&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;&lt;/figcaption&gt;
       &lt;/figure&gt;
@@ -17145,7 +17215,7 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2011/10/23/why-i-find-heroku-suboptimal/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/heroku.png?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/heroku.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -17271,7 +17341,7 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2011/03/24/cross-domain-requests/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/cors-ajax.png?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/cors-ajax.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -17615,7 +17685,7 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2010/05/25/i-hate-null/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/beautiful-soup.png?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/beautiful-soup.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -17746,7 +17816,7 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2009/02/20/tips-for-creating-voip-dialer/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/freeswitch1.png?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/freeswitch1.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -18094,7 +18164,7 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2009/02/01/using-best-tools-programming-not-doable/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/tools.png?202204081612&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/tools.png?202204090830&quot; width=&quot;100%;&quot; alt=&quot;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
