@@ -969,7 +969,7 @@ stuck, you can view a solution which is often idiomatic. See also this
 [GitHub project](https://github.com/etorreborre/s99) that gives you a
 complete test-suite, to spare you of the effort.
 
-<a href="http://www.amazon.com/gp/product/B004Z1FTXS/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=B004Z1FTXS&linkCode=as2&tag=bionicspirit-20"><img src="{% link assets/media/articles/programming-scala.jpg %}" align="left" width="100" style="width:100px" class="left" loading="lazy" /></a>
+<a href="http://www.amazon.com/gp/product/B004Z1FTXS/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=B004Z1FTXS&linkCode=as2&tag=bionicspirit-20"><img src="{% link assets/media/articles/programming-scala.jpg %}" align="left" style="width:100px" class="left" loading="lazy" /></a>
 <a href="http://www.amazon.com/gp/product/B004Z1FTXS/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=B004Z1FTXS&linkCode=as2&tag=bionicspirit-20"><b>Programming in Scala</b></a> 
 by Martin Odersky is a good book on programming, not just Scala - many
 of the exercises in
@@ -979,7 +979,7 @@ solving those problems, which is good.
 
 <div class="clear"></div>
 
-<a href="http://www.amazon.com/gp/product/0321774094/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=0321774094&linkCode=as2&tag=bionicspirit-20"><img src="{% link assets/media/articles/scala-for-the-impatient.jpeg %}" align="left" width="100" style="width:100px" class="left" loading="lazy" /></a>
+<a href="http://www.amazon.com/gp/product/0321774094/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=0321774094&linkCode=as2&tag=bionicspirit-20"><img src="{% link assets/media/articles/scala-for-the-impatient.jpeg %}" align="left" style="width:100px" class="left" loading="lazy" /></a>
 <a href="http://www.amazon.com/gp/product/0321774094/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=0321774094&linkCode=as2&tag=bionicspirit-20"><b>Scala for the Impatient</b></a>
 by Cay S. Horstmann, is a good pragmatic book on Scala (not so much on
 functional programming), but it's for developers experienced in other
@@ -990,7 +990,7 @@ available from the
 
 <div class="clear"></div>
 
-<a href="http://www.amazon.com/gp/product/1935182706/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=1935182706&linkCode=as2&tag=bionicspirit-20"><img src="{% link assets/media/articles/scalaindepth.png %}" align="left" width="100" style="width:100px" class="left" loading="lazy" /></a>
+<a href="http://www.amazon.com/gp/product/1935182706/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=1935182706&linkCode=as2&tag=bionicspirit-20"><img src="{% link assets/media/articles/scalaindepth.png %}" align="left" style="width:100px" class="left" loading="lazy" /></a>
 <a href="http://www.amazon.com/gp/product/1935182706/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=1935182706&linkCode=as2&tag=bionicspirit-20"><b>Scala in Depth</b></a>
 by Joshua Suereth D. - this is an advanced book on Scala, with many
 insights into how functional idioms work in it. I've yet to finish

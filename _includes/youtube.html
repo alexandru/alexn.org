@@ -1,12 +1,12 @@
 {% capture youtube %}{% if page.youtube %}{{ page.youtube }}{% else %}{{ include.id }}{% endif -%}{% endcapture -%}
 {% capture image %}{% if include.image %}{{ site.baseurl }}{{ include.image }}{% else %}{% if page.youtube and page.image %}{{ page.image }}{% else %}{{ youtube | youtube_thumb_link }}{% endif %}{% endif %}{% endcapture %}
 {% capture link %}{{ youtube | youtube_link }}&autoplay=1{% if include.time %}&t={{ include.time }}{% endif %}{% endcapture -%}
-{% capture image_absolute %}{{ image | absolute_url }}?{{ 'now' | date: '%Y%m%d%H%M' }}{% endcapture -%}
+{% capture image_src %}{{ image }}?{{ 'now' | date: '%Y%m%d%H%M' }}{% endcapture -%}
 
 <figure {% if include.featured %}class="featuredImage video" itemprop="image" itemscope itemtype="https://schema.org/ImageObject"{% else %}class="video"{% endif %}>
-  {% if include.featured %}<meta itemprop="url" content="{{ image_absolute }}" />{% endif %}
-  <a href="{{ link | absolute_url }}" target="_blank" class="youtube-play-link" title="Go to YouTube video">
-    <img src="{{ image_absolute }}" alt="" class="play-thumb" width="100%;" />
+  {% if include.featured %}<meta itemprop="url" content="{{ image_src }}" />{% endif %}
+  <a href="{{ link }}" target="_blank" class="youtube-play-link" title="Go to YouTube video">
+    <img src="{{ image_src }}" alt="" class="play-thumb" width="1280" height="720" />
   </a>
   <figcaption>
     <a href="{{ link }}" target="_blank">

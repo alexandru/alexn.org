@@ -11,7 +11,8 @@
 
    <div class="content">
       <div class="container">
-         {% include anchor-headings.html html=content anchorBody="#" anchorClass="anchor" %}
+         {% capture html %}{{ content | fix_images }}{% endcapture -%}
+         {% include anchor-headings.html html=html anchorBody="#" anchorClass="anchor" %}
       </div>
    </div><!-- end .content -->
 

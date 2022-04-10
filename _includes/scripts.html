@@ -45,11 +45,13 @@
     i.setAttribute("alt", "");
     i.setAttribute("referrerpolicy", "no-referrer-when-downgrade");
     i.setAttribute("src", url);
-    i.setAttribute("style", "border:0");
+    i.setAttribute("width", "1");
+    i.setAttribute("height", "1");
+    i.setAttribute("style", "position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;");
     s.parentNode.insertBefore(i,s);
   })();
 </script>
 <noscript>
-  <img referrerpolicy="no-referrer-when-downgrade" src="{{ tracker_url }}" style="border:0" alt="" />
+  <img referrerpolicy="no-referrer-when-downgrade" src="{{ tracker_url }}" width="1" height="1" style="position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;" alt="" />
 </noscript>
 {% endif %}

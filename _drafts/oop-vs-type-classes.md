@@ -6,8 +6,6 @@ generate_toc: true
 
 ## Motivation
 
-<img src="{% link assets/media/articles/scala-spiral.png %}" width="100" align="right" class="right hide-in-feed" />
-
 Scala is a hybrid OOP+FP language. If you love OOP, Scala is one of the best static OOP languages. But Scala also exposes parametric polymorphism and can encode type classes.
 
 Thus, developers can also choose to use parametric polymorphism restricted by type classes (aka ad hoc polymorphism). As if choosing when to use immutability versus object identity wasn't bad enough, developers are also faced with a difficult choice when expressing abstractions. Such choices create tension in teams, with the code style depending on the team leader or whoever does the code reviews.
@@ -114,7 +112,7 @@ And in software development, a common strategy is to build bigger and bigger sys
 
 No paradigm has a monopoly on composition. FP developers can talk about functions composing, OOP developers can talk about objects composing. FP has the advantage that composition is more automatic, being governed by common protocols that have laws:
 
-<img src="{% link assets/media/articles/category-theory.svg %}" width="1400" class="transparency-fix"
+<img src="{% link assets/media/articles/category-theory.svg %}" class="transparency-fix"
   alt="Image illustrating category theory" />
 
 If `f` and `g` are functions, it's easy to compose them in a bigger function, `g ∘ f`. Things get more complicated when the types involved don't align. For example when that `B` type is a `Future[_]` or an `IO[_]`. But we can come up with protocols such that we can keep this automatic composition.
@@ -344,8 +342,7 @@ And as we shall see, this gives rise to one of the biggest ideological clashes i
 
 OOP and FP are ideologies — sets of beliefs on how it's best to build programs and manage the ever growing complexity. This is much like the political ideologies, like the Left vs Right, Progressives vs Conservatives, Anarchism vs Statism, etc, etc... different sets of beliefs for solving the same problem, promoted by social movements.
 
-<img src="{% link assets/media/articles/yin-yang.svg %}" alt="Symbol of Yin and Yang"
-  width="1400" class="transparency-fix" />
+<img src="{% link assets/media/articles/yin-yang.svg %}" alt="Symbol of Yin and Yang" class="transparency-fix" />
 
 I'm not using this word lightly, computer science is not advanced as a science (via the scientific method), because computer science is also about communication and collaboration, therefore computer science also involves social problems, much like mathematics, but worse, because we can't rely only on idealized models and logic. And investigating social issues via the scientific method is hard, therefore we basically rely a lot on philosophy, intuition, experience, and fashion.
 

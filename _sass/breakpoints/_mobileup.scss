@@ -47,6 +47,7 @@ body {
 // Media Styling
 img,video,audio,iframe,object{
   max-width:100%;
+  height: auto;
 }
 
 // Layout
@@ -784,6 +785,11 @@ POST LIST STYLING
 
 img.right {
   float: none;
+}
+
+.patreon-button img {
+  width: 170px;
+  height: 40px;
 }
 
 .post.about {
