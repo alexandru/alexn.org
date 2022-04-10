@@ -54,8 +54,8 @@
     <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="/assets/css/style.css?202204091208">
-    <link rel="preload" as="style" href="/assets/css/style.css?202204091208">
+    <link rel="stylesheet" href="/assets/css/style.css?202204101107">
+    <link rel="preload" as="style" href="/assets/css/style.css?202204101107">
     
     <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
     <link rel="canonical" href="https://alexn.org/wiki/iterm/">
@@ -163,13 +163,13 @@ History</code>.</p>
 
 <p>First create IntelliJ IDEA’s command line launcher. Press <code class="language-plaintext highlighter-rouge">⇧ Shift + ⇧ Shift</code> (twice) to bring up the <a href="https://www.jetbrains.com/help/idea/searching-everywhere.html#search_all" target="_blank">Navigate -&gt; Search Everywhere</a> dialog. Then write “<em>create command-line launcher</em>” in the search box, to select the desired action, then press <code class="language-plaintext highlighter-rouge">⏎ Enter</code>:</p>
 
-<p><img src="/wiki/assets/intellij-idea-create-cmd-line-launcher.png" alt="Screenshot of Search Everywhere dialog" /></p>
+<p><img src="/wiki/assets/intellij-idea-create-cmd-line-launcher.png" width="1362" height="260" alt="Screenshot of Search Everywhere dialog" /></p>
 
 <p>Now <code class="language-plaintext highlighter-rouge">idea</code> is installed on the command line, on MacOS this is tipically in <code class="language-plaintext highlighter-rouge">/usr/local/bin/idea</code>.</p>
 
 <p>Similarly, in <a href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a> press <code class="language-plaintext highlighter-rouge">⌘ Cmd + P</code>, type “<em>install code command</em>”, and press <code class="language-plaintext highlighter-rouge">⏎ Enter</code>:</p>
 
-<p><img src="/wiki/assets/vs-code-install-cmd-line.png" alt="Screenshot of 'install code command' in VS Code" /></p>
+<p><img src="/wiki/assets/vs-code-install-cmd-line.png" width="1100" height="198" alt="Screenshot of 'install code command' in VS Code" /></p>
 
 <p>The <code class="language-plaintext highlighter-rouge">idea</code> command line utility isn’t compatible with iTerm’s settings, plus if we want to discriminate based on file type, an extra script is needed. Save this in <code class="language-plaintext highlighter-rouge">$HOME/bin/iterm-goto</code>:</p>
 
@@ -220,7 +220,7 @@ History</code>, and set <code class="language-plaintext highlighter-rouge">Run c
 <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nv">$HOME</span>/bin/iterm-goto <span class="se">\1</span> <span class="se">\2</span>
 </code></pre></div></div>
 
-<p><img src="/wiki/assets/iterm-semantic-history-setting.png" alt="Screenshot of iTerm's Semantic History setting" /></p>
+<p><img src="/wiki/assets/iterm-semantic-history-setting.png" width="1066" height="290" alt="Screenshot of iTerm's Semantic History setting" /></p>
 
   </div>
 </article>
@@ -228,12 +228,12 @@ History</code>, and set <code class="language-plaintext highlighter-rouge">Run c
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202204091208" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202204091208" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202204091208" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202204091208" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202204101107" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202204101107" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202204101107" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202204101107" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202204091208" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202204101107" type="text/javascript"></script>
 
 
 <script type="text/javascript">
@@ -273,12 +273,14 @@ History</code>, and set <code class="language-plaintext highlighter-rouge">Run c
     i.setAttribute("alt", "");
     i.setAttribute("referrerpolicy", "no-referrer-when-downgrade");
     i.setAttribute("src", url);
-    i.setAttribute("style", "border:0");
+    i.setAttribute("width", "1");
+    i.setAttribute("height", "1");
+    i.setAttribute("style", "position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;");
     s.parentNode.insertBefore(i,s);
   })();
 </script>
 <noscript>
-  <img referrerpolicy="no-referrer-when-downgrade" src="https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=iTerm2&url=https%3A%2F%2Falexn.org%2Fwiki%2Fiterm%2F" style="border:0" alt="" />
+  <img referrerpolicy="no-referrer-when-downgrade" src="https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=iTerm2&url=https%3A%2F%2Falexn.org%2Fwiki%2Fiterm%2F" width="1" height="1" style="position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;" alt="" />
 </noscript>
 
    <div class="footer">
@@ -354,8 +356,8 @@ History</code>, and set <code class="language-plaintext highlighter-rouge">Run c
 
 <p>
   Donate to cover ongoing website costs, or buy me coffee ☕️😋 <br/>
-  <a href="https://www.patreon.com/bePatron?u=6102596" target="_blank">
-    <img label="Become a Patron!" alt="Become a Patron!" title="Become a Patron!" src="/assets/media/buttons/patreon.png" height="40" />
+  <a href="https://www.patreon.com/bePatron?u=6102596" target="_blank" class="patreon-button">
+    <img label="Become a Patron!" alt="Become a Patron!" title="Become a Patron!" src="/assets/media/buttons/patreon.png" />
   </a>
 </p>
 

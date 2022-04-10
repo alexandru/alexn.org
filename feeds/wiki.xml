@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 09 Apr 2022 12:08:23 +0000</pubDate>
-    <lastBuildDate>Sat, 09 Apr 2022 12:08:23 +0000</lastBuildDate>
+    <pubDate>Sun, 10 Apr 2022 11:07:56 +0000</pubDate>
+    <lastBuildDate>Sun, 10 Apr 2022 11:07:56 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -32,7 +32,7 @@
     &lt;/p&gt;
     &lt;hr&gt;
     
-  &lt;img referrerpolicy=&quot;no-referrer-when-downgrade&quot; src=&quot;https://ly.alexn.org/m.php?idsite=1&amp;rec=1&amp;action_name=%2Ffeeds%2Fwiki.xml&amp;url=https%3A%2F%2Falexn.org%2Ffeeds%2Fwiki.xml&amp;pk_campaign=rss&amp;pk_kwd=open&quot; style=&quot;border:0&quot; alt=&quot;&quot;&gt;
+  &lt;img referrerpolicy=&quot;no-referrer-when-downgrade&quot; src=&quot;https://ly.alexn.org/m.php?idsite=1&amp;rec=1&amp;action_name=%2Ffeeds%2Fwiki.xml&amp;url=https%3A%2F%2Falexn.org%2Ffeeds%2Fwiki.xml&amp;pk_campaign=rss&amp;pk_kwd=open&quot; width=&quot;1&quot; height=&quot;1&quot; style=&quot;position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;&quot; alt=&quot;&quot;&gt;
 &lt;h2 id=&quot;initial-setup-firewall-user-updates&quot;&gt;Initial setup (firewall, user, updates)&lt;/h2&gt;
 
 &lt;p&gt;As &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;root&lt;/code&gt;:&lt;/p&gt;
@@ -1204,7 +1204,7 @@ find &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nt&quo
 
 &lt;p&gt;Screenshot of how that looks like:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://alexn.org/wiki/assets/cloudflare-cache-purge-permissions.png&quot; alt=&quot;Cloudflare permissions dialog&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://alexn.org/wiki/assets/cloudflare-cache-purge-permissions.png&quot; alt=&quot;Cloudflare permissions dialog&quot; width=&quot;1806&quot; height=&quot;692&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;Bash function:&lt;/p&gt;
 
@@ -2504,13 +2504,13 @@ History&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;First create IntelliJ IDEA’s command line launcher. Press &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;⇧ Shift + ⇧ Shift&lt;/code&gt; (twice) to bring up the &lt;a href=&quot;https://www.jetbrains.com/help/idea/searching-everywhere.html#search_all&quot; target=&quot;_blank&quot;&gt;Navigate -&gt; Search Everywhere&lt;/a&gt; dialog. Then write “&lt;em&gt;create command-line launcher&lt;/em&gt;” in the search box, to select the desired action, then press &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;⏎ Enter&lt;/code&gt;:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://alexn.org/wiki/assets/intellij-idea-create-cmd-line-launcher.png&quot; alt=&quot;Screenshot of Search Everywhere dialog&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://alexn.org/wiki/assets/intellij-idea-create-cmd-line-launcher.png&quot; alt=&quot;Screenshot of Search Everywhere dialog&quot; width=&quot;1362&quot; height=&quot;260&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;Now &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;idea&lt;/code&gt; is installed on the command line, on MacOS this is tipically in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/usr/local/bin/idea&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;Similarly, in &lt;a href=&quot;https://code.visualstudio.com/&quot; target=&quot;_blank&quot;&gt;Visual Studio Code&lt;/a&gt; press &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;⌘ Cmd + P&lt;/code&gt;, type “&lt;em&gt;install code command&lt;/em&gt;”, and press &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;⏎ Enter&lt;/code&gt;:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://alexn.org/wiki/assets/vs-code-install-cmd-line.png&quot; alt=&quot;Screenshot of 'install code command' in VS Code&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://alexn.org/wiki/assets/vs-code-install-cmd-line.png&quot; alt=&quot;Screenshot of 'install code command' in VS Code&quot; width=&quot;1100&quot; height=&quot;198&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;idea&lt;/code&gt; command line utility isn’t compatible with iTerm’s settings, plus if we want to discriminate based on file type, an extra script is needed. Save this in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$HOME/bin/iterm-goto&lt;/code&gt;:&lt;/p&gt;
 
@@ -2561,7 +2561,7 @@ History&lt;/code&gt;, and set &lt;code class=&quot;language-plaintext highlighte
 &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/bin/iterm-goto &lt;span class=&quot;se&quot;&gt;\1&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\2&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://alexn.org/wiki/assets/iterm-semantic-history-setting.png&quot; alt=&quot;Screenshot of iTerm's Semantic History setting&quot;&gt;&lt;/p&gt;</content:encoded>
+&lt;p&gt;&lt;img src=&quot;https://alexn.org/wiki/assets/iterm-semantic-history-setting.png&quot; alt=&quot;Screenshot of iTerm's Semantic History setting&quot; width=&quot;1066&quot; height=&quot;290&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;&lt;/p&gt;</content:encoded>
   <pubDate>Mon, 24 Aug 2020 13:24:31 +0000</pubDate>
   <dc:modified>Tue, 29 Mar 2022 07:42:39 +0000</dc:modified>
   <atom:modified>Tue, 29 Mar 2022 07:42:39 +0000</atom:modified>
@@ -3664,7 +3664,7 @@ zstyle &lt;span class=&quot;s1&quot;&gt;':vcs_info:*'&lt;/span&gt; &lt;span clas
 
 &lt;p&gt;How this looks:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://alexn.org/wiki/assets/custom-zsh-prompt.png&quot; alt=&quot;Screenshot of zsh prompt&quot;&gt;&lt;/p&gt;</content:encoded>
+&lt;p&gt;&lt;img src=&quot;https://alexn.org/wiki/assets/custom-zsh-prompt.png&quot; alt=&quot;Screenshot of zsh prompt&quot; width=&quot;1394&quot; height=&quot;909&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;&lt;/p&gt;</content:encoded>
   <pubDate>Mon, 24 Aug 2020 13:24:31 +0000</pubDate>
   <dc:modified>Tue, 29 Mar 2022 07:46:15 +0000</dc:modified>
   <atom:modified>Tue, 29 Mar 2022 07:46:15 +0000</atom:modified>
