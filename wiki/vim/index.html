@@ -51,8 +51,8 @@
     <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="/assets/css/style.css?202204101121">
-    <link rel="preload" as="style" href="/assets/css/style.css?202204101121">
+    <link rel="stylesheet" href="/assets/css/style.css?202204101142">
+    <link rel="preload" as="style" href="/assets/css/style.css?202204101142">
     
     <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
     <link rel="canonical" href="https://alexn.org/wiki/vim/">
@@ -370,12 +370,12 @@ So <code class="language-plaintext highlighter-rouge">"*y</code> copies to the s
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202204101121" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202204101121" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202204101121" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202204101121" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202204101142" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202204101142" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202204101142" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202204101142" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202204101121" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202204101142" type="text/javascript"></script>
 
 
 <script type="text/javascript">
@@ -437,16 +437,18 @@ So <code class="language-plaintext highlighter-rouge">"*y</code> copies to the s
 
 <p class="only-js">
   Want to chat in private? Email me: 
-  <script>
+  <script id="email-script">
     (function () {
       var lhs = "contact22+comments";
       var rhs = "alexn.org";
-      document.write("<a target=\"_blank\" href=\"mailto");
-      document.write(":" + lhs + "@");
-      document.write(rhs);
-      document.write("?subject=Comment%20on%3A%20Vim")
-      document.write("\">" + lhs + "@" + rhs + "<\/a>");
-    })()
+      var d = document;
+      var a = d.createElement("a");
+      a.setAttribute("target", "_blank");
+      a.setAttribute("href", "mailto:" + lhs + "@" + rhs + "?subject=Comment%20on%3A%20Vim");
+      a.text = lhs + "@" + rhs;
+      var es = d.getElementById("email-script");
+      es.parentNode.insertBefore(a, es);
+    })();
   </script>
 </p>
 
@@ -470,16 +472,15 @@ So <code class="language-plaintext highlighter-rouge">"*y</code> copies to the s
   <section id="isso-thread" data-title="Vim">
   </section>
 </div>
-<div class="note-warning only-js">
-  <span class="extra">If you don't see the self-hosted <a href="https://posativ.org/isso/" target="_blank">Isso</a> commenting widget, it might be blocked by a browser extension.</span>
-</div>
 <noscript>
   <div class="note-warning">
     <strong>Enable JavaScript to see the email address or the public comments!</strong>
     <br>
     <span class="extra">
-      Commenting widget is powered by a self-hosted <a href="https://posativ.org/isso/" target="_blank">Isso</a>
-      commenting server. Read our <a href="/docs/privacy-policy/">privacy policy</a>.
+      Commenting widget is powered by a self-hosted commenting server.
+      <span style="white-space: nowrap;">
+        Read the <a href="/docs/privacy-policy/">privacy policy</a>.
+      </span>
     </span>
   </div>
 </noscript>

@@ -49,8 +49,8 @@
     <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="/assets/css/style.css?202204101121">
-    <link rel="preload" as="style" href="/assets/css/style.css?202204101121">
+    <link rel="stylesheet" href="/assets/css/style.css?202204101142">
+    <link rel="preload" as="style" href="/assets/css/style.css?202204101142">
     
     <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
     <link rel="canonical" href="https://alexn.org/about/">
@@ -154,15 +154,18 @@
 
   <!--sse-->
   <div class="content">
-    <script>
+    <script id="email-script">
       (function () {
         var lhs = "contact22+website";
         var rhs = "alexn.org";
-        document.write("<a target=\"_blank\" href=\"mailto");
-        document.write(":" + lhs + "@");
-        document.write(rhs);
-        document.write("\">" + lhs + "@" + rhs + "<\/a>");
-      })()
+        var d = document;
+        var a = d.createElement("a");
+        a.setAttribute("target", "_blank");
+        a.setAttribute("href", "mailto:" + lhs + "@" + rhs);
+        a.text = lhs + "@" + rhs;
+        var es = d.getElementById("email-script");
+        es.parentNode.insertBefore(a, es);
+      })();
     </script>
     <noscript>
       <em>Email address is protected via JavaScript, activate it to see it!</em>
@@ -178,12 +181,12 @@
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202204101121" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202204101121" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202204101121" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202204101121" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202204101142" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202204101142" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202204101142" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202204101142" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202204101121" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202204101142" type="text/javascript"></script>
 
 
 <script type="text/javascript">
