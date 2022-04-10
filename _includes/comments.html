@@ -5,16 +5,18 @@
 
 <p class="only-js">
   Want to chat in private? Email me: 
-  <script>
+  <script id="email-script">
     (function () {
       var lhs = "contact22+comments";
       var rhs = "alexn.org";
-      document.write("<a target=\"_blank\" href=\"mailto");
-      document.write(":" + lhs + "@");
-      document.write(rhs);
-      document.write("?subject=Comment%20on%3A%20{{ page.title | uri_escape | trim }}")
-      document.write("\">" + lhs + "@" + rhs + "<\/a>");
-    })()
+      var d = document;
+      var a = d.createElement("a");
+      a.setAttribute("target", "_blank");
+      a.setAttribute("href", "mailto:" + lhs + "@" + rhs + "?subject=Comment%20on%3A%20{{ page.title | uri_escape | trim }}");
+      a.text = lhs + "@" + rhs;
+      var es = d.getElementById("email-script");
+      es.parentNode.insertBefore(a, es);
+    })();
   </script>
 </p>
 
@@ -38,16 +40,15 @@
   <section id="isso-thread" data-title="{{ page.title }}">
   </section>
 </div>
-<div class="note-warning only-js">
-  <span class="extra">If you don't see the self-hosted <a href="https://posativ.org/isso/" target="_blank">Isso</a> commenting widget, it might be blocked by a browser extension.</span>
-</div>
 <noscript>
   <div class="note-warning">
     <strong>Enable JavaScript to see the email address or the public comments!</strong>
     <br>
     <span class="extra">
-      Commenting widget is powered by a self-hosted <a href="https://posativ.org/isso/" target="_blank">Isso</a>
-      commenting server. Read our <a href="{% link docs/privacy-policy.md %}">privacy policy</a>.
+      Commenting widget is powered by a self-hosted commenting server.
+      <span style="white-space: nowrap;">
+        Read the <a href="{% link docs/privacy-policy.md %}">privacy policy</a>.
+      </span>
     </span>
   </div>
 </noscript>

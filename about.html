@@ -44,15 +44,18 @@ has_full_title: true
 
   <!--sse-->
   <div class="content">
-    <script>
+    <script id="email-script">
       (function () {
         var lhs = "contact22+website";
         var rhs = "alexn.org";
-        document.write("<a target=\"_blank\" href=\"mailto");
-        document.write(":" + lhs + "@");
-        document.write(rhs);
-        document.write("\">" + lhs + "@" + rhs + "<\/a>");
-      })()
+        var d = document;
+        var a = d.createElement("a");
+        a.setAttribute("target", "_blank");
+        a.setAttribute("href", "mailto:" + lhs + "@" + rhs);
+        a.text = lhs + "@" + rhs;
+        var es = d.getElementById("email-script");
+        es.parentNode.insertBefore(a, es);
+      })();
     </script>
     <noscript>
       <em>Email address is protected via JavaScript, activate it to see it!</em>
