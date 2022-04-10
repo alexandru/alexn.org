@@ -1,5 +1,6 @@
 require "nokogiri"
 require "cgi"
+require "./_plugins/image_filters.rb"
 
 def to_absolute_url(site, url)
   if url =~ /^\//
@@ -111,7 +112,14 @@ module Jekyll
       doc.search(".hide-in-feed").remove
 
       doc.css("img").each do |elem|
-        elem["src"] = to_absolute_url(@@site, elem['src'])
+        if elem["src"] =~ /^\//
+          path = elem["src"]
+          elem["src"] = to_absolute_url(@@site, elem['src'])
+          size = MyImages.size_of(path)
+          elem["width"] = size[0]
+          elem["height"] = size[1]
+          elem["style"] = "max-width:100%;height:auto;"
+        end
       end
 
       doc.css("a").each do |elem|

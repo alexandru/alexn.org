@@ -9,7 +9,6 @@ tags:
 description:
   OOP versus Type Classes, exemplified and in defense of the Scala collections redesign.
 image: /assets/media/articles/scala-stairs.jpg
-image_caption: <a href="https://www.flickr.com/photos/gilles_dubochet/7327041044" target="_blank">Credits</a>
 generate_toc: true
 ---
 

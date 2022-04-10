@@ -1,12 +1,11 @@
 ---
 title: "How I Use Flickr: For Backup"
-last_modified_at: 2019-12-15
+last_modified_at: 2022-04-10 13:02:46 +03:00
 tags:
   - Cloud
   - API
   - Ruby
 image: /assets/media/articles/flickr.jpg
-image_caption: "<a href='https://flic.kr/p/qYPVGA' target='_blank'>Source</a>"
 description: >-
   I’ve got a growing number of personal pictures and the collection is growing since 2003 ... Pro accounts on Flickr have unlimited storage and can upload and access full-resolution pictures.
 ---

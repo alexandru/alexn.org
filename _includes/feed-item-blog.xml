@@ -9,7 +9,7 @@
       {% capture image_src %}{% if include.post.image %}{{ include.post.image }}{% else %}{{ include.post.youtube | youtube_thumb_link }}{% endif -%}{% endcapture -%}
       <figure>
         <a href="{{ include.post.url | absolute_url | rss_campaign_link: pk_campaign, 'image' }}">
-          <img src="{{ image_src | absolute_url }}?{{ 'now' | date: '%Y%m%d%H%M' }}" width="100%;" alt="" />
+          <img src="{{ image_src }}?{{ 'now' | date: '%Y%m%d%H%M' }}" alt="" />
         </a>
         {% if include.post.image_caption %}<figcaption>{{ include.post.image_caption }}</figcaption>{% endif %}
       </figure>
@@ -20,7 +20,7 @@
 {% endcapture -%}
 {% capture tracking_pixel %}{% if include.add_pixel %}
     {% capture tracker_url %}https://ly.alexn.org/m.php?idsite=1&rec=1&action_name={{ "RSS Feed" | url_encode }}&url={{ page.url | absolute_url | url_encode }}&pk_campaign={{ pk_campaign | url_encode }}&pk_kwd=open{% endcapture -%}
-    <img referrerpolicy="no-referrer-when-downgrade" src="{{ tracker_url }}" style="border:0" alt="" />
+    <img referrerpolicy="no-referrer-when-downgrade" src="{{ tracker_url }}" width="1" height="1" style="position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;" alt="" />
 {% endif -%}{% endcapture -%}
 {% capture item_content -%}
   {% if include.with_full_post %}
