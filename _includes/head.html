@@ -96,9 +96,7 @@
     <link rel="alternate" type="application/rss+xml" title="Wiki" href="{% link feeds/wiki.xml %}" />
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="{{ '/assets/css/style.css' | prepend: site.baseurl }}?{{ 'now' | date: '%Y%m%d%H%M' }}">
-    <link rel="preload" as="style" href="{{ '/assets/css/style.css' | prepend: site.baseurl }}?{{ 'now' | date: '%Y%m%d%H%M' }}">
-    
-    <!--[if IE 8]><link rel="stylesheet" href="{{ "/assets/css/ie.css" | prepend: site.baseurl }}"><![endif]-->
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | prepend: site.baseurl }}?{{ 'now' | date: '%Y%m%d%H%M' }}" media="all">
+    <!-- Points at alexn.org, taking care of the search-engine indexing of mirrors: -->
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
 </head>
