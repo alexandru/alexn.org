@@ -1,6 +1,6 @@
 ---
 title: "Scala OOFP Design Sample"
-last_modified_at: 2022-04-18 20:43:15 +03:00
+last_modified_at: 2022-04-18 20:44:43 +03:00
 tags:
   - FP
   - OOP
@@ -301,7 +301,8 @@ For me (*personal opinion warning!*), this version is pretty damn explicit about
 If we’d like to get fancy, we could work with a type that handles “dependency injection” and explicit errors, equivalent to Java’s “checked exceptions”:
 
 ```scala
-type ZIO[-Env, +Error, +Result] = Env => IO[Either[Error, Result]]
+type ZIO[-Env, +Error, +Result] = 
+  Env => IO[Either[Error, Result]]
 ```
 
 We could work with this, but we have to be careful because the JVM doesn’t do tail-calls optimizations (TCO), so this could be memory unsafe. Also, we need `Monad` and other type-classes and utilities defined for it, so if using Cats, we could work with:
@@ -313,7 +314,7 @@ type ZIO[Env, Error, Result] =
   Kleisli[[A] =>> EitherT[IO, Error, A], Env, Result]
 ```
 
-We are combining multiple [monad transformers](https://en.wikipedia.org/wiki/Monad_transformer), and so we have a *“monad transformers stack”*.
+We are combining multiple [monad transformers](https://en.wikipedia.org/wiki/Monad_transformer), and so we have a *“monad transformers stack”*. And to express this type, we are using [type lambdas](https://docs.scala-lang.org/scala3/reference/new-types/type-lambdas.html).
 
 NOTE:
 
