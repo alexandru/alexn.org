@@ -281,7 +281,10 @@ To be clear — **this isn’t good API design because `F[_]` is left unspecifie
 To be fair, we could restrict `F[_]` to the [cats.effect.Concurrent](https://typelevel.org/cats-effect/docs/typeclasses/concurrent) type-class, but at that point we might as well work with `IO` directly. And if we’d revert to the IO-driven API, we could have:
 
 ```scala
-def drain[A](logger: Logger, queue: DelayedQueue[A]): IO[Unit]
+def drain[A](
+  logger: Logger, 
+  queue: DelayedQueue[A]
+): IO[Unit]
 ```
 
 The big difference, in terms of “parametricity”, is that executing an `IO` could launch rockets to Mars for all we know, so we can’t really restrict the implementation of this function to depend entirely on its input. But this is Scala for you. On top of the JVM we can do anything, anywhere, anyway, relying somewhat on good practices and conventions for not triggering side effects, or using shared mutable state. And while using `F[_]` can make violations of parametricity harder, it doesn’t make it impossible, and those violations have the potential to be worse, since without `IO`, you definitely end up with unsuspended side effects.
@@ -291,7 +294,10 @@ There is also another difference ... implicit parameters mean that we are using 
 Nothing stops you from converting to implicit parameters, even without `F[_]`. I think people abuse implicit parameters, I prefered to reserve use of implicit parameters for type-class instances, but that battle was lost, as with tagless final these "algebras" aren't necessarily type-classes anyway:
 
 ```scala
-def drain[A](given logger: Logger, queue: DelayedQueue[A]): IO[Unit]
+def drain[A](using 
+  logger: Logger, 
+  queue: DelayedQueue[A]
+): IO[Unit]
 ```
 
 For me (*personal opinion warning!*), this version is pretty damn explicit about what it does, I don’t see much of a difference in my understanding of it, certainly not a difference that’s big enough to outweigh the cost of introducing higher-kinded types and type-classes. If you’ve been on any medium-sized project, a project that’s regularly looking for promising beginners, I’m pretty sure the concern did come up repeatedly – how in the world are beginners going to cope with learning the use of `F[_]` with type-classes and everything related? This on top of everything else, which can increase the barrier to entry significantly. And I think the experience of the job market varries based on the available talent.
