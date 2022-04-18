@@ -21,14 +21,14 @@
     <meta content="Scala is considered a multi-paradigm language, for better or worse, being one of the best OOP languages, which is why it’s so versatile. Let’s do a design exercise, going from OOP to static FP, and back. Let’s understand the various techniques promoted in the community, and understand why the OOP design isn’t just “idiomatic” for Scala, but can be superior to alternatives." property="og:description">
     <meta content="https://alexn.org/blog/2022/04/18/scala-oop-design-sample/" property="og:url">
     <meta content="2022-04-18T00:00:00+00:00" property="article:published_time">
-    <meta content="2022-04-18T16:04:31+00:00" property="article:modified_time">
+    <meta content="2022-04-18T16:14:23+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-04-oofp.png?202204181607" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-04-oofp.png?202204181607" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-04-oofp.png?202204181615" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-04-oofp.png?202204181615" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-04-oofp.png?202204181607">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-04-oofp.png?202204181615">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Scala OOFP Design Sample">
@@ -50,7 +50,7 @@
     <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="/assets/css/style.css?202204181607" media="all">
+    <link rel="stylesheet" href="/assets/css/style.css?202204181615" media="all">
     <!-- Points at alexn.org, taking care of the search-engine indexing of mirrors: -->
     <link rel="canonical" href="https://alexn.org/blog/2022/04/18/scala-oop-design-sample/">
 </head>
@@ -114,7 +114,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-04-oofp.png" />
-          <img src="/assets/media/articles/2022-04-oofp.png?202204181607" width="1400" height="787" alt="" />
+          <img src="/assets/media/articles/2022-04-oofp.png?202204181615" width="1400" height="787" alt="" />
           
         </figure>
         
@@ -346,7 +346,7 @@ Scala is considered a multi-paradigm language, for better or worse, being one of
 <figure class="video">
   
   <a href="https://www.youtube.com/watch?v=qgfCmQ-2tW0&amp;autoplay=1" target="_blank" class="youtube-play-link" title="Go to YouTube video">
-    <img src="https://img.youtube.com/vi/qgfCmQ-2tW0/maxresdefault.jpg?202204181607" alt="" class="play-thumb" width="1280" height="720" />
+    <img src="https://img.youtube.com/vi/qgfCmQ-2tW0/maxresdefault.jpg?202204181615" alt="" class="play-thumb" width="1280" height="720" />
   </a>
   <figcaption>
     <a href="https://www.youtube.com/watch?v=qgfCmQ-2tW0&amp;autoplay=1" target="_blank">
@@ -466,7 +466,7 @@ There are better places on the web that explain tagless final, and I’m likely 
 
 <p>In this example, we aren’t talking of any <code class="language-plaintext highlighter-rouge">F[_]</code> effect type. It’s ridiculous to think that we can use <code class="language-plaintext highlighter-rouge">Either</code> or <code class="language-plaintext highlighter-rouge">Option</code> here. If we use <code class="language-plaintext highlighter-rouge">Id</code>, we only use it for demonstrative purposes, with absolutely no value.</p>
 
-<p>We say <code class="language-plaintext highlighter-rouge">F[_]</code> in this API, but as its authors, we know that we are talking of a data type that encapsulates / suspends side effects, but without saying so. This is the opposite of parametricity, and in this context usage of this style is not good API design, unless you really, really want tagless final in your project, and thus rely on conventions (e.g. whenever you see <code class="language-plaintext highlighter-rouge">F[_]</code>, you see <code class="language-plaintext highlighter-rouge">IO</code>). The danger being that readers of this code might not get a good mental model of using this API’s protocol, and that’s bad.</p>
+<p>We say <code class="language-plaintext highlighter-rouge">F[_]</code> in this API, but as its authors, we know that we are talking of a data type that encapsulates / suspends side effects, but without saying so. This is the opposite of parametricity, and in this context usage of this style is not good API design, unless you really, really want tagless final in your project, and thus rely on conventions (e.g. whenever you see <code class="language-plaintext highlighter-rouge">F[_]</code>, you see <code class="language-plaintext highlighter-rouge">IO</code>). The danger being that readers of this code might not get a good mental model of using this API, because there’s information missing, and that’s bad.</p>
 
 <p>To be clear — <strong>this isn’t good API design because <code class="language-plaintext highlighter-rouge">F[_]</code> is left unspecified</strong>.</p>
 
@@ -673,7 +673,7 @@ There are better places on the web that explain tagless final, and I’m likely 
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2022-04-18T19:04:31+0300">
+    <time itemprop="dateModified" content="2022-04-18T19:14:23+0300">
         Updated: April 18, 2022
     </time>
     
@@ -792,12 +792,12 @@ There are better places on the web that explain tagless final, and I’m likely 
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202204181607" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202204181607" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202204181607" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202204181607" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202204181615" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202204181615" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202204181615" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202204181615" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202204181607" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202204181615" type="text/javascript"></script>
 
 
 <script type="text/javascript">
