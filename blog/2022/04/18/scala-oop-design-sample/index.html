@@ -21,14 +21,14 @@
     <meta content="Scala is considered a multi-paradigm language, for better or worse, being one of the best OOP languages, which is why it’s so versatile. Let’s do a design exercise, going from OOP to static FP, and back. Let’s understand the various techniques promoted in the community, and understand why the OOP design isn’t just “idiomatic” for Scala, but can be superior to alternatives." property="og:description">
     <meta content="https://alexn.org/blog/2022/04/18/scala-oop-design-sample/" property="og:url">
     <meta content="2022-04-18T00:00:00+00:00" property="article:published_time">
-    <meta content="2022-04-18T16:14:23+00:00" property="article:modified_time">
+    <meta content="2022-04-18T16:22:14+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-04-oofp.png?202204181615" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-04-oofp.png?202204181615" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-04-oofp.png?202204181623" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-04-oofp.png?202204181623" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-04-oofp.png?202204181615">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-04-oofp.png?202204181623">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Scala OOFP Design Sample">
@@ -50,7 +50,7 @@
     <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="/assets/css/style.css?202204181615" media="all">
+    <link rel="stylesheet" href="/assets/css/style.css?202204181623" media="all">
     <!-- Points at alexn.org, taking care of the search-engine indexing of mirrors: -->
     <link rel="canonical" href="https://alexn.org/blog/2022/04/18/scala-oop-design-sample/">
 </head>
@@ -114,7 +114,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-04-oofp.png" />
-          <img src="/assets/media/articles/2022-04-oofp.png?202204181615" width="1400" height="787" alt="" />
+          <img src="/assets/media/articles/2022-04-oofp.png?202204181623" width="1400" height="787" alt="" />
           
         </figure>
         
@@ -346,7 +346,7 @@ Scala is considered a multi-paradigm language, for better or worse, being one of
 <figure class="video">
   
   <a href="https://www.youtube.com/watch?v=qgfCmQ-2tW0&amp;autoplay=1" target="_blank" class="youtube-play-link" title="Go to YouTube video">
-    <img src="https://img.youtube.com/vi/qgfCmQ-2tW0/maxresdefault.jpg?202204181615" alt="" class="play-thumb" width="1280" height="720" />
+    <img src="https://img.youtube.com/vi/qgfCmQ-2tW0/maxresdefault.jpg?202204181623" alt="" class="play-thumb" width="1280" height="720" />
   </a>
   <figcaption>
     <a href="https://www.youtube.com/watch?v=qgfCmQ-2tW0&amp;autoplay=1" target="_blank">
@@ -470,7 +470,7 @@ There are better places on the web that explain tagless final, and I’m likely 
 
 <p>To be clear — <strong>this isn’t good API design because <code class="language-plaintext highlighter-rouge">F[_]</code> is left unspecified</strong>.</p>
 
-<p>To be fair, we could restrict <code class="language-plaintext highlighter-rouge">F[_]</code> to the <a href="https://typelevel.org/cats-effect/docs/typeclasses/concurrent">cats.effect.Concurrent</a> type class, but at that point we might as well work with <code class="language-plaintext highlighter-rouge">IO</code> directly. And if we’d revert to the IO-driven API, we could have:</p>
+<p>To be fair, we could restrict <code class="language-plaintext highlighter-rouge">F[_]</code> to the <a href="https://typelevel.org/cats-effect/docs/typeclasses/concurrent">cats.effect.Concurrent</a> type-class, but at that point we might as well work with <code class="language-plaintext highlighter-rouge">IO</code> directly. And if we’d revert to the IO-driven API, we could have:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">drain</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">logger</span><span class="k">:</span> <span class="kt">Logger</span><span class="o">,</span> <span class="n">queue</span><span class="k">:</span> <span class="kt">DelayedQueue</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span>
 </code></pre></div></div>
@@ -479,12 +479,12 @@ There are better places on the web that explain tagless final, and I’m likely 
 
 <p>There is also another difference … implicit parameters mean that we are using only one instance in the whole project. We have only one <code class="language-plaintext highlighter-rouge">Logger</code> instance, and only one <code class="language-plaintext highlighter-rouge">DelayedQueue[A]</code> instance. This is a best practice. As another example, instances of type-classes need to be unique, because type-classes need <em>coherence</em>, i.e. if you can’t rely on a single instance being available in the whole project, then the code can lead to bugs, due to function calls yielding different results for the same parameters, depending on the call-site.</p>
 
-<p>Nothing stops you from converting to implicit parameters, even without <code class="language-plaintext highlighter-rouge">F[_]</code>. I think people abuse implicit parameters, I prefered to reserve use of implicit parameters for type class instances, but that battle was lost, as in tagless final these “algebras” aren’t necessarily type-classes anyway:</p>
+<p>Nothing stops you from converting to implicit parameters, even without <code class="language-plaintext highlighter-rouge">F[_]</code>. I think people abuse implicit parameters, I prefered to reserve use of implicit parameters for type-class instances, but that battle was lost, as with tagless final these “algebras” aren’t necessarily type-classes anyway:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">drain</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">given</span> <span class="n">logger</span><span class="k">:</span> <span class="kt">Logger</span><span class="o">,</span> <span class="n">queue</span><span class="k">:</span> <span class="kt">DelayedQueue</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span>
 </code></pre></div></div>
 
-<p>For me (<em>personal opinion warning!</em>), this version is pretty damn explicit about what it does, I don’t see much of a difference in my understanding of it, certainly not a difference that’s big enough to outweigh the cost of introducing higher-kinded types and type classes. If you’ve been on any medium-sized project, a project that’s regularly looking for promising beginners, I’m pretty sure the concern did come up repeatedly – how in the world are beginners going to cope with learning all the use of tagless final and everything related? And I think the experience of the job market varries based on the available talent.</p>
+<p>For me (<em>personal opinion warning!</em>), this version is pretty damn explicit about what it does, I don’t see much of a difference in my understanding of it, certainly not a difference that’s big enough to outweigh the cost of introducing higher-kinded types and type-classes. If you’ve been on any medium-sized project, a project that’s regularly looking for promising beginners, I’m pretty sure the concern did come up repeatedly – how in the world are beginners going to cope with learning the use of tagless final and everything related? This on top of everything else, which can increase the barrier to entry significantly. And I think the experience of the job market varries based on the available talent.</p>
       <h2 id="monad-transformers-zio--are-useless-here">
         
         
@@ -499,7 +499,7 @@ There are better places on the web that explain tagless final, and I’m likely 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">type</span> <span class="kt">ZIO</span><span class="o">[</span><span class="kt">-Env</span>, <span class="kt">+Error</span>, <span class="kt">+Result</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Env</span> <span class="k">=&gt;</span> <span class="nc">IO</span><span class="o">[</span><span class="kt">Either</span><span class="o">[</span><span class="kt">Error</span>, <span class="kt">Result</span><span class="o">]]</span>
 </code></pre></div></div>
 
-<p>We could work with this, but we have to be careful because the JVM doesn’t do tail-calls optimizations (TCO), so this could be memory unsafe. Also, we need <code class="language-plaintext highlighter-rouge">Monad</code> and other type classes and utilities defined for it, so if using Cats, we could work with:</p>
+<p>We could work with this, but we have to be careful because the JVM doesn’t do tail-calls optimizations (TCO), so this could be memory unsafe. Also, we need <code class="language-plaintext highlighter-rouge">Monad</code> and other type-classes and utilities defined for it, so if using Cats, we could work with:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">cats.data.</span><span class="o">{</span><span class="nc">EitherT</span><span class="o">,</span> <span class="nc">Kleisli</span><span class="o">}</span>
 
@@ -663,9 +663,9 @@ There are better places on the web that explain tagless final, and I’m likely 
 
 <p>For library code, using an <code class="language-plaintext highlighter-rouge">F[_]</code> type parameter for the effect type might be better, as it allows people to come up with their monad transformers stack, or a different <code class="language-plaintext highlighter-rouge">IO</code> implementation. Such library code allows for a “tagless final” approach, like we’ve seen here, and I admit, people have some good reasons for liking it. However, this doesn’t come without cost, a cost that needs to be balanced by great documentation.</p>
 
-<p>Scala isn’t Haskell, and for me the <em>tagless final</em> approach (powered by implicit parameters / type classes, or even monad transformers), or ZIO, both proved to be anti-OOP. An “idiomatic” Scala style should use its OOP features for OOP polymorphism, as that’s the <em>“path of least resistance”</em>. And tagless final isn’t incompatible with this approach, but I fear that usage of <code class="language-plaintext highlighter-rouge">F[_]</code> or of advanced language features end up obscuring the APIs exposed — compared to just passing IO-driven OOP interfaces around, as simple parameters.</p>
+<p>Scala isn’t Haskell, and for me the <em>tagless final</em> approach (powered by implicit parameters / type-classes, or even monad transformers), or ZIO, both proved to be anti-OOP. An “idiomatic” Scala style should use its OOP features for OOP polymorphism, as that’s the <em>“path of least resistance”</em>. And tagless final isn’t incompatible with this approach, but I fear that usage of <code class="language-plaintext highlighter-rouge">F[_]</code> or of advanced language features end up obscuring the APIs exposed — compared to just passing IO-driven OOP interfaces around, as simple parameters.</p>
 
-<p>These techniques and advanced features have their place in our toolbox, for sure, and the stronger the types, the better, but nothing beats good taste, or design that focuses on ease of use and the user’s <a href="https://en.wikipedia.org/wiki/The_Design_of_Everyday_Things">mental model</a>, and such skills have less to do with static typing, or the application of math.</p>
+<p>These techniques and advanced features have their place in our toolbox, for sure, and the stronger the types, the better, but nothing beats good taste, or design that focuses on ease of use and the <a href="https://en.wikipedia.org/wiki/The_Design_of_Everyday_Things">user’s mental model</a>, and such skills have less to do with static typing, or the application of math.</p>
 
 <p>Designing good APIs requires empathy for the user of your API. Don’t get me wrong, when you inflict pain on your users, it’s better if that pain is strongly typed, but it would be much better to not inflict that pain at all.</p>
 
@@ -673,7 +673,7 @@ There are better places on the web that explain tagless final, and I’m likely 
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2022-04-18T19:14:23+0300">
+    <time itemprop="dateModified" content="2022-04-18T19:22:14+0300">
         Updated: April 18, 2022
     </time>
     
@@ -792,12 +792,12 @@ There are better places on the web that explain tagless final, and I’m likely 
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202204181615" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202204181615" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202204181615" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202204181615" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202204181623" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202204181623" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202204181623" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202204181623" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202204181615" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202204181623" type="text/javascript"></script>
 
 
 <script type="text/javascript">
