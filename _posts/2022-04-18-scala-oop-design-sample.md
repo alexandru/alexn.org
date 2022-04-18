@@ -1,6 +1,6 @@
 ---
 title: "Scala OOFP Design Sample"
-last_modified_at: 2022-04-18 20:44:43 +03:00
+last_modified_at: 2022-04-18 20:55:26 +03:00
 tags:
   - FP
   - OOP
@@ -359,10 +359,11 @@ This is the equivalent of *“parametricity”*, except it refers to encapsulati
 There is nothing about this `ZIO` data type that improves our API in any way, quite the contrary, what it brings to the table is only going to obscure what we’re trying to express, as now we are forced to fill in those type parameters with something:
 
 ```scala
-trait DelayedQueue[-Env, A]:
-  def offer(m: OfferedMessage[A]): RIO[Env, Nothing, OfferOutcome]
-  def tryPoll: RIO[Env, Nothing, Option[ReceivedMessage[F, A]]]
-  def discard(key: String): RIO[Env, Nothing, Unit]
+trait DelayedQueue[-Env, A] {
+  def offer(m: OfferedMessage[A]): ZIO[Env, Nothing, OfferOutcome]
+  def tryPoll: ZIO[Env, Nothing, Option[ReceivedMessage[F, A]]]
+  def discard(key: String): ZIO[Env, Nothing, Unit]
+}
 ```
 
 Note that `IO[A]` from Cats Effect is the equivalent of `ZIO[Any, Nothing, A]` (no, the explicit error type isn’t `Throwable`). So we have to parametrize the environment and ignore the error type. Or use both as parameters, but that’s just awful.
