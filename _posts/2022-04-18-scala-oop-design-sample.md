@@ -98,7 +98,7 @@ The interface does have flaws — for example, `tryPoll` is an operation that ha
 
 [Leaky abstractions](https://en.wikipedia.org/wiki/Leaky_abstraction) are common when designing abstract APIs. If you don’t have at least 2 very different implementations, the API isn’t really abstract. And in these abstract OOP interfaces, the constraints placed on parameter types lead to leaky abstractions. But let’s put this to the test…
 
-Let’s say we don’t want `A` type parameter on the interface, so we could have it per method. But having it per method requires introducing a constraint for serialization/deserialization. Let’s design the type-class:
+Let’s say we don’t want the `A` type parameter on the interface, so we could have it per method. But having it per method requires introducing a constraint for serialization/deserialization. Let’s design the type-class:
 
 ```scala
 import monix.newtypes.TypeInfo
