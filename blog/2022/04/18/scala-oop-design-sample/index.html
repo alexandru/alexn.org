@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <!-- https://github.com/darkreader/darkreader/issues/1114 -->
+    <!-- <meta name="darkreader" content="41637b04c7ddb955e533a5c76d68a2c8"> -->
+    <meta name="color-scheme" content="light dark">
+    <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
+    <meta name="theme-color" content="#493667">
+    
+    <title>Scala OOFP Design Sample - Alexandru Nedelcu</title>
+    
+
+    <!-- Open Graph Meta -->
+    <meta content="Alexandru Nedelcu" property="og:site_name">
+    <meta content="Scala OOFP Design Sample" property="og:title">
+    <meta content="Scala is considered a multi-paradigm language, for better or worse, being one of the best OOP languages, which is why it’s so versatile. Let’s do a design exercise, going from OOP to static FP, and back. Let’s understand the various techniques promoted in the community, and understand why the OOP design isn’t just “idiomatic” for Scala, but can be superior to alternatives." property="og:description">
+    <meta content="https://alexn.org/blog/2022/04/18/scala-oop-design-sample/" property="og:url">
+    <meta content="2022-04-18T00:00:00+00:00" property="article:published_time">
+    
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-04-oofp.png?202204181545" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-04-oofp.png?202204181545" />
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-04-oofp.png?202204181545">
+    <meta name="twitter:site" content="@alexelcu">
+    <meta name="twitter:creator" content="@alexelcu">
+    <meta name="twitter:title" content="Scala OOFP Design Sample">
+    <meta name="twitter:url" content="https://alexn.org/blog/2022/04/18/scala-oop-design-sample/">
+    <meta name="twitter:description" content="Scala is considered a multi-paradigm language, for better or worse, being one of the best OOP languages, which is why it’s so versatile. Let’s do a design exercise, going from OOP to static FP, and back. Let’s understand the various techniques promoted in the community, and understand why the OOP design isn’t just “idiomatic” for Scala, but can be superior to alternatives.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/logo/16px.png" sizes="16x16" />
+    <link rel="icon" href="/assets/logo/32px.png" sizes="32x32" />
+    <link rel="icon" href="/assets/logo/192px.png" sizes="192x192" />
+    <link rel="icon" href="/assets/logo/270px.png" sizes="270x270" />
+    <link rel="icon" href="/assets/logo/512px.png" sizes="512x512" />
+    <link rel="apple-touch-icon-precomposed" href="/assets/logo/180px.png" />
+    <meta name="msapplication-TileImage" content="/assets/logo/270px.png" />
+
+    <!-- Come and get me RSS readers -->
+    <link rel="alternate" type="application/rss+xml" title="All articles (blog + wiki)" href="/feeds/all.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Blog" href="/feeds/blog.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Wiki" href="/feeds/wiki.xml" />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/assets/css/style.css?202204181545" media="all">
+    <!-- Points at alexn.org, taking care of the search-engine indexing of mirrors: -->
+    <link rel="canonical" href="https://alexn.org/blog/2022/04/18/scala-oop-design-sample/">
+</head>
+
+
+<body>
+   <div class="header">
+  <div class="container">
+    <div class="inner-container">
+      <h1 class="logo"><a href="/">Alex<span class="wide2">andru</span> Nedelcu<span class="wide1"> =&lt;&lt;</span></a></h1>
+      <nav class="nav-collapse">
+        <ul class="noList">
+          
+          <li class="element first current ">
+            <a href="/blog/">Blog</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/wiki/">Wiki</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/about/">About</a>
+          </li>
+          
+          <li class="element   last">
+            <a href="/subscribe/">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav>  
+    </div>
+  </div>
+</div><!-- end .header -->
+
+
+   <div class="content">
+      <div class="container">
+         <article class="post" itemscope itemtype="http://schema.org/BlogPosting"><header>
+      <h1 class="postTitle" itemprop="headline">
+        
+        
+          
+      Scala OOFP Design Sample
+    
+        
+        
+      </h1>
+    
+    <p class="meta">
+      <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://alexn.org/blog/2022/04/18/scala-oop-design-sample/"/>
+      <meta itemprop="datePublished" content="2022-04-18T00:00:00+0000"/>
+      
+      <time itemprop="dateCreated" datetime="2022-04-18T00:00:00+0000">April 18, 2022</time>
+      | <span class="nobr"><span class="time">29</span> minutes</span>
+      
+      | <a href="/blog/2022/04/18/scala-oop-design-sample/#isso-thread" class="nobr">comments</a>
+      
+    </p>
+
+    
+        <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+          <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-04-oofp.png" />
+          <img src="/assets/media/articles/2022-04-oofp.png?202204181545" width="1400" height="787" alt="" />
+          
+        </figure>
+        
+    
+
+    <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Alexandru Nedelcu">
+      <meta itemprop="url" content="https://alexn.org/about/">
+      <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="https://alexn.org/assets/raw/logo-green.png">
+      </div>
+    </div>
+    <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="Alexandru Nedelcu" />
+        <meta itemprop="url" content="https://alexn.org/about/#alexelcu" />
+        <meta itemprop="url" content="https://twitter.com/alexelcu" />
+        <meta itemprop="url" content="https://github.com/alexandru" />
+      </div>
+    
+
+    
+    
+    
+    <nav class="toc">
+      <p class="toc-title">Table of Contents:</p>
+      <ul>
+  <li><a href="#the-design-problem">The design problem</a></li>
+  <li><a href="#classic-and-impure-oop-design">Classic and impure OOP design</a>
+    <ul>
+      <li><a href="#beware-constraints-can-be-implementation-leaks">Beware: constraints can be implementation leaks</a></li>
+    </ul>
+  </li>
+  <li><a href="#suspending-side-effects">Suspending side effects</a>
+    <ul>
+      <li><a href="#beware-io-in-our-api-is-a-constraint">Beware: IO in our API is a constraint!</a></li>
+    </ul>
+  </li>
+  <li><a href="#tagless-final">Tagless Final</a></li>
+  <li><a href="#monad-transformers-zio--are-useless-here">Monad Transformers, ZIO … are useless here</a></li>
+  <li><a href="#error-handling">Error Handling</a></li>
+  <li><a href="#epilogue">Epilogue</a></li>
+</ul>
+    </nav>
+    </header>
+
+  <div id="content" itemprop="articleBody">
+    <p class="intro withcap">
+Scala is considered a multi-paradigm language, for better or worse, being one of the best OOP languages, which is why it's so versatile. Let's do a design exercise, going from OOP to static FP, and back. Let's understand the various techniques promoted in the community, and understand why the OOP design isn't just “idiomatic” for Scala, but can be superior to alternatives.
+</p>
+      <h2 id="the-design-problem">
+        
+        
+          The design problem <a href="#the-design-problem" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p><strong>Design a <em>“queue of delayed messages.”</em></strong></p>
+
+<p>Should you choose to accept this challenge, the queue should be similar to using a message broker like IBM-MQ, or a Kafka topic, but with the ability to schedule messages to be <em>delivered at exact timestamps in the future</em>. It also has to support an acknowledgement mechanism, with messages becoming invisible when pulled from the queue, and if the acknowledgement doesn’t happen, then messages have to reappear on the queue after a timeout.</p>
+
+<p>As an underlying implementation, we could use a RDBMS database via JDBC — in our project (at $work) we use MS-SQL. But we could also have an in-memory implementation, which is actually super useful, and not just as a mock in tests. And we could migrate to a NoSQL database, such as MongoDB, or Redis, or maybe even Cassandra — anything that can do <a href="https://en.wikipedia.org/wiki/Compare-and-swap">atomic compare-and-swap operations</a> (on keys) should work.</p>
+
+<p>Using a real-world example can be boring, due to all the concerns involved, bear with me…</p>
+      <h2 id="classic-and-impure-oop-design">
+        
+        
+          Classic and impure OOP design <a href="#classic-and-impure-oop-design" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>In classic OOP (e.g. Java) we could work with an interface like this:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">java.util.UUID</span>
+<span class="k">import</span> <span class="nn">java.time.Instant</span>
+
+<span class="k">trait</span> <span class="nc">DelayedQueue</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{</span>
+  <span class="cm">/** Schedules new messages on the queue. */</span>
+  <span class="k">def</span> <span class="nf">offer</span><span class="o">(</span><span class="n">m</span><span class="k">:</span> <span class="kt">OfferedMessage</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">OfferOutcome</span><span class="o">]</span>
+  <span class="cm">/** Returns messages ready to be processed. */</span>
+  <span class="k">def</span> <span class="nf">tryPoll</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Option</span><span class="o">[</span><span class="kt">ReceivedMessage</span><span class="o">[</span><span class="kt">A</span><span class="o">]]]</span>
+  <span class="cm">/** Deletes messages from the queue. */</span>
+  <span class="k">def</span> <span class="nf">discard</span><span class="o">(</span><span class="n">key</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span>
+<span class="o">}</span>
+
+<span class="n">enum</span> <span class="nc">OfferOutcome</span> <span class="o">{</span> <span class="c1">// Scala 3's tagged unions</span>
+  <span class="k">case</span> <span class="nc">Created</span>
+  <span class="k">case</span> <span class="nc">Updated</span>
+  <span class="k">case</span> <span class="nc">Ignored</span>
+<span class="o">}</span>
+  
+<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">OfferedMessage</span><span class="o">[</span><span class="kt">+A</span><span class="o">](</span>
+  <span class="n">key</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span>
+  <span class="n">payload</span><span class="k">:</span> <span class="kt">A</span><span class="o">,</span>
+  <span class="n">scheduleAt</span><span class="k">:</span> <span class="kt">Instant</span><span class="o">,</span>
+  <span class="n">canUpdate</span><span class="k">:</span> <span class="kt">Boolean</span><span class="o">,</span>
+<span class="o">)</span>
+
+<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">ReceivedMessage</span><span class="o">[</span><span class="kt">+A</span><span class="o">](</span>
+  <span class="n">message</span><span class="k">:</span> <span class="kt">A</span><span class="o">,</span>
+  <span class="n">messageID</span><span class="k">:</span> <span class="kt">UUID</span><span class="o">,</span>
+  <span class="n">receivedAt</span><span class="k">:</span> <span class="kt">Instant</span><span class="o">,</span>
+  <span class="n">acknowledge</span><span class="k">:</span> <span class="o">()</span> <span class="o">=&gt;</span> <span class="nc">Future</span><span class="o">[</span><span class="kt">Unit</span><span class="o">],</span>
+<span class="o">)</span>
+</code></pre></div></div>
+
+<p>Using this API, to illustrate its usage for building consumers:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">scala.concurrent.ExecutionContext</span>
+
+<span class="k">def</span> <span class="nf">drain</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">queue</span><span class="k">:</span> <span class="kt">DelayedQueue</span><span class="o">[</span><span class="kt">A</span><span class="o">])(</span><span class="n">using</span> <span class="nc">ExecutionContext</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nv">queue</span><span class="o">.</span><span class="py">tryPoll</span><span class="o">.</span><span class="py">flatMap</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nc">None</span> <span class="k">=&gt;</span> <span class="nv">Future</span><span class="o">.</span><span class="py">unit</span>
+    <span class="k">case</span> <span class="nc">Some</span><span class="o">(</span><span class="n">msg</span><span class="o">)</span> <span class="k">=&gt;</span>
+      <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Received: ${msg.message}"</span><span class="o">)</span>
+      <span class="c1">// Acknowledge it, or it will reappear after a timeout;</span>
+      <span class="nv">msg</span><span class="o">.</span><span class="py">acknowledge</span><span class="o">()</span>
+        <span class="o">.</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nf">drain</span><span class="o">(</span><span class="n">queue</span><span class="o">))</span> <span class="c1">// process next</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+
+<p>There are many subtle design choices exposed by this API, which make it an acceptable one. Let’s enumerate …</p>
+
+<p>1) Given the OOP context, we should already have an intuition that <strong>this interface does I/O</strong>, because there aren’t many good reasons for why open-world OOP interfaces are needed, the primary reason being that we need to abstract away implementation details that involve I/O;</p>
+
+<p>2) We are using <code class="language-plaintext highlighter-rouge">Future</code>, so <strong>the I/O can be asynchronous</strong>. And <code class="language-plaintext highlighter-rouge">Future</code> can be completed with exceptions, so code should install generic exception handlers that do logging or whatever it is that you do with unexpected exceptions;</p>
+
+<p>3) Messages get persisted based on a <code class="language-plaintext highlighter-rouge">key: String</code>, because when scheduling messages in advance, we may want to also get rid of them in advance; this “delayed queue” could then be used to trigger timeout exceptions for asynchronous operations that fail to yield a result; it’s why we have a <code class="language-plaintext highlighter-rouge">discard(key)</code> operation, which may seem redundant with <code class="language-plaintext highlighter-rouge">acknowledge</code> from <code class="language-plaintext highlighter-rouge">ReceivedMessage</code>, but isn’t;</p>
+
+<p>4) The generic parameter in <code class="language-plaintext highlighter-rouge">DelayedQueue[A]</code> means <strong>we are forced to have a queue per message-type</strong>, which is a best practice, and avoids implementation leaks (more on that below);</p>
+
+<p>5) <strong>All actionable “error” conditions are expressed in the returned types</strong> — in the case of <code class="language-plaintext highlighter-rouge">tryPoll</code> via the returned <code class="language-plaintext highlighter-rouge">Option</code>, and in the case of <code class="language-plaintext highlighter-rouge">offer</code> via the <code class="language-plaintext highlighter-rouge">OfferOutcome</code> union type; they don’t seem like errors, because they are <em>“designed away”</em>; in this sample we don’t need <code class="language-plaintext highlighter-rouge">Either</code> or Java’s checked exceptions (more on that below);</p>
+
+<p>The interface does have flaws — for example, <code class="language-plaintext highlighter-rouge">tryPoll</code> is an operation that has to be repeated, in order to keep the channel open and ready to process messages. If we sleep between successive <code class="language-plaintext highlighter-rouge">tryPoll</code> operations, this might be an implementation detail as well. And it can be improved, but how we handle streaming isn’t the purpose of this article.</p>
+      <h3 id="beware-constraints-can-be-implementation-leaks">
+        
+        
+          Beware: constraints can be implementation leaks <a href="#beware-constraints-can-be-implementation-leaks" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p><a href="https://en.wikipedia.org/wiki/Leaky_abstraction">Leaky abstractions</a> are common when designing abstract APIs. If you don’t have at least 2 very different implementations, the API isn’t really abstract. And in these abstract OOP interfaces, the constraints placed on parameter types lead to leaky abstractions. But let’s put this to the test…</p>
+
+<p>Let’s say we don’t want <code class="language-plaintext highlighter-rouge">A</code> type parameter on the interface, so we could have it per method. But having it per method requires introducing a constraint for serialization/deserialization. Let’s design the type-class:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">monix.newtypes.TypeInfo</span>
+
+<span class="k">class</span> <span class="nc">ParsingException</span><span class="o">(</span><span class="n">message</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="n">message</span><span class="o">)</span>
+
+<span class="cm">/** 
+  * Type-class for serializing and deserializing to and from `String`. 
+  */</span>
+<span class="k">trait</span> <span class="nc">ValueCodec</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="nf">kind</span><span class="k">:</span> <span class="kt">TypeInfo</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span>
+  <span class="k">def</span> <span class="nf">serialize</span><span class="o">(</span><span class="n">a</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">String</span>
+  <span class="k">def</span> <span class="nf">deserialize</span><span class="o">(</span><span class="n">s</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Either</span><span class="o">[</span><span class="kt">ParsingException</span>, <span class="kt">A</span><span class="o">]</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Notes:</p>
+
+<ul>
+  <li><a href="https://newtypes.monix.io/api/monix/newtypes/TypeInfo.html">TypeInfo</a> is from <a href="https://github.com/monix/newtypes">monix-newtypes</a>, but you can replace it with a plain <code class="language-plaintext highlighter-rouge">String</code> — we are making the <em>name of the type</em> be part of the persisted key, otherwise we can end up with conflicts when reusing the same database table / queue for multiple data types;</li>
+  <li>Serialization should never return an error; but deserialization can end in error because we are losing information in the serialization process, thus we cannot force validations via the type system, and this error needs to be very explicitly modeled via the type system, as it’s not just an “exception”;</li>
+</ul>
+
+<p>Based on this codec, our interface could become:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">trait</span> <span class="nc">DelayedQueue</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="nf">offer</span><span class="o">[</span><span class="kt">A:</span> <span class="kt">ValueCodec</span><span class="o">](</span><span class="n">m</span><span class="k">:</span> <span class="kt">OfferedMessage</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">OfferOutcome</span><span class="o">]</span>
+  <span class="k">def</span> <span class="nf">tryPoll</span><span class="o">[</span><span class="kt">A:</span> <span class="kt">ValueCodec</span><span class="o">]</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Option</span><span class="o">[</span><span class="kt">ReceivedMessage</span><span class="o">[</span><span class="kt">A</span><span class="o">]]]</span>
+  <span class="k">def</span> <span class="nf">delete</span><span class="o">[</span><span class="kt">A:</span> <span class="kt">ValueCodec</span><span class="o">](</span><span class="n">key</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>You can see how this sucks:</p>
+
+<ul>
+  <li>We are encouraging the usage of a single queue for multiple message types;</li>
+  <li>The call-sites of those methods are awkward;</li>
+  <li><strong>Serialization method is an implementation leak;</strong></li>
+</ul>
+
+<p>Serializing the values to string makes no sense for an in-memory implementation. It’s also restrictive, as your database might support a binary serialization format that’s more efficient than string (e.g. protocol buffers).</p>
+
+<p>NOTE — our <code class="language-plaintext highlighter-rouge">ValueCodec</code> isn’t useless. We can still use it for our RDBMS implementation:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">final</span> <span class="k">class</span> <span class="nc">DelayedQueueJDBC</span><span class="o">[</span><span class="kt">A:</span> <span class="kt">ValueCodec</span><span class="o">]</span> <span class="nc">private</span> <span class="o">(</span>
+  <span class="n">connection</span><span class="k">:</span> <span class="kt">DataSource</span><span class="o">,</span>
+  <span class="c1">//...</span>
+<span class="o">)</span> <span class="k">extends</span> <span class="nc">DelayedQueue</span> <span class="o">{</span>
+  <span class="c1">//...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Notice how the constraint is now part of the class’s <em>constructor</em>, and by being a constructor parameter, it doesn’t have to be part of the abstract interface.</p>
+      <h2 id="suspending-side-effects">
+        
+        
+          Suspending side effects <a href="#suspending-side-effects" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>We can improve our interface by working with an <code class="language-plaintext highlighter-rouge">IO</code> datatype, such as that of <a href="https://typelevel.org/cats-effect/">Cats Effect</a>, replacing our usage of <code class="language-plaintext highlighter-rouge">Future</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">cats.effect.IO</span>
+
+<span class="k">trait</span> <span class="nc">DelayedQueue</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="nf">offer</span><span class="o">(</span><span class="n">m</span><span class="k">:</span> <span class="kt">OfferedMessage</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">OfferOutcome</span><span class="o">]</span>
+  <span class="k">def</span> <span class="nf">tryPoll</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Option</span><span class="o">[</span><span class="kt">ReceivedMessage</span><span class="o">[</span><span class="kt">A</span><span class="o">]]]</span>
+  <span class="k">def</span> <span class="nf">discard</span><span class="o">(</span><span class="n">key</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span>
+<span class="o">}</span>
+
+<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">ReceivedMessage</span><span class="o">[</span><span class="kt">+A</span><span class="o">](</span>
+  <span class="c1">//...</span>
+  <span class="n">acknowledge</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Unit</span><span class="o">],</span>
+<span class="o">)</span>
+</code></pre></div></div>
+
+<p>Our IO-driven API is definitely an improvement. Due to the usage of <code class="language-plaintext highlighter-rouge">IO</code>, it’s even more clear that we are modelling I/O operations with side effects involved. And the applications of these functions are <a href="https://en.wikipedia.org/wiki/Referential_transparency">referentially transparent</a>. We are now proudly making use of FP. For more details on how <code class="language-plaintext highlighter-rouge">IO</code> is better than <code class="language-plaintext highlighter-rouge">Future</code>, I recommend this presentation:</p>
+
+<figure class="video">
+  
+  <a href="https://www.youtube.com/watch?v=qgfCmQ-2tW0&amp;autoplay=1" target="_blank" class="youtube-play-link" title="Go to YouTube video">
+    <img src="https://img.youtube.com/vi/qgfCmQ-2tW0/maxresdefault.jpg?202204181545" alt="" class="play-thumb" width="1280" height="720" />
+  </a>
+  <figcaption>
+    <a href="https://www.youtube.com/watch?v=qgfCmQ-2tW0&amp;autoplay=1" target="_blank">
+      Video link
+      (open on YouTube.com)
+    </a>
+  </figcaption>
+</figure>
+
+<p>And, I would argue that usage of <code class="language-plaintext highlighter-rouge">IO</code> in this API can be the best you can do in Scala 😉</p>
+      <h3 id="beware-io-in-our-api-is-a-constraint">
+        
+        
+          Beware: IO in our API is a constraint! <a href="#beware-io-in-our-api-is-a-constraint" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>By specifying <code class="language-plaintext highlighter-rouge">IO</code> we mean that <em>“implementations are free to launch rockets to Mars.”</em> And that’s good in the OOP sense, as we allow for flexibility of implementation, while keeping the protocol abstract enough that we can understand what’s going on.</p>
+
+<p>Static FP proponents usually don’t like this (more details below), but I disagree.</p>
+      <h2 id="tagless-final">
+        
+        
+          Tagless Final <a href="#tagless-final" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p><code class="language-plaintext highlighter-rouge">IO</code> can become a type parameter:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">trait</span> <span class="nc">DelayedQueue</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]</span>, <span class="kt">A</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="nf">offer</span><span class="o">(</span><span class="n">m</span><span class="k">:</span> <span class="kt">OfferedMessage</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">OfferOutcome</span><span class="o">]</span>
+  <span class="k">def</span> <span class="nf">tryPoll</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">Option</span><span class="o">[</span><span class="kt">ReceivedMessage</span><span class="o">[</span><span class="kt">F</span>, <span class="kt">A</span><span class="o">]]]</span>
+  <span class="k">def</span> <span class="nf">discard</span><span class="o">(</span><span class="n">key</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span>
+<span class="o">}</span>
+
+<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">ReceivedMessage</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]</span>, <span class="kt">+A</span><span class="o">](</span>
+  <span class="c1">//...</span>
+  <span class="n">acknowledge</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">Unit</span><span class="o">],</span>
+<span class="o">)</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">F[_]</code> is a placeholder for what we call <em>“an effect”</em>. An effect in the context of FP isn’t a side effect — think of “effects” as anything other than returning the result of a computation.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Option</code> and <code class="language-plaintext highlighter-rouge">Either</code> are modeling effects too. NOT side effects, but the main effects. In the English language, an effect is something that has a cause, and in our programming language we model causality via <code class="language-plaintext highlighter-rouge">flatMap</code>. So, as an incomplete and wrong intuition, effects in Scala are modeled via monadic data-types (types that implement a lawful <code class="language-plaintext highlighter-rouge">flatMap</code> and constructor pair, aka <code class="language-plaintext highlighter-rouge">Monad</code>).</p>
+
+<p>By making <code class="language-plaintext highlighter-rouge">DelayedQueue</code> work with any <code class="language-plaintext highlighter-rouge">F[_]</code>:</p>
+
+<ol>
+  <li>we could use alternative <code class="language-plaintext highlighter-rouge">IO</code> data type implementations;</li>
+  <li>we could use monad stacks, e.g. <code class="language-plaintext highlighter-rouge">EitherT[IO, *]</code>;</li>
+  <li>we could use <a href="https://typelevel.org/cats/datatypes/id.html">cats.Id</a> for really simple and pure tests;</li>
+</ol>
+
+<p>And <em>“tagless final”</em> is a technique that’s equivalent to usage of OOP interfaces, except that the interfaces we get are parametrized by <code class="language-plaintext highlighter-rouge">F[_]</code>, aka the “effect type”.</p>
+
+<p class="info-bubble">
+There are better places on the web that explain tagless final, and I’m likely doing a bad job. For those wanting to learn more about <em>tagless final</em> and its correspondence to object algebras, I recommend <a href="https://www.cs.utexas.edu/~wcook/projects/oa/oa.pdf">“Extensibility for the Masses: Practical Extensibility with Object Algebras”</a> and <a href="https://oleksandrmanzyuk.wordpress.com/2014/06/18/from-object-algebras-to-finally-tagless-interpreters-2/">“From Object Algebras to Finally Tagless Interpreters”</a>.
+</p>
+
+<p>In “tagless final” we define capabilities via OOP-like interfaces (also called “algebras”):</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">trait</span> <span class="nc">Logger</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="nf">info</span><span class="o">(</span><span class="n">message</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Then to model our consumer, we can combine multiple algebras:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">cats.Monad</span>
+<span class="k">import</span> <span class="nn">cats.syntax.all._</span>
+
+<span class="k">def</span> <span class="nf">drain</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]</span>, <span class="kt">A</span><span class="o">](</span><span class="n">using</span> <span class="c1">// Scala 3's `implicit`</span>
+  <span class="nc">Monad</span><span class="o">[</span><span class="kt">F</span><span class="o">],</span> 
+  <span class="nc">Logger</span><span class="o">[</span><span class="kt">F</span><span class="o">],</span> 
+  <span class="nc">DelayedQueue</span><span class="o">[</span><span class="kt">F</span>, <span class="kt">A</span><span class="o">]</span>
+<span class="o">)</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span>
+  <span class="n">summon</span><span class="o">[</span><span class="kt">DelayedQueue</span><span class="o">[</span><span class="kt">F</span>, <span class="kt">A</span><span class="o">]].</span><span class="py">tryPoll</span><span class="o">.</span><span class="py">flatMap</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nc">None</span> <span class="k">=&gt;</span> 
+      <span class="nc">Applicative</span><span class="o">[</span><span class="kt">F</span><span class="o">].</span><span class="py">unit</span>
+    <span class="k">case</span> <span class="nc">Some</span><span class="o">(</span><span class="n">msg</span><span class="o">)</span> <span class="k">=&gt;</span>
+      <span class="n">summon</span><span class="o">[</span><span class="kt">Logger</span><span class="o">[</span><span class="kt">F</span><span class="o">]].</span><span class="py">info</span><span class="o">(</span><span class="n">s</span><span class="s">"Received: ${msg.message}"</span><span class="o">)</span>
+        <span class="o">.</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nv">msg</span><span class="o">.</span><span class="py">acknowledge</span><span class="o">)</span> <span class="c1">// deletes the message</span>
+        <span class="o">.</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">drain</span><span class="o">[</span><span class="kt">F</span>, <span class="kt">A</span><span class="o">])</span> <span class="c1">// next please</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+
+<p>Let’s ignore the implementation and zoom in on this function’s signature:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">drain</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]</span>, <span class="kt">A</span><span class="o">](</span><span class="n">using</span> 
+  <span class="nc">Monad</span><span class="o">[</span><span class="kt">F</span><span class="o">],</span> 
+  <span class="nc">Logger</span><span class="o">[</span><span class="kt">F</span><span class="o">],</span> 
+  <span class="nc">DelayedQueue</span><span class="o">[</span><span class="kt">F</span>, <span class="kt">A</span><span class="o">]</span>
+<span class="o">)</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span>
+</code></pre></div></div>
+
+<p>We are saying that we want <code class="language-plaintext highlighter-rouge">F[_]</code> to implement:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Monad</code>: which means a sequencing/chaining of steps is involved, via <code class="language-plaintext highlighter-rouge">flatMap</code>;</li>
+  <li><code class="language-plaintext highlighter-rouge">Logger</code>: which means we want to log something;</li>
+  <li><code class="language-plaintext highlighter-rouge">DelayedQueue</code>: our queuing capability;</li>
+</ul>
+
+<p>This is what’s called <em><a href="https://en.wikipedia.org/wiki/Parametricity">“parametricity”</a></em> in static FP circles: by looking at the function’s signature, we have a pretty good idea of what it does, because the function is so generic that it’s hard for it to do anything else.</p>
+
+<p>And yet there’s something amiss for any seasoned OOP architect — let’s zoom back on the API:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">trait</span> <span class="nc">DelayedQueue</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]</span>, <span class="kt">A</span><span class="o">]</span><span class="nc">:</span>
+  <span class="k">def</span> <span class="nf">offer</span><span class="o">(</span><span class="n">m</span><span class="k">:</span> <span class="kt">OfferedMessage</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">OfferOutcome</span><span class="o">]</span>
+  <span class="k">def</span> <span class="nf">tryPoll</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">Option</span><span class="o">[</span><span class="kt">ReceivedMessage</span><span class="o">[</span><span class="kt">F</span>, <span class="kt">A</span><span class="o">]]]</span>
+  <span class="k">def</span> <span class="nf">discard</span><span class="o">(</span><span class="n">key</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span>
+</code></pre></div></div>
+
+<p>In this example, we aren’t talking of any <code class="language-plaintext highlighter-rouge">F[_]</code> effect type. It’s ridiculous to think that we can use <code class="language-plaintext highlighter-rouge">Either</code> or <code class="language-plaintext highlighter-rouge">Option</code> here. If we use <code class="language-plaintext highlighter-rouge">Id</code>, we only use it for demonstrative purposes, with absolutely no value.</p>
+
+<p>We say <code class="language-plaintext highlighter-rouge">F[_]</code> in this API, but as its authors, we know that we are talking of a data type that encapsulates / suspends side effects, but without saying so. This is the opposite of parametricity, and in this context usage of this style is not good API design, unless you really, really want tagless final in your project, and thus rely on conventions (e.g. whenever you see <code class="language-plaintext highlighter-rouge">F[_]</code>, you see <code class="language-plaintext highlighter-rouge">IO</code>). The danger being that readers of this code might not get a good mental model of using this API’s protocol, and that’s bad.</p>
+
+<p>To be clear — <strong>this isn’t good API design because <code class="language-plaintext highlighter-rouge">F[_]</code> is left unspecified</strong>.</p>
+
+<p>To be fair, we could restrict <code class="language-plaintext highlighter-rouge">F[_]</code> to the <a href="https://typelevel.org/cats-effect/docs/typeclasses/concurrent">cats.effect.Concurrent</a> type class, but at that point we might as well work with <code class="language-plaintext highlighter-rouge">IO</code> directly. And if we’d revert to the IO-driven API, we could have:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">drain</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">logger</span><span class="k">:</span> <span class="kt">Logger</span><span class="o">,</span> <span class="n">queue</span><span class="k">:</span> <span class="kt">DelayedQueue</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span>
+</code></pre></div></div>
+
+<p>The big difference, in terms of “parametricity”, is that executing an <code class="language-plaintext highlighter-rouge">IO</code> could launch rockets to Mars for all we know, so we can’t really restrict the implementation of this function to depend entirely on its input. But this is Scala for you. On top of the JVM we can do anything, anywhere, anyway, relying somewhat on good practices and conventions for not triggering side effects, or using shared mutable state. And while using <code class="language-plaintext highlighter-rouge">F[_]</code> can make violations of parametricity harder, it doesn’t make it impossible, and those violations have the potential to be worse, since without <code class="language-plaintext highlighter-rouge">IO</code>, you definitely end up with unsuspended side effects.</p>
+
+<p>There is also another difference … implicit parameters mean that we are using only one instance in the whole project. We have only one <code class="language-plaintext highlighter-rouge">Logger</code> instance, and only one <code class="language-plaintext highlighter-rouge">DelayedQueue[A]</code> instance. This is a best practice. As another example, instances of type-classes need to be unique, because type-classes need <em>coherence</em>, i.e. if you can’t rely on a single instance being available in the whole project, then the code can lead to bugs, due to function calls yielding different results for the same parameters, depending on the call-site.</p>
+
+<p>Nothing stops you from converting to implicit parameters, even without <code class="language-plaintext highlighter-rouge">F[_]</code>. I think people abuse implicit parameters, I prefered to reserve use of implicit parameters for type class instances, but that battle was lost, as in tagless final these “algebras” aren’t necessarily type-classes anyway:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">drain</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">given</span> <span class="n">logger</span><span class="k">:</span> <span class="kt">Logger</span><span class="o">,</span> <span class="n">queue</span><span class="k">:</span> <span class="kt">DelayedQueue</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span>
+</code></pre></div></div>
+
+<p>For me (<em>personal opinion warning!</em>), this version is pretty damn explicit about what it does, I don’t see much of a difference in my understanding of it, certainly not a difference that’s big enough to outweigh the cost of introducing higher-kinded types and type classes. If you’ve been on any medium-sized project, a project that’s regularly looking for promising beginners, I’m pretty sure the concern did come up repeatedly – how in the world are beginners going to cope with learning all the use of tagless final and everything related? And I think the experience of the job market varries based on the available talent.</p>
+      <h2 id="monad-transformers-zio--are-useless-here">
+        
+        
+          Monad Transformers, ZIO … are useless here <a href="#monad-transformers-zio--are-useless-here" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>If we’d like to get fancy, we could work with a type that handles “dependency injection” and explicit errors, equivalent to Java’s “checked exceptions”:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">type</span> <span class="kt">ZIO</span><span class="o">[</span><span class="kt">-Env</span>, <span class="kt">+Error</span>, <span class="kt">+Result</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Env</span> <span class="k">=&gt;</span> <span class="nc">IO</span><span class="o">[</span><span class="kt">Either</span><span class="o">[</span><span class="kt">Error</span>, <span class="kt">Result</span><span class="o">]]</span>
+</code></pre></div></div>
+
+<p>We could work with this, but we have to be careful because the JVM doesn’t do tail-calls optimizations (TCO), so this could be memory unsafe. Also, we need <code class="language-plaintext highlighter-rouge">Monad</code> and other type classes and utilities defined for it, so if using Cats, we could work with:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">cats.data.</span><span class="o">{</span><span class="nc">EitherT</span><span class="o">,</span> <span class="nc">Kleisli</span><span class="o">}</span>
+
+<span class="k">type</span> <span class="kt">ZIO</span><span class="o">[</span><span class="kt">-Env</span>, <span class="kt">+Error</span>, <span class="kt">+Result</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Kleisli</span><span class="o">[</span><span class="kt">IO</span>, <span class="kt">Env</span>, <span class="kt">EitherT</span><span class="o">[</span><span class="kt">IO</span>, <span class="kt">Error</span>, <span class="kt">Result</span><span class="o">]]</span>
+</code></pre></div></div>
+
+<p>We are combining multiple <a href="https://en.wikipedia.org/wiki/Monad_transformer">monad transformers</a>, and so we have a <em>“monad transformers stack”</em>.</p>
+
+<p>NOTE:</p>
+
+<ul>
+  <li>the <code class="language-plaintext highlighter-rouge">Env</code> is the “environment”, which specifies what’s needed for the execution of the operation — for example, we might need a JDBC <code class="language-plaintext highlighter-rouge">DataSource</code> or a <code class="language-plaintext highlighter-rouge">Logger</code>;</li>
+  <li>the <code class="language-plaintext highlighter-rouge">Error</code> type parameter is for signaling errors that must be handled;</li>
+</ul>
+
+<p>This type is equivalent to <a href="https://zio.dev/version-1.x/datatypes/core/zio">ZIO[R, E, A]</a>. A data-type like <code class="language-plaintext highlighter-rouge">ZIO</code> is nicer if you use it everywhere, however I prefer the monad transformers from <a href="https://typelevel.org/cats/">Cats</a>, because they are more composable, and we only pay this price where needed … which in my case is almost never.</p>
+
+<p>Can we have:</p>
+
+<ol>
+  <li>An explicit environment that makes sense in an abstract API?</li>
+  <li>An explicit error type that signals currently unspecified error conditions?</li>
+</ol>
+
+<p>The answer is NO and NO, because in both cases we are talking of <a href="https://en.wikipedia.org/wiki/Leaky_abstraction">implementation leaks</a>. It doesn’t prevent us from trying, though:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">trait</span> <span class="nc">DelayedQueue</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span><span class="nc">:</span>
+  <span class="k">def</span> <span class="nf">offer</span><span class="o">(</span><span class="n">m</span><span class="k">:</span> <span class="kt">OfferedMessage</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">ZIO</span><span class="o">[</span><span class="kt">DataSource</span>, <span class="kt">SQLException</span>, <span class="kt">OfferOutcome</span><span class="o">]</span>
+  <span class="k">def</span> <span class="nf">tryPoll</span><span class="k">:</span> <span class="kt">ZIO</span><span class="o">[</span><span class="kt">DataSource</span>, <span class="kt">SQLException</span>, <span class="kt">Option</span><span class="o">[</span><span class="kt">ReceivedMessage</span><span class="o">[</span><span class="kt">F</span>, <span class="kt">A</span><span class="o">]]]</span>
+  <span class="k">def</span> <span class="nf">discard</span><span class="o">(</span><span class="n">key</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">ZIO</span><span class="o">[</span><span class="kt">DataSource</span>, <span class="kt">SQLException</span>, <span class="kt">Unit</span><span class="o">]</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">DataSource</code> or <code class="language-plaintext highlighter-rouge">SQLException</code> are only relevant for the JDBC-powered implementation, otherwise they are implementation leaks.</p>
+
+<p>For one, I’m always amazed by the people’s struggle to introduce dependency injection in their project, given we have OOP encapsulation and OOP constructors. Haskell’s monad transformer stacks have always felt off, and it isn’t just Scala’s more limited type inference. Haskell is just not very good at encapsulation, as it’s not a very good OOP language, most features and most of its culture conspiring against OOP-like encapsulation. In Scala, if you have dependencies that you’d like to avoid as explicit parameters, the first strategy is to give them as parameters in a class constructor that’s only called once, then pass that object around around. Anything else feels like a hack in Scala, IMO, even if constructor-based dependency injection has its drawbacks.</p>
+
+<p>As for errors, one can argue that <code class="language-plaintext highlighter-rouge">SQLException</code> is important, and not declaring it in the output type is simply an unspecified error condition. But I’d argue that if it is important, then your API and your application’s design is probably screwed (with exceptions).</p>
+
+<p>I’m repeating myself — we have no important error type that wasn’t already captured in the return types of our API:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Option</code> is an effect type that signals <code class="language-plaintext highlighter-rouge">None</code> in case there are no messages available; in which case you can stop, or you can retry later;</li>
+  <li><code class="language-plaintext highlighter-rouge">OfferOutcome</code> is a union data type that tells us if our offering has succeeded or not, taking into account other concurrent offerings;
+    <ul>
+      <li>But in most cases, it doesn’t matter what this result even is, because after this call is executed, we know for a fact that there is a message scheduled with its corresponding key; so the result itself could be ignored;</li>
+    </ul>
+  </li>
+</ul>
+
+<p>In this context the usage of <code class="language-plaintext highlighter-rouge">ZIO</code>, to enhance the return types, would violate an important OOP principle:</p>
+
+<blockquote>
+  <p><em>“Program to an interface, not to an implementation.”</em></p>
+</blockquote>
+
+<p>This is the equivalent of <em>“parametricity”</em>, except it refers to encapsulating implementation details, and use flexible interfaces in your logic. Abstraction, as a general concept, is not just about observing groups of data types that can be operated in the same way. Abstraction is also about ignoring the non-essential, which is what OOP’s encapsulation and subtype polymorphism are doing.</p>
+
+<p>There is nothing about this <code class="language-plaintext highlighter-rouge">ZIO</code> data type that improves our API in any way, quite the contrary, what it brings to the table is only going to obscure what we’re trying to express, as now we are forced to fill in those type parameters with something:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">trait</span> <span class="nc">DelayedQueue</span><span class="o">[</span><span class="kt">-Env</span>, <span class="kt">A</span><span class="o">]</span><span class="nc">:</span>
+  <span class="k">def</span> <span class="nf">offer</span><span class="o">(</span><span class="n">m</span><span class="k">:</span> <span class="kt">OfferedMessage</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">RIO</span><span class="o">[</span><span class="kt">Env</span>, <span class="kt">Nothing</span>, <span class="kt">OfferOutcome</span><span class="o">]</span>
+  <span class="k">def</span> <span class="nf">tryPoll</span><span class="k">:</span> <span class="kt">RIO</span><span class="o">[</span><span class="kt">Env</span>, <span class="kt">Nothing</span>, <span class="kt">Option</span><span class="o">[</span><span class="kt">ReceivedMessage</span><span class="o">[</span><span class="kt">F</span>, <span class="kt">A</span><span class="o">]]]</span>
+  <span class="k">def</span> <span class="nf">discard</span><span class="o">(</span><span class="n">key</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">RIO</span><span class="o">[</span><span class="kt">Env</span>, <span class="kt">Nothing</span>, <span class="kt">Unit</span><span class="o">]</span>
+</code></pre></div></div>
+
+<p>Note that <code class="language-plaintext highlighter-rouge">IO[A]</code> from Cats Effect is the equivalent of <code class="language-plaintext highlighter-rouge">ZIO[Any, Nothing, A]</code> (no, the explicit error type isn’t <code class="language-plaintext highlighter-rouge">Throwable</code>). So we have to parametrize the environment and ignore the error type. Or use both as parameters, but that’s just awful.</p>
+      <h2 id="error-handling">
+        
+        
+          Error Handling <a href="#error-handling" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>As said multiple times, the important error conditions are already baked into the API. But that’s not entirely accurate — what we did was to design them away. Remember this good principle of software design:</p>
+
+<blockquote>
+  <p><em>“Design the errors out of existence.”</em></p>
+</blockquote>
+
+<p>An <em>“error”</em>, in the English language, means a mistake, an action which is inaccurate or incorrect. This can happen in our programming due to:</p>
+
+<ol>
+  <li>incomplete or incorrect input;</li>
+  <li>runtime conditions that are outside of our program’s control;</li>
+  <li>bugs;</li>
+</ol>
+
+<p>Our programs mostly care about the happy path, but we have to treat errors too. <em>“Designing errors out of existence”</em> means that, if you care about an error, then it shouldn’t be an error. This means:</p>
+
+<ol>
+  <li>Model an output data type that expresses the “error” in a way that is hard to ignore — e.g. the result of a parsing function is either the parsed result, or some message that needs to be displayed; but this only works for input errors of functions whose result we depend on (i.e. we have a <em>data dependency</em>), otherwise …</li>
+  <li>Make the errors impossible, such that the caller of your API no longer has the responsibility of dealing with those errors;</li>
+</ol>
+
+<p><strong>Question</strong> — what can you do with an <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html">SQLException</a>?</p>
+
+<p><strong>Answer: mostly nothing!</strong> The right place to treat an <code class="language-plaintext highlighter-rouge">SQLException</code> is in the encapsulated implementation of your API. The lower-level it is, the better. Once you stream that to the client, it’s already too late to do anything about it.</p>
+
+<p>Both Cats’ <a href="https://typelevel.org/cats/datatypes/eithert.html">EitherT</a> and <a href="https://zio.dev/version-1.x/datatypes/core/zio">ZIO</a> exist in order to make errors hard to ignore in instances in which they’d be easy to ignore:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">offer</span><span class="o">(</span><span class="n">m</span><span class="k">:</span> <span class="kt">OfferedMessage</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Either</span><span class="o">[</span><span class="kt">SQLException</span>, <span class="kt">OfferOutcome</span><span class="o">]]</span>
+</code></pre></div></div>
+
+<p>In this case that <code class="language-plaintext highlighter-rouge">SQLException</code> can be easy to ignore, as we may not care about the <code class="language-plaintext highlighter-rouge">OfferOutcome</code>, so you can easily end up with this:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">for</span> <span class="o">{</span>
+  <span class="k">_</span> <span class="k">&lt;-</span> <span class="nv">queue</span><span class="o">.</span><span class="py">offer</span><span class="o">(</span><span class="n">message</span><span class="o">)</span> <span class="c1">// oops!</span>
+  <span class="k">_</span> <span class="k">&lt;-</span> <span class="nf">log</span><span class="o">(</span><span class="s">"done"</span><span class="o">)</span>
+<span class="o">}</span> <span class="nf">yield</span> <span class="o">()</span>
+</code></pre></div></div>
+
+<p>As a band-aid you can make it more difficult to ignore such exceptions by usage of monad transformers, or related data types. The purpose here being to make that <code class="language-plaintext highlighter-rouge">flatMap</code> less forgiving:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// cats.EitherT</span>
+<span class="k">def</span> <span class="nf">offer</span><span class="o">(</span><span class="n">m</span><span class="k">:</span> <span class="kt">OfferedMessage</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">EitherT</span><span class="o">[</span><span class="kt">IO</span>, <span class="kt">SQLException</span>, <span class="kt">OfferOutcome</span><span class="o">]</span>
+<span class="c1">// ZIO</span>
+<span class="k">def</span> <span class="nf">offer</span><span class="o">(</span><span class="n">m</span><span class="k">:</span> <span class="kt">OfferedMessage</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">ZIO</span><span class="o">[</span><span class="kt">Any</span>, <span class="kt">SQLException</span>, <span class="kt">OfferOutcome</span><span class="o">]</span>
+</code></pre></div></div>
+
+<p>Except this is bad software design. Not only is <code class="language-plaintext highlighter-rouge">SQLException</code> an implementation leak, the bigger problem is that there are only 2 courses of action:</p>
+
+<ol>
+  <li>you can shrug and re-throw it like any other <code class="language-plaintext highlighter-rouge">Throwable</code>, such that the process can log it and do whatever it does for unknown exceptions;</li>
+  <li>you can retry the operation — and here’s the rub — a retry is best left as an implementation detail, because the retry logic depends on the resource type;</li>
+</ol>
+
+<p>And to make matters worse, it’s really hard to parse an <code class="language-plaintext highlighter-rouge">SQLException</code>. Anyone that has ever done it knows that these exceptions aren’t standard at all, and sometimes we end up parsing its <code class="language-plaintext highlighter-rouge">message</code> in order to ascertain whether the transaction can be retried, or not. And there are multiple policies possible:</p>
+
+<ul>
+  <li>in case a concurrent update happened, with the transaction failing, it’s often best for the retry to happen immediately, although it depends on the contention, and it’s good to keep in mind that RDBMS databases don’t do well with many concurrent updates hitting the same table;</li>
+  <li>in case the connection is down, or in case of timeouts, using an <a href="https://en.wikipedia.org/wiki/Exponential_backoff">exponential backoff</a> strategy might be wise;</li>
+  <li>in case of an SQL syntax error, no retry is possible, of course, so you need to bail out as fast as possible;</li>
+</ul>
+
+<p>Note that we probably have to parse <code class="language-plaintext highlighter-rouge">SQLException</code> in our implementation, in order to return a usable <code class="language-plaintext highlighter-rouge">OfferOutcome</code>. As an API author, if you take the time to parse <code class="language-plaintext highlighter-rouge">SQLException</code> such that you can discriminate between such cases, then why not take care of the retry logic yourself? Designing errors out of existence, in this case, means that the user of the API shouldn’t care.</p>
+
+<p>If you’re designing a light-weight API that just wraps JDBC, by all means, expose <code class="language-plaintext highlighter-rouge">SQLException</code>, although I’ll be eternally grateful for any JDBC wrapper that avoids exposing <code class="language-plaintext highlighter-rouge">SQLException</code> and gives me something more usable, because it is goddamn awful.</p>
+      <h2 id="epilogue">
+        
+        
+          Epilogue <a href="#epilogue" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>In application code, in a Scala project, I’d argue that nothing beats the clarity and flexibility of interfaces like this:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">cats.effect.IO</span>
+
+<span class="k">trait</span> <span class="nc">DelayedQueue</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="nf">offer</span><span class="o">(</span><span class="n">m</span><span class="k">:</span> <span class="kt">OfferedMessage</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">OfferOutcome</span><span class="o">]</span>
+  
+  <span class="k">def</span> <span class="nf">tryPoll</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Option</span><span class="o">[</span><span class="kt">ReceivedMessage</span><span class="o">[</span><span class="kt">A</span><span class="o">]]]</span>
+  
+  <span class="k">def</span> <span class="nf">discard</span><span class="o">(</span><span class="n">key</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>For library code, using an <code class="language-plaintext highlighter-rouge">F[_]</code> type parameter for the effect type might be better, as it allows people to come up with their monad transformers stack, or a different <code class="language-plaintext highlighter-rouge">IO</code> implementation. Such library code allows for a “tagless final” approach, like we’ve seen here, and I admit, people have some good reasons for liking it. However, this doesn’t come without cost, a cost that needs to be balanced by great documentation.</p>
+
+<p>Scala isn’t Haskell, and for me the <em>tagless final</em> approach (powered by implicit parameters / type classes, or even monad transformers), or ZIO, both proved to be anti-OOP. An “idiomatic” Scala style should use its OOP features for OOP polymorphism, as that’s the <em>“path of least resistance”</em>. And tagless final isn’t incompatible with this approach, but I fear that usage of <code class="language-plaintext highlighter-rouge">F[_]</code> or of advanced language features end up obscuring the APIs exposed — compared to just passing IO-driven OOP interfaces around, as simple parameters.</p>
+
+<p>These techniques and advanced features have their place in our toolbox, for sure, and the stronger the types, the better, but nothing beats good taste, or design that focuses on ease of use and the user’s <a href="https://en.wikipedia.org/wiki/The_Design_of_Everyday_Things">mental model</a>, and such skills have less to do with static typing, or the application of math.</p>
+
+<p>Designing good APIs requires empathy for the user of your API. Don’t get me wrong, when you inflict pain on your users, it’s better if that pain is strongly typed, but it would be much better to not inflict that pain at all.</p>
+
+  </div>
+
+  <div id="article-details">
+    
+    <time itemprop="dateModified" content="2022-04-18T00:00:00+0000">
+        Published: April 18, 2022
+    </time>
+    
+      | Written by <a href="https://alexn.org/about/#alexelcu" itemprop="url" rel="author">Alexandru Nedelcu</a>
+    
+
+    <div id="all-categories">
+      Tags:
+      
+        
+        <a href="/blog/tag/fp/" class="category">FP</a>
+      
+         | 
+        <a href="/blog/tag/oop/" class="category">OOP</a>
+      
+         | 
+        <a href="/blog/tag/scala/" class="category">Scala</a>
+      
+    </div>
+  </div>
+
+  
+  <div class="related">
+      <h2 id="related-articles">
+        
+        
+          Related Articles <a href="#related-articles" class="anchor">#</a>
+        
+        
+      </h2>
+    
+    <div class="container">
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2021/01/20/tagless-final-vs-oop/">
+          Snippet: Tagless Final vs OOP
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/oop" class="tag">OOP</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/snippet" class="tag">Snippet</a>
+                        
+          </div>
+          <time>January 20, 2021</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2018/02/12/in-defense-oofp/">
+          In Defense of OOFP
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/best%20of" class="tag">Best Of</a>
+            
+               | <a href="/blog/tag/oop" class="tag">OOP</a>
+            
+               | <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/haskell" class="tag">Haskell</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+                        
+          </div>
+          <time>February 12, 2018</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2021/03/30/tolerance/">
+          Tolerance
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/oop" class="tag">OOP</a>
+            
+               | <a href="/blog/tag/personal" class="tag">Personal</a>
+            
+               | <a href="/blog/tag/programming" class="tag">Programming</a>
+                        
+          </div>
+          <time>March 30, 2021</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  
+
+  
+</article>
+
+      </div>
+   </div><!-- end .content -->
+
+   <script async src="/assets/js/modernizr.custom.15390.js?202204181545" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202204181545" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202204181545" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202204181545" type="text/javascript"></script>
+
+<script async src="/assets/js/scripts.js?202204181545" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+  (function () {
+    var h = "hostname" in document.location && document.location.hostname || "";
+    if (h != "" && h.indexOf("alexn.org") == -1) {
+      return
+    }
+    var p = (function () {
+      var query = window.location.search.substring(1);
+      var vars = query.split('&');
+      var p = {};
+      for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        p[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+      }
+      return p;
+    })();
+
+    var now = new Date();
+    var url = "https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=Scala+OOFP+Design+Sample&url=https%3A%2F%2Falexn.org%2Fblog%2F2022%2F04%2F18%2Fscala-oop-design-sample%2F" + 
+      "&rand=" + encodeURIComponent(Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)) +
+      "&h=" + now.getHours() +
+      "&m=" + now.getMinutes() +
+      "&s=" + now.getSeconds();
+
+    if ("pk_campaign" in p)
+      url += "&_rcn=" + encodeURIComponent(p["pk_campaign"]);
+    if ("pk_kwd" in p)
+      url += "&_rck=" + encodeURIComponent(p["pk_kwd"]);
+    if ("referrer" in document && document.referrer) 
+      url += "&urlref=" + encodeURIComponent(document.referrer);
+    if ("screen" in window) 
+      url += "&res=" + screen.width + "x" + screen.height;
+
+    var d=document, i=d.createElement("img"),s0=d.getElementsByTagName("script"),s=s0[s0.length-1];
+    i.setAttribute("alt", "");
+    i.setAttribute("referrerpolicy", "no-referrer-when-downgrade");
+    i.setAttribute("src", url);
+    i.setAttribute("width", "1");
+    i.setAttribute("height", "1");
+    i.setAttribute("style", "position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;");
+    s.parentNode.insertBefore(i,s);
+  })();
+</script>
+<noscript>
+  <img referrerpolicy="no-referrer-when-downgrade" src="https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=Scala+OOFP+Design+Sample&url=https%3A%2F%2Falexn.org%2Fblog%2F2022%2F04%2F18%2Fscala-oop-design-sample%2F" width="1" height="1" style="position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;" alt="" />
+</noscript>
+
+   <div class="footer">
+  
+  <div class="container">
+    <div class="contributions">
+      <div id="footer-comments-widget">
+  <h2 id="comments">
+  Comments
+  <a href="#comments" class="anchor">#</a>
+</h2>
+
+<p class="only-js">
+  Want to chat in private? Email me: 
+  <script id="email-script">
+    (function () {
+      var lhs = "contact22+comments";
+      var rhs = "alexn.org";
+      var d = document;
+      var a = d.createElement("a");
+      a.setAttribute("target", "_blank");
+      a.setAttribute("href", "mailto:" + lhs + "@" + rhs + "?subject=Comment%20on%3A%20Scala%20OOFP%20Design%20Sample");
+      a.text = lhs + "@" + rhs;
+      var es = d.getElementById("email-script");
+      es.parentNode.insertBefore(a, es);
+    })();
+  </script>
+</p>
+
+
+<div id="comments">
+  <script data-isso="https://alexn.org/comments/alexn/"
+          data-isso-css="false"
+          data-isso-lang="en"
+          data-isso-reply-to-self="true"
+          data-isso-require-author="true"
+          data-isso-require-email="false"
+          data-isso-reply-notifications="true"
+          data-isso-max-comments-top="10"
+          data-isso-max-comments-nested="5"
+          data-isso-reveal-on-click="5"
+          data-isso-gravatar="true"
+          data-isso-avatar="false"
+          data-isso-vote="false"
+          data-vote-levels=""
+          src="https://alexn.org/comments/alexn/js/embed.min.js"></script>
+  <section id="isso-thread" data-title="Scala OOFP Design Sample">
+  </section>
+</div>
+<noscript>
+  <div class="note-warning">
+    <strong>Enable JavaScript to see the email address or the public comments!</strong>
+    <br>
+    <span class="extra">
+      Commenting widget is powered by a self-hosted commenting server.
+      <span style="white-space: nowrap;">
+        Read the <a href="/docs/privacy-policy/">privacy policy</a>.
+      </span>
+    </span>
+  </div>
+</noscript>
+
+</div>
+
+<h2 id="contribute">
+  Contribute
+  <a href="#contribute" class="anchor">#</a>
+</h2>
+
+<p>
+  Fix or add to this article by submitting a pull request:<br/>
+  <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/main/_posts/2022-04-18-scala-oop-design-sample.md" target="_blank">Edit Page on GitHub</a>
+</p>
+
+<p>
+  Donate to cover ongoing website costs, or buy me coffee ☕️😋 <br/>
+  <a href="https://www.patreon.com/bePatron?u=6102596" target="_blank" class="patreon-button">
+    <img label="Become a Patron!" alt="Become a Patron!" title="Become a Patron!" src="/assets/media/buttons/patreon.png" />
+  </a>
+</p>
+
+
+<h2 id="subscribe">
+  Subscribe
+  <a href="#subscribe" class="anchor">#</a>
+</h2>
+
+<!-- Begin Mailchimp Signup Form -->
+<div id="mc_embed_signup">
+  <form action="https://alexn.us4.list-manage.com/subscribe/post?u=5bffa2af025192a58345bd5dc&amp;id=1c9005b255"
+    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
+    novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="mc-field-group field">
+        <label for="mce-EMAIL">Email Address <sup class="asterisk">*</sup></label>
+        <input type="email" value="" name="EMAIL" class="required email full-width" id="mce-EMAIL" placeholder="user@domain.com" required>
+      </div>
+      <!-- <div class="mc-field-group field">
+        <label for="mce-FULLNAME">Name</label>
+        <input type="text" value="" name="FULLNAME" class="full-width" id="mce-FULLNAME" placeholder="John Doe">
+      </div> -->
+      <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+      </div>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+          name="b_5bffa2af025192a58345bd5dc_1c9005b255" tabindex="-1" value=""></div>
+      <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+          class="button"></div>
+    </div>
+  </form>
+</div>
+
+<div class="note-warning">
+  <span class="extra">
+    Newsletter subscription uses Mailchimp, see <a href="/docs/privacy-policy/">privacy policy</a>.
+    If you're not seeing the form, it may be blocked by the browser; <a target="_blank" href="http://eepurl.com/g5ClAT"><em><span style="white-space: nowrap;">try the external subscribe page &#10141;</span></em></a>
+  </span>
+</div>
+
+
+    </div>  
+  </div>
+  
+
+  <div class="bottom">
+    <div class="container">
+      <span class="copy">
+          &copy; 2009-2022
+      </span>
+      <span class="links">
+        <a href="/docs/license/">License</a> |
+        <a href="/docs/privacy-policy/">Privacy Policy</a> |
+        <a href="/about/#contact">Contact</a>
+      </span>
+    </div>
+  </div>
+</div><!-- end .footer -->
+
+</body>
+</html>
