@@ -5,9 +5,10 @@ description:
 tags:
   - Best Of
   - FP
-  - Typelevel
-  - Scala
   - Haskell
+  - OOP
+  - Scala
+  - Typelevel
 image: /assets/media/articles/bio.png
 generate_toc: true
 ---
