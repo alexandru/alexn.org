@@ -8,7 +8,7 @@ tags:
   - Politics
 generate_toc: true
 is_noise: true
-last_modified_at: 2022-04-30 02:06:12 +03:00
+last_modified_at: 2022-04-30 15:55:59 +03:00
 ---
 
 <p class="intro withcap">
@@ -40,6 +40,14 @@ From the liberal point of view, it's not hard to see why faith in institutions i
 I'm a child of communism, I'm an Eastern European. And even after the Soviets invaded us, forcing us to be part of the Warsaw Pact, we've always looked towards the West, dreaming that one day we'll adopt the Western values. It pains me to see the most sacred of all Western values, freedom of speech, being sacrificed on the progressive altar in order to *"save democracy"*. When former US president, Barack Obama, asks social networks to apply censorship, what he fails to mention is that democracy is on a decline, not because of fake news, or of hate speech, but rather because state institutions have been completely incompetent in the last decade or so, driving people to seek an alternative authority. And now US progressives are making a plea to Big Tech for more censorship because the state is inconvenienced by that pesky First Amendment. As I write this, the US is even creating a *"Ministry of Truth"* for policing wrongthink on the Internet.
 
 Big Tech is US-based, plus whatever liberties the US nullifies, the rest of the Western world follows. And if people want to save democracy via censorship, I'm afraid we won't be left with a democracy that's worth saving.
+
+## What speech?
+
+*"Free speech"* isn't *"unrestricted"* speech. This is usually a straw man argument.
+
+Even US's law has [anti-defamation](https://en.wikipedia.org/wiki/Defamation) laws (which don't help to protect the victims of Internet mobs), and incitement to violence isn't allowed, although incitement to violence can be abused too, and personally I don't think that shouting "Fire!" in a crowded theater should be punishable by law — but that's not what I'd like to talk about.
+
+In this article, I'm using US's First Amendment as a case study only, comparing it with Europe, and also making an argument that many people would like censorship that goes above and beyond the law. I'm also making a case that, as soon as you criminalize *"hate speech"*, then free speech no longer exist, and that democracy and secularism cannot survive without it.
 
 ## Words
 
@@ -183,6 +191,8 @@ Progressives, nowadays, hide behind legislation. Private property, freedom of as
 
 For serious blasphemies, the offender's employer gets contacted, and thus the offender can lose their job. Death threats happen online too, with "TERFs" being regular targets. Sometimes it's just polite disagreement, but the effect gets amplified exponentially due to the many people engaging in the conversation. There are background effects, too — the offender's colleagues could reach the conclusion that the offender is associated with certain groups, such as the alt-right, and they may not get fired, but there are many ways to punish your colleagues, like denying them a promotion via bad reviews.
 
+Note that [anti-defamation](https://en.wikipedia.org/wiki/Defamation) laws don't help. Do you think you'd have the resources to sue hundreds of participants in a mob, many of which are overseas? And this is assuming that actual defamation happened, because usually the claims being made are just opinions. You can't sue someone for having opinions. Or, do you think you can delete resources off the internet? Good luck with that.
+
 People can be hurt more by public humiliation, than they are by losing part of their fortune, or by corporal punishment.
 
 <figure>
@@ -270,7 +280,7 @@ But we need to zoom out a little. These are manifestations of the counterculture
 
 In fairness, see this talk: [ADL International Leadership Award Presented to Sacha Baron Cohen](https://www.youtube.com/watch?v=ymaWq5yZIYM){:target="_blank"} — which presents these pro-censorship arguments well, with Sacha Baron Cohen being a talented actor and individual, delivering a powerful speech. But while watching it, keep asking yourself "*Who decides?*", which should be enough to invalidate whatever he proposes.
 
-IMO his views are a disappointment, but explaining why requires a lot of effort, like all nonsense, as you can see.
+IMO his views are a disappointment, but explaining why requires a lot of effort, like all nonsense, as you can see — e.g. no, social media isn't a newspaper, social media is the Internet.
 
 ## Progressive nonsense
 
