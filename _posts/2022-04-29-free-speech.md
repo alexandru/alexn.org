@@ -7,7 +7,7 @@ tags:
   - Opinion
   - Politics
 generate_toc: true
-last_modified_at: 2022-05-01 10:28:20 +03:00
+last_modified_at: 2022-05-01 10:49:04 +03:00
 ---
 
 <p class="intro withcap">
@@ -271,9 +271,9 @@ Controlling people's thoughts via censorship is the opposite of democracy, and t
 
 **Our society is increasingly polarized, which makes consensus in society harder to achieve.**
 
-But polarization doesn't happen due to fake news, or conspiracies. Polarization happens when governments of the world deploy coercive measures to combat the pandemic, with the privileged applauding because they can afford to work from home, and when inflation hits, it doesn't hit them. Polarization happens when natural gas extraction, in the name of climate change, is in fact outsourced to Russia, fueling its war machine, or when energy prices soar. It happens when people are shamed out of their jobs for wrongthink. Polarization happens when stories, such as the lab-leak theory, get censored, but then resurface in the mainstream media. Polarization happens when doomsday preppers continually predict the world ending, since many decades ago, forcing for ineffective policies that make life harder, and yet the world is still here, doing just fine. It happens when the state takes more and more rights away from parents. Or when the cost of living goes up for whatever reason.
+But polarization doesn't happen due to fake news, or conspiracies. As examples ... polarization happens when governments of the world deploy coercive measures to combat the pandemic, with the privileged applauding because they can afford to work from home, and when inflation hits, it doesn't hit them. It happens when natural gas extraction, in the name of climate change, is in fact outsourced to Russia, fueling its war machine, or when energy prices soar. It happens when people are shamed out of their jobs for wrongthink, as an ever-increasing trend. Polarization happens when stories, such as the lab-leak theory, get censored, but then resurface in the mainstream media. Polarization happens when doomsday preppers continually predict the world ending, since many decades ago, forcing for ineffective policies that make life harder, and yet the world is still here, doing just fine. It happens when the state takes more and more rights away from parents. Or when the cost of living goes up for whatever reason.
 
-Whenever things go bad in society, the left blames it on the rich and on capitalism, while the right is blaming foreigners, immigrants and socialism. It doesn't matter what a government chooses to censor, as it's not treating the underlying cause for the social unrest.
+Whenever things go bad in society, the left blames it on the rich, inequality, and capitalism, while the right is blaming other countries, immigrants and socialism. It doesn't matter what a government chooses to censor, as it's not treating the underlying cause for the social unrest.
 
 Before blaming fake news for polarization, maybe we should look in the mirror first, because in our quest to "save the world", we've been contributing.
 
