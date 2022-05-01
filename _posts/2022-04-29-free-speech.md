@@ -7,8 +7,7 @@ tags:
   - Opinion
   - Politics
 generate_toc: true
-is_noise: true
-last_modified_at: 2022-05-01 10:22:50 +03:00
+last_modified_at: 2022-05-01 10:28:20 +03:00
 ---
 
 <p class="intro withcap">
