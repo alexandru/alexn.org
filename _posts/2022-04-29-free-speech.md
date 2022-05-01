@@ -8,7 +8,7 @@ tags:
   - Politics
 generate_toc: true
 is_noise: true
-last_modified_at: 2022-05-01 09:53:29 +03:00
+last_modified_at: 2022-05-01 10:22:50 +03:00
 ---
 
 <p class="intro withcap">
@@ -29,9 +29,9 @@ By writing this, I know that I won't change minds, not immediately anyway. And I
 
 By "rights", we mean freedoms that humans are born with and that the state protects. Conservatives are fond of saying that access to public healthcare, for example, is only a privilege, and it can never be a "right", because in order to have access to healthcare, someone else has to give it to you, either by free labor or taxes. You can also argue that protections for rights, like free speech, also costs money. After all, you need a functional justice system paid out of taxes. But a justice system is the state's primary justification for existence, and without the freedoms that people are naturally born with, society is just another tyranny, with people wishing for a regression to city states or anarchy. The state exists primarily to protect the natural rights that free men are born with, with freedom of speech being one of those rights, and perhaps the most important right of them all. 
 
-**In Western democracies, one of our shared values is *individualism*.** This means that the rights of the individual are placed over those of the community. If you don't protect the individual, you can't protect minorities, and your so-called democracy is just a tyranny of the majority. It is only the liberal values that keep our democracies from devolving into tyrannies. And free speech is usually baked in the country's constitution. Given that the modern state has a monopoly on violence, free speech is the right of the individual to speak his/her mind without fearing retaliation from the state.
+**In Western democracies, one of our shared values is *individualism*.** This means that the rights of the individual are placed over those of the community. If you don't protect the individual, you can't protect minorities, and your so-called democracy is just a tyranny of the majority. It is only the liberal values that keep our democracies from devolving into tyrannies. Given that the modern state has a monopoly on violence, free speech is the right of the individual to speak his/her mind without fearing retaliation from the state.
 
-Compared to 20<sup>th</sup> century, nowadays, the public square moved from multiple physical locations to the Internet, to social media networks that would become an oligopoly, affecting freedom of speech. We should also take into account that back then, information moved more slowly and was more filtered by mass-media, giving people more time to digest it. So I won't deny that we are faced with unique challenges.
+Compared to 19<sup>th</sup> and 20<sup>th</sup> century, nowadays, the public square moved from multiple physical locations to the Internet, to social media networks that would become an oligopoly, affecting freedom of speech. We should also take into account that back then, information moved more slowly and was more filtered by mass-media, giving people more time to digest it. So I won't deny that we are faced with unique challenges.
 
 **Nowadays, the Internet is changing everything.** Just like the invention of the printing press, the Internet may lead to more educated people, to more democratic societies, but in the meantime **we are looking at years of political unrest** unfolding before our eyes. Every major protest you've seen, from "Occupy Wall Street" from 2011, to "Black Lives Matter" from 2020, or the 2021 storming of the US Capitol, is a protest of the counterculture fighting the establishment, and these protests are happening due to people losing faith in institutions, in liberal values, in modernity.
 
@@ -305,6 +305,18 @@ Twitter/Facebook should provide the tools to keep communities and people safe, i
 Reddit had the right approach, communities being silos in which you participated only if you wanted to. But unfortunately they too started a massive banning campaign, having banned thousands of communities after updating their content policies to forbid content that [promotes hate based on identity or vulnerability](https://www.reddithelp.com/hc/en-us/articles/360045715951). And don't get me wrong, some communities were abhorrent, which makes a principled stand for freedom of speech hard to swallow, but we can also say that Reddit no longer is what it used to be, which for me makes it much less appealing.
 
 I recommend ["Free Speech: Because We Can"](http://www.aaronsw.com/weblog/becausewecan) ([archive](https://web.archive.org/web/20211201195320/http://www.aaronsw.com/weblog/becausewecan)) by the late Aaron Swartz.
+
+### 6) Democracy needs a shared notion of truth
+
+Here we're seriously getting into the metaphysical weeds 😅
+
+*Absolute truth* exists, however, as humans, we are often incapable of finding it due our limited resources or understanding of the universe.
+
+Democracy does not depend on finding truth. What we need is to live with each other, as neighbors, colleagues, or countrymen. Therefore, we need agreement, but not agreement on what is true, but rather agreement on what we can live with.
+
+Democracy is a political system and a process that manages the eternal conflict between equality and freedom. Absolute freedom leads to inequality, whereas absolute equality leads to servitude. In other words, democracy is a process that acknowledges that people have their own personal truths, values, needs, and desires, being meant to create a *compromise* in society, such that the needs of everyone is taken into account ... and here we must also mention the liberal values, which prevents democracy from devolving into a tyranny of the majority. Democracy is a process for *compromise*.
+
+If you believe that we need a shared notion of truth, then censorship becomes attractive, in spite of this idea being not even wrong. If you believe that democracy is a process for compromise, such that we can leave with each other, it's becoming clear that censorship may be the last thing we want.
 
 ---
 
