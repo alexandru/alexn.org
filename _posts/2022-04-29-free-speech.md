@@ -8,7 +8,7 @@ tags:
   - Politics
 generate_toc: true
 is_noise: true
-last_modified_at: 2022-04-30 15:55:59 +03:00
+last_modified_at: 2022-05-01 09:53:29 +03:00
 ---
 
 <p class="intro withcap">
@@ -31,23 +31,25 @@ By "rights", we mean freedoms that humans are born with and that the state prote
 
 **In Western democracies, one of our shared values is *individualism*.** This means that the rights of the individual are placed over those of the community. If you don't protect the individual, you can't protect minorities, and your so-called democracy is just a tyranny of the majority. It is only the liberal values that keep our democracies from devolving into tyrannies. And free speech is usually baked in the country's constitution. Given that the modern state has a monopoly on violence, free speech is the right of the individual to speak his/her mind without fearing retaliation from the state.
 
-The most famous constitution protecting free speech is the US' First Amendment. Unfortunately, it hasn't crossed the minds of the "Founding Fathers" that the public square would move from multiple physical spaces to the Internet, to social media networks that would become an oligopoly, affecting freedom of speech. We should also take into account that back then, information moved slowly from town to town, giving people time to digest it. So I won't deny that we are faced with unique challenges.
+Compared to 20<sup>th</sup> century, nowadays, the public square moved from multiple physical locations to the Internet, to social media networks that would become an oligopoly, affecting freedom of speech. We should also take into account that back then, information moved more slowly and was more filtered by mass-media, giving people more time to digest it. So I won't deny that we are faced with unique challenges.
 
 **Nowadays, the Internet is changing everything.** Just like the invention of the printing press, the Internet may lead to more educated people, to more democratic societies, but in the meantime **we are looking at years of political unrest** unfolding before our eyes. Every major protest you've seen, from "Occupy Wall Street" from 2011, to "Black Lives Matter" from 2020, or the 2021 storming of the US Capitol, is a protest of the counterculture fighting the establishment, and these protests are happening due to people losing faith in institutions, in liberal values, in modernity.
 
 From the liberal point of view, it's not hard to see why faith in institutions is dropping ... for instance, in recent years **the governments of the world have adopted the tools of autocracy, of dictatorships**, for dealing with the crises that we are facing, and I can only point at how we've dealt with the pandemic — indefinite lockdowns, bad medical advice in the beginning (e.g. masks don't work, but force children to wear masks anyway), censorship of the lab-leak theory, loss of privacy, indirect discrimination against the poor, inflation due to relief funds (aka printing money), or weaponizing the financial system in order to squash dissent. I can also point to how we've dealt with global warming, which led to the closing of nuclear power plants, externalizing energy production to Russia and fueling the war machine of a 21<sup>st</sup> century dictator, which is now killing innocents, while energy prices have been soaring, leading to more inflation and a serious drop in well-being. It's no wonder that the far-right has been on the rise in the Western world, and it's only a matter of time before radicals such as Marine Le Pen are in charge.
 
-I'm a child of communism, I'm an Eastern European. And even after the Soviets invaded us, forcing us to be part of the Warsaw Pact, we've always looked towards the West, dreaming that one day we'll adopt the Western values. It pains me to see the most sacred of all Western values, freedom of speech, being sacrificed on the progressive altar in order to *"save democracy"*. When former US president, Barack Obama, asks social networks to apply censorship, what he fails to mention is that democracy is on a decline, not because of fake news, or of hate speech, but rather because state institutions have been completely incompetent in the last decade or so, driving people to seek an alternative authority. And now US progressives are making a plea to Big Tech for more censorship because the state is inconvenienced by that pesky First Amendment. As I write this, the US is even creating a *"Ministry of Truth"* for policing wrongthink on the Internet.
+I'm a child of communism, I'm an Eastern European. And even after the Soviets invaded us, forcing us to be part of the Warsaw Pact, we've always looked towards the West, dreaming that one day we'll adopt the Western values. It pains me to see the most sacred of all Western values, freedom of speech, being sacrificed on the progressive altar in order to *"save democracy"*. When politicians ask social networks to apply censorship, what they fail to mention is that democracy is on a decline, not because of fake news, or of hate speech, but rather because state institutions have been completely incompetent in the last decade or so, driving people to seek an alternative authority. And now we have progressives making a plea to Big Tech for more censorship because the state is inconvenienced by that pesky law.
 
-Big Tech is US-based, plus whatever liberties the US nullifies, the rest of the Western world follows. And if people want to save democracy via censorship, I'm afraid we won't be left with a democracy that's worth saving.
+If people want to save democracy via censorship, I'm afraid we won't be left with a democracy that's worth saving.
 
-## What speech?
+## Unrestricted speech?
 
 *"Free speech"* isn't *"unrestricted"* speech. This is usually a straw man argument.
 
-Even US's law has [anti-defamation](https://en.wikipedia.org/wiki/Defamation) laws (which don't help to protect the victims of Internet mobs), and incitement to violence isn't allowed, although incitement to violence can be abused too, and personally I don't think that shouting "Fire!" in a crowded theater should be punishable by law — but that's not what I'd like to talk about.
+[Anti-defamation](https://en.wikipedia.org/wiki/Defamation) laws exist. For example in the US, incitement to violence isn't allowed, although incitement to violence can be abused too, and personally I don't think that shouting "Fire!" in a crowded theater should be punishable by law, but that's not what I'd like to talk about.
 
-In this article, I'm using US's First Amendment as a case study only, comparing it with Europe, and also making an argument that many people would like censorship that goes above and beyond the law. I'm also making a case that, as soon as you criminalize *"hate speech"*, then free speech no longer exist, and that democracy and secularism cannot survive without it.
+The difference between many European countries and the US, is that in Europe, *"hate speech"* is not protected speech. And this is where I have a problem, which is made worse by Big Tech companies going above and beyond the law in applying censorship and banning people for wrongthink. 
+
+I believe that as governments and social media networks are rushing to criminalize or censor *"hate speech"*, *"fake news"* or what have you, then free speech is dying, and democracy and secularism cannot survive without it.
 
 ## Words
 
@@ -155,6 +157,10 @@ Do we have any data at all showing some causality between hate speech and violen
 
 I'm genuinely curious, at least if we have data, we can make a case for banning hate speech. But knowing the situation with the rise of the far-right in Europe, I sincerely doubt that any claims we have can stand up to scientific scrutiny. It's most likely just a regressive ideology.
 
+I recommend this talk, in support of free speech, by Rowan Atkinson:
+
+{% include youtube.html id="BiqDZlAZygU" caption="Rowan Atkinson on free speech" %}
+
 ## The right to offend
 
 An infamous example is that of Brigitte Bardot. Dedicating her life to animal activism, in 1999 she criticized the ritual slaughter of sheep by Muslims, asking for, at the very least, slaughtering those animals in a more humane way (a clash of ideologies, yikes!). She also wrote that *"my country, France, my homeland, my land is again invaded by an overpopulation of foreigners, especially Muslims"*. For this, she was fined by a French court for *"community indictment"*.
@@ -246,19 +252,25 @@ On the Internet, we can't afford to be stupid.
 
 For fairness, I will present some of the best arguments I've heard in support of online censorship, alongside my disagreement.
 
-**1) Science depends on consensus, and with no process for consensus, we have no science**, which means that when 99% of scientists in a field tell you that you're drunk, you should probably go to bed.
+### 1) Science depends on consensus
+
+**With no process for consensus, we have no science**, which means that when 99% of scientists in a field tell you that you're drunk, you should probably go to bed.
 
 But that consensus needs to be an organic process, and not decided by a committee. Instead, science is increasingly politicized, the scientific process being under threat from politicians and activists, especially from academia, that want to forward their own agenda, because we can all see that scientific arguments have power of persuasion, even if the science is weak. There is truth in the claim that fraudsters are cherry-picking or faking data, abusing scientific claims, to forward their own agenda. We all fell for spurious correlations, or for studies that don't take into account confounding variables, at least once. And the field is full of fraud, such as claims that [autism is caused by vaccines](https://www.youtube.com/watch?v=8BIcAZxFfrc).
 
 That's still not a reason for censorship, for one because censorship increases mistrust in science, but also because every once in a blue moon the contrarians are right. There are plenty of low-hanging fruits to fix first with the scientific process, or in academia, solutions that are more obvious than censorship.
 
-**2) Democracy depends on shared values, we'll have no democracy without those shared values.**
+### 2) Democracy depends on shared values
+
+**We'll have no democracy without those shared values.**
 
 Those shared values are crumbling, YES, I agree, except that those shared values don't get decided by a committee, or an algorithm. Those shared values get decided by the population, a population in which every vote or opinion should count, a population that isn't made of sheep that need shepherding.
 
 Controlling people's thoughts via censorship is the opposite of democracy, and there's no amount of mental gymnastics that can fix this idea.
 
-**3) Our society is increasingly polarized, which makes consensus in society harder to achieve; polarization is a threat to democracy.**
+### 3) Polarization is a threat to democracy
+
+**Our society is increasingly polarized, which makes consensus in society harder to achieve.**
 
 But polarization doesn't happen due to fake news, or conspiracies. Polarization happens when governments of the world deploy coercive measures to combat the pandemic, with the privileged applauding because they can afford to work from home, and when inflation hits, it doesn't hit them. Polarization happens when natural gas extraction, in the name of climate change, is in fact outsourced to Russia, fueling its war machine, or when energy prices soar. It happens when people are shamed out of their jobs for wrongthink. Polarization happens when stories, such as the lab-leak theory, get censored, but then resurface in the mainstream media. Polarization happens when doomsday preppers continually predict the world ending, since many decades ago, forcing for ineffective policies that make life harder, and yet the world is still here, doing just fine. It happens when the state takes more and more rights away from parents. Or when the cost of living goes up for whatever reason.
 
@@ -266,7 +278,7 @@ Whenever things go bad in society, the left blames it on the rich and on capital
 
 Before blaming fake news for polarization, maybe we should look in the mirror first, because in our quest to "save the world", we've been contributing.
 
-**4) People increasingly believe in conspiracy theories, which can be used as an excuse for violence.**
+### 4) Conspiracy theories are inciting violence
 
 Some people believe the moon landing was a hoax, or that the Earth is flat, pointing to a total mistrust in institutions that provide indirect evidence. These are seemingly benign beliefs, but then we have QAnon, or the storming of the US Capitol based on the belief that the election was stolen, and these aren't so benign.
 
@@ -276,11 +288,31 @@ But we need to zoom out a little. These are manifestations of the counterculture
 
 **Speech is not violence; silence is not violence; violence is violence.**
 
+### 5) Social media is private property
+
+**Twitter/Facebook are private property, and as companies, can do whatever they want.** If they say *"we don't do that here"* (aka a code of conduct), then everyone should abide by the rules.
+
+YES, communities need moderation and codes of conduct!
+
+Except Twitter/Facebook aren't a community, but represent an oligopoly encompassing the whole world. If you're guilty of wrongthink, there's nowhere you can move to. You can no longer rely on the free market to provide competition, with such an oligopoly, and these companies want to have their cake and eat it too.
+
+This is why progressives are fond of saying that *"deplatforming"* works for limiting the reach of hateful individuals. Once deplatformed from these big platforms, they can't recover their audience elsewhere. But I believe that this doesn't solve the problem of hate speech in society, quite the contrary. By moving them to fringe communities, their hateful ideas are left unchallenged. I also don't believe that deplatforming people works for limiting hate speech at a society level, because nobody has the power to change mentalities overnight, those hateful mentalities already exist, and are then left unchallenged, only to manifest at the next protest or elections.
+
+In such a case, for me, it's simple — either the companies are broken into multiple smaller companies, or they get regulated to no longer go above and beyond the law in their censorship. These social media companies need more transparency too, in order to avoid suspicion of favoring candidates in elections. And in the meantime I'm not going to give them a pass for being private companies.
+
+Twitter/Facebook should provide the tools to keep communities and people safe, if they don't want to get exposed to hateful speech, but otherwise should not disallow communities with topics that aren't illegal or directly inciting to violence.  Both Twitter and Facebook have the problem of the algorithmic timeline, which auto-suggests posts that people might get interested in. If they want to ban hate speech, that's because hate speech yields maximum engagement, which then attracts criticism. But that's not our problem — the clear answer for me is for them to stop using those creepy algorithms maximizing for attention, especially because hate speech isn't the only problem, [yellow journalism](https://en.wikipedia.org/wiki/Yellow_journalism) and doomsday news pieces about the current thing are problematic too.
+
+Reddit had the right approach, communities being silos in which you participated only if you wanted to. But unfortunately they too started a massive banning campaign, having banned thousands of communities after updating their content policies to forbid content that [promotes hate based on identity or vulnerability](https://www.reddithelp.com/hc/en-us/articles/360045715951). And don't get me wrong, some communities were abhorrent, which makes a principled stand for freedom of speech hard to swallow, but we can also say that Reddit no longer is what it used to be, which for me makes it much less appealing.
+
+I recommend ["Free Speech: Because We Can"](http://www.aaronsw.com/weblog/becausewecan) ([archive](https://web.archive.org/web/20211201195320/http://www.aaronsw.com/weblog/becausewecan)) by the late Aaron Swartz.
+
 ---
 
-In fairness, see this talk: [ADL International Leadership Award Presented to Sacha Baron Cohen](https://www.youtube.com/watch?v=ymaWq5yZIYM){:target="_blank"} — which presents these pro-censorship arguments well, with Sacha Baron Cohen being a talented actor and individual, delivering a powerful speech. But while watching it, keep asking yourself "*Who decides?*", which should be enough to invalidate whatever he proposes.
+For many of these pro-censorship arguments, see the following talk, which presents these pro-censorship arguments well, with Sacha Baron Cohen being a talented actor and individual, delivering a powerful speech.
 
-IMO his views are a disappointment, but explaining why requires a lot of effort, like all nonsense, as you can see — e.g. no, social media isn't a newspaper, social media is the Internet.
+{% include youtube.html id="ymaWq5yZIYM" caption="ADL International Leadership Award Presented to Sacha Baron Cohen" %}
+
+All throughout his talk, you should keep asking yourself "*Who decides?*" — it makes for a more interesting viewing. And no, I disagree with him that social media is like a newspaper, that should have journalistic integrity. I find his views on this matter naive, but an explanation would take a lot more effort.
 
 ## Progressive nonsense
 
@@ -294,7 +326,7 @@ Given current events, here are some interesting quotes highlighting the insanity
 
 > *"... For democracy to survive, we need more content moderation, not less."* — Max Boot
 
-This man says that democracy needs more censorship. Interesting notion. Is this man familiar with any non-democratic society?
+This man says that democracy needs more censorship. Interesting notion.
 
 > *"An 'uncontrolled' Internet is ... the dream of every dictator, strongman, demagogue and modern-day robber baron on Earth."* — The Guardian
 
