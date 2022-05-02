@@ -4,7 +4,7 @@ redirect_from:
   - /wiki/web-tricks.html
   - /wiki/web-apps.html
 date: 2020-11-30 17:38:13 +03:00
-last_modified_at: 2022-04-01 17:23:28 +03:00
+last_modified_at: 2022-05-02 10:04:07 +03:00
 ---
 
 ## Browser benchmarks
@@ -30,6 +30,13 @@ Features:
 - <https://coveryourtracks.eff.org/>{:target="_blank"}
 - <https://d3ward.github.io/toolz/adblock.html>{:target="_blank"}
 - <https://blockads.fivefilters.org/>{:target="_blank"}
+
+## Block lists
+
+For getting rid of cookie banners and other annoyances:
+
+- [I don't care about cookies](https://www.i-dont-care-about-cookies.eu/abp/){:target="_blank"}
+- [Adguard Annoyances](https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_14_Annoyances/filter.txt){:target="_blank"}
 
 ## Progressive Web Apps (PWAs)
 
