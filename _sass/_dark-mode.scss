@@ -146,11 +146,11 @@ body {
     }
 
     hr {
-      border-color: darken($text-color-dark, 20%);
+      border-color: $text-color-dark;
     }
 
     #article-details { 
-      border-color: darken($text-color-dark, 20%);
+      border-color: $text-color-dark;
 
       #all-categories {
         border-color: lighten($site-background-dark, 15%);

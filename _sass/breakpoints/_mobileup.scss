@@ -221,7 +221,6 @@ HEADER STYLING
     font-size: 1em;
     line-height: 3em;
     font-family: $sans-serif;
-    font-weight: 800;
     text-transform: lowercase;
 
     .wide1, .wide2 {
@@ -290,8 +289,8 @@ POST STYLING
   .meta, #article-details {
     text-align: center;
     color: lighten(black, 50%);
-    font-family: $sans-serif;
-    font-weight: 300;
+    font-family: $serif;
+    font-weight: normal;
 
     a {
       color: lighten(desaturate($link-color-light, 25%), 15%);
@@ -376,7 +375,7 @@ POST STYLING
     }
 
     ul li time {
-      font-weight: 300;
+      font-weight: normal;
       font-size: .9em;
       color: lighten(black, 50%);
     }
@@ -456,8 +455,8 @@ POST STYLING
       }
 
       .related-meta {
-        font-family: $sans-serif;
-        font-weight: 300;
+        font-family: $serif;
+        font-weight: normal;
         font-size: .9em;
         color: lighten(black, 50%);
 
@@ -750,8 +749,8 @@ POST LIST STYLING
     }
 
     .meta {
-      font-family: $sans-serif;
-      font-weight: 300;
+      font-family: $serif;
+      font-weight: normal;
       font-size: .9em;
       color: lighten(black, 50%);
 
@@ -825,7 +824,7 @@ img.right {
       opacity: .8;
       z-index: 100;
 
-      background-image: url(../media/youtube.png);
+      background-image: url(/assets/media/youtube.png);
       background-size: 80px 56px;
       background-position: center;
       background-repeat: no-repeat;
@@ -950,7 +949,7 @@ img.right {
 
 h1, h2, h3, h4, h5, h6 {
   color: $all-headers-color-light;
-  font-weight: 800;
+  font-weight: 700;
   
   a.anchor {
     color: lightgray;

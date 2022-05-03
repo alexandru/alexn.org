@@ -13,7 +13,7 @@ has_full_title: true
   </ul>
 
   <div class="archive_list">
-    <h3>Recent Blog Articles</h3>
+    <h2>Recent Blog Articles</h2>
   
     <div class="container">
       {% for post in site.posts offset:1 limit:5 %}
@@ -42,7 +42,7 @@ has_full_title: true
   </div>
 
   <div class="archive_list">
-    <h3>Recent Wiki Articles</h3>
+    <h2>Recent Wiki Articles</h2>
   
     {% assign all_wiki = site.wiki | rss_filter_and_sort: 5 -%}
     <div class="container">

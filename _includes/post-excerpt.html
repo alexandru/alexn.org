@@ -10,7 +10,7 @@
   {% endfor %}
 </div>
 
-<h3><a class="post-link" href="{{ include.post.url | prepend: site.baseurl }}">{{ include.post.title | xml_smart_escape }}</a></h3>
+<h2><a class="post-link" href="{{ include.post.url | prepend: site.baseurl }}">{{ include.post.title | xml_smart_escape }}</a></h2>
 {% capture image %}{% if include.post.image %}{{ include.post.image | prepend: site.baseurl }}{% elsif include.post.youtube %}{{ include.post.youtube | youtube_thumb_link }}{% endif %}{% endcapture -%}
 {% if image != null and image != "" %}
 <figure>

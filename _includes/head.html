@@ -95,8 +95,10 @@
     <link rel="alternate" type="application/rss+xml" title="Blog" href="{% link feeds/blog.xml %}" />
     <link rel="alternate" type="application/rss+xml" title="Wiki" href="{% link feeds/wiki.xml %}" />
 
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="{{ '/assets/css/style.css' | prepend: site.baseurl }}?{{ 'now' | date: '%Y%m%d%H%M' }}" media="all">
     <!-- Points at alexn.org, taking care of the search-engine indexing of mirrors: -->
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+    
+    <style type="text/css" media="all">
+      {{ site.data.styles }}
+    </style>
 </head>
