@@ -1,14 +1,9 @@
----
-# Main css file.
-# This header ensures Jekyll reads the file to be transformed into CSS later
----
-
 // Site configuration
 @import "config";
 
 // Reset using Normalize
 @import "normalize";
-// Import fonts from Google
+// Import fonts
 @import "fonts";
 
 // Import Partials
@@ -37,6 +32,3 @@
   @import "dark-mode";
   @import "modules/syntax-dark";
 }
-
-// If IE support is needed you can add them here or create another stylesheet for specific IE fixes
-
