@@ -810,28 +810,37 @@ img.right {
     box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.3);
     border-radius: 3px;
 
-    img.play-logo {
+    &:before {
+      position:absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      -webkit-transform: translate(-50%, -50%);
       display: block;
       width: 80px;
       height: 56px;
-      margin: auto;
-      position: absolute;
-      top: 0; left: 0; bottom: 0; right: 0;
+      
+      font-size: 1px;
+      content: " ";
+      opacity: .8;
       z-index: 100;
-      opacity: 0.8;
+
+      background-image: url(../media/youtube.png);
+      background-size: 80px 56px;
+      background-position: center;
+      background-repeat: no-repeat;
+      
       transition-timing-function: ease-in;
       transition: opacity 0.3s;
     }
-
+    
+    &:hover:before {
+      opacity: 1;
+    }
+    
     img.play-thumb {
       display: block;
       min-height: 70px;
-    }
-
-    &:hover {
-      img.play-logo {
-        opacity: 1;
-      }
     }
   }
 

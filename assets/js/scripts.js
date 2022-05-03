@@ -45,27 +45,10 @@ layout: null
 		window.Dropcap.layout(dropcaps, 2);		
 	}
 
-	function initYouTubeWidget() {
-		$("figure.video img.play-thumb").one("load", function () {
-			var playImg = document.createElement("img");
-			playImg.src = "/assets/media/youtube.png";
-			playImg.alt = "";
-			playImg.className = "play-logo";
-			$(playImg).appendTo($(this).parent());
-		}).each(function () {
-			// https://stackoverflow.com/questions/3877027/jquery-callback-on-image-load-even-when-the-image-is-cached
-			if (this.complete) {
-				$(this).trigger("load");
-			}
-		});
-	}
-
 	function onDocumentReady() {
 		initDropCapParagraphs();
 		// Activate responsive navigation
 		responsiveNav(".nav-collapse");
-		// Activate YouTube Widgets
-		initYouTubeWidget();
 
 		// Round Reading Time
 		$(".time").text(function (_index, value) {

@@ -330,9 +330,10 @@ div.header {
 
 .video {
 	.youtube-play-link {
-		img.play-logo {
-			width: 100px;
-			height: 70px;
+    &:before {
+      width: 120px;
+      height: 84px;
+      background-size: 120px 84px;
     }
   }
 }
