@@ -89,8 +89,8 @@ MENU STYLING
     li {
       width: 100%;
       display: block;
-      background: $background-color;
-      border-bottom: 2px solid lighten($background-color, 5%);
+      background: #57457a;
+      border-bottom: 2px solid lighten(#57457a, 7%);
 
       a {
         color: white;
@@ -149,7 +149,6 @@ MENU STYLING
     background-color: darken($background-color, 10%);
   }
 }
-
 
 /***************
 LIST STYLING
