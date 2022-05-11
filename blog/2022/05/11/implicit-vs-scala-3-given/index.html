@@ -23,11 +23,11 @@
     <meta content="2022-05-11T00:00:00+00:00" property="article:published_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/scala-3-given.png?202205111659" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/scala-3-given.png?202205111659" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/scala-3-given.png?202205111733" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/scala-3-given.png?202205111733" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/scala-3-given.png?202205111659">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/scala-3-given.png?202205111733">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Implicit vs Scala 3&#39;s Given">
@@ -323,8 +323,8 @@ Initializing Eq
 equals: false
 </code></pre></div></div>
 
-<p>This behavior is actually not obvious at all, because in fact the object reference 
-for this <code class="language-plaintext highlighter-rouge">Eq</code> instance can be reused, this being perfectly safe:</p>
+<p>This isn’t obvious at all, because in fact the object reference 
+for this <code class="language-plaintext highlighter-rouge">Eq</code> instance could be reused, this being perfectly safe:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">object</span> <span class="nc">EmailAddress</span> <span class="o">{</span>
   <span class="c1">//...</span>
@@ -466,7 +466,7 @@ for this <code class="language-plaintext highlighter-rouge">Eq</code> instance c
 
 <p>The <a href="https://docs.scala-lang.org/scala3/reference/contextual/givens.html">documentation</a> can definitely improve, but I don’t think the documentation is the problem.</p>
 
-<p>As a <strong>vocabulary preference</strong>, I don’t see how <code class="language-plaintext highlighter-rouge">given</code> makes things easier to understand, especially for beginners, but this is a subjective opinion, and it may be a matter of learned taste. It’s exactly the same concept, though, using <code class="language-plaintext highlighter-rouge">given</code> and <code class="language-plaintext highlighter-rouge">using</code> does not make things easier to understand, unless the power of implicits is limited. And I don’t see how beginners could be given an explanation that doesn’t use the term <em>“implicit parameters”</em>, something that <em>“givens”</em> obscures. But I concede that I may lack imagination for teaching 🤷‍♂️</p>
+<p>As a <strong>vocabulary preference</strong>, I don’t see how <code class="language-plaintext highlighter-rouge">given</code> makes things easier to understand, especially for beginners, but this is a subjective opinion, and it may be a matter of learned taste. It’s exactly the same concept, though, using <code class="language-plaintext highlighter-rouge">given</code> and <code class="language-plaintext highlighter-rouge">using</code> does not make things easier to understand, unless the power of implicits is limited, implicits being hard to understand due to their power, not due to their naming. And I don’t see how beginners could be given an explanation that doesn’t use the term <em>“implicit parameters”</em>, something that <em>“givens”</em> obscures. But I concede that I may lack imagination for teaching 🤷‍♂️</p>
 
 <p>I will argue that the existence of <code class="language-plaintext highlighter-rouge">implicit</code>, as an alternative, introduces more Perl-like <a href="https://en.wikipedia.org/wiki/There%27s_more_than_one_way_to_do_it">TIMTOWTDI</a>, but in a bad way (I’m saying this as a guy that loves TIMTOWTDI, usually).</p>
 
@@ -588,12 +588,12 @@ for this <code class="language-plaintext highlighter-rouge">Eq</code> instance c
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202205111659" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202205111659" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202205111659" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202205111659" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202205111733" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202205111733" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202205111733" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202205111733" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202205111659" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202205111733" type="text/javascript"></script>
 
 
 <script type="text/javascript">
