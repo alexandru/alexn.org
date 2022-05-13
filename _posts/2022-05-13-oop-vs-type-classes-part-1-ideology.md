@@ -1,6 +1,8 @@
 ---
 title: "OOP vs Type Classes, Part 1: Ideology"
 image: /assets/media/articles/scala-oop-vs-type-classes-ideology.jpg
+image_caption: >
+  Jacques-Louis David, The Intervention of the Sabine Women, 1799. Oil on canvas. Paris, musée du Louvre. 
 tags:
   - OOP
   - FP
