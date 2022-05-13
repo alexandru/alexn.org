@@ -356,7 +356,12 @@ And as we shall see, this gives rise to one of the biggest ideological clashes i
 
 OOP and FP are ideologies — sets of beliefs on how it's best to build programs and manage the ever-growing complexity. This is much like the political ideologies, like the Left vs Right, Progressives vs Conservatives, Anarchism vs Statism, etc., different sets of beliefs for solving the same problem, promoted by social movements.
 
-<img src="{% link assets/media/articles/yin-yang.png %}" alt="Yin and Yang" class="transparency-fix" />
+<figure class="content">
+  <img src="{% link assets/media/articles/yin-yang.png %}" alt="Yin and Yang" class="transparency-fix" />
+  <figcaption>
+    <a href="https://en.wikipedia.org/wiki/Yin_and_yang">Yin and yang</a>
+  </figcaption>
+</figure>
 
 I'm not using this word lightly, computer science is not advanced as a science (via the scientific method), because computer science is also about communication and collaboration, therefore computer science also involves social problems, much like mathematics, but worse, because we can't rely only on idealized models and logic. And investigating social issues via the scientific method is hard, therefore we basically rely a lot on philosophy, intuition, experience, and fashion.
 
@@ -416,10 +421,6 @@ def identity[A](a: A): A
 
 This is a spectrum of course. An `Actor` can implement literally anything, but dealing with it is very unsafe, that contract is useless, and all reasoning enabled by static typing goes out the window. And `identity` works for any type, maximally usable and composable, but it does absolutely nothing, in practice its utility being only to play "Type Tetris", i.e. succeeding in the invocations of other functions by making the types match. It's such a sad little function, in spite of being a star at FP conferences.
 
-<p class="info-bubble">
-Everything I just said is the conflict of visions that happens whenever we talk of the merits of dynamically typed versus statically typed languages, actually 😎 It's a conflict of visions born from the problem domains and the compromises that people have had to make, which are then modeling their opinions. This conflict is always present, and people have to be aware of it when picking tools, techniques or languages, and when designing their programs, as these visions transcend the tools used or the programming languages and their features, actually.
-</p>
-
 ### What do you want?
 
 These are the questions you have to ask yourself, and they are equivalent:
@@ -430,6 +431,9 @@ These are the questions you have to ask yourself, and they are equivalent:
 
 What we want is everything, but we can only get some balance, depending on use-case. *"It depends"* is a boring answer, but the only correct one.
 
+<p class="info-bubble">
+Everything I just said is the conflict of visions that also applies whenever we talk of the merits of dynamically typed versus statically typed languages 😎 It's a conflict of visions born from the problem domains and the compromises that people have had to make, which are then modeling their opinions. This conflict is always present, and people have to be aware of it when picking tools, techniques or languages, and when designing their programs, as these visions transcend the tools used or the programming languages and their features.
+</p>
 
 ## Coming up next...
 
