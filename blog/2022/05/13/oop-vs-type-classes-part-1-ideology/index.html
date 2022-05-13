@@ -23,11 +23,11 @@
     <meta content="2022-05-13T00:00:00+00:00" property="article:published_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg?202205131305" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg?202205131305" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg?202205131819" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg?202205131819" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg?202205131305">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg?202205131819">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="OOP vs Type Classes, Part 1: Ideology">
@@ -107,7 +107,7 @@
       <meta itemprop="datePublished" content="2022-05-13T00:00:00+0000"/>
       
       <time itemprop="dateCreated" datetime="2022-05-13T00:00:00+0000">May 13, 2022</time>
-      | <span class="nobr"><span class="time">21</span> minutes</span>
+      | <span class="nobr"><span class="time">22</span> minutes</span>
       
       | <a href="/blog/2022/05/13/oop-vs-type-classes-part-1-ideology/#isso-thread" class="nobr">comments</a>
       
@@ -116,7 +116,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg" />
-          <img src="/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg?202205131305" width="1500" height="938" alt="Jacques-Louis David, The Intervention of the Sabine Women, 1799. Oil on canvas. Paris, musée du Louvre. 
+          <img src="/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg?202205131819" width="1500" height="938" alt="Jacques-Louis David, The Intervention of the Sabine Women, 1799. Oil on canvas. Paris, musée du Louvre. 
 " />
           <figcaption itemprop="caption">Jacques-Louis David, The Intervention of the Sabine Women, 1799. Oil on canvas. Paris, musée du Louvre. 
 </figcaption>
@@ -163,6 +163,7 @@
       <li><a href="#oop-values">OOP values</a></li>
       <li><a href="#static-fp-values">Static FP values</a></li>
       <li><a href="#degenerate-cases">Degenerate cases</a></li>
+      <li><a href="#what-do-you-want">What do you want?</a></li>
     </ul>
   </li>
   <li><a href="#coming-up-next">Coming up next…</a></li>
@@ -369,7 +370,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Implemented by most collection types. We’ll come back to it, to contrast and compare with a Type Class approach.</p>
+<p>Implemented by most collection types. We’ll come back to it in a future article, to contrast and compare with a Type Class approach.</p>
       <h3 id="are-oop-and-fp-orthogonal-can-they-mix">
         
         
@@ -561,7 +562,7 @@
   <p>With parametric polymorphism, coupled with Type Classes, the types dictate the implementation — and this intuition, that the signature describes precisely what the implementation does, is what static FP developers call “<em>parametricity</em>”</p>
 </blockquote>
 
-<p>And as we shall see, this gives rise to one of the biggest ideological clashes in computer programming.</p>
+<p>And as we shall see, this gives rise to one of the biggest ideological clashes in computer programming, being right up there with Vim vs Emacs, or tabs vs spaces 😎</p>
       <h2 id="ideological-clash">
         
         
@@ -656,7 +657,26 @@
 
 <p>This is a spectrum of course. An <code class="language-plaintext highlighter-rouge">Actor</code> can implement literally anything, but dealing with it is very unsafe, that contract is useless, and all reasoning enabled by static typing goes out the window. And <code class="language-plaintext highlighter-rouge">identity</code> works for any type, maximally usable and composable, but it does absolutely nothing, in practice its utility being only to play “Type Tetris”, i.e. succeeding in the invocations of other functions by making the types match. It’s such a sad little function, in spite of being a star at FP conferences.</p>
 
-<p>What we want is balance. <em>“It depends”</em> is boring, but true.</p>
+<p class="info-bubble">
+Everything I just said is the conflict of visions that happens whenever we talk of the merits of dynamically typed versus statically typed languages, actually 😎 It's a conflict of visions born from the problem domains and the compromises that people have had to make, which are then modeling their opinions. This conflict is always present, and people have to be aware of it when picking tools, techniques or languages, and when designing their programs, as these visions transcend the tools used or the programming languages and their features, actually.
+</p>
+      <h3 id="what-do-you-want">
+        
+        
+          What do you want? <a href="#what-do-you-want" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>These are the questions you have to ask yourself, and they are equivalent:</p>
+
+<ul>
+  <li>Whom do you want to constrain, the provider or the client of an API?</li>
+  <li>What do you prioritize, backwards compatibility or correctness?</li>
+</ul>
+
+<p>What we want is everything, but we can only get some balance, depending on use-case. <em>“It depends”</em> is a boring answer, but the only correct one.</p>
       <h2 id="coming-up-next">
         
         
@@ -791,12 +811,12 @@
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202205131305" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202205131305" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202205131305" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202205131305" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202205131819" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202205131819" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202205131819" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202205131819" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202205131305" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202205131819" type="text/javascript"></script>
 
 
 <script type="text/javascript">
