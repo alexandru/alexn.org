@@ -166,7 +166,7 @@ trait Iterator[+A] {
 }
 ```
 
-Implemented by most collection types. We'll come back to it, to contrast and compare with a Type Class approach.
+Implemented by most collection types. We'll come back to it in a future article, to contrast and compare with a Type Class approach.
 
 ### Are OOP and FP orthogonal? Can they mix?
 
@@ -350,7 +350,7 @@ Can you see how it describes precisely what the function does? It takes a `Monoi
 
 > With parametric polymorphism, coupled with Type Classes, the types dictate the implementation — and this intuition, that the signature describes precisely what the implementation does, is what static FP developers call "_parametricity_"
 
-And as we shall see, this gives rise to one of the biggest ideological clashes in computer programming.
+And as we shall see, this gives rise to one of the biggest ideological clashes in computer programming, being right up there with Vim vs Emacs, or tabs vs spaces 😎
 
 ## Ideological clash
 
@@ -416,7 +416,20 @@ def identity[A](a: A): A
 
 This is a spectrum of course. An `Actor` can implement literally anything, but dealing with it is very unsafe, that contract is useless, and all reasoning enabled by static typing goes out the window. And `identity` works for any type, maximally usable and composable, but it does absolutely nothing, in practice its utility being only to play "Type Tetris", i.e. succeeding in the invocations of other functions by making the types match. It's such a sad little function, in spite of being a star at FP conferences.
 
-What we want is balance. *"It depends"* is boring, but true.
+<p class="info-bubble">
+Everything I just said is the conflict of visions that happens whenever we talk of the merits of dynamically typed versus statically typed languages, actually 😎 It's a conflict of visions born from the problem domains and the compromises that people have had to make, which are then modeling their opinions. This conflict is always present, and people have to be aware of it when picking tools, techniques or languages, and when designing their programs, as these visions transcend the tools used or the programming languages and their features, actually.
+</p>
+
+### What do you want?
+
+These are the questions you have to ask yourself, and they are equivalent:
+
+- Whom do you want to constrain, the provider or the client of an API?
+- What do you prioritize, backwards compatibility or correctness?
+
+
+What we want is everything, but we can only get some balance, depending on use-case. *"It depends"* is a boring answer, but the only correct one.
+
 
 ## Coming up next...
 
