@@ -356,10 +356,7 @@ And as we shall see, this gives rise to one of the biggest ideological clashes i
 
 OOP and FP are ideologies — sets of beliefs on how it's best to build programs and manage the ever-growing complexity. This is much like the political ideologies, like the Left vs Right, Progressives vs Conservatives, Anarchism vs Statism, etc., different sets of beliefs for solving the same problem, promoted by social movements.
 
-<figure>
-  <img src="{% link assets/media/articles/yin-yang.png %}" alt="Symbol of Yin and Yang" class="transparency-fix" />
-  <figcaption><a href="https://en.wikipedia.org/wiki/Yin_and_yang" target="_blank">Yin and Yang</a></figcaption>
-</figure>
+<img src="{% link assets/media/articles/yin-yang.png %}" alt="Yin and Yang" class="transparency-fix" />
 
 I'm not using this word lightly, computer science is not advanced as a science (via the scientific method), because computer science is also about communication and collaboration, therefore computer science also involves social problems, much like mathematics, but worse, because we can't rely only on idealized models and logic. And investigating social issues via the scientific method is hard, therefore we basically rely a lot on philosophy, intuition, experience, and fashion.
 
@@ -399,7 +396,7 @@ We should learn from both, and we should have some fun while doing it, preferabl
 <figure>
   <img src="{% link assets/media/articles/degenerate-era.jpg %}" alt="" />
   <figcaption>
-    A "black hole", depiction of the <a href="https://en.wikipedia.org/wiki/Future_of_an_expanding_universe#Degenerate_Era">"Degenerate Era"</a>, taken from <a href="https://www.youtube.com/watch?v=uD4izuDMUQA" target="_blank">"TIMELAPS OF THE FUTURE" (YouTube)</a>.
+    A "black hole", depiction of the <a href="https://en.wikipedia.org/wiki/Future_of_an_expanding_universe#Degenerate_Era">"Degenerate Era"</a>, taken from <a href="https://www.youtube.com/watch?v=uD4izuDMUQA" target="_blank">"TIMELAPS OF THE FUTURE" (YouTube)</a>
   </figcaption>
 </figure>
 
