@@ -396,6 +396,13 @@ We should learn from both, and we should have some fun while doing it, preferabl
 
 ### Degenerate cases
 
+<figure>
+  <img src="{% link assets/media/articles/degenerate-era.jpg %}" alt="" />
+  <figcaption>
+    A "black hole", depiction of the <a href="https://en.wikipedia.org/wiki/Future_of_an_expanding_universe#Degenerate_Era">"Degenerate Era"</a>, taken from <a href="https://www.youtube.com/watch?v=uD4izuDMUQA" target="_blank">"TIMELAPS OF THE FUTURE" (YouTube)</a>.
+  </figcaption>
+</figure>
+
 Compare the degenerate signature for OOP classes:
 
 ```scala
