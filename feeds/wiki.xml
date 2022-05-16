@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 13 May 2022 18:24:14 +0000</pubDate>
-    <lastBuildDate>Fri, 13 May 2022 18:24:14 +0000</lastBuildDate>
+    <pubDate>Mon, 16 May 2022 10:45:57 +0000</pubDate>
+    <lastBuildDate>Mon, 16 May 2022 10:45:57 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -2203,7 +2203,7 @@ services.sync.prefs.media.hardwaremediakeys.enabled
     
       
 <item>
-  <title>Git Tips</title>
+  <title>Git</title>
   <description>Article 
     updated at March 29, 2022, 
     created at August 24, 2020.</description>
@@ -2213,7 +2213,19 @@ services.sync.prefs.media.hardwaremediakeys.enabled
       created at August 24, 2020.
     &lt;/p&gt;
     &lt;hr&gt;
-    &lt;h2 id=&quot;large-files-support&quot;&gt;Large files support&lt;/h2&gt;
+    &lt;h2 id=&quot;commands&quot;&gt;Commands&lt;/h2&gt;
+
+&lt;p&gt;Cleanup a local repository of all untracked files:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;git clean -dfx
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Throw away all uncommitted changes:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;git reset --hard HEAD
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;large-files-support&quot;&gt;Large files support&lt;/h2&gt;
 
 &lt;p&gt;Resources:&lt;/p&gt;
 
@@ -2232,7 +2244,7 @@ services.sync.prefs.media.hardwaremediakeys.enabled
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;git lfs install
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;To add file extensions to track via lfs:&lt;/p&gt;
+&lt;p&gt;To add file extensions to track via “lfs”:&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;git lfs track &quot;*.psd&quot;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;

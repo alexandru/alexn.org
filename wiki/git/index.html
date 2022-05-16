@@ -12,12 +12,12 @@
     <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
     <meta name="theme-color" content="#493667">
     
-    <title>Git Tips - Alexandru Nedelcu</title>
+    <title>Git - Alexandru Nedelcu</title>
     
 
     <!-- Open Graph Meta -->
     <meta content="Alexandru Nedelcu" property="og:site_name">
-    <meta content="Git Tips" property="og:title">
+    <meta content="Git" property="og:title">
     <meta content="Personal, volatile wiki documentation" property="og:description">
     <meta content="https://alexn.org/wiki/git/" property="og:url">
     <meta content="2020-08-24T13:24:31+00:00" property="article:published_time">
@@ -32,7 +32,7 @@
     <meta name="twitter:image:src" content="https://alexn.org/assets/logo/800px-bordered.png">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
-    <meta name="twitter:title" content="Git Tips">
+    <meta name="twitter:title" content="Git">
     <meta name="twitter:url" content="https://alexn.org/wiki/git/">
     <meta name="twitter:description" content="Personal, volatile wiki documentation">
     <!-- Favicon -->
@@ -97,7 +97,7 @@
       <h1 class="postTitle" itemprop="headline">
         
         
-          Git Tips
+          Git
         
         
       </h1>
@@ -132,9 +132,28 @@
 
   <p><strong>Contents:</strong></p>
   <ul>
+  <li><a href="#commands">Commands</a></li>
   <li><a href="#large-files-support">Large files support</a></li>
   <li><a href="#git-sync">git-sync</a></li>
 </ul>
+      <h2 id="commands">
+        
+        
+          Commands <a href="#commands" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Cleanup a local repository of all untracked files:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>git clean -dfx
+</code></pre></div></div>
+
+<p>Throw away all uncommitted changes:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>git reset --hard HEAD
+</code></pre></div></div>
       <h2 id="large-files-support">
         
         
@@ -161,7 +180,7 @@
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>git lfs install
 </code></pre></div></div>
 
-<p>To add file extensions to track via lfs:</p>
+<p>To add file extensions to track via “lfs”:</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>git lfs track "*.psd"
 </code></pre></div></div>
@@ -185,12 +204,12 @@
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202205131824" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202205131824" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202205131824" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202205131824" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202205161046" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202205161046" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202205161046" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202205161046" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202205131824" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202205161046" type="text/javascript"></script>
 
 
 <script type="text/javascript">
@@ -211,7 +230,7 @@
     })();
 
     var now = new Date();
-    var url = "https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=Git+Tips&url=https%3A%2F%2Falexn.org%2Fwiki%2Fgit%2F" + 
+    var url = "https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=Git&url=https%3A%2F%2Falexn.org%2Fwiki%2Fgit%2F" + 
       "&rand=" + encodeURIComponent(Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)) +
       "&h=" + now.getHours() +
       "&m=" + now.getMinutes() +
@@ -237,7 +256,7 @@
   })();
 </script>
 <noscript>
-  <img referrerpolicy="no-referrer-when-downgrade" src="https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=Git+Tips&url=https%3A%2F%2Falexn.org%2Fwiki%2Fgit%2F" width="1" height="1" style="position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;" alt="" />
+  <img referrerpolicy="no-referrer-when-downgrade" src="https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=Git&url=https%3A%2F%2Falexn.org%2Fwiki%2Fgit%2F" width="1" height="1" style="position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;" alt="" />
 </noscript>
 
    <div class="footer">
@@ -259,7 +278,7 @@
       var d = document;
       var a = d.createElement("a");
       a.setAttribute("target", "_blank");
-      a.setAttribute("href", "mailto:" + lhs + "@" + rhs + "?subject=Comment%20on%3A%20Git%20Tips");
+      a.setAttribute("href", "mailto:" + lhs + "@" + rhs + "?subject=Comment%20on%3A%20Git");
       a.text = lhs + "@" + rhs;
       var es = d.getElementById("email-script");
       es.parentNode.insertBefore(a, es);
@@ -284,7 +303,7 @@
           data-isso-vote="false"
           data-vote-levels=""
           src="https://alexn.org/comments/alexn/js/embed.min.js"></script>
-  <section id="isso-thread" data-title="Git Tips">
+  <section id="isso-thread" data-title="Git">
   </section>
 </div>
 <noscript>
