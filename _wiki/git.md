@@ -1,8 +1,22 @@
 ---
-title: "Git Tips"
+title: "Git"
 date: 2020-08-24 16:24:31 +03:00
 last_modified_at: 2022-03-29 10:41:41 +03:00
 ---
+
+## Commands
+
+Cleanup a local repository of all untracked files:
+
+```
+git clean -dfx
+```
+
+Throw away all uncommitted changes:
+
+```
+git reset --hard HEAD
+```
 
 ## Large files support
 
@@ -23,7 +37,7 @@ In the git repository:
 git lfs install
 ```
 
-To add file extensions to track via lfs:
+To add file extensions to track via "lfs":
 
 ```
 git lfs track "*.psd"
