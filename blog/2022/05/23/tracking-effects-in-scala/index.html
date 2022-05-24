@@ -23,11 +23,11 @@
     <meta content="2022-05-23T00:00:00+00:00" property="article:published_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/scala3-unsafe-io.png?202205231915" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/scala3-unsafe-io.png?202205231915" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/scala3-unsafe-io.png?202205240409" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/scala3-unsafe-io.png?202205240409" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/scala3-unsafe-io.png?202205231915">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/scala3-unsafe-io.png?202205240409">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Tracking Side Effects in Scala">
@@ -116,7 +116,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/scala3-unsafe-io.png" />
-          <img src="/assets/media/articles/scala3-unsafe-io.png?202205231915" width="1500" height="937" alt="" />
+          <img src="/assets/media/articles/scala3-unsafe-io.png?202205240409" width="1500" height="937" alt="" />
           
         </figure>
         
@@ -146,7 +146,7 @@ What if we’d use Scala’s type system for tracking side-effects in impure cod
 
 <p>In spite of our wishes to the contrary, integration code or low-level code in Scala is inevitable. Also, there are instances in which impure/imperative code is actually clearer. I still have the feeling that Cats-Effect’s <code class="language-plaintext highlighter-rouge">Ref</code> is harder to understand in practice than <code class="language-plaintext highlighter-rouge">AtomicReference</code>, for example, in spite of all benefits of referential transparency or the decoupling that happens between the declarations of expressions and their evaluation. And software-transactional memory can be worse than <code class="language-plaintext highlighter-rouge">Ref</code>, which is probably why in Scala it never took off, in spite of decent implementations available.</p>
 
-<p><strong>For impure code</strong>, I’d still like to notice the side-effects, visually, via types, and I still want the compiler to protect me from leaks. Scala 3 makes this easier, via <a href="https://docs.scala-lang.org/scala3/reference/contextual/context-functions.html">Context Functions</a>.</p>
+<p><strong>For impure code</strong>, I’d still like to notice the side effects, visually, via types, and I still want the compiler to protect me from leaks. Scala 3 makes this easier, via <a href="https://docs.scala-lang.org/scala3/reference/contextual/context-functions.html">Context Functions</a>.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// SCALA 3</span>
 
@@ -252,7 +252,7 @@ What if we’d use Scala’s type system for tracking side-effects in impure cod
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>In other words, the implementation forces the use of <code class="language-plaintext highlighter-rouge">Await.result</code> via a <code class="language-plaintext highlighter-rouge">CanAwait</code> implicit (which can’t be instantiated from user code). This is also how Monix <a href="https://github.com/monix/monix/blob/346352380c4b2b12a66f83cf7ca416dbebde357b/monix-execution/js/src/main/scala/monix/execution/schedulers/CanBlock.scala#L78">dissalows blocking I/O</a> methods to run on top of JavaScript (such as <a href="https://github.com/monix/monix/blob/346352380c4b2b12a66f83cf7ca416dbebde357b/monix-eval/shared/src/main/scala/monix/eval/Task.scala#L1064">Task.runSyncUnsafe</a>) 😉</p>
+<p>In other words, the implementation forces the use of <code class="language-plaintext highlighter-rouge">Await.result</code> via a <code class="language-plaintext highlighter-rouge">CanAwait</code> implicit (which can’t be instantiated from user code). This is also how Monix <a href="https://github.com/monix/monix/blob/346352380c4b2b12a66f83cf7ca416dbebde357b/monix-execution/js/src/main/scala/monix/execution/schedulers/CanBlock.scala#L78">disallows blocking I/O</a> methods to run on top of JavaScript (such as <a href="https://github.com/monix/monix/blob/346352380c4b2b12a66f83cf7ca416dbebde357b/monix-eval/shared/src/main/scala/monix/eval/Task.scala#L1064">Task.runSyncUnsafe</a>) 😉</p>
 
 <p>Another API that I can remember is <a href="https://web.archive.org/web/20220523184153/https://nbronson.github.io/scala-stm/quick_start.html">Scala-STM</a>, a project that I used back in the day, and that looks like this:</p>
 
@@ -272,7 +272,7 @@ What if we’d use Scala’s type system for tracking side-effects in impure cod
 <figure class="video">
   
   <a href="https://www.youtube.com/watch?v=YXDm3WHZT5g&amp;autoplay=1" target="_blank" class="youtube-play-link" title="Go to YouTube video">
-    <img src="https://img.youtube.com/vi/YXDm3WHZT5g/maxresdefault.jpg?202205231915" alt="" class="play-thumb" width="1280" height="720" />
+    <img src="https://img.youtube.com/vi/YXDm3WHZT5g/maxresdefault.jpg?202205240409" alt="" class="play-thumb" width="1280" height="720" />
   </a>
   <figcaption>
     <a href="https://www.youtube.com/watch?v=YXDm3WHZT5g&amp;autoplay=1" target="_blank">
@@ -282,7 +282,7 @@ What if we’d use Scala’s type system for tracking side-effects in impure cod
   </figcaption>
 </figure>
 
-<p>Do you think tracking side-effects like this would be useful in libraries? Monix, for example, also contains impure parts, and could make use of it.</p>
+<p>Do you think tracking side effects like this would be useful in libraries? Monix, for example, also contains impure parts, and could make use of it.</p>
 
 <p>Would you like it? Any prior art that I’m not aware of?</p>
 
@@ -405,12 +405,12 @@ What if we’d use Scala’s type system for tracking side-effects in impure cod
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202205231915" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202205231915" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202205231915" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202205231915" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202205240409" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202205240409" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202205240409" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202205240409" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202205231915" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202205240409" type="text/javascript"></script>
 
 
 <script type="text/javascript">
