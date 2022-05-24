@@ -15,7 +15,7 @@ What if we'd use Scala's type system for tracking side-effects in impure code, t
 
 In spite of our wishes to the contrary, integration code or low-level code in Scala is inevitable. Also, there are instances in which impure/imperative code is actually clearer. I still have the feeling that Cats-Effect's `Ref` is harder to understand in practice than `AtomicReference`, for example, in spite of all benefits of referential transparency or the decoupling that happens between the declarations of expressions and their evaluation. And software-transactional memory can be worse than `Ref`, which is probably why in Scala it never took off, in spite of decent implementations available.
 
-**For impure code**, I'd still like to notice the side-effects, visually, via types, and I still want the compiler to protect me from leaks. Scala 3 makes this easier, via [Context Functions](https://docs.scala-lang.org/scala3/reference/contextual/context-functions.html).
+**For impure code**, I'd still like to notice the side effects, visually, via types, and I still want the compiler to protect me from leaks. Scala 3 makes this easier, via [Context Functions](https://docs.scala-lang.org/scala3/reference/contextual/context-functions.html).
 
 ```scala
 // SCALA 3
@@ -126,7 +126,7 @@ trait Awaitable[+T] {
 }
 ```
 
-In other words, the implementation forces the use of `Await.result` via a `CanAwait` implicit (which can't be instantiated from user code). This is also how Monix [dissalows blocking I/O](https://github.com/monix/monix/blob/346352380c4b2b12a66f83cf7ca416dbebde357b/monix-execution/js/src/main/scala/monix/execution/schedulers/CanBlock.scala#L78) methods to run on top of JavaScript (such as [Task.runSyncUnsafe](https://github.com/monix/monix/blob/346352380c4b2b12a66f83cf7ca416dbebde357b/monix-eval/shared/src/main/scala/monix/eval/Task.scala#L1064)) 😉
+In other words, the implementation forces the use of `Await.result` via a `CanAwait` implicit (which can't be instantiated from user code). This is also how Monix [disallows blocking I/O](https://github.com/monix/monix/blob/346352380c4b2b12a66f83cf7ca416dbebde357b/monix-execution/js/src/main/scala/monix/execution/schedulers/CanBlock.scala#L78) methods to run on top of JavaScript (such as [Task.runSyncUnsafe](https://github.com/monix/monix/blob/346352380c4b2b12a66f83cf7ca416dbebde357b/monix-eval/shared/src/main/scala/monix/eval/Task.scala#L1064)) 😉
 
 Another API that I can remember is [Scala-STM](https://web.archive.org/web/20220523184153/https://nbronson.github.io/scala-stm/quick_start.html), a project that I used back in the day, and that looks like this:
 
@@ -146,6 +146,6 @@ I think I'm being inspired by Martin Odersky's presentation:
 
 {% include youtube.html id="YXDm3WHZT5g" caption="Plain Functional Programming by Martin Odersky" %}
 
-Do you think tracking side-effects like this would be useful in libraries? Monix, for example, also contains impure parts, and could make use of it.
+Do you think tracking side effects like this would be useful in libraries? Monix, for example, also contains impure parts, and could make use of it.
 
 Would you like it? Any prior art that I'm not aware of?
