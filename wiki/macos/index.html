@@ -21,7 +21,7 @@
     <meta content="Personal, volatile wiki documentation" property="og:description">
     <meta content="https://alexn.org/wiki/macos/" property="og:url">
     <meta content="2020-08-24T13:24:31+00:00" property="article:published_time">
-    <meta content="2022-03-29T07:43:07+00:00" property="article:modified_time">
+    <meta content="2022-07-19T10:29:46+00:00" property="article:modified_time">
     
     <meta content="website" property="og:type">
     <meta property="og:image" content="https://alexn.org/assets/logo/800px-bordered.png" />
@@ -109,8 +109,8 @@
       <meta itemprop="datePublished" content="2020-08-24T13:24:31+0000"/>
       
       
-      <time itemprop="dateModified" content="2022-03-29T10:43:07+0300">
-        Updated: March 29, 2022
+      <time itemprop="dateModified" content="2022-07-19T13:29:46+0300">
+        Updated: July 19, 2022
       </time>
       
       
@@ -135,6 +135,7 @@
   <li><a href="#finder-shortcuts">Finder Shortcuts</a></li>
   <li><a href="#useful-apps">Useful Apps</a></li>
   <li><a href="#stop-apple-music--itunes-from-starting-on-play">Stop Apple Music / iTunes from starting on Play</a></li>
+  <li><a href="#find-which-app-is-stealing-focus">Find which app is stealing focus</a></li>
   <li><a href="#troubleshooting">Troubleshooting</a></li>
   <li><a href="#other-documents">Other Documents</a></li>
 </ul>
@@ -176,6 +177,46 @@
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist
 </code></pre></div></div>
+      <h2 id="find-which-app-is-stealing-focus">
+        
+        
+          Find which app is stealing focus <a href="#find-which-app-is-stealing-focus" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>Answer from <a href="https://apple.stackexchange.com/questions/123730/is-there-a-way-to-detect-what-program-is-stealing-focus-on-my-mac">StackExchange</a>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">#!/usr/bin/python                                                                                                       
+</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">AppKit</span> <span class="kn">import</span> <span class="n">NSWorkspace</span>
+<span class="k">except</span> <span class="nb">ImportError</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">"Can't import AppKit -- maybe you're running python from brew?"</span>
+    <span class="k">print</span> <span class="s">"Try running with Apple's /usr/bin/python instead."</span>
+    <span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+
+<span class="n">last_active_name</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">active_app</span> <span class="o">=</span> <span class="n">NSWorkspace</span><span class="p">.</span><span class="n">sharedWorkspace</span><span class="p">().</span><span class="n">activeApplication</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">active_app</span><span class="p">[</span><span class="s">'NSApplicationName'</span><span class="p">]</span> <span class="o">!=</span> <span class="n">last_active_name</span><span class="p">:</span>
+        <span class="n">last_active_name</span> <span class="o">=</span> <span class="n">active_app</span><span class="p">[</span><span class="s">'NSApplicationName'</span><span class="p">]</span>
+        <span class="k">print</span> <span class="s">'%s: %s [%s]'</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="n">datetime</span><span class="p">.</span><span class="n">now</span><span class="p">().</span><span class="n">strftime</span><span class="p">(</span><span class="s">'%Y-%m-%d %H:%M:%S'</span><span class="p">),</span>
+            <span class="n">active_app</span><span class="p">[</span><span class="s">'NSApplicationName'</span><span class="p">],</span>
+            <span class="n">active_app</span><span class="p">[</span><span class="s">'NSApplicationPath'</span><span class="p">]</span>
+        <span class="p">)</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Needs <code class="language-plaintext highlighter-rouge">pyobjc</code>:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>pip <span class="nb">install </span>pyobjc
+</code></pre></div></div>
       <h2 id="troubleshooting">
         
         
@@ -216,12 +257,12 @@
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202207041346" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202207041346" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202207041346" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202207041346" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202207191035" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202207191035" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202207191035" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202207191035" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202207041346" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202207191035" type="text/javascript"></script>
 
 
 <script type="text/javascript">
