@@ -26,7 +26,7 @@ tags:
   dir_path = File.expand_path(File.join(File.dirname(File.expand_path(__FILE__)), "..", "_posts"))
   path = File.join(dir_path, slug)
   File.open(path, 'w') { |file| file.write(text) }
-  exec("code #{path}")
+  exec("vimr --cwd \"#{dir_path}\" \"#{path}\"")
 rescue
   puts parser.help
   raise

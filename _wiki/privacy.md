@@ -15,15 +15,15 @@ last_modified_at: 2022-03-29 10:44:04 +03:00
 
 ## Safari Extensions
 
-- [Wipr](https://giorgiocalderolla.com/wipr.html) 
+- [Wipr](https://giorgiocalderolla.com/wipr.html)
   ([iOS](https://apps.apple.com/us/app/wipr/id1030595027?mt=8), [macOS](https://apps.apple.com/app/wipr/id1320666476))
-  
+
 ## Network-wide blocking
 
 - [Pi-hole](https://pi-hole.net/)
 - [NextDNS](https://nextdns.io/) (pi-hole as a service)
 - [StevenBlack/hosts](https://github.com/StevenBlack/hosts) for blocking via `/etc/hosts`
-  
+
 ## Testing
 
 - [Panopticlick:  Is your browser safe against tracking?](https://panopticlick.eff.org/)
