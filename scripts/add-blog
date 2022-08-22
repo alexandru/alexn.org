@@ -3,9 +3,10 @@
 require 'optparse'
 require "json"
 
-options = {}
+options = {:draft => false}
 parser = OptionParser.new do |opt|
   opt.on('--title TITLE') { |o| options[:title] = o }
+  opt.on('--draft') { |o| options[:draft] = true }
 end
 
 parser.parse!
@@ -14,7 +15,6 @@ begin
 
   now = Time.new
   slug_title = options[:title].strip.downcase.gsub(/^\W+|\W+$/, "").gsub(/\W+/, "-")
-  slug = now.strftime("%Y-%m-%d") + "-" + slug_title + ".md"
   text = %{
 ---
 title: #{options[:title].to_json}
@@ -29,8 +29,22 @@ description: >
 </p>
   }.strip
 
-  dir_path = File.expand_path(File.join(File.dirname(File.expand_path(__FILE__)), "..", "_posts"))
-  path = File.join(dir_path, slug)
+  rel_dir_path =
+    if options[:draft]
+      "_drafts"
+    else
+      "_posts"
+    end
+
+
+  fname = slug_title + ".md"
+  unless options[:draft]
+    fname = now.strftime("%Y-%m-%d") + "-" + fname
+  end
+
+  dir_path = File.expand_path(File.join(File.dirname(File.expand_path(__FILE__)), "..", rel_dir_path))
+  path = File.join(dir_path, fname)
+  puts "Created: #{rel_dir_path}/#{fname}"
   File.open(path, 'w') { |file| file.write(text) }
   exec("vimr --cwd \"#{dir_path}\" \"#{path}\"")
 rescue
