@@ -38,6 +38,12 @@ For getting rid of cookie banners and other annoyances:
 - [I don't care about cookies](https://www.i-dont-care-about-cookies.eu/abp/){:target="_blank"}
 - [Adguard Annoyances](https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_14_Annoyances/filter.txt){:target="_blank"}
 
+Personal:
+
+- [my-hosting](/assets/misc/block-lists/my-hosting.txt)
+- [no-news](/assets/misc/block-lists/no-news.adblock.txt)
+- [digital-detox](/assets/misc/block-lists/digital-detox.adblock.txt)
+
 ## Progressive Web Apps (PWAs)
 
 - <https://web.dev/progressive-web-apps/>
