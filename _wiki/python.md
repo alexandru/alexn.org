@@ -1,7 +1,7 @@
 ---
 title: "Python"
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2022-08-31 14:02:14 +0300
+last_modified_at: 2022-08-31 14:27:37 +0300
 ---
 
 ## Pyenv + Virtualenv

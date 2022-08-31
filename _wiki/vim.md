@@ -1,7 +1,7 @@
 ---
 title: 'Vim'
 date: 2020-11-04 13:57:32 +02:00
-last_modified_at: 2022-08-31 14:03:14 +0300
+last_modified_at: 2022-08-31 14:27:19 +0300
 ---
 
 ## Docs & Articles
