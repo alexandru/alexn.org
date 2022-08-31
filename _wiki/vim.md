@@ -1,7 +1,7 @@
 ---
 title: 'Vim'
 date: 2020-11-04 13:57:32 +02:00
-last_modified_at: 2022-03-29 10:45:43 +03:00
+last_modified_at: 2022-08-31 14:03:14 +0300
 ---
 
 ## Docs & Articles
@@ -35,36 +35,56 @@ Other:
 - `:help user-manual`
 - `:help visual.txt`
 
-### Shell setup
+### Installing the Python provider
 
-For Zsh:
+Some plugins require the Python provider to be available. This can be checked with:
 
-```sh
-set -o vi
+```vim
+:checkhealth provider
 ```
 
-For Bash:
+This requires the [pynvim](https://github.com/neovim/pynvim) Python package.
+It's best if the setup uses `virtualenv`. On macOS prefer to use `pyenv`:
 
 ```sh
-bindkey -v
+brew install pyenv pyenv-virtualenv
 ```
 
-Indicating the editing mode via the prompt in Zsh:
+This needs the following initialization code in `~/.zshrc`:
 
-```zsh
-export BASE_RPROMPT="$RPROMPT"
+```zshrc
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+```
 
-zstyle ':vcs_info:git:*' formats '%F{240}%b %f %F{237}%r%f'
-zstyle ':vcs_info:*' enable git
+Then, install a Python 3 version:
 
-function zle-line-init zle-keymap-select {
-    RPS1="%B%F{237}${${KEYMAP/vicmd/--NORMAL--}/(main|viins)/--INSERT--}%f%b $BASE_RPROMPT"
-    RPS2="$RPS1"
-    zle reset-prompt
-}
+```sh
+pyenv install 3.10.6
+```
 
-zle -N zle-line-init
-zle -N zle-keymap-select
+Create a new virtualenv:
+
+```sh
+pyenv virtualenv 3.10.6 neovim
+```
+
+Activate it temporarily in your shell session:
+
+```sh
+pyenv activate neovim
+```
+
+Install the required Python package:
+
+```sh
+pip install pynvim
+```
+
+Then add this to `~/.config/nvim/init.vim`:
+
+```vimrc
+let g:python3_host_prog=expand('~/.pyenv/versions/neovim/bin/python')
 ```
 
 ### Surround text

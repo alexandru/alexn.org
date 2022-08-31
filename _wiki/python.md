@@ -1,7 +1,7 @@
 ---
 title: "Python"
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2022-03-29 10:44:13 +03:00
+last_modified_at: 2022-08-31 14:02:14 +0300
 ---
 
 ## Pyenv + Virtualenv
@@ -40,6 +40,12 @@ Uninstall a virtualenv:
 
 ```sh
 pyenv uninstall my_project_name
+```
+
+To activate an environment manually:
+
+```sh
+pyenv activate my_project_name
 ```
 
 To automatically switch virtualenv when switching to a project's directory, go to the project's directory and create `.python-version`:
