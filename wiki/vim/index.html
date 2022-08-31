@@ -19,7 +19,7 @@
     <meta content="Personal, volatile wiki documentation" property="og:description">
     <meta content="https://alexn.org/wiki/vim/" property="og:url">
     <meta content="2020-11-04T11:57:32+00:00" property="article:published_time">
-    <meta content="2022-03-29T07:45:43+00:00" property="article:modified_time">
+    <meta content="2022-08-31T11:03:14+00:00" property="article:modified_time">
     
     <meta content="website" property="og:type">
     <meta property="og:image" content="https://alexn.org/assets/logo/800px-bordered.png" />
@@ -107,8 +107,8 @@
       <meta itemprop="datePublished" content="2020-11-04T11:57:32+0000"/>
       
       
-      <time itemprop="dateModified" content="2022-03-29T10:45:43+0300">
-        Updated: March 29, 2022
+      <time itemprop="dateModified" content="2022-08-31T14:03:14+0300">
+        Updated: August 31, 2022
       </time>
       
       
@@ -134,7 +134,7 @@
   <li><a href="#random-tips">Random tips</a>
     <ul>
       <li><a href="#documentation">Documentation</a></li>
-      <li><a href="#shell-setup">Shell setup</a></li>
+      <li><a href="#installing-the-python-provider">Installing the Python provider</a></li>
       <li><a href="#surround-text">Surround text</a></li>
       <li><a href="#visual-block-mode">Visual-block mode</a></li>
       <li><a href="#copy--paste">Copy &amp; Paste</a></li>
@@ -200,41 +200,56 @@
   <li><code class="language-plaintext highlighter-rouge">:help user-manual</code></li>
   <li><code class="language-plaintext highlighter-rouge">:help visual.txt</code></li>
 </ul>
-      <h3 id="shell-setup">
+      <h3 id="installing-the-python-provider">
         
         
-          Shell setup <a href="#shell-setup" class="anchor">#</a>
+          Installing the Python provider <a href="#installing-the-python-provider" class="anchor">#</a>
         
         
       </h3>
     
 
-<p>For Zsh:</p>
+<p>Some plugins require the Python provider to be available. This can be checked with:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nb">set</span> <span class="nt">-o</span> vi
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="p">:</span>checkhealth provider
 </code></pre></div></div>
 
-<p>For Bash:</p>
+<p>This requires the <a href="https://github.com/neovim/pynvim">pynvim</a> Python package.
+It’s best if the setup uses <code class="language-plaintext highlighter-rouge">virtualenv</code>. On macOS prefer to use <code class="language-plaintext highlighter-rouge">pyenv</code>:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>bindkey <span class="nt">-v</span>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>brew <span class="nb">install </span>pyenv pyenv-virtualenv
 </code></pre></div></div>
 
-<p>Indicating the editing mode via the prompt in Zsh:</p>
+<p>This needs the following initialization code in <code class="language-plaintext highlighter-rouge">~/.zshrc</code>:</p>
 
-<div class="language-zsh highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nb">export </span><span class="nv">BASE_RPROMPT</span><span class="o">=</span><span class="s2">"</span><span class="nv">$RPROMPT</span><span class="s2">"</span>
+<pre><code class="language-zshrc">eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+</code></pre>
 
-zstyle <span class="s1">':vcs_info:git:*'</span> formats <span class="s1">'%F{240}%b %f %F{237}%r%f'</span>
-zstyle <span class="s1">':vcs_info:*'</span> <span class="nb">enable </span>git
+<p>Then, install a Python 3 version:</p>
 
-<span class="k">function </span>zle-line-init zle-keymap-select <span class="o">{</span>
-    <span class="nv">RPS1</span><span class="o">=</span><span class="s2">"%B%F{237}</span><span class="k">${${</span><span class="nv">KEYMAP</span><span class="p">/vicmd/--NORMAL--</span><span class="k">}</span><span class="p">/(main|viins)/--INSERT--</span><span class="k">}</span><span class="s2">%f%b </span><span class="nv">$BASE_RPROMPT</span><span class="s2">"</span>
-    <span class="nv">RPS2</span><span class="o">=</span><span class="s2">"</span><span class="nv">$RPS1</span><span class="s2">"</span>
-    zle reset-prompt
-<span class="o">}</span>
-
-zle <span class="nt">-N</span> zle-line-init
-zle <span class="nt">-N</span> zle-keymap-select
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>pyenv <span class="nb">install </span>3.10.6
 </code></pre></div></div>
+
+<p>Create a new virtualenv:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>pyenv virtualenv 3.10.6 neovim
+</code></pre></div></div>
+
+<p>Activate it temporarily in your shell session:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>pyenv activate neovim
+</code></pre></div></div>
+
+<p>Install the required Python package:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>pip <span class="nb">install </span>pynvim
+</code></pre></div></div>
+
+<p>Then add this to <code class="language-plaintext highlighter-rouge">~/.config/nvim/init.vim</code>:</p>
+
+<pre><code class="language-vimrc">let g:python3_host_prog=expand('~/.pyenv/versions/neovim/bin/python')
+</code></pre>
       <h3 id="surround-text">
         
         
@@ -369,12 +384,12 @@ So <code class="language-plaintext highlighter-rouge">"*y</code> copies to the s
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202208310511" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202208310511" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202208310511" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202208310511" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202208311112" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202208311112" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202208311112" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202208311112" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202208310511" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202208311112" type="text/javascript"></script>
 
 
 <script type="text/javascript">

@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 31 Aug 2022 05:11:42 +0000</pubDate>
-    <lastBuildDate>Wed, 31 Aug 2022 05:11:42 +0000</lastBuildDate>
+    <pubDate>Wed, 31 Aug 2022 11:12:46 +0000</pubDate>
+    <lastBuildDate>Wed, 31 Aug 2022 11:12:46 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -529,11 +529,11 @@ sudo wget https://www.thawte.com/roots/thawte_Primary_Root_CA.pem
 <item>
   <title>Vim</title>
   <description>Article 
-    updated at March 29, 2022, 
+    updated at August 31, 2022, 
     created at November 4, 2020.</description>
   <content:encoded>&lt;p&gt;
       Article 
-      updated at March 29, 2022, 
+      updated at August 31, 2022, 
       created at November 4, 2020.
     &lt;/p&gt;
     &lt;hr&gt;
@@ -582,34 +582,49 @@ sudo wget https://www.thawte.com/roots/thawte_Primary_Root_CA.pem
   &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:help visual.txt&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;shell-setup&quot;&gt;Shell setup&lt;/h3&gt;
+&lt;h3 id=&quot;installing-the-python-provider&quot;&gt;Installing the Python provider&lt;/h3&gt;
 
-&lt;p&gt;For Zsh:&lt;/p&gt;
+&lt;p&gt;Some plugins require the Python provider to be available. This can be checked with:&lt;/p&gt;
 
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; vi
+&lt;div class=&quot;language-vim highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;checkhealth provider
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;For Bash:&lt;/p&gt;
+&lt;p&gt;This requires the &lt;a href=&quot;https://github.com/neovim/pynvim&quot;&gt;pynvim&lt;/a&gt; Python package.
+It’s best if the setup uses &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;virtualenv&lt;/code&gt;. On macOS prefer to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pyenv&lt;/code&gt;:&lt;/p&gt;
 
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;bindkey &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt;
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;brew &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;pyenv pyenv-virtualenv
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Indicating the editing mode via the prompt in Zsh:&lt;/p&gt;
+&lt;p&gt;This needs the following initialization code in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.zshrc&lt;/code&gt;:&lt;/p&gt;
 
-&lt;div class=&quot;language-zsh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;BASE_RPROMPT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RPROMPT&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;pre&gt;&lt;code class=&quot;language-zshrc&quot;&gt;eval &quot;$(pyenv init -)&quot;
+eval &quot;$(pyenv virtualenv-init -)&quot;
+&lt;/code&gt;&lt;/pre&gt;
 
-zstyle &lt;span class=&quot;s1&quot;&gt;':vcs_info:git:*'&lt;/span&gt; formats &lt;span class=&quot;s1&quot;&gt;'%F{240}%b %f %F{237}%r%f'&lt;/span&gt;
-zstyle &lt;span class=&quot;s1&quot;&gt;':vcs_info:*'&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enable &lt;/span&gt;git
+&lt;p&gt;Then, install a Python 3 version:&lt;/p&gt;
 
-&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;zle-line-init zle-keymap-select &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nv&quot;&gt;RPS1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;%B%F{237}&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;KEYMAP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;/vicmd/--NORMAL--&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;/(main|viins)/--INSERT--&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;%f%b &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$BASE_RPROMPT&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-    &lt;span class=&quot;nv&quot;&gt;RPS2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RPS1&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-    zle reset-prompt
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-zle &lt;span class=&quot;nt&quot;&gt;-N&lt;/span&gt; zle-line-init
-zle &lt;span class=&quot;nt&quot;&gt;-N&lt;/span&gt; zle-keymap-select
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;pyenv &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;3.10.6
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Create a new virtualenv:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;pyenv virtualenv 3.10.6 neovim
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Activate it temporarily in your shell session:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;pyenv activate neovim
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Install the required Python package:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;pip &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;pynvim
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then add this to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.config/nvim/init.vim&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-vimrc&quot;&gt;let g:python3_host_prog=expand('~/.pyenv/versions/neovim/bin/python')
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3 id=&quot;surround-text&quot;&gt;Surround text&lt;/h3&gt;
 
@@ -717,8 +732,8 @@ So &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;*y&l
 &lt;/li&gt;
 &lt;/ul&gt;</content:encoded>
   <pubDate>Wed, 04 Nov 2020 11:57:32 +0000</pubDate>
-  <dc:modified>Tue, 29 Mar 2022 07:45:43 +0000</dc:modified>
-  <atom:modified>Tue, 29 Mar 2022 07:45:43 +0000</atom:modified>
+  <dc:modified>Wed, 31 Aug 2022 11:03:14 +0000</dc:modified>
+  <atom:modified>Wed, 31 Aug 2022 11:03:14 +0000</atom:modified>
   <link>https://alexn.org/wiki/vim/?pk_campaign=rss&amp;pk_kwd=link</link>
   <guid isPermaLink="true">https://alexn.org/wiki/vim/</guid>
   
@@ -3054,11 +3069,11 @@ on a Sunday, even if you called and marked it done on Saturday:&lt;/p&gt;
 <item>
   <title>Python</title>
   <description>Article 
-    updated at March 29, 2022, 
+    updated at August 31, 2022, 
     created at August 24, 2020.</description>
   <content:encoded>&lt;p&gt;
       Article 
-      updated at March 29, 2022, 
+      updated at August 31, 2022, 
       created at August 24, 2020.
     &lt;/p&gt;
     &lt;hr&gt;
@@ -3097,13 +3112,18 @@ on a Sunday, even if you called and marked it done on Saturday:&lt;/p&gt;
 &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;pyenv uninstall my_project_name
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
+&lt;p&gt;To activate an environment manually:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;pyenv activate my_project_name
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;p&gt;To automatically switch virtualenv when switching to a project’s directory, go to the project’s directory and create &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.python-version&lt;/code&gt;:&lt;/p&gt;
 
 &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;my_project_name&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&gt;&lt;/span&gt; .python-version
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content:encoded>
   <pubDate>Mon, 24 Aug 2020 13:24:31 +0000</pubDate>
-  <dc:modified>Tue, 29 Mar 2022 07:44:13 +0000</dc:modified>
-  <atom:modified>Tue, 29 Mar 2022 07:44:13 +0000</atom:modified>
+  <dc:modified>Wed, 31 Aug 2022 11:02:14 +0000</dc:modified>
+  <atom:modified>Wed, 31 Aug 2022 11:02:14 +0000</atom:modified>
   <link>https://alexn.org/wiki/python/?pk_campaign=rss&amp;pk_kwd=link</link>
   <guid isPermaLink="true">https://alexn.org/wiki/python/</guid>
   
