@@ -19,7 +19,7 @@
     <meta content="Personal, volatile wiki documentation" property="og:description">
     <meta content="https://alexn.org/wiki/vim/" property="og:url">
     <meta content="2020-11-04T11:57:32+00:00" property="article:published_time">
-    <meta content="2022-08-31T11:03:14+00:00" property="article:modified_time">
+    <meta content="2022-08-31T11:27:19+00:00" property="article:modified_time">
     
     <meta content="website" property="og:type">
     <meta property="og:image" content="https://alexn.org/assets/logo/800px-bordered.png" />
@@ -107,7 +107,7 @@
       <meta itemprop="datePublished" content="2020-11-04T11:57:32+0000"/>
       
       
-      <time itemprop="dateModified" content="2022-08-31T14:03:14+0300">
+      <time itemprop="dateModified" content="2022-08-31T14:27:19+0300">
         Updated: August 31, 2022
       </time>
       
@@ -131,10 +131,14 @@
   <p><strong>Contents:</strong></p>
   <ul>
   <li><a href="#docs--articles">Docs &amp; Articles</a></li>
+  <li><a href="#setup">Setup</a>
+    <ul>
+      <li><a href="#installing-the-python-provider">Installing the Python provider</a></li>
+    </ul>
+  </li>
   <li><a href="#random-tips">Random tips</a>
     <ul>
       <li><a href="#documentation">Documentation</a></li>
-      <li><a href="#installing-the-python-provider">Installing the Python provider</a></li>
       <li><a href="#surround-text">Surround text</a></li>
       <li><a href="#visual-block-mode">Visual-block mode</a></li>
       <li><a href="#copy--paste">Copy &amp; Paste</a></li>
@@ -175,6 +179,65 @@
   <li><a href="https://jemma.dev/blog/intermediate-vim-tips">Vim Tips for the Intermediate Vim User</a> (<a href="https://web.archive.org/web/20210201151013/https://jemma.dev/blog/intermediate-vim-tips">archive</a>)</li>
   <li><a href="https://www.vimgolf.com/">VimGolf</a> (<a href="https://web.archive.org/web/20210201151233/https://www.vimgolf.com/">archive</a>)</li>
 </ul>
+      <h2 id="setup">
+        
+        
+          Setup <a href="#setup" class="anchor">#</a>
+        
+        
+      </h2>
+    
+      <h3 id="installing-the-python-provider">
+        
+        
+          Installing the Python provider <a href="#installing-the-python-provider" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Some plugins require the Python provider to be available. This can be checked
+with the following vim command:</p>
+
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="p">:</span>checkhealth provider
+</code></pre></div></div>
+
+<p>This requires the <a href="https://github.com/neovim/pynvim">pynvim</a> Python package.
+It’s best if the setup uses <code class="language-plaintext highlighter-rouge">virtualenv</code>. On macOS prefer to use <code class="language-plaintext highlighter-rouge">pyenv</code>:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>brew <span class="nb">install </span>pyenv pyenv-virtualenv
+</code></pre></div></div>
+
+<p>This needs the following initialization code in <code class="language-plaintext highlighter-rouge">~/.zshrc</code>:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nb">eval</span> <span class="s2">"</span><span class="si">$(</span>pyenv init -<span class="si">)</span><span class="s2">"</span>
+<span class="nb">eval</span> <span class="s2">"</span><span class="si">$(</span>pyenv virtualenv-init -<span class="si">)</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Then, install a Python 3 version:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>pyenv <span class="nb">install </span>3.10.6
+</code></pre></div></div>
+
+<p>Create a new virtualenv:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>pyenv virtualenv 3.10.6 neovim
+</code></pre></div></div>
+
+<p>Activate it temporarily in your shell session:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>pyenv activate neovim
+</code></pre></div></div>
+
+<p>Install the required Python package:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>pip <span class="nb">install </span>pynvim
+</code></pre></div></div>
+
+<p>Then add this to <code class="language-plaintext highlighter-rouge">~/.config/nvim/init.vim</code>:</p>
+
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">let</span> <span class="nv">g:python3_host_prog</span><span class="p">=</span><span class="nb">expand</span><span class="p">(</span><span class="s1">'~/.pyenv/versions/neovim/bin/python'</span><span class="p">)</span>
+</code></pre></div></div>
       <h2 id="random-tips">
         
         
@@ -200,56 +263,6 @@
   <li><code class="language-plaintext highlighter-rouge">:help user-manual</code></li>
   <li><code class="language-plaintext highlighter-rouge">:help visual.txt</code></li>
 </ul>
-      <h3 id="installing-the-python-provider">
-        
-        
-          Installing the Python provider <a href="#installing-the-python-provider" class="anchor">#</a>
-        
-        
-      </h3>
-    
-
-<p>Some plugins require the Python provider to be available. This can be checked with:</p>
-
-<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="p">:</span>checkhealth provider
-</code></pre></div></div>
-
-<p>This requires the <a href="https://github.com/neovim/pynvim">pynvim</a> Python package.
-It’s best if the setup uses <code class="language-plaintext highlighter-rouge">virtualenv</code>. On macOS prefer to use <code class="language-plaintext highlighter-rouge">pyenv</code>:</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>brew <span class="nb">install </span>pyenv pyenv-virtualenv
-</code></pre></div></div>
-
-<p>This needs the following initialization code in <code class="language-plaintext highlighter-rouge">~/.zshrc</code>:</p>
-
-<pre><code class="language-zshrc">eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-</code></pre>
-
-<p>Then, install a Python 3 version:</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>pyenv <span class="nb">install </span>3.10.6
-</code></pre></div></div>
-
-<p>Create a new virtualenv:</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>pyenv virtualenv 3.10.6 neovim
-</code></pre></div></div>
-
-<p>Activate it temporarily in your shell session:</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>pyenv activate neovim
-</code></pre></div></div>
-
-<p>Install the required Python package:</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>pip <span class="nb">install </span>pynvim
-</code></pre></div></div>
-
-<p>Then add this to <code class="language-plaintext highlighter-rouge">~/.config/nvim/init.vim</code>:</p>
-
-<pre><code class="language-vimrc">let g:python3_host_prog=expand('~/.pyenv/versions/neovim/bin/python')
-</code></pre>
       <h3 id="surround-text">
         
         
@@ -384,12 +397,12 @@ So <code class="language-plaintext highlighter-rouge">"*y</code> copies to the s
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202208311112" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202208311112" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202208311112" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202208311112" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202208311128" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202208311128" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202208311128" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202208311128" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202208311112" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202208311128" type="text/javascript"></script>
 
 
 <script type="text/javascript">

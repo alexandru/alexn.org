@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 31 Aug 2022 11:12:46 +0000</pubDate>
-    <lastBuildDate>Wed, 31 Aug 2022 11:12:46 +0000</lastBuildDate>
+    <pubDate>Wed, 31 Aug 2022 11:28:37 +0000</pubDate>
+    <lastBuildDate>Wed, 31 Aug 2022 11:28:37 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -569,22 +569,12 @@ sudo wget https://www.thawte.com/roots/thawte_Primary_Root_CA.pem
 &lt;a href=&quot;https://www.vimgolf.com/&quot;&gt;VimGolf&lt;/a&gt; (&lt;a href=&quot;https://web.archive.org/web/20210201151233/https://www.vimgolf.com/&quot;&gt;archive&lt;/a&gt;)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;random-tips&quot;&gt;Random tips&lt;/h2&gt;
-
-&lt;h3 id=&quot;documentation&quot;&gt;Documentation&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:help&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:help g&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:help motion.txt&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:help spell.txt&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:help user-manual&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:help visual.txt&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;h2 id=&quot;setup&quot;&gt;Setup&lt;/h2&gt;
 
 &lt;h3 id=&quot;installing-the-python-provider&quot;&gt;Installing the Python provider&lt;/h3&gt;
 
-&lt;p&gt;Some plugins require the Python provider to be available. This can be checked with:&lt;/p&gt;
+&lt;p&gt;Some plugins require the Python provider to be available. This can be checked
+with the following vim command:&lt;/p&gt;
 
 &lt;div class=&quot;language-vim highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;checkhealth provider
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -597,9 +587,9 @@ It’s best if the setup uses &lt;code class=&quot;language-plaintext highlighte
 
 &lt;p&gt;This needs the following initialization code in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.zshrc&lt;/code&gt;:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&quot;language-zshrc&quot;&gt;eval &quot;$(pyenv init -)&quot;
-eval &quot;$(pyenv virtualenv-init -)&quot;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;eval&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;pyenv init -&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;eval&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;pyenv virtualenv-init -&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Then, install a Python 3 version:&lt;/p&gt;
 
@@ -623,8 +613,21 @@ eval &quot;$(pyenv virtualenv-init -)&quot;
 
 &lt;p&gt;Then add this to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.config/nvim/init.vim&lt;/code&gt;:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&quot;language-vimrc&quot;&gt;let g:python3_host_prog=expand('~/.pyenv/versions/neovim/bin/python')
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&quot;language-vim highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g:python3_host_prog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;expand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'~/.pyenv/versions/neovim/bin/python'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;random-tips&quot;&gt;Random tips&lt;/h2&gt;
+
+&lt;h3 id=&quot;documentation&quot;&gt;Documentation&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:help&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:help g&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:help motion.txt&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:help spell.txt&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:help user-manual&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:help visual.txt&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h3 id=&quot;surround-text&quot;&gt;Surround text&lt;/h3&gt;
 
@@ -732,8 +735,8 @@ So &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;*y&l
 &lt;/li&gt;
 &lt;/ul&gt;</content:encoded>
   <pubDate>Wed, 04 Nov 2020 11:57:32 +0000</pubDate>
-  <dc:modified>Wed, 31 Aug 2022 11:03:14 +0000</dc:modified>
-  <atom:modified>Wed, 31 Aug 2022 11:03:14 +0000</atom:modified>
+  <dc:modified>Wed, 31 Aug 2022 11:27:19 +0000</dc:modified>
+  <atom:modified>Wed, 31 Aug 2022 11:27:19 +0000</atom:modified>
   <link>https://alexn.org/wiki/vim/?pk_campaign=rss&amp;pk_kwd=link</link>
   <guid isPermaLink="true">https://alexn.org/wiki/vim/</guid>
   
@@ -3122,8 +3125,8 @@ on a Sunday, even if you called and marked it done on Saturday:&lt;/p&gt;
 &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;my_project_name&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&gt;&lt;/span&gt; .python-version
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content:encoded>
   <pubDate>Mon, 24 Aug 2020 13:24:31 +0000</pubDate>
-  <dc:modified>Wed, 31 Aug 2022 11:02:14 +0000</dc:modified>
-  <atom:modified>Wed, 31 Aug 2022 11:02:14 +0000</atom:modified>
+  <dc:modified>Wed, 31 Aug 2022 11:27:37 +0000</dc:modified>
+  <atom:modified>Wed, 31 Aug 2022 11:27:37 +0000</atom:modified>
   <link>https://alexn.org/wiki/python/?pk_campaign=rss&amp;pk_kwd=link</link>
   <guid isPermaLink="true">https://alexn.org/wiki/python/</guid>
   
