@@ -24,20 +24,12 @@ Other:
 - [Vim Tips for the Intermediate Vim User](https://jemma.dev/blog/intermediate-vim-tips) ([archive](https://web.archive.org/web/20210201151013/https://jemma.dev/blog/intermediate-vim-tips))
 - [VimGolf](https://www.vimgolf.com/) ([archive](https://web.archive.org/web/20210201151233/https://www.vimgolf.com/))
 
-## Random tips
-
-### Documentation
-
-- `:help`
-- `:help g`
-- `:help motion.txt`
-- `:help spell.txt`
-- `:help user-manual`
-- `:help visual.txt`
+## Setup
 
 ### Installing the Python provider
 
-Some plugins require the Python provider to be available. This can be checked with:
+Some plugins require the Python provider to be available. This can be checked
+with the following vim command:
 
 ```vim
 :checkhealth provider
@@ -52,7 +44,7 @@ brew install pyenv pyenv-virtualenv
 
 This needs the following initialization code in `~/.zshrc`:
 
-```zshrc
+```sh
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 ```
@@ -83,9 +75,20 @@ pip install pynvim
 
 Then add this to `~/.config/nvim/init.vim`:
 
-```vimrc
+```vim
 let g:python3_host_prog=expand('~/.pyenv/versions/neovim/bin/python')
 ```
+
+## Random tips
+
+### Documentation
+
+- `:help`
+- `:help g`
+- `:help motion.txt`
+- `:help spell.txt`
+- `:help user-manual`
+- `:help visual.txt`
 
 ### Surround text
 
