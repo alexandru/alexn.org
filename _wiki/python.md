@@ -1,7 +1,7 @@
 ---
 title: "Python"
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2022-08-31 14:27:37 +0300
+last_modified_at: 2022-09-01 16:10:08 +03:00
 ---
 
 ## Pyenv + Virtualenv
@@ -48,7 +48,8 @@ To activate an environment manually:
 pyenv activate my_project_name
 ```
 
-To automatically switch virtualenv when switching to a project's directory, go to the project's directory and create `.python-version`:
+To automatically switch virtualenv when switching to a project's directory, go
+to the project's directory and create `.python-version`:
 
 ```sh
 echo "my_project_name" > .python-version
