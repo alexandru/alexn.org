@@ -1,8 +1,9 @@
 ---
-title: "DNS Lookup - Check Domain's DNS Records"
 date: 2020-07-30 13:00:27 +03:00
-last_modified_at: 2022-03-29 10:40:02 +03:00
+last_modified_at: 2022-09-01 17:17:02 +03:00
 ---
+
+# DNS Lookup - Check Domain's DNS Records
 
 For MX records (email):
 

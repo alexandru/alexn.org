@@ -1,8 +1,9 @@
 ---
-title: "RSS / Atom feeds"
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2022-03-29 10:44:24 +03:00
+last_modified_at: 2022-09-01 17:25:10 +03:00
 ---
+
+# RSS / Atom feeds
 
 ## Readers
 

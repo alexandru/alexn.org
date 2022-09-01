@@ -1,8 +1,9 @@
 ---
-title: "Agile"
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2022-03-29 10:38:59 +03:00
+last_modified_at: 2022-09-01 17:15:06 +03:00
 ---
+
+# Agile
 
 ## Kanban
 

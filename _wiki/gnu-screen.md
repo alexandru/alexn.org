@@ -1,8 +1,11 @@
 ---
-title: "GNU Screen"
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2022-03-29 10:42:03 +03:00
+last_modified_at: 2022-09-01 17:22:42 +03:00
 ---
+
+# GNU Screen
+
+## Links
 
 [Documentation](https://www.gnu.org/software/screen/manual/screen.html)
 
@@ -26,7 +29,7 @@ List sessions:
 screen -ls
 ```
 
-Re-attach sesion:
+Re-attach session:
 
 ```bash
 screen -r <name>
@@ -43,14 +46,14 @@ Window management:
 - Create a new window: `Ctrl-a c`
 - Kill current window: `Ctrl-a k`
 - Next window: `Ctrl-a n`
-- Prev window: `Ctrl-a p`
+- Previous window: `Ctrl-a p`
 - Jump to window: `Ctrl-a 0-9`
 - Split vertical: `Ctrl-a |`
 - Split horizontal: `Ctrl-a S`
 - Focus next region: `Ctrl-a ^`
 - Quit split screen mode: `Ctrl-a Q`
 
-## Custom .screenrc
+## Custom ~/.screenrc
 
 ```
 shell -$SHELL

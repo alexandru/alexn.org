@@ -1,14 +1,14 @@
 ---
-title: 'Vim'
 date: 2020-11-04 13:57:32 +02:00
-last_modified_at: 2022-08-31 14:27:19 +0300
+last_modified_at: 2022-09-01 17:26:34 +03:00
 ---
+
+# Vim
 
 ## Docs & Articles
 
 Important:
 
-- [Quick Reference](./vim-quickref.txt)
 - [Vim Cheatsheet](https://vim.rtorr.com/) ([archive](https://web.archive.org/web/20210201154856/https://vim.rtorr.com/)) / [Github Repo](https://github.com/rtorr/vim-cheat-sheet) ([archive](https://web.archive.org/web/20210201155116/https://github.com/rtorr/vim-cheat-sheet))
 - [Vim Graphical Cheatsheet](http://www.viemu.com/vi-vim-cheat-sheet.gif) ([archive](https://web.archive.org/web/20210201160106/http://www.viemu.com/vi-vim-cheat-sheet.gif))
 

@@ -1,8 +1,9 @@
 ---
-title: "Excel"
 date: 2022-01-29 18:21:03 +02:00
-last_modified_at: 2022-03-29 10:41:21 +03:00
+last_modified_at: 2022-09-01 17:20:41 +03:00
 ---
+
+# Excel
 
 Shortcuts:
 

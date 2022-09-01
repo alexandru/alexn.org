@@ -1,8 +1,9 @@
 ---
-title: "Emacs Setup"
 date: 2020-08-24 16:24:31+0300
-last_modified_at: 2022-03-29 10:40:59 +03:00
+last_modified_at: 2022-09-01 17:20:20 +03:00
 ---
+
+# Emacs
 
 ## Installation
 

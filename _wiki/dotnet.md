@@ -1,17 +1,18 @@
 ---
-title: "Microsoft .NET"
 date: 2020-10-08 08:31:40 +03:00
-last_modified_at: 2022-03-29 10:40:41 +03:00
+last_modified_at: 2022-09-01 17:18:59 +03:00
 ---
 
-## CSharp
+# Microsoft .NET
+
+## C# (CSharp)
 
 ### Game Development
 
 - [Game Development with .NET](https://devblogs.microsoft.com/dotnet/game-development-with-net/) (article)
 - [Available game engines](https://dotnet.microsoft.com/apps/games/engines?WT.mc_id=gamedev-blog-abhamed)
 
-## FSharp
+## F# (FSharp)
 
 ### Start New Project
 

@@ -1,10 +1,11 @@
 ---
-title: "De-DRM"
 date: 2020-09-17 12:02:43 +03:00
-last_modified_at: 2022-03-29 10:39:50 +03:00
+last_modified_at: 2022-09-01 17:16:47 +03:00
 ---
 
-## eBooks
+# De-DRM
+
+## e-Books
 
 Tools:
 

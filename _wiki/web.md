@@ -1,11 +1,12 @@
 ---
-title: "Web"
 redirect_from:
   - /wiki/web-tricks.html
   - /wiki/web-apps.html
 date: 2020-11-30 17:38:13 +03:00
-last_modified_at: 2022-05-02 10:04:07 +03:00
+last_modified_at: 2022-09-01 17:26:52 +03:00
 ---
+
+# Web
 
 ## Browser benchmarks
 

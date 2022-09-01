@@ -1,8 +1,9 @@
 ---
-title: "Ubuntu Server"
 date: 2022-03-11 13:59:24 +02:00
-last_modified_at: 2022-03-29 18:30:00 +03:00
+last_modified_at: 2022-09-01 17:25:55 +03:00
 ---
+
+# Ubuntu Server
 
 ## Initial setup (firewall, user, updates)
 

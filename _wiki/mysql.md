@@ -1,8 +1,9 @@
 ---
-title: "MySQL / MariaDB"
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2022-03-29 10:43:18 +03:00
+last_modified_at: 2022-09-01 17:24:09 +03:00
 ---
+
+# MySQL / MariaDB
 
 ## Start a Docker Instance
 

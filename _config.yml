@@ -78,9 +78,10 @@ kramdown:
 
 plugins:
   - jekyll-paginate-v2
-  - jekyll-sitemap
-  - jekyll-relative-links
   - jekyll-redirect-from
+  - jekyll-relative-links
+  - jekyll-sitemap
+  - jekyll-titles-from-headings
 
 relative_links:
   enabled: true
@@ -111,6 +112,11 @@ pagination:
 #       - "png:compression-filter=5"
 #       - "png:compression-level=9"
 #       - "png:exclude-chunk=all"
+
+titles_from_headings:
+  enabled:     true
+  strip_title: true
+  collections: true
 
 autopages:
   enabled: true

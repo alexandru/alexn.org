@@ -1,8 +1,8 @@
 ---
-title: "DNS settings"
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2022-03-29 10:40:19 +03:00
+last_modified_at: 2022-09-01 17:18:15 +03:00
 ---
+# DNS settings
 
 ## MacOS
 

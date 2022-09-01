@@ -1,10 +1,9 @@
 ---
-title: "iTerm2"
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2022-03-29 10:42:39 +03:00
+last_modified_at: 2022-09-01 17:23:29 +03:00
 ---
 
-Tips for [iTerm2](https://www.iterm2.com/){:target="_blank"}.
+# iTerm2
 
 ## Configure opening of file paths (semantic history)
 

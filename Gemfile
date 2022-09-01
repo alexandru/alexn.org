@@ -14,6 +14,7 @@ group :jekyll_plugins do
   gem 'jekyll-relative-links'
   gem 'jekyll-sitemap'
   gem 'jekyll-redirect-from'
+  gem 'jekyll-titles-from-headings'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

@@ -1,8 +1,9 @@
 ---
-title: "Chromium (Brave, etc.)"
 date: 2022-09-01 16:10:16 +03:00
-last_modified_at: 2022-09-01 16:46:05 +03:00
+last_modified_at: 2022-09-01 17:06:54 +03:00
 ---
+
+# Chromium (Brave, ...)
 
 ## Favorite Extensions
 
@@ -10,12 +11,12 @@ last_modified_at: 2022-09-01 16:46:05 +03:00
 - [Dark Reader](https://chrome.google.com/webstore/detail/dark-reader/eimadpbcbfnmbkopoojfekhnkhdbieeh);
 - [Enhancer for YouTube](https://chrome.google.com/webstore/detail/enhancer-for-youtube/ponfpcnoihfmfllpaingbgckeeldkhle);
 - [Google Translate](https://chrome.google.com/webstore/detail/google-translate/aapbdbdomjkkjkaonfhkkikfgjllcleb);
-- [LanguageTool](https://chrome.google.com/webstore/detail/grammar-spell-checker-%E2%80%94-l/oldceeleldhonbafppcapldpdifcinji?utm_source=lt-homepage): for spell-checking, running this with a local server (installed via `brew install languagetool`);
-- [LeechBlock NG](https://chrome.google.com/webstore/detail/leechblock-ng/blaaajhemilngeeffpbfkdjjoefldkok): I permanently ban some websites in the browser, you can do this with uBlock Origin too, however I don't use uBO;
+- [LanguageTool](https://chrome.google.com/webstore/detail/grammar-spell-checker-%E2%80%94-l/oldceeleldhonbafppcapldpdifcinji?utm_source=lt-homepage): for spell-checking, running this with a local server (`brew install languagetool`);
+- [LeechBlock NG](https://chrome.google.com/webstore/detail/leechblock-ng/blaaajhemilngeeffpbfkdjjoefldkok): Time-based restrictions for websites;
 - [Return YouTube Dislikes](https://chrome.google.com/webstore/detail/return-youtube-dislike/gebbhagfogifgggkldgodflihgfeippi);
-- [Save to Pocket](https://chrome.google.com/webstore/detail/save-to-pocket/niloccemoadcdkdjlinkgdfekeahmflj?hl=en): I collect articles, to read later; ironically, this Chromium extension is better than Firefox's built-in functionality, as with this extension you can have a keyboard shortcut 🤦‍♂️
+- [Save to Pocket](https://chrome.google.com/webstore/detail/save-to-pocket/niloccemoadcdkdjlinkgdfekeahmflj?hl=en)
 - [Tab Pinner](https://chrome.google.com/webstore/detail/tab-pinner-keyboard-short/mbcjcnomlakhkechnbhmfjhnnllpbmlh): adds a keyboard shortcut for pinning/unpinning a tab;
-- [uBlock Origin](https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=en), the best ad-blocker, but it's unnecessary in Brave;
+- [uBlock Origin](https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=en), the best ad-blocker, unnecessary in Brave;
 - [Vimium](https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb): adds some Vim-like keyboard shortcuts;
 
 ## Internal URLs

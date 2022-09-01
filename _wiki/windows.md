@@ -1,8 +1,9 @@
 ---
-title: "Windows 10"
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2022-03-29 10:46:05 +03:00
+last_modified_at: 2022-09-01 17:26:59 +03:00
 ---
+
+# Windows 10
 
 ## Installation on Macbooks
 

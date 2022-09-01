@@ -1,8 +1,9 @@
 ---
-title: "Python"
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2022-09-01 16:10:08 +03:00
+last_modified_at: 2022-09-01 17:25:03 +03:00
 ---
+
+# Python
 
 ## Pyenv + Virtualenv
 

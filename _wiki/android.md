@@ -1,8 +1,9 @@
 ---
-title: "Android"
 date: 2020-11-02 21:09:46 +02:00
-last_modified_at: 2022-03-29 10:39:02 +03:00
+last_modified_at: 2022-09-01 17:15:19 +03:00
 ---
+
+# Android
 
 ## Apps
 

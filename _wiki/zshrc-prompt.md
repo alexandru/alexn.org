@@ -1,8 +1,9 @@
 ---
-title: "Custom Zsh Prompt"
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2022-03-29 10:46:15 +03:00
+last_modified_at: 2022-09-01 17:27:13 +03:00
 ---
+
+# Custom Zsh Prompt
 
 References:
 - [Moving to zsh, part 6 – Customizing the zsh Prompt](https://scriptingosx.com/2019/07/moving-to-zsh-06-customizing-the-zsh-prompt/)

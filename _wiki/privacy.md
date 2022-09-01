@@ -1,8 +1,9 @@
 ---
-title: "Privacy"
 date: 2020-09-21 16:20:35 +03:00
-last_modified_at: 2022-03-29 10:44:04 +03:00
+last_modified_at: 2022-09-01 17:24:36 +03:00
 ---
+
+# Privacy
 
 ## Firefox Extensions
 

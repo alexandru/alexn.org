@@ -1,8 +1,9 @@
 ---
-title: "MacOS"
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2022-07-19 13:29:46 +03:00
+last_modified_at: 2022-09-01 17:24:01 +03:00
 ---
+
+# macOS
 
 ## Finder Shortcuts
 
