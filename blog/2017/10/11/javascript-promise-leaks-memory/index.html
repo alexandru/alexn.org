@@ -10,25 +10,25 @@
     <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
     <meta name="theme-color" content="#493667">
     
-    <title>JavaScript&#39;s Promise Leaks Memory - Alexandru Nedelcu</title>
+    <title>Introduction - Alexandru Nedelcu</title>
     
 
     <!-- Open Graph Meta -->
     <meta content="Alexandru Nedelcu" property="og:site_name">
-    <meta content="JavaScript&amp;#39;s Promise Leaks Memory" property="og:title">
+    <meta content="Introduction" property="og:title">
     <meta content="JavaScript’s Promise leaks memory in recursive loops and what you can do about it." property="og:description">
     <meta content="https://alexn.org/blog/2017/10/11/javascript-promise-leaks-memory/" property="og:url">
     <meta content="2017-10-11T00:00:00+00:00" property="article:published_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/js-then.png?202209011347" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/js-then.png?202209011347" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/js-then.png?202209011428" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/js-then.png?202209011428" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/js-then.png?202209011347">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/js-then.png?202209011428">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
-    <meta name="twitter:title" content="JavaScript&#39;s Promise Leaks Memory">
+    <meta name="twitter:title" content="Introduction">
     <meta name="twitter:url" content="https://alexn.org/blog/2017/10/11/javascript-promise-leaks-memory/">
     <meta name="twitter:description" content="JavaScript’s Promise leaks memory in recursive loops and what you can do about it.">
     <!-- Favicon -->
@@ -94,7 +94,7 @@
         
         
           
-      JavaScript&#39;s Promise Leaks Memory
+      Introduction
     
         
         
@@ -140,7 +140,6 @@
     <nav class="toc">
       <p class="toc-title">Table of Contents:</p>
       <ul>
-  <li><a href="#introduction">Introduction</a></li>
   <li><a href="#the-spec-is-the-problem">The Spec is The Problem</a></li>
   <li><a href="#the-non-leaky-solution">The Non-leaky Solution</a></li>
   <li><a href="#common-objections">Common Objections</a>
@@ -165,16 +164,7 @@
     </header>
 
   <div id="content" itemprop="articleBody">
-      <h2 id="introduction">
-        
-        
-          Introduction <a href="#introduction" class="anchor">#</a>
-        
-        
-      </h2>
-    
-
-<p>This piece of code will leak memory and eventually crash your Node.js
+    <p>This piece of code will leak memory and eventually crash your Node.js
 process or browser:</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Tested on Node.js 7.10, Firefox 57 and Chrome 61</span>
@@ -733,12 +723,12 @@ where people are afraid to take on dependencies.</p>
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202209011347" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209011347" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202209011347" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202209011347" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202209011428" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209011428" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202209011428" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202209011428" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202209011347" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202209011428" type="text/javascript"></script>
 
 
 <script type="text/javascript">
@@ -759,7 +749,7 @@ where people are afraid to take on dependencies.</p>
     })();
 
     var now = new Date();
-    var url = "https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=JavaScript%27s+Promise+Leaks+Memory&url=https%3A%2F%2Falexn.org%2Fblog%2F2017%2F10%2F11%2Fjavascript-promise-leaks-memory%2F" + 
+    var url = "https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=Introduction&url=https%3A%2F%2Falexn.org%2Fblog%2F2017%2F10%2F11%2Fjavascript-promise-leaks-memory%2F" + 
       "&rand=" + encodeURIComponent(Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)) +
       "&h=" + now.getHours() +
       "&m=" + now.getMinutes() +
@@ -785,7 +775,7 @@ where people are afraid to take on dependencies.</p>
   })();
 </script>
 <noscript>
-  <img referrerpolicy="no-referrer-when-downgrade" src="https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=JavaScript%27s+Promise+Leaks+Memory&url=https%3A%2F%2Falexn.org%2Fblog%2F2017%2F10%2F11%2Fjavascript-promise-leaks-memory%2F" width="1" height="1" style="position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;" alt="" />
+  <img referrerpolicy="no-referrer-when-downgrade" src="https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=Introduction&url=https%3A%2F%2Falexn.org%2Fblog%2F2017%2F10%2F11%2Fjavascript-promise-leaks-memory%2F" width="1" height="1" style="position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;" alt="" />
 </noscript>
 
    <div class="footer">
@@ -807,7 +797,7 @@ where people are afraid to take on dependencies.</p>
       var d = document;
       var a = d.createElement("a");
       a.setAttribute("target", "_blank");
-      a.setAttribute("href", "mailto:" + lhs + "@" + rhs + "?subject=Comment%20on%3A%20JavaScript's%20Promise%20Leaks%20Memory");
+      a.setAttribute("href", "mailto:" + lhs + "@" + rhs + "?subject=Comment%20on%3A%20Introduction");
       a.text = lhs + "@" + rhs;
       var es = d.getElementById("email-script");
       es.parentNode.insertBefore(a, es);
@@ -832,7 +822,7 @@ where people are afraid to take on dependencies.</p>
           data-isso-vote="false"
           data-vote-levels=""
           src="https://alexn.org/comments/alexn/js/embed.min.js"></script>
-  <section id="isso-thread" data-title="JavaScript's Promise Leaks Memory">
+  <section id="isso-thread" data-title="Introduction">
   </section>
 </div>
 <noscript>
