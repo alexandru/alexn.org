@@ -19,7 +19,7 @@
     <meta content="Personal, volatile wiki documentation" property="og:description">
     <meta content="https://alexn.org/wiki/iterm/" property="og:url">
     <meta content="2020-08-24T13:24:31+00:00" property="article:published_time">
-    <meta content="2022-09-01T14:23:29+00:00" property="article:modified_time">
+    <meta content="2022-09-02T07:14:59+00:00" property="article:modified_time">
     
     <meta content="website" property="og:type">
     <meta property="og:image" content="https://alexn.org/assets/logo/800px-bordered.png" />
@@ -107,8 +107,8 @@
       <meta itemprop="datePublished" content="2020-08-24T13:24:31+0000"/>
       
       
-      <time itemprop="dateModified" content="2022-09-01T17:23:29+0300">
-        Updated: September 1, 2022
+      <time itemprop="dateModified" content="2022-09-02T10:14:59+0300">
+        Updated: September 2, 2022
       </time>
       
       
@@ -135,6 +135,7 @@
       <li><a href="#opening-files-in-intellij-idea--visual-studio-code">Opening files in IntelliJ IDEA + Visual Studio Code</a></li>
     </ul>
   </li>
+  <li><a href="#setup-automatic-dark-mode">Setup automatic dark mode</a></li>
 </ul>
       <h2 id="configure-opening-of-file-paths-semantic-history">
         
@@ -216,6 +217,60 @@ History</code>, and set <code class="language-plaintext highlighter-rouge">Run c
 </code></pre></div></div>
 
 <p><img src="/wiki/assets/iterm-semantic-history-setting.png" width="1066" height="290" alt="Screenshot of iTerm's Semantic History setting" /></p>
+      <h2 id="setup-automatic-dark-mode">
+        
+        
+          Setup automatic dark mode <a href="#setup-automatic-dark-mode" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>NOTE: this is intended for the <strong>stable 3.4.x</strong> versions, and isn’t needed in the <a href="https://iterm2.com/downloads.html">3.5.x betas</a>.</p>
+
+<p>Create this file in <code class="language-plaintext highlighter-rouge">~/Library/Application\ Support/iTerm2/Scripts/AutoLaunch/auto_dark_mode.py</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">#!/usr/bin/env python3.7
+</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">iterm2</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">changeTheme</span><span class="p">(</span><span class="n">connection</span><span class="p">,</span><span class="n">parts</span><span class="p">):</span>
+    <span class="n">theme_dark</span> <span class="o">=</span> <span class="s">"Dark Background"</span>
+    <span class="n">theme_light</span> <span class="o">=</span> <span class="s">"Light Background"</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="s">"dark"</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">:</span>
+        <span class="n">preset</span> <span class="o">=</span> <span class="k">await</span> <span class="n">iterm2</span><span class="p">.</span><span class="n">ColorPreset</span><span class="p">.</span><span class="n">async_get</span><span class="p">(</span><span class="n">connection</span><span class="p">,</span> <span class="n">theme_dark</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">preset</span> <span class="o">=</span> <span class="k">await</span> <span class="n">iterm2</span><span class="p">.</span><span class="n">ColorPreset</span><span class="p">.</span><span class="n">async_get</span><span class="p">(</span><span class="n">connection</span><span class="p">,</span> <span class="n">theme_light</span><span class="p">)</span>
+
+    <span class="c1"># Update the list of all profiles and iterate over them.
+</span>    <span class="n">profiles</span><span class="o">=</span><span class="k">await</span> <span class="n">iterm2</span><span class="p">.</span><span class="n">PartialProfile</span><span class="p">.</span><span class="n">async_query</span><span class="p">(</span><span class="n">connection</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">partial</span> <span class="ow">in</span> <span class="n">profiles</span><span class="p">:</span>
+        <span class="c1"># Fetch the full profile and then set the color preset in it.
+</span>        <span class="n">profile</span> <span class="o">=</span> <span class="k">await</span> <span class="n">partial</span><span class="p">.</span><span class="n">async_get_full_profile</span><span class="p">()</span>
+        <span class="k">await</span> <span class="n">profile</span><span class="p">.</span><span class="n">async_set_color_preset</span><span class="p">(</span><span class="n">preset</span><span class="p">)</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">connection</span><span class="p">):</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="k">await</span> <span class="n">iterm2</span><span class="p">.</span><span class="n">async_get_app</span><span class="p">(</span><span class="n">connection</span><span class="p">)</span>
+    <span class="n">window</span> <span class="o">=</span> <span class="n">app</span><span class="p">.</span><span class="n">current_window</span>
+    <span class="n">initial_theme</span> <span class="o">=</span> <span class="k">await</span> <span class="n">app</span><span class="p">.</span><span class="n">async_get_theme</span><span class="p">()</span>
+    <span class="k">await</span> <span class="n">changeTheme</span><span class="p">(</span><span class="n">connection</span><span class="p">,</span><span class="n">initial_theme</span><span class="p">)</span>
+
+    <span class="k">async</span> <span class="k">with</span> <span class="n">iterm2</span><span class="p">.</span><span class="n">VariableMonitor</span><span class="p">(</span><span class="n">connection</span><span class="p">,</span> <span class="n">iterm2</span><span class="p">.</span><span class="n">VariableScopes</span><span class="p">.</span><span class="n">APP</span><span class="p">,</span> <span class="s">"effectiveTheme"</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span> <span class="k">as</span> <span class="n">mon</span><span class="p">:</span>
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="c1"># Block until theme changes
+</span>            <span class="n">theme</span> <span class="o">=</span> <span class="k">await</span> <span class="n">mon</span><span class="p">.</span><span class="n">async_get</span><span class="p">()</span>
+            <span class="c1"># Themes have space-delimited attributes, one of which will be light or dark.
+</span>            <span class="n">parts</span> <span class="o">=</span> <span class="n">theme</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">" "</span><span class="p">)</span>
+    
+            <span class="k">await</span> <span class="n">changeTheme</span><span class="p">(</span><span class="n">connection</span><span class="p">,</span><span class="n">parts</span><span class="p">)</span>
+
+<span class="n">iterm2</span><span class="p">.</span><span class="n">run_forever</span><span class="p">(</span><span class="n">main</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Credits: <a href="https://gist.github.com/FradSer/de1ca0989a9d615bd15dc6eaf712eb93">@FradSer</a>.</p>
 
   </div>
 </article>
@@ -223,12 +278,12 @@ History</code>, and set <code class="language-plaintext highlighter-rouge">Run c
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202209011428" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209011428" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202209011428" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202209011428" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202209020727" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209020727" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202209020727" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202209020727" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202209011428" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202209020727" type="text/javascript"></script>
 
 
 <script type="text/javascript">
