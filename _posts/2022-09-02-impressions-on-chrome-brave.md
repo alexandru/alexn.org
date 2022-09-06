@@ -1,9 +1,8 @@
 ---
 title: "Impressions on Web Browsers"
 date: 2022-09-01 19:09:35 +03:00
-last_modified_at: 2022-09-05 22:32:00 +03:00
+last_modified_at: 2022-09-06 15:31:51 +03:00
 image: /assets/media/articles/browser-battles.png
-is_noise: true
 tags:
   - Opinion
   - Web

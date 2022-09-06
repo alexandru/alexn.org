@@ -42,11 +42,12 @@ description: >
     fname = now.strftime("%Y-%m-%d") + "-" + fname
   end
 
-  dir_path = File.expand_path(File.join(File.dirname(File.expand_path(__FILE__)), "..", rel_dir_path))
+  project_path = File.expand_path(File.join(File.dirname(File.expand_path(__FILE__)), ".."))
+  dir_path = File.join(project_path, rel_dir_path)
   path = File.join(dir_path, fname)
   puts "Created: #{rel_dir_path}/#{fname}"
   File.open(path, 'w') { |file| file.write(text) }
-  exec("vimr --cwd \"#{dir_path}\" \"#{path}\"")
+  exec("code \"#{project_path}\" \"#{path}\"")
 rescue
   puts parser.help
   raise
