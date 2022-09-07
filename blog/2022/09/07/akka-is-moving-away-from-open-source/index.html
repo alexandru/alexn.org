@@ -21,11 +21,11 @@
     <meta content="2022-09-07T00:00:00+00:00" property="article:published_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/akka-logo.png?202209071116" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/akka-logo.png?202209071116" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/akka-logo.png?202209071122" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/akka-logo.png?202209071122" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/akka-logo.png?202209071116">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/akka-logo.png?202209071122">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Akka is moving away from Open Source">
@@ -114,7 +114,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/akka-logo.png" />
-          <img src="/assets/media/articles/akka-logo.png?202209071116" width="2560" height="1052" alt="" />
+          <img src="/assets/media/articles/akka-logo.png?202209071122" width="2560" height="1052" alt="" />
           
         </figure>
         
@@ -135,6 +135,19 @@
       </div>
     
 
+    
+    
+    
+    <nav class="toc">
+      <p class="toc-title">Table of Contents:</p>
+      <ul>
+  <li><a href="#freedom">Freedom</a></li>
+  <li><a href="#the-market-for-open-source">The market for Open Source</a></li>
+  <li><a href="#copyright-assignments">Copyright assignments</a></li>
+  <li><a href="#will-a-fork-happen">Will a fork happen?</a></li>
+  <li><a href="#feelings">Feelings</a></li>
+</ul>
+    </nav>
     </header>
 
   <div id="content" itemprop="articleBody">
@@ -145,6 +158,14 @@ According to <a href="https://www.lightbend.com/blog/why-we-are-changing-the-lic
 <p class="info-bubble">
 At the moment of writing, the repository’s <code class="language-plaintext highlighter-rouge">main</code> branch is still licensed as Apache 2, see <a href="https://github.com/akka/akka/blob/main/LICENSE">LICENSE</a>. I still hope they’ll change their mind 🙂
 </p>
+      <h2 id="freedom">
+        
+        
+          Freedom <a href="#freedom" class="anchor">#</a>
+        
+        
+      </h2>
+    
 
 <p>Read <a href="https://www.lightbend.com/akka/license-faq">their licensing FAQ</a>. Here’s what to take away from it:</p>
 
@@ -170,12 +191,30 @@ At the moment of writing, the repository’s <code class="language-plaintext hig
   <li>I need control of whatever runs in my program, I need the ability to fix it myself, or to have other people fix it for me, people that may not be affiliated with the maker of those tools;</li>
   <li>Software licenses are expensive, add up, and even in big companies that can afford it, going through the endless bureaucracy of having such expenses approved is freaking painful, which is why FOSS may be even more popular in corporations than it is in startups;</li>
 </ol>
+      <h2 id="the-market-for-open-source">
+        
+        
+          The market for Open Source <a href="#the-market-for-open-source" class="anchor">#</a>
+        
+        
+      </h2>
+    
 
-<p>This is why selling support or extra tooling in FOSS sometimes works, because it’s complementary — employees can introduce a FOSS library or tool, without any kind of expense approval from upper management, and then the contract for extra stuff can come later, after it has proven its value. <a href="https://www.joelonsoftware.com/2002/06/12/strategy-letter-v/">Smart companies try to commoditize their products’ complements</a>, which is what Lightbend tried, but apparently it didn’t work for them. Probably because a software library makes for a poor complement.</p>
+<p>Selling support or extra tooling in FOSS sometimes works, because it’s complementary — employees can introduce a FOSS library or tool, without any kind of expense approval from upper management, and then the contract for extra stuff can come later, after it has proven its value.</p>
+
+<p><a href="https://www.joelonsoftware.com/2002/06/12/strategy-letter-v/">Smart companies try to commoditize their products’ complements</a>, which is what Lightbend tried, but apparently it didn’t work for them. Probably because a software library makes for a poor complement.</p>
 
 <p>The blog post mentions that MariaDB also adopted this proprietary license. The claim is misleading, because <a href="https://mariadb.com/kb/en/licensing-faq/">MariaDB (the product) is licensed under GPL2 / LGPL2</a>, just like MySQL before it. It couldn’t be otherwise as, to my knowledge, Oracle hasn’t donated the copyright of MySQL. What MariaDB (the company) is actually doing is to offer complementary products, such as MaxScale, otherwise the core server and clients are still Open Source, under GPL2 and LGPL2 respectively. See their <a href="https://mariadb.com/projects-using-bsl-11/">own documentation</a>. The difference couldn’t be more striking. In embracing this license, MariaDB become more open compared to other companies that are doing the <a href="https://en.wikipedia.org/wiki/Open-core_model">open-core model</a>. Whereas Lightbend is embracing this license for their core, on which infrastructure is already built. Not to mention that it’s a library, not server software.</p>
 
 <p>It’s morally wrong to make the product popular, by advertising it as Open Source / Free Software, and then doing a reversal later. Don’t get me wrong, I am sympathetic to the issue that Open Source contributors aren’t getting paid. But in the Java community nobody wants to pay licenses for libraries. If that model ever worked, it was in other ecosystems, such as that of .NET, and that model has been dying there as well. Turns out, trying to monetize software libraries (or other FOSS products) is a losing proposition.</p>
+      <h2 id="copyright-assignments">
+        
+        
+          Copyright assignments <a href="#copyright-assignments" class="anchor">#</a>
+        
+        
+      </h2>
+    
 
 <p class="info-bubble">
 <strong>NOTE</strong> to beginners in FOSS — the problem is not the Apache 2.0 license. It may be a liberal license, but you simply cannot change such copyright licenses, unless you own the copyright. What makes such license changes possible is the <a href="https://www.lightbend.com/contribute/cla">copyright assignment</a> that companies such as Lightbend requires of all contributors.
@@ -188,6 +227,14 @@ At the moment of writing, the repository’s <code class="language-plaintext hig
 <p class="warn-bubble">
 I think copyright assignment in Open Source is EVIL, in spite of all good reasons for it. I do not like to contribute to FOSS projects that ask for copyright assignments, and you should avoid it too.
 </p>
+      <h2 id="will-a-fork-happen">
+        
+        
+          Will a fork happen? <a href="#will-a-fork-happen" class="anchor">#</a>
+        
+        
+      </h2>
+    
 
 <p>The silver lining is that the code will be made Open Source in 3-4 years time. However, consider that:</p>
 
@@ -199,6 +246,14 @@ I think copyright assignment in Open Source is EVIL, in spite of all good reason
 <p>Also, older versions are still FOSS, still licensed under APL 2.0. This means that a <a href="https://en.wikipedia.org/wiki/Fork_(software_development)">fork</a> is possible. That’s the primary value of FOSS actually — if you’re not happy with the direction of the project, you can always fork. I guess we shall see. Note that forks are hard, primarily due to the resources needed and the branding. People don’t switch easily. But regardless, the notion that Akka is a FOSS project is now over, which means any potential for outside contributions to Akka proper is gone.</p>
 
 <p>I do hope for a fork to happen. Will FOSS libraries depending on Akka stick to the old FOSS versions, break compatibility by upgrading to the new and non-FOSS versions, or maintain multiple versions? In my opinion, an unintentional fork will happen regardless, simply because many projects will refuse to upgrade to newer versions. I have no popularity metrics though, my assumption here being that Akka is popular enough.</p>
+      <h2 id="feelings">
+        
+        
+          Feelings <a href="#feelings" class="anchor">#</a>
+        
+        
+      </h2>
+    
 
 <p>Akka is a great project, and has been one of the major reasons for why people chose Scala, or even Java. We’ve been using it at work, with great success. However, going forward I can no longer recommend any kind of investment in it.</p>
 
@@ -313,12 +368,12 @@ I think copyright assignment in Open Source is EVIL, in spite of all good reason
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202209071116" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209071116" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202209071116" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202209071116" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202209071122" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209071122" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202209071122" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202209071122" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202209071116" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202209071122" type="text/javascript"></script>
 
 
 <script type="text/javascript">
