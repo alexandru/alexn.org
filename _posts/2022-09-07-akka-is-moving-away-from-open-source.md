@@ -6,6 +6,8 @@ tags:
   - Scala
 generate_toc: true
 image_hide_in_post: true
+date: 2022-09-07 19:31:21 +03:00
+last_modified_at: 2022-09-08 07:51:05 +03:00
 description: >
   According to today’s announcement, Lightbend is changing Akka’s licensing to "Business Source License (BSL)". This is not an Open Source, or a Free Software license. This is a proprietary license.
 ---
@@ -38,6 +40,8 @@ Akka, like other products that pulled a bait-and-switch (e.g., MongoDB and other
 1. I need control of whatever runs in my program, I need the ability to fix it myself, or to have other people fix it for me, people that may not be affiliated with the maker of those tools;
 2. Software licenses are expensive, add up, and even in big companies that can afford it, going through the endless bureaucracy of having such expenses approved is freaking painful, which is why FOSS may be even more popular in corporations than it is in startups;
 
+[Open Source is free as in "free market economy."](./2022-09-07-free-software-vs-open-source.md)
+
 ## Market for Open Source
 
 Selling support or extra tooling in FOSS sometimes works, because it's complementary — employees can introduce a FOSS library or tool, without any kind of expense approval from upper management, and then the contract for extra stuff can come later, after it has proven its value.
@@ -46,17 +50,19 @@ Selling support or extra tooling in FOSS sometimes works, because it's complemen
 
 The blog post mentions that MariaDB also adopted this proprietary license. The claim is misleading, because [MariaDB (the product) is licensed under GPL2 / LGPL2](https://mariadb.com/kb/en/licensing-faq/), just like MySQL before it. It couldn't be otherwise as, to my knowledge, Oracle hasn't donated the copyright of MySQL. What MariaDB (the company) is actually doing is to offer complementary products, such as MaxScale, otherwise the core server and clients are still Open Source, under GPL2 and LGPL2 respectively. See their [own documentation](https://mariadb.com/projects-using-bsl-11/). The difference couldn't be more striking. In embracing this license, MariaDB became more open compared to other companies that are doing the [open-core model](https://en.wikipedia.org/wiki/Open-core_model). Whereas Lightbend is embracing this license for their core, on which infrastructure is already built. MariaDB took nothing away from what we already had, a rock-solid FOSS database. Not to mention that MariaDB is server software, not a library.
 
-It's morally wrong to make the product popular, by advertising it as Open Source / Free Software, and then doing a reversal later. Don't get me wrong, I am sympathetic to the issue that Open Source contributors aren't getting paid. But in the Java community nobody wants to pay licenses for libraries. If that model ever worked, it was in other ecosystems, such as that of .NET, and that model has been dying there as well. Turns out, trying to monetize software libraries (or other FOSS products) is a losing proposition.
+It's morally wrong to make the product popular, by advertising it as Open Source / Free Software, and then doing a reversal later. Don't get me wrong, I am sympathetic to the issue that Open Source contributors aren't getting paid. But in the Java community nobody wants to pay licenses for libraries. If that model ever worked, it was in other ecosystems, such as that of .NET, and that model has been dying there as well. Turns out, trying to monetize software libraries is a losing proposition.
 
 ## Copyright assignments
 
-<p class="info-bubble" markdown="1">
-**NOTE** to beginners in FOSS — the problem is not the Apache 2.0 license. It may be a liberal license, but you simply cannot change such copyright licenses, unless you own the copyright. What makes such license changes possible is the [copyright assignment](https://www.lightbend.com/contribute/cla) that companies such as Lightbend requires of all contributors.
-</p>
-
 Lightbend developed most of Akka, but due to its popularity, Akka definitely received contributions from the community. I'm fairly sure that the people that have contributed to Akka will not get compensated right now. This is similar to other products that made similar moves, such as MongoDB. And I'd love to be proven wrong, BTW, although I'm not sure what compensation would be appropriate, given that FOSS contributions are often made in the faith that the project will keep being FOSS.
 
+<p class="info-bubble" markdown="1">
+**Note to beginners in FOSS**: the problem isn't the Apache 2.0 license. It may be a liberal license, but you simply cannot change such copyright licenses, unless you own the copyright. What makes such license changes possible is the [copyright assignment](https://www.lightbend.com/contribute/cla) that companies such as Lightbend requires of all contributors.
+</p>
+
 In fairness, there are other reasons for why FOSS projects may want to work with copyright assignments — for example, having a single copyright owner makes the legal situation of that copyright clearer. If there are disputes, there's a single entity you can contact, and so on. But this copyright assignment also ensures that the company can always pull a bait-and-switch, having the ability to change the license (for future versions) to something that isn't Open Source, without asking for permission.
+
+And no, you can't change a liberal FOSS license to something else without the approval of all copyright holders. You can incorporate such code in proprietary software, but the license for the copy/pasted code remains the same as it was. Because nothing gives you permission to change the license. There is even a famous incident in the Linux kernel, when BSD code was copy/pasted with the license headers changed. [Theo de Raadt ranted about it](https://undeadly.org/cgi?action=article&sid=20070901041657). Which is why I also believe that all GitHub Copilot users are screwed, but that's another story.
 
 <p class="warn-bubble" markdown="1">
 I think copyright assignment in Open Source is EVIL, in spite of all good reasons for it. I do not like to contribute to FOSS projects that ask for copyright assignments, and you should avoid it too.
