@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 08 Sep 2022 10:56:38 +0000</pubDate>
-    <lastBuildDate>Thu, 08 Sep 2022 10:56:38 +0000</lastBuildDate>
+    <pubDate>Thu, 08 Sep 2022 11:51:17 +0000</pubDate>
+    <lastBuildDate>Thu, 08 Sep 2022 11:51:17 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -23,11 +23,11 @@
 <item>
   <title>Chromium (Brave, …)</title>
   <description>Article 
-    updated at September 2, 2022, 
+    updated at September 8, 2022, 
     created at September 1, 2022.</description>
   <content:encoded>&lt;p&gt;
       Article 
-      updated at September 2, 2022, 
+      updated at September 8, 2022, 
       created at September 1, 2022.
     &lt;/p&gt;
     &lt;hr&gt;
@@ -61,6 +61,13 @@
 &lt;a href=&quot;https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb&quot;&gt;Vimium&lt;/a&gt;: adds some Vim-like keyboard shortcuts;&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;p&gt;To have in mind:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://chrome.google.com/webstore/detail/adguard-adblocker-mv3-exp/apjcbfpjihpedihablmalmbbhjpklbdf/related&quot;&gt;AdGuard AdBlocker MV3 Experimental&lt;/a&gt;: an experimental ad-blocker, built on top of Manifest v3;&lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;h2 id=&quot;internal-urls&quot;&gt;Internal URLs&lt;/h2&gt;
 
 &lt;ul&gt;
@@ -79,8 +86,8 @@
 &lt;a href=&quot;brave://rewards-internals/&quot;&gt;brave://rewards-internals&lt;/a&gt;: for debugging Brave’s Rewards;&lt;/li&gt;
 &lt;/ul&gt;</content:encoded>
   <pubDate>Thu, 01 Sep 2022 13:10:16 +0000</pubDate>
-  <dc:modified>Fri, 02 Sep 2022 14:32:05 +0000</dc:modified>
-  <atom:modified>Fri, 02 Sep 2022 14:32:05 +0000</atom:modified>
+  <dc:modified>Thu, 08 Sep 2022 11:39:54 +0000</dc:modified>
+  <atom:modified>Thu, 08 Sep 2022 11:39:54 +0000</atom:modified>
   <link>https://alexn.org/wiki/chromium/?pk_campaign=rss&amp;pk_kwd=link</link>
   <guid isPermaLink="true">https://alexn.org/wiki/chromium/</guid>
   
@@ -449,11 +456,11 @@ sudo wget https://www.thawte.com/roots/thawte_Primary_Root_CA.pem
 <item>
   <title>Web</title>
   <description>Article 
-    updated at September 1, 2022, 
+    updated at September 8, 2022, 
     created at November 30, 2020.</description>
   <content:encoded>&lt;p&gt;
       Article 
-      updated at September 1, 2022, 
+      updated at September 8, 2022, 
       created at November 30, 2020.
     &lt;/p&gt;
     &lt;hr&gt;
@@ -504,8 +511,9 @@ sudo wget https://www.thawte.com/roots/thawte_Primary_Root_CA.pem
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://alexn.org/assets/misc/block-lists/my-hosting.txt&quot;&gt;my-hosting&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://alexn.org/assets/misc/block-lists/no-news.adblock.txt&quot;&gt;no-news&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://alexn.org/assets/misc/block-lists/digital-detox.adblock.txt&quot;&gt;digital-detox&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://alexn.org/assets/misc/block-lists/no-news.txt&quot;&gt;no-news&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://alexn.org/assets/misc/block-lists/no-social.txt&quot;&gt;no-social&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://alexn.org/assets/misc/block-lists/no-comments.txt&quot;&gt;no-comments&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;progressive-web-apps-pwas&quot;&gt;Progressive Web Apps (PWAs)&lt;/h2&gt;
@@ -583,8 +591,8 @@ sudo wget https://www.thawte.com/roots/thawte_Primary_Root_CA.pem
 &lt;span class=&quot;o&quot;&gt;!!&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;querySelector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;meta[name=darkreader]&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content:encoded>
   <pubDate>Mon, 30 Nov 2020 14:38:13 +0000</pubDate>
-  <dc:modified>Thu, 01 Sep 2022 14:26:52 +0000</dc:modified>
-  <atom:modified>Thu, 01 Sep 2022 14:26:52 +0000</atom:modified>
+  <dc:modified>Thu, 08 Sep 2022 11:48:40 +0000</dc:modified>
+  <atom:modified>Thu, 08 Sep 2022 11:48:40 +0000</atom:modified>
   <link>https://alexn.org/wiki/web/?pk_campaign=rss&amp;pk_kwd=link</link>
   <guid isPermaLink="true">https://alexn.org/wiki/web/</guid>
   
