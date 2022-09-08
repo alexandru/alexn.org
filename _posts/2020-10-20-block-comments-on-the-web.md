@@ -70,7 +70,7 @@ For more details on these rules, see this cheat sheet: <br>
 
 You can publish this list, as a text file, somewhere, anywhere, and reuse it wherever you have uBlock Origin installed. For example, I published mine at:
 
-[{{ site.domain }}{{ site.baseurl }}/assets/misc/block-lists/comments.txt]({% link assets/misc/block-lists/comments.txt %}){:target="_blank"}
+[{{ site.domain }}{{ site.baseurl }}/assets/misc/block-lists/no-comments.txt]({% link assets/misc/block-lists/no-comments.txt %}){:target="_blank"}
 
 You can then import it in uBlock Origin easily:
 

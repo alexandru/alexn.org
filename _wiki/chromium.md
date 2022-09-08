@@ -1,6 +1,6 @@
 ---
 date: 2022-09-01 16:10:16 +03:00
-last_modified_at: 2022-09-02 17:32:05 +03:00
+last_modified_at: 2022-09-08 14:39:54 +03:00
 ---
 
 # Chromium (Brave, ...)
@@ -19,6 +19,10 @@ last_modified_at: 2022-09-02 17:32:05 +03:00
 - [Tab Pinner](https://chrome.google.com/webstore/detail/tab-pinner-keyboard-short/mbcjcnomlakhkechnbhmfjhnnllpbmlh): adds a keyboard shortcut for pinning/unpinning a tab;
 - [uBlock Origin](https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=en), the best ad-blocker, unnecessary in Brave;
 - [Vimium](https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb): adds some Vim-like keyboard shortcuts;
+
+To have in mind:
+
+- [AdGuard AdBlocker MV3 Experimental](https://chrome.google.com/webstore/detail/adguard-adblocker-mv3-exp/apjcbfpjihpedihablmalmbbhjpklbdf/related): an experimental ad-blocker, built on top of Manifest v3;
 
 ## Internal URLs
 

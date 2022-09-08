@@ -3,7 +3,7 @@ redirect_from:
   - /wiki/web-tricks.html
   - /wiki/web-apps.html
 date: 2020-11-30 17:38:13 +03:00
-last_modified_at: 2022-09-01 17:26:52 +03:00
+last_modified_at: 2022-09-08 14:48:40 +03:00
 ---
 
 # Web
@@ -42,8 +42,9 @@ For getting rid of cookie banners and other annoyances:
 Personal:
 
 - [my-hosting](/assets/misc/block-lists/my-hosting.txt)
-- [no-news](/assets/misc/block-lists/no-news.adblock.txt)
-- [digital-detox](/assets/misc/block-lists/digital-detox.adblock.txt)
+- [no-news](/assets/misc/block-lists/no-news.txt)
+- [no-social](/assets/misc/block-lists/no-social.txt)
+- [no-comments](/assets/misc/block-lists/no-comments.txt)
 
 ## Progressive Web Apps (PWAs)
 
