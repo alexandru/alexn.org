@@ -7,7 +7,7 @@ tags:
 generate_toc: true
 image_hide_in_post: true
 date: 2022-09-07 19:31:21 +03:00
-last_modified_at: 2022-09-08 10:42:11 +03:00
+last_modified_at: 2022-09-08 10:44:33 +03:00
 description: >
   According to today’s announcement, Lightbend is changing Akka’s licensing to "Business Source License (BSL)". This is not an Open Source, or a Free Software license. This is a proprietary license.
 ---
@@ -62,7 +62,7 @@ Lightbend developed most of Akka, but due to its popularity, Akka definitely rec
 
 What makes such license changes possible, even if the project used a copyleft license, is the [contributor's license aggreement (CLA)](https://www.lightbend.com/contribute/cla), which is very similar to [Apache's CLA](https://www.apache.org/licenses/contributor-agreements.html), saying:
 
-"*Grant of Copyright License. Subject to the terms and conditions of this Agreement, You hereby grant to the Company and to recipients of software distributed by the Company a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable copyright license to reproduce, prepare derivative works of, publicly display, publicly perform, sublicense, and distribute Your Contributions and such derivative works.*" ([source](https://downloads.lightbend.com/website/legal/LightbendIndividualContributorLicenseAgreement.pdf))
+> "*Grant of Copyright License. Subject to the terms and conditions of this Agreement, You hereby grant to the Company and to recipients of software distributed by the Company a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable copyright license to reproduce, prepare derivative works of, publicly display, publicly perform, sublicense, and distribute Your Contributions and such derivative works.*" ([source](https://downloads.lightbend.com/website/legal/LightbendIndividualContributorLicenseAgreement.pdf))
 
 IANAL, but contributors grant them the right to *"sublicense"*, meaning that they can redistribute your work under a different license. In other words, the project could have used a copyleft license (GPL), and a license change would still have been possible. Granted, it could have been worse, like the FSF requiring [copyright assignments](https://www.gnu.org/licenses/why-assign.en.html).
 

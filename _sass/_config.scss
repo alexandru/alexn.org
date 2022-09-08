@@ -55,11 +55,17 @@ $warning-color: $orange; // Good color for success etc.
 $subtle-color: $grey; // Subtle color for subtle text
 
 $text-color-light: $black;
-$text-color-dark: rgb(221, 218, 214);
+$text-color-dark: #c8d1d8;//rgb(221, 218, 214);
 
 $site-background-image: url("/assets/media/tile-graphpaper.png");
 $site-background-light: #ffffff;
 $site-background-dark: #171a1b;
+
+$muted-text-light: #57606a;
+$muted-text-dark: #8b949d;
+
+$color-border-light: darken(white, 15%);
+$color-border-dark: #2f363c;
 
 $scrollbar-background-dark: #1e2223;
 $scrollbar-thumb-dark: #727173;

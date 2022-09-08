@@ -122,7 +122,7 @@ body {
 
   .post {
     header nav.toc {
-      border-color: rgb(59, 64, 66);
+      border-color: $color-border-dark;
     }
     
     .info-bubble {
@@ -146,19 +146,19 @@ body {
     }
 
     hr {
-      border-color: $text-color-dark;
+      border-color: $color-border-dark;
     }
 
     #article-details { 
-      border-color: $text-color-dark;
+      border-color: $color-border-dark;
 
       #all-categories {
-        border-color: lighten($site-background-dark, 15%);
+        border-color: $color-border-dark;
       }
     }
 
     div.related {
-      border-color: lighten($site-background-dark, 15%);
+      border-color: $color-border-dark;
     }
 
     .meta,
@@ -170,8 +170,9 @@ body {
       color: $primary-color-dark;
     }
 
-    blockquote em {
-      color: darken($text-color-dark, 15%);
+    blockquote {
+      color: $muted-text-dark;
+      border-left-color: $color-border-dark;
     }
 
     .transparency-fix {

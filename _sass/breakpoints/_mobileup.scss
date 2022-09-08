@@ -250,38 +250,12 @@ POST STYLING
   }
 
   blockquote {
-    clear: both;
-    margin: 2.5em 0;
-    padding: 0;
-    line-height: 1.8;
-    position: relative;
+    color: $muted-text-light;
+    border-left: .25em solid $color-border-light;
 
-    font-size: 110%;
-
-    & em {
-      color: lighten($black, 20%);
-    }
-
-    &:before {
-      content: "";
-      position: absolute;
-      top: -1.25em;
-      background: $background-color;
-      display: block;
-      height: 2px;
-      width: 150px;
-      left: calc(50% - 75px);
-    }
-
-    &:after {
-      content: "";
-      position: absolute;
-      bottom: -1.25em;
-      background: $background-color;
-      display: block;
-      height: 2px;
-      width: 150px;
-      left: calc(50% - 75px);
+    p {
+      margin-left: 2rem;
+      width: 100%;
     }
   }
 
@@ -352,9 +326,8 @@ POST STYLING
   }
 
   #article-details {
-    border-style: solid;
-    border-color: lighten($text-color-light, 40%);
-    border-width: 1.5px 0 0 0;
+    border: 0;
+    border-top: 2px solid $color-border-light;
 
     width: 100%;
     text-align: left;
@@ -382,7 +355,7 @@ POST STYLING
 
   hr {
     border-style: solid;
-    border-color: lighten($text-color-light, 40%);
+    border-color: $color-border-light;
     border-width: 1.5px 0 0 0;
     margin-top: 2rem;
     margin-bottom: 2rem;
@@ -414,7 +387,7 @@ POST STYLING
 }
 
 .post div.related {
-  border-top: 1.5px solid darken(white, 15%);
+  border-top: 1.5px solid $color-border-light;
 }
 
 .post div.related, div.archive_list {
@@ -499,8 +472,8 @@ POST NAV STYLING
 ***************/
 
 .postNav {
-  border-top: 1px solid darken(white, 10%);
-  border-bottom: 1px solid darken(white, 10%);
+  border-top: 1px solid $color-border-light;
+  border-bottom: 1px solid $color-border-light;
   overflow: hidden;
 
   .prev, .next {

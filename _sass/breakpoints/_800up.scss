@@ -147,6 +147,7 @@ POST STYLING
   .pageTitle,
   .content,
   .page-width,
+  blockquote,
   div.footnotes {
     width: $elementsWidth;
     float: none;
@@ -198,7 +199,7 @@ POST STYLING
   }
 
   blockquote {
-    font-size: 120%; // 20px / 16px
+    // font-size: 120%; // 20px / 16px
     padding: 0;
   }
 }
