@@ -3,7 +3,7 @@ title: "Open Source vs Free Software"
 image: /assets/media/articles/open-source.png
 image_hide_in_post: true
 date: 2022-09-07 19:28:56 +03:00
-last_modified_at: 2022-09-07 22:09:38 +03:00
+last_modified_at: 2022-09-08 09:12:50 +03:00
 tags: 
   - Politics
   - Open Source
@@ -11,7 +11,9 @@ description: >
   You may think that Open Source is about having "access to source code", whereas Free Software is about freedom. Kids, gather around, let me tell you why that's wrong.
 ---
 
+<p class="intro withcap" markdown=1>
 You may think that Open Source is about having "*access to source code*", whereas Free Software is about freedom. Kids, gather around, let me tell you why that's wrong.
+</p>
 
 Open Source is based on the [Debian Free Software Guidelines](https://en.wikipedia.org/wiki/Debian_Free_Software_Guidelines). The DFSG was first published in July 1997, the primary author being Bruce Perens. This was Debian Linux's social contract. And in 1998 the [Open Source Initiative](https://en.wikipedia.org/wiki/Open_Source_Initiative) was born, with "Open Source" being officially coined, although the term [happened earlier](https://en.wikipedia.org/wiki/The_Cathedral_and_the_Bazaar).
 
