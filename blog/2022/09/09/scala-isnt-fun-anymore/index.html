@@ -19,14 +19,14 @@
     <meta content="I’ve just spent over a day, going to sleep at 1:00 am, to upgrade dependencies and fix eviction warnings in the build of a Scala project." property="og:description">
     <meta content="https://alexn.org/blog/2022/09/09/scala-isnt-fun-anymore/" property="og:url">
     <meta content="2022-09-09T05:00:37+00:00" property="article:published_time">
-    <meta content="2022-09-09T06:31:33+00:00" property="article:modified_time">
+    <meta content="2022-09-09T06:42:03+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/scala.png?202209090632" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/scala.png?202209090632" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/scala.png?202209090642" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/scala.png?202209090642" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/scala.png?202209090632">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/scala.png?202209090642">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Scala isn&#39;t fun anymore">
@@ -115,7 +115,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/scala.png" />
-          <img src="/assets/media/articles/scala.png?202209090632" width="1200" height="675" alt="" />
+          <img src="/assets/media/articles/scala.png?202209090642" width="1200" height="675" alt="" />
           
         </figure>
         
@@ -148,7 +148,7 @@
   <li><a href="https://github.com/FasterXML/jackson">Jackson (JSON)</a> <code class="language-plaintext highlighter-rouge">2.11.4</code> evicted by <code class="language-plaintext highlighter-rouge">2.12.7</code> — normally, in Java world, this would be fine, except that <a href="https://github.com/FasterXML/jackson-module-scala">jackson-module-scala</a> is sensitive to minor version bumps, and it fails at runtime (thank God we have unit tests); and we wouldn’t use <code class="language-plaintext highlighter-rouge">jackson-module-scala</code>, but ALAS, <a href="https://doc.akka.io/docs/akka/current/serialization-jackson.html">akka-serialization-jackson</a> depends on it. This was hard to fix, because it manifests as a weird runtime exception, and I had no idea where it came from or who’s complaining.
     <ul>
       <li>In case you’re wondering, we use <a href="https://github.com/circe/circe">Circe</a> too, but Circe has been fine this round, as nobody updated its minor version (<code class="language-plaintext highlighter-rouge">early-semver</code>).</li>
-      <li>You can guess the maturity of any Scala project by the number of libraries it uses to do JSON parsing.</li>
+      <li><strong>You can guess the maturity of any Scala project by the number of libraries it uses to do JSON parsing.</strong></li>
     </ul>
   </li>
   <li><code class="language-plaintext highlighter-rouge">org.apache.kafka:kafka-clients</code> version <code class="language-plaintext highlighter-rouge">3.0.1</code> was also evicted by <code class="language-plaintext highlighter-rouge">7.0.5-cee</code>; the former is used by <a href="https://github.com/akka/alpakka-kafka">akka-streams-kafka</a>, whereas the latter is required by <a href="https://github.com/confluentinc/schema-registry">kafka-avro-serializer</a>; no worries, I consulted this <a href="https://docs.confluent.io/platform/current/installation/versions-interoperability.html#cp-ak-compatibility">HTML table of compatibility</a> and I think they were compatible.</li>
@@ -191,7 +191,7 @@
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2022-09-09T09:31:33+0300">
+    <time itemprop="dateModified" content="2022-09-09T09:42:03+0300">
         Updated: September 9, 2022
     </time>
     
@@ -296,12 +296,12 @@
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202209090632" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209090632" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202209090632" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202209090632" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202209090642" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209090642" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202209090642" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202209090642" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202209090632" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202209090642" type="text/javascript"></script>
 
 
 <script type="text/javascript">
