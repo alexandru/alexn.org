@@ -6,7 +6,7 @@ tags:
   - Scala
 image: /assets/media/articles/scala.png
 date: 2022-09-09 08:00:37 +03:00
-last_modified_at: 2022-09-09 11:02:52 +03:00
+last_modified_at: 2022-09-09 20:07:03 +03:00
 description: >
   I've just spent over a day, going to sleep at 1:00 am, to upgrade dependencies and fix eviction warnings in the build of a Scala project.
 ---
@@ -49,7 +49,7 @@ Speaking of versioning schemes, I've set Akka's stuff to `pvp`. This means that 
 
 This new development is such a shame, as in my experience Akka has been the gravitational force attracting a vast majority of the Java programmers (the ones into programming, not data science 😛). That will be over soon. I wonder what will happen to the libraries depending on Akka. You may think of libraries meant for the enterprise, with corporate sponsorship, but what about libraries made by volunteers, like [Twitter4s](https://github.com/DanielaSfregola/twitter4s)? Oh, well.
 
-We're left with the Scala FP communities, which yield awesome libraries and are awesome people, but the ecosystem is essentially a microcosm of the US political landscape. I'm guessing all programming communities are turning to this nowadays. As an Easter European, however, it kind of pisses me off.
+We're left with the Scala FP communities, which yield awesome libraries and are awesome people, but the ecosystem is essentially a microcosm of the US political landscape. I'm guessing all programming communities are turning to this nowadays. As an Eastern European, however, it kind of pisses me off.
 
 Maybe this is just me getting older (going to turn 40 soon). Maybe all programming is terrible.  I've actually started to read [Java newsletters](https://blog.jetbrains.com/idea/2022/09/java-annotated-monthly-september-2022/), maybe Spring isn't that bad, I'm also having affectionate memories of JavaScript and Python, and thinking about having a plan B in case this programming thing doesn't work out 🤷‍♂️
 
