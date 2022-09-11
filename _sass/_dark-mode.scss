@@ -222,15 +222,15 @@ body {
           color: lighten(#778899, 5%);
         }
 
-        .isso-comment > div.text-wrapper > .isso-comment-header {
+        .isso-comment > div.isso-text-wrapper > .isso-comment-header {
           color: #778899;
         }
 
-        .isso-comment > div.text-wrapper > .isso-comment-header .author {
+        .isso-comment > div.isso-text-wrapper > .isso-comment-header .author {
           color: lighten(#778899, 5%);
         }
 
-        .isso-comment > .text-wrapper {
+        .isso-comment > .isso-text-wrapper {
           blockquote {
             border-left-color: rgb(58, 62, 65);
             background-color: rgb(29, 31, 32);

@@ -592,57 +592,98 @@ FOOTER STYLING
     #share {
       border-bottom: 1px solid #C69AA1;
     }
-  
-    div.isso-comment > .isso-text-wrapper {
-      & > div.isso-comment-header {
-        display: inline-block;
-        vertical-align: middle;
-      }
-      & > div.text {
-        font-size: 90%;
-        clear: both;
-      }		
+    
+    #isso-thread {
+      font-size: 90%;
+      
+      .isso-comment > .isso-text-wrapper {
+        & > div.isso-comment-header {
+          display: inline-block;
+          vertical-align: middle;
+        }
 
-      p {
-        margin: 0 0 0.7rem;
+        & > div.isso-text {
+          // font-size: 90%;
+          clear: both;
+        }		
+
+        p {
+          margin: 0 0 0.7rem;
+        }
+      
+        blockquote {
+          color: #777;
+          margin: 5px 0;
+          padding: 5px;
+          padding-left: 10px;
+          border-left: 4px solid #ddd;
+          background-color: #f7f7f7;
+        }
+
+        code {
+          @include code-inline;
+        }
+
+        pre {
+          @include code-rectangle;
+        }
+      }
+
+      .isso-form-wrapper {
+        font-size: 90%;
+      }
+
+      .isso-textarea-wrapper textarea.isso-textarea {
+        height: 80px;
+      }
+
+      .isso-auth-section {
+        font-size: 90%;
+      
+        .isso-input-wrapper {
+          display: block;
+
+          input {
+            width: 100%;
+            height: auto;
+          }  
+        }
+
+        .isso-post-action {
+          margin: 0.5em 0px 0px 5px;
+        }
+
+        .isso-post-action input {
+          padding: .2em 1em;
+          border-radius: 4px;
+          border: 0;
+          margin-right: 5px;
+        }
+
+        .isso-post-action input[type=submit] {
+          background-color: #00649e;
+          color: #fff;
+          font-weight: bold;
+          border: 0;
+          cursor: pointer;
+          &:hover {
+            color: white;
+            background-color: lighten(#00649e, 7%);
+          }
+        }
+      }
+
+      #isso-root {
+        clear: both;
       }
     
-      blockquote {
-        color: #777;
-        margin: 5px 0;
-        padding: 5px;
-        padding-left: 10px;
-        border-left: 4px solid #ddd;
-        background-color: #f7f7f7;
+      .isso-avatar img {
+        max-width: 24px;
+        max-height: 24px;
+        border-radius: 3px;
       }
-
-      code {
-        @include code-inline;
-      }
-
-      pre {
-        @include code-rectangle;
-      }
-    }
-
-    div.isso-postbox .textarea, .notification-section {
-      font-size: 90%;
-    }
-
-    .notification-section input {
-        margin-right: 5px;
     }
   
-    .avatar img {
-      max-width: 24px;
-      max-height: 24px;
-      border-radius: 3px;
-    }
-
-    input, textarea {
-      font-size: 90%;
-    }
-
     #mc_embed_signup form {
       margin-bottom: 0;
     }

@@ -249,6 +249,13 @@ FOOTER STYLES
       max-height: 48px;
       border-radius: 5px;
 		}
+
+    #isso-thread {
+      .isso-avatar img {
+        max-width: 32px;
+        max-height: 32px;
+      }  
+    }
   }
 
   .bottom {
