@@ -1,6 +1,6 @@
 ---
 date: 2022-09-01 16:10:16 +03:00
-last_modified_at: 2022-09-08 14:39:54 +03:00
+last_modified_at: 2022-09-11 20:38:38 +03:00
 ---
 
 # Chromium (Brave, ...)
@@ -13,6 +13,7 @@ last_modified_at: 2022-09-08 14:39:54 +03:00
 - [Google Translate](https://chrome.google.com/webstore/detail/google-translate/aapbdbdomjkkjkaonfhkkikfgjllcleb);
 - [LanguageTool](https://chrome.google.com/webstore/detail/grammar-spell-checker-%E2%80%94-l/oldceeleldhonbafppcapldpdifcinji?utm_source=lt-homepage): for spell-checking, running this with a local server (`brew install languagetool`);
 - [LeechBlock NG](https://chrome.google.com/webstore/detail/leechblock-ng/blaaajhemilngeeffpbfkdjjoefldkok): Time-based restrictions for websites;
+- [Picture-in-Picture Extension (by Google)](https://chrome.google.com/webstore/detail/picture-in-picture-extens/hkgfoiooedgoejojocmhlaklaeopbecg?hl=en) (make sure to disable Google Analytics);
 - [Return YouTube Dislikes](https://chrome.google.com/webstore/detail/return-youtube-dislike/gebbhagfogifgggkldgodflihgfeippi);
 - [RSS Subscription Extension (by Google)](https://chrome.google.com/webstore/detail/rss-subscription-extensio/nlbjncdgjeocebhnmkbbbdekmmmcbfjd/related): not ideal, but it works;
 - [Save to Pocket](https://chrome.google.com/webstore/detail/save-to-pocket/niloccemoadcdkdjlinkgdfekeahmflj?hl=en)
@@ -33,3 +34,10 @@ Brave-specific:
 
 - [brave://adblock](about://adblock): for adding extra filter lists to Brave;
 - [brave://rewards-internals](brave://rewards-internals/): for debugging Brave's Rewards;
+
+## Chrome alternatives
+
+- [Brave](https://brave.com/)
+- [Bromite](https://www.bromite.org/) (Android)
+- [Ungoogled Chromium](https://github.com/ungoogled-software/ungoogled-chromium)
+- [Vivaldi](https://vivaldi.com/)
