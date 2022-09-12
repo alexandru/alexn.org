@@ -23,13 +23,25 @@
     "akka-streams-kafka",
     "bromite",
     "doobie",
+    "dropwizard",
+    "fastmail",
     "freshrss",
     "hikaricp",
+    "hn",
     "jackson-module-scala",
+    "jdbi",
+    "jooq",
     "kafka-avro-serializer",
+    "liquidbase",
     "mima",
+    "orms",
+    "pcollections",
     "reeder",
     "scala-xml",
-    "timtowtdi"
-  ]
+    "timtowtdi",
+    "vavr"
+  ],
+  "files.watcherExclude": {
+    "**/target": true
+  }
 }
