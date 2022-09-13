@@ -21,11 +21,11 @@
     <meta content="2022-09-13T00:00:00+00:00" property="article:published_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-09-scala-cli.png?202209131120" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-09-scala-cli.png?202209131120" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-09-scala-cli.png?202209131122" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-09-scala-cli.png?202209131122" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-09-scala-cli.png?202209131120">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-09-scala-cli.png?202209131122">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Scripting with Scala">
@@ -114,7 +114,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-09-scala-cli.png" />
-          <img src="/assets/media/articles/2022-09-scala-cli.png?202209131120" width="1600" height="900" alt="" />
+          <img src="/assets/media/articles/2022-09-scala-cli.png?202209131122" width="1600" height="900" alt="" />
           
         </figure>
         
@@ -332,6 +332,10 @@ time-since.sc  0.51s user 0.13s system 99% cpu 0.645 total
 scala-cli package <span class="nt">--native-image</span> ./time-since.sc <span class="nt">-o</span> ./time-since <span class="nt">--</span> <span class="nt">--no-fallback</span>
 </code></pre></div></div>
 
+<p class="info-bubble">
+NOTE: GraalVM’s native image only has partial support for libraries using reflection, and needs to know about them ahead of time. This sample was easy, but depending on your dependencies, other scripts may require some tweaking. 
+</p>
+
 <p>The startup time is now much better:</p>
 
 <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nv">$ </span><span class="nb">time</span> ./time-since 2022-01-01 1&gt;/dev/null
@@ -459,12 +463,12 @@ scala-cli package <span class="nt">--native-image</span> ./time-since.sc <span c
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202209131120" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209131120" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202209131120" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202209131120" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202209131122" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209131122" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202209131122" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202209131122" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202209131120" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202209131122" type="text/javascript"></script>
 
 
 <script type="text/javascript">
