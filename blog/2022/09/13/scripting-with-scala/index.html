@@ -21,11 +21,11 @@
     <meta content="2022-09-13T00:00:00+00:00" property="article:published_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-09-scala-cli.png?202209131049" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-09-scala-cli.png?202209131049" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-09-scala-cli.png?202209131055" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-09-scala-cli.png?202209131055" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-09-scala-cli.png?202209131049">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-09-scala-cli.png?202209131055">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Scripting with Scala">
@@ -114,7 +114,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-09-scala-cli.png" />
-          <img src="/assets/media/articles/2022-09-scala-cli.png?202209131049" width="3228" height="1112" alt="" />
+          <img src="/assets/media/articles/2022-09-scala-cli.png?202209131055" width="3228" height="1112" alt="" />
           
         </figure>
         
@@ -181,13 +181,12 @@ Minutes:   367940.81
 <span class="c1">//&gt; using lib "com.github.scopt::scopt::4.1.0"</span>
 
 <span class="k">import</span> <span class="nn">scopt.</span><span class="o">{</span><span class="nc">OParser</span><span class="o">,</span> <span class="nc">Read</span><span class="o">}</span>
-
 <span class="k">import</span> <span class="nn">java.time.format.DateTimeFormatter</span>
-<span class="k">import</span> <span class="nn">java.time.</span><span class="o">{</span><span class="nc">Instant</span><span class="o">,</span> <span class="nc">LocalDate</span><span class="o">,</span> <span class="nc">LocalDateTime</span><span class="o">,</span> <span class="nc">LocalTime</span><span class="o">,</span> <span class="nc">ZoneId</span><span class="o">,</span> <span class="nc">ZonedDateTime</span><span class="o">}</span>
+<span class="k">import</span> <span class="nn">java.time._</span>
 <span class="k">import</span> <span class="nn">java.util.concurrent.TimeUnit</span>
 <span class="k">import</span> <span class="nn">scala.util.Try</span>
 
-<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">Args</span><span class="o">(</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">Args</span><span class="o">(</span>
   <span class="n">since</span><span class="k">:</span> <span class="kt">LocalDateTime</span><span class="o">,</span>
   <span class="n">until</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">LocalDateTime</span><span class="o">],</span>
   <span class="n">zoneId</span><span class="k">:</span> <span class="kt">ZoneId</span><span class="o">,</span>
@@ -256,14 +255,14 @@ Minutes:   367940.81
 <span class="k">val</span> <span class="nv">seconds</span> <span class="k">=</span> <span class="nv">TimeUnit</span><span class="o">.</span><span class="py">MILLISECONDS</span><span class="o">.</span><span class="py">toSeconds</span><span class="o">(</span><span class="n">rem3</span><span class="o">)</span>
 
 <span class="nf">println</span><span class="o">()</span>
-<span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"$days days, $hours hours, $minutes minutes, $seconds seconds"</span><span class="o">)</span>
+<span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Elapsed: $days days, $hours hours, $minutes minutes, $seconds seconds"</span><span class="o">)</span>
 <span class="nf">println</span><span class="o">()</span>
 
-<span class="nf">println</span><span class="o">(</span><span class="n">f</span><span class="s">"Years: ${(untilTs - sinceTs) / (1000.0 * 60 * 60 * 24 * 365)}%13.2f"</span><span class="o">)</span>
-<span class="nf">println</span><span class="o">(</span><span class="n">f</span><span class="s">"Months: ${(untilTs - sinceTs) / (1000.0 * 60 * 60 * 24 * 30.417)}%12.2f"</span><span class="o">)</span>
-<span class="nf">println</span><span class="o">(</span><span class="n">f</span><span class="s">"Weeks: ${(untilTs - sinceTs) / (1000.0 * 60 * 60 * 24 * 7)}%13.2f"</span><span class="o">)</span>
-<span class="nf">println</span><span class="o">(</span><span class="n">f</span><span class="s">"Days: ${(untilTs - sinceTs) / (1000.0 * 60 * 60 * 24)}%14.2f"</span><span class="o">)</span>
-<span class="nf">println</span><span class="o">(</span><span class="n">f</span><span class="s">"Hours: ${(untilTs - sinceTs) / (1000.0 * 60 * 60)}%13.2f"</span><span class="o">)</span>
+<span class="nf">println</span><span class="o">(</span><span class="n">f</span><span class="s">"Years:   ${(untilTs - sinceTs) / (1000.0 * 60 * 60 * 24 * 365)}%11.2f"</span><span class="o">)</span>
+<span class="nf">println</span><span class="o">(</span><span class="n">f</span><span class="s">"Months:  ${(untilTs - sinceTs) / (1000.0 * 60 * 60 * 24 * 30.417)}%11.2f"</span><span class="o">)</span>
+<span class="nf">println</span><span class="o">(</span><span class="n">f</span><span class="s">"Weeks:   ${(untilTs - sinceTs) / (1000.0 * 60 * 60 * 24 * 7)}%11.2f"</span><span class="o">)</span>
+<span class="nf">println</span><span class="o">(</span><span class="n">f</span><span class="s">"Days:    ${(untilTs - sinceTs) / (1000.0 * 60 * 60 * 24)}%11.2f"</span><span class="o">)</span>
+<span class="nf">println</span><span class="o">(</span><span class="n">f</span><span class="s">"Hours:   ${(untilTs - sinceTs) / (1000.0 * 60 * 60)}%11.2f"</span><span class="o">)</span>
 <span class="nf">println</span><span class="o">(</span><span class="n">f</span><span class="s">"Minutes: ${(untilTs - sinceTs) / (1000.0 * 60)}%11.2f"</span><span class="o">)</span>
 <span class="nf">println</span><span class="o">()</span>
 </code></pre></div></div>
@@ -444,12 +443,12 @@ time-since.sc  0.51s user 0.13s system 99% cpu 0.645 total
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202209131049" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209131049" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202209131049" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202209131049" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202209131055" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209131055" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202209131055" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202209131055" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202209131049" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202209131055" type="text/javascript"></script>
 
 
 <script type="text/javascript">
