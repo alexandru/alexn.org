@@ -1,6 +1,6 @@
 ---
 date: 2022-09-12 08:58:10 +03:00
-last_modified_at: 2022-09-16 08:48:26 +03:00
+last_modified_at: 2022-09-16 08:51:37 +03:00
 ---
 
 # Java
@@ -27,12 +27,12 @@ last_modified_at: 2022-09-16 08:48:26 +03:00
 ### Frameworks
 
 - [Dropwizard](https://www.dropwizard.io/);
-- [Quarkus](https://quarkus.io/);
+- [Quarkus](https://quarkus.io/): built for compatibility with GraalVM's native image;
 - [Spring Boot](https://spring.io/projects/spring-boot/) (see [the initializer](https://start.spring.io/));
 
 ### Tools
 
-- [Gradle](https://gradle.org/): seems to be the preferred alternative to Maven nowadays;
+- [Gradle](https://gradle.org/): the accepted Maven alternative;
 
 ## Setup
 
