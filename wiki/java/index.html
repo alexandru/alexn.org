@@ -19,7 +19,7 @@
     <meta content="Personal, volatile wiki documentation" property="og:description">
     <meta content="https://alexn.org/wiki/java/" property="og:url">
     <meta content="2022-09-12T05:58:10+00:00" property="article:published_time">
-    <meta content="2022-09-12T06:45:08+00:00" property="article:modified_time">
+    <meta content="2022-09-16T05:48:26+00:00" property="article:modified_time">
     
     <meta content="website" property="og:type">
     <meta property="og:image" content="https://alexn.org/assets/logo/800px-bordered.png" />
@@ -107,8 +107,8 @@
       <meta itemprop="datePublished" content="2022-09-12T05:58:10+0000"/>
       
       
-      <time itemprop="dateModified" content="2022-09-12T09:45:08+0300">
-        Updated: September 12, 2022
+      <time itemprop="dateModified" content="2022-09-16T08:48:26+0300">
+        Updated: September 16, 2022
       </time>
       
       
@@ -139,6 +139,13 @@
       <li><a href="#tools">Tools</a></li>
     </ul>
   </li>
+  <li><a href="#setup">Setup</a>
+    <ul>
+      <li><a href="#sdkman">SDKMan!</a></li>
+      <li><a href="#openjdk-builds">OpenJDK Builds</a></li>
+    </ul>
+  </li>
+  <li><a href="#resources--links">Resources / Links</a></li>
 </ul>
       <h2 id="resources">
         
@@ -200,6 +207,8 @@
 
 <ul>
   <li><a href="https://www.dropwizard.io/">Dropwizard</a>;</li>
+  <li><a href="https://quarkus.io/">Quarkus</a>;</li>
+  <li><a href="https://spring.io/projects/spring-boot/">Spring Boot</a> (see <a href="https://start.spring.io/">the initializer</a>);</li>
 </ul>
       <h3 id="tools">
         
@@ -211,7 +220,86 @@
     
 
 <ul>
-  <li><a href="https://gradle.org/">Gradle</a>: seems to be preferred build tool nowadays;</li>
+  <li><a href="https://gradle.org/">Gradle</a>: seems to be the preferred alternative to Maven nowadays;</li>
+</ul>
+      <h2 id="setup">
+        
+        
+          Setup <a href="#setup" class="anchor">#</a>
+        
+        
+      </h2>
+    
+      <h3 id="sdkman">
+        
+        
+          SDKMan! <a href="#sdkman" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Install:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>https://sdkman.io/install
+</code></pre></div></div>
+
+<p>To list available Java SDKs:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>sdk list java
+</code></pre></div></div>
+
+<p>To install:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c"># OpenJDK</span>
+sdk <span class="nb">install </span>java 11.0.2-open
+
+<span class="c"># GraalVM</span>
+sdk <span class="nb">install </span>22.2.r17-grl
+
+<span class="c"># Oracle</span>
+sdk <span class="nb">install </span>17.0.4-oracle
+</code></pre></div></div>
+
+<p>After the installation of GraalVM, add this to <code class="language-plaintext highlighter-rouge">.zshrc</code>:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nb">export </span><span class="nv">GRAALVM_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/.sdkman/candidates/java/22.2.r17-grl/
+</code></pre></div></div>
+
+<p>Also install the <code class="language-plaintext highlighter-rouge">native-image</code>:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">${</span><span class="nv">GRAALVM_HOME</span><span class="k">}</span>/bin/gu <span class="nb">install </span>native-image
+</code></pre></div></div>
+      <h3 id="openjdk-builds">
+        
+        
+          OpenJDK Builds <a href="#openjdk-builds" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Noteworthy:</p>
+
+<ul>
+  <li><a href="https://adoptium.net/">Eclipse Temurin</a>: the old AdoptOpenJDK;</li>
+  <li><a href="https://developer.ibm.com/languages/java/semeru-runtimes/">IBM Semeru</a>: these are the new <a href="https://www.eclipse.org/openj9/">OpenJ9</a> builds;</li>
+  <li><a href="https://jdk.java.net/">jdk.java.net</a>: reference OpenJDK builds;</li>
+</ul>
+
+<p>Also see: <a href="https://sdkman.io/jdks">JDK distributions</a>.</p>
+      <h2 id="resources--links">
+        
+        
+          Resources / Links <a href="#resources--links" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<ul>
+  <li><a href="https://piotrminkowski.com/2021/02/01/new-developer-friendly-features-after-java-8/">New Developer Friendly Features After Java 8</a> — Piotr Mińkowski;</li>
+  <li><a href="https://advancedweb.hu/new-language-features-since-java-8-to-18/">New language features since Java 8 to 18</a> — Dávid Csákvári;</li>
 </ul>
 
   </div>
@@ -220,12 +308,12 @@
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202209131428" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209131428" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202209131428" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202209131428" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202209160549" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209160549" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202209160549" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202209160549" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202209131428" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202209160549" type="text/javascript"></script>
 
 
 <script type="text/javascript">

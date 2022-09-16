@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 13 Sep 2022 14:28:39 +0000</pubDate>
-    <lastBuildDate>Tue, 13 Sep 2022 14:28:39 +0000</lastBuildDate>
+    <pubDate>Fri, 16 Sep 2022 05:49:36 +0000</pubDate>
+    <lastBuildDate>Fri, 16 Sep 2022 05:49:36 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -23,11 +23,11 @@
 <item>
   <title>Java</title>
   <description>Article 
-    updated at September 12, 2022, 
+    updated at September 16, 2022, 
     created at September 12, 2022.</description>
   <content:encoded>&lt;p&gt;
       Article 
-      updated at September 12, 2022, 
+      updated at September 16, 2022, 
       created at September 12, 2022.
     &lt;/p&gt;
     &lt;hr&gt;
@@ -71,17 +71,81 @@
 &lt;ul&gt;
   &lt;li&gt;
 &lt;a href=&quot;https://www.dropwizard.io/&quot;&gt;Dropwizard&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://quarkus.io/&quot;&gt;Quarkus&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://spring.io/projects/spring-boot/&quot;&gt;Spring Boot&lt;/a&gt; (see &lt;a href=&quot;https://start.spring.io/&quot;&gt;the initializer&lt;/a&gt;);&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;tools&quot;&gt;Tools&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
-&lt;a href=&quot;https://gradle.org/&quot;&gt;Gradle&lt;/a&gt;: seems to be preferred build tool nowadays;&lt;/li&gt;
+&lt;a href=&quot;https://gradle.org/&quot;&gt;Gradle&lt;/a&gt;: seems to be the preferred alternative to Maven nowadays;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;setup&quot;&gt;Setup&lt;/h2&gt;
+
+&lt;h3 id=&quot;sdkman&quot;&gt;SDKMan!&lt;/h3&gt;
+
+&lt;p&gt;Install:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;https://sdkman.io/install
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To list available Java SDKs:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;sdk list java
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To install:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# OpenJDK&lt;/span&gt;
+sdk &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;java 11.0.2-open
+
+&lt;span class=&quot;c&quot;&gt;# GraalVM&lt;/span&gt;
+sdk &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;22.2.r17-grl
+
+&lt;span class=&quot;c&quot;&gt;# Oracle&lt;/span&gt;
+sdk &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;17.0.4-oracle
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After the installation of GraalVM, add this to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.zshrc&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;GRAALVM_HOME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/.sdkman/candidates/java/22.2.r17-grl/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Also install the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;native-image&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;GRAALVM_HOME&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;/bin/gu &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;native-image
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;openjdk-builds&quot;&gt;OpenJDK Builds&lt;/h3&gt;
+
+&lt;p&gt;Noteworthy:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://adoptium.net/&quot;&gt;Eclipse Temurin&lt;/a&gt;: the old AdoptOpenJDK;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://developer.ibm.com/languages/java/semeru-runtimes/&quot;&gt;IBM Semeru&lt;/a&gt;: these are the new &lt;a href=&quot;https://www.eclipse.org/openj9/&quot;&gt;OpenJ9&lt;/a&gt; builds;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://jdk.java.net/&quot;&gt;jdk.java.net&lt;/a&gt;: reference OpenJDK builds;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Also see: &lt;a href=&quot;https://sdkman.io/jdks&quot;&gt;JDK distributions&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;resources--links&quot;&gt;Resources / Links&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://piotrminkowski.com/2021/02/01/new-developer-friendly-features-after-java-8/&quot;&gt;New Developer Friendly Features After Java 8&lt;/a&gt; — Piotr Mińkowski;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://advancedweb.hu/new-language-features-since-java-8-to-18/&quot;&gt;New language features since Java 8 to 18&lt;/a&gt; — Dávid Csákvári;&lt;/li&gt;
 &lt;/ul&gt;</content:encoded>
   <pubDate>Mon, 12 Sep 2022 05:58:10 +0000</pubDate>
-  <dc:modified>Mon, 12 Sep 2022 06:45:08 +0000</dc:modified>
-  <atom:modified>Mon, 12 Sep 2022 06:45:08 +0000</atom:modified>
+  <dc:modified>Fri, 16 Sep 2022 05:48:26 +0000</dc:modified>
+  <atom:modified>Fri, 16 Sep 2022 05:48:26 +0000</atom:modified>
   <link>https://alexn.org/wiki/java/?pk_campaign=rss&amp;pk_kwd=link</link>
   <guid isPermaLink="true">https://alexn.org/wiki/java/</guid>
   
