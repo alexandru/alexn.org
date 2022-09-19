@@ -21,11 +21,11 @@
     <meta content="2022-09-19T00:00:00+00:00" property="article:published_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/java-logo.png?202209191053" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/java-logo.png?202209191053" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/java-logo.png?202209191217" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/java-logo.png?202209191217" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/java-logo.png?202209191053">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/java-logo.png?202209191217">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Java&#39;s Cultural Problem">
@@ -105,7 +105,7 @@
       <meta itemprop="datePublished" content="2022-09-19T00:00:00+0000"/>
       
       <time itemprop="dateCreated" datetime="2022-09-19T00:00:00+0000">September 19, 2022</time>
-      | <span class="nobr"><span class="time">8</span> minutes</span>
+      | <span class="nobr"><span class="time">9</span> minutes</span>
       
       | <a href="/blog/2022/09/19/java-cultural-problem/#isso-thread" class="nobr">comments</a>
       
@@ -114,7 +114,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/java-logo.png" />
-          <img src="/assets/media/articles/java-logo.png?202209191053" width="1800" height="1013" alt="" />
+          <img src="/assets/media/articles/java-logo.png?202209191217" width="1800" height="1013" alt="" />
           
         </figure>
         
@@ -178,9 +178,19 @@
 <span class="o">)</span> <span class="o">{}</span>
 </code></pre></div></div>
 
-<p>And frankly, I’d like to also be able to test the deserialization of the application’s configuration, to ensure that all required values are there, which is why I’d start with a plain function:</p>
+<p><strong>UPDATE:</strong> to drive this point home, let me make it clear that I don’t care from where the configuration is being read (the actual I/O side effect), but rather what happens afterwards. This interface has an implicit usage protocol that isn’t properly expressed by this `interface:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nc">ServerConfig</span> <span class="nf">readServerConfig</span><span class="o">(</span><span class="nc">ConfigSource</span> <span class="n">src</span><span class="o">)</span> <span class="o">{</span> <span class="cm">/*...*/</span> <span class="o">}</span>
+<ol>
+  <li>The <code class="language-plaintext highlighter-rouge">host</code> and <code class="language-plaintext highlighter-rouge">port</code> values should be read from the same configuration source;</li>
+  <li>These values shouldn’t change during the application’s lifecycle (otherwise the interface should provide the ability to register a listener);</li>
+  <li>There’s no point in doing the side effect more than once, at the application’s start;</li>
+</ol>
+
+<p>In other words, this is not just bad FP design, this is bad OOP design. A better abstract interface would be this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="kd">interface</span> <span class="nc">ServerConfigReader</span> <span class="o">{</span>
+  <span class="nc">ServerConfig</span> <span class="nf">read</span><span class="o">();</span>
+<span class="o">}</span>
 </code></pre></div></div>
 
 <p>Dropwizard has a more common-sense approach, as it leaves you in charge of defining a type safe configuration object. But it, too, was infected by the Java EE culture (aka <a href="https://en.wikipedia.org/wiki/Jakarta_EE">Jakarta EE</a>), preferring <a href="https://beanvalidation.org/">Bean Validation via annotations</a>, with the help of <a href="https://hibernate.org/validator/">hibernate-validator</a>.</p>
@@ -277,7 +287,8 @@
 <span class="c1">// ------------------------------------------------</span>
 <span class="c1">// Implements the "composition root" pattern...</span>
 <span class="c1">//</span>
-<span class="c1">// (all of these imports is already a code smell)</span>
+<span class="c1">// All of these imports is already a code smell, but at </span>
+<span class="c1">// least it's localized, and does help with managing DI.</span>
 <span class="kn">import</span> <span class="nn">javax.enterprise.context.RequestScoped</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">javax.enterprise.inject.Disposes</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">javax.ws.rs.Produces</span><span class="o">;</span>
@@ -309,9 +320,9 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>At least this way you can limit the impact of Java EE on your codebase. But it does need restraint, and you still have to learn a domain-specific language that has few things in common with Java, the language.</p>
+<p>This way you can limit the impact of Java EE on your codebase. But it does need restraint, and you still have to learn a domain-specific language that has few things in common with Java, the language.</p>
 
-<p>Newcomers to Java have to deal with this nonsense, and it’s a pity given that Java 17 is a decent language and awesome platform. Java’s ecosystem still hasn’t learned enough from its competition.</p>
+<p>Newcomers to Java have to deal with this nonsense, and it’s a pity given that Java 17 is a decent language and awesome platform. Java’s ecosystem still hasn’t learned enough from its competition, but hope never dies.</p>
 
   </div>
 
@@ -436,12 +447,12 @@
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202209191053" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209191053" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202209191053" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202209191053" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202209191217" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209191217" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202209191217" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202209191217" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202209191053" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202209191217" type="text/javascript"></script>
 
 
 <script type="text/javascript">
