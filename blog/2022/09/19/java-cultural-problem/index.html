@@ -21,11 +21,11 @@
     <meta content="2022-09-19T00:00:00+00:00" property="article:published_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/java-logo.png?202209191217" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/java-logo.png?202209191217" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/java-logo.png?202209191221" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/java-logo.png?202209191221" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/java-logo.png?202209191217">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/java-logo.png?202209191221">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Java&#39;s Cultural Problem">
@@ -114,7 +114,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/java-logo.png" />
-          <img src="/assets/media/articles/java-logo.png?202209191217" width="1800" height="1013" alt="" />
+          <img src="/assets/media/articles/java-logo.png?202209191221" width="1800" height="1013" alt="" />
           
         </figure>
         
@@ -178,18 +178,18 @@
 <span class="o">)</span> <span class="o">{}</span>
 </code></pre></div></div>
 
-<p><strong>UPDATE:</strong> to drive this point home, let me make it clear that I don’t care from where the configuration is being read (the actual I/O side effect), but rather what happens afterwards. This interface has an implicit usage protocol that isn’t properly expressed by this `interface:</p>
+<p><strong>UPDATE:</strong> to drive this point home, let me make it clear that I don’t care from where the configuration is being read (the actual I/O side effect), but rather what happens afterwards. This interface has an implicit usage protocol that isn’t properly expressed by an interface:</p>
 
 <ol>
   <li>The <code class="language-plaintext highlighter-rouge">host</code> and <code class="language-plaintext highlighter-rouge">port</code> values should be read from the same configuration source;</li>
-  <li>These values shouldn’t change during the application’s lifecycle (otherwise the interface should provide the ability to register a listener);</li>
+  <li>These values shouldn’t change during the application’s lifecycle, otherwise the interface should provide the ability to register a listener;</li>
   <li>There’s no point in doing the side effect more than once, at the application’s start;</li>
 </ol>
 
-<p>In other words, this is not just bad FP design, this is bad OOP design. A better abstract interface would be this:</p>
+<p>In other words, this is not just bad FP design, this is bad OOP design. A better abstract interface would be this, which makes the behavior crystal clear:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="kd">interface</span> <span class="nc">ServerConfigReader</span> <span class="o">{</span>
-  <span class="nc">ServerConfig</span> <span class="nf">read</span><span class="o">();</span>
+  <span class="nc">ServerConfig</span> <span class="nf">read</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">;</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -447,12 +447,12 @@
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202209191217" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209191217" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202209191217" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202209191217" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202209191221" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209191221" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202209191221" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202209191221" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202209191217" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202209191221" type="text/javascript"></script>
 
 
 <script type="text/javascript">
