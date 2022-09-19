@@ -21,11 +21,11 @@
     <meta content="2022-09-19T00:00:00+00:00" property="article:published_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/java-logo.png?202209191227" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/java-logo.png?202209191227" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/java-logo.png?202209191252" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/java-logo.png?202209191252" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/java-logo.png?202209191227">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/java-logo.png?202209191252">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Java&#39;s Cultural Problem">
@@ -114,7 +114,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/java-logo.png" />
-          <img src="/assets/media/articles/java-logo.png?202209191227" width="1800" height="1013" alt="" />
+          <img src="/assets/media/articles/java-logo.png?202209191252" width="1800" height="1013" alt="" />
           
         </figure>
         
@@ -207,7 +207,7 @@
 
 <p>I understand the <code class="language-plaintext highlighter-rouge">@NotNull</code> annotation. Java has <code class="language-plaintext highlighter-rouge">null</code> in it, all object references can be <code class="language-plaintext highlighter-rouge">null</code>, and it’s too late for that to change. What’s odd is that <code class="language-plaintext highlighter-rouge">noReplyEmailAddress</code> should always be an email address, no matter the context. Not even if you consider this “raw input”, because actual “raw input” is a plain string or an array of bytes, and if you ever reach this stage of having a structured <code class="language-plaintext highlighter-rouge">record</code>, then you should already have an email address.</p>
 
-<p>Java’s culture eschews common sense approaches, like defining new types. Defining new types would <a href="https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/">make illegal states unrepresentable</a>. Note how, with the following definition, there is no way to get an <code class="language-plaintext highlighter-rouge">EmailAddress</code> that doesn’t pass the “validation”, and you don’t need a freaking annotations-driven library to validate your email address:</p>
+<p>Java’s culture eschews common sense approaches, like defining new types. Defining new types would <a href="https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/">make illegal states unrepresentable</a>. Note how, with the following definition, there is no way to get an <code class="language-plaintext highlighter-rouge">EmailAddress</code> that doesn’t pass the “validation”, and you don’t need a freaking annotations-driven library to validate your values:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="kn">import</span> <span class="nn">java.util.Objects</span><span class="o">;</span>
 
@@ -447,12 +447,12 @@
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202209191227" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209191227" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202209191227" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202209191227" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202209191252" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209191252" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202209191252" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202209191252" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202209191227" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202209191252" type="text/javascript"></script>
 
 
 <script type="text/javascript">
