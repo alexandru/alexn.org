@@ -93,7 +93,7 @@ public record EmailAddress(String value) {
 }
 ```
 
-Back to Quarkus, dependency injection (via CDI) is required, and it's not easy to keep the Java EE crap out of your classes. Reading [their documentation](https://quarkus.io/guides/cdi-reference), by default you'd end up with something like this:
+Back to Quarkus, usage of a DI container is required (via CDI annotations), and it's not easy to keep the Java EE crap out of your classes. Reading [their documentation](https://quarkus.io/guides/cdi-reference), by default you'd end up with something like this:
 
 ```java
 @ConfigMapping(prefix = "greetings")
