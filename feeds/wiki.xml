@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 16 Sep 2022 05:52:43 +0000</pubDate>
-    <lastBuildDate>Fri, 16 Sep 2022 05:52:43 +0000</lastBuildDate>
+    <pubDate>Mon, 19 Sep 2022 08:29:41 +0000</pubDate>
+    <lastBuildDate>Mon, 19 Sep 2022 08:29:41 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -23,11 +23,11 @@
 <item>
   <title>Java</title>
   <description>Article 
-    updated at September 16, 2022, 
+    updated at September 18, 2022, 
     created at September 12, 2022.</description>
   <content:encoded>&lt;p&gt;
       Article 
-      updated at September 16, 2022, 
+      updated at September 18, 2022, 
       created at September 12, 2022.
     &lt;/p&gt;
     &lt;hr&gt;
@@ -82,6 +82,8 @@
 &lt;ul&gt;
   &lt;li&gt;
 &lt;a href=&quot;https://gradle.org/&quot;&gt;Gradle&lt;/a&gt;: the accepted Maven alternative;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://www.jbang.dev/&quot;&gt;JBang&lt;/a&gt;: scripting with Java;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;setup&quot;&gt;Setup&lt;/h2&gt;
@@ -142,10 +144,22 @@ sdk &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;17.0.4-oracle
 &lt;a href=&quot;https://piotrminkowski.com/2021/02/01/new-developer-friendly-features-after-java-8/&quot;&gt;New Developer Friendly Features After Java 8&lt;/a&gt; — Piotr Mińkowski;&lt;/li&gt;
   &lt;li&gt;
 &lt;a href=&quot;https://advancedweb.hu/new-language-features-since-java-8-to-18/&quot;&gt;New language features since Java 8 to 18&lt;/a&gt; — Dávid Csákvári;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;dependency-injection--cdi&quot;&gt;Dependency injection / CDI&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://stackoverflow.com/questions/58544079/quarkus-cdi-and-java-config-di-definitions&quot;&gt;Quarkus / CDI and “java config” DI definitions&lt;/a&gt;;
+    &lt;ul&gt;
+      &lt;li&gt;
+&lt;a href=&quot;https://blog.ploeh.dk/2011/07/28/CompositionRoot/&quot;&gt;Composition Root&lt;/a&gt;;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;</content:encoded>
   <pubDate>Mon, 12 Sep 2022 05:58:10 +0000</pubDate>
-  <dc:modified>Fri, 16 Sep 2022 05:51:37 +0000</dc:modified>
-  <atom:modified>Fri, 16 Sep 2022 05:51:37 +0000</atom:modified>
+  <dc:modified>Sun, 18 Sep 2022 09:42:18 +0000</dc:modified>
+  <atom:modified>Sun, 18 Sep 2022 09:42:18 +0000</atom:modified>
   <link>https://alexn.org/wiki/java/?pk_campaign=rss&amp;pk_kwd=link</link>
   <guid isPermaLink="true">https://alexn.org/wiki/java/</guid>
   
