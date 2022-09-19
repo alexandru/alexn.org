@@ -76,7 +76,7 @@ public record ServerConfig(
 
 I understand the `@NotNull` annotation. Java has `null` in it, all object references can be `null`, and it's too late for that to change. What's odd is that `noReplyEmailAddress` should always be an email address, no matter the context. Not even if you consider this "raw input", because actual "raw input" is a plain string or an array of bytes, and if you ever reach this stage of having a structured `record`, then you should already have an email address.
 
-Java's culture eschews common sense approaches, like defining new types. Defining new types would [make illegal states unrepresentable](https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/). Note how, with the following definition, there is no way to get an `EmailAddress` that doesn't pass the "validation", and you don't need a freaking annotations-driven library to validate your email address:
+Java's culture eschews common sense approaches, like defining new types. Defining new types would [make illegal states unrepresentable](https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/). Note how, with the following definition, there is no way to get an `EmailAddress` that doesn't pass the "validation", and you don't need a freaking annotations-driven library to validate your values:
 
 ```java
 import java.util.Objects;
