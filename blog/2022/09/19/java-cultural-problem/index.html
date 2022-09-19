@@ -21,11 +21,11 @@
     <meta content="2022-09-19T00:00:00+00:00" property="article:published_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/java-logo.png?202209190832" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/java-logo.png?202209190832" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/java-logo.png?202209191033" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/java-logo.png?202209191033" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/java-logo.png?202209190832">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/java-logo.png?202209191033">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Java&#39;s Cultural Problem">
@@ -114,7 +114,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/java-logo.png" />
-          <img src="/assets/media/articles/java-logo.png?202209190832" width="1800" height="1013" alt="" />
+          <img src="/assets/media/articles/java-logo.png?202209191033" width="1800" height="1013" alt="" />
           
         </figure>
         
@@ -160,7 +160,7 @@
 
 <ol>
   <li>This should be a pure data structure;</li>
-  <li>These abstract methods signal the presence of side effects, when there should be none;</li>
+  <li>These abstract methods signal the possibility of side effects;</li>
 </ol>
 
 <p>Do you know what SmallRye does in this instance? I don’t. It could be reading from a file and block a thread on every access, it could be thread unsafe, I wouldn’t know, since whatever it does is magic™️, and this isn’t my data structure. Even if it generates a pure data structure, its implementation can always change in future versions.</p>
@@ -179,7 +179,7 @@ And the more common-sense definition doesn’t work, the library being (currentl
 <span class="o">)</span> <span class="o">{}</span>
 </code></pre></div></div>
 
-<p>And frankly, I’d like to also be able to test the deserialization of the application’s configuration, which is why I’d start from having a freaking function:</p>
+<p>And frankly, I’d like to also be able to test the deserialization of the application’s configuration, which is why I’d start with a freaking function:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nc">ServerConfig</span> <span class="nf">readServerConfig</span><span class="o">(</span><span class="nc">ConfigSource</span> <span class="n">src</span><span class="o">)</span> <span class="o">{</span> <span class="cm">/*...*/</span> <span class="o">}</span>
 </code></pre></div></div>
@@ -206,7 +206,8 @@ And the more common-sense definition doesn’t work, the library being (currentl
   <span class="kd">public</span> <span class="nc">EmailAddress</span> <span class="o">{</span>
     <span class="c1">// We could've used an Either data type, ofc;</span>
     <span class="nc">Objects</span><span class="o">.</span><span class="na">requireNonNull</span><span class="o">(</span><span class="n">value</span><span class="o">);</span>
-    <span class="k">if</span> <span class="o">(!</span><span class="n">value</span><span class="o">.</span><span class="na">matches</span><span class="o">(</span><span class="s">"^[^@]@.*"</span><span class="o">))</span>
+    <span class="c1">// regexp could be better</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">value</span><span class="o">.</span><span class="na">matches</span><span class="o">(</span><span class="s">"^[^@\\s]+@\\S+$"</span><span class="o">))</span> 
       <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span>
         <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"'%s' is not a valid email address"</span><span class="o">,</span> <span class="n">value</span><span class="o">));</span>
   <span class="o">}</span>
@@ -435,12 +436,12 @@ And the more common-sense definition doesn’t work, the library being (currentl
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202209190832" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209190832" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202209190832" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202209190832" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202209191033" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209191033" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202209191033" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202209191033" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202209190832" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202209191033" type="text/javascript"></script>
 
 
 <script type="text/javascript">
