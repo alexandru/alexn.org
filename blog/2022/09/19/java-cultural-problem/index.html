@@ -21,11 +21,11 @@
     <meta content="2022-09-19T00:00:00+00:00" property="article:published_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/java-logo.png?202209191221" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/java-logo.png?202209191221" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/java-logo.png?202209191225" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/java-logo.png?202209191225" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/java-logo.png?202209191221">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/java-logo.png?202209191225">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Java&#39;s Cultural Problem">
@@ -114,7 +114,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/java-logo.png" />
-          <img src="/assets/media/articles/java-logo.png?202209191221" width="1800" height="1013" alt="" />
+          <img src="/assets/media/articles/java-logo.png?202209191225" width="1800" height="1013" alt="" />
           
         </figure>
         
@@ -255,7 +255,7 @@
 
 <p>Of note is how this approach will infect your entire codebase, forcing all your downstream users to forgo Java language constructs, such as easily building an instance with <code class="language-plaintext highlighter-rouge">new</code>, or safe disposal of resources via <a href="https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html">try-with-resources</a>.</p>
 
-<p>With this approach, not working with <code class="language-plaintext highlighter-rouge">final</code> classes jumps at me, because <a href="https://www.artima.com/articles/versioning-virtual-and-override">“final” is a best practice</a>. This isn’t related to Quarkus in any way, this being the status quo in Java land. For instance, Kotlin’s classes are <a href="https://kotlinlang.org/docs/inheritance.html">final by default</a>, yet if you want to <a href="https://kotlinlang.org/docs/jvm-spring-boot-restful.html">build Spring apps</a>, the recommended way would be to import the <a href="https://kotlinlang.org/docs/all-open-plugin.html#spring-support">kotling-spring</a> plugin, which automatically “opens” your classes that have certain DI-related annotations. Whether you agree with “final by default” as a best practice or not, you’re getting a bad deal if the framework makes that choice for you.</p>
+<p>With this approach, not working with <code class="language-plaintext highlighter-rouge">final</code> classes jumps at me, because <a href="https://www.artima.com/articles/versioning-virtual-and-override">“final” is a best practice</a>. This isn’t related to Quarkus in any way, but rather with DI containers in general. For instance, Kotlin’s classes are <a href="https://kotlinlang.org/docs/inheritance.html">final by default</a>, yet if you want to <a href="https://kotlinlang.org/docs/jvm-spring-boot-restful.html">build Spring apps</a>, the recommended way would be to import the <a href="https://kotlinlang.org/docs/all-open-plugin.html#spring-support">kotling-spring</a> plugin, which automatically “opens” your classes that have certain DI-related annotations. Whether you agree with “final by default” as a best practice or not, you’re getting a bad deal if the framework makes that choice for you.</p>
 
 <p>Quarkus ships with a <a href="https://jakarta.ee/specifications/cdi/2.0/cdi-spec-2.0.html">CDI 2.0</a> implementation, like Spring before it, although <a href="https://quarkus.io/guides/cdi-reference">its implementation</a> isn’t fully compliant, since all those annotations and runtime behavior can’t be fully supported on top of GraalVM’s Native Image. It’s odd seeing such a framework forcing Java EE’s CDI.</p>
 
@@ -447,12 +447,12 @@
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202209191221" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209191221" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202209191221" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202209191221" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202209191225" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209191225" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202209191225" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202209191225" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202209191221" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202209191225" type="text/javascript"></script>
 
 
 <script type="text/javascript">
