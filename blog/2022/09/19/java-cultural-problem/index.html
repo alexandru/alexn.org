@@ -21,11 +21,11 @@
     <meta content="2022-09-19T00:00:00+00:00" property="article:published_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/java-logo.png?202209191045" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/java-logo.png?202209191045" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/java-logo.png?202209191052" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/java-logo.png?202209191052" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/java-logo.png?202209191045">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/java-logo.png?202209191052">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Java&#39;s Cultural Problem">
@@ -114,7 +114,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/java-logo.png" />
-          <img src="/assets/media/articles/java-logo.png?202209191045" width="1800" height="1013" alt="" />
+          <img src="/assets/media/articles/java-logo.png?202209191052" width="1800" height="1013" alt="" />
           
         </figure>
         
@@ -149,21 +149,21 @@
 <p>Quarkus depends on <a href="https://github.com/smallrye/smallrye-config">SmallRye Config</a>. And if you want to map your configuration to objects, <a href="https://quarkus.io/guides/config-mappings">the documentation</a> has this to say:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nd">@ConfigMapping</span><span class="o">(</span><span class="n">prefix</span> <span class="o">=</span> <span class="s">"server"</span><span class="o">)</span>
-<span class="kd">interface</span> <span class="nc">Server</span> <span class="o">{</span>
+<span class="kd">interface</span> <span class="nc">ServerConfig</span> <span class="o">{</span>
   <span class="nc">String</span> <span class="nf">host</span><span class="o">();</span>
 
   <span class="kt">int</span> <span class="nf">port</span><span class="o">();</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>In Java world, interfaces and abstract classes get used by dependency injection libraries, with methods left abstract in order for their implementation to be filled-in later. Any <a href="https://alexn.org/blog/2017/10/15/functional-programming/">FP developer</a> should scream when seeing this, because:</p>
+<p>In Java’s world, interfaces and abstract classes get used by dependency injection libraries, with methods left abstract in order for their implementation to be filled-in later. Any <a href="https://alexn.org/blog/2017/10/15/functional-programming/">FP developer</a> should scream when seeing this, because:</p>
 
 <ol>
   <li>This should be a pure data structure;</li>
-  <li>These abstract methods signal the possibility of side effects;</li>
+  <li>These abstract methods signal the possibility of side effects — in general, it is the possibility of side effects that drives the demand for abstract methods, as pure data structures rarely need it;</li>
 </ol>
 
-<p>Do you know what SmallRye does in this instance? I don’t. It could be reading from a file and block a thread on every access, it could be thread unsafe, I wouldn’t know, since whatever it does is magic™️, and this isn’t my data structure. Even if it generates a pure data structure, its implementation can always change in future versions.</p>
+<p>Do you know what the library does in this instance? I sure don’t. It could be reading from a file and block a thread on every access, it could be thread unsafe, I wouldn’t know, since whatever it does is magic™️, and this isn’t my data structure. Even if it generates a pure data structure, for all I know its implementation can always change in future versions to also launch rockets to Mars.</p>
 
 <p>Since Java 14 we have <a href="https://docs.oracle.com/en/java/javase/14/language/records.html">records</a>.
 And the more common-sense definition doesn’t work, the library being (currently) unable to work with it:</p>
@@ -437,12 +437,12 @@ And the more common-sense definition doesn’t work, the library being (currentl
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202209191045" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209191045" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202209191045" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202209191045" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202209191052" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209191052" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202209191052" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202209191052" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202209191045" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202209191052" type="text/javascript"></script>
 
 
 <script type="text/javascript">
