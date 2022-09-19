@@ -47,7 +47,7 @@ final record ServerConfig(
 ) {}
 ```
 
-**UPDATE:** to drive this point home, let me make it clear that I don't care from where the configuration is being read (the actual I/O side effect), but rather what happens afterwards. This interface has an implicit usage protocol that isn't properly expressed by an interface:
+**UPDATE:** to drive this point home, let me make it clear that I don't care from where the configuration is being read (the actual I/O side effect), but rather what happens afterwards. This configuration has an implicit usage protocol that isn't properly expressed by an abstract interface:
 
 1. The `host` and `port` values should be read from the same configuration source;
 2. These values shouldn't change during the application's lifecycle, otherwise the interface should provide the ability to register a listener;
