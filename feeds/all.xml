@@ -10,8 +10,8 @@
     <description>Feed of blog articles, wiki, published at alexn.org</description>
     <link>https://alexn.org/</link>
     <atom:link href="https://alexn.org/feeds/all.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 19 Sep 2022 12:26:59 +0000</pubDate>
-    <lastBuildDate>Mon, 19 Sep 2022 12:26:59 +0000</lastBuildDate>
+    <pubDate>Mon, 19 Sep 2022 12:27:53 +0000</pubDate>
+    <lastBuildDate>Mon, 19 Sep 2022 12:27:53 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -184,7 +184,7 @@
 &lt;span class=&quot;c1&quot;&gt;// ------------------------------------------------&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;// Implements the &quot;composition root&quot; pattern...&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;//&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;// All of these imports is already a code smell, but at &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// All of these imports are already a code smell, but at &lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;// least it's localized, and does help with managing DI.&lt;/span&gt;
 &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;javax.enterprise.context.RequestScoped&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;javax.enterprise.inject.Disposes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
