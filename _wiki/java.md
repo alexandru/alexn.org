@@ -1,6 +1,6 @@
 ---
 date: 2022-09-12 08:58:10 +03:00
-last_modified_at: 2022-09-16 08:51:37 +03:00
+last_modified_at: 2022-09-18 12:42:18 +03:00
 ---
 
 # Java
@@ -33,6 +33,7 @@ last_modified_at: 2022-09-16 08:51:37 +03:00
 ### Tools
 
 - [Gradle](https://gradle.org/): the accepted Maven alternative;
+- [JBang](https://www.jbang.dev/): scripting with Java;
 
 ## Setup
 
@@ -90,3 +91,9 @@ Also see: [JDK distributions](https://sdkman.io/jdks).
 
 - [New Developer Friendly Features After Java 8](https://piotrminkowski.com/2021/02/01/new-developer-friendly-features-after-java-8/) — Piotr Mińkowski;
 - [New language features since Java 8 to 18](https://advancedweb.hu/new-language-features-since-java-8-to-18/) — Dávid Csákvári;
+
+### Dependency injection / CDI
+
+- [Quarkus / CDI and "java config" DI definitions](https://stackoverflow.com/questions/58544079/quarkus-cdi-and-java-config-di-definitions);
+  - [Composition Root](https://blog.ploeh.dk/2011/07/28/CompositionRoot/);
+  

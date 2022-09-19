@@ -1,12 +1,7 @@
 ---
 title:  "Using the Best Tools in Programming: Not Really Doable"
 date:   2009-02-01
-last_modified_at: 2009-02-01
-tags:
-  - Java
-  - Perl
-  - Python
-  - Ruby
+last_modified_at: 2022-09-19 11:17:51 +03:00
 image: /assets/media/articles/tools.png
 ---
 
