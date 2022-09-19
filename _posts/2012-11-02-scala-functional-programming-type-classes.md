@@ -4,7 +4,6 @@ tags:
   - Languages
   - FP
   - Scala
-  - Java
 image: /assets/media/articles/scala.png
 generate_toc: true
 description: >- 

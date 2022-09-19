@@ -4,6 +4,7 @@ image: /assets/media/articles/scala-3-given.png
 image_hide_in_post: true
 tags: 
   - FP
+  - Programming Rant
   - Scala
 description: >
   I don't like `given`, as an alternative to `implicit` in Scala 3. The more I try working with it, the more it annoys me; and my understanding may be superficial, but I don't like this direction. Here's a comparisson between `given` and `implicit`, that I hope is fair...

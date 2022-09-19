@@ -7,10 +7,9 @@ redirect_from:
 image: /assets/media/snippets/recommended-extensions.png
 image_hide_in_post: true
 tags:
-  - Programming
   - Scala
   - Snippet
-last_modified_at: 2022-04-01 19:14:15 +03:00
+last_modified_at: 2022-09-19 19:11:59 +03:00
 ---
 
 You can recommend the required [VSCode](https://code.visualstudio.com/){:target="_blank",rel="nofollow"} extensions per repository to your fellow programmers. This is what VSCode calls "[workspace recommended extensions](http://go.microsoft.com/fwlink/?LinkId=827846){:target="_blank"}".

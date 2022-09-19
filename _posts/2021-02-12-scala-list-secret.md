@@ -6,7 +6,6 @@ image_hide_in_post: true
 tags: 
   - FP
   - Multithreading
-  - Programming
   - Scala
 description: "OOP couples the data with the methods operating on it, and this is considered bad in FP circles. But is it?"
 ---

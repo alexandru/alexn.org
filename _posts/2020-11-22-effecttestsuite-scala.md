@@ -5,7 +5,6 @@ image_hide_in_post: true
 tags:
   - Cats Effect
   - FP
-  - Programming
   - Scala
   - Snippet
 feed_guid: /snippets/2020/11/22/effecttestsuite-scala/
@@ -14,7 +13,7 @@ redirect_from:
   - /snippets/2020/11/22/effecttestsuite-scala.html
 description: >
   Helpers for integrating with `cats.effect.IO`.
-last_modified_at: 2022-04-01 16:31:29 +03:00
+last_modified_at: 2022-09-19 19:11:13 +03:00
 ---
 
 [ScalaTest](https://www.scalatest.org/) helpers for testing effects (e.g. `cats.effect.IO`, `monix.eval.Task`). This is similar to [PureApp]({% link _posts/2020-10-15-generic-ioapp-alternative.md %}).

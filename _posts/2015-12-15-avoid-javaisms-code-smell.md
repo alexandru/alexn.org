@@ -8,7 +8,6 @@ description:
 tags:
   - FP
   - Scala
-  - Rx
 image: /assets/media/articles/skunk.jpg
 ---
 

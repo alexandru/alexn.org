@@ -8,7 +8,6 @@ tags:
   - Concurrency
   - JVM
   - Multithreading
-  - Programming
   - Scala
   - Video
 ---

@@ -1,12 +1,14 @@
 ---
 title: "Scala isn't fun anymore"
 tags: 
+  - Languages
   - Personal
   - Politics
+  - Programming Rant
   - Scala
 image: /assets/media/articles/scala.png
 date: 2022-09-09 08:00:37 +03:00
-last_modified_at: 2022-09-09 20:07:03 +03:00
+last_modified_at: 2022-09-19 19:15:53 +03:00
 description: >
   I've just spent over a day, going to sleep at 1:00 am, to upgrade dependencies and fix eviction warnings in the build of a Scala project.
 ---

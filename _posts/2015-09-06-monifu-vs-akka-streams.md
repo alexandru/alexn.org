@@ -3,7 +3,6 @@ title: "Monifu vs Akka Streams"
 tags:
   - FP
   - Scala
-  - Rx
   - Reactive Streams
 image: /assets/media/articles/monifu.png
 image_hide_in_post: true

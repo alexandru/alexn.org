@@ -6,7 +6,6 @@ image_hide_in_post: true
 description: "Online meetup on Scala 3's newly introduced types and features for encoding type classes."
 tags:
   - FP
-  - Programming
   - Scala
   - Video
 ---

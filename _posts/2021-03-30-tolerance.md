@@ -7,7 +7,7 @@ tags:
   - FP
   - OOP
   - Personal
-  - Programming
+  - Programming Rant
 ---
 
 <p class="intro withcap" markdown="1">

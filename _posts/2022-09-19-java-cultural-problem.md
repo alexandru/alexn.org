@@ -3,6 +3,9 @@ title: "Java's Cultural Problem"
 image: /assets/media/articles/java-logo.png
 tags:
   - Java
+  - JVM
+  - Languages
+  - Programming Rant
 description: >
   Java is good by modern standards, from a technical perspective, the platform having received a lot of improvements from Java 8 to 17. Unfortunately, it still stinks, and the problem is its "enterprise" culture.
 ---

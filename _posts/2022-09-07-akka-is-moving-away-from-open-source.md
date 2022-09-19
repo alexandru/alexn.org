@@ -3,11 +3,12 @@ title: "Akka is moving away from Open Source"
 image: /assets/media/articles/akka-logo.png
 tags:
   - Open Source
+  - Programming Rant
   - Scala
 generate_toc: true
 image_hide_in_post: true
 date: 2022-09-07 19:31:21 +03:00
-last_modified_at: 2022-09-08 10:44:33 +03:00
+last_modified_at: 2022-09-19 19:15:46 +03:00
 description: >
   According to today’s announcement, Lightbend is changing Akka’s licensing to "Business Source License (BSL)". This is not an Open Source, or a Free Software license. This is a proprietary license.
 ---
