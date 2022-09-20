@@ -23,6 +23,7 @@ Quarkus depends on [SmallRye Config](https://github.com/smallrye/smallrye-config
 ```java
 @ConfigMapping(prefix = "server")
 interface ServerConfig {
+  
   String host();
 
   int port();
