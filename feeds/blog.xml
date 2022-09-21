@@ -10,8 +10,8 @@
     <description>Feed of blog articles, published at alexn.org/blog/</description>
     <link>https://alexn.org/</link>
     <atom:link href="https://alexn.org/feeds/blog.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 21 Sep 2022 10:22:23 +0000</pubDate>
-    <lastBuildDate>Wed, 21 Sep 2022 10:22:23 +0000</lastBuildDate>
+    <pubDate>Wed, 21 Sep 2022 10:22:48 +0000</pubDate>
+    <lastBuildDate>Wed, 21 Sep 2022 10:22:48 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -40,7 +40,7 @@ Speaking of a fork, I’d license all new development of a fork in a copyleft li
 
 &lt;p&gt;First, of how many lawsuits targeting Open Source forks have you heard of? Do your research and name them. I’d bet that your list will be mostly blank. Because, it turns out, suing and winning in cases of copyright or patents infringement is actually hard.&lt;/p&gt;
 
-&lt;p&gt;Note, anyone can sue for anything, and due to the high costs of such lawsuits, settlements are quite common. But for the few lawsuits against FOSS products that happened, it didn’t go so well for the plaintiff. For example, Oracle, with its patents war chest, sued Google for using pieces from a &lt;a href=&quot;https://en.wikipedia.org/wiki/Apache_Harmony&quot;&gt;3rd party Java implementation&lt;/a&gt; in Android, built via reverse engineering. They also sued for copyright infringement. And Oracle lost. I remember the anti-Java FUD campaigns from back then, people being happy they picked some alternative, like JavaScript, even if Oracle’s patents war chest probably impacted them, too, since modern JS engines are also derivates of Smalltalk and Java’s Hotspot VM.&lt;/p&gt;
+&lt;p&gt;Anyone can sue for anything, and due to the high costs of such lawsuits, settlements are quite common. But for the few lawsuits against FOSS products that happened, it didn’t go so well for the plaintiff. For example, Oracle, with its patents war chest, sued Google for using pieces from a &lt;a href=&quot;https://en.wikipedia.org/wiki/Apache_Harmony&quot;&gt;3rd party Java implementation&lt;/a&gt; in Android, built via reverse engineering. They also sued for copyright infringement. And Oracle lost. I remember the anti-Java FUD campaigns from back then, people being happy they picked some alternative, like JavaScript, even if Oracle’s patents war chest probably impacted them, too, since modern JS engines are also derivates of Smalltalk and Java’s Hotspot VM.&lt;/p&gt;
 
 &lt;p&gt;As a similar issue, for years people have &lt;a href=&quot;https://en.wikipedia.org/wiki/Mono_(software)&quot;&gt;spread FUD about Mono&lt;/a&gt;, the clean room dotNET-compatible implementation (I was part of that choir). The likelihood of Microsoft suing was high, actually, as this was unfolding in the age when Microsoft was threatening to sue Linux distributions (they never stopped the patents racketeering BTW). Microsoft never sued for Mono, probably because they would’ve lost. &lt;a href=&quot;https://en.wikipedia.org/wiki/SCO%E2%80%93Linux_disputes#Microsoft_funding_of_SCO_controversy&quot;&gt;Their puppet company&lt;/a&gt; did lose. If the Mono contributors could manage to not look at .NET’s disassembled code, or at &lt;a href=&quot;https://en.wikipedia.org/wiki/Shared_Source_Common_Language_Infrastructure&quot;&gt;Rotor&lt;/a&gt; for that matter, I think projects smaller than that can be fine. Note, lawsuits may not work, but many in the Linux, or Mono, or &lt;a href=&quot;https://en.wikipedia.org/wiki/UNIX_System_Laboratories,_Inc._v._Berkeley_Software_Design,_Inc.&quot;&gt;BSD&lt;/a&gt; camps can probably tell you: FUD works, as big organizations are risk-averse.&lt;/p&gt;
 
