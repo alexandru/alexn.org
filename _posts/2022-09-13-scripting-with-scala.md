@@ -6,6 +6,8 @@ tags:
   - Scala
   - Shell
   - Snippet
+date: 2022-09-13 12:00:00 +03:00
+last_modified_at: 2022-09-21 23:22:19 +03:00
 description: >
   Unix has a long tradition with scripting — small programs represented as text files that can be inspected, modified, and executed. Scala can be used for scripting too.
 ---

@@ -6,6 +6,8 @@ generate_toc: true
 tags: 
   - Open Source
   - Scala
+date: 2022-09-21 12:00:00 +03:00
+last_modified_at: 2022-09-21 23:22:54 +03:00
 description: >
   Lightbend made Akka proprietary from version 2.7.x onward. This left the community wondering about the possibility of a fork, and unfortunately, I see some FUD that needs to be addressed.
 ---
