@@ -21,11 +21,11 @@
     <meta content="2022-09-21T00:00:00+00:00" property="article:published_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/java-duke.png?202209211634" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/java-duke.png?202209211634" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/java-duke.png?202209211635" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/java-duke.png?202209211635" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/java-duke.png?202209211634">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/java-duke.png?202209211635">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Java 19">
@@ -114,7 +114,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/java-duke.png" />
-          <img src="/assets/media/articles/java-duke.png?202209211634" width="1600" height="901" alt="Honestly, Java's mascot is pretty cool, Scala needs a mascot too." />
+          <img src="/assets/media/articles/java-duke.png?202209211635" width="1600" height="901" alt="Honestly, Java's mascot is pretty cool, Scala needs a mascot too." />
           <figcaption itemprop="caption">Honestly, Java's mascot is pretty cool, Scala needs a mascot too.</figcaption>
         </figure>
         
@@ -144,7 +144,7 @@ Java 19 is now <a href="https://www.oracle.com/news/announcement/oracle-releases
 
 <p>I once claimed that this function signature needs special platform support, on top of the JVM this needs to block threads, and on top of some other platforms this gets implemented with continuations/coroutines. Not all platforms can provide support for it, and blocking (platform) threads is very expensive, therefore it should be avoided:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nc">Future</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="n">A</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nc">Future</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="n">A</span> <span class="c1">// aka `Await.result`</span>
 </code></pre></div></div>
 
 <p>The Java ecosystem has been increasingly moving to reactive APIs, with projects like <a href="https://projectreactor.io/">Project Reactor</a>, <a href="https://github.com/ReactiveX/RxJava">RxJava</a>, or <a href="https://vertx.io/">Vert.x</a> becoming really popular. The introduction of Virtual Threads, however, has the potential to move the ecosystem back to usage of blocking APIs for I/O or structured concurrency.</p>
@@ -175,7 +175,7 @@ Java 19 is now <a href="https://www.oracle.com/news/announcement/oracle-releases
 <figure class="video">
   
   <a href="https://www.youtube.com/watch?v=KmMU5Y_r0Uk&amp;autoplay=1" target="_blank" class="youtube-play-link" title="Go to YouTube video">
-    <img src="https://img.youtube.com/vi/KmMU5Y_r0Uk/maxresdefault.jpg?202209211634" alt="" class="play-thumb" width="1280" height="720" />
+    <img src="https://img.youtube.com/vi/KmMU5Y_r0Uk/maxresdefault.jpg?202209211635" alt="" class="play-thumb" width="1280" height="720" />
   </a>
   <figcaption>
     <a href="https://www.youtube.com/watch?v=KmMU5Y_r0Uk&amp;autoplay=1" target="_blank">
@@ -309,12 +309,12 @@ Java 19 is now <a href="https://www.oracle.com/news/announcement/oracle-releases
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202209211634" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209211634" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202209211634" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202209211634" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202209211635" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209211635" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202209211635" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202209211635" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202209211634" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202209211635" type="text/javascript"></script>
 
 
 <script type="text/javascript">
