@@ -21,11 +21,11 @@
     <meta content="2022-09-21T00:00:00+00:00" property="article:published_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/java-duke.png?202209211732" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/java-duke.png?202209211732" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/java-duke.png?202209211734" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/java-duke.png?202209211734" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/java-duke.png?202209211732">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/java-duke.png?202209211734">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Java 19">
@@ -114,7 +114,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/java-duke.png" />
-          <img src="/assets/media/articles/java-duke.png?202209211732" width="1600" height="901" alt="Honestly, Java's mascot is pretty cool, Scala needs a mascot too." />
+          <img src="/assets/media/articles/java-duke.png?202209211734" width="1600" height="901" alt="Honestly, Java's mascot is pretty cool, Scala needs a mascot too." />
           <figcaption itemprop="caption">Honestly, Java's mascot is pretty cool, Scala needs a mascot too.</figcaption>
         </figure>
         
@@ -162,9 +162,9 @@ Java 19 is now <a href="https://www.oracle.com/news/announcement/oracle-releases
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nc">IO</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="n">A</span> <span class="c1">// aka `unsafeRunSync`</span>
 </code></pre></div></div>
 
-<p>And neither is this:</p>
+<p>And neither is something like this:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nc">Stream</span><span class="o">[</span><span class="kt">IO</span>, <span class="kt">A</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="n">A</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nc">Stream</span><span class="o">[</span><span class="kt">IO</span>, <span class="kt">A</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="o">???</span> <span class="k">=&gt;</span> <span class="n">A</span> <span class="c1">// Iterator#next() ftw 😛</span>
 </code></pre></div></div>
 
 <p>This is interesting, as we can now do some stuff afforded with Kotlin’s coroutines, see <a href="https://arrow-kt.io/docs/fx/">Arrow-fx</a>. Meaning that, instead of using <code class="language-plaintext highlighter-rouge">flatMap</code> to compose <code class="language-plaintext highlighter-rouge">IO</code> values, we could use a more imperative approach, and have <a href="/blog/2022/05/23/tracking-effects-in-scala/">Scala help with the safety</a>. Many people will object to replacing <code class="language-plaintext highlighter-rouge">flatMap</code>, as it’s about composition, but other Scala devs could prefer such an API. The big problem that I’m seeing for Scala is that this is a runtime feature, not a language one, meaning that the portability to Scala.js and Scala Native will suffer.</p>
@@ -183,7 +183,7 @@ Did you know that Cats-Effect’s <code class="language-plaintext highlighter-ro
 <figure class="video">
   
   <a href="https://www.youtube.com/watch?v=KmMU5Y_r0Uk&amp;autoplay=1" target="_blank" class="youtube-play-link" title="Go to YouTube video">
-    <img src="https://img.youtube.com/vi/KmMU5Y_r0Uk/maxresdefault.jpg?202209211732" alt="" class="play-thumb" width="1280" height="720" />
+    <img src="https://img.youtube.com/vi/KmMU5Y_r0Uk/maxresdefault.jpg?202209211734" alt="" class="play-thumb" width="1280" height="720" />
   </a>
   <figcaption>
     <a href="https://www.youtube.com/watch?v=KmMU5Y_r0Uk&amp;autoplay=1" target="_blank">
@@ -317,12 +317,12 @@ Did you know that Cats-Effect’s <code class="language-plaintext highlighter-ro
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202209211732" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209211732" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202209211732" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202209211732" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202209211734" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209211734" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202209211734" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202209211734" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202209211732" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202209211734" type="text/javascript"></script>
 
 
 <script type="text/javascript">
