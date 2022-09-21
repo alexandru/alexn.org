@@ -21,11 +21,11 @@
     <meta content="2022-09-21T00:00:00+00:00" property="article:published_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/java-duke.png?202209211651" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/java-duke.png?202209211651" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/java-duke.png?202209211728" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/java-duke.png?202209211728" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/java-duke.png?202209211651">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/java-duke.png?202209211728">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Java 19">
@@ -114,7 +114,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/java-duke.png" />
-          <img src="/assets/media/articles/java-duke.png?202209211651" width="1600" height="901" alt="Honestly, Java's mascot is pretty cool, Scala needs a mascot too." />
+          <img src="/assets/media/articles/java-duke.png?202209211728" width="1600" height="901" alt="Honestly, Java's mascot is pretty cool, Scala needs a mascot too." />
           <figcaption itemprop="caption">Honestly, Java's mascot is pretty cool, Scala needs a mascot too.</figcaption>
         </figure>
         
@@ -151,6 +151,10 @@ Java 19 is now <a href="https://www.oracle.com/news/announcement/oracle-releases
 
 <p>Blocking threads plays nice with Java’s features in a way that reactive APIs can’t. For instance: for loops, try/catch, try-with-resources, or checked exceptions. Java was built to synchronize on concurrent tasks by blocking threads, and the incursion into reactive APIs was only temporary. Other languages, such as Kotlin, implemented <a href="https://kotlinlang.org/docs/coroutines-overview.html">coroutines</a> for mostly the same effect. But note that Virtual Threads improves everything, including all blocking APIs from the <code class="language-plaintext highlighter-rouge">java.io</code> package, and it does so for all languages running on top of the JVM, whereas Kotlin’s coroutines can’t work around the platform’s limitations (blocking I/O is still blocking I/O). This is what having control over the entire stack gives you.</p>
 
+<blockquote>
+  <p>*“With only a tiny code change to use JDK19 “virtual threads” JRuby can now spin up over 100k fibers at once! Launching and completing them takes about 0.7s after warmup. This will make async IO servers and thousands of concurrent users possible on JRuby. 🤯” — <a href="https://twitter.com/headius/status/1563205672300609536">Charles Oliver Nutter (@headius)</a></p>
+</blockquote>
+
 <p>Mind you, I don’t think this invalidates the available projects built with reactive APIs. I think Virtual Threads will make everything better, as these projects will simply adapt to provide the best API depending on use-case. We use reactive APIs due to the strong guarantees they provide, and due to their declarative approach, and that won’t change. But users will no longer be forced to use reactive APIs if all they want is efficiency.</p>
 
 <p>Virtual Threads also has the potential to change APIs for Scala, too. If blocking threads is now cheap, this should no longer be a big problem in terms of efficiency:</p>
@@ -179,7 +183,7 @@ Did you know that Cats-Effect’s <code class="language-plaintext highlighter-ro
 <figure class="video">
   
   <a href="https://www.youtube.com/watch?v=KmMU5Y_r0Uk&amp;autoplay=1" target="_blank" class="youtube-play-link" title="Go to YouTube video">
-    <img src="https://img.youtube.com/vi/KmMU5Y_r0Uk/maxresdefault.jpg?202209211651" alt="" class="play-thumb" width="1280" height="720" />
+    <img src="https://img.youtube.com/vi/KmMU5Y_r0Uk/maxresdefault.jpg?202209211728" alt="" class="play-thumb" width="1280" height="720" />
   </a>
   <figcaption>
     <a href="https://www.youtube.com/watch?v=KmMU5Y_r0Uk&amp;autoplay=1" target="_blank">
@@ -313,12 +317,12 @@ Did you know that Cats-Effect’s <code class="language-plaintext highlighter-ro
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202209211651" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209211651" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202209211651" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202209211651" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202209211728" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209211728" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202209211728" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202209211728" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202209211651" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202209211728" type="text/javascript"></script>
 
 
 <script type="text/javascript">
