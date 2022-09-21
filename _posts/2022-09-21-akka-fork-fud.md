@@ -3,7 +3,6 @@ title: "Akka Fork FUD"
 image: /assets/media/articles/akka-logo.png
 image_hide_in_post: true
 generate_toc: true
-is_noise: true
 tags: 
   - Open Source
   - Scala
