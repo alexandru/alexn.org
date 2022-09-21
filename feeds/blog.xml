@@ -10,8 +10,8 @@
     <description>Feed of blog articles, published at alexn.org/blog/</description>
     <link>https://alexn.org/</link>
     <atom:link href="https://alexn.org/feeds/blog.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 21 Sep 2022 05:19:03 +0000</pubDate>
-    <lastBuildDate>Wed, 21 Sep 2022 05:19:03 +0000</lastBuildDate>
+    <pubDate>Wed, 21 Sep 2022 05:19:50 +0000</pubDate>
+    <lastBuildDate>Wed, 21 Sep 2022 05:19:50 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -48,7 +48,7 @@ Lightbend &lt;a href=&quot;https://alexn.org/blog/2022/09/07/akka-is-moving-away
 
 &lt;p&gt;Note, anyone can sue for anything, and due to the high costs of such lawsuits, settlements are quite common. And for example, Oracle, with its patents war chest, sued Google for using pieces from a &lt;a href=&quot;https://en.wikipedia.org/wiki/Apache_Harmony&quot;&gt;3rd party Java implementation&lt;/a&gt; in Android, built via reverse engineering. They also sued for copyright infringement. And Oracle lost. I remember the anti-Java FUD campaigns from back then, people being happy they picked some alternative, like JavaScript, even if Oracle’s patents war chest probably impacted them, too, since modern JS engines are also derivates of Smalltalk and Java’s Hotspot VM.&lt;/p&gt;
 
-&lt;p&gt;As a similar issue, for years people have &lt;a href=&quot;https://en.wikipedia.org/wiki/Mono_(software)&quot;&gt;spread FUD about Mono&lt;/a&gt;, the clean room dotNET-compatible implementation (I was part of that chorus). The likelihood of Microsoft suing was high, actually, as this was unfolding in the age when Microsoft was threatening to sue Linux distributions (they never stopped the patents racketeering BTW). Microsoft never sued for Mono, probably because they would’ve lost. If the Mono contributors could manage to not look at .NET’s disassembled code, or at &lt;a href=&quot;https://en.wikipedia.org/wiki/Shared_Source_Common_Language_Infrastructure&quot;&gt;Rotor&lt;/a&gt; for that matter, I think projects smaller than that can be fine.&lt;/p&gt;
+&lt;p&gt;As a similar issue, for years people have &lt;a href=&quot;https://en.wikipedia.org/wiki/Mono_(software)&quot;&gt;spread FUD about Mono&lt;/a&gt;, the clean room dotNET-compatible implementation (I was part of that choir). The likelihood of Microsoft suing was high, actually, as this was unfolding in the age when Microsoft was threatening to sue Linux distributions (they never stopped the patents racketeering BTW). Microsoft never sued for Mono, probably because they would’ve lost. If the Mono contributors could manage to not look at .NET’s disassembled code, or at &lt;a href=&quot;https://en.wikipedia.org/wiki/Shared_Source_Common_Language_Infrastructure&quot;&gt;Rotor&lt;/a&gt; for that matter, I think projects smaller than that can be fine.&lt;/p&gt;
 
 &lt;p&gt;We aren’t even talking of clean room reverse engineering, which is a much bigger problem. In this instance a fork is perfectly legal due to the Apache 2.0 license, which is perfect for forking, because it contains an explicit patents grant too. Worth mentioning, as this explicit patents grant does not favor any company, and covers derivate works too. This in contrast with what Facebook and Microsoft have been doing 😉 and why Apache 2.0 is better than the MIT or BSD licenses.&lt;/p&gt;
 
