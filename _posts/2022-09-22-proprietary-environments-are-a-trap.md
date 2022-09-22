@@ -5,7 +5,7 @@ image_caption: Me, with my son, learning the Lua programming language on proprie
 tags:
   - Open Source
 date: 2022-09-22 10:00:00 +03:00
-last_modified_at: 2022-09-22 14:39:41 +03:00
+last_modified_at: 2022-09-22 14:42:29 +03:00
 description: >
   What to learn in order to not become obsolete as a software developer, and then being forced into early retirement from programming? What platforms to prefer for building products that last with minimal maintenance?
 ---
@@ -46,7 +46,7 @@ Also, and perhaps this is the most important advice — engage in building softw
 
 I grew up as a software developer with such words, with essays instilling ideas of software freedom, and I see such advice less and less these days.
 
-What changed is that Open Source won. It won the hearts and minds of software developers. Most of us build on top of FOSS libraries, and deploy on top of FOSS runtimes and operating systems, using many FOSS tools in the process. But it seems to me like the trend is reversing.
+What changed is that Open Source won. It won the hearts and minds of software developers. Most of us build on top of FOSS libraries, and deploy on top of FOSS runtimes and operating systems, using many FOSS tools in the process. But it seems to me like the trend is reversing[^7].
 
 > *"Life swings like a pendulum backward and forward between pain and boredom."*
 > 
@@ -62,3 +62,4 @@ When freedom is abundant, we begin taking it for granted, forgetting why it is n
 [^4]: [Turbo Pascal](https://en.wikipedia.org/wiki/Turbo_Pascal) was the programming language and environment I learned in high school;
 [^5]: [Tiobe Index](https://www.tiobe.com/tiobe-index/) ([archive](https://web.archive.org/web/20220922063355/https://www.tiobe.com/tiobe-index/)) is a piece of shit that people take way too seriously — the [GitHub language stats](https://madnight.github.io/githut/#/pull_requests/2022/1) ([archive](https://web.archive.org/web/20220909230229/https://madnight.github.io/githut/#/pull_requests/2022/1)) are IMO far better at assessing a language's popularity, as even if biased, it shows the FOSS output of the language's community, and that's a much stronger signal than Google searches, or whatever crap the TIOBE Index does;
 [^6]: [Choose boring technology](https://mcfunley.com/choose-boring-technology) ([archive](https://web.archive.org/web/20220922063839/https://mcfunley.com/choose-boring-technology)) is an essay by Dan McKinley that became an instant hit;
+[^7]: What triggered these thoughts is [Akka's license change](./2022-09-07-akka-is-moving-away-from-open-source.md), following other "open source companies" flipping, such as Elasticsearch or MongoDB, and others, alongside the general sentiment I'm seeing among my peers;
