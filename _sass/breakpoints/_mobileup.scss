@@ -253,8 +253,13 @@ POST STYLING
     color: $muted-text-light;
     border-left: .25em solid $color-border-light;
 
+    display: block;
+    margin: 0;
+    padding-left: 1rem;
+
     p {
-      margin-left: 2rem;
+      margin-left: 0;
+      margin-right: 0;
       width: 100%;
     }
   }
