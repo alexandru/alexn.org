@@ -10,8 +10,8 @@
     <description>Feed of blog articles, published at alexn.org/blog/</description>
     <link>https://alexn.org/</link>
     <atom:link href="https://alexn.org/feeds/blog.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 28 Sep 2022 22:35:03 +0000</pubDate>
-    <lastBuildDate>Wed, 28 Sep 2022 22:35:03 +0000</lastBuildDate>
+    <pubDate>Wed, 28 Sep 2022 22:35:34 +0000</pubDate>
+    <lastBuildDate>Wed, 28 Sep 2022 22:35:34 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -38,9 +38,7 @@ Java’s Checked Exceptions suck, and it’s not due to their ergonomics, but ra
 &lt;a href=&quot;https://alexn.org/blog/2022/04/18/scala-oop-design-sample/&quot;&gt;Scala OOFP Design Sample&lt;/a&gt;, in which I argue for “&lt;em&gt;designing errors out of existence&lt;/em&gt;”;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;In support, I stumbled on the perfect example from Java’s standard library. It’s a classic one, it turns out, I’m not the first to point at it …&lt;/p&gt;
-
-&lt;p&gt;Java’s &lt;a href=&quot;https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/StringBuilder.html&quot;&gt;StringBuilder&lt;/a&gt; exposes the following method:&lt;/p&gt;
+&lt;p&gt;In support, I stumbled on the perfect example from Java’s standard library. It’s a classic one, it turns out, I’m not the first to point at it … Java’s &lt;a href=&quot;https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/StringBuilder.html&quot;&gt;StringBuilder&lt;/a&gt;, which exposes the following method:&lt;/p&gt;
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Appendable&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CharSequence&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;csq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IOException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -106,7 +104,7 @@ Java’s Checked Exceptions suck, and it’s not due to their ergonomics, but ra
     &lt;p&gt;
       &lt;i&gt;The article &lt;a href=&quot;https://alexn.org/blog/2022/09/28/2022-09-29-the-trouble-with-checked-exceptions-part-2/?pk_campaign=rss&amp;pk_kwd=footer-link&quot;&gt;&lt;/a&gt; first appeared on &lt;a href=&quot;https://alexn.org?pk_campaign=rss&amp;pk_kwd=footer-link&quot;&gt;alexn.org&lt;/a&gt;.&lt;/i&gt;
     &lt;/p&gt;</content:encoded>
-  <pubDate>Wed, 28 Sep 2022 22:35:03 +0000</pubDate>
+  <pubDate>Wed, 28 Sep 2022 22:35:34 +0000</pubDate>
   <link>https://alexn.org/blog/2022/09/28/2022-09-29-the-trouble-with-checked-exceptions-part-2/?pk_campaign=rss&amp;pk_kwd=link</link>
   <guid isPermaLink="true">https://alexn.org/blog/2022/09/28/2022-09-29-the-trouble-with-checked-exceptions-part-2/</guid>
   
