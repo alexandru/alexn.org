@@ -19,14 +19,14 @@
     <meta content="Java’s Checked Exceptions are problematic, and it’s not due to their ergonomics, but rather because they are in conflict with abstraction and OOP. Also, few people care about typed exceptions (unless they are happy path results, not errors)." property="og:description">
     <meta content="https://alexn.org/blog/2022/09/28/the-trouble-with-checked-exceptions-part-2/" property="og:url">
     <meta content="2022-09-28T22:41:48+00:00" property="article:published_time">
-    <meta content="2022-09-28T22:58:47+00:00" property="article:modified_time">
+    <meta content="2022-09-28T23:00:13+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209282300" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209282300" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209282301" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209282301" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209282300">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209282301">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="The Trouble with Checked Exceptions: Part 2">
@@ -115,7 +115,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png" />
-          <img src="/assets/media/articles/2022-checked-exceptions.png?202209282300" width="2092" height="444" alt="" />
+          <img src="/assets/media/articles/2022-checked-exceptions.png?202209282301" width="2092" height="444" alt="" />
           
         </figure>
         
@@ -155,7 +155,7 @@ Java’s Checked Exceptions are problematic, and it’s not due to their ergonom
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nc">Appendable</span> <span class="nf">append</span><span class="o">(</span><span class="nc">CharSequence</span> <span class="n">csq</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">;</span>
 </code></pre></div></div>
 
-<p>Which is why code using <code class="language-plaintext highlighter-rouge">StringBuilder</code> ends up with ridiculous try-catch statements like this:</p>
+<p>Which is why code using <code class="language-plaintext highlighter-rouge">StringBuilder</code> can end up with ridiculous try-catch statements like this:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">try</span> <span class="o">{</span>
   <span class="n">buffer</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">string</span><span class="o">)</span>
@@ -217,7 +217,7 @@ Java’s Checked Exceptions are problematic, and it’s not due to their ergonom
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2022-09-29T01:58:47+0300">
+    <time itemprop="dateModified" content="2022-09-29T02:00:13+0300">
         Updated: September 28, 2022
     </time>
     
@@ -329,12 +329,12 @@ Java’s Checked Exceptions are problematic, and it’s not due to their ergonom
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202209282300" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209282300" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202209282300" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202209282300" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202209282301" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209282301" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202209282301" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202209282301" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202209282300" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202209282301" type="text/javascript"></script>
 
 
 <script type="text/javascript">
