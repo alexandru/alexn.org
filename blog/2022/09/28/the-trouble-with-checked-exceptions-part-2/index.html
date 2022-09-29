@@ -19,14 +19,14 @@
     <meta content="Java’s Checked Exceptions are problematic, and it’s not only due to their ergonomics. The bigger problem is that they are in conflict with abstraction and OOP. Also, few people care about typed exceptions (unless they are happy path results, not errors)." property="og:description">
     <meta content="https://alexn.org/blog/2022/09/28/the-trouble-with-checked-exceptions-part-2/" property="og:url">
     <meta content="2022-09-28T22:41:48+00:00" property="article:published_time">
-    <meta content="2022-09-29T04:18:59+00:00" property="article:modified_time">
+    <meta content="2022-09-29T04:26:03+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290420" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290420" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290426" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290426" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290420">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290426">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="The Trouble with Checked Exceptions: Part 2">
@@ -115,7 +115,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png" />
-          <img src="/assets/media/articles/2022-checked-exceptions.png?202209290420" width="2152" height="1268" alt="" />
+          <img src="/assets/media/articles/2022-checked-exceptions.png?202209290426" width="2152" height="1268" alt="" />
           
         </figure>
         
@@ -197,20 +197,18 @@ Java’s Checked Exceptions are problematic, and it’s not only due to their er
 
 <p>Ironically, in Java’s world, input errors (i.e., those thrown by tasks that you can’t retry) are often not checked exceptions. E.g., <code class="language-plaintext highlighter-rouge">InvalidArgumentException</code> is a <code class="language-plaintext highlighter-rouge">RuntimeException</code>, and this one gets thrown in constructors, being what libraries like Jackson expect for validating input when parsing, a contract that you have to find by reading the documentation. You can see here another issue with checked exceptions: importance gets decided by the library author instead of the downstream user, but this classification is often wrong, as it depends on the use-case at the call-site.</p>
 
-<p>Going further than the issue of abstract methods leaking implementation details, this is also an issue of breaking binary compatibility on changes. Turns out, <code class="language-plaintext highlighter-rouge">IOException</code> isn’t a good supertype for I/O related exceptions, and the library’s authors might want to change that signature to this:</p>
+<p>Going further than the issue of abstract methods leaking implementation details, this is also an issue of <em>changes breaking compatibility</em>. Turns out, <code class="language-plaintext highlighter-rouge">IOException</code> isn’t a good super-type for I/O related exceptions, and the library’s authors might want to change that signature to this:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nc">Appendable</span> <span class="nf">append</span><span class="o">(</span><span class="nc">CharSequence</span> <span class="n">csq</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">,</span> <span class="nc">SQLException</span><span class="o">;</span>
 </code></pre></div></div>
 
-<p>The implementation leak should be even more obvious, but more problematic is that this breaks both source and binary compatibility, and <a href="https://github.com/lightbend/mima">Mima</a> will complain, leading to interesting compromises. And remember, in this case, the exception type is absolutely useless, as people care only about these things:</p>
+<p>The implementation leak should be even more obvious, it would be absurd to deal with <code class="language-plaintext highlighter-rouge">SQLException</code> when using a <code class="language-plaintext highlighter-rouge">StringBuilder</code>. But even more problematic is that this breaks both source and binary compatibility, hurting all downstream users of the API, and <a href="https://github.com/lightbend/mima">Mima</a> will complain, leading to interesting compromises. Turns out, people care about correctness only as long the fix is cheap 😉 so imagine, if you will, big repositories making liberal use of this function, alongside an entire ecosystem of libraries built on top of it. And remember, in this case, the exception type is absolutely useless, as people care only about these things:</p>
 
 <ol>
-  <li>retrying immediately (in which case this information is insufficient);</li>
+  <li>closing resources safely — important to remember that a vast majority of calls-sites care about the <code class="language-plaintext highlighter-rouge">finally</code> more than the <code class="language-plaintext highlighter-rouge">catch</code>;</li>
+  <li>retrying locally (in which case this information is insufficient);</li>
   <li>short-circuiting the happy-path, and logging the message and the call stack trace (globally, as locally this is done only when the outcome gets ignored);</li>
-  <li>closing resources safely;</li>
 </ol>
-
-<p>It’s important to remember that a vast majority of call-sites care about the <code class="language-plaintext highlighter-rouge">finally</code> more than the <code class="language-plaintext highlighter-rouge">catch</code>.</p>
 
 <p>There is no loss of information, of course, if we just used <code class="language-plaintext highlighter-rouge">IO</code>, which is what Java meant to do, but lacked the right type to do it:</p>
 
@@ -233,7 +231,7 @@ Java’s Checked Exceptions are problematic, and it’s not only due to their er
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2022-09-29T07:18:59+0300">
+    <time itemprop="dateModified" content="2022-09-29T07:26:03+0300">
         Updated: September 29, 2022
     </time>
     
@@ -345,12 +343,12 @@ Java’s Checked Exceptions are problematic, and it’s not only due to their er
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202209290420" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209290420" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202209290420" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202209290420" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202209290426" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209290426" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202209290426" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202209290426" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202209290420" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202209290426" type="text/javascript"></script>
 
 
 <script type="text/javascript">
