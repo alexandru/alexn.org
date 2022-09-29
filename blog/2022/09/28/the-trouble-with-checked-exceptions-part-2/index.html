@@ -19,14 +19,14 @@
     <meta content="Java’s Checked Exceptions are problematic, and it’s not only due to their ergonomics. The bigger problem is that they are in conflict with abstraction and OOP. Also, few people care about typed exceptions (unless they are happy path results, not errors)." property="og:description">
     <meta content="https://alexn.org/blog/2022/09/28/the-trouble-with-checked-exceptions-part-2/" property="og:url">
     <meta content="2022-09-28T22:41:48+00:00" property="article:published_time">
-    <meta content="2022-09-29T04:33:51+00:00" property="article:modified_time">
+    <meta content="2022-09-29T04:37:33+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290434" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290434" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290439" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290439" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290434">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290439">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="The Trouble with Checked Exceptions: Part 2">
@@ -115,7 +115,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png" />
-          <img src="/assets/media/articles/2022-checked-exceptions.png?202209290434" width="2152" height="1268" alt="" />
+          <img src="/assets/media/articles/2022-checked-exceptions.png?202209290439" width="2152" height="1268" alt="" />
           
         </figure>
         
@@ -150,7 +150,7 @@ Java’s Checked Exceptions are problematic, and it’s not only due to their er
   <li><a href="https://alexn.org/blog/2022/04/18/scala-oop-design-sample/">Scala OOFP Design Sample</a>, in which I argue for “<em>designing errors out of existence</em>”;</li>
 </ol>
 
-<p>In support, I stumbled on the perfect example from Java’s standard library. It’s a classic one, it turns out, I’m not the first to point at it … Java’s <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/StringBuilder.html">StringBuilder</a>, which exposes the following method:</p>
+<p>In support, I stumbled on the perfect example from Java’s standard library. It’s a classic one, it turns out, I’m not the first to point at it … Java’s <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/StringBuilder.html">StringBuilder</a>, which implements the following method:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nc">Appendable</span> <span class="nf">append</span><span class="o">(</span><span class="nc">CharSequence</span> <span class="n">csq</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">;</span>
 </code></pre></div></div>
@@ -167,7 +167,8 @@ Java’s Checked Exceptions are problematic, and it’s not only due to their er
 <p><code class="language-plaintext highlighter-rouge">StringBuilder</code> works in-memory, it can never throw <code class="language-plaintext highlighter-rouge">IOException</code>. The reason for that signature is because <code class="language-plaintext highlighter-rouge">StringBuilder</code> implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Appendable.html">Appendable</a>, and that <code class="language-plaintext highlighter-rouge">IOException</code> is there just in case <code class="language-plaintext highlighter-rouge">Appendable</code> gets implemented by something that does side effects. Note that this isn’t a case of ergonomics, but rather a fundamental problem. It wouldn’t matter if we used your favorite bifunctor <code class="language-plaintext highlighter-rouge">IO</code> or monad transformer, replacing checked-exceptions with <code class="language-plaintext highlighter-rouge">Either</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">trait</span> <span class="nc">Appendable</span> <span class="o">{</span>
-  <span class="c1">// Same issue</span>
+  <span class="c1">// Same issue, although EitherT is worse due to </span>
+  <span class="c1">// having issues with covariance;</span>
   <span class="k">def</span> <span class="nf">append</span><span class="o">(</span><span class="n">csq</span><span class="k">:</span> <span class="kt">CharSequence</span><span class="o">)</span><span class="k">:</span> <span class="kt">EitherT</span><span class="o">[</span><span class="kt">IO</span>, <span class="kt">IOException</span>, <span class="kt">Unit</span><span class="o">]</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -231,7 +232,7 @@ Java’s Checked Exceptions are problematic, and it’s not only due to their er
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2022-09-29T07:33:51+0300">
+    <time itemprop="dateModified" content="2022-09-29T07:37:33+0300">
         Updated: September 29, 2022
     </time>
     
@@ -343,12 +344,12 @@ Java’s Checked Exceptions are problematic, and it’s not only due to their er
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202209290434" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209290434" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202209290434" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202209290434" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202209290439" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209290439" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202209290439" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202209290439" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202209290434" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202209290439" type="text/javascript"></script>
 
 
 <script type="text/javascript">
