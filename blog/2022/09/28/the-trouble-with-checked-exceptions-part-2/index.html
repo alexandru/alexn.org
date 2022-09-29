@@ -19,14 +19,14 @@
     <meta content="Java’s Checked Exceptions are problematic, and it’s not due to their ergonomics, but rather because they are in conflict with abstraction and OOP. Also, few people care about typed exceptions (unless they are happy path results, not errors)." property="og:description">
     <meta content="https://alexn.org/blog/2022/09/28/the-trouble-with-checked-exceptions-part-2/" property="og:url">
     <meta content="2022-09-28T22:41:48+00:00" property="article:published_time">
-    <meta content="2022-09-28T23:00:13+00:00" property="article:modified_time">
+    <meta content="2022-09-29T04:14:33+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209282301" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209282301" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290415" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290415" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209282301">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290415">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="The Trouble with Checked Exceptions: Part 2">
@@ -106,7 +106,7 @@
       <meta itemprop="datePublished" content="2022-09-28T22:41:48+0000"/>
       
       <time itemprop="dateCreated" datetime="2022-09-28T22:41:48+0000">September 28, 2022</time>
-      | <span class="nobr"><span class="time">5</span> minutes</span>
+      | <span class="nobr"><span class="time">6</span> minutes</span>
       
       | <a href="/blog/2022/09/28/the-trouble-with-checked-exceptions-part-2/#isso-thread" class="nobr">comments</a>
       
@@ -115,7 +115,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png" />
-          <img src="/assets/media/articles/2022-checked-exceptions.png?202209282301" width="2092" height="444" alt="" />
+          <img src="/assets/media/articles/2022-checked-exceptions.png?202209290415" width="2092" height="444" alt="" />
           
         </figure>
         
@@ -197,17 +197,33 @@ Java’s Checked Exceptions are problematic, and it’s not due to their ergonom
 
 <p>Ironically, in Java’s world, input errors (i.e., those thrown by tasks that you can’t retry) are often not checked exceptions. E.g., <code class="language-plaintext highlighter-rouge">InvalidArgumentException</code> is a <code class="language-plaintext highlighter-rouge">RuntimeException</code>, and this one gets thrown in constructors, being what libraries like Jackson expect for validating input when parsing, a contract that you have to find by reading the documentation. You can see here another issue with checked exceptions: importance gets decided by the library author instead of the downstream user, but this classification is often wrong, as it depends on the use-case at the call-site.</p>
 
-<p>There is no loss of information, of course, if we did this, which is what Java meant to do, but lacked the right type to do it:</p>
+<p>Going further than the issue of abstract methods leaking implementation details, this is also an issue of breaking binary compatibility on changes. Turns out, <code class="language-plaintext highlighter-rouge">IOException</code> isn’t a good supertype for I/O related exceptions, and the library’s authors might want to change that signature to this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nc">Appendable</span> <span class="nf">append</span><span class="o">(</span><span class="nc">CharSequence</span> <span class="n">csq</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">,</span> <span class="nc">SQLException</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>The implementation leak should be even more obvious, but more problematic is that this breaks both source and binary compatibility, and <a href="https://github.com/lightbend/mima">Mima</a> will complain, leading to interesting compromises. And remember, in this case, the exception type is absolutely useless, as people care only about these things:</p>
+
+<ol>
+  <li>retrying immediately (in which case this information is insufficient);</li>
+  <li>short-circuiting the happy-path, and logging the message and the call stack trace (globally, as locally this is done only when the outcome gets ignored);</li>
+  <li>closing resources safely;</li>
+</ol>
+
+<p>It’s important to remember that a vast majority of call-sites care about the <code class="language-plaintext highlighter-rouge">finally</code> more than the <code class="language-plaintext highlighter-rouge">catch</code>.</p>
+
+<p>There is no loss of information, of course, if we just used <code class="language-plaintext highlighter-rouge">IO</code>, which is what Java meant to do, but lacked the right type to do it:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">trait</span> <span class="nc">Appendable</span> <span class="o">{</span>
-  <span class="c1">// "throws IOException" is just Java's way of expressing `IO` tasks</span>
+  <span class="c1">// "throws IOException" is Java's </span>
+  <span class="c1">// way of expressing `IO` tasks</span>
   <span class="k">def</span> <span class="nf">append</span><span class="o">(</span><span class="n">csq</span><span class="k">:</span> <span class="kt">CharSequence</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>And now the interface is abstract enough to be useful, yet more specific, in the sense that we can see that it has side effects, but not because of the returned exceptions.</p>
+<p>The <code class="language-plaintext highlighter-rouge">throws Throwable</code> part is implicit in I/O tasks. And now the interface is abstract enough to be useful, yet more specific, in the sense that we can see that it has side effects, but not because of the returned exceptions. And evaluating an <code class="language-plaintext highlighter-rouge">IO</code> can throw.</p>
 
-<p>Scala is an OOP language, and I’ve never worked on any major codebase that did not contain abstract interfaces. It’s a take it or leave it sort of deal. And this is a taste of the <a href="https://alexn.org/blog/2022/05/13/oop-vs-type-classes-part-1-ideology/">different ideologies in OOP versus static FP</a>. What FP developers call “parametricity” is actually in opposition to well encapsulated abstractions. It’s white-box versus black-box design.</p>
+<p>Scala is an OOP language, and I’ve never worked on any major codebase that did not contain OOP interfaces. It’s a take it or leave it sort of deal. And this is a taste of the <a href="https://alexn.org/blog/2022/05/13/oop-vs-type-classes-part-1-ideology/">different ideologies in OOP versus static FP</a>. What FP developers call “parametricity” is actually in opposition to well encapsulated abstractions. It’s white-box versus black-box design.</p>
 
 <p>For me, not carrying about implementation details is a powerful coping mechanism. And you also see such design choices in <a href="https://en.wikipedia.org/wiki/The_Design_of_Everyday_Things">the design of everyday things</a> that you use, meaning that user interfaces often get designed with the minimum amount of info and control knobs exposed for the user to be able to do its job. Think about the complexity of your car, in stark contrast to its simple controls, the ultimate black box. And all cars get steered mostly in the same way, standard interface, no reason to expose controls for implementation-specific errors.</p>
 
@@ -217,8 +233,8 @@ Java’s Checked Exceptions are problematic, and it’s not due to their ergonom
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2022-09-29T02:00:13+0300">
-        Updated: September 28, 2022
+    <time itemprop="dateModified" content="2022-09-29T07:14:33+0300">
+        Updated: September 29, 2022
     </time>
     
       | Written by <a href="https://alexn.org/about/#alexelcu" itemprop="url" rel="author">Alexandru Nedelcu</a>
@@ -329,12 +345,12 @@ Java’s Checked Exceptions are problematic, and it’s not due to their ergonom
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202209282301" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209282301" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202209282301" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202209282301" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202209290415" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209290415" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202209290415" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202209290415" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202209282301" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202209290415" type="text/javascript"></script>
 
 
 <script type="text/javascript">
