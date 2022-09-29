@@ -19,14 +19,14 @@
     <meta content="Java’s Checked Exceptions are problematic, and it’s not only due to their ergonomics. The bigger problem is that they are in conflict with abstraction and OOP. Also, few people care about typed exceptions (unless they are happy path results, not errors)." property="og:description">
     <meta content="https://alexn.org/blog/2022/09/28/the-trouble-with-checked-exceptions-part-2/" property="og:url">
     <meta content="2022-09-28T22:41:48+00:00" property="article:published_time">
-    <meta content="2022-09-29T05:17:41+00:00" property="article:modified_time">
+    <meta content="2022-09-29T05:19:03+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290518" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290518" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290520" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290520" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290518">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290520">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="The Trouble with Checked Exceptions: Part 2">
@@ -115,7 +115,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png" />
-          <img src="/assets/media/articles/2022-checked-exceptions.png?202209290518" width="2152" height="1268" alt="" />
+          <img src="/assets/media/articles/2022-checked-exceptions.png?202209290520" width="2152" height="1268" alt="" />
           
         </figure>
         
@@ -199,7 +199,7 @@ Java’s Checked Exceptions are problematic, and it’s not only due to their er
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Scala users already suffer from <code class="language-plaintext highlighter-rouge">flatMap</code> replacing <code class="language-plaintext highlighter-rouge">;</code>, so I’m guessing that if we squint enough, we can make this work.</p>
+<p>Scala users already suffer from <code class="language-plaintext highlighter-rouge">flatMap</code> chains replacing <code class="language-plaintext highlighter-rouge">;</code> and from unneeded type wrappers, so I’m guessing that if we squint enough, we can make this work.</p>
 
 <p>Regardless of how you model this, fact of the matter is that <code class="language-plaintext highlighter-rouge">StringBuilder</code> will never throw <code class="language-plaintext highlighter-rouge">IOException</code>. Like all Scala things, we could try introducing type parameters, or abstract type members, but that’s ridiculous, because the interface becomes unusable, as you can’t treat the error if you don’t know what it is, so you’re either going to work with <code class="language-plaintext highlighter-rouge">Any</code>, or you’re going to have an extra type parameter at all call sites:</p>
 
@@ -268,7 +268,7 @@ Java’s Checked Exceptions are problematic, and it’s not only due to their er
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2022-09-29T08:17:41+0300">
+    <time itemprop="dateModified" content="2022-09-29T08:19:03+0300">
         Updated: September 29, 2022
     </time>
     
@@ -380,12 +380,12 @@ Java’s Checked Exceptions are problematic, and it’s not only due to their er
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202209290518" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209290518" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202209290518" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202209290518" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202209290520" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209290520" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202209290520" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202209290520" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202209290518" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202209290520" type="text/javascript"></script>
 
 
 <script type="text/javascript">
