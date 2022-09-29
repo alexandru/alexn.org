@@ -19,14 +19,14 @@
     <meta content="Java’s Checked Exceptions are problematic, and it’s not only due to their ergonomics. The bigger problem is that they are in conflict with abstraction and OOP. Also, few people care about typed exceptions (unless they are happy path results, not errors)." property="og:description">
     <meta content="https://alexn.org/blog/2022/09/28/the-trouble-with-checked-exceptions-part-2/" property="og:url">
     <meta content="2022-09-28T22:41:48+00:00" property="article:published_time">
-    <meta content="2022-09-29T04:42:46+00:00" property="article:modified_time">
+    <meta content="2022-09-29T04:58:49+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290443" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290443" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290459" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290459" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290443">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290459">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="The Trouble with Checked Exceptions: Part 2">
@@ -106,7 +106,7 @@
       <meta itemprop="datePublished" content="2022-09-28T22:41:48+0000"/>
       
       <time itemprop="dateCreated" datetime="2022-09-28T22:41:48+0000">September 28, 2022</time>
-      | <span class="nobr"><span class="time">6</span> minutes</span>
+      | <span class="nobr"><span class="time">7</span> minutes</span>
       
       | <a href="/blog/2022/09/28/the-trouble-with-checked-exceptions-part-2/#isso-thread" class="nobr">comments</a>
       
@@ -115,7 +115,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png" />
-          <img src="/assets/media/articles/2022-checked-exceptions.png?202209290443" width="2152" height="1268" alt="" />
+          <img src="/assets/media/articles/2022-checked-exceptions.png?202209290459" width="2152" height="1268" alt="" />
           
         </figure>
         
@@ -161,6 +161,17 @@ Java’s Checked Exceptions are problematic, and it’s not only due to their er
   <span class="n">buffer</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">string</span><span class="o">)</span>
 <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">ignored</span><span class="o">)</span> <span class="o">{</span>
   <span class="c1">// never happens!</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Java does have a redeeming quality here. Due to the covariance of the return type, you can make the return type more specific, which means you can skip from the <code class="language-plaintext highlighter-rouge">throws</code> clause in implementations (the equivalent of <code class="language-plaintext highlighter-rouge">throws Nothing</code>).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="kd">class</span> <span class="nc">StringBuilder</span> <span class="kd">implements</span> <span class="nc">Appendable</span> <span class="o">{</span>
+  <span class="c1">// ...</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="nc">StringBuilder</span> <span class="n">append</span><span class="err">​</span><span class="o">(</span><span class="nc">CharSequence</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">//...</span>
+  <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -211,6 +222,15 @@ Java’s Checked Exceptions are problematic, and it’s not only due to their er
   <li>short-circuiting the happy-path, and logging the message and the call stack trace (globally, as locally this is done only when the outcome gets ignored);</li>
 </ol>
 
+<p>BTW, this widening of the error type isn’t unheard of. In Java’s standard library we now have:</p>
+
+<ol>
+  <li><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/Closeable.html">Closeable</a>, which has a <code class="language-plaintext highlighter-rouge">close() throws IOException</code>, inheriting from <code class="language-plaintext highlighter-rouge">AutoCloseable</code>;</li>
+  <li><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/AutoCloseable.html">AutoCloseable</a>, a newer interface (introduced by try-with-resources) that has a <code class="language-plaintext highlighter-rouge">close() throws Exception</code>, a trick in order to make <code class="language-plaintext highlighter-rouge">Closeable</code> compatible with it;</li>
+</ol>
+
+<p>I don’t know why <code class="language-plaintext highlighter-rouge">AutoCloseable</code> was introduced, but if I were to take a guess, it’s probably because having that <code class="language-plaintext highlighter-rouge">IOException</code> in the interface of <code class="language-plaintext highlighter-rouge">Closeable</code> sucks.</p>
+
 <p>There is no loss of information, of course, if we just used <code class="language-plaintext highlighter-rouge">IO</code>, which is what Java meant to do, but lacked the right type to do it:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">trait</span> <span class="nc">Appendable</span> <span class="o">{</span>
@@ -232,7 +252,7 @@ Java’s Checked Exceptions are problematic, and it’s not only due to their er
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2022-09-29T07:42:46+0300">
+    <time itemprop="dateModified" content="2022-09-29T07:58:49+0300">
         Updated: September 29, 2022
     </time>
     
@@ -344,12 +364,12 @@ Java’s Checked Exceptions are problematic, and it’s not only due to their er
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202209290443" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209290443" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202209290443" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202209290443" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202209290459" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209290459" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202209290459" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202209290459" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202209290443" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202209290459" type="text/javascript"></script>
 
 
 <script type="text/javascript">
