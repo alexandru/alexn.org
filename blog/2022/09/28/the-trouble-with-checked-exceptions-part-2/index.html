@@ -19,14 +19,14 @@
     <meta content="Java’s Checked Exceptions are problematic, and it’s not only due to their ergonomics. The bigger problem is that they are in conflict with abstraction and OOP. Also, few people care about typed exceptions (unless they are happy path results, not errors)." property="og:description">
     <meta content="https://alexn.org/blog/2022/09/28/the-trouble-with-checked-exceptions-part-2/" property="og:url">
     <meta content="2022-09-28T22:41:48+00:00" property="article:published_time">
-    <meta content="2022-09-29T05:00:37+00:00" property="article:modified_time">
+    <meta content="2022-09-29T05:03:58+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290501" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290501" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290505" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290505" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290501">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202209290505">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="The Trouble with Checked Exceptions: Part 2">
@@ -115,7 +115,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-checked-exceptions.png" />
-          <img src="/assets/media/articles/2022-checked-exceptions.png?202209290501" width="2152" height="1268" alt="" />
+          <img src="/assets/media/articles/2022-checked-exceptions.png?202209290505" width="2152" height="1268" alt="" />
           
         </figure>
         
@@ -222,14 +222,14 @@ Java’s Checked Exceptions are problematic, and it’s not only due to their er
   <li>short-circuiting the happy-path, and logging the message and the call stack trace (globally, as locally this is done only when the outcome gets ignored);</li>
 </ol>
 
-<p>BTW, this widening of the error type isn’t unheard of. In Java’s standard library we now have:</p>
+<p>BTW, this widening of the exception type isn’t unheard of. In Java’s standard library we now have:</p>
 
 <ol>
   <li><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/Closeable.html">Closeable</a>, which has a <code class="language-plaintext highlighter-rouge">close() throws IOException</code>, inheriting from <code class="language-plaintext highlighter-rouge">AutoCloseable</code>;</li>
-  <li><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/AutoCloseable.html">AutoCloseable</a>, a newer interface (introduced by try-with-resources) that has a <code class="language-plaintext highlighter-rouge">close() throws Exception</code>, a trick in order to make <code class="language-plaintext highlighter-rouge">Closeable</code> compatible with it (covariance, ftw!), and note the total lack of information in <code class="language-plaintext highlighter-rouge">throws Exception</code>;</li>
+  <li><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/AutoCloseable.html">AutoCloseable</a>, a newer interface (introduced by try-with-resources) that has a <code class="language-plaintext highlighter-rouge">close() throws Exception</code>, a trick in order to make <code class="language-plaintext highlighter-rouge">Closeable</code> compatible with it (covariance FTW), and note the total lack of information in <code class="language-plaintext highlighter-rouge">throws Exception</code>;</li>
 </ol>
 
-<p>I don’t know why <code class="language-plaintext highlighter-rouge">AutoCloseable</code> was introduced, but if I were to take a guess, it’s probably because having that <code class="language-plaintext highlighter-rouge">IOException</code> in the interface of <code class="language-plaintext highlighter-rouge">Closeable</code> sucks.</p>
+<p>I don’t know why <code class="language-plaintext highlighter-rouge">AutoCloseable</code> was introduced, but if I were to take a guess, it’s probably because having that <code class="language-plaintext highlighter-rouge">IOException</code> in the interface of <code class="language-plaintext highlighter-rouge">Closeable</code> sucks. Java designers carrying about compatibility, however, chose this path instead of just modifying <code class="language-plaintext highlighter-rouge">Closeable</code>, which is what a Scala FP developer would have done, to force correctness down on everyone 😎</p>
 
 <p>There is no loss of information, of course, if we just used <code class="language-plaintext highlighter-rouge">IO</code>, which is what Java meant to do, but lacked the right type to do it:</p>
 
@@ -252,7 +252,7 @@ Java’s Checked Exceptions are problematic, and it’s not only due to their er
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2022-09-29T08:00:37+0300">
+    <time itemprop="dateModified" content="2022-09-29T08:03:58+0300">
         Updated: September 29, 2022
     </time>
     
@@ -364,12 +364,12 @@ Java’s Checked Exceptions are problematic, and it’s not only due to their er
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202209290501" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209290501" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202209290501" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202209290501" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202209290505" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202209290505" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202209290505" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202209290505" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202209290501" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202209290505" type="text/javascript"></script>
 
 
 <script type="text/javascript">
