@@ -19,14 +19,14 @@
     <meta content="The following describes snippets for executing shell commands, in Java, Scala, and Kotlin, using standard functionality. It’s also useful to compare Java vs Scala vs Kotlin for this particular problem." property="og:description">
     <meta content="https://alexn.org/blog/2022/10/03/execute-shell-commands-in-java-scala-kotlin/" property="og:url">
     <meta content="2022-10-03T05:13:13+00:00" property="article:published_time">
-    <meta content="2022-10-03T11:53:03+00:00" property="article:modified_time">
+    <meta content="2022-10-03T11:57:30+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031154" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031154" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031158" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031158" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031154">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031158">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Execute Shell Commands in Java/Scala/Kotlin">
@@ -115,7 +115,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png" />
-          <img src="/assets/media/articles/2022-exec-shell-command.png?202210031154" width="2024" height="1012" alt="" />
+          <img src="/assets/media/articles/2022-exec-shell-command.png?202210031158" width="2024" height="1012" alt="" />
           
         </figure>
         
@@ -404,9 +404,11 @@ brew <span class="nb">install </span>openjdk@17
 
 <p>You should probably extract a utility for this, or find a library that does this better:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="no">A</span><span class="o">&gt;</span> <span class="no">A</span> <span class="nf">withTimeout</span><span class="o">(</span><span class="nc">ExecutorService</span> <span class="n">es</span><span class="o">,</span> <span class="nc">Duration</span> <span class="n">timeout</span><span class="o">,</span> <span class="nc">Callable</span><span class="o">&lt;</span><span class="no">A</span><span class="o">&gt;</span> <span class="n">cb</span><span class="o">)</span>
-  <span class="kd">throws</span> <span class="nc">InterruptedException</span><span class="o">,</span> <span class="nc">TimeoutException</span> <span class="o">{</span>
-
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="no">A</span><span class="o">&gt;</span> <span class="no">A</span> <span class="nf">withTimeout</span><span class="o">(</span>
+  <span class="nc">ExecutorService</span> <span class="n">es</span><span class="o">,</span> 
+  <span class="nc">Duration</span> <span class="n">timeout</span><span class="o">,</span> 
+  <span class="nc">Callable</span><span class="o">&lt;</span><span class="no">A</span><span class="o">&gt;</span> <span class="n">cb</span>
+<span class="o">)</span> <span class="kd">throws</span> <span class="nc">InterruptedException</span><span class="o">,</span> <span class="nc">TimeoutException</span> <span class="o">{</span>
   <span class="kd">final</span> <span class="kt">var</span> <span class="n">ft</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FutureTask</span><span class="o">&lt;&gt;(</span><span class="n">cb</span><span class="o">);</span>
   <span class="k">try</span> <span class="o">{</span>
     <span class="n">es</span><span class="o">.</span><span class="na">submit</span><span class="o">(</span><span class="n">ft</span><span class="o">);</span>
@@ -421,7 +423,7 @@ brew <span class="nb">install </span>openjdk@17
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>I don’t like that explicit <code class="language-plaintext highlighter-rouge">ExecutorService</code>, but in this area I’m very excited of <a href="/blog/2022/09/21/java-19/">Java 19</a>.</p>
+<p>I don’t like that explicit <code class="language-plaintext highlighter-rouge">ExecutorService</code> (I/O operation being blocking, the thread-pool probably needs to be unbounded, hence configuration is error-prone), but in this area I’m very excited of <a href="/blog/2022/09/21/java-19/">Java 19</a>.</p>
       <h2 id="scala">
         
         
@@ -662,7 +664,7 @@ brew <span class="nb">install </span>openjdk@17
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2022-10-03T14:53:03+0300">
+    <time itemprop="dateModified" content="2022-10-03T14:57:30+0300">
         Updated: October 3, 2022
     </time>
     
@@ -772,12 +774,12 @@ brew <span class="nb">install </span>openjdk@17
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202210031154" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210031154" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202210031154" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202210031154" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202210031158" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210031158" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202210031158" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202210031158" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202210031154" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202210031158" type="text/javascript"></script>
 
 
 <script type="text/javascript">
