@@ -19,14 +19,14 @@
     <meta content="The following describes snippets for executing shell commands, in Java, Scala, and Kotlin, using standard functionality. It’s also useful to compare Java vs Scala vs Kotlin for this particular problem." property="og:description">
     <meta content="https://alexn.org/blog/2022/10/03/execute-shell-commands-in-java-scala-kotlin/" property="og:url">
     <meta content="2022-10-03T05:13:13+00:00" property="article:published_time">
-    <meta content="2022-10-03T12:02:10+00:00" property="article:modified_time">
+    <meta content="2022-10-03T12:06:14+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031203" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031203" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031207" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031207" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031203">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031207">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Execute Shell Commands in Java/Scala/Kotlin">
@@ -115,7 +115,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png" />
-          <img src="/assets/media/articles/2022-exec-shell-command.png?202210031203" width="2024" height="1012" alt="" />
+          <img src="/assets/media/articles/2022-exec-shell-command.png?202210031207" width="2024" height="1012" alt="" />
           
         </figure>
         
@@ -581,7 +581,10 @@ brew <span class="nb">install </span>openjdk@17
  * See [executeShellCommand] for the version that executes
  * `/bin/sh` commands.
  */</span>
-<span class="k">suspend</span> <span class="k">fun</span> <span class="nf">executeCommand</span><span class="p">(</span><span class="n">executable</span><span class="p">:</span> <span class="nc">Path</span><span class="p">,</span> <span class="k">vararg</span> <span class="n">args</span><span class="p">:</span> <span class="nc">String</span><span class="p">):</span> <span class="nc">CommandResult</span> <span class="p">=</span>
+<span class="k">suspend</span> <span class="k">fun</span> <span class="nf">executeCommand</span><span class="p">(</span>
+  <span class="n">executable</span><span class="p">:</span> <span class="nc">Path</span><span class="p">,</span> 
+  <span class="k">vararg</span> <span class="n">args</span><span class="p">:</span> <span class="nc">String</span>
+<span class="p">):</span> <span class="nc">CommandResult</span> <span class="p">=</span>
   <span class="nf">runInterruptible</span> <span class="p">{</span>
     <span class="kd">val</span> <span class="py">cmdArgs</span> <span class="p">=</span> <span class="nf">listOf</span><span class="p">(</span><span class="n">executable</span><span class="p">.</span><span class="nf">toAbsolutePath</span><span class="p">().</span><span class="nf">toString</span><span class="p">())</span> <span class="p">+</span> <span class="n">args</span>
     <span class="kd">val</span> <span class="py">proc</span> <span class="p">=</span> <span class="nc">Runtime</span><span class="p">.</span><span class="nf">getRuntime</span><span class="p">().</span><span class="nf">exec</span><span class="p">(</span><span class="n">cmdArgs</span><span class="p">.</span><span class="nf">toTypedArray</span><span class="p">())</span>
@@ -602,7 +605,10 @@ brew <span class="nb">install </span>openjdk@17
  * WARN: command arguments need be given explicitly because
  * they need to be properly escaped.
  */</span>
-<span class="k">suspend</span> <span class="k">fun</span> <span class="nf">executeShellCommand</span><span class="p">(</span><span class="n">command</span><span class="p">:</span> <span class="nc">String</span><span class="p">,</span> <span class="k">vararg</span> <span class="n">args</span><span class="p">:</span> <span class="nc">String</span><span class="p">):</span> <span class="nc">CommandResult</span> <span class="p">=</span>
+<span class="k">suspend</span> <span class="k">fun</span> <span class="nf">executeShellCommand</span><span class="p">(</span>
+  <span class="n">command</span><span class="p">:</span> <span class="nc">String</span><span class="p">,</span> 
+  <span class="k">vararg</span> <span class="n">args</span><span class="p">:</span> <span class="nc">String</span>
+<span class="p">):</span> <span class="nc">CommandResult</span> <span class="p">=</span>
   <span class="nf">executeCommand</span><span class="p">(</span>
     <span class="nc">Path</span><span class="p">.</span><span class="nf">of</span><span class="p">(</span><span class="s">"/bin/sh"</span><span class="p">),</span>
     <span class="s">"-c"</span><span class="p">,</span>
@@ -664,7 +670,7 @@ brew <span class="nb">install </span>openjdk@17
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2022-10-03T15:02:10+0300">
+    <time itemprop="dateModified" content="2022-10-03T15:06:14+0300">
         Updated: October 3, 2022
     </time>
     
@@ -774,12 +780,12 @@ brew <span class="nb">install </span>openjdk@17
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202210031203" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210031203" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202210031203" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202210031203" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202210031207" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210031207" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202210031207" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202210031207" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202210031203" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202210031207" type="text/javascript"></script>
 
 
 <script type="text/javascript">
