@@ -19,14 +19,14 @@
     <meta content="The following describes snippets for executing shell commands, in Java, Scala, and Kotlin, using standard functionality. It’s also useful to compare Java vs Scala vs Kotlin for this particular problem." property="og:description">
     <meta content="https://alexn.org/blog/2022/10/03/execute-shell-commands-in-java-scala-kotlin/" property="og:url">
     <meta content="2022-10-03T05:13:13+00:00" property="article:published_time">
-    <meta content="2022-10-03T11:45:02+00:00" property="article:modified_time">
+    <meta content="2022-10-03T11:53:03+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031145" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031145" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031154" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031154" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031145">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031154">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Execute Shell Commands in Java/Scala/Kotlin">
@@ -115,7 +115,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png" />
-          <img src="/assets/media/articles/2022-exec-shell-command.png?202210031145" width="2024" height="1012" alt="" />
+          <img src="/assets/media/articles/2022-exec-shell-command.png?202210031154" width="2024" height="1012" alt="" />
           
         </figure>
         
@@ -170,7 +170,7 @@ The following describes snippets for executing shell commands, in Java, Scala, a
 </p>
 
 <p class="info-bubble">
-These snippets make use of <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Runtime.html#exec(java.lang.String%5B%5D)">Runtime.getRuntime().exec</a>. You may find libraries that already do this, but I find dependencies to be a risk, and wheel reinvention to be fun.
+These snippets make use of <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Runtime.html#exec(java.lang.String%5B%5D)">Runtime.getRuntime().exec</a>. You may find libraries that already do this, but I find dependencies to be a risk, and wheel reinvention to be fun. I appologize for the NIH in advance.
 </p>
 
 <p>This is a follow-up to: <a href="/blog/2020/12/06/execute-shell-command-in-fsharp/">execute shell commands in F#</a>.</p>
@@ -420,6 +420,8 @@ brew <span class="nb">install </span>openjdk@17
   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
+
+<p>I don’t like that explicit <code class="language-plaintext highlighter-rouge">ExecutorService</code>, but in this area I’m very excited of <a href="/blog/2022/09/21/java-19/">Java 19</a>.</p>
       <h2 id="scala">
         
         
@@ -660,7 +662,7 @@ brew <span class="nb">install </span>openjdk@17
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2022-10-03T14:45:02+0300">
+    <time itemprop="dateModified" content="2022-10-03T14:53:03+0300">
         Updated: October 3, 2022
     </time>
     
@@ -770,12 +772,12 @@ brew <span class="nb">install </span>openjdk@17
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202210031145" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210031145" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202210031145" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202210031145" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202210031154" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210031154" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202210031154" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202210031154" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202210031145" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202210031154" type="text/javascript"></script>
 
 
 <script type="text/javascript">
