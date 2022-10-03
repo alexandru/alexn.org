@@ -19,14 +19,14 @@
     <meta content="The following describes snippets for executing shell commands, in Java, Scala, and Kotlin, using standard functionality. It’s also useful to compare Java vs Scala vs Kotlin for this particular problem." property="og:description">
     <meta content="https://alexn.org/blog/2022/10/03/execute-shell-commands-in-java-scala-kotlin/" property="og:url">
     <meta content="2022-10-03T05:13:13+00:00" property="article:published_time">
-    <meta content="2022-10-03T11:57:30+00:00" property="article:modified_time">
+    <meta content="2022-10-03T12:02:10+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031158" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031158" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031203" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031203" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031158">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031203">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Execute Shell Commands in Java/Scala/Kotlin">
@@ -115,7 +115,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png" />
-          <img src="/assets/media/articles/2022-exec-shell-command.png?202210031158" width="2024" height="1012" alt="" />
+          <img src="/assets/media/articles/2022-exec-shell-command.png?202210031203" width="2024" height="1012" alt="" />
           
         </figure>
         
@@ -569,9 +569,9 @@ brew <span class="nb">install </span>openjdk@17
 <span class="k">import</span> <span class="nn">java.nio.file.Path</span>
 
 <span class="kd">data class</span> <span class="nc">CommandResult</span><span class="p">(</span>
-	<span class="kd">val</span> <span class="py">exitCode</span><span class="p">:</span> <span class="nc">Int</span><span class="p">,</span>
-	<span class="kd">val</span> <span class="py">stdout</span><span class="p">:</span> <span class="nc">String</span><span class="p">,</span>
-	<span class="kd">val</span> <span class="py">stderr</span><span class="p">:</span> <span class="nc">String</span><span class="p">,</span>
+  <span class="kd">val</span> <span class="py">exitCode</span><span class="p">:</span> <span class="nc">Int</span><span class="p">,</span>
+  <span class="kd">val</span> <span class="py">stdout</span><span class="p">:</span> <span class="nc">String</span><span class="p">,</span>
+  <span class="kd">val</span> <span class="py">stderr</span><span class="p">:</span> <span class="nc">String</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="cm">/**
@@ -582,19 +582,19 @@ brew <span class="nb">install </span>openjdk@17
  * `/bin/sh` commands.
  */</span>
 <span class="k">suspend</span> <span class="k">fun</span> <span class="nf">executeCommand</span><span class="p">(</span><span class="n">executable</span><span class="p">:</span> <span class="nc">Path</span><span class="p">,</span> <span class="k">vararg</span> <span class="n">args</span><span class="p">:</span> <span class="nc">String</span><span class="p">):</span> <span class="nc">CommandResult</span> <span class="p">=</span>
-	<span class="nf">runInterruptible</span> <span class="p">{</span>
-		<span class="kd">val</span> <span class="py">cmdArgs</span> <span class="p">=</span> <span class="nf">listOf</span><span class="p">(</span><span class="n">executable</span><span class="p">.</span><span class="nf">toAbsolutePath</span><span class="p">().</span><span class="nf">toString</span><span class="p">())</span> <span class="p">+</span> <span class="n">args</span>
-		<span class="kd">val</span> <span class="py">proc</span> <span class="p">=</span> <span class="nc">Runtime</span><span class="p">.</span><span class="nf">getRuntime</span><span class="p">().</span><span class="nf">exec</span><span class="p">(</span><span class="n">cmdArgs</span><span class="p">.</span><span class="nf">toTypedArray</span><span class="p">())</span>
-		<span class="k">try</span> <span class="p">{</span>
-			<span class="nc">CommandResult</span><span class="p">(</span>
-				<span class="n">exitCode</span> <span class="p">=</span> <span class="n">proc</span><span class="p">.</span><span class="nf">waitFor</span><span class="p">(),</span>
-				<span class="n">stdout</span> <span class="p">=</span> <span class="nc">String</span><span class="p">(</span><span class="n">proc</span><span class="p">.</span><span class="nf">getInputStream</span><span class="p">().</span><span class="nf">readAllBytes</span><span class="p">(),</span> <span class="nc">UTF_8</span><span class="p">),</span>
-				<span class="n">stderr</span> <span class="p">=</span> <span class="nc">String</span><span class="p">(</span><span class="n">proc</span><span class="p">.</span><span class="nf">getErrorStream</span><span class="p">().</span><span class="nf">readAllBytes</span><span class="p">(),</span> <span class="nc">UTF_8</span><span class="p">)</span>
-			<span class="p">)</span>
-		<span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
-			<span class="n">proc</span><span class="p">.</span><span class="nf">destroy</span><span class="p">()</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
+  <span class="nf">runInterruptible</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="py">cmdArgs</span> <span class="p">=</span> <span class="nf">listOf</span><span class="p">(</span><span class="n">executable</span><span class="p">.</span><span class="nf">toAbsolutePath</span><span class="p">().</span><span class="nf">toString</span><span class="p">())</span> <span class="p">+</span> <span class="n">args</span>
+    <span class="kd">val</span> <span class="py">proc</span> <span class="p">=</span> <span class="nc">Runtime</span><span class="p">.</span><span class="nf">getRuntime</span><span class="p">().</span><span class="nf">exec</span><span class="p">(</span><span class="n">cmdArgs</span><span class="p">.</span><span class="nf">toTypedArray</span><span class="p">())</span>
+    <span class="k">try</span> <span class="p">{</span>
+      <span class="nc">CommandResult</span><span class="p">(</span>
+        <span class="n">exitCode</span> <span class="p">=</span> <span class="n">proc</span><span class="p">.</span><span class="nf">waitFor</span><span class="p">(),</span>
+        <span class="n">stdout</span> <span class="p">=</span> <span class="nc">String</span><span class="p">(</span><span class="n">proc</span><span class="p">.</span><span class="nf">getInputStream</span><span class="p">().</span><span class="nf">readAllBytes</span><span class="p">(),</span> <span class="nc">UTF_8</span><span class="p">),</span>
+        <span class="n">stderr</span> <span class="p">=</span> <span class="nc">String</span><span class="p">(</span><span class="n">proc</span><span class="p">.</span><span class="nf">getErrorStream</span><span class="p">().</span><span class="nf">readAllBytes</span><span class="p">(),</span> <span class="nc">UTF_8</span><span class="p">)</span>
+      <span class="p">)</span>
+    <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+      <span class="n">proc</span><span class="p">.</span><span class="nf">destroy</span><span class="p">()</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
 <span class="cm">/**
  * Executes shell commands.
@@ -603,19 +603,19 @@ brew <span class="nb">install </span>openjdk@17
  * they need to be properly escaped.
  */</span>
 <span class="k">suspend</span> <span class="k">fun</span> <span class="nf">executeShellCommand</span><span class="p">(</span><span class="n">command</span><span class="p">:</span> <span class="nc">String</span><span class="p">,</span> <span class="k">vararg</span> <span class="n">args</span><span class="p">:</span> <span class="nc">String</span><span class="p">):</span> <span class="nc">CommandResult</span> <span class="p">=</span>
-	<span class="nf">executeCommand</span><span class="p">(</span>
-		<span class="nc">Path</span><span class="p">.</span><span class="nf">of</span><span class="p">(</span><span class="s">"/bin/sh"</span><span class="p">),</span>
-		<span class="s">"-c"</span><span class="p">,</span>
-		<span class="p">(</span><span class="nf">listOf</span><span class="p">(</span><span class="n">command</span><span class="p">)</span> <span class="p">+</span> <span class="n">args</span><span class="p">)</span>
-			<span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="nc">StringEscapeUtils</span><span class="o">::</span><span class="n">escapeXSI</span><span class="p">)</span>
-			<span class="p">.</span><span class="nf">joinToString</span><span class="p">(</span><span class="s">" "</span><span class="p">)</span>
-	<span class="p">)</span>
+  <span class="nf">executeCommand</span><span class="p">(</span>
+    <span class="nc">Path</span><span class="p">.</span><span class="nf">of</span><span class="p">(</span><span class="s">"/bin/sh"</span><span class="p">),</span>
+    <span class="s">"-c"</span><span class="p">,</span>
+    <span class="p">(</span><span class="nf">listOf</span><span class="p">(</span><span class="n">command</span><span class="p">)</span> <span class="p">+</span> <span class="n">args</span><span class="p">)</span>
+      <span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="nc">StringEscapeUtils</span><span class="o">::</span><span class="n">escapeXSI</span><span class="p">)</span>
+      <span class="p">.</span><span class="nf">joinToString</span><span class="p">(</span><span class="s">" "</span><span class="p">)</span>
+  <span class="p">)</span>
 
 <span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">=</span> <span class="nf">runBlocking</span> <span class="p">{</span>
-	<span class="kd">val</span> <span class="py">r</span> <span class="p">=</span> <span class="nf">executeShellCommand</span><span class="p">(</span><span class="s">"ls"</span><span class="p">,</span> <span class="s">"-alh"</span><span class="p">)</span>
-	<span class="nc">System</span><span class="p">.</span><span class="k">out</span><span class="p">.</span><span class="nf">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">stdout</span><span class="p">)</span>
-	<span class="nc">System</span><span class="p">.</span><span class="n">err</span><span class="p">.</span><span class="nf">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">stderr</span><span class="p">)</span>
-	<span class="nc">System</span><span class="p">.</span><span class="nf">exit</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">exitCode</span><span class="p">)</span>
+  <span class="kd">val</span> <span class="py">r</span> <span class="p">=</span> <span class="nf">executeShellCommand</span><span class="p">(</span><span class="s">"ls"</span><span class="p">,</span> <span class="s">"-alh"</span><span class="p">)</span>
+  <span class="nc">System</span><span class="p">.</span><span class="k">out</span><span class="p">.</span><span class="nf">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">stdout</span><span class="p">)</span>
+  <span class="nc">System</span><span class="p">.</span><span class="n">err</span><span class="p">.</span><span class="nf">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">stderr</span><span class="p">)</span>
+  <span class="nc">System</span><span class="p">.</span><span class="nf">exit</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">exitCode</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div></div>
       <h3 id="scripting-with-kotlin">
@@ -664,7 +664,7 @@ brew <span class="nb">install </span>openjdk@17
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2022-10-03T14:57:30+0300">
+    <time itemprop="dateModified" content="2022-10-03T15:02:10+0300">
         Updated: October 3, 2022
     </time>
     
@@ -774,12 +774,12 @@ brew <span class="nb">install </span>openjdk@17
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202210031158" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210031158" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202210031158" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202210031158" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202210031203" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210031203" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202210031203" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202210031203" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202210031158" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202210031203" type="text/javascript"></script>
 
 
 <script type="text/javascript">
