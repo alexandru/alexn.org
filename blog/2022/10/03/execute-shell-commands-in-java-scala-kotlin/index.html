@@ -19,14 +19,14 @@
     <meta content="The following describes snippets for executing shell commands, in Java, Scala, and Kotlin, using standard functionality. It’s also useful to compare Java vs Scala vs Kotlin for this particular problem." property="og:description">
     <meta content="https://alexn.org/blog/2022/10/03/execute-shell-commands-in-java-scala-kotlin/" property="og:url">
     <meta content="2022-10-03T05:13:13+00:00" property="article:published_time">
-    <meta content="2022-10-03T12:44:23+00:00" property="article:modified_time">
+    <meta content="2022-10-03T13:07:49+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031245" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031245" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031310" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031310" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031245">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031310">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Execute Shell Commands in Java/Scala/Kotlin">
@@ -115,7 +115,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png" />
-          <img src="/assets/media/articles/2022-exec-shell-command.png?202210031245" width="2024" height="1012" alt="" />
+          <img src="/assets/media/articles/2022-exec-shell-command.png?202210031310" width="2024" height="1012" alt="" />
           
         </figure>
         
@@ -434,7 +434,7 @@ brew <span class="nb">install </span>openjdk@17
       </h2>
     
 
-<p>For Scala, we’re going to introduce a <a href="https://typelevel.org/cats-effect/">Cats-Effect</a> dependency, to describe the above as an interruptible <code class="language-plaintext highlighter-rouge">IO</code> data type. It’s not in the standard library, but all my Scala projects have an <code class="language-plaintext highlighter-rouge">IO</code> data type 😎. Besides the cool factor of working with this legendary monadic type, <code class="language-plaintext highlighter-rouge">IO</code> can handle the timeout under the hood via thread interruption.</p>
+<p>For Scala, we’re going to introduce a <a href="https://typelevel.org/cats-effect/">Cats-Effect</a> dependency to describe the above as an interruptible <code class="language-plaintext highlighter-rouge">IO</code> data type. It’s not in the standard library, but all my Scala projects have an <code class="language-plaintext highlighter-rouge">IO</code> data type 😎. Besides the cool factor of working with this legendary monadic type, <code class="language-plaintext highlighter-rouge">IO</code> can handle the timeout under the hood via thread interruption:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="o">#!/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">env</span> <span class="o">-</span><span class="n">S</span> <span class="n">scala</span><span class="o">-</span><span class="n">cli</span> <span class="n">shebang</span> <span class="o">-</span><span class="n">q</span>
 
@@ -554,7 +554,7 @@ brew <span class="nb">install </span>openjdk@17
       </h2>
     
 
-<p>For Kotlin, we are going to use its <a href="https://kotlinlang.org/docs/coroutines-overview.html">coroutines</a> (<a href="https://github.com/Kotlin/kotlinx.coroutines/">kotlinx.coroutines</a>).</p>
+<p>For Kotlin, we are going to use its <a href="https://kotlinlang.org/docs/coroutines-overview.html">coroutines</a> support (with the <a href="https://github.com/Kotlin/kotlinx.coroutines/">kotlinx.coroutines</a> dependency):</p>
 
 <div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">///usr/bin/env jbang "$0" "$@" ; exit $?</span>
 
@@ -563,6 +563,7 @@ brew <span class="nb">install </span>openjdk@17
 <span class="c1">//DEPS org.apache.commons:commons-text:1.9</span>
 <span class="c1">//DEPS org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4</span>
 
+<span class="k">import</span> <span class="nn">kotlinx.coroutines.Dispatchers</span>
 <span class="k">import</span> <span class="nn">kotlinx.coroutines.runBlocking</span>
 <span class="k">import</span> <span class="nn">kotlinx.coroutines.runInterruptible</span>
 <span class="k">import</span> <span class="nn">org.apache.commons.text.StringEscapeUtils</span>
@@ -586,7 +587,7 @@ brew <span class="nb">install </span>openjdk@17
   <span class="n">executable</span><span class="p">:</span> <span class="nc">Path</span><span class="p">,</span> 
   <span class="k">vararg</span> <span class="n">args</span><span class="p">:</span> <span class="nc">String</span>
 <span class="p">):</span> <span class="nc">CommandResult</span> <span class="p">=</span>
-  <span class="nf">runInterruptible</span> <span class="p">{</span>
+  <span class="nf">runInterruptible</span><span class="p">(</span><span class="nc">Dispatchers</span><span class="p">.</span><span class="nc">IO</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">val</span> <span class="py">cmdArgs</span> <span class="p">=</span> <span class="nf">listOf</span><span class="p">(</span><span class="n">executable</span><span class="p">.</span><span class="nf">toAbsolutePath</span><span class="p">().</span><span class="nf">toString</span><span class="p">())</span> <span class="p">+</span> <span class="n">args</span>
     <span class="kd">val</span> <span class="py">proc</span> <span class="p">=</span> <span class="nc">Runtime</span><span class="p">.</span><span class="nf">getRuntime</span><span class="p">().</span><span class="nf">exec</span><span class="p">(</span><span class="n">cmdArgs</span><span class="p">.</span><span class="nf">toTypedArray</span><span class="p">())</span>
     <span class="k">try</span> <span class="p">{</span>
@@ -654,7 +655,9 @@ brew <span class="nb">install </span>openjdk@17
       </h3>
     
 
-<p>The <a href="https://github.com/Kotlin/kotlinx.coroutines/issues/1947">runInterruptible</a> function transforms regular blocking code into a suspending function that can be cancelled, with the cancellation signal being converted into thread interruption. It works out of the box:</p>
+<p>Kotlin’s coroutine jobs are <a href="https://kotlinlang.org/docs/cancellation-and-timeouts.html">cancellable</a>. The <a href="https://github.com/Kotlin/kotlinx.coroutines/issues/1947">runInterruptible</a> function transforms regular blocking code into a suspending function that can be cancelled, with the cancellation signal being converted into thread interruption. And by explicitly specifying <code class="language-plaintext highlighter-rouge">Dispatchers.IO</code> as the “coroutine context”, we also require the execution to happen on the thread-pool designated for blocking I/O tasks.</p>
+
+<p>So installing timeouts works out of the box:</p>
 
 <div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">kotlinx.coroutines.withTimeout</span>
 <span class="k">import</span> <span class="nn">kotlin.time.Duration.Companion.seconds</span>
@@ -671,7 +674,7 @@ brew <span class="nb">install </span>openjdk@17
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2022-10-03T15:44:23+0300">
+    <time itemprop="dateModified" content="2022-10-03T16:07:49+0300">
         Updated: October 3, 2022
     </time>
     
@@ -781,12 +784,12 @@ brew <span class="nb">install </span>openjdk@17
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202210031245" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210031245" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202210031245" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202210031245" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202210031310" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210031310" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202210031310" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202210031310" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202210031245" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202210031310" type="text/javascript"></script>
 
 
 <script type="text/javascript">
