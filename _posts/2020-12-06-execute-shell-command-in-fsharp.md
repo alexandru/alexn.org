@@ -14,7 +14,7 @@ image: /assets/media/snippets/execute-shell-command-fsharp.png
 image_hide_in_post: true
 description: >
   Snippet in plain F# with no dependencies. Features a neat shebang.
-last_modified_at: 2022-04-01 16:17:48 +03:00
+last_modified_at: 2022-10-03 14:39:27 +03:00
 ---
   
 ```fsharp
@@ -79,3 +79,5 @@ chmod +x ./test.fsi
 # Execute it
 ./test.fsi
 ```
+
+Also, see: [Execute Shell Commands in Java/Scala/Kotlin](./2022-10-03-execute-shell-commands-in-java-scala-kotlin.md).
