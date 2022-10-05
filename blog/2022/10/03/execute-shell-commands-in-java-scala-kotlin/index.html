@@ -19,14 +19,14 @@
     <meta content="The following describes snippets for executing shell commands, in Java, Scala, and Kotlin, using standard functionality. It’s also useful to compare Java vs Scala vs Kotlin for this particular problem." property="og:description">
     <meta content="https://alexn.org/blog/2022/10/03/execute-shell-commands-in-java-scala-kotlin/" property="og:url">
     <meta content="2022-10-03T05:13:13+00:00" property="article:published_time">
-    <meta content="2022-10-03T13:15:30+00:00" property="article:modified_time">
+    <meta content="2022-10-05T06:15:59+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031316" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031316" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210050618" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210050618" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210031316">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210050618">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Execute Shell Commands in Java/Scala/Kotlin">
@@ -106,7 +106,7 @@
       <meta itemprop="datePublished" content="2022-10-03T05:13:13+0000"/>
       
       <time itemprop="dateCreated" datetime="2022-10-03T05:13:13+0000">October 3, 2022</time>
-      | <span class="nobr"><span class="time">16</span> minutes</span>
+      | <span class="nobr"><span class="time">19</span> minutes</span>
       
       | <a href="/blog/2022/10/03/execute-shell-commands-in-java-scala-kotlin/#isso-thread" class="nobr">comments</a>
       
@@ -115,7 +115,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png" />
-          <img src="/assets/media/articles/2022-exec-shell-command.png?202210031316" width="2024" height="1012" alt="" />
+          <img src="/assets/media/articles/2022-exec-shell-command.png?202210050618" width="2024" height="1012" alt="" />
           
         </figure>
         
@@ -145,19 +145,19 @@
   <li><a href="#java">Java</a>
     <ul>
       <li><a href="#scripting-with-java">Scripting with Java</a></li>
-      <li><a href="#handling-timeouts-in-java">Handling Timeouts in Java</a></li>
+      <li><a href="#notes-on-concurrency-in-java">Notes on concurrency in Java</a></li>
     </ul>
   </li>
   <li><a href="#scala">Scala</a>
     <ul>
       <li><a href="#scripting-with-scala">Scripting with Scala</a></li>
-      <li><a href="#handling-timeouts-in-scala">Handling Timeouts in Scala</a></li>
+      <li><a href="#notes-on-concurrency-in-scala">Notes on concurrency in Scala</a></li>
     </ul>
   </li>
   <li><a href="#kotlin">Kotlin</a>
     <ul>
       <li><a href="#scripting-with-kotlin">Scripting with Kotlin</a></li>
-      <li><a href="#handling-timeouts-in-kotlin">Handling Timeouts in Kotlin</a></li>
+      <li><a href="#notes-on-concurrency-in-kotlin">Notes on concurrency in Kotlin</a></li>
     </ul>
   </li>
 </ul>
@@ -173,6 +173,10 @@ The following describes snippets for executing shell commands, in Java, Scala, a
 These snippets make use of <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Runtime.html#exec(java.lang.String%5B%5D)">Runtime.getRuntime().exec</a>. You may find libraries that already do this, but I find dependencies to be a risk, and wheel reinvention to be fun. I apologize for the NIH in advance.
 </p>
 
+<p class="warn-bubble">
+<strong>UPDATE (2022-10-05):</strong> all code samples were updated to concurrently collect the output from the input streams. This makes the code more foolproof, as programs with a lot of output can overflow a stream’s buffer.
+</p>
+
 <p>This article is a follow-up to: <a href="/blog/2020/12/06/execute-shell-command-in-fsharp/">execute shell commands in F#</a>.</p>
       <h2 id="java">
         
@@ -183,10 +187,9 @@ These snippets make use of <a href="https://docs.oracle.com/en/java/javase/11/do
       </h2>
     
 
-<p>This has been tested with Java 17, so please excuse the use of newer syntax additions, such as “record”, or “var”. The only dependency that this declares is Apache’s <a href="https://commons.apache.org/proper/commons-text/">commons-text</a>, because we need to do proper escaping of shell arguments.</p>
+<p>This has been developed with Java 17, so please excuse the use of newer syntax additions, such as “record”, or “var”. The only dependency that this declares is Apache’s <a href="https://commons.apache.org/proper/commons-text/">commons-text</a>, because we need to do proper escaping of shell arguments:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">///usr/bin/env jbang "$0" "$@" ; exit $?</span>
-
 <span class="c1">//JAVA 17+</span>
 <span class="c1">//DEPS org.apache.commons:commons-text:1.9</span>
 
@@ -195,11 +198,9 @@ These snippets make use of <a href="https://docs.oracle.com/en/java/javase/11/do
 <span class="kn">import</span> <span class="nn">java.nio.charset.StandardCharsets</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.nio.file.Path</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.time.Duration</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.time.temporal.ChronoUnit</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.util.Arrays</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.util.Objects</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.concurrent.TimeUnit</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.concurrent.TimeoutException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.concurrent.*</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.util.stream.Collectors</span><span class="o">;</span>
 
 <span class="n">record</span> <span class="nf">CommandResult</span><span class="o">(</span>
@@ -212,15 +213,15 @@ These snippets make use of <a href="https://docs.oracle.com/en/java/javase/11/do
   <span class="cm">/**
    * Executes a program. This needs to be a valid path on the
    * file system.
-   *
-   * See {@link #executeShellCommandTimed(String, String[], Duration)}
+   * &lt;p&gt;
+   * See {@link #executeShellCommand(ExecutorService, String, String...)}
    * for the version that executes `/bin/sh` commands.
    */</span>
-  <span class="kd">public</span> <span class="kd">static</span> <span class="nc">CommandResult</span> <span class="nf">executeCommandTimed</span><span class="o">(</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="nc">CommandResult</span> <span class="nf">executeCommand</span><span class="o">(</span>
+    <span class="nc">ExecutorService</span> <span class="n">es</span><span class="o">,</span>
     <span class="nc">Path</span> <span class="n">executable</span><span class="o">,</span>
-    <span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">,</span>
-    <span class="nc">Duration</span> <span class="n">timeout</span>
-  <span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">,</span> <span class="nc">InterruptedException</span><span class="o">,</span> <span class="nc">TimeoutException</span> <span class="o">{</span>
+    <span class="nc">String</span><span class="o">...</span><span class="na">args</span>
+  <span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">,</span> <span class="nc">InterruptedException</span> <span class="o">{</span>
     <span class="nc">Objects</span><span class="o">.</span><span class="na">requireNonNull</span><span class="o">(</span><span class="n">executable</span><span class="o">);</span>
     <span class="nc">Objects</span><span class="o">.</span><span class="na">requireNonNull</span><span class="o">(</span><span class="n">args</span><span class="o">);</span>
 
@@ -229,88 +230,55 @@ These snippets make use of <a href="https://docs.oracle.com/en/java/javase/11/do
       <span class="n">args</span>
     <span class="o">);</span>
     <span class="kd">final</span> <span class="kt">var</span> <span class="n">proc</span> <span class="o">=</span> <span class="nc">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">exec</span><span class="o">(</span><span class="n">commandArgs</span><span class="o">);</span>
+    <span class="nc">Future</span><span class="o">&lt;</span><span class="kt">byte</span><span class="o">[]&gt;</span> <span class="n">stdout</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="nc">Future</span><span class="o">&lt;</span><span class="kt">byte</span><span class="o">[]&gt;</span> <span class="n">stderr</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
     <span class="k">try</span> <span class="o">{</span>
-      <span class="k">if</span> <span class="o">(</span><span class="n">timeout</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-        <span class="kd">final</span> <span class="kt">var</span> <span class="n">millis</span> <span class="o">=</span> <span class="n">timeout</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="nc">ChronoUnit</span><span class="o">.</span><span class="na">MILLIS</span><span class="o">);</span>
-        <span class="k">if</span> <span class="o">(!</span><span class="n">proc</span><span class="o">.</span><span class="na">waitFor</span><span class="o">(</span><span class="n">millis</span><span class="o">,</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">MILLISECONDS</span><span class="o">))</span>
-          <span class="k">throw</span> <span class="k">new</span> <span class="nf">TimeoutException</span><span class="o">(</span>
-            <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"Command execution timed out after %s"</span><span class="o">,</span> <span class="n">timeout</span><span class="o">)</span>
-          <span class="o">);</span>
-      <span class="o">}</span>
+      <span class="c1">// Reading output streams in parallel</span>
+      <span class="n">stdout</span> <span class="o">=</span> <span class="n">es</span><span class="o">.</span><span class="na">submit</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="n">proc</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">().</span><span class="na">readAllBytes</span><span class="o">());</span>
+      <span class="n">stderr</span> <span class="o">=</span> <span class="n">es</span><span class="o">.</span><span class="na">submit</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="n">proc</span><span class="o">.</span><span class="na">getErrorStream</span><span class="o">().</span><span class="na">readAllBytes</span><span class="o">());</span>
       <span class="k">return</span> <span class="k">new</span> <span class="nf">CommandResult</span><span class="o">(</span>
         <span class="n">proc</span><span class="o">.</span><span class="na">waitFor</span><span class="o">(),</span>
-        <span class="k">new</span> <span class="nf">String</span><span class="o">(</span><span class="n">proc</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">().</span><span class="na">readAllBytes</span><span class="o">(),</span> <span class="nc">StandardCharsets</span><span class="o">.</span><span class="na">UTF_8</span><span class="o">),</span>
-        <span class="k">new</span> <span class="nf">String</span><span class="o">(</span><span class="n">proc</span><span class="o">.</span><span class="na">getErrorStream</span><span class="o">().</span><span class="na">readAllBytes</span><span class="o">(),</span> <span class="nc">StandardCharsets</span><span class="o">.</span><span class="na">UTF_8</span><span class="o">)</span>
+        <span class="c1">// Should both be ready after `waitFor`</span>
+        <span class="k">new</span> <span class="nf">String</span><span class="o">(</span><span class="n">stdout</span><span class="o">.</span><span class="na">get</span><span class="o">(),</span> <span class="nc">StandardCharsets</span><span class="o">.</span><span class="na">UTF_8</span><span class="o">),</span>
+        <span class="k">new</span> <span class="nf">String</span><span class="o">(</span><span class="n">stderr</span><span class="o">.</span><span class="na">get</span><span class="o">(),</span> <span class="nc">StandardCharsets</span><span class="o">.</span><span class="na">UTF_8</span><span class="o">)</span>
       <span class="o">);</span>
-    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
-      <span class="n">proc</span><span class="o">.</span><span class="na">destroy</span><span class="o">();</span>
-    <span class="o">}</span>
-  <span class="o">}</span>
-
-  <span class="cm">/**
-   * Convenience overload for:
-   * {@link #executeShellCommandTimed(String, String[], Duration)}.
-   *
-   * For shell commands see:
-   * {@link #executeShellCommand(String, String...)}.
-   */</span>
-  <span class="kd">public</span> <span class="kd">static</span> <span class="nc">CommandResult</span> <span class="nf">executeCommandTimed</span><span class="o">(</span>
-    <span class="nc">Path</span> <span class="n">command</span><span class="o">,</span>
-    <span class="nc">String</span><span class="o">...</span><span class="na">args</span>
-  <span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">,</span> <span class="nc">InterruptedException</span> <span class="o">{</span>
-    <span class="k">try</span> <span class="o">{</span>
-      <span class="k">return</span> <span class="nf">executeCommandTimed</span><span class="o">(</span><span class="n">command</span><span class="o">,</span> <span class="n">args</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
-    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">TimeoutException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ExecutionException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
       <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+      <span class="c1">// Should close streams as well:</span>
+      <span class="n">proc</span><span class="o">.</span><span class="na">destroy</span><span class="o">();</span>
+      <span class="c1">// Idempotent — it's fine if already complete:</span>
+      <span class="nc">TaskUtils</span><span class="o">.</span><span class="na">cancelAll</span><span class="o">(</span><span class="n">stdout</span><span class="o">,</span> <span class="n">stderr</span><span class="o">);</span>
     <span class="o">}</span>
   <span class="o">}</span>
 
   <span class="cm">/**
    * Executes shell commands.
-   *
-   * WARN: command arguments need be given explicitly because
-   * they need to be properly escaped.
-   */</span>
-  <span class="kd">public</span> <span class="kd">static</span> <span class="nc">CommandResult</span> <span class="nf">executeShellCommandTimed</span><span class="o">(</span>
-    <span class="nc">String</span> <span class="n">command</span><span class="o">,</span>
-    <span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">,</span>
-    <span class="nc">Duration</span> <span class="n">timeout</span>
-  <span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">,</span> <span class="nc">InterruptedException</span><span class="o">,</span> <span class="nc">TimeoutException</span> <span class="o">{</span>
-    <span class="nc">Objects</span><span class="o">.</span><span class="na">requireNonNull</span><span class="o">(</span><span class="n">command</span><span class="o">);</span>
-    <span class="nc">Objects</span><span class="o">.</span><span class="na">requireNonNull</span><span class="o">(</span><span class="n">args</span><span class="o">);</span>
-
-    <span class="kd">final</span> <span class="kt">var</span> <span class="n">shellCommand</span> <span class="o">=</span> <span class="nc">Arrays</span>
-      <span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="n">prepend</span><span class="o">(</span><span class="n">command</span><span class="o">,</span> <span class="n">args</span><span class="o">))</span>
-      <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nl">StringEscapeUtils:</span><span class="o">:</span><span class="n">escapeXSI</span><span class="o">)</span>
-      <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">joining</span><span class="o">(</span><span class="s">" "</span><span class="o">));</span>
-
-    <span class="k">return</span> <span class="nf">executeCommandTimed</span><span class="o">(</span>
-      <span class="nc">Path</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"/bin/sh"</span><span class="o">),</span>
-      <span class="k">new</span> <span class="nc">String</span><span class="o">[]</span> <span class="o">{</span> <span class="s">"-c"</span><span class="o">,</span> <span class="n">shellCommand</span> <span class="o">},</span>
-      <span class="n">timeout</span>
-    <span class="o">);</span>
-  <span class="o">}</span>
-
-  <span class="cm">/**
-   * Convenience overload for:
-   * {@link #executeShellCommandTimed(String, String[], Duration)}.
-   *
+   * &lt;p&gt;
    * WARN: command arguments need be given explicitly because
    * they need to be properly escaped.
    */</span>
   <span class="kd">public</span> <span class="kd">static</span> <span class="nc">CommandResult</span> <span class="nf">executeShellCommand</span><span class="o">(</span>
+    <span class="nc">ExecutorService</span> <span class="n">es</span><span class="o">,</span>
     <span class="nc">String</span> <span class="n">command</span><span class="o">,</span>
-    <span class="nc">String</span><span class="o">...</span><span class="na">args</span>
+    <span class="nc">String</span><span class="o">...</span> <span class="n">args</span>
   <span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">,</span> <span class="nc">InterruptedException</span> <span class="o">{</span>
-    <span class="k">try</span> <span class="o">{</span>
-      <span class="k">return</span> <span class="nf">executeShellCommandTimed</span><span class="o">(</span><span class="n">command</span><span class="o">,</span> <span class="n">args</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
-    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">TimeoutException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-      <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
-    <span class="o">}</span>
+    <span class="nc">Objects</span><span class="o">.</span><span class="na">requireNonNull</span><span class="o">(</span><span class="n">command</span><span class="o">);</span>
+    <span class="nc">Objects</span><span class="o">.</span><span class="na">requireNonNull</span><span class="o">(</span><span class="n">args</span><span class="o">);</span>
+
+    <span class="kd">final</span> <span class="nc">String</span> <span class="n">shellCommand</span> <span class="o">=</span> <span class="nc">Arrays</span>
+      <span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="n">prepend</span><span class="o">(</span><span class="n">command</span><span class="o">,</span> <span class="n">args</span><span class="o">))</span>
+      <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nl">StringEscapeUtils:</span><span class="o">:</span><span class="n">escapeXSI</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">joining</span><span class="o">(</span><span class="s">" "</span><span class="o">));</span>
+
+    <span class="k">return</span> <span class="nf">executeCommand</span><span class="o">(</span>
+      <span class="n">es</span><span class="o">,</span>
+      <span class="nc">Path</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"/bin/sh"</span><span class="o">),</span>
+      <span class="s">"-c"</span><span class="o">,</span>
+      <span class="n">shellCommand</span>
+    <span class="o">);</span>
   <span class="o">}</span>
 
-  <span class="c1">// This should be standard functionality, I shouldn't need to import a</span>
-  <span class="c1">// library to create a copy with a prepended element;</span>
   <span class="kd">private</span> <span class="kd">static</span> <span class="nc">String</span><span class="o">[]</span> <span class="nf">prepend</span><span class="o">(</span><span class="nc">String</span> <span class="n">elem</span><span class="o">,</span> <span class="nc">String</span><span class="o">[]</span> <span class="n">array</span><span class="o">)</span> <span class="o">{</span>
     <span class="kd">final</span> <span class="kt">var</span> <span class="n">newArray</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">[</span><span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">+</span><span class="mi">1</span><span class="o">];</span>
     <span class="n">newArray</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">elem</span><span class="o">;</span>
@@ -319,14 +287,47 @@ These snippets make use of <a href="https://docs.oracle.com/en/java/javase/11/do
   <span class="o">}</span>
 <span class="o">}</span>
 
-<span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
-  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
-    <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">,</span> <span class="nc">InterruptedException</span> <span class="o">{</span>
+<span class="kd">class</span> <span class="nc">TaskUtils</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="no">A</span><span class="o">&gt;</span> <span class="no">A</span> <span class="nf">withTimeout</span><span class="o">(</span>
+    <span class="nc">ExecutorService</span> <span class="n">es</span><span class="o">,</span> 
+    <span class="nc">Duration</span> <span class="n">timeout</span><span class="o">,</span> 
+    <span class="nc">Callable</span><span class="o">&lt;</span><span class="no">A</span><span class="o">&gt;</span> <span class="n">task</span>
+  <span class="o">)</span> <span class="kd">throws</span> <span class="nc">InterruptedException</span><span class="o">,</span> <span class="nc">TimeoutException</span> <span class="o">{</span>
+    <span class="kd">final</span> <span class="kt">var</span> <span class="n">ft</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FutureTask</span><span class="o">&lt;&gt;(</span><span class="n">task</span><span class="o">);</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="n">es</span><span class="o">.</span><span class="na">submit</span><span class="o">(</span><span class="n">ft</span><span class="o">);</span>
+      <span class="k">return</span> <span class="n">ft</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">timeout</span><span class="o">.</span><span class="na">toMillis</span><span class="o">(),</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">MILLISECONDS</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ExecutionException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">ft</span><span class="o">.</span><span class="na">cancel</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">ft</span><span class="o">.</span><span class="na">cancel</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+      <span class="k">throw</span> <span class="n">e</span><span class="o">;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
 
-    <span class="kd">final</span> <span class="kt">var</span> <span class="n">r</span> <span class="o">=</span> <span class="nc">OSUtils</span><span class="o">.</span><span class="na">executeShellCommand</span><span class="o">(</span><span class="s">"ls"</span><span class="o">,</span> <span class="s">"-alh"</span><span class="o">);</span>
-    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">stdout</span><span class="o">());</span>
-    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">stderr</span><span class="o">());</span>
-    <span class="nc">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">exitCode</span><span class="o">());</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">cancelAll</span><span class="o">(</span><span class="nc">Future</span><span class="o">&lt;?&gt;...</span><span class="na">futures</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kd">final</span> <span class="kt">var</span> <span class="n">f</span> <span class="o">:</span> <span class="n">futures</span><span class="o">)</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">f</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">f</span><span class="o">.</span><span class="na">cancel</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+    <span class="kd">final</span> <span class="kt">var</span> <span class="n">es</span> <span class="o">=</span> <span class="nc">Executors</span><span class="o">.</span><span class="na">newCachedThreadPool</span><span class="o">();</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="kd">final</span> <span class="kt">var</span> <span class="n">r</span> <span class="o">=</span>
+        <span class="nc">TaskUtils</span><span class="o">.</span><span class="na">withTimeout</span><span class="o">(</span><span class="n">es</span><span class="o">,</span> <span class="nc">Duration</span><span class="o">.</span><span class="na">ofSeconds</span><span class="o">(</span><span class="mi">2</span><span class="o">),</span> <span class="o">()</span> <span class="o">-&gt;</span>
+          <span class="nc">OSUtils</span><span class="o">.</span><span class="na">executeShellCommand</span><span class="o">(</span><span class="n">es</span><span class="o">,</span> <span class="s">"ls"</span><span class="o">,</span> <span class="s">"-alh"</span><span class="o">)</span>
+        <span class="o">);</span>
+      <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">stdout</span><span class="o">());</span>
+      <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">stderr</span><span class="o">());</span>
+      <span class="nc">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">exitCode</span><span class="o">());</span>
+    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+      <span class="n">es</span><span class="o">.</span><span class="na">shutdown</span><span class="o">();</span>
+    <span class="o">}</span>
   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -358,73 +359,54 @@ brew <span class="nb">install </span>openjdk@17
 <span class="c"># And then run it directly</span>
 ./runCommand.java
 </code></pre></div></div>
-      <h3 id="handling-timeouts-in-java">
+      <h3 id="notes-on-concurrency-in-java">
         
         
-          Handling Timeouts in Java <a href="#handling-timeouts-in-java" class="anchor">#</a>
+          Notes on concurrency in Java <a href="#notes-on-concurrency-in-java" class="anchor">#</a>
         
         
       </h3>
     
 
-<p>The above sample, in Java, has overloads for specifying a <code class="language-plaintext highlighter-rouge">Duration</code>. This happens because commands can take forever to execute, and a timeout should also destroy the active process:</p>
+<p>The code needs an explicit <code class="language-plaintext highlighter-rouge">ExecutorService</code> because we need concurrent execution for:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nc">OSUtils</span><span class="o">.</span><span class="na">executeShellCommandTimed</span><span class="o">(</span>
-  <span class="s">"sleep"</span><span class="o">,</span>
-  <span class="k">new</span> <span class="nc">String</span><span class="o">[]</span> <span class="o">{</span> <span class="s">"30"</span> <span class="o">},</span>
-  <span class="nc">Duration</span><span class="o">.</span><span class="na">ofSeconds</span><span class="o">(</span><span class="mi">3</span><span class="o">)</span>
-<span class="o">);</span>
+<ol>
+  <li>reading the STDOUT and STDERR input streams;</li>
+  <li>triggering a timeout with interruption of the running process;</li>
+</ol>
+
+<p>I don’t like passing explicit <code class="language-plaintext highlighter-rouge">ExecutorService</code> references, because blocking I/O is best executed on top of unbounded thread-pools, so the configuration is error-prone. On the other hand, platform threads are expensive, and I also don’t like libraries that initiate their own thread-pools for blocking I/O. This is why I’m very happy about the upcoming <a href="https://openjdk.org/jeps/425">Virtual Threads</a> from Java 19.</p>
+
+<p>To collect the input streams in parallel, we submit 2 jobs in this thread-pool:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nc">Future</span><span class="o">&lt;</span><span class="kt">byte</span><span class="o">[]&gt;</span> <span class="n">stdout</span> <span class="o">=</span> <span class="n">es</span><span class="o">.</span><span class="na">submit</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="n">proc</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">().</span><span class="na">readAllBytes</span><span class="o">());</span>
+<span class="nc">Future</span><span class="o">&lt;</span><span class="kt">byte</span><span class="o">[]&gt;</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">es</span><span class="o">.</span><span class="na">submit</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="n">proc</span><span class="o">.</span><span class="na">getErrorStream</span><span class="o">().</span><span class="na">readAllBytes</span><span class="o">());</span>
 </code></pre></div></div>
 
-<p>In Java such concerns could be handled via <a href="https://docs.oracle.com/javase/tutorial/essential/concurrency/interrupt.html">thread interruption</a>, however interruption in Java is low-level and error-prone. Doable if careful:</p>
+<p>In Java, cancelling blocking I/O tasks is done via <a href="https://docs.oracle.com/javase/tutorial/essential/concurrency/interrupt.html">thread interruption</a>, however it’s a low-level protocol that’s very error-prone (especially if you don’t own the threads you’re interrupting). This is why it’s best to leave interruption to higher level abstractions, like <code class="language-plaintext highlighter-rouge">Future&lt;?&gt;</code> references initialized via <code class="language-plaintext highlighter-rouge">ExecutorService#submit</code>.  We use <code class="language-plaintext highlighter-rouge">ExecutorService.submit</code> in order to create <code class="language-plaintext highlighter-rouge">Future</code> references that can be cancelled. In this case it doesn’t really help, as that <code class="language-plaintext highlighter-rouge">InputStream#read</code> doesn’t listen to thread interruption signals, but it’s a good practice anyway, as a future implementation might be interruptible.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="kn">import</span> <span class="nn">java.util.concurrent.*</span><span class="o">;</span>
-<span class="c1">//...</span>
-<span class="kd">final</span> <span class="kt">var</span> <span class="n">ec</span> <span class="o">=</span> <span class="nc">Executors</span><span class="o">.</span><span class="na">newCachedThreadPool</span><span class="o">();</span>
-<span class="k">try</span> <span class="o">{</span>
-  <span class="kd">final</span> <span class="kt">var</span> <span class="n">ft</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FutureTask</span><span class="o">&lt;&gt;(()</span> <span class="o">-&gt;</span>
-    <span class="c1">// Executing something that takes a long time</span>
-    <span class="nc">OSUtils</span><span class="o">.</span><span class="na">executeShellCommand</span><span class="o">(</span><span class="s">"sleep"</span><span class="o">,</span> <span class="s">"30"</span><span class="o">)</span>
-  <span class="o">);</span>
-  <span class="n">ec</span><span class="o">.</span><span class="na">submit</span><span class="o">(</span><span class="n">ft</span><span class="o">);</span>
-  <span class="k">try</span> <span class="o">{</span>
-    <span class="kd">final</span> <span class="kt">var</span> <span class="n">r</span> <span class="o">=</span> <span class="n">ft</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">);</span>
-    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">stdout</span><span class="o">());</span>
-    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">stderr</span><span class="o">());</span>
-    <span class="nc">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">exitCode</span><span class="o">());</span>
-  <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">TimeoutException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-    <span class="c1">// Remember to send the actual interruption signal, </span>
-    <span class="c1">// or you'll have a process leak</span>
-    <span class="n">ft</span><span class="o">.</span><span class="na">cancel</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
-    <span class="k">throw</span> <span class="n">e</span><span class="o">;</span>
-  <span class="o">}</span>
-<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
-  <span class="n">ec</span><span class="o">.</span><span class="na">shutdown</span><span class="o">();</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p>You should probably extract a utility for this, or find a library that does this better:</p>
+<p>And to have blocking I/O timing out after a timespan, we can use the same mechanism, although for such use-case you’re better off finding a library that does this better. And I am hopeful for what will come out of the additions for <a href="https://openjdk.org/jeps/428">structured concurrency</a>.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="no">A</span><span class="o">&gt;</span> <span class="no">A</span> <span class="nf">withTimeout</span><span class="o">(</span>
   <span class="nc">ExecutorService</span> <span class="n">es</span><span class="o">,</span> 
   <span class="nc">Duration</span> <span class="n">timeout</span><span class="o">,</span> 
-  <span class="nc">Callable</span><span class="o">&lt;</span><span class="no">A</span><span class="o">&gt;</span> <span class="n">cb</span>
+  <span class="nc">Callable</span><span class="o">&lt;</span><span class="no">A</span><span class="o">&gt;</span> <span class="n">task</span>
 <span class="o">)</span> <span class="kd">throws</span> <span class="nc">InterruptedException</span><span class="o">,</span> <span class="nc">TimeoutException</span> <span class="o">{</span>
-  <span class="kd">final</span> <span class="kt">var</span> <span class="n">ft</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FutureTask</span><span class="o">&lt;&gt;(</span><span class="n">cb</span><span class="o">);</span>
-  <span class="k">try</span> <span class="o">{</span>
-    <span class="n">es</span><span class="o">.</span><span class="na">submit</span><span class="o">(</span><span class="n">ft</span><span class="o">);</span>
-    <span class="k">return</span> <span class="n">ft</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">timeout</span><span class="o">.</span><span class="na">toMillis</span><span class="o">(),</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">MILLISECONDS</span><span class="o">);</span>
-  <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ExecutionException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">ft</span><span class="o">.</span><span class="na">cancel</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
-    <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
-  <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">ft</span><span class="o">.</span><span class="na">cancel</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
-    <span class="k">throw</span> <span class="n">e</span><span class="o">;</span>
-  <span class="o">}</span>
+ <span class="kd">final</span> <span class="kt">var</span> <span class="n">ft</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FutureTask</span><span class="o">&lt;&gt;(</span><span class="n">task</span><span class="o">);</span>
+ <span class="k">try</span> <span class="o">{</span>
+   <span class="n">es</span><span class="o">.</span><span class="na">submit</span><span class="o">(</span><span class="n">ft</span><span class="o">);</span>
+   <span class="k">return</span> <span class="n">ft</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">timeout</span><span class="o">.</span><span class="na">toMillis</span><span class="o">(),</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">MILLISECONDS</span><span class="o">);</span>
+ <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ExecutionException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+   <span class="n">ft</span><span class="o">.</span><span class="na">cancel</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+   <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+ <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+   <span class="n">ft</span><span class="o">.</span><span class="na">cancel</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+   <span class="k">throw</span> <span class="n">e</span><span class="o">;</span>
+ <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>I don’t like that explicit <code class="language-plaintext highlighter-rouge">ExecutorService</code> (I/O operation being blocking, the thread-pool probably needs to be unbounded, hence configuration is error-prone), but in this area I’m very excited of <a href="/blog/2022/09/21/java-19/">Java 19</a>.</p>
+<p>Note how I’m just using blocking I/O, and not bothering with any async abstractions here. That’s because <a href="/blog/2022/09/21/java-19/">Java 19</a> moves Java’s paradigm back to blocking I/O, and the underlying API (<code class="language-plaintext highlighter-rouge">Runtime#exec</code>) is based on blocking I/O.</p>
       <h2 id="scala">
         
         
@@ -443,9 +425,11 @@ brew <span class="nb">install </span>openjdk@17
 <span class="c1">//&gt; using lib "org.apache.commons:commons-text:1.9"</span>
 
 <span class="k">import</span> <span class="nn">cats.effect.</span><span class="o">{</span><span class="nc">ExitCode</span><span class="o">,</span> <span class="nc">IO</span><span class="o">,</span> <span class="nc">IOApp</span><span class="o">}</span>
+<span class="k">import</span> <span class="nn">cats.syntax.all._</span>
 <span class="k">import</span> <span class="nn">org.apache.commons.text.StringEscapeUtils</span>
 <span class="k">import</span> <span class="nn">java.nio.charset.StandardCharsets.UTF_8</span>
 <span class="k">import</span> <span class="nn">java.nio.file.Path</span>
+<span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
 
 <span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">CommandResult</span><span class="o">(</span>
   <span class="n">exitCode</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span>
@@ -454,32 +438,45 @@ brew <span class="nb">install </span>openjdk@17
 <span class="o">)</span>
 
 <span class="k">object</span> <span class="nc">OSUtils</span> <span class="o">{</span>
-  <span class="cm">/** Executes a program. This needs to be a valid path on the
-    * file system.
-    *
-    * See [[executeShellCommand]] for the version that executes 
-    * `/bin/sh` commands.
-    */</span>
   <span class="k">def</span> <span class="nf">executeCommand</span><span class="o">(</span><span class="n">executable</span><span class="k">:</span> <span class="kt">Path</span><span class="o">,</span> <span class="n">args</span><span class="k">:</span> <span class="kt">String*</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">CommandResult</span><span class="o">]</span> <span class="k">=</span>
-    <span class="nv">IO</span><span class="o">.</span><span class="py">interruptible</span> <span class="o">{</span>
+    <span class="nv">IO</span><span class="o">.</span><span class="py">blocking</span> <span class="o">{</span>
       <span class="k">val</span> <span class="nv">commandArgs</span> <span class="k">=</span> <span class="nv">executable</span><span class="o">.</span><span class="py">toAbsolutePath</span><span class="o">.</span><span class="py">toString</span> <span class="o">+:</span> <span class="n">args</span>
-      <span class="k">val</span> <span class="nv">proc</span> <span class="k">=</span> <span class="nv">Runtime</span><span class="o">.</span><span class="py">getRuntime</span><span class="o">.</span><span class="py">exec</span><span class="o">(</span><span class="nv">commandArgs</span><span class="o">.</span><span class="py">toArray</span><span class="o">)</span>
-      <span class="k">try</span> <span class="o">{</span>
-        <span class="nc">CommandResult</span><span class="o">(</span>
-          <span class="n">exitCode</span> <span class="k">=</span> <span class="nv">proc</span><span class="o">.</span><span class="py">waitFor</span><span class="o">(),</span>
-          <span class="n">stdout</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="nv">proc</span><span class="o">.</span><span class="py">getInputStream</span><span class="o">.</span><span class="py">readAllBytes</span><span class="o">(),</span> <span class="nc">UTF_8</span><span class="o">),</span>
-          <span class="n">stderr</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="nv">proc</span><span class="o">.</span><span class="py">getErrorStream</span><span class="o">.</span><span class="py">readAllBytes</span><span class="o">(),</span> <span class="nc">UTF_8</span><span class="o">)</span>
-        <span class="o">)</span>
-      <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+      <span class="nv">Runtime</span><span class="o">.</span><span class="py">getRuntime</span><span class="o">.</span><span class="py">exec</span><span class="o">(</span><span class="nv">commandArgs</span><span class="o">.</span><span class="py">toArray</span><span class="o">)</span>
+    <span class="o">}</span>
+    <span class="c1">// A `bracket` works like `try-with-resources` or `try-finally`</span>
+    <span class="o">.</span><span class="py">bracket</span> <span class="o">{</span> <span class="n">proc</span> <span class="k">=&gt;</span>
+      <span class="c1">// These aren't "interruptible", what actually interrupts them </span>
+      <span class="c1">// is proc.destroy(); and due to how they are used, it's better</span>
+      <span class="c1">// to not declare them as interruptible, as to not mislead:</span>
+      <span class="k">val</span> <span class="nv">collectStdout</span> <span class="k">=</span> <span class="nv">IO</span><span class="o">.</span><span class="py">blocking</span> <span class="o">{</span>
+        <span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="nv">proc</span><span class="o">.</span><span class="py">getInputStream</span><span class="o">.</span><span class="py">readAllBytes</span><span class="o">(),</span> <span class="nc">UTF_8</span><span class="o">)</span>
+      <span class="o">}</span>
+      <span class="k">val</span> <span class="nv">collectStderr</span> <span class="k">=</span> <span class="nv">IO</span><span class="o">.</span><span class="py">blocking</span> <span class="o">{</span>
+        <span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="nv">proc</span><span class="o">.</span><span class="py">getErrorStream</span><span class="o">.</span><span class="py">readAllBytes</span><span class="o">(),</span> <span class="nc">UTF_8</span><span class="o">)</span>
+      <span class="o">}</span>
+      <span class="c1">// This is actually cancellable via thread interruption</span>
+      <span class="k">val</span> <span class="nv">awaitReturnCode</span> <span class="k">=</span> <span class="nv">IO</span><span class="o">.</span><span class="py">interruptible</span> <span class="o">{</span> 
+        <span class="nv">proc</span><span class="o">.</span><span class="py">waitFor</span><span class="o">()</span>
+      <span class="o">}</span>
+      <span class="k">for</span> <span class="o">{</span>
+        <span class="c1">// Starts jobs asynchronously</span>
+        <span class="n">stdoutFiber</span> <span class="k">&lt;-</span> <span class="nv">collectStdout</span><span class="o">.</span><span class="py">start</span>
+        <span class="n">stderrFiber</span> <span class="k">&lt;-</span> <span class="nv">collectStderr</span><span class="o">.</span><span class="py">start</span>
+        <span class="c1">// Waits for process to complete</span>
+        <span class="n">code</span> <span class="k">&lt;-</span> <span class="n">awaitReturnCode</span>
+        <span class="c1">// Reads output</span>
+        <span class="n">stdout</span> <span class="k">&lt;-</span> <span class="nv">stdoutFiber</span><span class="o">.</span><span class="py">joinWithNever</span>
+        <span class="n">stderr</span> <span class="k">&lt;-</span> <span class="nv">stderrFiber</span><span class="o">.</span><span class="py">joinWithNever</span>
+      <span class="o">}</span> <span class="k">yield</span> <span class="o">{</span>
+        <span class="nc">CommandResult</span><span class="o">(</span><span class="n">code</span><span class="o">,</span> <span class="n">stdout</span><span class="o">,</span> <span class="n">stderr</span><span class="o">)</span>
+      <span class="o">}</span>
+    <span class="o">}</span> <span class="o">{</span> <span class="n">proc</span> <span class="k">=&gt;</span>
+      <span class="nv">IO</span><span class="o">.</span><span class="py">blocking</span> <span class="o">{</span>
+        <span class="nf">println</span><span class="o">(</span><span class="s">"Destroying process"</span><span class="o">)</span>
         <span class="nv">proc</span><span class="o">.</span><span class="py">destroy</span><span class="o">()</span>
       <span class="o">}</span>
     <span class="o">}</span>
 
-  <span class="cm">/** Executes shell commands.
-    *
-    * WARN: command arguments need be given explicitly because
-    * they need to be properly escaped.
-    */</span>
   <span class="k">def</span> <span class="nf">executeShellCommand</span><span class="o">(</span><span class="n">command</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">args</span><span class="k">:</span> <span class="kt">String*</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">CommandResult</span><span class="o">]</span> <span class="k">=</span>
     <span class="nf">executeCommand</span><span class="o">(</span>
       <span class="nv">Path</span><span class="o">.</span><span class="py">of</span><span class="o">(</span><span class="s">"/bin/sh"</span><span class="o">),</span>
@@ -491,7 +488,7 @@ brew <span class="nb">install </span>openjdk@17
 <span class="k">object</span> <span class="nc">Main</span> <span class="k">extends</span> <span class="nc">IOApp</span> <span class="o">{</span>
   <span class="k">def</span> <span class="nf">run</span><span class="o">(</span><span class="n">args</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">ExitCode</span><span class="o">]</span> <span class="k">=</span>
     <span class="k">for</span> <span class="o">{</span>
-      <span class="n">r</span> <span class="k">&lt;-</span> <span class="nv">OSUtils</span><span class="o">.</span><span class="py">executeShellCommand</span><span class="o">(</span><span class="s">"ls"</span><span class="o">,</span> <span class="s">"-alh"</span><span class="o">)</span>
+      <span class="n">r</span> <span class="k">&lt;-</span> <span class="nv">OSUtils</span><span class="o">.</span><span class="py">executeShellCommand</span><span class="o">(</span><span class="s">"ls"</span><span class="o">,</span> <span class="s">"-alh"</span><span class="o">).</span><span class="py">timeout</span><span class="o">(</span><span class="mf">3.</span><span class="n">seconds</span><span class="o">)</span>
       <span class="k">_</span> <span class="k">&lt;-</span> <span class="nv">IO</span><span class="o">.</span><span class="py">print</span><span class="o">(</span><span class="nv">r</span><span class="o">.</span><span class="py">stdout</span><span class="o">)</span>
       <span class="k">_</span> <span class="k">&lt;-</span> <span class="nv">IO</span><span class="o">.</span><span class="py">print</span><span class="o">(</span><span class="nv">r</span><span class="o">.</span><span class="py">stderr</span><span class="o">)</span>
     <span class="o">}</span> <span class="k">yield</span> <span class="nc">ExitCode</span><span class="o">(</span><span class="nv">r</span><span class="o">.</span><span class="py">exitCode</span><span class="o">)</span>
@@ -522,10 +519,10 @@ brew <span class="nb">install </span>openjdk@17
 <span class="c"># And then run it directly</span>
 ./runCommand.scala
 </code></pre></div></div>
-      <h3 id="handling-timeouts-in-scala">
+      <h3 id="notes-on-concurrency-in-scala">
         
         
-          Handling Timeouts in Scala <a href="#handling-timeouts-in-scala" class="anchor">#</a>
+          Notes on concurrency in Scala <a href="#notes-on-concurrency-in-scala" class="anchor">#</a>
         
         
       </h3>
@@ -544,7 +541,9 @@ brew <span class="nb">install </span>openjdk@17
 <span class="o">}</span> <span class="k">yield</span> <span class="nc">ExitCode</span><span class="o">(</span><span class="nv">r</span><span class="o">.</span><span class="py">exitCode</span><span class="o">)</span>
 </code></pre></div></div>
 
-<p>This works because we’ve used the <code class="language-plaintext highlighter-rouge">IO.interruptible</code> builder in <code class="language-plaintext highlighter-rouge">executeCommand</code>, which knows how to cancel the running task via actual thread interruption. And <code class="language-plaintext highlighter-rouge">timeout</code> creates a concurrent race condition, cancelling the running process after the given timespan.</p>
+<p>This works because we’ve used <code class="language-plaintext highlighter-rouge">IO.bracket</code> and the <code class="language-plaintext highlighter-rouge">IO.interruptible</code> builder in <code class="language-plaintext highlighter-rouge">executeCommand</code>, which knows how to cancel the running task via actual thread interruption. And <code class="language-plaintext highlighter-rouge">timeout</code> creates a concurrent race condition, cancelling the running process after the given timespan. The Cats-Effect library is designed for safe resource acquisition and release, having cancellation baked in.</p>
+
+<p>Forking concurrent “fibers” happens, in this sample, via <code class="language-plaintext highlighter-rouge">.start</code>. At the moment of writing, forked fibers aren’t getting cancelled when the main fiber is cancelled. This is because Cats-Effect has <a href="https://typelevel.org/cats-effect/docs/std/supervisor">other mechanisms</a> for dealing with scopes, and <code class="language-plaintext highlighter-rouge">.start</code> is considered to be lower-level. But it was appropriate for this sample.</p>
       <h2 id="kotlin">
         
         
@@ -564,11 +563,15 @@ brew <span class="nb">install </span>openjdk@17
 <span class="c1">//DEPS org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4</span>
 
 <span class="k">import</span> <span class="nn">kotlinx.coroutines.Dispatchers</span>
+<span class="k">import</span> <span class="nn">kotlinx.coroutines.async</span>
 <span class="k">import</span> <span class="nn">kotlinx.coroutines.runBlocking</span>
 <span class="k">import</span> <span class="nn">kotlinx.coroutines.runInterruptible</span>
+<span class="k">import</span> <span class="nn">kotlinx.coroutines.withContext</span>
+<span class="k">import</span> <span class="nn">kotlinx.coroutines.withTimeout</span>
 <span class="k">import</span> <span class="nn">org.apache.commons.text.StringEscapeUtils</span>
 <span class="k">import</span> <span class="nn">java.nio.charset.StandardCharsets.UTF_8</span>
 <span class="k">import</span> <span class="nn">java.nio.file.Path</span>
+<span class="k">import</span> <span class="nn">kotlin.time.Duration.Companion.seconds</span>
 
 <span class="kd">data class</span> <span class="nc">CommandResult</span><span class="p">(</span>
   <span class="kd">val</span> <span class="py">exitCode</span><span class="p">:</span> <span class="nc">Int</span><span class="p">,</span>
@@ -587,16 +590,34 @@ brew <span class="nb">install </span>openjdk@17
   <span class="n">executable</span><span class="p">:</span> <span class="nc">Path</span><span class="p">,</span> 
   <span class="k">vararg</span> <span class="n">args</span><span class="p">:</span> <span class="nc">String</span>
 <span class="p">):</span> <span class="nc">CommandResult</span> <span class="p">=</span>
-  <span class="nf">runInterruptible</span><span class="p">(</span><span class="nc">Dispatchers</span><span class="p">.</span><span class="nc">IO</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Blocking I/O should use threads designated for I/O</span>
+  <span class="nf">withContext</span><span class="p">(</span><span class="nc">Dispatchers</span><span class="p">.</span><span class="nc">IO</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">val</span> <span class="py">cmdArgs</span> <span class="p">=</span> <span class="nf">listOf</span><span class="p">(</span><span class="n">executable</span><span class="p">.</span><span class="nf">toAbsolutePath</span><span class="p">().</span><span class="nf">toString</span><span class="p">())</span> <span class="p">+</span> <span class="n">args</span>
     <span class="kd">val</span> <span class="py">proc</span> <span class="p">=</span> <span class="nc">Runtime</span><span class="p">.</span><span class="nf">getRuntime</span><span class="p">().</span><span class="nf">exec</span><span class="p">(</span><span class="n">cmdArgs</span><span class="p">.</span><span class="nf">toTypedArray</span><span class="p">())</span>
     <span class="k">try</span> <span class="p">{</span>
+      <span class="c1">// Concurrent execution ensures the stream's buffer doesn't</span>
+      <span class="c1">// block processing when overflowing</span>
+      <span class="kd">val</span> <span class="py">stdout</span> <span class="p">=</span> <span class="nf">async</span> <span class="p">{</span>
+        <span class="nf">runInterruptible</span><span class="p">(</span><span class="nc">Dispatchers</span><span class="p">.</span><span class="nc">IO</span><span class="p">)</span> <span class="p">{</span>
+          <span class="c1">// That `InputStream.read` doesn't listen to thread interruption</span>
+          <span class="c1">// signals; but for future development it doesn't hurt</span>
+          <span class="nc">String</span><span class="p">(</span><span class="n">proc</span><span class="p">.</span><span class="n">inputStream</span><span class="p">.</span><span class="nf">readAllBytes</span><span class="p">(),</span> <span class="nc">UTF_8</span><span class="p">)</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="kd">val</span> <span class="py">stderr</span> <span class="p">=</span> <span class="nf">async</span> <span class="p">{</span>
+        <span class="nf">runInterruptible</span><span class="p">(</span><span class="nc">Dispatchers</span><span class="p">.</span><span class="nc">IO</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nc">String</span><span class="p">(</span><span class="n">proc</span><span class="p">.</span><span class="n">errorStream</span><span class="p">.</span><span class="nf">readAllBytes</span><span class="p">(),</span> <span class="nc">UTF_8</span><span class="p">)</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
       <span class="nc">CommandResult</span><span class="p">(</span>
-        <span class="n">exitCode</span> <span class="p">=</span> <span class="n">proc</span><span class="p">.</span><span class="nf">waitFor</span><span class="p">(),</span>
-        <span class="n">stdout</span> <span class="p">=</span> <span class="nc">String</span><span class="p">(</span><span class="n">proc</span><span class="p">.</span><span class="nf">getInputStream</span><span class="p">().</span><span class="nf">readAllBytes</span><span class="p">(),</span> <span class="nc">UTF_8</span><span class="p">),</span>
-        <span class="n">stderr</span> <span class="p">=</span> <span class="nc">String</span><span class="p">(</span><span class="n">proc</span><span class="p">.</span><span class="nf">getErrorStream</span><span class="p">().</span><span class="nf">readAllBytes</span><span class="p">(),</span> <span class="nc">UTF_8</span><span class="p">)</span>
+        <span class="n">exitCode</span> <span class="p">=</span> <span class="nf">runInterruptible</span><span class="p">(</span><span class="nc">Dispatchers</span><span class="p">.</span><span class="nc">IO</span><span class="p">)</span> <span class="p">{</span> <span class="n">proc</span><span class="p">.</span><span class="nf">waitFor</span><span class="p">()</span> <span class="p">},</span>
+        <span class="n">stdout</span> <span class="p">=</span> <span class="n">stdout</span><span class="p">.</span><span class="nf">await</span><span class="p">(),</span>
+        <span class="n">stderr</span> <span class="p">=</span> <span class="n">stderr</span><span class="p">.</span><span class="nf">await</span><span class="p">()</span>
       <span class="p">)</span>
     <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+      <span class="c1">// This interrupts the streams as well, so it terminates </span>
+      <span class="c1">// async execution, even if thread interruption for that </span>
+      <span class="c1">// InputStream doesn't work</span>
       <span class="n">proc</span><span class="p">.</span><span class="nf">destroy</span><span class="p">()</span>
     <span class="p">}</span>
   <span class="p">}</span>
@@ -619,8 +640,11 @@ brew <span class="nb">install </span>openjdk@17
       <span class="p">.</span><span class="nf">joinToString</span><span class="p">(</span><span class="s">" "</span><span class="p">)</span>
   <span class="p">)</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">=</span> <span class="nf">runBlocking</span> <span class="p">{</span>
-  <span class="kd">val</span> <span class="py">r</span> <span class="p">=</span> <span class="nf">executeShellCommand</span><span class="p">(</span><span class="s">"ls"</span><span class="p">,</span> <span class="s">"-alh"</span><span class="p">)</span>
+<span class="k">fun</span> <span class="nf">main</span><span class="p">(</span><span class="k">vararg</span> <span class="n">args</span><span class="p">:</span> <span class="nc">String</span><span class="p">)</span> <span class="p">=</span> <span class="nf">runBlocking</span> <span class="p">{</span>
+  <span class="c1">// Dealing with timeouts</span>
+  <span class="kd">val</span> <span class="py">r</span> <span class="p">=</span> <span class="nf">withTimeout</span><span class="p">(</span><span class="mi">3</span><span class="p">.</span><span class="n">seconds</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">executeShellCommand</span><span class="p">(</span><span class="s">"ls"</span><span class="p">,</span> <span class="s">"-alh"</span><span class="p">)</span>
+  <span class="p">}</span>
   <span class="nc">System</span><span class="p">.</span><span class="k">out</span><span class="p">.</span><span class="nf">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">stdout</span><span class="p">)</span>
   <span class="nc">System</span><span class="p">.</span><span class="n">err</span><span class="p">.</span><span class="nf">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">stderr</span><span class="p">)</span>
   <span class="nc">System</span><span class="p">.</span><span class="nf">exit</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">exitCode</span><span class="p">)</span>
@@ -646,10 +670,10 @@ brew <span class="nb">install </span>openjdk@17
 <span class="c"># And then run it directly</span>
 ./runCommand.kt
 </code></pre></div></div>
-      <h3 id="handling-timeouts-in-kotlin">
+      <h3 id="notes-on-concurrency-in-kotlin">
         
         
-          Handling Timeouts in Kotlin <a href="#handling-timeouts-in-kotlin" class="anchor">#</a>
+          Notes on concurrency in Kotlin <a href="#notes-on-concurrency-in-kotlin" class="anchor">#</a>
         
         
       </h3>
@@ -657,7 +681,7 @@ brew <span class="nb">install </span>openjdk@17
 
 <p>Kotlin’s coroutine jobs are <a href="https://kotlinlang.org/docs/cancellation-and-timeouts.html">cancellable</a>. The <a href="https://github.com/Kotlin/kotlinx.coroutines/issues/1947">runInterruptible</a> function transforms regular blocking code into a suspending function that can be cancelled, with the cancellation signal being converted into thread interruption. And by explicitly specifying <code class="language-plaintext highlighter-rouge">Dispatchers.IO</code> as the “coroutine context”, we also require the execution to happen on the thread-pool designated for blocking I/O tasks.</p>
 
-<p>So installing timeouts works out of the box:</p>
+<p>Due to use of the API, and due to the <a href="https://www.youtube.com/watch?v=Mj5P47F6nJg">structured concurrency</a> design, installing timeouts works as expected:</p>
 
 <div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">kotlinx.coroutines.withTimeout</span>
 <span class="k">import</span> <span class="nn">kotlin.time.Duration.Companion.seconds</span>
@@ -676,8 +700,8 @@ brew <span class="nb">install </span>openjdk@17
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2022-10-03T16:15:30+0300">
-        Updated: October 3, 2022
+    <time itemprop="dateModified" content="2022-10-05T09:15:59+0300">
+        Updated: October 5, 2022
     </time>
     
       | Written by <a href="https://alexn.org/about/#alexelcu" itemprop="url" rel="author">Alexandru Nedelcu</a>
@@ -786,12 +810,12 @@ brew <span class="nb">install </span>openjdk@17
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202210031316" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210031316" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202210031316" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202210031316" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202210050618" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210050618" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202210050618" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202210050618" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202210031316" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202210050618" type="text/javascript"></script>
 
 
 <script type="text/javascript">
