@@ -2,7 +2,7 @@
 title: "Execute Shell Commands in Java/Scala/Kotlin"
 image: /assets/media/articles/2022-exec-shell-command.png
 date: 2022-10-03 08:13:13 +03:00
-last_modified_at: 2022-10-05 09:15:59 +03:00
+last_modified_at: 2022-10-05 18:34:13 +03:00
 tags:
   - Snippet
   - Java
@@ -412,19 +412,19 @@ suspend fun executeCommand(
       // Concurrent execution ensures the stream's buffer doesn't
       // block processing when overflowing
       val stdout = async {
-        runInterruptible(Dispatchers.IO) {
+        runInterruptible {
           // That `InputStream.read` doesn't listen to thread interruption
           // signals; but for future development it doesn't hurt
           String(proc.inputStream.readAllBytes(), UTF_8)
         }
       }
       val stderr = async {
-        runInterruptible(Dispatchers.IO) {
+        runInterruptible {
           String(proc.errorStream.readAllBytes(), UTF_8)
         }
       }
       CommandResult(
-        exitCode = runInterruptible(Dispatchers.IO) { proc.waitFor() },
+        exitCode = runInterruptible { proc.waitFor() },
         stdout = stdout.await(),
         stderr = stderr.await()
       )
