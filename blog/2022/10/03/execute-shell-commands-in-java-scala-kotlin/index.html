@@ -19,14 +19,14 @@
     <meta content="The following describes snippets for executing shell commands, in Java, Scala, and Kotlin, using standard functionality. It’s also useful to compare Java vs Scala vs Kotlin for this particular problem." property="og:description">
     <meta content="https://alexn.org/blog/2022/10/03/execute-shell-commands-in-java-scala-kotlin/" property="og:url">
     <meta content="2022-10-03T05:13:13+00:00" property="article:published_time">
-    <meta content="2022-10-05T06:15:59+00:00" property="article:modified_time">
+    <meta content="2022-10-05T15:34:13+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210050618" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210050618" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210051536" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210051536" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210050618">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210051536">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Execute Shell Commands in Java/Scala/Kotlin">
@@ -115,7 +115,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-exec-shell-command.png" />
-          <img src="/assets/media/articles/2022-exec-shell-command.png?202210050618" width="2024" height="1012" alt="" />
+          <img src="/assets/media/articles/2022-exec-shell-command.png?202210051536" width="2024" height="1012" alt="" />
           
         </figure>
         
@@ -598,19 +598,19 @@ brew <span class="nb">install </span>openjdk@17
       <span class="c1">// Concurrent execution ensures the stream's buffer doesn't</span>
       <span class="c1">// block processing when overflowing</span>
       <span class="kd">val</span> <span class="py">stdout</span> <span class="p">=</span> <span class="nf">async</span> <span class="p">{</span>
-        <span class="nf">runInterruptible</span><span class="p">(</span><span class="nc">Dispatchers</span><span class="p">.</span><span class="nc">IO</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nf">runInterruptible</span> <span class="p">{</span>
           <span class="c1">// That `InputStream.read` doesn't listen to thread interruption</span>
           <span class="c1">// signals; but for future development it doesn't hurt</span>
           <span class="nc">String</span><span class="p">(</span><span class="n">proc</span><span class="p">.</span><span class="n">inputStream</span><span class="p">.</span><span class="nf">readAllBytes</span><span class="p">(),</span> <span class="nc">UTF_8</span><span class="p">)</span>
         <span class="p">}</span>
       <span class="p">}</span>
       <span class="kd">val</span> <span class="py">stderr</span> <span class="p">=</span> <span class="nf">async</span> <span class="p">{</span>
-        <span class="nf">runInterruptible</span><span class="p">(</span><span class="nc">Dispatchers</span><span class="p">.</span><span class="nc">IO</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nf">runInterruptible</span> <span class="p">{</span>
           <span class="nc">String</span><span class="p">(</span><span class="n">proc</span><span class="p">.</span><span class="n">errorStream</span><span class="p">.</span><span class="nf">readAllBytes</span><span class="p">(),</span> <span class="nc">UTF_8</span><span class="p">)</span>
         <span class="p">}</span>
       <span class="p">}</span>
       <span class="nc">CommandResult</span><span class="p">(</span>
-        <span class="n">exitCode</span> <span class="p">=</span> <span class="nf">runInterruptible</span><span class="p">(</span><span class="nc">Dispatchers</span><span class="p">.</span><span class="nc">IO</span><span class="p">)</span> <span class="p">{</span> <span class="n">proc</span><span class="p">.</span><span class="nf">waitFor</span><span class="p">()</span> <span class="p">},</span>
+        <span class="n">exitCode</span> <span class="p">=</span> <span class="nf">runInterruptible</span> <span class="p">{</span> <span class="n">proc</span><span class="p">.</span><span class="nf">waitFor</span><span class="p">()</span> <span class="p">},</span>
         <span class="n">stdout</span> <span class="p">=</span> <span class="n">stdout</span><span class="p">.</span><span class="nf">await</span><span class="p">(),</span>
         <span class="n">stderr</span> <span class="p">=</span> <span class="n">stderr</span><span class="p">.</span><span class="nf">await</span><span class="p">()</span>
       <span class="p">)</span>
@@ -700,7 +700,7 @@ brew <span class="nb">install </span>openjdk@17
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2022-10-05T09:15:59+0300">
+    <time itemprop="dateModified" content="2022-10-05T18:34:13+0300">
         Updated: October 5, 2022
     </time>
     
@@ -810,12 +810,12 @@ brew <span class="nb">install </span>openjdk@17
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202210050618" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210050618" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202210050618" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202210050618" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202210051536" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210051536" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202210051536" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202210051536" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202210050618" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202210051536" type="text/javascript"></script>
 
 
 <script type="text/javascript">
