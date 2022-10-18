@@ -21,11 +21,11 @@
     <meta content="2022-10-13T00:00:00+00:00" property="article:published_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-effect-systems.png?202210180931" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-effect-systems.png?202210180931" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-effect-systems.png?202210180939" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-effect-systems.png?202210180939" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-effect-systems.png?202210180931">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-effect-systems.png?202210180939">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="The case against Effect Systems (e.g., the IO data type)">
@@ -114,7 +114,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-effect-systems.png" />
-          <img src="/assets/media/articles/2022-effect-systems.png?202210180931" width="2428" height="1652" alt="" />
+          <img src="/assets/media/articles/2022-effect-systems.png?202210180939" width="2428" height="1652" alt="" />
           
         </figure>
         
@@ -176,7 +176,7 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
 <figure class="video">
   
   <a href="https://www.youtube.com/watch?v=qgfCmQ-2tW0&amp;autoplay=1" target="_blank" class="youtube-play-link" title="Go to YouTube video">
-    <img src="https://img.youtube.com/vi/qgfCmQ-2tW0/maxresdefault.jpg?202210180931" alt="" class="play-thumb" width="1280" height="720" />
+    <img src="https://img.youtube.com/vi/qgfCmQ-2tW0/maxresdefault.jpg?202210180939" alt="" class="play-thumb" width="1280" height="720" />
   </a>
   <figcaption>
     <a href="https://www.youtube.com/watch?v=qgfCmQ-2tW0&amp;autoplay=1" target="_blank">
@@ -200,9 +200,9 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
 
 <p>If we are to describe asynchronous computations with a type, it would go something like this:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">type</span> <span class="kt">Callback</span><span class="o">[</span><span class="kt">-A</span><span class="o">]</span> <span class="k">=</span> <span class="n">A</span> <span class="k">=&gt;</span> <span class="nc">Unit</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">type</span> <span class="kt">Callback</span><span class="o">[</span><span class="kt">-A</span><span class="o">]</span> <span class="k">=</span> <span class="o">(</span><span class="n">A</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Unit</span>
 
-<span class="k">type</span> <span class="kt">Async</span><span class="o">[</span><span class="kt">+A</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Callback</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="nc">Unit</span>
+<span class="k">type</span> <span class="kt">Async</span><span class="o">[</span><span class="kt">+A</span><span class="o">]</span> <span class="k">=</span> <span class="o">(</span><span class="nc">Callback</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Unit</span>
 </code></pre></div></div>
 
 <p>So, an async computation is something that executes <em>somewhere else</em>, other than the current thread, so it could be on another thread, or another process, or on another machine on the network.</p>
@@ -244,7 +244,9 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
 
 <p>In Scala, the answer has been the introduction of <code class="language-plaintext highlighter-rouge">Future</code>/<code class="language-plaintext highlighter-rouge">Promise</code>, which is a “monadic” type, implementing a <code class="language-plaintext highlighter-rouge">flatMap</code>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">foo</span><span class="o">()</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Scala code</span>
+
+<span class="k">def</span> <span class="nf">foo</span><span class="o">()</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
 <span class="c1">//...</span>
 
 <span class="nf">foo</span><span class="o">().</span><span class="py">flatMap</span> <span class="o">{</span> <span class="n">x</span> <span class="k">=&gt;</span>
@@ -263,7 +265,8 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
 
 <p>Which kind of looks like our original, imperative, synchronous program. But, here be dragons — what happens if we invoke Future-driven functions outside that for-expression?</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">val</span> <span class="nv">b</span> <span class="k">=</span> <span class="nf">baz</span><span class="o">()</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Scala code</span>
+<span class="k">val</span> <span class="nv">b</span> <span class="k">=</span> <span class="nf">baz</span><span class="o">()</span>
 <span class="k">for</span> <span class="o">{</span>
   <span class="n">x</span> <span class="k">&lt;-</span> <span class="nf">foo</span><span class="o">()</span>
   <span class="n">y</span> <span class="k">&lt;-</span> <span class="nf">bar</span><span class="o">(</span><span class="n">x</span><span class="o">)</span>
@@ -276,7 +279,8 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
 
 <p>Note that we were careful waiting on the result of <code class="language-plaintext highlighter-rouge">baz()</code>. What happens if we forget about it?</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">val</span> <span class="nv">b</span> <span class="k">=</span> <span class="nf">baz</span><span class="o">()</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Scala code</span>
+<span class="k">val</span> <span class="nv">b</span> <span class="k">=</span> <span class="nf">baz</span><span class="o">()</span>
 <span class="k">for</span> <span class="o">{</span>
   <span class="n">x</span> <span class="k">&lt;-</span> <span class="nf">foo</span><span class="o">()</span>
   <span class="n">y</span> <span class="k">&lt;-</span> <span class="nf">bar</span><span class="o">(</span><span class="n">x</span><span class="o">)</span>
@@ -328,7 +332,8 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
 
 <p>Our <code class="language-plaintext highlighter-rouge">IO</code>-driven programming is still a sequence of steps. We may try to describe pure data structures that get interpreted later, but that seldom happens. In our FP programs, what actually happens in practice is still imperative in nature:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">for</span> <span class="o">{</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Scala code</span>
+<span class="k">for</span> <span class="o">{</span>
   <span class="n">fryingPan</span> <span class="k">&lt;-</span> <span class="nf">takeFryingPan</span><span class="o">()</span>
   <span class="n">batter</span> <span class="k">&lt;-</span> <span class="nf">mix</span><span class="o">(</span><span class="n">eggs</span><span class="o">,</span> <span class="n">milk</span><span class="o">,</span> <span class="n">flour</span><span class="o">,</span> <span class="n">sugar</span><span class="o">,</span> <span class="n">bakingPowder</span><span class="o">,</span> <span class="n">salt</span><span class="o">)</span>
   <span class="k">_</span> <span class="k">&lt;-</span> <span class="nv">fryingPan</span><span class="o">.</span><span class="py">pour</span><span class="o">(</span><span class="n">oil</span><span class="o">)</span>
@@ -361,7 +366,8 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
 
 <p>So our Scala programs can look like this:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">for</span> <span class="o">{</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Scala code</span>
+<span class="k">for</span> <span class="o">{</span>
   <span class="n">x</span> <span class="k">&lt;-</span> <span class="nf">foo</span><span class="o">()</span>
   <span class="n">y</span> <span class="k">&lt;-</span> <span class="nf">bar</span><span class="o">(</span><span class="n">x</span><span class="o">)</span>
   <span class="k">_</span> <span class="k">&lt;-</span> <span class="nf">baz</span><span class="o">()</span>
@@ -371,7 +377,8 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
 
 <p>This is similar to what we did with <code class="language-plaintext highlighter-rouge">Future</code>. In Scala this syntactic sugar is more generic, driven by monadic types, because in languages such as C# or TypeScript/JavaScript, we have special <code class="language-plaintext highlighter-rouge">async</code>/<code class="language-plaintext highlighter-rouge">await</code> syntax that only works with <code class="language-plaintext highlighter-rouge">Future</code>/<code class="language-plaintext highlighter-rouge">Promise</code>/<code class="language-plaintext highlighter-rouge">Task</code> data types and that looks like this:</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">async</span> <span class="kd">function</span> <span class="nx">doStuff</span><span class="p">()</span> <span class="p">{</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// JavaScript code</span>
+<span class="k">async</span> <span class="kd">function</span> <span class="nx">doStuff</span><span class="p">()</span> <span class="p">{</span>
   <span class="kd">const</span> <span class="nx">x</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">foo</span><span class="p">()</span>
   <span class="kd">const</span> <span class="nx">y</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">bar</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
   <span class="k">await</span> <span class="nx">baz</span><span class="p">()</span> <span class="c1">// better not forget the `await` 😉</span>
@@ -382,7 +389,8 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
 
 <p>Call-sites of functions returning <code class="language-plaintext highlighter-rouge">IO</code>, however, are <a href="https://en.wikipedia.org/wiki/Referential_transparency">referentially transparent</a>. And it’s important to contrast with <code class="language-plaintext highlighter-rouge">Future/Promise</code>. Take for example this program:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">for</span> <span class="o">{</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Scala code</span>
+<span class="k">for</span> <span class="o">{</span>
   <span class="n">x</span> <span class="k">&lt;-</span> <span class="nf">fireRocketsToMars</span><span class="o">()</span>
   <span class="n">y</span> <span class="k">&lt;-</span> <span class="nf">fireRocketsToMars</span><span class="o">()</span>
 <span class="o">}</span> <span class="k">yield</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
@@ -407,16 +415,18 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
 
 <p>What’s the difference of behavior between <code class="language-plaintext highlighter-rouge">IO</code> and <code class="language-plaintext highlighter-rouge">Future</code> in this case?</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">fireRocketsToMars</span><span class="o">()</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Scala code</span>
 
+<span class="k">def</span> <span class="nf">fireRocketsToMars</span><span class="o">()</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span>
 <span class="c1">// ... versus ...</span>
-
 <span class="k">def</span> <span class="nf">fireRocketsToMars</span><span class="o">()</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span>
 </code></pre></div></div>
 
 <p>Well, with <code class="language-plaintext highlighter-rouge">IO</code> the behavior of the program is the same, in all 3 cases, whereas with <code class="language-plaintext highlighter-rouge">Future</code> the behavior changes. With <code class="language-plaintext highlighter-rouge">Future</code> we can talk of 3 different programs with wildly different behavior. And that’s not good, as it can be counter-intuitive, being a source of bugs.  <code class="language-plaintext highlighter-rouge">IO</code> in this case behaves as it should, although in the context of Scala, <code class="language-plaintext highlighter-rouge">IO</code> isn’t without fault either.</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// No concurrent execution here, but we never use this value, </span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Scala code</span>
+
+<span class="c1">// No concurrent execution here, but we never use this value, </span>
 <span class="c1">// so this is a hard to trace no-op:</span>
 <span class="k">val</span> <span class="nv">bazJob</span> <span class="k">=</span> <span class="nf">baz</span><span class="o">()</span>
 <span class="k">for</span> <span class="o">{</span>
@@ -463,7 +473,9 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
 
 <p>To wit, we started from this:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">fireRocketsToMars</span><span class="o">()</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Scala code</span>
+
+<span class="k">def</span> <span class="nf">fireRocketsToMars</span><span class="o">()</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span>
 <span class="c1">// ... versus ...</span>
 <span class="k">def</span> <span class="nf">fireRocketsToMars</span><span class="o">()</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span>
 </code></pre></div></div>
@@ -558,7 +570,8 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
 
 <p>In the context of concurrency, this should sound very familiar. With classical Java, concurrent execution would look like this:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="kd">final</span> <span class="kt">var</span> <span class="n">mixJob</span> <span class="o">=</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Java code</span>
+<span class="kd">final</span> <span class="kt">var</span> <span class="n">mixJob</span> <span class="o">=</span>
   <span class="n">ec</span><span class="o">.</span><span class="na">submit</span><span class="o">(()</span> <span class="o">-&gt;</span> 
     <span class="n">mix</span><span class="o">(</span><span class="n">eggs</span><span class="o">,</span> <span class="n">milk</span><span class="o">,</span> <span class="n">flour</span><span class="o">,</span> <span class="n">sugar</span><span class="o">,</span> <span class="n">bakingPowder</span><span class="o">,</span> <span class="n">salt</span><span class="o">)</span>
   <span class="o">);</span>
@@ -594,7 +607,8 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
 
 <p>This is similar to the idea behind C++’s <a href="https://en.wikipedia.org/wiki/Resource_acquisition_is_initialization">RAII</a>.</p>
 
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nf">coroutineScope</span> <span class="p">{</span>
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Kotlin code</span>
+<span class="nf">coroutineScope</span> <span class="p">{</span>
   <span class="kd">val</span> <span class="py">mixJob</span> <span class="p">=</span> <span class="nf">async</span> <span class="p">{</span> 
     <span class="nf">mix</span><span class="p">(</span><span class="n">eggs</span><span class="p">,</span> <span class="n">milk</span><span class="p">,</span> <span class="n">flour</span><span class="p">,</span> <span class="n">sugar</span><span class="p">,</span> <span class="n">bakingPowder</span><span class="p">,</span> <span class="n">salt</span><span class="p">)</span> 
   <span class="p">}</span>
@@ -615,7 +629,8 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
 
 <p>Java 19 also introduced very experimental extensions for doing the same, in <a href="https://openjdk.org/jeps/428">JEP 428</a>:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">try</span> <span class="o">(</span><span class="kt">var</span> <span class="n">scope</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StructuredTaskScope</span><span class="o">.</span><span class="na">ShutdownOnFailure</span><span class="o">())</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Java code</span>
+<span class="k">try</span> <span class="o">(</span><span class="kt">var</span> <span class="n">scope</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StructuredTaskScope</span><span class="o">.</span><span class="na">ShutdownOnFailure</span><span class="o">())</span> <span class="o">{</span>
   <span class="kd">final</span> <span class="kt">var</span> <span class="n">mixJob</span> <span class="o">=</span>
     <span class="n">scope</span><span class="o">.</span><span class="na">submit</span><span class="o">(()</span> <span class="o">-&gt;</span> 
       <span class="n">mix</span><span class="o">(</span><span class="n">eggs</span><span class="o">,</span> <span class="n">milk</span><span class="o">,</span> <span class="n">flour</span><span class="o">,</span> <span class="n">sugar</span><span class="o">,</span> <span class="n">bakingPowder</span><span class="o">,</span> <span class="n">salt</span><span class="o">)</span>
@@ -642,7 +657,9 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
 
 <p>What would we do in Scala with Cats-Effect’s <code class="language-plaintext highlighter-rouge">IO</code>?</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// No-op</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Scala code</span>
+
+<span class="c1">// No-op</span>
 <span class="k">val</span> <span class="nv">mixJob</span> <span class="k">=</span>
   <span class="nf">mix</span><span class="o">(</span><span class="n">eggs</span><span class="o">,</span> <span class="n">milk</span><span class="o">,</span> <span class="n">flour</span><span class="o">,</span> <span class="n">sugar</span><span class="o">,</span> <span class="n">bakingPowder</span><span class="o">,</span> <span class="n">salt</span><span class="o">)</span>
 
@@ -667,7 +684,8 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
 
 <p>But with blocking I/O, in Java, you can make use of checked exceptions again. And for Kotlin, checkout <a href="https://arrow-kt.io/">Arrow</a>, see their article on <a href="https://arrow-kt.io/docs/effects/io/">why <code class="language-plaintext highlighter-rouge">suspend () -&gt; A</code> instead of <code class="language-plaintext highlighter-rouge">IO&lt;A&gt;</code></a>. If typed exceptions is your cup of team, here’s how that sample would look like:</p>
 
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">suspend</span> <span class="k">fun</span> <span class="nf">makePancakes</span><span class="p">():</span> <span class="nc">Either</span><span class="p">&lt;</span><span class="nc">SomeError</span><span class="p">,</span> <span class="nc">Pancakes</span><span class="p">&gt;</span> <span class="p">=</span>
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Kotlin code</span>
+<span class="k">suspend</span> <span class="k">fun</span> <span class="nf">makePancakes</span><span class="p">():</span> <span class="nc">Either</span><span class="p">&lt;</span><span class="nc">SomeError</span><span class="p">,</span> <span class="nc">Pancakes</span><span class="p">&gt;</span> <span class="p">=</span>
   <span class="nf">either</span> <span class="p">{</span>
     <span class="kd">val</span> <span class="py">fryingPan</span> <span class="p">=</span> <span class="nf">takeFryingPan</span><span class="p">().</span><span class="nf">bind</span><span class="p">()</span>
     <span class="kd">val</span> <span class="py">batter</span> <span class="p">=</span> <span class="nf">mix</span><span class="p">(</span><span class="n">eggs</span><span class="p">,</span> <span class="n">milk</span><span class="p">,</span> <span class="n">flour</span><span class="p">,</span> <span class="n">sugar</span><span class="p">,</span> <span class="n">bakingPowder</span><span class="p">,</span> <span class="n">salt</span><span class="p">).</span><span class="nf">bind</span><span class="p">()</span>
@@ -680,7 +698,8 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
 
 <p>For another more real use-case, here’s a snippet from my own <a href="https://github.com/alexandru/github-webhook-listener/blob/v2.1.2/src/main/kotlin/org/alexn/hook/Server.kt#L85">personal project</a>:</p>
 
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nf">either</span> <span class="p">{</span>
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Kotlin code</span>
+<span class="nf">either</span> <span class="p">{</span>
     <span class="kd">val</span> <span class="py">project</span> <span class="p">=</span> <span class="nc">Either</span>
         <span class="p">.</span><span class="nf">fromNullable</span><span class="p">(</span><span class="n">config</span><span class="p">.</span><span class="n">projects</span><span class="p">[</span><span class="n">projectKey</span><span class="p">])</span>
         <span class="p">.</span><span class="nf">mapLeft</span> <span class="p">{</span> <span class="nc">RequestError</span><span class="p">.</span><span class="nc">NotFound</span><span class="p">(</span><span class="s">"Project `$projectKey` does not exist"</span><span class="p">)</span> <span class="p">}</span>
@@ -855,12 +874,12 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202210180931" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210180931" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202210180931" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202210180931" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202210180939" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210180939" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202210180939" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202210180939" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202210180931" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202210180939" type="text/javascript"></script>
 
 
 <script type="text/javascript">
