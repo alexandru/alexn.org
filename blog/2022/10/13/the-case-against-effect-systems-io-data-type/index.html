@@ -21,11 +21,11 @@
     <meta content="2022-10-13T00:00:00+00:00" property="article:published_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-effect-systems.png?202210180939" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-effect-systems.png?202210180939" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-effect-systems.png?202210181038" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-effect-systems.png?202210181038" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-effect-systems.png?202210180939">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-effect-systems.png?202210181038">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="The case against Effect Systems (e.g., the IO data type)">
@@ -105,7 +105,7 @@
       <meta itemprop="datePublished" content="2022-10-13T00:00:00+0000"/>
       
       <time itemprop="dateCreated" datetime="2022-10-13T00:00:00+0000">October 13, 2022</time>
-      | <span class="nobr"><span class="time">28</span> minutes</span>
+      | <span class="nobr"><span class="time">29</span> minutes</span>
       
       | <a href="/blog/2022/10/13/the-case-against-effect-systems-io-data-type/#isso-thread" class="nobr">comments</a>
       
@@ -114,7 +114,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-effect-systems.png" />
-          <img src="/assets/media/articles/2022-effect-systems.png?202210180939" width="2428" height="1652" alt="" />
+          <img src="/assets/media/articles/2022-effect-systems.png?202210181038" width="2428" height="1652" alt="" />
           
         </figure>
         
@@ -176,7 +176,7 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
 <figure class="video">
   
   <a href="https://www.youtube.com/watch?v=qgfCmQ-2tW0&amp;autoplay=1" target="_blank" class="youtube-play-link" title="Go to YouTube video">
-    <img src="https://img.youtube.com/vi/qgfCmQ-2tW0/maxresdefault.jpg?202210180939" alt="" class="play-thumb" width="1280" height="720" />
+    <img src="https://img.youtube.com/vi/qgfCmQ-2tW0/maxresdefault.jpg?202210181038" alt="" class="play-thumb" width="1280" height="720" />
   </a>
   <figcaption>
     <a href="https://www.youtube.com/watch?v=qgfCmQ-2tW0&amp;autoplay=1" target="_blank">
@@ -458,6 +458,10 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
 <p>This is important to realize, because, while <code class="language-plaintext highlighter-rouge">IO</code>-driven programs are very much imperative in nature, laziness brings us closer to math. It’s why languages like Haskell may never be in top 5, or why Scala can have a lot of accidental complexity. In <a href="https://queue.acm.org/detail.cfm?id=2611829">Curse of the Excluded Middle</a>, Erik Meijer argues just that … in imperative, strictly-evaluated languages, lazy behavior is surprising, and that’s bad.</p>
 
 <p>I’d argue that laziness can be surprising in general, even if you’re working in a non-strict language, such as Haskell. Haskell’s non-strict evaluation keeps people honest. You can always call <code class="language-plaintext highlighter-rouge">unsafePerformIO</code> to trigger side effects that aren’t tracked by the type system, but it’s tricky getting the runtime to actually evaluate it, esp if you don’t need the returned result. This means that shortcuts meant for debugging are hard (e.g., logging), and this can surprise people. And no sufficiently smart compiler or runtime has been invented yet to solve efficiency issues, which are a problem, because performance is hard to reason about when thunks get lazily evaluated, even in terms of big-O complexity. Data structures, at least, are meant to be already evaluated and inspectable. When that doesn’t happen (e.g., streams), that’s “codata”, it takes (runtime) effort to inspect such values, and Haskell seriously blurs the lines between them.</p>
+
+<p class="info-bubble">
+For Haskell developers out there that disagree, I have a question — in your programs, are you using <code class="language-plaintext highlighter-rouge">String</code>, or are you using <code class="language-plaintext highlighter-rouge">Text</code>?
+</p>
 
 <p>There are many things I like about doing FP in Scala, and having strict evaluation as the default is one of them.</p>
       <h2 id="future-is-bad-because-asynchrony-is-bad">
@@ -874,12 +878,12 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202210180939" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210180939" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202210180939" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202210180939" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202210181038" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210181038" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202210181038" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202210181038" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202210180939" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202210181038" type="text/javascript"></script>
 
 
 <script type="text/javascript">
