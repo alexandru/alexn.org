@@ -21,11 +21,11 @@
     <meta content="2022-10-13T00:00:00+00:00" property="article:published_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-effect-systems.png?202210180755" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-effect-systems.png?202210180755" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-effect-systems.png?202210180804" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-effect-systems.png?202210180804" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-effect-systems.png?202210180755">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-effect-systems.png?202210180804">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="The case against Effect Systems (e.g., the IO data type)">
@@ -114,7 +114,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-effect-systems.png" />
-          <img src="/assets/media/articles/2022-effect-systems.png?202210180755" width="2428" height="1652" alt="" />
+          <img src="/assets/media/articles/2022-effect-systems.png?202210180804" width="2428" height="1652" alt="" />
           
         </figure>
         
@@ -176,7 +176,7 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
 <figure class="video">
   
   <a href="https://www.youtube.com/watch?v=qgfCmQ-2tW0&amp;autoplay=1" target="_blank" class="youtube-play-link" title="Go to YouTube video">
-    <img src="https://img.youtube.com/vi/qgfCmQ-2tW0/maxresdefault.jpg?202210180755" alt="" class="play-thumb" width="1280" height="720" />
+    <img src="https://img.youtube.com/vi/qgfCmQ-2tW0/maxresdefault.jpg?202210180804" alt="" class="play-thumb" width="1280" height="720" />
   </a>
   <figcaption>
     <a href="https://www.youtube.com/watch?v=qgfCmQ-2tW0&amp;autoplay=1" target="_blank">
@@ -579,7 +579,7 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
 <p>We now have concurrent execution, making more efficient use of our resources. But therein lie problems:</p>
 
 <ol>
-  <li>if <code class="language-plaintext highlighter-rouge">prepareFryingPanJob.get()</code> throws an exception, the execution of <code class="language-plaintext highlighter-rouge">mixJob</code>  won’t get cancelled, thus creating a leak;</li>
+  <li>if <code class="language-plaintext highlighter-rouge">prepareFryingPanJob.get()</code> throws an exception, the execution of <code class="language-plaintext highlighter-rouge">mixJob</code> won’t get cancelled, thus creating a leak;</li>
   <li>if the current thread gets interrupted, the interruption signal doesn’t propagate to the started concurrent tasks;</li>
   <li>if <code class="language-plaintext highlighter-rouge">prepareFryingPanJob</code> takes a long time to execute, but <code class="language-plaintext highlighter-rouge">mixJob</code> fails immediately, we won’t see that failure until <code class="language-plaintext highlighter-rouge">prepareFryingPanJob</code> finishes;</li>
 </ol>
@@ -678,7 +678,7 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
   <span class="p">}</span>
 </code></pre></div></div>
 
-<p>For another more real use-case, here’s my own <a href="https://github.com/alexandru/github-webhook-listener/blob/v2.1.2/src/main/kotlin/org/alexn/hook/Server.kt#L85">personal project</a>:</p>
+<p>For another more real use-case, here’s a snippet from my own <a href="https://github.com/alexandru/github-webhook-listener/blob/v2.1.2/src/main/kotlin/org/alexn/hook/Server.kt#L85">personal project</a>:</p>
 
 <div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nf">either</span> <span class="p">{</span>
     <span class="kd">val</span> <span class="py">project</span> <span class="p">=</span> <span class="nc">Either</span>
@@ -850,12 +850,12 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202210180755" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210180755" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202210180755" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202210180755" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202210180804" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210180804" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202210180804" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202210180804" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202210180755" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202210180804" type="text/javascript"></script>
 
 
 <script type="text/javascript">
