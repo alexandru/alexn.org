@@ -10,8 +10,8 @@
     <description>Feed of blog articles, published at alexn.org/blog/</description>
     <link>https://alexn.org/</link>
     <atom:link href="https://alexn.org/feeds/blog.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 05 Oct 2022 15:36:21 +0000</pubDate>
-    <lastBuildDate>Wed, 05 Oct 2022 15:36:21 +0000</lastBuildDate>
+    <pubDate>Tue, 18 Oct 2022 07:05:12 +0000</pubDate>
+    <lastBuildDate>Tue, 18 Oct 2022 07:05:12 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -21,16 +21,567 @@
     
       
 <item>
-  <title>Execute Shell Commands in Java/Scala/Kotlin</title>
-  <description>The following describes snippets for executing shell commands, in Java, Scala, and Kotlin, using standard functionality. It’s also useful to compare Java vs Scala vs Kotlin for this particular problem.</description>
+  <title>The case against Effect Systems (e.g., the IO data type)</title>
+  <description>As Scala developers and fans of the functional programming promoted by Haskell, how do we justify the use of IO to newbies coming from Java? It’s been a fun ride, but the truth is that Java 19 is changing everything.</description>
   <content:encoded>&lt;img referrerpolicy=&quot;no-referrer-when-downgrade&quot; src=&quot;https://ly.alexn.org/m.php?idsite=1&amp;rec=1&amp;action_name=RSS+Feed&amp;url=https%3A%2F%2Falexn.org%2Ffeeds%2Fblog.xml&amp;pk_campaign=rss&amp;pk_kwd=open&quot; width=&quot;1&quot; height=&quot;1&quot; style=&quot;position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;&quot; alt=&quot;&quot;&gt;
   
   
     &lt;div class=&quot;post-featured-image&quot;&gt;
     
       &lt;figure&gt;
+        &lt;a href=&quot;https://alexn.org/blog/2022/10/13/the-case-against-effect-systems-io-data-type/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-effect-systems.png?202210180705&quot; alt=&quot;&quot; width=&quot;2428&quot; height=&quot;1652&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+        &lt;/a&gt;
+        
+      &lt;/figure&gt;
+    &lt;/div&gt;
+  
+    &lt;p class=&quot;intro withcap&quot;&gt;
+As Scala developers and fans of the functional programming promoted by Haskell, how do we justify the use of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO&lt;/code&gt; to newbies coming from Java? It’s been a fun ride, but the truth is that &lt;a href=&quot;https://alexn.org/blog/2022/09/21/java-19/&quot;&gt;Java 19&lt;/a&gt; is changing everything.
+&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO&lt;/code&gt; has been great, with libraries like &lt;a href=&quot;https://typelevel.org/cats-effect/&quot;&gt;Cats-Effect&lt;/a&gt; and &lt;a href=&quot;https://fs2.io/&quot;&gt;fs2&lt;/a&gt; taking functional programming on the JVM to new levels, and using these libraries has been a super-power. But here I’m going to argue that the problem hasn’t been imperative programming, and this IO-driven style of static FP has an identity crisis on its hands, due to the introduction of Virtual Threads (&lt;a href=&quot;https://openjdk.org/jeps/425&quot;&gt;JEP 425&lt;/a&gt;), and the adoption of “&lt;a href=&quot;https://en.wikipedia.org/wiki/Structured_concurrency&quot;&gt;structured concurrency&lt;/a&gt;” concepts (&lt;a href=&quot;https://openjdk.org/jeps/428&quot;&gt;JEP 428&lt;/a&gt;), first popularized in &lt;a href=&quot;https://kotlinlang.org/docs/coroutines-overview.html&quot;&gt;Kotlin&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-io-shines&quot;&gt;How IO shines&lt;/h2&gt;
+
+&lt;p&gt;When you have the time, you should watch Daniel Spiewak’s presentation:&lt;/p&gt;
+
+&lt;figure class=&quot;video&quot;&gt;
+  
+  &lt;a href=&quot;https://www.youtube.com/watch?v=qgfCmQ-2tW0&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/qgfCmQ-2tW0/maxresdefault.jpg?202210180705&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+  &lt;/a&gt;
+  &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
+    &lt;a href=&quot;https://www.youtube.com/watch?v=qgfCmQ-2tW0&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
+      The Case For Effect Systems — Daniel Spiewak
+      (open on YouTube.com)
+    &lt;/a&gt;
+  &lt;/em&gt;&lt;/p&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;I loved it, and I’ve long been a proponent of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO&lt;/code&gt;, having exactly these arguments. And yet …&lt;/p&gt;
+
+&lt;h2 id=&quot;a-history-of-asynchrony&quot;&gt;A history of asynchrony&lt;/h2&gt;
+
+&lt;p&gt;I once wrote an article on &lt;a href=&quot;https://alexn.org/blog/2017/01/30/asynchronous-programming-scala/&quot;&gt;asynchronous programming&lt;/a&gt;, in which I explained the progression from callbacks to monads. Here’s the TL;DR …&lt;/p&gt;
+
+&lt;p&gt;If we are to describe asynchronous computations with a type, it would go something like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Callback&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;-A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Unit&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Async&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;+A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Callback&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Unit&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;So, an async computation is something that executes &lt;em&gt;somewhere else&lt;/em&gt;, other than the current thread, so it could be on another thread, or another process, or on another machine on the network.&lt;/p&gt;
+
+&lt;p&gt;Now, imagine a classic sequence of synchronous function calls:&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;baz&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;qux&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We can turn these into a callback-driven sequence, which is what would happen in JavaScript/Node.js land, before the advent of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Promise&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;???&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// ...becomes...&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Async&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;???&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;//...&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// Sequence becomes:&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&gt;&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&gt;&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;baz&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&gt;&lt;/span&gt; 
+      &lt;span class=&quot;nf&quot;&gt;qux&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;???)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;There are consequences for working like this:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;callback hell, due to all the nesting;&lt;/li&gt;
+  &lt;li&gt;the implementation is often stack-unsafe, so it can be hard and error-prone to express loops;&lt;/li&gt;
+  &lt;li&gt;it invalidates standard language features (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;try/catch/finally&lt;/code&gt;);&lt;/li&gt;
+  &lt;li&gt;it’s very low level, so managing concurrency is tricky (e.g., waiting on 2 or more jobs running in parallel to finish);&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;In Scala, the answer has been the introduction of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Future&lt;/code&gt;/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Promise&lt;/code&gt;, which is a “monadic” type, implementing a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;flatMap&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Future&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;???&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//...&lt;/span&gt;
+
+&lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;flatMap&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&gt;&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;flatMap&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&gt;&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;baz&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;flatMap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;qux&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// ...or...&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;baz&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;qux&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Which kind of looks like our original, imperative, synchronous program. But, here be dragons — what happens if we invoke Future-driven functions outside that for-expression?&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;baz&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;qux&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The non-obvious answer is &lt;em&gt;concurrent execution&lt;/em&gt; happens — this is no longer a sequence of steps, and it wasn’t necessarily what we wanted, leading to bugs, as the logic may access shared mutable state that may be broken by concurrent access. This is invalidating our common sense, because when we see &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;val b = baz()&lt;/code&gt; in code, we do not expect concurrent execution, as it’s not how our brains have been trained in these imperative programming languages. This here invalidates our mental model for how things behave.&lt;/p&gt;
+
+&lt;p&gt;Note that we were careful waiting on the result of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;baz()&lt;/code&gt;. What happens if we forget about it?&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;baz&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;qux&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Well, this is triggering a “fire and forget” job, and if it wasn’t intended, we may now have a leak 🙀&lt;/p&gt;
+
+&lt;h2 id=&quot;imperative-programming-the-devil-we-know&quot;&gt;Imperative programming, the devil we know&lt;/h2&gt;
+
+&lt;p&gt;“Imperative programming” is a paradigm that focuses on describing a program &lt;em&gt;step by step&lt;/em&gt;, via a sequence of instructions that modify state. And I’m going to make this statement:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Imperative programming is extraordinarily intuitive!&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;In imperative programming &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;;&lt;/code&gt; is a separator between instructions, or statements. Imperative programming tends to be statement-oriented. But &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;;&lt;/code&gt; simply denotes &lt;em&gt;sequencing&lt;/em&gt; of steps. We can think of it as being an operator:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;A ; B ; C
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The above simply means statement &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;A&lt;/code&gt; gets executed before statement &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;B&lt;/code&gt;, which gets executed before statement &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;C&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;We can follow sequential steps towards achieving something. For example a vast majority of humans can cook, including many children. We may be bad cooks, we may only know simple recipes, given access to a stove we may hurt ourselves, but give people the raw ingredients and the cookware, and they won’t starve. Children understand cooking too, being a sequence of steps, not rocket science.&lt;/p&gt;
+
+&lt;p&gt;My CS teacher from high school introduced us to algorithms with a recipe for pancakes. I don’t remember the specifics, and it’s been years since I cooked pancakes, so my memory is hazy, but I imagine the recipe went something like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// As an introductory lesson, he was completely ignoring resource safety, ofc:&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;fryingPan&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;takeFryingPan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 1&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;batter&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;mix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;eggs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;milk&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flour&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sugar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bakingPowder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;salt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 2&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;fryingPan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;pour&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;oil&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 3&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;fryingPan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;preHeat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;2.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;minutes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 4&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;fryingPan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;pour&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;batter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 5&lt;/span&gt;
+
+&lt;span class=&quot;nf&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(!&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;fryingPan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;check&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isContentsBrown&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 6&lt;/span&gt;
+ &lt;span class=&quot;nf&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;30.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;seconds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 7&lt;/span&gt;
+ &lt;span class=&quot;nv&quot;&gt;fryingPan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;scoop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 8&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;fryingPan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;pull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 9&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO&lt;/code&gt;-driven programming is still a sequence of steps. We may try to describe pure data structures that get interpreted later, but that seldom happens. In our FP programs, what actually happens in practice is still imperative in nature:&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;fryingPan&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;takeFryingPan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;batter&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;mix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;eggs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;milk&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flour&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sugar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bakingPowder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;salt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;fryingPan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;pour&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;oil&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;fryingPan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;preHeat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;2.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;minutes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;fryingPan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;pour&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;batter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;loop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;IO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Unit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt;
+      &lt;span class=&quot;nv&quot;&gt;fryingPan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;check&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isBrown&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;flatMap&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&gt;&lt;/span&gt; 
+          &lt;span class=&quot;nv&quot;&gt;IO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;unit&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&gt;&lt;/span&gt; 
+          &lt;span class=&quot;nv&quot;&gt;IO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;30.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;seconds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;flatMap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;loop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;loop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;fryingPan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;pull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In Haskell, and in the Scala FP community, the semicolon (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;;&lt;/code&gt;) gets replaced with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;flatMap&lt;/code&gt; (AKA &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bind&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&gt;&gt;=&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SelectMany&lt;/code&gt;, etc.).&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;B&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// becomes...&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;flatMap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;B&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;flatMap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This is made digestible via syntactic sugar. In Haskell that’s the &lt;a href=&quot;https://en.wikibooks.org/wiki/Haskell/do_notation&quot;&gt;do-notation&lt;/a&gt;, in Scala we have the &lt;a href=&quot;https://docs.scala-lang.org/tour/for-comprehensions.html&quot;&gt;for comprehensions&lt;/a&gt;, and in F# we have &lt;a href=&quot;https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/computation-expressions&quot;&gt;computation expressions&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;So our Scala programs can look like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;baz&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;qux&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This is similar to what we did with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Future&lt;/code&gt;. In Scala this syntactic sugar is more generic, driven by monadic types, because in languages such as C# or TypeScript/JavaScript, we have special &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;async&lt;/code&gt;/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;await&lt;/code&gt; syntax that only works with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Future&lt;/code&gt;/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Promise&lt;/code&gt;/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Task&lt;/code&gt; data types and that looks like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;doStuff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;baz&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;qux&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;z&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Call-sites of functions returning &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO&lt;/code&gt;, however, are &lt;a href=&quot;https://en.wikipedia.org/wiki/Referential_transparency&quot;&gt;referentially transparent&lt;/a&gt;. And it’s important to contrast with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Future/Promise&lt;/code&gt;. Take for example this program:&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fireRocketsToMars&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fireRocketsToMars&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// ... versus ...&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fireRocketsToMars&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// ... versus ...&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;rx&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fireRocketsToMars&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;ry&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fireRocketsToMars&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rx&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ry&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;What’s the difference of behavior between &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Future&lt;/code&gt; in this case?&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fireRocketsToMars&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;IO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// ... versus ...&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fireRocketsToMars&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Future&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Well, with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO&lt;/code&gt; the behavior of the program is the same, in all 3 cases, whereas with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Future&lt;/code&gt; the behavior changes. With &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Future&lt;/code&gt; we can talk of 3 different programs with wildly different behavior. And that’s not good, as it can be counter-intuitive, being a source of bugs.  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO&lt;/code&gt; in this case behaves as it should, although in the context of Scala, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO&lt;/code&gt; isn’t without fault either.&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// No concurrent execution here, but we never use this value, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// so this is a hard to trace no-op:&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;bazJob&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;baz&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;qux&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Speaking of, I am asking questions on this difference of behavior in interviews. Surprisingly, many people get this wrong, in spite of having experience with real-world &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO&lt;/code&gt; usage. And that’s not their fault. The fault lies with the Scala language, because:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Future&lt;/code&gt; is a broken abstraction, completely beyond redemption, not much better than the callback hell it improves on, and the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;async&lt;/code&gt;/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;await&lt;/code&gt; syntactic sugar is only an ineffective band-aid — &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;async&lt;/code&gt; doesn’t help, as the default evaluation model should never be concurrent execution, you shouldn’t need to mention an explicit&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;await&lt;/code&gt; to force sequencing;&lt;/li&gt;
+  &lt;li&gt;Scala, here, suffers from a severe case of &lt;a href=&quot;https://en.wikipedia.org/wiki/There's_more_than_one_way_to_do_it&quot;&gt;TIMTOWTDI&lt;/a&gt;, because it’s a strict language, and has multiple ways of expressing the sequencing of instructions, and it’s no wonder that beginners are getting confused;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;More on that later, but first a rant on math 😎&lt;/p&gt;
+
+&lt;h3 id=&quot;math-is-not-intuitive&quot;&gt;Math is not intuitive&lt;/h3&gt;
+
+&lt;p&gt;Math is abstraction, and it takes maturity to learn math abstraction. Some people never do. My high-school teacher used to say that there are two kinds of students, those that understand the formal definitions of limits (with the epsilon notation), and those that don’t. I always thought that’s just a language problem, use better communication and more people will understand, but it’s without doubt that children need to develop the necessary cognitive abilities before understanding abstraction.&lt;/p&gt;
+
+&lt;p&gt;This is important to realize, because, while &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO&lt;/code&gt;-driven programs are very much imperative in nature, laziness brings us closer to math. It’s why languages like Haskell may never be in top 5, or why Scala can have a lot of accidental complexity. In &lt;a href=&quot;https://queue.acm.org/detail.cfm?id=2611829&quot;&gt;Curse of the Excluded Middle&lt;/a&gt;, Erik Meijer argues just that … in imperative, strictly-evaluated languages, lazy behavior is surprising, and that’s bad.&lt;/p&gt;
+
+&lt;p&gt;I’d argue that laziness can be surprising in general, even if you’re working in a non-strict language, such as Haskell. It’s because no sufficiently smart compiler or runtime has been invented yet to solve efficiency issues, which are a problem, because performance is hard to reason about when thunks get lazily evaluated, even in terms of big-O complexity. Data structures, at least, are meant to be already evaluated and inspectable. When that doesn’t happen (e.g., streams), that’s “codata”, it takes (runtime) effort to inspect such values, and Haskell seriously blurs the lines between them.&lt;/p&gt;
+
+&lt;h2 id=&quot;future-is-bad-because-asynchrony-is-bad&quot;&gt;Future is bad because asynchrony is bad&lt;/h2&gt;
+
+&lt;p&gt;When I say that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Future&lt;/code&gt; is broken, the reason is that its usage is prone to accidents. And that’s not the fault of imperative programming.&lt;/p&gt;
+
+&lt;p&gt;To wit, we started from this:&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fireRocketsToMars&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;IO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// ... versus ...&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fireRocketsToMars&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Future&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;But there is a third option that we did not take into account, which is blocking I/O:&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fireRocketsToMars&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;With blocking I/O expressed like this, we have no need for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;flatMap&lt;/code&gt; or for special sequencing syntax, as it’s pretty damn clear what’s going on — at least in terms of sequencing of steps. The signature is lying, as it doesn’t make it clear that there are dangerous side effects going on (but in Scala &lt;a href=&quot;https://alexn.org/blog/2022/05/23/tracking-effects-in-scala/&quot;&gt;this could be fixed&lt;/a&gt;).&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fireRocketsToMars&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fireRocketsToMars&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;It’s important to realize the virtues of doing this:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;if everything becomes synchronous/blocking by default, there are no accidents related to accidental concurrent execution;&lt;/li&gt;
+  &lt;li&gt;the distinction between data and codata (i.e., data structures versus computations) becomes clear as day;&lt;/li&gt;
+  &lt;li&gt;standard language constructs still work (e.g., for/while loops, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;try-catch-finally&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;try-with-resources&lt;/code&gt; or Java’s checked exceptions);&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Here’s the other sample, again:&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;baz&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;qux&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I’d argue that there is no meaningful difference between this, and the equivalent IO-driven program, at least in terms of accidents that can happen. If this were &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Future&lt;/code&gt;-driven, a lot of things could go wrong because all of those invocations could be concurrent, by accident. But we are not using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Future&lt;/code&gt; here.&lt;/p&gt;
+
+&lt;p&gt;There can be no accidents here, because once the execution returns from a function invocation, that function is done. And having this mental model is awesome.&lt;/p&gt;
+
+&lt;h2 id=&quot;java-whats-old-is-new-again&quot;&gt;Java: what’s old is new again&lt;/h2&gt;
+
+&lt;p&gt;Blocking I/O has always been the norm in Java land. Java was built for using threads, and for blocking those threads. Java’s memory model, the ease of working with threads, was one of its main innovations.&lt;/p&gt;
+
+&lt;p&gt;This is why Java’s standard library is filled with concurrency primitives that block, such as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BlockingQueue&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Semaphore&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ReadWriteLock&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ReentrantLock&lt;/code&gt;, with no async equivalents. It’s why Java has a &lt;a href=&quot;https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/Future.html&quot;&gt;Future&lt;/a&gt; interface whose only means of getting its result is a blocking &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.get()&lt;/code&gt; call.&lt;/p&gt;
+
+&lt;p&gt;The newer &lt;a href=&quot;https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/CompletableFuture.html&quot;&gt;CompletableFuture&lt;/a&gt; happened in Java 8. Java 8 also introduced lambda expressions, so you can feel that was about the time asynchronous programming APIs took off, as a sort of detour from the official way of doing things.&lt;/p&gt;
+
+&lt;p&gt;And this is because Java does “&lt;a href=&quot;https://en.wikipedia.org/wiki/Thread_(computing)#Threading_models&quot;&gt;1:1 kernel-level threading&lt;/a&gt;”, meaning that all Java threads are OS/platform threads, and platform threads are super expensive. This is because:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;each thread has its own call-stack, thus consuming memory;&lt;/li&gt;
+  &lt;li&gt;the kernel does “preemptive multithreading”, so it allocates time slots for many threads to run on few CPU cores — to do this, the kernel assigns time slots, pausing running threads, resuming paused threads, in a process called “context switching” — during which the memory used by a thread needs to be reloaded in a CPU’s cache hierarchy, which consumes a lot of CPU;&lt;/li&gt;
+  &lt;li&gt;due to consumption of both memory and CPU, there’s a low limit on how many threads you can use;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The answer in Java land has been to work with thread-pools, to reuse available threads as much as possible, and to limit the maximum number of threads that can be started. Thread-pools are problematic as well, because:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ThreadLocal&lt;/code&gt; values can now leak, and thread interruption is very unsafe if you don’t own the thread;&lt;/li&gt;
+  &lt;li&gt;Complicated libraries tend to start their own thread-pool, and you can assess the maturity of Java projects by the number of thread-pools active at the same time;&lt;/li&gt;
+  &lt;li&gt;Blocking I/O makes limiting threads hard, because you can end up with thread-starvation, a type of deadlock, a situation in which threads are unable to make progress due to hard limits on the thread-pool;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;And managing threads and thread-pools being low level, the community evolved towards using “reactive”/fluent APIs, such as &lt;a href=&quot;https://github.com/ReactiveX/RxJava&quot;&gt;RxJava&lt;/a&gt;, &lt;a href=&quot;https://projectreactor.io/&quot;&gt;Project Reactor&lt;/a&gt;, &lt;a href=&quot;https://akka.io/&quot;&gt;Akka&lt;/a&gt;, and others. Which are essentially libraries meant to recreate “M:N threading” on top of the JVM, i.e., multiplexing many jobs on few OS/platform threads.&lt;/p&gt;
+
+&lt;p&gt;Java 19 introduces “virtual threads”, bringing M:N threading support at the runtime level, which makes threads, and blocking I/O cheap. It’s not perfect, as the JVM can still block OS threads, generating “pinned” events in “flight recorder”, which I’m sure will be the new bread and butter of profilers everywhere. But everything in the language and the standard library starts making sense again. All those APIs built for blocking suddenly become much cheaper to use, effectively obsoleting the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Future&lt;/code&gt; data types.&lt;/p&gt;
+
+&lt;h2 id=&quot;structured-concurrency&quot;&gt;Structured concurrency&lt;/h2&gt;
+
+&lt;p&gt;Thus far we’ve seen that sequential / synchronous execution is intuitive and should be the default, in order to prevent concurrency accidents. But what if we need concurrency?&lt;/p&gt;
+
+&lt;p&gt;“Structured concurrency”, as a concept, is similar to that of &lt;a href=&quot;https://en.wikipedia.org/wiki/Structured_programming&quot;&gt;structured programming&lt;/a&gt;. Back in the day, when GOTO-driven languages were still used, introductory CS lessons included an incursion into structured programming and why it is needed.&lt;/p&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-structured-programming.png&quot; alt=&quot;&quot; class=&quot;transparency-fix&quot; width=&quot;1872&quot; height=&quot;1053&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+  &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
+    Old-school structured programming diagram, showing Euclid's algorithm for the &quot;greatest common divisor&quot;.
+  &lt;/em&gt;&lt;/p&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;The problem with GOTO statements is that they create a fork in the road, the program’s flow becoming very hard to follow, leading to unmaintainable code. Edsger Dijkstra called GOTO statements harmful, because it complicates program analysis, verifying the correctness of algorithms becoming difficult, particularly the correctness of loops.&lt;/p&gt;
+
+&lt;p&gt;In the context of concurrency, this should sound very familiar. With classical Java, concurrent execution would look like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mixJob&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;ec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;submit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&gt;&lt;/span&gt; 
+    &lt;span class=&quot;n&quot;&gt;mix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;eggs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;milk&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flour&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sugar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bakingPowder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;salt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prepareFryingPanJob&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;ec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;submit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fryingPan&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;takeFryingPan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;fryingPan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;pour&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;oil&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;fryingPan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;preHeat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Duration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ofMinutes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt; 
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fryingPan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fryingPan&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prepareFryingPanJob&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;batter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mixJob&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//...&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We now have concurrent execution, making more efficient use of our resources. But therein lie problems:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;if &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prepareFryingPanJob.get()&lt;/code&gt; throws an exception, the execution of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mixJob&lt;/code&gt;  won’t get cancelled, thus creating a leak;&lt;/li&gt;
+  &lt;li&gt;if the current thread gets interrupted, the interruption signal doesn’t propagate to the started concurrent tasks;&lt;/li&gt;
+  &lt;li&gt;if &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prepareFryingPanJob&lt;/code&gt; takes a long time to execute, but &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mixJob&lt;/code&gt; fails immediately, we won’t see that failure until &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prepareFryingPanJob&lt;/code&gt; finishes;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Kotlin’s coroutines did not introduce the notion of “structured concurrency”, but I think it popularized it. The basic idea is this:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Concurrent jobs should be cancellable;&lt;/li&gt;
+  &lt;li&gt;Concurrent jobs get started in a “scope”, and that scope can’t finish until all started concurrent jobs finish or get cancelled;&lt;/li&gt;
+  &lt;li&gt;On error, all running concurrent jobs get cancelled;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This is similar to the idea behind C++’s &lt;a href=&quot;https://en.wikipedia.org/wiki/Resource_acquisition_is_initialization&quot;&gt;RAII&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-kotlin highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;coroutineScope&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;mixJob&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; 
+    &lt;span class=&quot;nf&quot;&gt;mix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;eggs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;milk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flour&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sugar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bakingPowder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;salt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;prepareFryingPanJob&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;fryingPan&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;takeFryingPan&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;fryingPan&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;pour&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;oil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;fryingPan&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;preHeat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;minutes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;fryingPan&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;fryingPan&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prepareFryingPanJob&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;await&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;mix&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mixJob&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;await&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;//...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In Kotlin, if the code of such a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;coroutineScope&lt;/code&gt; throws an error, all its concurrent jobs gets cancelled. The scope also awaits all concurrent jobs to finish, before it can finish, so there can be no accidental “fire and forget” jobs. And if any of the concurrent jobs throws an exception, then the other concurrent job gets cancelled.&lt;/p&gt;
+
+&lt;p&gt;Java 19 also introduced very experimental extensions for doing the same, in &lt;a href=&quot;https://openjdk.org/jeps/428&quot;&gt;JEP 428&lt;/a&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scope&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;StructuredTaskScope&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ShutdownOnFailure&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mixJob&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;scope&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;submit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&gt;&lt;/span&gt; 
+      &lt;span class=&quot;n&quot;&gt;mix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;eggs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;milk&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flour&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sugar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bakingPowder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;salt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prepareFryingPanJob&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;scope&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;submit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fryingPan&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;takeFryingPan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;fryingPan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;pour&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;oil&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;fryingPan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;preHeat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Duration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ofMinutes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt; 
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fryingPan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;scope&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;           
+  &lt;span class=&quot;n&quot;&gt;scope&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;throwIfFailed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fryingPan&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prepareFryingPanJob&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;resultNow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;batter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mixJob&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;resultNow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;//...&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This API is currently “incubating” and looks clumsy, but the concept is the same, and its efficient use is made possible due to blocking I/O becoming cheap.&lt;/p&gt;
+
+&lt;p&gt;What would we do in Scala with Cats-Effect’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO&lt;/code&gt;?&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// No-op&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;mixJob&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;mix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;eggs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;milk&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flour&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sugar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bakingPowder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;salt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// No-op&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;prepareFryingPanJob&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; 
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;fryingPan&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;takeFryingPan&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;fryingPan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;pour&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;oil&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&lt;-&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;fryingPan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;preHeat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;2.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;minutes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fryingPan&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mixJob&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prepareFryingPanJob&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;parMapN&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fryingPan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&gt;&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;//...&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;With Cats-Effect &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO&lt;/code&gt; concurrency/parallel execution must be made explicit. Here we are using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parMapN&lt;/code&gt; operator from the &lt;a href=&quot;https://typelevel.org/cats/typeclasses/parallel.html&quot;&gt;Parallel&lt;/a&gt; type class. The creation of those tasks is lazy. Nothing gets executed then and there. This makes it a little clumsy, so you’d better turn your linter to warn against unused values.&lt;/p&gt;
+
+&lt;p&gt;But this raises important questions — in this context, what does &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO&lt;/code&gt; buy us? I’m finding this question increasingly difficult to answer. I used to say that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO&lt;/code&gt; is very explicit about how things get evaluated (e.g., in parallel or sequential), so there can be no accidents, but &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO&lt;/code&gt; isn’t the only way for achieving that. And due to its laziness, it introduces some accidental complexity of its own.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO&lt;/code&gt; is very composable. You can, for example, combine it with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Either&lt;/code&gt;, via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;EitherT&lt;/code&gt;. Or you can bake &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;EitherT&lt;/code&gt; in, like what ZIO did.&lt;/p&gt;
+
+&lt;p&gt;But with blocking I/O, in Java, you can make use of checked exceptions again. And for Kotlin, checkout &lt;a href=&quot;https://arrow-kt.io/&quot;&gt;Arrow&lt;/a&gt;, see their article on &lt;a href=&quot;https://arrow-kt.io/docs/effects/io/&quot;&gt;why &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;suspend () -&gt; A&lt;/code&gt; instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO&lt;A&gt;&lt;/code&gt;&lt;/a&gt;. If typed exceptions is your cup of team, here’s how that sample would look like:&lt;/p&gt;
+
+&lt;div class=&quot;language-kotlin highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;suspend&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;makePancakes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Either&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;SomeError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Pancakes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;either&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;fryingPan&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;takeFryingPan&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;bind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;batter&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;mix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;eggs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;milk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flour&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sugar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bakingPowder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;salt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;bind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;fryingPan&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;pour&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;oil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;bind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;fryingPan&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;preHeat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;minutes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;bind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;fryingPan&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;pour&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;batter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;bind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//...&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;For another more real use-case, here’s my own &lt;a href=&quot;https://github.com/alexandru/github-webhook-listener/blob/v2.1.2/src/main/kotlin/org/alexn/hook/Server.kt#L85&quot;&gt;personal project&lt;/a&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-kotlin highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;either&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;project&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Either&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;fromNullable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;projects&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;projectKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;mapLeft&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RequestError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;NotFound&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Project `$projectKey` does not exist&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;bind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;signature&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;X-Hub-Signature-256&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+        &lt;span class=&quot;o&quot;&gt;?:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;X-Hub-Signature&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    
+    &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;body&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;receiveText&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;EventPayload&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;authenticateRequest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;project&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;secret&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;signature&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;bind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;parsed&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;EventPayload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;contentType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;bind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parsed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shouldProcess&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;project&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;commandTriggerService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;triggerCommand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;projectKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;RequestError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Skipped&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Nothing to do for project `$projectKey`&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;bind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This isn’t different from what was tried in Scala via attempts like &lt;a href=&quot;https://github.com/monadless/monadless&quot;&gt;Monadless&lt;/a&gt;, a use-case that coroutines makes comfortable.&lt;/p&gt;
+
+&lt;h2 id=&quot;in-closing&quot;&gt;In closing&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO&lt;/code&gt; is awesome, but its existence in strictly-evaluated languages is increasingly questionable. Even in Scala land, many developers don’t believe that monads are the only way to deal with effects. For a good discussion on this, see: &lt;a href=&quot;https://contributors.scala-lang.org/t/pre-sip-suspended-functions-and-continuations/5801&quot;&gt;PRE-SIP: Suspended functions and continuations&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO&lt;/code&gt; (and monads in general) on the JVM can have a bright future, but they now need better stories to tell.&lt;/p&gt;
+
+    &lt;hr&gt;
+    &lt;p&gt;
+      &lt;i&gt;The article &lt;a href=&quot;https://alexn.org/blog/2022/10/13/the-case-against-effect-systems-io-data-type/?pk_campaign=rss&amp;pk_kwd=footer-link&quot;&gt;The case against Effect Systems (e.g., the IO data type)&lt;/a&gt; first appeared on &lt;a href=&quot;https://alexn.org?pk_campaign=rss&amp;pk_kwd=footer-link&quot;&gt;alexn.org&lt;/a&gt;.&lt;/i&gt;
+    &lt;/p&gt;</content:encoded>
+  <pubDate>Thu, 13 Oct 2022 00:00:00 +0000</pubDate>
+  <link>https://alexn.org/blog/2022/10/13/the-case-against-effect-systems-io-data-type/?pk_campaign=rss&amp;pk_kwd=link</link>
+  <guid isPermaLink="true">https://alexn.org/blog/2022/10/13/the-case-against-effect-systems-io-data-type/</guid>
+  
+  
+  <dc:creator>Alexandru Nedelcu</dc:creator>
+  
+  <category>Blog</category>
+  
+  <category>FP</category>
+  
+  <category>Java</category>
+  
+  <category>Kotlin</category>
+  
+  <category>Scala</category>
+  
+</item>
+
+    
+      
+<item>
+  <title>Execute Shell Commands in Java/Scala/Kotlin</title>
+  <description>The following describes snippets for executing shell commands, in Java, Scala, and Kotlin, using standard functionality. It’s also useful to compare Java vs Scala vs Kotlin for this particular problem.</description>
+  <content:encoded>&lt;div class=&quot;post-featured-image&quot;&gt;
+    
+      &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/10/03/execute-shell-commands-in-java-scala-kotlin/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210051536&quot; alt=&quot;&quot; width=&quot;2024&quot; height=&quot;1012&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202210180705&quot; alt=&quot;&quot; width=&quot;2024&quot; height=&quot;1012&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -547,7 +1098,7 @@ brew &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;openjdk@17
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/09/28/the-trouble-with-checked-exceptions-part-2/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202210051536&quot; alt=&quot;&quot; width=&quot;2152&quot; height=&quot;1268&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202210180705&quot; alt=&quot;&quot; width=&quot;2152&quot; height=&quot;1268&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -730,7 +1281,7 @@ Java’s Checked Exceptions are problematic, and it’s not only due to their er
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/09/22/proprietary-environments-are-a-trap/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-me-and-my-son-on-laptops.jpg?202210051536&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;1000&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-me-and-my-son-on-laptops.jpg?202210180705&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;1000&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;Me, with my son, learning the Lua programming language on proprietary macOS laptops.&lt;/em&gt;&lt;/p&gt;&lt;/figcaption&gt;
       &lt;/figure&gt;
@@ -840,7 +1391,7 @@ What to learn in order to not become obsolete as a software developer, and then 
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/09/21/java-19/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/java-duke.png?202210051536&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;901&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/java-duke.png?202210180705&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;901&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;Honestly, Java's mascot is pretty cool, Scala needs a mascot too.&lt;/em&gt;&lt;/p&gt;&lt;/figcaption&gt;
       &lt;/figure&gt;
@@ -895,7 +1446,7 @@ Did you know that Cats-Effect’s &lt;code class=&quot;language-plaintext highli
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=KmMU5Y_r0Uk&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/KmMU5Y_r0Uk/maxresdefault.jpg?202210051536&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/KmMU5Y_r0Uk/maxresdefault.jpg?202210180705&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=KmMU5Y_r0Uk&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -1015,7 +1566,7 @@ Speaking of a fork, I’d license all new development of a fork in a copyleft li
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/09/19/java-cultural-problem/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/java-logo.png?202210051536&quot; alt=&quot;&quot; width=&quot;1800&quot; height=&quot;1013&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/java-logo.png?202210180705&quot; alt=&quot;&quot; width=&quot;1800&quot; height=&quot;1013&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -1244,7 +1795,7 @@ Speaking of a fork, I’d license all new development of a fork in a copyleft li
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/09/13/scripting-with-scala/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-09-scala-cli.png?202210051536&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;900&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-09-scala-cli.png?202210180705&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;900&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -1561,7 +2112,7 @@ I finally managed to delete my Facebook account. This was a long time coming. Be
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/09/09/scala-isnt-fun-anymore/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202210051536&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202210180705&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -1834,7 +2385,7 @@ You may think that Open Source is about having “&lt;em&gt;access to source cod
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/09/06/limiting-toxic-technology/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-apuseni-mountains.jpg?202210051536&quot; alt=&quot;&quot; width=&quot;1400&quot; height=&quot;788&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-apuseni-mountains.jpg?202210180705&quot; alt=&quot;&quot; width=&quot;1400&quot; height=&quot;788&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;Apuseni Moutains, Romania, near the Scărișoara Ice Cave&lt;/em&gt;&lt;/p&gt;&lt;/figcaption&gt;
       &lt;/figure&gt;
@@ -1984,7 +2535,7 @@ Toxic usage patterns of technology, begone — inspired by a &lt;a href=&quot;ht
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/09/01/impressions-on-chrome-brave/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/browser-battles.png?202210051536&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;840&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/browser-battles.png?202210180705&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;840&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -2048,7 +2599,7 @@ Disclaimer — I am in no way affiliated with either Google or Brave Software. I
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/05/23/tracking-effects-in-scala/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala3-unsafe-io.png?202210051536&quot; alt=&quot;&quot; width=&quot;1500&quot; height=&quot;937&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala3-unsafe-io.png?202210180705&quot; alt=&quot;&quot; width=&quot;1500&quot; height=&quot;937&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -2186,7 +2737,7 @@ What if we’d use Scala’s type system for tracking side-effects in impure cod
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=YXDm3WHZT5g&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/YXDm3WHZT5g/maxresdefault.jpg?202210051536&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/YXDm3WHZT5g/maxresdefault.jpg?202210180705&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=YXDm3WHZT5g&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -2230,7 +2781,7 @@ What if we’d use Scala’s type system for tracking side-effects in impure cod
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/05/13/oop-vs-type-classes-part-1-ideology/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg?202210051536&quot; alt=&quot;&quot; width=&quot;1500&quot; height=&quot;938&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg?202210180705&quot; alt=&quot;&quot; width=&quot;1500&quot; height=&quot;938&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;Jacques-Louis David, The Intervention of the Sabine Women, 1799. Oil on canvas. Paris, musée du Louvre. 
 &lt;/em&gt;&lt;/p&gt;&lt;/figcaption&gt;
@@ -3060,7 +3611,7 @@ for this &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Eq&l
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/04/29/free-speech/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/free-speech-movement-berkley.jpg?202210051536&quot; alt=&quot;&quot; width=&quot;1400&quot; height=&quot;934&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/free-speech-movement-berkley.jpg?202210180705&quot; alt=&quot;&quot; width=&quot;1400&quot; height=&quot;934&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;Protesters of the Free Speech Movement, at Sather Gate, University of California, Berkeley campus.
 &lt;/em&gt;&lt;/p&gt;&lt;/figcaption&gt;
@@ -3226,7 +3777,7 @@ This article is tagged with &lt;a href=&quot;https://alexn.org/blog/tag/politics
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=BiqDZlAZygU&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/BiqDZlAZygU/maxresdefault.jpg?202210051536&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/BiqDZlAZygU/maxresdefault.jpg?202210180705&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=BiqDZlAZygU&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -3265,7 +3816,7 @@ Finding examples of wrongful court ruling is easy. I'm picking a hardcore exampl
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=zDap-K6GmL0&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/zDap-K6GmL0/maxresdefault.jpg?202210051536&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/zDap-K6GmL0/maxresdefault.jpg?202210180705&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=zDap-K6GmL0&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -3305,7 +3856,7 @@ Finding examples of wrongful court ruling is easy. I'm picking a hardcore exampl
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=wAIP6fI0NAI&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/wAIP6fI0NAI/maxresdefault.jpg?202210051536&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/wAIP6fI0NAI/maxresdefault.jpg?202210180705&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=wAIP6fI0NAI&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -3320,7 +3871,7 @@ Finding examples of wrongful court ruling is easy. I'm picking a hardcore exampl
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=OjMPJVmXxV8&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/OjMPJVmXxV8/maxresdefault.jpg?202210051536&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/OjMPJVmXxV8/maxresdefault.jpg?202210180705&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=OjMPJVmXxV8&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -3441,7 +3992,7 @@ Finding examples of wrongful court ruling is easy. I'm picking a hardcore exampl
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=ymaWq5yZIYM&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/ymaWq5yZIYM/maxresdefault.jpg?202210051536&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/ymaWq5yZIYM/maxresdefault.jpg?202210180705&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=ymaWq5yZIYM&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -3517,7 +4068,7 @@ Finding examples of wrongful court ruling is easy. I'm picking a hardcore exampl
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/04/18/scala-oop-design-sample/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-04-oofp.png?202210051536&quot; alt=&quot;&quot; width=&quot;1400&quot; height=&quot;787&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-04-oofp.png?202210180705&quot; alt=&quot;&quot; width=&quot;1400&quot; height=&quot;787&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -3686,7 +4237,7 @@ Scala is considered a multi-paradigm language, for better or worse, being one of
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=qgfCmQ-2tW0&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/qgfCmQ-2tW0/maxresdefault.jpg?202210051536&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/qgfCmQ-2tW0/maxresdefault.jpg?202210180705&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=qgfCmQ-2tW0&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -4027,7 +4578,7 @@ There are better places on the web that explain tagless final, and I’m likely 
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/04/09/scala-gitter-discord-mistake/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202210051536&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202210180705&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -4105,7 +4656,7 @@ The Scala community is increasingly using Discord for “real-time chat”. This
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/04/05/future-monix-typelevel/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-04-monix.png?202210051536&quot; alt=&quot;&quot; width=&quot;1052&quot; height=&quot;587&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-04-monix.png?202210180705&quot; alt=&quot;&quot; width=&quot;1052&quot; height=&quot;587&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -4188,7 +4739,7 @@ Planning the future is difficult, but can bring clarity and purpose. See &lt;a h
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/04/01/blogging/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/writing.jpg?202210051536&quot; alt=&quot;&quot; width=&quot;1300&quot; height=&quot;746&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/writing.jpg?202210180705&quot; alt=&quot;&quot; width=&quot;1300&quot; height=&quot;746&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -4755,7 +5306,7 @@ fi&lt;/span&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2021/03/29/atom-rss-feeds-are-the-best-way-to-consume-the-web/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/highway.jpg?202210051536&quot; alt=&quot;&quot; width=&quot;1400&quot; height=&quot;935&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/highway.jpg?202210180705&quot; alt=&quot;&quot; width=&quot;1400&quot; height=&quot;935&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -4854,7 +5405,7 @@ fi&lt;/span&gt;
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=qqqfImDtduE&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://alexn.org/assets/media/articles/ing-meetup-working-with-dotty-2.jpg?202210051536&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1800&quot; height=&quot;1040&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+    &lt;img src=&quot;https://alexn.org/assets/media/articles/ing-meetup-working-with-dotty-2.jpg?202210180705&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1800&quot; height=&quot;1040&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=qqqfImDtduE&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -4869,7 +5420,7 @@ fi&lt;/span&gt;
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=qqqfImDtduE&amp;autoplay=1&amp;t=4963&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://alexn.org/assets/media/articles/ing-meetup-working-with-dotty-1.jpg?202210051536&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1800&quot; height=&quot;1046&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+    &lt;img src=&quot;https://alexn.org/assets/media/articles/ing-meetup-working-with-dotty-1.jpg?202210180705&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1800&quot; height=&quot;1046&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=qqqfImDtduE&amp;autoplay=1&amp;t=4963&quot; target=&quot;_blank&quot;&gt;
@@ -4908,7 +5459,7 @@ fi&lt;/span&gt;
   <content:encoded>&lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=R6pl91IRVaI&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://alexn.org/assets/media/articles/countdownlatch-async-dirty.png?202210051536&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1800&quot; height=&quot;900&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+    &lt;img src=&quot;https://alexn.org/assets/media/articles/countdownlatch-async-dirty.png?202210180705&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1800&quot; height=&quot;900&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=R6pl91IRVaI&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -5382,7 +5933,7 @@ fi&lt;/span&gt;
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=Ua1iMD4icLU&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://alexn.org/assets/media/articles/tail-recursive-functions.png?202210051536&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1596&quot; height=&quot;819&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+    &lt;img src=&quot;https://alexn.org/assets/media/articles/tail-recursive-functions.png?202210180705&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1596&quot; height=&quot;819&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=Ua1iMD4icLU&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -5995,7 +6546,7 @@ fi&lt;/span&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2020/11/17/best-practice-for-ordering-comparable/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/ordering.png?202210051536&quot; alt=&quot;&quot; width=&quot;1608&quot; height=&quot;1000&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/ordering.png?202210180705&quot; alt=&quot;&quot; width=&quot;1608&quot; height=&quot;1000&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -6141,7 +6692,7 @@ fi&lt;/span&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2020/11/15/managing-database-migrations-scala/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/db-migrations-scala.png?202210051536&quot; alt=&quot;&quot; width=&quot;1400&quot; height=&quot;700&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/db-migrations-scala.png?202210180705&quot; alt=&quot;&quot; width=&quot;1400&quot; height=&quot;700&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -6643,7 +7194,7 @@ docker run &lt;span class=&quot;nt&quot;&gt;--rm&lt;/span&gt; &lt;span class=&qu
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2020/11/12/i-like-option-get/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/option.get.png?202210051536&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;800&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/option.get.png?202210180705&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;800&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -6773,7 +7324,7 @@ docker run &lt;span class=&quot;nt&quot;&gt;--rm&lt;/span&gt; &lt;span class=&qu
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2020/11/11/organize-index-screenshots-ocr-macos/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/spotlight-search.png?202210051536&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;800&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/spotlight-search.png?202210180705&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;800&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -7047,7 +7598,7 @@ youtube.com###comments
 &lt;p&gt;Here’s how it should look like:&lt;/p&gt;
 
 &lt;figure&gt;
-  &lt;img src=&quot;https://alexn.org/assets/media/articles/block-comments.png?202210051536&quot; alt=&quot;Screenshot of uBlock Origin's My Filters section&quot; width=&quot;1526&quot; height=&quot;763&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+  &lt;img src=&quot;https://alexn.org/assets/media/articles/block-comments.png?202210180705&quot; alt=&quot;Screenshot of uBlock Origin's My Filters section&quot; width=&quot;1526&quot; height=&quot;763&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;These rules block comments from:&lt;/p&gt;
@@ -7098,7 +7649,7 @@ youtube.com###comments
 &lt;p&gt;You can then import it in uBlock Origin easily:&lt;/p&gt;
 
 &lt;figure&gt;
-  &lt;img src=&quot;https://alexn.org/assets/media/articles/block-comments2.png?202210051536&quot; alt=&quot;Screenshot of uBlock Origin's Filter List&quot; width=&quot;1375&quot; height=&quot;728&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+  &lt;img src=&quot;https://alexn.org/assets/media/articles/block-comments2.png?202210180705&quot; alt=&quot;Screenshot of uBlock Origin's Filter List&quot; width=&quot;1375&quot; height=&quot;728&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
 &lt;/figure&gt;
 
 &lt;h2 id=&quot;safari--ios-iphone-ipad&quot;&gt;Safari / iOS (iPhone, iPad)&lt;/h2&gt;
@@ -7437,7 +7988,7 @@ see &lt;a href=&quot;https://alexn.org/blog/2020/08/03/on-error-retry-loop/&quot
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=mlXtwZY4ko4&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/mlXtwZY4ko4/maxresdefault.jpg?202210051536&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/mlXtwZY4ko4/maxresdefault.jpg?202210180705&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=mlXtwZY4ko4&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -7880,7 +8431,7 @@ thus wrapping &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2020/09/10/privilege/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/fi-miu.jpg?202210051536&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;800&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/fi-miu.jpg?202210180705&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;800&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;My son ❤️&lt;/em&gt;&lt;/p&gt;&lt;/figcaption&gt;
       &lt;/figure&gt;
@@ -8269,7 +8820,7 @@ thus wrapping &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2020/08/03/on-error-retry-loop/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/snippets/on-error-retry-loop.png?202210051536&quot; alt=&quot;&quot; width=&quot;1400&quot; height=&quot;700&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/snippets/on-error-retry-loop.png?202210180705&quot; alt=&quot;&quot; width=&quot;1400&quot; height=&quot;700&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -8709,7 +9260,7 @@ thus wrapping &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2020/05/26/scala-fatal-warnings/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-xfatal-warnings.png?202210051536&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;600&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-xfatal-warnings.png?202210180705&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;600&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -9036,7 +9587,7 @@ thus wrapping &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2020/04/21/javascript-semaphore/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/async-semaphore-typescript.png?202210051536&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;800&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/async-semaphore-typescript.png?202210180705&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;800&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -9221,7 +9772,7 @@ thus wrapping &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=RYmGT905Skc&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/RYmGT905Skc/maxresdefault.jpg?202210051536&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/RYmGT905Skc/maxresdefault.jpg?202210180705&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=RYmGT905Skc&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -9260,7 +9811,7 @@ thus wrapping &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=RYmGT905Skc&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/RYmGT905Skc/maxresdefault.jpg?202210051536&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/RYmGT905Skc/maxresdefault.jpg?202210180705&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=RYmGT905Skc&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -9491,7 +10042,7 @@ thus wrapping &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2019/11/22/howto-regexp-replacement-via-function-java-scala/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-replace-all-function.png?202210051536&quot; alt=&quot;&quot; width=&quot;1238&quot; height=&quot;530&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-replace-all-function.png?202210180705&quot; alt=&quot;&quot; width=&quot;1238&quot; height=&quot;530&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -9898,7 +10449,7 @@ Imported from &lt;a href=&quot;https://gist.github.com/alexandru/d04c23e3ebd918c
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2019/08/11/isinstanceof-anti-pattern/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-instanceof-antipattern.png?202210051536&quot; alt=&quot;&quot; width=&quot;768&quot; height=&quot;574&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-instanceof-antipattern.png?202210180705&quot; alt=&quot;&quot; width=&quot;768&quot; height=&quot;574&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -10173,7 +10724,7 @@ then use CanGuarantee.synchronous[Unit] to create one.
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2018/05/06/bifunctor-io/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/bio.png?202210051536&quot; alt=&quot;&quot; width=&quot;1368&quot; height=&quot;684&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/bio.png?202210180705&quot; alt=&quot;&quot; width=&quot;1368&quot; height=&quot;684&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -10732,7 +11283,7 @@ the current status quo. Scala is a great environment.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2018/02/12/in-defense-oofp/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-stairs.jpg?202210051536&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;1200&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-stairs.jpg?202210180705&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;1200&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -11730,7 +12281,7 @@ Scala’s OOP and the new collections.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2017/11/10/minitest-no-crap-scala-library/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202210051536&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202210180705&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -12083,7 +12634,7 @@ codebase much.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2017/10/15/functional-programming/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/functions.png?202210051536&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;900&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/functions.png?202210180705&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;900&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -12412,7 +12963,7 @@ but it’s not that good for learning FP in 2017.&lt;/p&gt;
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=wi97X8_JQUk&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/wi97X8_JQUk/maxresdefault.jpg?202210051536&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/wi97X8_JQUk/maxresdefault.jpg?202210180705&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=wi97X8_JQUk&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -12436,7 +12987,7 @@ and &lt;a href=&quot;http://event.scaladays.org/scaladays-cph-2017&quot;&gt;Cope
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=wi97X8_JQUk&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/wi97X8_JQUk/maxresdefault.jpg?202210051536&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/wi97X8_JQUk/maxresdefault.jpg?202210180705&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=wi97X8_JQUk&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -12879,7 +13430,7 @@ where people are afraid to take on dependencies.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2017/08/16/automatic-releases-sbt-travis/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/sbt.png?202210051536&quot; alt=&quot;&quot; width=&quot;641&quot; height=&quot;277&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/sbt.png?202210180705&quot; alt=&quot;&quot; width=&quot;641&quot; height=&quot;277&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -14784,7 +15335,7 @@ avoiding concurrency 💀&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2017/01/16/iterator/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202210051536&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202210180705&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -15085,7 +15636,7 @@ grandparents, I’m afraid to wish for it.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2017/01/13/traversable/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202210051536&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202210180705&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -15264,7 +15815,7 @@ if you want to learn more checkout this presentation:
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2016/11/11/newsblur-bookmarklet/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/newsblur.png?202210051536&quot; alt=&quot;&quot; width=&quot;512&quot; height=&quot;512&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/newsblur.png?202210180705&quot; alt=&quot;&quot; width=&quot;512&quot; height=&quot;512&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -15331,7 +15882,7 @@ and you should see all bookmarks, press and hold on the new
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2016/08/25/monix-task-performance/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/monix-1024.png?202210051536&quot; alt=&quot;&quot; width=&quot;1024&quot; height=&quot;1024&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/monix-1024.png?202210180705&quot; alt=&quot;&quot; width=&quot;1024&quot; height=&quot;1024&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -15709,7 +16260,7 @@ forked tasks it evens out with the performance of &lt;code class=&quot;language-
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=CQxviYlAKaY&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/CQxviYlAKaY/maxresdefault.jpg?202210051536&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/CQxviYlAKaY/maxresdefault.jpg?202210180705&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=CQxviYlAKaY&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -15725,7 +16276,7 @@ forked tasks it evens out with the performance of &lt;code class=&quot;language-
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=CQxviYlAKaY&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/CQxviYlAKaY/maxresdefault.jpg?202210051536&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/CQxviYlAKaY/maxresdefault.jpg?202210180705&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=CQxviYlAKaY&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -15806,7 +16357,7 @@ presentation of Monix Observable and how that helps.&lt;/p&gt;
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=rftcbxj7et0&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/rftcbxj7et0/maxresdefault.jpg?202210051536&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/rftcbxj7et0/maxresdefault.jpg?202210180705&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=rftcbxj7et0&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -15822,7 +16373,7 @@ presentation of Monix Observable and how that helps.&lt;/p&gt;
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=rftcbxj7et0&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/rftcbxj7et0/maxresdefault.jpg?202210051536&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/rftcbxj7et0/maxresdefault.jpg?202210180705&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=rftcbxj7et0&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -15904,7 +16455,7 @@ instead of blocking threads.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2015/12/15/avoid-javaisms-code-smell/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/skunk.jpg?202210051536&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;630&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/skunk.jpg?202210180705&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;630&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -16646,7 +17197,7 @@ which is why I’m dumbfounded by claims of parallelism&lt;/li&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2014/10/20/scala-best-practices/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202210051536&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202210180705&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -16697,7 +17248,7 @@ which is why I’m dumbfounded by claims of parallelism&lt;/li&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2013/05/13/getting-started-with-scala/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202210051536&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202210180705&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -17264,7 +17815,7 @@ orchestrate multiple atomic references at once.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2013/03/14/jvm-multithreading-monitor-locks-visibility/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/ferrari.jpg?202210051536&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;800&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/ferrari.jpg?202210180705&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;800&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -17754,7 +18305,7 @@ that you can’t do with plain volatiles.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2012/11/07/notes-javascript-development/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/javascript.jpg?202210051536&quot; alt=&quot;&quot; width=&quot;1280&quot; height=&quot;720&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/javascript.jpg?202210180705&quot; alt=&quot;&quot; width=&quot;1280&quot; height=&quot;720&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -17959,7 +18510,7 @@ In this article I’m describing my impressions of the Scala programming languag
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2012/11/02/scala-functional-programming-type-classes/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202210051536&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202210180705&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -19357,7 +19908,7 @@ you started.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2012/01/16/cosine-similarity-euclidean-distance/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/cosine-distance.png?202210051536&quot; alt=&quot;&quot; width=&quot;1285&quot; height=&quot;830&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/cosine-distance.png?202210180705&quot; alt=&quot;&quot; width=&quot;1285&quot; height=&quot;830&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -19793,7 +20344,7 @@ some text into another.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2012/01/05/blogging-for-hackers/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/jekyll.png?202210051536&quot; alt=&quot;&quot; width=&quot;960&quot; height=&quot;489&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/jekyll.png?202210180705&quot; alt=&quot;&quot; width=&quot;960&quot; height=&quot;489&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -20340,7 +20891,7 @@ anyway, but this was fun.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2011/12/15/crawling-the-android-marketplace-155200-apps/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/wolf-spider.jpg?202210051536&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;947&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/wolf-spider.jpg?202210180705&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;947&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -20478,7 +21029,7 @@ distribution is freemium based.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2011/12/12/android-learning-resources/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/android-development.jpg?202210051536&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;800&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/android-development.jpg?202210180705&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;800&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -20614,7 +21165,7 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2011/11/29/earning-money-as-an-amazon-affiliate/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/amazon-associates.jpg?202210051536&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;650&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/amazon-associates.jpg?202210180705&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;650&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -20862,7 +21413,7 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2011/11/25/4-books-for-learning-to-design-the-hard-way/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/book-design-all.jpg?202210051536&quot; alt=&quot;&quot; width=&quot;1915&quot; height=&quot;648&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/book-design-all.jpg?202210180705&quot; alt=&quot;&quot; width=&quot;1915&quot; height=&quot;648&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -21120,7 +21671,7 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2011/10/29/how-i-use-flickr/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/flickr.jpg?202210051536&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;800&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/flickr.jpg?202210180705&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;800&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -21202,7 +21753,7 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2011/10/23/why-i-find-heroku-suboptimal/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/heroku.png?202210051536&quot; alt=&quot;&quot; width=&quot;1440&quot; height=&quot;608&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/heroku.png?202210180705&quot; alt=&quot;&quot; width=&quot;1440&quot; height=&quot;608&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -21328,7 +21879,7 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2011/03/24/cross-domain-requests/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/cors-ajax.png?202210051536&quot; alt=&quot;&quot; width=&quot;1368&quot; height=&quot;328&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/cors-ajax.png?202210180705&quot; alt=&quot;&quot; width=&quot;1368&quot; height=&quot;328&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -21672,7 +22223,7 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2010/05/25/i-hate-null/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/beautiful-soup.png?202210051536&quot; alt=&quot;&quot; width=&quot;1542&quot; height=&quot;592&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/beautiful-soup.png?202210180705&quot; alt=&quot;&quot; width=&quot;1542&quot; height=&quot;592&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -21803,7 +22354,7 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2009/02/20/tips-for-creating-voip-dialer/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/freeswitch1.png?202210051536&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;674&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/freeswitch1.png?202210180705&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;674&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -22149,7 +22700,7 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2009/02/01/using-best-tools-programming-not-doable/?pk_campaign=rss&amp;pk_kwd=image&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/tools.png?202210051536&quot; alt=&quot;&quot; width=&quot;768&quot; height=&quot;768&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/tools.png?202210180705&quot; alt=&quot;&quot; width=&quot;768&quot; height=&quot;768&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
