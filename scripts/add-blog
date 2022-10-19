@@ -19,6 +19,10 @@ begin
 ---
 title: #{options[:title].to_json}
 image:
+# image_caption:
+# date:
+# last_modified_at:
+# generate_toc: true
 tags: []
 description: >
   Description here...
@@ -47,7 +51,7 @@ description: >
   path = File.join(dir_path, fname)
   puts "Created: #{rel_dir_path}/#{fname}"
   File.open(path, 'w') { |file| file.write(text) }
-  exec("code \"#{project_path}\" \"#{path}\"")
+  exec("vimr --cwd \"#{project_path}\" \"#{path}\"")
 rescue
   puts parser.help
   raise
