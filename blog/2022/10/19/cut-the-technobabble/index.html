@@ -19,14 +19,14 @@
     <meta content="FP marketing is made of technobabble. Technobabble was used in Star Trek. Those long discussions are what Star Trek was loved for, but technobabble isn’t good for sharing knowledge or advancing our field." property="og:description">
     <meta content="https://alexn.org/blog/2022/10/19/cut-the-technobabble/" property="og:url">
     <meta content="2022-10-19T12:00:00+00:00" property="article:published_time">
-    <meta content="2022-10-19T20:14:10+00:00" property="article:modified_time">
+    <meta content="2022-10-19T20:17:16+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-cut-the-technobabble.jpeg?202210192015" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-cut-the-technobabble.jpeg?202210192015" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-cut-the-technobabble.jpeg?202210192018" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-cut-the-technobabble.jpeg?202210192018" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-cut-the-technobabble.jpeg?202210192015">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-cut-the-technobabble.jpeg?202210192018">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Cut the Technobabble">
@@ -115,7 +115,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-cut-the-technobabble.jpeg" />
-          <img src="/assets/media/articles/2022-cut-the-technobabble.jpeg?202210192015" width="1400" height="700" alt="&quot;Sir, we have a bug!&quot;; &quot;But we used algebraic reasoning!&quot;" />
+          <img src="/assets/media/articles/2022-cut-the-technobabble.jpeg?202210192018" width="1400" height="700" alt="&quot;Sir, we have a bug!&quot;; &quot;But we used algebraic reasoning!&quot;" />
           <figcaption itemprop="caption">"Sir, we have a bug!"; "But we used algebraic reasoning!"</figcaption>
         </figure>
         
@@ -226,9 +226,9 @@ The marketing for Functional Programming is made of technobabble. Technobabble w
 
 <p><strong>Functional programming is expression-oriented</strong>, we process stuff by transforming input into output via function composition, essentially assembling a pipeline. Working with <code class="language-plaintext highlighter-rouge">IO</code> here allows us to remain within this paradigm, and it’s awesome for it. Expressions are awesome.</p>
 
-<p>But as far as composition is concerned, this argument isn’t as strong as you’d think, because in the context of blocking I/O, going from <code class="language-plaintext highlighter-rouge">() =&gt; A</code> to <code class="language-plaintext highlighter-rouge">A</code> or from <code class="language-plaintext highlighter-rouge">List[() =&gt; A]</code> to <code class="language-plaintext highlighter-rouge">List[A]</code> is trivial, not to mention you can always use plain-old <code class="language-plaintext highlighter-rouge">foreach</code> loops, which also compose 🤷‍♂️</p>
+<p>But as far as composition is concerned, this argument isn’t as strong as you’d think, because in the context of blocking I/O and side-effecting functions, going from <code class="language-plaintext highlighter-rouge">() =&gt; A</code> to <code class="language-plaintext highlighter-rouge">A</code> or from <code class="language-plaintext highlighter-rouge">List[() =&gt; A]</code> to <code class="language-plaintext highlighter-rouge">List[A]</code> is trivial, not to mention you can always use plain-old <code class="language-plaintext highlighter-rouge">foreach</code> loops, which also compose 🤷‍♂️</p>
 
-<p>I don’t see any monadic <code class="language-plaintext highlighter-rouge">IO</code> in the following code, and this could be Java:</p>
+<p>I don’t see any monadic <code class="language-plaintext highlighter-rouge">IO</code> in the following code:</p>
 
 <div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Kotlin code — only used because Java currently needs boilerplate</span>
 <span class="k">suspend</span> <span class="k">fun</span> <span class="p">&lt;</span><span class="nc">A</span><span class="p">,</span> <span class="nc">B</span><span class="p">&gt;</span> <span class="nf">processInBatches</span><span class="p">(</span>
@@ -379,7 +379,7 @@ The marketing for Functional Programming is made of technobabble. Technobabble w
 <figure class="video">
   
   <a href="https://www.youtube.com/watch?v=h4idB5KAfyc&amp;autoplay=1" target="_blank" class="youtube-play-link" title="Go to YouTube video">
-    <img src="/assets/media/articles/2022-technobabble-2.jpg?202210192015" alt="" class="play-thumb" width="1280" height="720" />
+    <img src="/assets/media/articles/2022-technobabble-2.jpg?202210192018" alt="" class="play-thumb" width="1280" height="720" />
   </a>
   <figcaption>
     <a href="https://www.youtube.com/watch?v=h4idB5KAfyc&amp;autoplay=1" target="_blank">
@@ -393,7 +393,7 @@ The marketing for Functional Programming is made of technobabble. Technobabble w
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2022-10-19T23:14:10+0300">
+    <time itemprop="dateModified" content="2022-10-19T23:17:16+0300">
         Updated: October 19, 2022
     </time>
     
@@ -510,12 +510,12 @@ The marketing for Functional Programming is made of technobabble. Technobabble w
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202210192015" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210192015" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202210192015" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202210192015" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202210192018" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210192018" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202210192018" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202210192018" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202210192015" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202210192018" type="text/javascript"></script>
 
 
 <script type="text/javascript">
