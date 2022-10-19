@@ -19,14 +19,14 @@
     <meta content="FP marketing is made of technobabble. Technobabble was used in Star Trek. Those long discussions are what Star Trek was loved for, but technobabble isn’t good for sharing knowledge or advancing our field." property="og:description">
     <meta content="https://alexn.org/blog/2022/10/19/cut-the-technobabble/" property="og:url">
     <meta content="2022-10-19T12:00:00+00:00" property="article:published_time">
-    <meta content="2022-10-19T20:13:46+00:00" property="article:modified_time">
+    <meta content="2022-10-19T20:14:10+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-cut-the-technobabble.jpeg?202210192014" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-cut-the-technobabble.jpeg?202210192014" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-cut-the-technobabble.jpeg?202210192015" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-cut-the-technobabble.jpeg?202210192015" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-cut-the-technobabble.jpeg?202210192014">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-cut-the-technobabble.jpeg?202210192015">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Cut the Technobabble">
@@ -115,7 +115,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-cut-the-technobabble.jpeg" />
-          <img src="/assets/media/articles/2022-cut-the-technobabble.jpeg?202210192014" width="1400" height="700" alt="&quot;Sir, we have a bug!&quot;; &quot;But we used algebraic reasoning!&quot;" />
+          <img src="/assets/media/articles/2022-cut-the-technobabble.jpeg?202210192015" width="1400" height="700" alt="&quot;Sir, we have a bug!&quot;; &quot;But we used algebraic reasoning!&quot;" />
           <figcaption itemprop="caption">"Sir, we have a bug!"; "But we used algebraic reasoning!"</figcaption>
         </figure>
         
@@ -200,7 +200,7 @@ The marketing for Functional Programming is made of technobabble. Technobabble w
 
 <p>Different monadic types don’t compose well. So, for example, if you have 2 types, <code class="language-plaintext highlighter-rouge">F[_]</code> and <code class="language-plaintext highlighter-rouge">G[_]</code>, you can’t automatically combine them into an <code class="language-plaintext highlighter-rouge">F[G[_]]</code> or <code class="language-plaintext highlighter-rouge">G[F[_]]</code> (think <code class="language-plaintext highlighter-rouge">IO[Option[_]]</code> and <code class="language-plaintext highlighter-rouge">Option[IO[_]]</code>). Knowledge of their monadic nature isn’t enough for you to do that, as you need more. Hence, we have a need for “<em>monad transformers</em>”, e.g. <code class="language-plaintext highlighter-rouge">OptionT</code>, <code class="language-plaintext highlighter-rouge">EitherT</code>, <code class="language-plaintext highlighter-rouge">ReaderT</code>. Or we need another type-class, like <code class="language-plaintext highlighter-rouge">Traverse</code>, which allows us to transform an <code class="language-plaintext highlighter-rouge">F[G[_]]</code> into <code class="language-plaintext highlighter-rouge">G[F[_]]</code> (e.g. <code class="language-plaintext highlighter-rouge">(list: List[IO]).sequence</code>). That, or you can basically take the monad transformers and combine everything into a bigger type. Obviously something like this can be hard-coded, to be more ergonomic and/or efficient, moving the costs around:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">type</span> <span class="kt">ZIO</span><span class="o">[</span><span class="kt">-Env</span>, <span class="kt">+Err</span>, <span class="kt">+R</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Kleisli</span><span class="o">[</span><span class="kt">IO</span>, <span class="kt">Env</span>, <span class="kt">EitherT</span><span class="o">[</span><span class="kt">IO</span>, <span class="kt">Err</span>, <span class="kt">R</span><span class="o">]]</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">type</span> <span class="kt">ZIO</span><span class="o">[</span><span class="kt">-Env</span>, <span class="kt">+Err</span>, <span class="kt">+R</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Kleisli</span><span class="o">[</span><span class="kt">EitherT</span><span class="o">[</span><span class="kt">IO</span>, <span class="kt">Err</span>, <span class="kt">*</span><span class="o">]</span>, <span class="kt">Env</span>, <span class="kt">R</span><span class="o">]</span>
 </code></pre></div></div>
 
 <p>But folks, from where I’m sitting, I don’t see that much automatic “composition” happening for monads, in general, compared to plain old functions. The “composition” happening in Haskell’s ecosystem, via the prevalence of monad transformers, is for me a turnoff, alongside <code class="language-plaintext highlighter-rouge">ReaderT</code> used for dependency injection, even when encoded into something more ergonomic. I’ll take Java’s Spring over that, thanks. But that’s just a personal opinion.</p>
@@ -379,7 +379,7 @@ The marketing for Functional Programming is made of technobabble. Technobabble w
 <figure class="video">
   
   <a href="https://www.youtube.com/watch?v=h4idB5KAfyc&amp;autoplay=1" target="_blank" class="youtube-play-link" title="Go to YouTube video">
-    <img src="/assets/media/articles/2022-technobabble-2.jpg?202210192014" alt="" class="play-thumb" width="1280" height="720" />
+    <img src="/assets/media/articles/2022-technobabble-2.jpg?202210192015" alt="" class="play-thumb" width="1280" height="720" />
   </a>
   <figcaption>
     <a href="https://www.youtube.com/watch?v=h4idB5KAfyc&amp;autoplay=1" target="_blank">
@@ -393,7 +393,7 @@ The marketing for Functional Programming is made of technobabble. Technobabble w
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2022-10-19T23:13:46+0300">
+    <time itemprop="dateModified" content="2022-10-19T23:14:10+0300">
         Updated: October 19, 2022
     </time>
     
@@ -510,12 +510,12 @@ The marketing for Functional Programming is made of technobabble. Technobabble w
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202210192014" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210192014" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202210192014" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202210192014" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202210192015" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210192015" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202210192015" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202210192015" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202210192014" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202210192015" type="text/javascript"></script>
 
 
 <script type="text/javascript">
