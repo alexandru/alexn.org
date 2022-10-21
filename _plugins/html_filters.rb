@@ -79,7 +79,7 @@ module Jekyll
     @@site = Jekyll.configuration({})
 
     def rss_campaign_link(link, campaign=nil, keyword=nil)
-      return link unless @@site['analytics']['enabled']
+      return link unless @@site['analytics']['enabled'] && campaign && !campaign.empty?
 
       l = if link.include? '?'
         link + "&"
@@ -87,7 +87,7 @@ module Jekyll
         link + "?"
       end
 
-      l = l + "pk_campaign=" + (campaign && !campaign.empty? ? campaign : "rss")
+      l = l + "pk_campaign=" + campaign
       l = l + "&pk_kwd=#{keyword}" if keyword and !keyword.empty?
       l
     end

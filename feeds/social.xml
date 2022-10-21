@@ -9,10 +9,10 @@ layout: null
   xmlns:content="http://purl.org/rss/1.0/modules/content/">
 
   <channel>
-    <title>{{ site.title | xml_smart_escape }} — RSS to Twitter</title>
-    <description>Feed meant for publishing notifications to Twitter.</description>
+    <title>{{ site.title | xml_smart_escape }} — RSS to Social (Noisy)</title>
+    <description>Feed meant for publishing notifications to Twitter/LinkedIn.</description>
     <link>{{ site.url }}{{ site.baseurl }}/</link>
-    <atom:link href="{{ site.url }}{% link feeds/twitter.xml %}" rel="self" type="application/rss+xml"/>
+    <atom:link href="{{ site.url }}{% link feeds/social.xml %}" rel="self" type="application/rss+xml"/>
     <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
     <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
     <language>en</language>
@@ -22,7 +22,7 @@ layout: null
 
     {% for post in site.posts limit:200 %}
       {% unless post.secret -%}
-        {% include feed-item-blog.xml post=post pk_campaign="twitter" write_tags_as_content=true %}
+        {% include feed-item-blog.xml post=post with_social_content=true %}
       {% endunless -%}
     {% endfor -%}
   </channel>

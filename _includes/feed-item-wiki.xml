@@ -4,7 +4,7 @@
   <img referrerpolicy="no-referrer-when-downgrade" src="{{ tracker_url }}" width="1" height="1" style="position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;" alt="" />
 {% endif -%}{% endcapture -%}
 {% capture item_content -%}
-  {% if include.write_tags_as_content %}
+  {% if include.with_social_content %}
     Wiki article {% for tag in include.post.tags %}#{{ tag | twitter_taggify }} {% endfor %}
   {% else %}
     <p>
@@ -17,7 +17,7 @@
   {% endif %}
 {% endcapture -%}
 {% capture item_description %}
-  {% if include.write_tags_as_content %}
+  {% if include.with_social_content %}
     Wiki article {% for tag in include.post.tags %}#{{ tag | twitter_taggify }} {% endfor %}
   {% else %}
     Article 
@@ -34,7 +34,7 @@
   <dc:modified>{{ include.post.last_modified_at | date_to_rfc822 }}</dc:modified>
   <atom:modified>{{ include.post.last_modified_at | date_to_rfc822 }}</atom:modified>
   {% endif -%}
-  <link>{{ include.post.url | prepend: site.baseurl | prepend: site.url | rss_campaign_link: pk_campaign, 'link' | xml_escape }}</link>
+  <link>{{ include.post.url | prepend: site.baseurl | prepend: site.url | rss_campaign_link: pk_campaign | xml_escape }}</link>
   <guid isPermaLink="true">{{ include.post.url | prepend: site.baseurl | prepend: site.url }}</guid>
   {% if include.post.author %}
   {% assign author = site.authors | map: include.post.author | map: "name" %}

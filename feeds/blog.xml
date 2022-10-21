@@ -22,7 +22,7 @@ layout: null
 
     {% assign items = site.posts | rss_filter_and_sort %}
     {% for post in items %}
-      {% include feed-item-blog.xml post=post with_full_post=true add_pixel=forloop.first %}
+      {% include feed-item-blog.xml post=post with_full_post=true pk_campaign="rss" add_pixel=forloop.first %}
     {% endfor %}
   </channel>
 </rss>

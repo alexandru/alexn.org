@@ -1,4 +1,4 @@
-{% assign pk_campaign = include.pk_campaign | default: "rss" -%}
+{% assign pk_campaign = include.pk_campaign -%}
 {% capture item_image %}
   {% if include.post.image or include.post.youtube %}
   {% unless include.with_full_post and include.post.image_hide_in_post %}
@@ -8,7 +8,7 @@
     {% else %}
       {% capture image_src %}{% if include.post.image %}{{ include.post.image }}{% else %}{{ include.post.youtube | youtube_thumb_link }}{% endif -%}{% endcapture -%}
       <figure>
-        <a href="{{ include.post.url | absolute_url | rss_campaign_link: pk_campaign, 'image' }}">
+        <a href="{{ include.post.url | absolute_url | rss_campaign_link: pk_campaign }}">
           <img src="{{ image_src }}?{{ 'now' | date: '%Y%m%d%H%M' }}" alt="" />
         </a>
         {% if include.post.image_caption %}<figcaption>{{ include.post.image_caption }}</figcaption>{% endif %}
@@ -28,20 +28,23 @@
     {{ include.post.content }}
     <hr/>
     <p>
-      <i>The article <a href="{{ include.post.url | absolute_url | rss_campaign_link: pk_campaign, 'footer-link' }}">{{ include.post.title | xml_smart_escape }}</a> first appeared on <a href="{{ site.url | rss_campaign_link: pk_campaign, 'footer-link' }}">{{ site.domain }}</a>.</i>
+      <i>The article <a href="{{ include.post.url | absolute_url | rss_campaign_link: pk_campaign }}">{{ include.post.title | xml_smart_escape }}</a> first appeared on <a href="{{ site.url | rss_campaign_link: pk_campaign }}">{{ site.domain }}</a>.</i>
     </p>
-  {% elsif include.write_tags_as_content %}
-    Blog article {% for tag in include.post.tags %}#{{ tag | twitter_taggify }} {% endfor %}
+  {% elsif include.with_social_content %}
+    {% if include.post.social_description %}{{ include.post.social_description | markdownify | strip }}{% endif -%}
+    <p>Blog article {% for tag in include.post.tags %}#{{ tag | twitter_taggify }} {% endfor %}</p>
   {% else %}
     {{ tracking_pixel | strip }}{{ item_image }}
     {% if include.post.description %}{{ include.post.description | markdownify }}{% else %}{{ include.post.excerpt | strip_html }}{% endif %}
     <p>
-      <a href="{{ include.post.url | absolute_url | rss_campaign_link: pk_campaign, 'read-more' }}">Read article →</a>
+      <a href="{{ include.post.url | absolute_url | rss_campaign_link: pk_campaign }}">Read article →</a>
     </p>
   {% endif %}
 {% endcapture -%}
 {% capture item_description %}
-  {% if include.write_tags_as_content %}
+  {% if include.with_social_content %}
+    {% if include.post.social_description %}{{ include.post.social_description | markdownify | strip_html | strip }}
+    {% endif %}
     Blog article {% for tag in include.post.tags %}#{{ tag | twitter_taggify }} {% endfor %}
   {% else %}
     {% if include.post.description %}
@@ -60,7 +63,7 @@
   <dc:modified>{{ include.post.last_modified_at | date_to_rfc822 }}</dc:modified>
   <atom:modified>{{ include.post.last_modified_at | date_to_rfc822 }}</atom:modified>
   {% endif -%}
-  <link>{{ include.post.url | prepend: site.baseurl | prepend: site.url | rss_campaign_link: pk_campaign, "link" | xml_escape }}</link>
+  <link>{{ include.post.url | prepend: site.baseurl | prepend: site.url | rss_campaign_link: pk_campaign | xml_escape }}</link>
   {% capture feed_guid %}{% if include.post.feed_guid %}{{ include.post.feed_guid }}{% else %}{{ include.post.url }}{% endif %}{% endcapture -%}
   <guid isPermaLink="true">{{ feed_guid | prepend: site.baseurl | prepend: site.url }}</guid>
   {% if include.post.author %}

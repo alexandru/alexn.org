@@ -23,9 +23,9 @@ layout: null
     {% assign items = site.posts | concat: site.wiki | rss_filter_and_sort -%}
     {% for post in items %}
       {% if post.collection == 'posts' -%}
-        {% include feed-item-blog.xml post=post with_full_post=true add_pixel=forloop.first %}
+        {% include feed-item-blog.xml post=post pk_campaign="rss" with_full_post=true add_pixel=forloop.first %}
       {% elsif post.collection == 'wiki' -%}
-        {% include feed-item-wiki.xml post=post prefix="Wiki — " add_pixel=forloop.first %}
+        {% include feed-item-wiki.xml post=post pk_campaign="rss" prefix="Wiki — " add_pixel=forloop.first %}
       {% endif -%}
     {% endfor -%}
   </channel>
