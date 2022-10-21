@@ -4,7 +4,7 @@ image: /assets/media/articles/2022-cut-the-technobabble.jpeg
 image_caption: '"Sir, we have a bug!"; "But we used algebraic reasoning!"'
 generate_toc: true
 date: 2022-10-19 15:00:00 +03:00
-last_modified_at: 2022-10-19 23:27:05 +03:00
+last_modified_at: 2022-10-21 09:10:26 +03:00
 tags: 
   - FP
   - Kotlin
@@ -52,7 +52,8 @@ def functionAtoC[F[_]: Monad]: A => F[C] =
 Different monadic types don't compose well. So, for example, if you have 2 types, `F[_]` and `G[_]`, you can't automatically combine them into an `F[G[_]]` or `G[F[_]]` (think `IO[Option[_]]` and `Option[IO[_]]`). Knowledge of their monadic nature isn't enough for you to do that, as you need more. Hence, we have a need for "*monad transformers*", e.g. `OptionT`, `EitherT`, `ReaderT`. Or we need another type-class, like `Traverse`, which allows us to transform an `F[G[_]]` into `G[F[_]]` (e.g. `(list: List[IO]).sequence`). That, or you can basically take the monad transformers and combine everything into a bigger type. Obviously something like this can be hard-coded, to be more ergonomic and/or efficient, moving the costs around:
 
 ```scala
-type ZIO[-Env, +Err, +R] = Kleisli[EitherT[IO, Err, *], Env, R]
+type ZIO[-Env, +Err, +R] = Kleisli[EitherT[IO, Err, ?], Env, R]
+// type ZIO[-Env, +Err, +R] = Env => IO[Either[Err, R]]
 ```
 
 But folks, from where I'm sitting, I don't see that much automatic "composition" happening for monads, in general, compared to plain old functions. The "composition" happening in Haskell's ecosystem, via the prevalence of monad transformers, is for me a turnoff, alongside `ReaderT` used for dependency injection, even when encoded into something more ergonomic. I'll take Java's Spring over that, thanks. But that's just a personal opinion.
