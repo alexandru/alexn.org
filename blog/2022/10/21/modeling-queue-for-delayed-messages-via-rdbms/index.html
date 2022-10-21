@@ -19,14 +19,14 @@
     <meta content="Ever had the need to deliver messages on your queue at a certain timestamp in the future? Look no further, because your RDBMS can do it. This is part 1 of a series that builds a solution from scratch." property="og:description">
     <meta content="https://alexn.org/blog/2022/10/21/modeling-queue-for-delayed-messages-via-rdbms/" property="og:url">
     <meta content="2022-10-21T06:46:07+00:00" property="article:published_time">
-    <meta content="2022-10-21T08:27:43+00:00" property="article:modified_time">
+    <meta content="2022-10-21T09:55:43+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-delayed-queue-design.png?202210210829" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-delayed-queue-design.png?202210210829" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-delayed-queue-design.png?202210210956" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-delayed-queue-design.png?202210210956" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-delayed-queue-design.png?202210210829">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-delayed-queue-design.png?202210210956">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Building a Queue for Delayed Messages via a RDBMS (1): Design">
@@ -115,7 +115,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-delayed-queue-design.png" />
-          <img src="/assets/media/articles/2022-delayed-queue-design.png?202210210829" width="2484" height="1244" alt="" />
+          <img src="/assets/media/articles/2022-delayed-queue-design.png?202210210956" width="2484" height="1244" alt="" />
           
         </figure>
         
@@ -158,11 +158,11 @@
 Ever had the need to deliver messages on your queue at a certain timestamp in the future? Look no further, because your RDBMS can do it. This is part 1 of a series that builds a solution from scratch.
 </p>
 
-<p>In our $work project we have the need to push messages on a queue, but delayed, for delivery at a certain timestamp in the future. Our IBM-MQ or Kafka servers aren’t adequate for that, and we can’t introduce more technology in our stack.</p>
+<p>In our $work project we had the need to push messages on a queue, but delayed, for delivery at a certain timestamp in the future. Our existing MQ servers aren’t adequate for that, and we can’t introduce more technology in our stack.</p>
 
 <p>Turns out, a relational database is perfectly adequate (such as MySQL or PostgreSQL). Here’s how to design such functionality …</p>
 
-<p>First, we need to establish the requirements:</p>
+<p>First, establish the requirements:</p>
 
 <ul>
   <li>Multiple consumers can read from the queue, at the same time, however only one consumer can gain access to a message for processing;</li>
@@ -179,7 +179,7 @@ Ever had the need to deliver messages on your queue at a certain timestamp in th
       </h2>
     
 
-<p>Your code should look more or less like this pseudo-code, you can insert your favorite libraries and abstractions, as this could be built via reactive streams or what not:</p>
+<p>Your code should look more or less like this pseudocode, you can insert your favorite libraries and abstractions, as this could be built via reactive streams or what not:</p>
 
 <div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">while</span> <span class="p">(</span><span class="k">true</span><span class="p">)</span> <span class="p">{</span>
   <span class="kd">val</span> <span class="py">message</span> <span class="p">=</span> <span class="nf">selectNextMessageAvailable</span><span class="p">()</span>
@@ -224,9 +224,6 @@ Ever had the need to deliver messages on your queue at a certain timestamp in th
     <span class="n">createdAt</span> <span class="nb">BIGINT</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
     <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">pKey</span><span class="p">,</span> <span class="n">pKind</span><span class="p">)</span>
 <span class="p">);</span>
-
-<span class="k">CREATE</span> <span class="k">INDEX</span> <span class="n">DelayedQueue__ScheduledAtIndex</span>
-<span class="k">ON</span> <span class="n">DelayedQueue</span><span class="p">(</span><span class="n">scheduledAt</span><span class="p">);</span>
 
 <span class="k">CREATE</span> <span class="k">INDEX</span> <span class="n">DelayedQueue__KindPlusScheduledAtIndex</span>
 <span class="k">ON</span> <span class="n">DelayedQueue</span> <span class="p">(</span><span class="n">pKind</span><span class="p">,</span> <span class="n">scheduledAt</span><span class="p">);</span>
@@ -285,7 +282,7 @@ Ever had the need to deliver messages on your queue at a certain timestamp in th
 <span class="k">LIMIT</span> <span class="mi">1</span><span class="p">;</span>
 </code></pre></div></div>
 
-<p>Note that this query is optimized by the <code class="language-plaintext highlighter-rouge">DelayedQueue__KindPlusScheduledAtIndex</code> index that we already created.</p>
+<p>Note that this query is optimized by the index that we already created.</p>
       <h2 id="acquiring-the-lock">
         
         
@@ -358,7 +355,7 @@ NOTE: <code class="language-plaintext highlighter-rouge">scheduledAt</code> is u
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2022-10-21T11:27:43+0300">
+    <time itemprop="dateModified" content="2022-10-21T12:55:43+0300">
         Updated: October 21, 2022
     </time>
     
@@ -469,12 +466,12 @@ NOTE: <code class="language-plaintext highlighter-rouge">scheduledAt</code> is u
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202210210829" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210210829" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202210210829" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202210210829" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202210210956" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210210956" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202210210956" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202210210956" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202210210829" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202210210956" type="text/javascript"></script>
 
 
 <script type="text/javascript">
