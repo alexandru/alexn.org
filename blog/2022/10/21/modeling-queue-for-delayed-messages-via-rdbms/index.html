@@ -19,14 +19,14 @@
     <meta content="Ever had the need to deliver messages on your queue at a certain timestamp in the future? Look no further, because your RDBMS can do it. This is part 1 of a series that builds a solution from scratch." property="og:description">
     <meta content="https://alexn.org/blog/2022/10/21/modeling-queue-for-delayed-messages-via-rdbms/" property="og:url">
     <meta content="2022-10-21T06:46:07+00:00" property="article:published_time">
-    <meta content="2022-10-21T09:55:43+00:00" property="article:modified_time">
+    <meta content="2022-10-21T09:57:31+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-delayed-queue-design.png?202210210956" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-delayed-queue-design.png?202210210956" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-delayed-queue-design.png?202210210958" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-delayed-queue-design.png?202210210958" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-delayed-queue-design.png?202210210956">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-delayed-queue-design.png?202210210958">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Building a Queue for Delayed Messages via a RDBMS (1): Design">
@@ -115,7 +115,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-delayed-queue-design.png" />
-          <img src="/assets/media/articles/2022-delayed-queue-design.png?202210210956" width="2484" height="1244" alt="" />
+          <img src="/assets/media/articles/2022-delayed-queue-design.png?202210210958" width="2484" height="1244" alt="" />
           
         </figure>
         
@@ -160,7 +160,7 @@ Ever had the need to deliver messages on your queue at a certain timestamp in th
 
 <p>In our $work project we had the need to push messages on a queue, but delayed, for delivery at a certain timestamp in the future. Our existing MQ servers aren’t adequate for that, and we can’t introduce more technology in our stack.</p>
 
-<p>Turns out, a relational database is perfectly adequate (such as MySQL or PostgreSQL). Here’s how to design such functionality …</p>
+<p>Turns out, a relational database is perfectly adequate (such as MySQL or PostgreSQL). Here’s how…</p>
 
 <p>First, establish the requirements:</p>
 
@@ -355,7 +355,7 @@ NOTE: <code class="language-plaintext highlighter-rouge">scheduledAt</code> is u
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2022-10-21T12:55:43+0300">
+    <time itemprop="dateModified" content="2022-10-21T12:57:31+0300">
         Updated: October 21, 2022
     </time>
     
@@ -466,12 +466,12 @@ NOTE: <code class="language-plaintext highlighter-rouge">scheduledAt</code> is u
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202210210956" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210210956" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202210210956" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202210210956" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202210210958" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210210958" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202210210958" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202210210958" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202210210956" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202210210958" type="text/javascript"></script>
 
 
 <script type="text/javascript">
