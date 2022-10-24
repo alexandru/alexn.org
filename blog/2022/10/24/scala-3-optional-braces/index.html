@@ -19,14 +19,14 @@
     <meta content="I dislike Scala 3’s significant whitespace syntax. At this point it’s safe to say that I hate it, being (IMO) an unfortunate evolution of the language." property="og:description">
     <meta content="https://alexn.org/blog/2022/10/24/scala-3-optional-braces/" property="og:url">
     <meta content="2022-10-24T09:07:21+00:00" property="article:published_time">
-    <meta content="2022-10-24T13:05:38+00:00" property="article:modified_time">
+    <meta content="2022-10-24T13:21:10+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-scala3-optional-braces.png?202210241307" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-scala3-optional-braces.png?202210241307" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-scala3-optional-braces.png?202210241322" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-scala3-optional-braces.png?202210241322" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-scala3-optional-braces.png?202210241307">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-scala3-optional-braces.png?202210241322">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="On Scala 3&#39;s Optional Braces">
@@ -106,7 +106,7 @@
       <meta itemprop="datePublished" content="2022-10-24T09:07:21+0000"/>
       
       <time itemprop="dateCreated" datetime="2022-10-24T09:07:21+0000">October 24, 2022</time>
-      | <span class="nobr"><span class="time">10</span> minutes</span>
+      | <span class="nobr"><span class="time">12</span> minutes</span>
       
       | <a href="/blog/2022/10/24/scala-3-optional-braces/#isso-thread" class="nobr">comments</a>
       
@@ -115,7 +115,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-scala3-optional-braces.png" />
-          <img src="/assets/media/articles/2022-scala3-optional-braces.png?202210241307" width="2856" height="1884" alt="" />
+          <img src="/assets/media/articles/2022-scala3-optional-braces.png?202210241322" width="2856" height="1884" alt="" />
           
         </figure>
         
@@ -289,7 +289,31 @@ This is a strongly worded article, using words such as “hate”. I’m critici
 
 <p>Python does not have an <code class="language-plaintext highlighter-rouge">end</code> marker, Ruby or Pascal do. You could say that Python has the virtue of forcing you to keep your functions short, since obviously, indentation-based syntax is problematic for big blocks of code. I never bought that, which is why an “end marker” makes sense, except that Scala has already had a perfectly usable syntax that made use of <code class="language-plaintext highlighter-rouge">{}</code> braces. And no matter how much more readable you find this new end marker to be, the ensuing TIMTOWTDI is just not worth it.</p>
 
-<p>Braces were already optional in Scala, in the case of expressions. For example, method definitions could omit braces, in case the implementation was a single expression. If you needed multiple statements, or in case you needed a <a href="https://en.wikipedia.org/wiki/Scope_(computer_science)">lexical scope</a>, you added the braces. Groups of statements needed braces, expressions didn’t. What those braces meant (a group of statements, or a lexical scope) was simple to explain. This now changes.</p>
+<p>Braces were already optional in Scala, in the case of expressions. For example, method definitions could omit braces, in case the implementation was a single expression. If you needed multiple statements, or in case you needed a <a href="https://en.wikipedia.org/wiki/Scope_(computer_science)">lexical scope</a>, you added the braces. Braces are super useful for hiding implementation details in the local scope:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">val</span> <span class="nv">y</span> <span class="k">=</span> <span class="nf">something</span><span class="o">()</span>
+<span class="k">val</span> <span class="nv">x</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="c1">// `y` and `z` can shadow values in the enclosing scope</span>
+  <span class="c1">// and are no longer visible after this scope ends</span>
+  <span class="k">val</span> <span class="nv">y</span> <span class="k">=</span> <span class="nf">foo</span><span class="o">()</span>
+  <span class="k">val</span> <span class="nv">z</span> <span class="k">=</span> <span class="nf">bar</span><span class="o">()</span>
+  <span class="n">y</span> <span class="o">+</span> <span class="n">z</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>This is such a beautiful syntax. IMO, lexical scopes need visual delimiters that are more significant than indentation. It may be important to mention that scoping in Python is at the “enclosing-function” level. You can’t do what I just did here with Scala, unless you create a closure, and then execute it. Which kind of makes sense, since establishing the scope by the indentation level seems to be pretty ambiguous.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1"># Python code
+</span><span class="n">y</span> <span class="o">=</span> <span class="n">something</span><span class="p">()</span>
+<span class="c1"># creating new lexical scope
+</span><span class="k">def</span> <span class="nf">createX</span><span class="p">():</span>
+  <span class="n">y</span> <span class="o">=</span> <span class="n">foo</span><span class="p">()</span> <span class="c1"># shadowing
+</span>  <span class="n">z</span> <span class="o">=</span> <span class="n">bar</span><span class="p">()</span>
+  <span class="k">return</span> <span class="n">y</span> <span class="o">+</span> <span class="n">z</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">createX</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>In Scala 2, groups of statements needed braces, expressions didn’t. What those braces meant (a group of statements, also creating a lexical scope) was simple to explain. In Scala 3 this now changes.</p>
       <h2 id="tooling-is-problematic">
         
         
@@ -333,7 +357,7 @@ This is a strongly worded article, using words such as “hate”. I’m critici
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2022-10-24T16:05:38+0300">
+    <time itemprop="dateModified" content="2022-10-24T16:21:10+0300">
         Updated: October 24, 2022
     </time>
     
@@ -445,12 +469,12 @@ This is a strongly worded article, using words such as “hate”. I’m critici
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202210241307" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210241307" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202210241307" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202210241307" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202210241322" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210241322" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202210241322" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202210241322" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202210241307" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202210241322" type="text/javascript"></script>
 
 
 <script type="text/javascript">
