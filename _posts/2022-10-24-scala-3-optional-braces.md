@@ -2,23 +2,24 @@
 title: "On Scala 3's Optional Braces"
 image: /assets/media/articles/2022-scala3-optional-braces.png
 date: 2022-10-24 12:07:21 +03:00
-last_modified_at: 2022-10-24 14:54:04 +03:00
+last_modified_at: 2022-10-24 18:12:49 +03:00
 generate_toc: true
+is_noise: true
 tags:
   - Programming Rant
   - Scala
 description: >
-  I dislike Scala 3's significant whitespace syntax. At this point it's safe to say that I hate it, being an unfortunate evolution of the language.
+  I dislike Scala 3's significant whitespace syntax. At this point it's safe to say that I hate it, being (IMO) an unfortunate evolution of the language.
 ---
 
 <p class="intro withcap">
-I dislike Scala 3's significant whitespace syntax. At this point it's safe to say that I hate it 🤷‍♂️, being an unfortunate evolution of the language.
+I dislike Scala 3's significant whitespace syntax. At this point it's safe to say that I hate it 🤷‍♂️, being (IMO) an unfortunate evolution of the language.
 </p>
 
 As a disclaimer, this may well be a subjective opinion, so full disclosure: I have never liked working with languages that have significant whitespace syntax. On the list of languages I dislike most, CoffeeScript is in the top 3, with YAML being a close second, and I had hoped that CoffeeScript's failure will finally make the notion of significant whitespace unpopular. But significant whitespace is like a siren song that keeps coming back in language design, possibly propelled by the popularity of Python and of YAML, and I don't understand why.
 
 <p class="warn-bubble" markdown="1">
-This is a strongly worded article, using words such as "hate". I'm criticising ideas, not people, and I'm only criticising Scala's new developments because it's a language that I love.
+This is a strongly worded article, using words such as "hate". I'm criticising ideas, not people, and I'm only criticising Scala's new developments because it's a language that I love. Since we don't do science, expressing feelings is perfectly adequate 😛
 </p>
 
 ## Virtues of indentation-based syntax
@@ -68,11 +69,11 @@ else {
 }
 ```
 
-But with tools such as Scalafmt, or `gofmt`, this is a nonissue. It's certainly not the kind of choice that has any impact on code quality, and it's not enough to require the changing of an entire language. Scala could have an official coding style, enforced via Scalafmt, and this conversation would be closed.
+But with tools such as Scalafmt, or `gofmt`, this is a nonissue. It's certainly not the kind of choice that has any impact on code quality, and it's not enough to require the changing of an entire language. Scala could have an official coding style, enforced via Scalafmt, and this conversation would be over.
 
 Less boilerplate you say?
 
-I'm one of those people that doesn't mind the `;` at the end of lines in Java. I don't miss it either, but it's trivial to automate via the IDE, and sometimes it can serve as a useful visual delimiter. Because in fact `;` separates statements, and it's a useful reminder that you have imperative statements being sequenced. And for `{}`, what I notice from my peers is that they often want more braces, not less. Don't you have colleagues that tend to do this?
+I'm one of those people that doesn't mind the `;` at the end of lines in Java. I don't miss it either, but it's trivial to automate via the IDE, and sometimes it can serve as a useful visual delimiter. Because in fact `;` separates imperative statements that are sequenced. And for `{}`, what I notice from my peers is that they often want more braces, not less. Don't you have colleagues that tend to do this?
 
 ```scala
 something match {
@@ -90,7 +91,7 @@ In Scala 3, I don't know what the motivation was, but the word is that the new s
 
 First, *Python is popular in spite of its syntax*, because it's an interactive/dynamic language that's easy to learn, it comes installed by default on all Linux distributions, and it comes with useful libraries such as Numpy, Scipy, Matplotlib, and others, which makes it the de facto standard for certain domains. To try to copy Python's recipe for success, by making the syntax to have significant indentation, is shortsighted at best. I worked as a Python developer, and I can tell you that its syntax was my least favorite part.
 
-Such cosmetic changes may look appealing, but any copied success recipe should start with Python striving to NOT be a [TIMTOWTDI](https://en.wikipedia.org/wiki/There's_more_than_one_way_to_do_it) language. And Scala 3 did, in fact, introduce even more ways to express yourself. The language that happily allowed many ways to express yourself, such as [programming in the Klingon language](https://metacpan.org/pod/Lingua::tlhInganHol::yIghun), is Perl. Even more, Python historically rejected multi-line anonymous functions. In [Language Design Is Not Just Solving Puzzles](https://www.artima.com/weblogs/viewpost.jsp?thread=147358), Guido van Rossum says about a proposal for multi-line lambdas:
+Such cosmetic changes may look appealing, but any copied success recipe should start with Python striving to NOT be a [TIMTOWTDI](https://en.wikipedia.org/wiki/There's_more_than_one_way_to_do_it) language. And Scala 3 did, in fact, introduce even more ways to express yourself. The language that proudly allowed many ways to express yourself, such as [programming in the Klingon language](https://metacpan.org/pod/Lingua::tlhInganHol::yIghun), is Perl, which is Python's nemesis 😎. Even more, Python historically rejected multi-line anonymous functions. In [Language Design Is Not Just Solving Puzzles](https://www.artima.com/weblogs/viewpost.jsp?thread=147358), Guido van Rossum says about a proposal for multi-line lambdas:
 
 > But such solutions often lack "Pythonicity" -- that elusive trait of a good Python feature. It's impossible to express Pythonicity as a hard constraint. Even the Zen of Python doesn't translate into a simple test of Pythonicity.
 >
@@ -134,7 +135,33 @@ end largeMethod
 
 Python does not have an `end` marker, Ruby or Pascal do. You could say that Python has the virtue of forcing you to keep your functions short, since obviously, indentation-based syntax is problematic for big blocks of code. I never bought that, which is why an "end marker" makes sense, except that Scala has already had a perfectly usable syntax that made use of `{}` braces. And no matter how much more readable you find this new end marker to be, the ensuing TIMTOWTDI is just not worth it.
 
-Braces were already optional in Scala, in the case of expressions. For example, method definitions could omit braces, in case the implementation was a single expression. If you needed multiple statements, or in case you needed a [lexical scope](https://en.wikipedia.org/wiki/Scope_(computer_science)), you added the braces. Groups of statements needed braces, expressions didn't. What those braces meant (a group of statements, or a lexical scope) was simple to explain. This now changes.
+Braces were already optional in Scala, in the case of expressions. For example, method definitions could omit braces, in case the implementation was a single expression. If you needed multiple statements, or in case you needed a [lexical scope](https://en.wikipedia.org/wiki/Scope_(computer_science)), you added the braces. Braces are super useful for hiding implementation details in the local scope:
+
+```scala
+val y = something()
+val x = {
+  // `y` and `z` can shadow values in the enclosing scope
+  // and are no longer visible after this scope ends
+  val y = foo()
+  val z = bar()
+  y + z
+}
+```
+
+This is such a beautiful syntax. IMO, lexical scopes need visual delimiters that are more significant than indentation. It may be important to mention that scoping in Python is at the "enclosing-function" level. You can't do what I just did here with Scala, unless you create a closure, and then execute it. Which kind of makes sense, since establishing the scope by the indentation level seems to be pretty ambiguous.
+
+```python
+# Python code
+y = something()
+# creating new lexical scope
+def createX():
+  y = foo() # shadowing
+  z = bar()
+  return y + z
+x = createX()
+```
+
+In Scala 2, groups of statements needed braces, expressions didn't. What those braces meant (a group of statements, also creating a lexical scope) was simple to explain. In Scala 3 this now changes.
 
 ## Tooling is problematic
 
@@ -148,8 +175,10 @@ Languages evolve, but there is such a thing as too much evolution, for the simpl
 
 Java's slow evolution makes a lot of sense. Love it or hate it, you can probably take a JAR compiled with Java 1.1, and it would still run on the latest JVM, and that Java 1.1 code probably compiles as well. There are some exceptions, but those are very few and far between. Java's devotion to backwards compatibility is what propelled it to be considered a platform you can depend on, being in the same league as POSIX. Developers may not like its generics, its boilerplate, or its culture of libraries doing runtime introspection to workaround language issues. But at least its syntax won't dramatically change overnight, and those Python developers probably learned Java in school, so they can always get back to it.
 
-Scala is succeeding in sending a message that it's not Java, but it's not doing so in a way that I find appealing.
+Scala 3 is succeeding in sending a message that it's not Java++, but it's not doing so in a way that I find appealing.
 
 ## In closing
 
 What I expected from Scala 3 was a simplification of Scala 2. It does simplify in some ways, e.g., macros are better, the type system fixes some holes, I love untagged union types, etc. But it also introduces complexity of its own, and for no good reason that I can see.
+
+I think it's too late to backtrack on these changes, significant-indentation syntax is probably here to stay (not in my projects), but one can hope.
