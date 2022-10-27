@@ -16,22 +16,22 @@
     <!-- Open Graph Meta -->
     <meta content="Alexandru Nedelcu" property="og:site_name">
     <meta content="Immutable Collections should be Your Default" property="og:title">
-    <meta content="Mutable collection types should only be used strategically, with purpose, otherwise for correctness/safety issues, the default should always be immutable collection types, aka persistent data structures." property="og:description">
+    <meta content="Mutable collection types should only be used strategically, with purpose, otherwise for correctness/safety issues, the default should be immutable collection types, aka persistent data structures." property="og:description">
     <meta content="https://alexn.org/blog/2022/10/27/immutable-collections-your-default/" property="og:url">
     <meta content="2022-10-27T12:34:46+00:00" property="article:published_time">
-    <meta content="2022-10-27T15:14:17+00:00" property="article:modified_time">
+    <meta content="2022-10-27T15:54:12+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-immutable-collections.png?202210271515" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-immutable-collections.png?202210271515" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-immutable-collections.png?202210271556" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-immutable-collections.png?202210271556" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-immutable-collections.png?202210271515">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-immutable-collections.png?202210271556">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Immutable Collections should be Your Default">
     <meta name="twitter:url" content="https://alexn.org/blog/2022/10/27/immutable-collections-your-default/">
-    <meta name="twitter:description" content="Mutable collection types should only be used strategically, with purpose, otherwise for correctness/safety issues, the default should always be immutable collection types, aka persistent data structures.">
+    <meta name="twitter:description" content="Mutable collection types should only be used strategically, with purpose, otherwise for correctness/safety issues, the default should be immutable collection types, aka persistent data structures.">
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/assets/logo/16px.png" sizes="16x16" />
@@ -152,7 +152,7 @@
 
   <div id="content" itemprop="articleBody">
     <p class="intro withcap">
-Mutable collection types should only be used strategically, with purpose, otherwise for correctness/safety issues, the default should always be immutable collection types, aka <a href="https://en.wikipedia.org/wiki/Persistent_data_structure">persistent data structures</a>.
+Mutable collection types should only be used strategically, with purpose, otherwise for correctness/safety issues, the default should be immutable collection types, aka <a href="https://en.wikipedia.org/wiki/Persistent_data_structure">persistent data structures</a>.
 </p>
       <h2 id="available-options">
         
@@ -171,7 +171,7 @@ Mutable collection types should only be used strategically, with purpose, otherw
   <li><a href="https://github.com/google/guava/wiki/ImmutableCollectionsExplained">Guava</a> is also a standard recommendation for Java;</li>
   <li><a href="https://github.com/Kotlin/kotlinx.collections.immutable">kotlinx.collections.immutable</a> works well for Kotlin;</li>
   <li>In Scala and Clojure, the default collection implementations are immutable by default, a wise design choice for JVM languages that provide their own (maximal) standard library;</li>
-  <li>If JavaScript is your thing, <a href="https://github.com/immutable-js/immutable-js/">Immutable.js</a> looks good;</li>
+  <li><a href="https://github.com/immutable-js/immutable-js/">Immutable.js</a> works well for JavaScript;</li>
 </ul>
       <h2 id="motivation">
         
@@ -353,7 +353,7 @@ Mutable collection types should only be used strategically, with purpose, otherw
 
 <p>Note that instead of atomic references, or other concurrent and mutable data structures, you could use intrinsic locks via <code class="language-plaintext highlighter-rouge">synchronize</code> blocks and a <code class="language-plaintext highlighter-rouge">mutable.Queue</code>, of course, but by using atomic references the algorithm is <a href="https://en.wikipedia.org/wiki/Non-blocking_algorithm">lock-free</a>, and for example, with virtual threads in Java 19 (Project Loom) by using <code class="language-plaintext highlighter-rouge">synchronize</code> blocks you can still have OS/platform threads blocked (pinned), whereas if you work this way, you can avoid that.</p>
 
-<p>As a fair warning, the algorithm may be non-blocking, but it is not “wait-free”, and might not do well on high contention. So for performances reasons, when you need concurrent queues, you’re better off using Java’s <code class="language-plaintext highlighter-rouge">ConcurrentLinkedQueue</code> or specialized implementations, such as those in <a href="https://github.com/JCTools/JCTools">JCTools</a> (which are awesome!🌞). However, you can put any immutable data structure in an <code class="language-plaintext highlighter-rouge">AtomicReference</code>, and then claim that you’re working with <a href="https://en.wikipedia.org/wiki/Software_transactional_memory">STM</a> (or at least something close) 😎.</p>
+<p>As a fair warning, the algorithm may be non-blocking, but it is not “wait-free”, and might not do well on high contention. So for performance reasons, when you need concurrent queues, you’re better off using Java’s <code class="language-plaintext highlighter-rouge">ConcurrentLinkedQueue</code> or specialized implementations, such as those in <a href="https://github.com/JCTools/JCTools">JCTools</a> (which are awesome!🌞). However, you can put any immutable data structure in an <code class="language-plaintext highlighter-rouge">AtomicReference</code>, and then claim that you’re working with <a href="https://en.wikipedia.org/wiki/Software_transactional_memory">STM</a> (or at least something close) 😎.</p>
       <h2 id="epilogue">
         
         
@@ -378,7 +378,7 @@ Mutable collection types should only be used strategically, with purpose, otherw
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2022-10-27T18:14:17+0300">
+    <time itemprop="dateModified" content="2022-10-27T18:54:12+0300">
         Updated: October 27, 2022
     </time>
     
@@ -493,12 +493,12 @@ Mutable collection types should only be used strategically, with purpose, otherw
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202210271515" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210271515" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202210271515" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202210271515" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202210271556" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210271556" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202210271556" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202210271556" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202210271515" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202210271556" type="text/javascript"></script>
 
 
 <script type="text/javascript">
