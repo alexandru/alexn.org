@@ -19,14 +19,14 @@
     <meta content="Mutable collection types should only be used strategically, with purpose, otherwise for correctness/safety issues, the default should always be immutable collection types, aka persistent data structures." property="og:description">
     <meta content="https://alexn.org/blog/2022/10/27/things-i-love-about-scala/" property="og:url">
     <meta content="2022-10-27T12:34:46+00:00" property="article:published_time">
-    <meta content="2022-10-27T15:10:17+00:00" property="article:modified_time">
+    <meta content="2022-10-27T15:11:41+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-immutable-collections.png?202210271511" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-immutable-collections.png?202210271511" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-immutable-collections.png?202210271512" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-immutable-collections.png?202210271512" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-immutable-collections.png?202210271511">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-immutable-collections.png?202210271512">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Immutable Collections should be Your Default">
@@ -234,7 +234,8 @@ Mutable collection types should only be used strategically, with purpose, otherw
 
 <p>You should immediately notice that something is wrong, because the type of <code class="language-plaintext highlighter-rouge">ConcurrentHashMap</code> is hidden, which means that its methods specifically meant for dealing with concurrent updates aren’t used. Then, I stumbled on gems like:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="kt">var</span> <span class="n">value</span> <span class="o">=</span> <span class="s">"another value"</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// All unsynchronized of course</span>
+<span class="kt">var</span> <span class="n">value</span> <span class="o">=</span> <span class="s">"another value"</span>
 <span class="kt">var</span> <span class="n">list</span> <span class="o">=</span> <span class="n">dns</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"key"</span><span class="o">);</span>
 <span class="k">if</span> <span class="o">(</span><span class="n">list</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
   <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">value</span><span class="o">);</span>
@@ -247,7 +248,7 @@ Mutable collection types should only be used strategically, with purpose, otherw
 
 <p>I mean, yikes! The developer that wrote this code felt that multi-threading synchronization was needed. But rubbing some <code class="language-plaintext highlighter-rouge">ConcurrentHashMap</code> on your code won’t help, if you don’t treat those values as being immutable. By extracting a <code class="language-plaintext highlighter-rouge">List</code> from that <code class="language-plaintext highlighter-rouge">ConcurrentHashMap</code>, then modifying it, that code is thread unsafe. Also, <code class="language-plaintext highlighter-rouge">get</code> followed by <code class="language-plaintext highlighter-rouge">set</code> is not atomic. This could have all been avoided with proper use of an immutable <code class="language-plaintext highlighter-rouge">List</code> in those values, combined with good use of <code class="language-plaintext highlighter-rouge">ConcurrentHashMap</code>’s API (e.g., <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/ConcurrentHashMap.html#compute(K,java.util.function.BiFunction)">compute</a>).</p>
 
-<p>So, the result was a bug in our project, coming from a (proprietary) library that we can’t fix.</p>
+<p>So, the result was a hard to trace bug in our project, coming from a (proprietary) library that we can’t fix.</p>
 
 <p>In Scala, even if we use <code class="language-plaintext highlighter-rouge">ConcurrentHashMap</code>, we’d use it in combination with a Scala immutable <code class="language-plaintext highlighter-rouge">List</code>, which is available by default, no import necessary:</p>
 
@@ -377,7 +378,7 @@ Mutable collection types should only be used strategically, with purpose, otherw
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2022-10-27T18:10:17+0300">
+    <time itemprop="dateModified" content="2022-10-27T18:11:41+0300">
         Updated: October 27, 2022
     </time>
     
@@ -494,12 +495,12 @@ Mutable collection types should only be used strategically, with purpose, otherw
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202210271511" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210271511" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202210271511" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202210271511" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202210271512" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210271512" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202210271512" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202210271512" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202210271511" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202210271512" type="text/javascript"></script>
 
 
 <script type="text/javascript">
