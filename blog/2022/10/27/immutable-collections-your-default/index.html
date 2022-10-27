@@ -19,14 +19,14 @@
     <meta content="Mutable collection types should only be used strategically, with purpose, otherwise for correctness/safety issues, the default should be immutable collection types, aka persistent data structures." property="og:description">
     <meta content="https://alexn.org/blog/2022/10/27/immutable-collections-your-default/" property="og:url">
     <meta content="2022-10-27T12:34:46+00:00" property="article:published_time">
-    <meta content="2022-10-27T15:54:12+00:00" property="article:modified_time">
+    <meta content="2022-10-27T16:03:52+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-immutable-collections.png?202210271556" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-immutable-collections.png?202210271556" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-immutable-collections.png?202210271605" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-immutable-collections.png?202210271605" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-immutable-collections.png?202210271556">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-immutable-collections.png?202210271605">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Immutable Collections should be Your Default">
@@ -211,7 +211,7 @@ Mutable collection types should only be used strategically, with purpose, otherw
 
 <p>This is bad because it modifies that configuration for all call sites. Even if a project-wide configuration change was your intent, this is a pretty bad way to model configuration updates in your code, because then your components need to be notified of such configuration changes. For the call-site, this is bad too, because the user doesn’t really know if doing this is safe or not. The users may end up thinking that they received their own copy, so this is safe.</p>
 
-<p>And note, it’s acceptable to use Java’s way of handling this — by wrapping that list into something that throws an <code class="language-plaintext highlighter-rouge">UnsupportedOperationException</code> exception when you try to <code class="language-plaintext highlighter-rouge">add()</code> or <code class="language-plaintext highlighter-rouge">remove()</code>. But it would be even better if you used some type that makes the immutability clear, e.g., <code class="language-plaintext highlighter-rouge">ImmutableList</code>.</p>
+<p>And note, it’s acceptable to use Java’s way of handling this — by wrapping that list into something that throws an <code class="language-plaintext highlighter-rouge">UnsupportedOperationException</code> when you try to <code class="language-plaintext highlighter-rouge">add()</code> or <code class="language-plaintext highlighter-rouge">remove()</code>. But it would be even better if you used some type that makes the immutability clear, e.g., <code class="language-plaintext highlighter-rouge">ImmutableList</code>.</p>
       <h2 id="sample-concurrent-data-structures">
         
         
@@ -246,7 +246,7 @@ Mutable collection types should only be used strategically, with purpose, otherw
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>I mean, yikes! The developer that wrote this code felt that multi-threading synchronization was needed. But rubbing some <code class="language-plaintext highlighter-rouge">ConcurrentHashMap</code> on your code won’t help, if you don’t treat those values as being immutable. By extracting a <code class="language-plaintext highlighter-rouge">List</code> from that <code class="language-plaintext highlighter-rouge">ConcurrentHashMap</code>, then modifying it, that code is thread unsafe. Also, <code class="language-plaintext highlighter-rouge">get</code> followed by <code class="language-plaintext highlighter-rouge">set</code> is not atomic. This could have all been avoided with proper use of an immutable <code class="language-plaintext highlighter-rouge">List</code> in those values, combined with good use of <code class="language-plaintext highlighter-rouge">ConcurrentHashMap</code>’s API (e.g., <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/ConcurrentHashMap.html#compute(K,java.util.function.BiFunction)">compute</a>).</p>
+<p>I mean, yikes! The developer that wrote this code felt that multi-threading synchronization was needed. But rubbing some <code class="language-plaintext highlighter-rouge">ConcurrentHashMap</code> on your code won’t help, if you don’t treat those values as being immutable. By extracting a <code class="language-plaintext highlighter-rouge">List</code> from that <code class="language-plaintext highlighter-rouge">ConcurrentHashMap</code>, then modifying it, that code is thread unsafe. Also, that <code class="language-plaintext highlighter-rouge">get</code> followed by <code class="language-plaintext highlighter-rouge">put</code> is not atomic. Such concurrency issues lead to overridden updates (lost values), or even to corrupted data structures. This could have all been avoided with proper use of an immutable <code class="language-plaintext highlighter-rouge">List</code> in those values, combined with good use of <code class="language-plaintext highlighter-rouge">ConcurrentHashMap</code>’s API (e.g., <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/ConcurrentHashMap.html#compute(K,java.util.function.BiFunction)">compute</a>).</p>
 
 <p>So, the result was a hard to trace bug in our project, coming from a (proprietary) library that we can’t fix.</p>
 
@@ -378,7 +378,7 @@ Mutable collection types should only be used strategically, with purpose, otherw
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2022-10-27T18:54:12+0300">
+    <time itemprop="dateModified" content="2022-10-27T19:03:52+0300">
         Updated: October 27, 2022
     </time>
     
@@ -493,12 +493,12 @@ Mutable collection types should only be used strategically, with purpose, otherw
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202210271556" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210271556" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202210271556" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202210271556" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202210271605" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202210271605" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202210271605" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202210271605" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202210271556" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202210271605" type="text/javascript"></script>
 
 
 <script type="text/javascript">
