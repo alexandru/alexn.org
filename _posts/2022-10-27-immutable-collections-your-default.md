@@ -5,18 +5,18 @@ redirect_from:
 image: /assets/media/articles/2022-immutable-collections.png
 image_hide_in_post: true
 date: 2022-10-27 15:34:46 +03:00
-last_modified_at: 2022-10-27 19:05:07 +03:00
+last_modified_at: 2022-10-28 10:00:46 +03:00
 generate_toc: true
 tags:
   - Java
   - Scala
   - Programming
 description: >
-  Mutable collection types should only be used strategically, with purpose, otherwise for correctness/safety issues, the default should be immutable collection types, aka persistent data structures.
+  Mutable collection types should only be used strategically, with purpose, otherwise for correctness/safety purposes, the default should be immutable collection types, aka persistent data structures.
 ---
 
 <p class="intro withcap" markdown=1>
-Mutable collection types should only be used strategically, with purpose, otherwise for correctness/safety issues, the default should be immutable collection types, aka [persistent data structures](https://en.wikipedia.org/wiki/Persistent_data_structure).
+Mutable collection types should only be used strategically, with purpose, otherwise for correctness/safety purposes, the default should be immutable collection types, aka [persistent data structures](https://en.wikipedia.org/wiki/Persistent_data_structure).
 </p>
 
 ## Available options
