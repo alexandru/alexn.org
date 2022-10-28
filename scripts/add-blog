@@ -51,7 +51,7 @@ description: >
   path = File.join(dir_path, fname)
   puts "Created: #{rel_dir_path}/#{fname}"
   File.open(path, 'w') { |file| file.write(text) }
-  exec("vimr --cwd \"#{project_path}\" \"#{path}\"")
+  exec("code \"#{project_path}\" \"#{path}\"")
 rescue
   puts parser.help
   raise
