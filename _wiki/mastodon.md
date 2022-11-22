@@ -1,6 +1,6 @@
 ---
 date: 2022-11-22 11:55:19 +02:00
-last_modified_at: 2022-11-22 13:34:09 +02:00
+last_modified_at: 2022-11-22 14:09:55 +02:00
 ---
 
 # Mastodon
@@ -41,6 +41,9 @@ Some smaller instances you might want to consider:
 - See list of [available apps](https://joinmastodon.org/apps);
 
 ### Utilities
+
+Browser extension that redirects you from Mastodon4 instances to your home instance (makes it easier to follow people):<br>
+[mastodon4-redirect](https://github.com/raikasdev/mastodon4-redirect) ([Firefox](https://addons.mozilla.org/en-US/firefox/addon/mastodon4-redirect/){:target="_blank"}, [Chrome](https://chrome.google.com/webstore/detail/mastodon4-redirect/acbfckpoogjdigldffcbldijhgnjpfnc){:target="_blank"}).
 
 To find your Twitter friends on Mastodon: <br>
 <https://fedifinder.glitch.me>
