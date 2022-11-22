@@ -1,6 +1,6 @@
 ---
 date: 2022-11-22 11:55:19 +02:00
-last_modified_at: 2022-11-22 14:09:55 +02:00
+last_modified_at: 2022-11-22 16:52:15 +02:00
 ---
 
 # Mastodon
@@ -53,6 +53,16 @@ For the cool factor, implement "WebFinger" on your own domain: <br>
 
 For following Twitter's drama, without logging into Twitter: <br>
 <https://twitterisgoinggreat.com>
+
+### Download Twitter archive
+
+Download your Twitter archive and store it somewhere safe, even if you don't plan on leaving Twitter: <br>
+<https://twitter.com/settings/download_your_data>
+
+The archive download is fairly usable. But you might want to parse your archive, to replace `t.co` links and spit out markdown files:
+
+- [Converting Your Twitter Archive to Markdown](https://matthiasott.com/notes/converting-your-twitter-archive-to-markdown)
+- [twitter-archive-parser (GitHub)](https://github.com/timhutton/twitter-archive-parser)
 
 ### Leaving Twitter?
 
