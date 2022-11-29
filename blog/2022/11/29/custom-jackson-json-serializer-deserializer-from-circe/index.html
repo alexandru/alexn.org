@@ -22,11 +22,11 @@
     <meta content="2022-11-29T00:00:00+00:00" property="article:published_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-jackson-codecs.png?202211290821" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-jackson-codecs.png?202211290821" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-jackson-codecs.png?202211290828" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-jackson-codecs.png?202211290828" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-jackson-codecs.png?202211290821">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-jackson-codecs.png?202211290828">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Custom Jackson JSON serializer/deserializer from Circe">
@@ -154,23 +154,33 @@ Snippet for when you’re using <a href="https://github.com/circe/circe">Circe</
 <span class="k">import</span> <span class="nn">io.circe.</span><span class="o">{</span> <span class="nc">Decoder</span><span class="o">,</span> <span class="nc">Encoder</span> <span class="o">}</span>
 <span class="k">import</span> <span class="nn">scala.reflect.ClassTag</span>
 
-<span class="k">class</span> <span class="nc">JacksonSerializerFromCirce</span><span class="o">[</span><span class="kt">A:</span> <span class="kt">ClassTag:</span> <span class="kt">Encoder</span><span class="o">]</span> <span class="nc">extends</span> <span class="nc">StdSerializer</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span>
+<span class="k">class</span> <span class="nc">JacksonSerializerFromCirce</span><span class="o">[</span><span class="kt">A:</span> <span class="kt">ClassTag:</span> <span class="kt">Encoder</span><span class="o">]</span> 
+<span class="nc">extends</span> <span class="nc">StdSerializer</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span>
     <span class="n">implicitly</span><span class="o">[</span><span class="kt">ClassTag</span><span class="o">[</span><span class="kt">A</span><span class="o">]].</span><span class="py">runtimeClass</span><span class="o">.</span><span class="py">asInstanceOf</span><span class="o">[</span><span class="kt">Class</span><span class="o">[</span><span class="kt">A</span><span class="o">]]</span>
   <span class="o">)</span> <span class="o">{</span>
-  <span class="k">override</span> <span class="k">def</span> <span class="nf">serialize</span><span class="o">(</span><span class="n">value</span><span class="k">:</span> <span class="kt">A</span><span class="o">,</span> <span class="n">gen</span><span class="k">:</span> <span class="kt">JsonGenerator</span><span class="o">,</span> <span class="n">provider</span><span class="k">:</span> <span class="kt">SerializerProvider</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="k">override</span> <span class="k">def</span> <span class="nf">serialize</span><span class="o">(</span>
+    <span class="n">value</span><span class="k">:</span> <span class="kt">A</span><span class="o">,</span> 
+    <span class="n">gen</span><span class="k">:</span> <span class="kt">JsonGenerator</span><span class="o">,</span> 
+    <span class="n">provider</span><span class="k">:</span> <span class="kt">SerializerProvider</span>
+  <span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
     <span class="k">val</span> <span class="nv">json</span> <span class="k">=</span> <span class="nv">value</span><span class="o">.</span><span class="py">asJson</span><span class="o">.</span><span class="py">noSpaces</span>
     <span class="nv">gen</span><span class="o">.</span><span class="py">writeRawValue</span><span class="o">(</span><span class="n">json</span><span class="o">)</span>
   <span class="o">}</span>
 <span class="o">}</span>
 
-<span class="k">class</span> <span class="nc">JacksonDeserializerFromCirce</span><span class="o">[</span><span class="kt">A:</span> <span class="kt">ClassTag:</span> <span class="kt">Decoder</span><span class="o">]</span> <span class="nc">extends</span> <span class="nc">StdDeserializer</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span>
+<span class="k">class</span> <span class="nc">JacksonDeserializerFromCirce</span><span class="o">[</span><span class="kt">A:</span> <span class="kt">ClassTag:</span> <span class="kt">Decoder</span><span class="o">]</span> 
+  <span class="nc">extends</span> <span class="nc">StdDeserializer</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span>
     <span class="n">implicitly</span><span class="o">[</span><span class="kt">ClassTag</span><span class="o">[</span><span class="kt">A</span><span class="o">]].</span><span class="py">runtimeClass</span><span class="o">.</span><span class="py">asInstanceOf</span><span class="o">[</span><span class="kt">Class</span><span class="o">[</span><span class="kt">A</span><span class="o">]]</span>
   <span class="o">)</span> <span class="o">{</span>
-  <span class="k">override</span> <span class="k">def</span> <span class="nf">deserialize</span><span class="o">(</span><span class="n">p</span><span class="k">:</span> <span class="kt">JsonParser</span><span class="o">,</span> <span class="n">ctxt</span><span class="k">:</span> <span class="kt">DeserializationContext</span><span class="o">)</span><span class="k">:</span> <span class="kt">A</span> <span class="o">=</span>
+  <span class="k">override</span> <span class="k">def</span> <span class="nf">deserialize</span><span class="o">(</span>
+    <span class="n">p</span><span class="k">:</span> <span class="kt">JsonParser</span><span class="o">,</span> 
+    <span class="n">ctxt</span><span class="k">:</span> <span class="kt">DeserializationContext</span>
+  <span class="o">)</span><span class="k">:</span> <span class="kt">A</span> <span class="o">=</span> <span class="o">{</span>
     <span class="n">decode</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="nv">p</span><span class="o">.</span><span class="py">readValueAsTree</span><span class="o">[</span><span class="kt">TreeNode</span><span class="o">]().</span><span class="py">toString</span><span class="o">)</span> <span class="k">match</span> <span class="o">{</span>
       <span class="k">case</span> <span class="nc">Right</span><span class="o">(</span><span class="n">a</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">a</span>
       <span class="k">case</span> <span class="nc">Left</span><span class="o">(</span><span class="n">e</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="k">throw</span> <span class="n">e</span>
     <span class="o">}</span>
+  <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -187,10 +197,13 @@ Snippet for when you’re using <a href="https://github.com/circe/circe">Circe</
 <span class="o">)</span>
 
 <span class="k">object</span> <span class="nc">Sample</span> <span class="o">{</span>
-  <span class="k">implicit</span> <span class="k">val</span> <span class="nv">codec</span><span class="k">:</span> <span class="kt">Codec</span><span class="o">[</span><span class="kt">Sample</span><span class="o">]</span> <span class="k">=</span> <span class="n">deriveCodec</span>
+  <span class="k">implicit</span> <span class="k">val</span> <span class="nv">codec</span><span class="k">:</span> <span class="kt">Codec</span><span class="o">[</span><span class="kt">Sample</span><span class="o">]</span> <span class="k">=</span> 
+    <span class="n">deriveCodec</span>
 
-  <span class="k">class</span> <span class="nc">Serializer</span> <span class="k">extends</span> <span class="nc">JacksonSerializerFromCirce</span><span class="o">[</span><span class="kt">Sample</span><span class="o">]</span>
-  <span class="k">class</span> <span class="nc">Deserializer</span> <span class="k">extends</span> <span class="nc">JacksonDeserializerFromCirce</span><span class="o">[</span><span class="kt">Sample</span><span class="o">]</span>
+  <span class="k">class</span> <span class="nc">Serializer</span> 
+    <span class="k">extends</span> <span class="nc">JacksonSerializerFromCirce</span><span class="o">[</span><span class="kt">Sample</span><span class="o">]</span>
+  <span class="k">class</span> <span class="nc">Deserializer</span> 
+    <span class="k">extends</span> <span class="nc">JacksonDeserializerFromCirce</span><span class="o">[</span><span class="kt">Sample</span><span class="o">]</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -308,12 +321,12 @@ Snippet for when you’re using <a href="https://github.com/circe/circe">Circe</
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202211290821" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202211290821" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202211290821" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202211290821" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202211290828" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202211290828" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202211290828" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202211290828" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202211290821" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202211290828" type="text/javascript"></script>
 
 
 <script type="text/javascript">
