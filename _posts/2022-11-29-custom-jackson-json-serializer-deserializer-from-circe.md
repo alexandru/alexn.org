@@ -23,23 +23,33 @@ import io.circe.syntax._
 import io.circe.{ Decoder, Encoder }
 import scala.reflect.ClassTag
 
-class JacksonSerializerFromCirce[A: ClassTag: Encoder] extends StdSerializer[A](
+class JacksonSerializerFromCirce[A: ClassTag: Encoder] 
+extends StdSerializer[A](
     implicitly[ClassTag[A]].runtimeClass.asInstanceOf[Class[A]]
   ) {
-  override def serialize(value: A, gen: JsonGenerator, provider: SerializerProvider): Unit = {
+  override def serialize(
+    value: A, 
+    gen: JsonGenerator, 
+    provider: SerializerProvider
+  ): Unit = {
     val json = value.asJson.noSpaces
     gen.writeRawValue(json)
   }
 }
 
-class JacksonDeserializerFromCirce[A: ClassTag: Decoder] extends StdDeserializer[A](
+class JacksonDeserializerFromCirce[A: ClassTag: Decoder] 
+  extends StdDeserializer[A](
     implicitly[ClassTag[A]].runtimeClass.asInstanceOf[Class[A]]
   ) {
-  override def deserialize(p: JsonParser, ctxt: DeserializationContext): A =
+  override def deserialize(
+    p: JsonParser, 
+    ctxt: DeserializationContext
+  ): A = {
     decode[A](p.readValueAsTree[TreeNode]().toString) match {
       case Right(a) => a
       case Left(e) => throw e
     }
+  }
 }
 ```
 
@@ -57,9 +67,12 @@ final case class Sample(
 )
 
 object Sample {
-  implicit val codec: Codec[Sample] = deriveCodec
+  implicit val codec: Codec[Sample] = 
+    deriveCodec
 
-  class Serializer extends JacksonSerializerFromCirce[Sample]
-  class Deserializer extends JacksonDeserializerFromCirce[Sample]
+  class Serializer 
+    extends JacksonSerializerFromCirce[Sample]
+  class Deserializer 
+    extends JacksonDeserializerFromCirce[Sample]
 }
 ```
