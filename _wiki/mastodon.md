@@ -8,7 +8,7 @@ last_modified_at: 2022-11-22 16:52:15 +02:00
 ## Twitter migration
 
 <p class="warn-bubble" markdown="1">
-**WARN:** Mastodon ain't Twitter. It's design and available features are slightly different, as a matter of philosophy.
+**WARN:** Mastodon ain't Twitter. Its design and available features are slightly different, as a matter of philosophy.
 </p>
 
 ### Instances
