@@ -15,9 +15,8 @@ layout: default
     <div class="container">
       {% for post in paginator.posts %}
       <div class="item">
-        <a class="related-link" href="{{ post.link }}" target="_blank">
-          {{ post.title | xml_smart_escape }}
-        </a>
+        <a class="related-link" href="{{ post.link }}" target="_blank">{{ post.title | xml_smart_escape }}</a>
+        {% if post.author %}<br>by <em>{% if post.author_link %}<a href="{{ post.author_link }}" target="_blank">{{ post.author }}</a>{% else %}{{ post.author }}{% endif %}</em>{% endif %}
         <div class="related-meta">
           <div class="tags">
             {% assign had_first_tag = false %}
