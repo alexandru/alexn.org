@@ -56,6 +56,13 @@ defaults:
       has_comments: true
       nav_id: /wiki/
       description: Personal, volatile wiki documentation
+  # Links (collection)
+  - scope:
+      path: "_links"
+    values:
+      nav_id: /links/
+      layout: page
+      has_contributions: true
 
 collections:
   posts:
@@ -63,6 +70,8 @@ collections:
     output: true
   wiki:
     output: true
+  links:
+    output: false
 
 sass:
   style: compressed
@@ -89,7 +98,7 @@ relative_links:
 
 pagination:
   enabled: true
-  per_page: 20
+  per_page: 30
   permalink: "/page/:num/"
   title: ":title - page :num"
   sort_reverse: true
@@ -123,6 +132,7 @@ autopages:
   tags:
     layouts:
       - "auto-posts-tag.html"
+      - "auto-links-tag.html"
   categories:
     enabled: false
   collections:
@@ -135,6 +145,9 @@ navigation:
   - title: Wiki
     url: /wiki/
     id: /wiki/
+  - title: Links
+    url: /links/
+    id: /links/
   - title: About
     url: /about/
     id: /about/

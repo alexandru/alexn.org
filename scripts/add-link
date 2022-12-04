@@ -1,0 +1,87 @@
+#!/usr/bin/env ruby
+
+require "nokogiri"
+require 'optparse'
+require "json"
+require 'open-uri'
+
+def nonEmpty(value)
+  if value == nil || value.empty?
+    nil
+  else
+    value
+  end
+end
+
+options = {}
+parser = OptionParser.new do |opt|
+  opt.on('--title TITLE') { |o| options[:title] = o }
+  opt.on('--author AUTHOR') { |o| options[:author] = o }
+  opt.on('--link LINK') { |o| options[:link] = o }
+end
+
+parser.parse!
+begin
+  raise OptionParser::MissingArgument.new("--link") if nonEmpty(options[:link]).nil?
+
+  tags = []
+  og_props = {}
+
+  doc = Nokogiri::HTML(URI.open(options[:link]))
+  doc.css("meta").each do |meta|
+    next unless !nonEmpty(meta[:property]).nil? && meta[:property].start_with?("og:")
+    og_props[meta[:property]] = nonEmpty(meta[:content])
+  end
+  options[:title] ||= nonEmpty(og_props["og:title"])
+  doc.css("title").each do |title|
+    options[:title] ||= nonEmpty(title.content.strip)
+  end
+
+  doc.css("[itemtype=\"http://schema.org/Person\"] [itemprop=\"name\"]").each do |elem|
+    options[:author] ||= nonEmpty(elem[:content])
+  end
+
+  doc.css("[itemtype=\"http://schema.org/Person\"] [itemprop=\"url\"]").each do |elem|
+    options[:author_link] ||= nonEmpty(elem[:href])
+  end
+
+  if og_props["og:site_name"] == "YouTube"
+    if og_props["og:url"] =~ /.*?\/watch[?]v=([\w-]+)/
+      options[:youtube] = $1
+      tags.append("YouTube")
+      tags.append("Video")
+    end
+  end
+
+  raise OptionParser::MissingArgument.new("--title") if nonEmpty(options[:title]).nil?
+
+  now = Time.new
+  options[:title] = options[:title].gsub(/\s{2,}/, " ")
+  slug_title = options[:title].strip.downcase.gsub(/^\W+|\W+$/, "").gsub(/\b\w{1,2}\b/, "").gsub(/\W+/, "-")
+  slug = now.strftime("%Y-%m-%d") + "-" + slug_title + ".md"
+
+  all_props = [
+    "link: #{options[:link].to_json}",
+    "title: #{options[:title].to_json}",
+    og_props["og:image"] ? "image: #{og_props["og:image"].to_json}" : "",
+    options[:author] ? "author: #{options[:author].to_json}" : "# author: ",
+    options[:author_link] ? "author_link: #{options[:author_link].to_json}" : "# author_link: ",
+    "date: #{now.strftime("%Y-%m-%d %H:%M:%S %Z")}",
+    "tags: #{tags.to_json}",
+  ]
+
+  text = %{
+---
+#{all_props.select{|x| nonEmpty(x) }.join("\n")}
+---
+  }.strip
+
+  project_path = File.expand_path(File.join(File.dirname(File.expand_path(__FILE__)), ".."))
+  dir_path = File.join(project_path, "_links")
+  path = File.join(dir_path, slug)
+  File.open(path, 'w') { |file| file.write(text) }
+  exec("code \"#{project_path}\"  \"#{path}\"")
+rescue
+  puts parser.help
+  raise
+end
