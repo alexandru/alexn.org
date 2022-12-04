@@ -1,0 +1,29 @@
+---
+layout: page
+has_subscribe: true
+title: Links
+permalink: /links/
+nav_id: /links/
+disable_meta: true
+---
+
+<p>Links from the web that I found interesting:</p>
+
+{% assign posts = site.links | reverse -%}
+{% assign this_date = "" %}
+{% for post in posts -%}
+  {% capture next_date %}{{ post.date | date: '%Y-%m' }}{% endcapture %}
+  {% if this_date != next_date %}
+    {% assign this_date = next_date %}
+    <h2>{{ next_date }}</h2>
+  {% endif %}
+  <article itemscope itemtype="https://schema.org/BlogPosting" itemprop="blogPost">
+    <p>
+      <a href="{{ post.link | prepend: site.baseurl }}" rel="bookmark" title="{{ post.title }}" target="_blank"><strong itemprop="headline">"{{ post.title }}"</strong></a>
+      {% if post.author %}
+        by <em>{% if post.author_link %}<a href="{{ post.author_link }}" target="_blank">{{ post.author }}</a>{% else %}{{ post.author }}{% endif %}</em>
+      {% endif -%}
+      {% if post.tags %}({% for tag in post.tags %}{{ tag }}{% unless forloop.last %}, {% endunless -%}{% endfor -%}){% endif -%}.
+    </p>
+  </article>
+{% endfor %}

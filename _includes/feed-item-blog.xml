@@ -32,7 +32,7 @@
     </p>
   {% elsif include.with_social_content %}
     {% if include.post.social_description %}{{ include.post.social_description | markdownify | strip }}{% endif -%}
-    <p>Blog article {% for tag in include.post.tags %}#{{ tag | twitter_taggify }} {% endfor %}</p>
+    <p>#Blog article{% if include.post.tags and include.post.tags.size != 0 %} ({% for tag in include.post.tags %}#{{ tag | twitter_taggify }}{% unless forloop.last %}, {% endunless %}{% endfor %}){% endif %}</p>
   {% else %}
     {{ tracking_pixel | strip }}{{ item_image }}
     {% if include.post.description %}{{ include.post.description | markdownify }}{% else %}{{ include.post.excerpt | strip_html }}{% endif %}
@@ -45,7 +45,7 @@
   {% if include.with_social_content %}
     {% if include.post.social_description %}{{ include.post.social_description | markdownify | strip_html | strip }}
     {% endif %}
-    Blog article {% for tag in include.post.tags %}#{{ tag | twitter_taggify }} {% endfor %}
+    #Blog article{% if include.post.tags and include.post.tags.size != 0 %} ({% for tag in include.post.tags %}#{{ tag | twitter_taggify }}{% unless forloop.last %}, {% endunless %}{% endfor %}){% endif %}
   {% else %}
     {% if include.post.description %}
       {{ include.post.description | markdownify }}

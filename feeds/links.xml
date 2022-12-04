@@ -9,20 +9,21 @@ layout: null
   xmlns:content="http://purl.org/rss/1.0/modules/content/">
 
   <channel>
-    <title>{{ site.title | xml_smart_escape }} - Wiki</title>
-    <description>Feed of wiki articles, published at {{ site.domain }}{{ site.baseurl }}/wiki/</description>
-    <link>{{ site.url }}{{ site.baseurl }}/wiki/</link>
-    <atom:link href="{{ site.url }}{% link feeds/wiki.xml %}" rel="self" type="application/rss+xml"/>
+    <title>{{ site.title | xml_smart_escape }} - Shared Links</title>
+    <description>Feed of recommended links from around the web, published at {{ site.domain }}{{ site.baseurl }}/links/</description>
+    <link>{{ site.url }}{{ site.baseurl }}/links/</link>
+    <atom:link href="{{ site.url }}{% link feeds/links.xml %}" rel="self" type="application/rss+xml"/>
     <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
     <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
-    <sy:updateFrequency>1</sy:updateFrequency>
+	  <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v{{ jekyll.version }}</generator>
 
-    {% assign items = site.wiki | rss_filter_and_sort %}
-    {% for post in items %}
-      {% include feed-item-wiki.xml post=post pk_campaign="rss" add_pixel=forloop.first %}
+    {% for post in site.links reversed limit:300 %}
+      {% unless post.secret %}
+        {% include feed-item-link.xml post=post %}
+      {% endunless %}
     {% endfor %}
   </channel>
 </rss>

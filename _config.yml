@@ -56,6 +56,13 @@ defaults:
       has_comments: true
       nav_id: /wiki/
       description: Personal, volatile wiki documentation
+  # Links (collection)
+  - scope:
+      path: "_links"
+    values:
+      nav_id: /links/
+      layout: page
+      has_contributions: true
 
 collections:
   posts:
@@ -63,6 +70,8 @@ collections:
     output: true
   wiki:
     output: true
+  links:
+    output: false
 
 sass:
   style: compressed
@@ -135,6 +144,9 @@ navigation:
   - title: Wiki
     url: /wiki/
     id: /wiki/
+  - title: Links
+    url: /links/
+    id: /links/
   - title: About
     url: /about/
     id: /about/
