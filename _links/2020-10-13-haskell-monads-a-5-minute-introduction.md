@@ -7,6 +7,5 @@ youtube: _Gk_lwhJMzk
 tags:
   - FP
   - Haskell
-  - Programming
   - Video
 ---

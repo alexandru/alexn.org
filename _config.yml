@@ -98,7 +98,7 @@ relative_links:
 
 pagination:
   enabled: true
-  per_page: 20
+  per_page: 30
   permalink: "/page/:num/"
   title: ":title - page :num"
   sort_reverse: true
@@ -132,6 +132,7 @@ autopages:
   tags:
     layouts:
       - "auto-posts-tag.html"
+      - "auto-links-tag.html"
   categories:
     enabled: false
   collections:

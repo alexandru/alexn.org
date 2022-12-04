@@ -8,6 +8,5 @@ tags:
   - FP
   - Java
   - OOP
-  - Programming
   - Video
 ---

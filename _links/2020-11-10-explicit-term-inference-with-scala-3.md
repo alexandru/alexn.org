@@ -5,6 +5,5 @@ author: "Meriam Lachkar, Vincenzo Bazzucchi, Scala Center"
 date: 2020-11-10 10:35:46+0200
 image: /assets/media/links/scala-explicit-terms.png
 tags:
-  - Programming
   - Scala
 ---

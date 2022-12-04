@@ -5,7 +5,6 @@ author: "Richard Lander"
 date: 2020-11-11 15:56:50+0200
 image: /assets/media/articles/dotnet.png
 tags:
-  - Programming
   - dotNET
   - CSharp
   - FSharp

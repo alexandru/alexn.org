@@ -4,8 +4,6 @@ title: "Category Theory for the Working Hacker"
 author: "Philip Wadler"
 youtube: V10hzjgoklA
 tags:
-  - Programming
-  - Category Theory
   - FP
   - Haskell
   - Video
