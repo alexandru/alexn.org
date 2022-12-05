@@ -19,15 +19,14 @@ layout: null
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v{{ jekyll.version }}</generator>
-
     {% assign items = site.posts | concat: site.wiki | concat: site.links | rss_filter_and_sort -%}
-    {% for post in items %}
+    {% for post in items -%}
       {% if post.collection == 'posts' -%}
-        {% include feed-item-blog.xml post=post pk_campaign="rss" with_full_post=true add_pixel=forloop.first %}
+        {% include feed-item-blog.xml post=post pk_campaign="rss" with_full_post=true add_pixel=forloop.first -%}
       {% elsif post.collection == 'wiki' -%}
-        {% include feed-item-wiki.xml post=post pk_campaign="rss" prefix="Wiki: " add_pixel=forloop.first %}
+        {% include feed-item-wiki.xml post=post pk_campaign="rss" prefix="Wiki: " add_pixel=forloop.first -%}
       {% elsif post.collection == 'links' -%}
-        {% include feed-item-link.xml post=post pk_campaign="rss" prefix="Link: " add_pixel=forloop.first %}
+        {% include feed-item-link.xml post=post pk_campaign="rss" prefix="Link: " add_pixel=forloop.first -%}
       {% endif -%}
     {% endfor -%}
   </channel>

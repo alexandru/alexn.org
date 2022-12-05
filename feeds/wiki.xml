@@ -19,10 +19,9 @@ layout: null
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v{{ jekyll.version }}</generator>
-
-    {% assign items = site.wiki | rss_filter_and_sort %}
-    {% for post in items %}
-      {% include feed-item-wiki.xml post=post pk_campaign="rss" add_pixel=forloop.first %}
-    {% endfor %}
+    {% assign items = site.wiki | rss_filter_and_sort -%}
+    {% for post in items -%}
+      {% include feed-item-wiki.xml post=post pk_campaign="rss" add_pixel=forloop.first -%}
+    {% endfor -%}
   </channel>
 </rss>

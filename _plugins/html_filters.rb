@@ -142,9 +142,10 @@ module Jekyll
       end 
     end
 
-    def should_have_safe_size_for_social_media(str)
-      if str != nil && str.size > 255
-        raise "String has unsafe length for social media: #{str}"
+    def should_have_safe_size_for_social_media(str, title=nil)
+      s = "#{(title || "").strip}\n\n#{str}"
+      if s != nil && s.size > 250
+        raise "String has unsafe length for social media (#{s.size}): #{s}"
       else 
         str
       end    

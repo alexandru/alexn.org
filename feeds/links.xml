@@ -19,11 +19,10 @@ layout: null
     <sy:updatePeriod>hourly</sy:updatePeriod>
 	  <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v{{ jekyll.version }}</generator>
-
-    {% for post in site.links reversed limit:300 %}
-      {% unless post.secret %}
-        {% include feed-item-link.xml post=post %}
-      {% endunless %}
-    {% endfor %}
+    {% for post in site.links reversed limit:300 -%}
+      {% unless post.secret -%}
+        {% include feed-item-link.xml post=post -%}
+      {% endunless -%}
+    {% endfor -%}
   </channel>
 </rss>

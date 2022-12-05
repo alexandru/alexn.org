@@ -20,11 +20,6 @@
       </div>
     {% endunless %}
     {% endif %}
-    {% if post.author %}
-    <p>
-        By <em>{% if post.author_link %}<a href="{{ post.author_link }}" target="_blank">{{ post.author }}</a>{% else %}{{ post.author }}{% endif %}</em>.
-    </p>
-    {% endif -%}
     {% capture post_content %}{{ include.post.content | strip_newlines | strip }}{% endcapture -%}
     {% if post_content != "" %}{{ post_content }}{% elsif post.social_description %}<p>{{ post.social_description | strip }}</p>{% endif -%}
     <p>
@@ -34,14 +29,19 @@
   {% endunless -%}
 {% endcapture -%}
 {% capture item_description %}
-{% if post.author %}By {{ post.author }}. {% endif %}{% if include.post.social_description %}{{ include.post.social_description | markdownify | strip_html | strip }}
+{% if include.post.social_description %}{{ include.post.social_description | strip_html | strip }}
 
 {% endif %}Shared #link{% if include.post.tags and include.post.tags.size != 0 %} ({% for tag in include.post.tags %}#{{ tag | twitter_taggify }}{% unless forloop.last %}, {% endunless %}{% endfor %}){% endif %}.
 {% endcapture -%}
 <item>
-  <title>{% if include.prefix %}{{ include.prefix }}{% endif %}{{ include.post.title | xml_smart_escape }}</title>
-  <description>{{ item_description | strip_html | strip | should_have_safe_size_for_social_media | xml_escape }}</description>
-  {% unless include.with_social_content %}<content:encoded>{{ item_content | rss_process | strip | xml_escape }}</content:encoded>{% endunless %}
+  {% capture post_title -%}{% if include.prefix %}{{ include.prefix }}{% endif -%}{{ include.post.title }}{% endcapture -%}
+  <title>{{ post_title | xml_smart_escape }}</title>
+  {% if include.with_social_content -%}
+  <description>{{ item_description | strip | should_have_safe_size_for_social_media: post_title | xml_escape }}</description>
+  {% else -%}
+  <description>{{ item_description | strip | xml_escape }}</description>
+  <content:encoded>{{ item_content | rss_process | strip | xml_escape }}</content:encoded>
+  {% endif -%}
   <pubDate>{{ include.post.date | date_to_rfc822 }}</pubDate>
   {% if include.post.last_modified_at -%}
   <dc:modified>{{ include.post.last_modified_at | date_to_rfc822 }}</dc:modified>
@@ -49,11 +49,11 @@
   {% endif -%}
   <link>{{ include.post.link | xml_escape }}</link>
   <guid isPermaLink="false">{{ include.post.url | prepend: site.baseurl | prepend: site.url }}</guid>
-  {% if include.post.author %}
+  {% if include.post.author -%}
   <dc:creator>{{ include.post.author }}</dc:creator>
-  {% endif %}
+  {% endif -%}
   <category>Shared link</category>
-  {% for tag in include.post.tags %}
+  {% for tag in include.post.tags -%}
   <category>{{ tag | xml_escape }}</category>
-  {% endfor %}
+  {% endfor -%}
 </item>

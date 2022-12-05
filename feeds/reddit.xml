@@ -19,10 +19,9 @@ layout: null
     <sy:updatePeriod>hourly</sy:updatePeriod>
 	  <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v{{ jekyll.version }}</generator>
-
-    {% for post in site.posts limit:200 %}
+    {% for post in site.posts limit:200 -%}
       {% unless post.secret or post.is_noise -%}
-        {% include feed-item-blog.xml post=post with_social_content=true %}
+        {% include feed-item-blog.xml post=post with_social_content=true -%}
       {% endunless -%}
     {% endfor -%}
   </channel>

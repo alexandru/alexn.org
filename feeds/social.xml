@@ -19,16 +19,15 @@ layout: null
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v{{ jekyll.version }}</generator>
-
     {% assign items = site.posts | concat: site.wiki | concat: site.links | rss_filter_and_sort -%}
-    {% for post in items limit:200 %}
+    {% for post in items limit:200 -%}
       {% unless post.secret -%}
         {% if post.collection == 'posts' -%}
-          {% include feed-item-blog.xml post=post with_social_content=true %}
+          {% include feed-item-blog.xml post=post with_social_content=true -%}
         {% elsif post.collection == 'wiki' -%}
-          {% include feed-item-wiki.xml post=post with_social_content=true %}
+          {% include feed-item-wiki.xml post=post with_social_content=true -%}
         {% elsif post.collection == 'links' -%}
-          {% include feed-item-link.xml post=post with_social_content=true %}
+          {% include feed-item-link.xml post=post with_social_content=true -%}
         {% endif -%}
       {% endunless -%}
     {% endfor -%}

@@ -24,8 +24,9 @@
   {% endif %}
 {% endcapture %}
 <item>
-  <title>{% if include.prefix %}{{ include.prefix }}{% endif %}{{ include.post.title | xml_smart_escape }}</title>
-  <description>{{ item_description | strip_html | strip | should_have_safe_size_for_social_media | xml_escape }}</description>
+  {% capture post_title %}{% if include.prefix %}{{ include.prefix }}{% endif -%}{{ include.post.title }}{% endcapture -%}
+  <title>{{ post_title | xml_smart_escape }}</title>
+  <description>{{ item_description | strip_html | strip | should_have_safe_size_for_social_media: post_title | xml_escape }}</description>
   {% unless include.with_social_content %}<content:encoded>{{ item_content | rss_process | strip | xml_escape }}</content:encoded>{% endunless -%}
   <pubDate>{{ include.post.date | date_to_rfc822 }}</pubDate>
   {% if include.post.last_modified_at -%}
