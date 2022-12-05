@@ -3,10 +3,7 @@
   <img referrerpolicy="no-referrer-when-downgrade" src="{{ tracker_url }}" width="1" height="1" style="position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;" alt="" />
 {% endif -%}{% endcapture -%}
 {% capture item_content -%}
-  {% if include.with_social_content %}
-    <p>{% if post.author %}Credits: {{ post.author }}{% endif %}</p>
-    <p>Shared #link{% if include.post.tags and include.post.tags.size != 0 %} ({% for tag in include.post.tags %}#{{ tag | twitter_taggify }}{% unless forloop.last %}, {% endunless %}{% endfor %}){% endif %}</p>
-  {% else -%}
+  {% unless include.with_social_content %}
     {% if include.post.image or include.post.youtube %}
     {% unless include.post.image_hide_in_post %}
       <div class="post-featured-image">
@@ -32,12 +29,11 @@
       <a href="{{ include.post.link }}">Go to shared link ...</a>
     </p>
     {{ tracking_pixel }}
-  {% endif -%}
+  {% endunless -%}
 {% endcapture -%}
 {% capture item_description %}
-  Credits: {{ post.author }}.
-
-  Shared #link{% if include.post.tags and include.post.tags.size != 0 %} ({% for tag in include.post.tags %}#{{ tag | twitter_taggify }}{% unless forloop.last %}, {% endunless %}{% endfor %}){% endif %}
+  {% if post.author %}By {{ post.author }}. {% endif %}{% if include.post.social_description %}{{ include.post.social_description | markdownify | strip_html | strip }}
+  {% endif %}Shared #link{% if include.post.tags and include.post.tags.size != 0 %} ({% for tag in include.post.tags %}#{{ tag | twitter_taggify }}{% unless forloop.last %}, {% endunless %}{% endfor %}){% endif %}
 {% endcapture -%}
 <item>
   <title>{% if include.prefix %}{{ include.prefix }}{% endif %}{{ include.post.title | xml_smart_escape }}</title>
