@@ -40,23 +40,28 @@
     {% endif %}
   {% endunless %}
 {% endcapture -%}
-{% capture item_description %}
+{% capture item_description0 %}
   {% if include.with_social_content %}
-    {% if include.post.social_description %}{{ include.post.social_description | markdownify | strip_html | strip }}
+    {% if include.post.social_description %}{{ include.post.social_description | markdownify | strip }}
     {% endif %}
-    #Blog article{% if include.post.tags and include.post.tags.size != 0 %} ({% for tag in include.post.tags %}#{{ tag | twitter_taggify }}{% unless forloop.last %}, {% endunless %}{% endfor %}){% endif %}
+    #Blog article{% if include.post.tags and include.post.tags.size != 0 %} ({% for tag in include.post.tags %}#{{ tag | twitter_taggify }}{% unless forloop.last %}, {% endunless %}{% endfor %}){% endif %}.
   {% else %}
     {% if include.post.description %}
       {{ include.post.description | markdownify }}
     {% else %}
-      {{ include.post.excerpt | strip_html }}
+      {{ include.post.excerpt }}
     {% endif %}
   {% endif %}
 {% endcapture %}
+{% capture item_description %}{{ item_description0 | strip_html | strip }}{% endcapture %}
 <item>
   <title>{% if include.prefix %}{{ include.prefix }}{% endif %}{{ include.post.title | xml_smart_escape }}</title>
-  <description>{{ item_description | strip_html | strip | xml_escape }}</description>
-  {% unless include.with_social_content %}<content:encoded>{{ item_content | rss_process | strip | xml_escape }}</content:encoded>{% endunless -%}
+  {% if include.with_social_content %}
+  <description>{{ item_description | should_have_safe_size_for_social_media | xml_escape }}</description>
+  {% else %}
+  <description>{{ item_description | xml_escape }}</description>
+  <content:encoded>{{ item_content | rss_process | strip | xml_escape }}</content:encoded>
+  {% endif %}
   <pubDate>{{ include.post.date | date_to_rfc822 }}</pubDate>
   {% if include.post.last_modified_at -%}
   <dc:modified>{{ include.post.last_modified_at | date_to_rfc822 }}</dc:modified>
