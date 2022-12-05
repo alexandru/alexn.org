@@ -7,5 +7,8 @@ tags:
   - FP
   - OOP
   - PDF
+  - Programming
   - Scala
 ---
+
+Slides from my talk from "Scala Love in the City 2021".

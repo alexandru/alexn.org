@@ -25,7 +25,8 @@
         By <em>{% if post.author_link %}<a href="{{ post.author_link }}" target="_blank">{{ post.author }}</a>{% else %}{{ post.author }}{% endif %}</em>.
     </p>
     {% endif -%}
-    {% if post.social_description %}<p>{{ post.social_description | strip }}</p>{% endif -%}
+    {% capture post_content %}{{ include.post.content | strip_newlines | strip }}{% endcapture -%}
+    {% if post_content != "" %}{{ post_content }}{% elsif post.social_description %}<p>{{ post.social_description | strip }}</p>{% endif -%}
     <p>
       <a href="{{ include.post.link }}">Go to shared link ...</a>
     </p>
