@@ -23,41 +23,45 @@
     <img referrerpolicy="no-referrer-when-downgrade" src="{{ tracker_url }}" width="1" height="1" style="position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;" alt="" />
 {% endif -%}{% endcapture -%}
 {% capture item_content -%}
-  {% if include.with_full_post %}
-    {{ tracking_pixel | strip }}{{ item_image }}
-    {{ include.post.content }}
-    <hr/>
-    <p>
-      <i>The article <a href="{{ include.post.url | absolute_url | rss_campaign_link: pk_campaign }}">{{ include.post.title | xml_smart_escape }}</a> first appeared on <a href="{{ site.url | rss_campaign_link: pk_campaign }}">{{ site.domain }}</a>.</i>
-    </p>
-  {% elsif include.with_social_content %}
-    {% if include.post.social_description %}{{ include.post.social_description | markdownify | strip }}{% endif -%}
-    <p>#Blog article{% if include.post.tags and include.post.tags.size != 0 %} ({% for tag in include.post.tags %}#{{ tag | twitter_taggify }}{% unless forloop.last %}, {% endunless %}{% endfor %}){% endif %}</p>
-  {% else %}
-    {{ tracking_pixel | strip }}{{ item_image }}
-    {% if include.post.description %}{{ include.post.description | markdownify }}{% else %}{{ include.post.excerpt | strip_html }}{% endif %}
-    <p>
-      <a href="{{ include.post.url | absolute_url | rss_campaign_link: pk_campaign }}">Read article →</a>
-    </p>
-  {% endif %}
-{% endcapture -%}
-{% capture item_description %}
-  {% if include.with_social_content %}
-    {% if include.post.social_description %}{{ include.post.social_description | markdownify | strip_html | strip }}
+  {% unless include.with_social_content %}
+    {% if include.with_full_post %}
+      {{ tracking_pixel | strip }}{{ item_image }}
+      {{ include.post.content }}
+      <hr/>
+      <p>
+        <i>The article <a href="{{ include.post.url | absolute_url | rss_campaign_link: pk_campaign }}">{{ include.post.title | xml_smart_escape }}</a> first appeared on <a href="{{ site.url | rss_campaign_link: pk_campaign }}">{{ site.domain }}</a>.</i>
+      </p>
+    {% else %}
+      {{ tracking_pixel | strip }}{{ item_image }}
+      {% if include.post.description %}{{ include.post.description | markdownify }}{% else %}{{ include.post.excerpt | strip_html }}{% endif %}
+      <p>
+        <a href="{{ include.post.url | absolute_url | rss_campaign_link: pk_campaign }}">Read article →</a>
+      </p>
     {% endif %}
-    #Blog article{% if include.post.tags and include.post.tags.size != 0 %} ({% for tag in include.post.tags %}#{{ tag | twitter_taggify }}{% unless forloop.last %}, {% endunless %}{% endfor %}){% endif %}
+  {% endunless %}
+{% endcapture -%}
+{% capture item_description0 %}
+  {% if include.with_social_content %}
+    {% if include.post.social_description %}{{ include.post.social_description | markdownify | strip }}
+    {% endif %}
+    #Blog article{% if include.post.tags and include.post.tags.size != 0 %} ({% for tag in include.post.tags %}#{{ tag | twitter_taggify }}{% unless forloop.last %}, {% endunless %}{% endfor %}){% endif %}.
   {% else %}
     {% if include.post.description %}
       {{ include.post.description | markdownify }}
     {% else %}
-      {{ include.post.excerpt | strip_html }}
+      {{ include.post.excerpt }}
     {% endif %}
   {% endif %}
 {% endcapture %}
+{% capture item_description %}{{ item_description0 | strip_html | strip }}{% endcapture %}
 <item>
   <title>{% if include.prefix %}{{ include.prefix }}{% endif %}{{ include.post.title | xml_smart_escape }}</title>
-  <description>{{ item_description | strip_html | strip | xml_escape }}</description>
+  {% if include.with_social_content %}
+  <description>{{ item_description | should_have_safe_size_for_social_media | xml_escape }}</description>
+  {% else %}
+  <description>{{ item_description | xml_escape }}</description>
   <content:encoded>{{ item_content | rss_process | strip | xml_escape }}</content:encoded>
+  {% endif %}
   <pubDate>{{ include.post.date | date_to_rfc822 }}</pubDate>
   {% if include.post.last_modified_at -%}
   <dc:modified>{{ include.post.last_modified_at | date_to_rfc822 }}</dc:modified>

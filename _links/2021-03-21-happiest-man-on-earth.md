@@ -8,4 +8,7 @@ tags:
   - Meditation
   - Video
   - YouTube
+  - Video
 ---
+
+Very good tutorial on mindfulness techniques.

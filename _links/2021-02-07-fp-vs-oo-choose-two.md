@@ -8,5 +8,9 @@ tags:
   - FP
   - Java
   - OOP
+  - Programming
+  - YouTube
   - Video
 ---
+
+"_This talk is about the fictitious divisions we invent, and how they harm the progress of our industry. In particular, we'll look at the supposed tension between Functional Programming and Object-Oriented Programming, and hopefully see that the tension is all in our heads._"
