@@ -3,7 +3,7 @@ title: "Personal Server Backups"
 image: /assets/media/articles/2022-backup-vps.png
 # image_caption:
 date: 2022-12-02 19:56:39 +02:00
-last_modified_at: 2022-12-02 22:29:31 +02:00
+last_modified_at: 2022-12-05 14:57:42 +02:00
 generate_toc: true
 tags:
   - Bash
@@ -13,7 +13,7 @@ tags:
 ---
 
 <p class="intro withcap" markdown="1">
-Services like [Linode](https://www.linode.com/lp/refer/?r=7dc03d7f0eaa520b3ffca3f52d03111aec887e53) or [DigitalOcean](https://www.digitalocean.com/) offer backup services for your VPS. Save your money, you don't need it. Here's how to backup your data safely, and with no extra costs...
+Cloud hosting services like Linode or DigitalOcean offer backup services for your VPS. Save your money, you don't need it. Here's how to backup your data safely, and with no extra costs...
 </p>
 
 The plan, for your inspiration:
