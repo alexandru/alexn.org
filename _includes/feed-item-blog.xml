@@ -42,9 +42,9 @@
 {% endcapture -%}
 {% capture item_description0 %}
   {% if include.with_social_content %}
-    {% if include.post.social_description %}{{ include.post.social_description | markdownify | strip }}
-    {% endif %}
-    #Blog article{% if include.post.tags and include.post.tags.size != 0 %} ({% for tag in include.post.tags %}#{{ tag | twitter_taggify }}{% unless forloop.last %}, {% endunless %}{% endfor %}){% endif %}.
+{% if include.post.social_description %}{{ include.post.social_description | markdownify | strip_html | strip }}
+
+{% endif %}#Blog article{% if include.post.tags and include.post.tags.size != 0 %} ({% for tag in include.post.tags %}#{{ tag | twitter_taggify }}{% unless forloop.last %}, {% endunless %}{% endfor %}){% endif %}.
   {% else %}
     {% if include.post.description %}
       {{ include.post.description | markdownify }}
