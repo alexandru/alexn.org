@@ -8,5 +8,5 @@ tags:
   - Browsers
   - Web
 social_description: >
-  Notes from a former developer of Chrome. I'm becoming a Chrome fanboy, TBH.
+  Notes from a former developer of Chrome. I'm becoming a Chromium fanboy, TBH.
 ---
