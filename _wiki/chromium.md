@@ -1,6 +1,6 @@
 ---
 date: 2022-09-01 16:10:16 +03:00
-last_modified_at: 2022-09-11 20:38:38 +03:00
+last_modified_at: 2022-12-09 08:24:13 +02:00
 ---
 
 # Chromium (Brave, ...)
@@ -41,3 +41,8 @@ Brave-specific:
 - [Bromite](https://www.bromite.org/) (Android)
 - [Ungoogled Chromium](https://github.com/ungoogled-software/ungoogled-chromium)
 - [Vivaldi](https://vivaldi.com/)
+
+## Misc
+
+- [Firefox and Chromium Security (2020)](https://madaidans-insecurities.github.io/firefox-chromium.html) ([archive](https://web.archive.org/web/20210105142528/https://madaidans-insecurities.github.io/firefox-chromium.html))
+- [Chrome, 10 years later (2022)](https://neugierig.org/software/blog/2022/12/chrome.html) ([archive](https://web.archive.org/web/20221209034236/https://neugierig.org/software/blog/2022/12/chrome.html))
