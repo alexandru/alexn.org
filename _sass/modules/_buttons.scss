@@ -71,14 +71,17 @@ BUTTON DEFAULTS
   }
 }
 
-span.link-logo {  
+span.link-logo {
+  text-decoration: none !important;
   img {
     height: 28px;
     width: 28px; 
     vertical-align: middle;
+    margin-right: 10px;
   }
-  &::after {
-    content: " ";
-    white-space: pre;
-  }
+}
+
+a span.link-logo img {
+  // https://codepen.io/sosuke/pen/Pjoqqp
+  filter: invert(17%) sepia(47%) saturate(1856%) hue-rotate(174deg) brightness(95%) contrast(97%);
 }

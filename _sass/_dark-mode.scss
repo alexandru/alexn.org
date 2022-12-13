@@ -282,5 +282,11 @@ body {
 span.link-logo img {
   -webkit-filter: invert(100%); /* safari 6.0 - 9.0 */
   filter: invert(100%);
-  opacity: 0.8;
+  opacity: 0.7;
+}
+
+a span.link-logo img {
+  //filter: invert(65%) sepia(90%) saturate(553%) hue-rotate(167deg) brightness(92%) contrast(89%);
+  filter: invert(84%) sepia(22%) saturate(6251%) hue-rotate(180deg) brightness(110%) contrast(111%);
+  opacity: 1;
 }
