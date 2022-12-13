@@ -570,7 +570,7 @@ FOOTER STYLING
     padding: 1rem 0;
 
     .note-warning {
-      font-size: 14px;
+      //font-size: 14px;
       border: 1px solid #e1e4e8;
       background-color: #f6f8fa;
       border-radius: 3px;
@@ -580,6 +580,9 @@ FOOTER STYLING
 
       .extra {
         color: #586069;
+        .link-logo img {
+          opacity: 0.6;
+        }
       }
     }
 

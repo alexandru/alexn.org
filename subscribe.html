@@ -8,10 +8,14 @@ permalink: /subscribe/
 <div id="abonament" class="post">
   <h1 class="pageTitle">Subscribe</h1>
 
-  <h2>Email</h2>
+  <h2 id="email">Email</h2>
 
   <p>
-    Subscribe to the newsletter and receive notifications for new articles. No spam, just content.
+    <span class="link-logo"><img src="{% link /assets/logo/email.svg %}" /></span>
+    <a target="_blank" href="http://eepurl.com/g5ClAT" rel="nofollow">Subscribe by email</a>
+    and receive notifications for new blog articles. No spam, just content. 
+    Powered by <a href="https://mailchimp.com/" rel="nofollow" target="_blank">Mailchimp</a>. 
+    See <a href="{% link docs/privacy-policy.md %}#email-newsletter">privacy policy</a>.
   </p>
 
   <!-- Begin Mailchimp Signup Form -->
@@ -42,35 +46,56 @@ permalink: /subscribe/
   </div>
   <!--End mc_embed_signup-->
 
-  <p>
-    Powered by <a href="https://mailchimp.com/" rel="nofollow" target="_blank">Mailchimp</a>. See <a href="{% link docs/privacy-policy.md %}#email-newsletter">privacy policy</a>.
-    If you're not seeing the form, it's probably blocked by the browser; 
-    <a target="_blank" href="http://eepurl.com/g5ClAT" style="white-space: nowrap;">
-      <em>try the external subscribe page &#10141;</em>
-    </a>
-  </p>
-
-  <h2>RSS Web Feeds</h2>
+  <h2 id="rss">RSS Web Feeds</h2>
 
   <p>
     You can follow these feeds in your favorite reader:
   </p>
   <ul>
-    <li><img src="{% link /assets/logo/subscribe.svg %}" style="max-width: 28px; vertical-align: middle;"> <a href="{% link feeds/all.xml %}" target="_blank">All (blog + wiki)</a></li>
-    <li><img src="{% link /assets/logo/subscribe.svg %}" style="max-width: 28px; vertical-align: middle;"> <a href="{% link feeds/blog.xml %}" target="_blank">Blog</a></li>
-    <li><img src="{% link /assets/logo/subscribe.svg %}" style="max-width: 28px; vertical-align: middle;"> <a href="{% link feeds/wiki.xml %}" target="_blank">Wiki</a></li>
-    <li><img src="{% link /assets/logo/subscribe.svg %}" style="max-width: 28px; vertical-align: middle;"> <a href="{% link feeds/links.xml %}" target="_blank">Links</a></li>
+    <li>
+      <span class="link-logo"><img src="{% link /assets/logo/rss.svg %}" /></span>
+      <a href="{% link feeds/all.xml %}" target="_blank">All (blog, wiki, links)</a>
+    </li>
+    <li>
+      <span class="link-logo"><img src="{% link /assets/logo/rss.svg %}" /></span>
+      <a href="{% link feeds/blog.xml %}" target="_blank">Blog</a>
+    </li>
+    <li>
+      <span class="link-logo"><img src="{% link /assets/logo/rss.svg %}" /></span>
+      <a href="{% link feeds/wiki.xml %}" target="_blank">Wiki</a>
+    </li>
+    <li>
+      <span class="link-logo"><img src="{% link /assets/logo/rss.svg %}" /></span>
+      <a href="{% link feeds/links.xml %}" target="_blank">Links</a>
+    </li>
   </ul>
 
   <p>
-    Some recommended clients:
+    Recommended feed readers: <a href="https://newsblur.com/" target="_blank" rel="nofollow">NewsBlur</a>, <a href="https://freshrss.org/" target="_blank" rel="nofollow">FreshRSS</a>, <a href="https://feedly.com" target="_blank" rel="nofollow">Feedly</a>, <a href="https://www.reederapp.com/" target="_blank" rel="nofollow">Reeder</a>.
   </p>
 
-  <ul>
-    <li><a href="https://newsblur.com/" target="_blank" rel="nofollow">Newsblur</a> (web, open-source)</li>
-    <li><a href="https://freshrss.org/" target="_blank" rel="nofollow">FreshRSS</a> (web, open-source, self-hosted)</li>
-    <li><a href="https://miniflux.app/" target="_blank" rel="nofollow">Miniflux</a> (web, open-source, self-hosted)</li>
-    <li><a href="https://feedly.com" target="_blank" rel="nofollow">Feedly</a> (web, proprietary)</li>
-    <li><a href="https://www.reederapp.com/" target="_blank" rel="nofollow">Reeder</a> (desktop, MacOS, iOS, proprietary)</li>
+  <h2 id="elsewhere">Elsewhere</h2>
+
+	<ul>
+		<li>
+      <span class="link-logo"><img src="{% link /assets/logo/github.svg %}" /></span>
+      <a rel="me" href="https://github.com/alexandru">GitHub</a>
+    </li>
+		<li>
+      <span class="link-logo"><img src="{% link /assets/logo/linkedin.svg %}" /></span>
+      <a rel="me" href="https://www.linkedin.com/in/alexelcu/">LinkedIn</a>
+    </li>
+    <li>
+      <span class="link-logo"><img src="{% link /assets/logo/mastodon.svg %}" /></span>
+      <a rel="me" href="https://mastodon.social/@alexelcu">Mastodon</a>
+    </li>
+    <li>
+      <span class="link-logo"><img src="{% link /assets/logo/twitter.svg %}" /></span>
+      <a rel="me" href="https://twitter.com/alexelcu">Twitter</a>
+    </li>
+    <li>
+      <span class="link-logo"><img src="{% link /assets/logo/facebook.svg %}" /></span>
+      <a rel="me" href="https://www.facebook.com/alexelcu.page">Facebook</a>
+    </li>
   </ul>
 </div>

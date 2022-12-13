@@ -71,3 +71,14 @@ BUTTON DEFAULTS
   }
 }
 
+span.link-logo {  
+  img {
+    height: 28px;
+    width: 28px; 
+    vertical-align: middle;
+  }
+  &::after {
+    content: " ";
+    white-space: pre;
+  }
+}
