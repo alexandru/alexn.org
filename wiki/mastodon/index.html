@@ -19,7 +19,7 @@
     <meta content="Personal, volatile wiki documentation" property="og:description">
     <meta content="https://alexn.org/wiki/mastodon/" property="og:url">
     <meta content="2022-11-22T09:55:19+00:00" property="article:published_time">
-    <meta content="2022-11-22T14:52:15+00:00" property="article:modified_time">
+    <meta content="2022-12-30T10:39:35+00:00" property="article:modified_time">
     
     <meta content="website" property="og:type">
     <meta property="og:image" content="https://alexn.org/assets/logo/800px-bordered.png" />
@@ -109,8 +109,8 @@
       <meta itemprop="datePublished" content="2022-11-22T09:55:19+0000"/>
       
       
-      <time itemprop="dateModified" content="2022-11-22T16:52:15+0200">
-        Updated: November 22, 2022
+      <time itemprop="dateModified" content="2022-12-30T12:39:35+0200">
+        Updated: December 30, 2022
       </time>
       
       
@@ -140,6 +140,14 @@
       <li><a href="#utilities">Utilities</a></li>
       <li><a href="#download-twitter-archive">Download Twitter archive</a></li>
       <li><a href="#leaving-twitter">Leaving Twitter?</a></li>
+    </ul>
+  </li>
+  <li><a href="#self-hosting">Self-Hosting</a>
+    <ul>
+      <li><a href="#docker-docker-compose">Docker (docker-compose)</a></li>
+      <li><a href="#postgres-setup">Postgres Setup</a></li>
+      <li><a href="#nginx-config">Nginx Config</a></li>
+      <li><a href="#backups">Backups</a></li>
     </ul>
   </li>
 </ul>
@@ -268,6 +276,548 @@
   <li>Modify your profile to inform your visitors that you moved;</li>
   <li>Maybe also lock your account, to prevent new followers;</li>
 </ol>
+      <h2 id="self-hosting">
+        
+        
+          Self-Hosting <a href="#self-hosting" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>I’m hosting my own Mastodon instance at <a href="https://social.alexn.org">https://social.alexn.org</a>.
+This is my own configuration, tuned to my needs:</p>
+      <h3 id="docker-docker-compose">
+        
+        
+          Docker (docker-compose) <a href="#docker-docker-compose" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">3.8'</span>
+
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">redis</span><span class="pi">:</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">redis</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">redis:7</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+    <span class="na">command</span><span class="pi">:</span> <span class="s">/bin/sh -c "redis-server --appendonly yes --requirepass $$REDIS_PASSWORD"</span>
+    <span class="na">healthcheck</span><span class="pi">:</span>
+      <span class="na">test</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">CMD'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">redis-cli'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">-a'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">$$REDIS_PASSWORD'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">ping'</span><span class="pi">]</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">redis:/data</span>
+    <span class="na">networks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">internal_network</span>
+    <span class="na">sysctls</span><span class="pi">:</span> <span class="c1"># https://github.com/docker-library/redis/issues/191#issuecomment-528693994</span>
+      <span class="pi">-</span> <span class="s">net.core.somaxconn=511</span>
+    <span class="na">env_file</span><span class="pi">:</span>
+      <span class="s">./envs/redis.env</span>
+
+  <span class="na">postgresdb</span><span class="pi">:</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">postgresdb</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s1">'</span><span class="s">postgres:15-alpine'</span>
+    <span class="na">healthcheck</span><span class="pi">:</span>
+      <span class="na">test</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">CMD'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">pg_isready'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">-U'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">postgres'</span><span class="pi">]</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s1">'</span><span class="s">postgres-db:/var/lib/postgresql/data'</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+    <span class="na">env_file</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./envs/postgres.env</span>
+    <span class="na">networks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">internal_network</span>
+
+  <span class="na">mastodon-web</span><span class="pi">:</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">mastodon-web</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s1">'</span><span class="s">tootsuite/mastodon:latest'</span>
+    <span class="na">command</span><span class="pi">:</span> <span class="s1">'</span><span class="s">bash</span><span class="nv"> </span><span class="s">-c</span><span class="nv"> </span><span class="s">"bundle</span><span class="nv"> </span><span class="s">exec</span><span class="nv"> </span><span class="s">rake</span><span class="nv"> </span><span class="s">db:migrate</span><span class="nv"> </span><span class="s">&amp;&amp;</span><span class="nv"> </span><span class="s">rm</span><span class="nv"> </span><span class="s">-f</span><span class="nv"> </span><span class="s">/mastodon/tmp/pids/server.pid</span><span class="nv"> </span><span class="s">&amp;&amp;</span><span class="nv"> </span><span class="s">bundle</span><span class="nv"> </span><span class="s">exec</span><span class="nv"> </span><span class="s">rails</span><span class="nv"> </span><span class="s">s</span><span class="nv"> </span><span class="s">-p</span><span class="nv"> </span><span class="s">3000"'</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">3000:3000</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+    <span class="na">healthcheck</span><span class="pi">:</span>
+      <span class="na">test</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">CMD-SHELL'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">wget</span><span class="nv"> </span><span class="s">-q</span><span class="nv"> </span><span class="s">--spider</span><span class="nv"> </span><span class="s">--proxy=off</span><span class="nv"> </span><span class="s">localhost:3000/health</span><span class="nv"> </span><span class="s">||</span><span class="nv"> </span><span class="s">exit</span><span class="nv"> </span><span class="s">1'</span><span class="pi">]</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s1">'</span><span class="s">mastodon-volume:/mastodon/public/system'</span>
+    <span class="na">env_file</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./envs/mastodon.env</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">postgresdb</span>
+      <span class="pi">-</span> <span class="s">redis</span>
+    <span class="na">networks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">internal_network</span>
+      <span class="pi">-</span> <span class="s">external_network</span>
+
+  <span class="na">mastodon-sidekiq</span><span class="pi">:</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">mastodon-sidekiq</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s1">'</span><span class="s">tootsuite/mastodon'</span>
+    <span class="na">command</span><span class="pi">:</span> <span class="s1">'</span><span class="s">bundle</span><span class="nv"> </span><span class="s">exec</span><span class="nv"> </span><span class="s">sidekiq'</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+    <span class="na">healthcheck</span><span class="pi">:</span>
+      <span class="na">test</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">CMD-SHELL'</span><span class="pi">,</span> <span class="s2">"</span><span class="s">ps</span><span class="nv"> </span><span class="s">aux</span><span class="nv"> </span><span class="s">|</span><span class="nv"> </span><span class="s">grep</span><span class="nv"> </span><span class="s">'[s]idekiq</span><span class="se">\ </span><span class="s">6'</span><span class="nv"> </span><span class="s">||</span><span class="nv"> </span><span class="s">false"</span><span class="pi">]</span>    
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s1">'</span><span class="s">mastodon-volume:/mastodon/public/system'</span>
+    <span class="na">env_file</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./envs/mastodon.env</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">postgresdb</span>
+      <span class="pi">-</span> <span class="s">redis</span>
+    <span class="na">networks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">internal_network</span>
+      <span class="pi">-</span> <span class="s">external_network</span>
+
+  <span class="na">mastodon-streaming</span><span class="pi">:</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">mastodon-stream</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s1">'</span><span class="s">tootsuite/mastodon'</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+    <span class="na">command</span><span class="pi">:</span> <span class="s">node ./streaming</span>
+    <span class="na">healthcheck</span><span class="pi">:</span>
+      <span class="na">test</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">CMD-SHELL'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">wget</span><span class="nv"> </span><span class="s">-q</span><span class="nv"> </span><span class="s">--spider</span><span class="nv"> </span><span class="s">--proxy=off</span><span class="nv"> </span><span class="s">localhost:4000/api/v1/streaming/health</span><span class="nv"> </span><span class="s">||</span><span class="nv"> </span><span class="s">exit</span><span class="nv"> </span><span class="s">1'</span><span class="pi">]</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s1">'</span><span class="s">127.0.0.1:4000:4000'</span>
+    <span class="na">env_file</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./envs/mastodon.env</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">postgresdb</span>
+      <span class="pi">-</span> <span class="s">redis</span>
+    <span class="na">networks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">external_network</span>
+      <span class="pi">-</span> <span class="s">internal_network</span>
+
+<span class="na">networks</span><span class="pi">:</span>
+  <span class="na">external_network</span><span class="pi">:</span>
+  <span class="na">internal_network</span><span class="pi">:</span>
+    <span class="na">internal</span><span class="pi">:</span> <span class="no">true</span>
+
+<span class="na">volumes</span><span class="pi">:</span>
+  <span class="na">redis</span><span class="pi">:</span>
+  <span class="na">postgres-db</span><span class="pi">:</span>
+  <span class="na">mastodon-volume</span><span class="pi">:</span>
+</code></pre></div></div>
+
+<p>File <code class="language-plaintext highlighter-rouge">redis.env</code> for the Redis database:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nv">REDIS_PASSWORD</span><span class="o">=</span><span class="s2">"&lt;your redis pass&gt;"</span>
+</code></pre></div></div>
+
+<p>File <code class="language-plaintext highlighter-rouge">postgres.env</code> for the Postgres database:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nv">POSTGRES_PASSWORD</span><span class="o">=</span><span class="s2">"&lt;password for 'postgres' admin&gt;"</span>
+</code></pre></div></div>
+
+<p>File <code class="language-plaintext highlighter-rouge">mastodon.env</code>:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nv">RAILS_ENV</span><span class="o">=</span><span class="s2">"production"</span>
+<span class="nv">LOCAL_DOMAIN</span><span class="o">=</span><span class="s2">"social.alexn.org"</span>
+<span class="c"># WEB_DOMAIN="social.alexn.org"</span>
+
+<span class="c"># Must create DB user and database</span>
+<span class="nv">DB_HOST</span><span class="o">=</span><span class="s2">"postgresdb"</span>
+<span class="nv">DB_NAME</span><span class="o">=</span><span class="s2">"mastodon"</span>
+<span class="nv">DB_USER</span><span class="o">=</span><span class="s2">"mastodon"</span>
+<span class="nv">DB_PASS</span><span class="o">=</span>
+
+<span class="c"># Must reuse the password from `redis.env`</span>
+<span class="nv">REDIS_URL</span><span class="o">=</span><span class="s2">"redis://default:password@redis:6379"</span>
+
+<span class="c"># -----------</span>
+<span class="c"># App Secrets</span>
+<span class="c"># -----------</span>
+<span class="c"># Can be generated with:</span>
+<span class="c"># docker-compose run --rm mastodon-web bundle exec rake secret</span>
+<span class="c"># -----------</span>
+<span class="nv">SECRET_KEY_BASE</span><span class="o">=</span>
+<span class="nv">OTP_SECRET</span><span class="o">=</span>
+
+<span class="c"># ----------------------</span>
+<span class="c"># Web Push Notifications</span>
+<span class="c"># ----------------------</span>
+<span class="c"># Generate with `rake mastodon:webpush:generate_vapid_key`</span>
+<span class="c">#</span>
+<span class="c"># docker exec mastodon-web bundle exec rake mastodon:webpush:generate_vapid_key</span>
+<span class="c"># ----------------------</span>
+<span class="nv">VAPID_PRIVATE_KEY</span><span class="o">=</span>
+<span class="nv">VAPID_PUBLIC_KEY</span><span class="o">=</span>
+
+<span class="c"># --------</span>
+<span class="nv">MASTODON_ADMIN_USERNAME</span><span class="o">=</span><span class="s2">"alexelcu"</span>
+<span class="nv">MASTODON_ADMIN_EMAIL</span><span class="o">=</span><span class="s2">"alexelcu@social.alexn.org"</span>
+
+<span class="c"># ------------------------------------------</span>
+<span class="c"># Email settings / via external SMTP service</span>
+<span class="c"># ------------------------------------------</span>
+<span class="c"># See Fastmail's App Passwords:</span>
+<span class="c"># https://www.fastmail.help/hc/en-us/articles/360058752854-App-passwords</span>
+<span class="c"># ------------------------------------------</span>
+<span class="nv">SMTP_SERVER</span><span class="o">=</span><span class="s2">"smtp.fastmail.com"</span>
+<span class="nv">SMTP_PORT</span><span class="o">=</span>465
+<span class="nv">SMTP_FROM_ADDRESS</span><span class="o">=</span><span class="s2">"noreply@social.alexn.org"</span>
+<span class="nv">SMTP_LOGIN</span><span class="o">=</span>
+<span class="nv">SMTP_PASSWORD</span><span class="o">=</span>
+
+<span class="c"># --------------------------------</span>
+<span class="c"># For enabling cloud block storage</span>
+<span class="c"># --------------------------------</span>
+<span class="c"># S3_ENABLED=true</span>
+<span class="c"># S3_PROTOCOL=https</span>
+<span class="c"># S3_ENDPOINT=https://s3.eu-central-003.backblazeb2.com</span>
+<span class="c"># S3_HOSTNAME=s3.eu-central-003.backblazeb2.com</span>
+<span class="c"># S3_BUCKET=alexn-social-files</span>
+<span class="c"># AWS_ACCESS_KEY_ID=</span>
+<span class="c"># AWS_SECRET_ACCESS_KEY=</span>
+<span class="c"># S3_ALIAS_HOST="files-social.alexn.org"</span>
+</code></pre></div></div>
+      <h3 id="postgres-setup">
+        
+        
+          Postgres Setup <a href="#postgres-setup" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>To create the database for Mastodon, first connect via the <code class="language-plaintext highlighter-rouge">psql</code> client:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>docker <span class="nb">exec</span> <span class="nt">-it</span> postgresdb psql <span class="nt">-U</span> postgres
+</code></pre></div></div>
+
+<p>Then run:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">CREATE</span> <span class="k">DATABASE</span> <span class="n">mastodon</span><span class="p">;</span>
+<span class="k">CREATE</span> <span class="k">USER</span> <span class="n">mastodon</span> <span class="k">WITH</span> <span class="k">ENCRYPTED</span> <span class="n">PASSWORD</span> <span class="s1">'your-password'</span><span class="p">;</span>
+<span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">PRIVILEGES</span> <span class="k">ON</span> <span class="k">DATABASE</span> <span class="n">mastodon</span> <span class="k">TO</span> <span class="n">mastodon</span><span class="p">;</span>
+<span class="c1">-- Above was apparently not enough to run DB migrations, </span>
+<span class="c1">-- so this is needed too:</span>
+<span class="k">ALTER</span> <span class="k">DATABASE</span> <span class="n">mastodon</span> <span class="k">OWNER</span> <span class="k">TO</span> <span class="n">mastodon</span><span class="p">;</span>
+</code></pre></div></div>
+      <h3 id="nginx-config">
+        
+        
+          Nginx Config <a href="#nginx-config" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Mastodon has an official recommended Nginx configuration 
+(<a href="https://github.com/mastodon/mastodon/blob/v4.0.2/dist/nginx.conf">see their repository</a>), 
+however I am hosting Mastodon inside a Docker container, and using Cloudflare, which makes
+things more complicated.</p>
+
+<p class="info-bubble">
+Make sure to check your HTTP caching headers (<code class="language-plaintext highlighter-rouge">Cache-Control</code>), and ensure
+it plays well with Cloudflare 😉
+</p>
+
+<p>Here’s my <code class="language-plaintext highlighter-rouge">/etc/nginx/available-sites/social.alexn.org.conf</code> file:</p>
+
+<div class="language-conf highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="n">upstream</span> <span class="n">backend</span> {
+    <span class="n">server</span> <span class="m">127</span>.<span class="m">0</span>.<span class="m">0</span>.<span class="m">1</span>:<span class="m">3000</span> <span class="n">fail_timeout</span>=<span class="m">0</span>;
+}
+
+<span class="n">upstream</span> <span class="n">streaming</span> {
+    <span class="n">server</span> <span class="m">127</span>.<span class="m">0</span>.<span class="m">0</span>.<span class="m">1</span>:<span class="m">4000</span> <span class="n">fail_timeout</span>=<span class="m">0</span>;
+}
+
+<span class="n">server</span> {
+    <span class="n">server_name</span> <span class="n">social</span>.<span class="n">alexn</span>.<span class="n">org</span>;
+    <span class="n">listen</span>   <span class="m">80</span>;
+    <span class="n">listen</span>   [::]:<span class="m">80</span>;
+
+    <span class="n">access_log</span> /<span class="n">var</span>/<span class="n">log</span>/<span class="n">nginx</span>/<span class="n">social</span>.<span class="n">alexn</span>.<span class="n">org</span>.<span class="n">log</span> <span class="n">combined</span>;
+
+    <span class="n">location</span> ~ /.<span class="n">well</span>-<span class="n">known</span> {
+        <span class="n">root</span>   /<span class="n">var</span>/<span class="n">www</span>/<span class="n">social</span>.<span class="n">alexn</span>.<span class="n">org</span>;
+        <span class="n">allow</span> <span class="n">all</span>;
+        <span class="n">break</span>;
+    }
+
+    <span class="n">location</span> / {
+        <span class="n">rewrite</span> ^(.*)$ <span class="n">https</span>://<span class="n">social</span>.<span class="n">alexn</span>.<span class="n">org</span>$<span class="m">1</span> <span class="n">permanent</span>;
+    }
+}
+
+<span class="n">server</span> {
+    <span class="n">server_name</span> <span class="n">social</span>.<span class="n">alexn</span>.<span class="n">org</span>;
+    <span class="n">listen</span> <span class="m">443</span> <span class="n">ssl</span>;
+    <span class="n">listen</span> [::]:<span class="m">443</span> <span class="n">ssl</span>;
+
+    <span class="n">access_log</span> /<span class="n">var</span>/<span class="n">log</span>/<span class="n">nginx</span>/<span class="n">social</span>.<span class="n">alexn</span>.<span class="n">org</span>.<span class="n">log</span> <span class="n">combined</span>;
+
+    <span class="c">###############
+</span>    <span class="c"># SSL
+</span>
+    <span class="c"># certs sent to the client in SERVER HELLO are concatenated in ssl_certificate
+</span>    <span class="n">ssl_certificate</span> /<span class="n">etc</span>/<span class="n">letsencrypt</span>/<span class="n">live</span>/<span class="n">alexn</span>.<span class="n">org</span>/<span class="n">fullchain</span>.<span class="n">pem</span>;
+    <span class="n">ssl_certificate_key</span> /<span class="n">etc</span>/<span class="n">letsencrypt</span>/<span class="n">live</span>/<span class="n">alexn</span>.<span class="n">org</span>/<span class="n">privkey</span>.<span class="n">pem</span>;
+
+    <span class="c">## verify chain of trust of OCSP response using Root CA and Intermediate certs
+</span>    <span class="n">ssl_trusted_certificate</span> /<span class="n">etc</span>/<span class="n">letsencrypt</span>/<span class="n">live</span>/<span class="n">alexn</span>.<span class="n">org</span>/<span class="n">fullchain</span>.<span class="n">pem</span>;
+
+    <span class="c"># Common config
+</span>    <span class="n">include</span> ./<span class="n">snippets</span>/<span class="n">ssl</span>.<span class="n">conf</span>;
+
+    <span class="c"># END SSL
+</span>    <span class="c">##############
+</span>
+    <span class="n">keepalive_timeout</span>    <span class="m">70</span>;
+    <span class="n">sendfile</span>             <span class="n">on</span>;
+    <span class="n">client_max_body_size</span> <span class="m">80</span><span class="n">m</span>;
+
+    <span class="n">root</span> /<span class="n">var</span>/<span class="n">www</span>/<span class="n">social</span>.<span class="n">alexn</span>.<span class="n">org</span>;
+    <span class="n">include</span> ./<span class="n">snippets</span>/<span class="n">gzip</span>.<span class="n">conf</span>;
+
+    <span class="n">location</span> / {
+        <span class="n">proxy_pass</span> <span class="n">http</span>://<span class="n">backend</span>;
+        <span class="n">include</span> ./<span class="n">snippets</span>/<span class="n">proxy</span>-<span class="n">backend</span>.<span class="n">conf</span>;
+    }
+
+    <span class="n">location</span> = /<span class="n">sw</span>.<span class="n">js</span> {
+        <span class="n">proxy_pass</span> <span class="n">http</span>://<span class="n">backend</span>;
+        <span class="n">add_header</span> <span class="n">Cache</span>-<span class="n">Control</span> <span class="s2">"public, max-age=604800, must-revalidate"</span>;
+        <span class="n">include</span> ./<span class="n">snippets</span>/<span class="n">proxy</span>-<span class="n">backend</span>.<span class="n">conf</span>;
+    }
+
+    <span class="n">location</span> ~ ^/<span class="n">system</span>/ {
+        <span class="n">proxy_pass</span> <span class="n">http</span>://<span class="n">backend</span>;
+        <span class="n">add_header</span> <span class="n">Cache</span>-<span class="n">Control</span> <span class="s2">"public, max-age=2419200, immutable"</span>;
+        <span class="n">include</span> ./<span class="n">snippets</span>/<span class="n">proxy</span>-<span class="n">backend</span>.<span class="n">conf</span>;
+    }
+
+    <span class="n">location</span> ~ ^/(<span class="n">assets</span>/|<span class="n">avatars</span>/|<span class="n">emoji</span>/|<span class="n">headers</span>/|<span class="n">packs</span>/|<span class="n">shortcuts</span>/|<span class="n">sounds</span>/) {
+        <span class="n">proxy_pass</span> <span class="n">http</span>://<span class="n">backend</span>;
+        <span class="n">add_header</span> <span class="n">Cache</span>-<span class="n">Control</span> <span class="s2">"public, max-age=2419200, must-revalidate"</span>;
+        <span class="n">include</span> ./<span class="n">snippets</span>/<span class="n">proxy</span>-<span class="n">backend</span>.<span class="n">conf</span>;
+    }
+
+    <span class="n">location</span> ^~ /<span class="n">api</span>/<span class="n">v1</span>/<span class="n">streaming</span> {
+        <span class="n">proxy_pass</span> <span class="n">http</span>://<span class="n">streaming</span>;
+        <span class="n">include</span> ./<span class="n">snippets</span>/<span class="n">proxy</span>-<span class="n">streaming</span>.<span class="n">conf</span>;
+    }
+
+    <span class="n">error_page</span> <span class="m">500</span> <span class="m">501</span> <span class="m">502</span> <span class="m">503</span> <span class="m">504</span> /<span class="m">500</span>.<span class="n">html</span>;
+}
+</code></pre></div></div>
+
+<p>Depends on this <code class="language-plaintext highlighter-rouge">./snippets/ssl.conf</code>:</p>
+
+<div class="language-conf highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c">###
+# https://ssl-config.mozilla.org/#server=nginx&amp;version=1.17.7&amp;config=intermediate&amp;openssl=1.1.1k&amp;guideline=5.6
+</span>
+<span class="n">ssl_session_timeout</span> <span class="m">1</span><span class="n">d</span>;
+<span class="n">ssl_session_cache</span> <span class="n">shared</span>:<span class="n">SSL</span>:<span class="m">10</span><span class="n">m</span>;  <span class="c"># about 40000 sessions
+</span><span class="n">ssl_session_tickets</span> <span class="n">off</span>;
+
+<span class="c"># Diffie-Hellman parameter for DHE ciphersuites, recommended 2048 bits
+</span><span class="n">ssl_dhparam</span> /<span class="n">etc</span>/<span class="n">nginx</span>/<span class="n">certs</span>/<span class="n">dh2048</span>.<span class="n">pem</span>;
+
+<span class="c"># intermediate configuration
+</span><span class="n">ssl_protocols</span> <span class="n">TLSv1</span>.<span class="m">2</span> <span class="n">TLSv1</span>.<span class="m">3</span>;
+<span class="n">ssl_ciphers</span> <span class="n">ECDHE</span>-<span class="n">ECDSA</span>-<span class="n">AES128</span>-<span class="n">GCM</span>-<span class="n">SHA256</span>:<span class="n">ECDHE</span>-<span class="n">RSA</span>-<span class="n">AES128</span>-<span class="n">GCM</span>-<span class="n">SHA256</span>:<span class="n">ECDHE</span>-<span class="n">ECDSA</span>-<span class="n">AES256</span>-<span class="n">GCM</span>-<span class="n">SHA384</span>:<span class="n">ECDHE</span>-<span class="n">RSA</span>-<span class="n">AES256</span>-<span class="n">GCM</span>-<span class="n">SHA384</span>:<span class="n">ECDHE</span>-<span class="n">ECDSA</span>-<span class="n">CHACHA20</span>-<span class="n">POLY1305</span>:<span class="n">ECDHE</span>-<span class="n">RSA</span>-<span class="n">CHACHA20</span>-<span class="n">POLY1305</span>:<span class="n">DHE</span>-<span class="n">RSA</span>-<span class="n">AES128</span>-<span class="n">GCM</span>-<span class="n">SHA256</span>:<span class="n">DHE</span>-<span class="n">RSA</span>-<span class="n">AES256</span>-<span class="n">GCM</span>-<span class="n">SHA384</span>;
+<span class="n">ssl_prefer_server_ciphers</span> <span class="n">off</span>;
+
+<span class="c"># HSTS (ngx_http_headers_module is required) (63072000 seconds)
+</span><span class="n">add_header</span> <span class="n">Strict</span>-<span class="n">Transport</span>-<span class="n">Security</span> <span class="s2">"max-age=63072000; includeSubdomains; preload"</span>;
+
+<span class="c"># OCSP stapling
+</span><span class="n">ssl_stapling</span> <span class="n">on</span>;
+<span class="n">ssl_stapling_verify</span> <span class="n">on</span>;
+</code></pre></div></div>
+
+<p>Also, depends on <code class="language-plaintext highlighter-rouge">./snippets/proxy-backend.conf</code>:</p>
+
+<div class="language-conf highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="n">include</span> ./<span class="n">snippets</span>/<span class="n">cloudflare</span>-<span class="n">ips</span>.<span class="n">conf</span>;
+
+<span class="n">proxy_set_header</span> <span class="n">Host</span> $<span class="n">host</span>;
+<span class="n">proxy_set_header</span> <span class="n">X</span>-<span class="n">Real</span>-<span class="n">IP</span> $<span class="n">remote_addr</span>;
+<span class="n">proxy_set_header</span> <span class="n">X</span>-<span class="n">Forwarded</span>-<span class="n">For</span> $<span class="n">proxy_add_x_forwarded_for</span>;
+<span class="n">proxy_set_header</span> <span class="n">X</span>-<span class="n">Forwarded</span>-<span class="n">Proto</span> $<span class="n">scheme</span>;
+<span class="n">proxy_set_header</span> <span class="n">Proxy</span> <span class="s2">""</span>;
+<span class="n">proxy_pass_header</span> <span class="n">Server</span>;
+
+<span class="n">proxy_buffering</span> <span class="n">on</span>;
+<span class="n">proxy_redirect</span> <span class="n">off</span>;
+<span class="n">proxy_http_version</span> <span class="m">1</span>.<span class="m">1</span>;
+<span class="n">proxy_set_header</span> <span class="n">Upgrade</span> $<span class="n">http_upgrade</span>;
+<span class="n">proxy_set_header</span> <span class="n">Connection</span> $<span class="n">connection_upgrade</span>;
+
+<span class="n">proxy_cache</span> <span class="n">CACHE</span>;
+<span class="n">proxy_cache_valid</span> <span class="m">200</span> <span class="m">7</span><span class="n">d</span>;
+<span class="n">proxy_cache_valid</span> <span class="m">410</span> <span class="m">24</span><span class="n">h</span>;
+<span class="n">proxy_cache_use_stale</span> <span class="n">error</span> <span class="n">timeout</span> <span class="n">updating</span> <span class="n">http_500</span> <span class="n">http_502</span> <span class="n">http_503</span> <span class="n">http_504</span>;
+
+<span class="n">add_header</span> <span class="n">X</span>-<span class="n">Cached</span> $<span class="n">upstream_cache_status</span>;
+<span class="n">tcp_nodelay</span> <span class="n">on</span>;
+</code></pre></div></div>
+
+<p>Also, depends on <code class="language-plaintext highlighter-rouge">./snippets/proxy-streaming.conf</code>:</p>
+
+<div class="language-conf highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="n">include</span> ./<span class="n">snippets</span>/<span class="n">cloudflare</span>-<span class="n">ips</span>.<span class="n">conf</span>;
+
+<span class="n">proxy_set_header</span> <span class="n">Host</span> $<span class="n">host</span>;
+<span class="n">proxy_set_header</span> <span class="n">X</span>-<span class="n">Real</span>-<span class="n">IP</span> $<span class="n">remote_addr</span>;
+<span class="n">proxy_set_header</span> <span class="n">X</span>-<span class="n">Forwarded</span>-<span class="n">For</span> $<span class="n">proxy_add_x_forwarded_for</span>;
+<span class="n">proxy_set_header</span> <span class="n">X</span>-<span class="n">Forwarded</span>-<span class="n">Proto</span> $<span class="n">scheme</span>;
+<span class="n">proxy_set_header</span> <span class="n">Proxy</span> <span class="s2">""</span>;
+
+<span class="n">proxy_buffering</span> <span class="n">off</span>;
+<span class="n">proxy_redirect</span> <span class="n">off</span>;
+<span class="n">proxy_http_version</span> <span class="m">1</span>.<span class="m">1</span>;
+<span class="n">proxy_set_header</span> <span class="n">Upgrade</span> $<span class="n">http_upgrade</span>;
+<span class="n">proxy_set_header</span> <span class="n">Connection</span> $<span class="n">connection_upgrade</span>;
+</code></pre></div></div>
+
+<p>Also, depends on <code class="language-plaintext highlighter-rouge">./snippets/cloudflare-ips.conf</code>:</p>
+
+<div class="language-conf highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c">## Docs:
+# https://support.cloudflare.com/hc/en-us/articles/200170786-Restoring-original-visitor-IPs-Logging-visitor-IP-addresses-with-mod-cloudflare-
+#
+# MUST KEEP UP TO DATE!
+</span>
+<span class="c"># https://www.cloudflare.com/ips-v4
+</span><span class="n">set_real_ip_from</span> <span class="m">173</span>.<span class="m">245</span>.<span class="m">48</span>.<span class="m">0</span>/<span class="m">20</span>;
+<span class="n">set_real_ip_from</span> <span class="m">103</span>.<span class="m">21</span>.<span class="m">244</span>.<span class="m">0</span>/<span class="m">22</span>;
+<span class="n">set_real_ip_from</span> <span class="m">103</span>.<span class="m">22</span>.<span class="m">200</span>.<span class="m">0</span>/<span class="m">22</span>;
+<span class="n">set_real_ip_from</span> <span class="m">103</span>.<span class="m">31</span>.<span class="m">4</span>.<span class="m">0</span>/<span class="m">22</span>;
+<span class="n">set_real_ip_from</span> <span class="m">141</span>.<span class="m">101</span>.<span class="m">64</span>.<span class="m">0</span>/<span class="m">18</span>;
+<span class="n">set_real_ip_from</span> <span class="m">108</span>.<span class="m">162</span>.<span class="m">192</span>.<span class="m">0</span>/<span class="m">18</span>;
+<span class="n">set_real_ip_from</span> <span class="m">190</span>.<span class="m">93</span>.<span class="m">240</span>.<span class="m">0</span>/<span class="m">20</span>;
+<span class="n">set_real_ip_from</span> <span class="m">188</span>.<span class="m">114</span>.<span class="m">96</span>.<span class="m">0</span>/<span class="m">20</span>;
+<span class="n">set_real_ip_from</span> <span class="m">197</span>.<span class="m">234</span>.<span class="m">240</span>.<span class="m">0</span>/<span class="m">22</span>;
+<span class="n">set_real_ip_from</span> <span class="m">198</span>.<span class="m">41</span>.<span class="m">128</span>.<span class="m">0</span>/<span class="m">17</span>;
+<span class="n">set_real_ip_from</span> <span class="m">162</span>.<span class="m">158</span>.<span class="m">0</span>.<span class="m">0</span>/<span class="m">15</span>;
+<span class="n">set_real_ip_from</span> <span class="m">104</span>.<span class="m">16</span>.<span class="m">0</span>.<span class="m">0</span>/<span class="m">13</span>;
+<span class="n">set_real_ip_from</span> <span class="m">104</span>.<span class="m">24</span>.<span class="m">0</span>.<span class="m">0</span>/<span class="m">14</span>;
+<span class="n">set_real_ip_from</span> <span class="m">172</span>.<span class="m">64</span>.<span class="m">0</span>.<span class="m">0</span>/<span class="m">13</span>;
+<span class="n">set_real_ip_from</span> <span class="m">131</span>.<span class="m">0</span>.<span class="m">72</span>.<span class="m">0</span>/<span class="m">22</span>;
+
+<span class="c"># https://www.cloudflare.com/ips-v6
+</span><span class="n">set_real_ip_from</span> <span class="m">2400</span>:<span class="n">cb00</span>::/<span class="m">32</span>;
+<span class="n">set_real_ip_from</span> <span class="m">2606</span>:<span class="m">4700</span>::/<span class="m">32</span>;
+<span class="n">set_real_ip_from</span> <span class="m">2803</span>:<span class="n">f800</span>::/<span class="m">32</span>;
+<span class="n">set_real_ip_from</span> <span class="m">2405</span>:<span class="n">b500</span>::/<span class="m">32</span>;
+<span class="n">set_real_ip_from</span> <span class="m">2405</span>:<span class="m">8100</span>::/<span class="m">32</span>;
+<span class="n">set_real_ip_from</span> <span class="m">2</span><span class="n">a06</span>:<span class="m">98</span><span class="n">c0</span>::/<span class="m">29</span>;
+<span class="n">set_real_ip_from</span> <span class="m">2</span><span class="n">c0f</span>:<span class="n">f248</span>::/<span class="m">32</span>;
+
+<span class="n">real_ip_header</span> <span class="n">CF</span>-<span class="n">Connecting</span>-<span class="n">IP</span>;
+</code></pre></div></div>
+
+<p>Also, depends on this <code class="language-plaintext highlighter-rouge">./snippets/gzip.conf</code>:</p>
+
+<div class="language-conf highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="n">gzip</span> <span class="n">on</span>;
+<span class="n">gzip_disable</span> <span class="s2">"msie6"</span>;
+
+<span class="c"># Enable compression both for HTTP/1.0 and HTTP/1.1.
+</span><span class="n">gzip_http_version</span>  <span class="m">1</span>.<span class="m">1</span>;
+
+<span class="c"># Compression level (1-9).
+# 5 is a perfect compromise between size and cpu usage, offering about
+# 75% reduction for most ascii files (almost identical to level 9).
+</span><span class="n">gzip_comp_level</span>    <span class="m">6</span>;
+
+<span class="c"># Don't compress anything that's already small and unlikely to shrink much
+# if at all (the default is 20 bytes, which is bad as that usually leads to
+# larger files after gzipping).
+</span><span class="n">gzip_min_length</span>    <span class="m">256</span>;
+
+<span class="c"># Compress data even for clients that are connecting to us via proxies,
+# identified by the "Via" header (required for CloudFront).
+</span><span class="n">gzip_proxied</span>       <span class="n">any</span>;
+
+<span class="c"># Tell proxies to cache both the gzipped and regular version of a resource
+# whenever the client's Accept-Encoding capabilities header varies;
+# Avoids the issue where a non-gzip capable client (which is extremely rare
+# today) would display gibberish if their proxy gave them the gzipped version.
+</span><span class="n">gzip_vary</span>          <span class="n">on</span>;
+
+<span class="c"># Sets the number and size of buffers used to compress a response. 
+# By default, the buffer size is equal to one memory page. 
+# This is either 4K or 8K, depending on a platform.
+</span><span class="n">gzip_buffers</span>	<span class="m">16</span> <span class="m">8</span><span class="n">k</span>;
+
+<span class="c"># Compress all output labeled with one of the following MIME-types.
+</span><span class="n">gzip_types</span>
+	<span class="n">application</span>/<span class="n">atom</span>+<span class="n">xml</span>
+	<span class="n">application</span>/<span class="n">font</span>-<span class="n">woff</span>
+	<span class="n">application</span>/<span class="n">javascript</span>
+	<span class="n">application</span>/<span class="n">json</span>
+	<span class="n">application</span>/<span class="n">rss</span>+<span class="n">xml</span>
+	<span class="n">application</span>/<span class="n">vnd</span>.<span class="n">ms</span>-<span class="n">fontobject</span>
+	<span class="n">application</span>/<span class="n">x</span>-<span class="n">font</span>-<span class="n">ttf</span>
+	<span class="n">application</span>/<span class="n">x</span>-<span class="n">font</span>-<span class="n">woff</span>
+	<span class="n">application</span>/<span class="n">x</span>-<span class="n">web</span>-<span class="n">app</span>-<span class="n">manifest</span>+<span class="n">json</span>
+	<span class="n">application</span>/<span class="n">xhtml</span>+<span class="n">xml</span>
+	<span class="n">application</span>/<span class="n">xml</span>
+	<span class="n">application</span>/<span class="n">xml</span>+<span class="n">rss</span>
+	<span class="n">font</span>/<span class="n">opentype</span>
+	<span class="n">font</span>/<span class="n">woff</span>
+	<span class="n">font</span>/<span class="n">woff2</span>
+	<span class="n">image</span>/<span class="n">svg</span>+<span class="n">xml</span>
+	<span class="n">image</span>/<span class="n">x</span>-<span class="n">icon</span>
+	<span class="n">text</span>/<span class="n">css</span>
+	<span class="n">text</span>/<span class="n">javascript</span>
+	<span class="n">text</span>/<span class="n">plain</span>
+	<span class="n">text</span>/<span class="n">x</span>-<span class="n">component</span>
+	<span class="n">text</span>/<span class="n">xml</span>;
+</code></pre></div></div>
+      <h3 id="backups">
+        
+        
+          Backups <a href="#backups" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Script for periodically backing up Postgres via <code class="language-plaintext highlighter-rouge">rclone</code>, to install in <code class="language-plaintext highlighter-rouge">cron.d</code>:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c">#!/usr/bin/env bash</span>
+
+<span class="nb">set</span> <span class="nt">-e</span>
+
+<span class="nv">FILENAME</span><span class="o">=</span><span class="s2">"postgres-</span><span class="si">$(</span><span class="nb">date</span> +<span class="s2">"%Y-%m"</span><span class="si">)</span><span class="s2">.sql.gz"</span>
+<span class="nv">FILEPATH</span><span class="o">=</span><span class="s2">"/var/lib/my-backups/</span><span class="nv">$FILENAME</span><span class="s2">"</span>
+
+<span class="nb">mkdir</span> <span class="nt">-p</span> /var/lib/my-backups
+
+docker <span class="nb">exec</span> <span class="nt">-i</span> postgresdb pg_dumpall <span class="nt">-U</span> postgres | <span class="nb">gzip</span> <span class="o">&gt;</span> <span class="s2">"</span><span class="nv">$FILEPATH</span><span class="s2">"</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nt">-f</span> <span class="s2">"</span><span class="nv">$FILEPATH</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+  </span>rclone copy <span class="s2">"</span><span class="nv">$FILEPATH</span><span class="s2">"</span> <span class="s2">"backup:Postgres/"</span>
+<span class="k">fi
+
+</span><span class="nb">rm</span> <span class="nt">-f</span> /var/lib/my-backups/postgres-<span class="k">*</span>.sql.gz
+</code></pre></div></div>
+
+<p>Script for periodically backing up your media files (but without the cache),
+via <code class="language-plaintext highlighter-rouge">rclone</code>, to install in <code class="language-plaintext highlighter-rouge">cron.d</code>:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c">#!/usr/bin/env bash</span>
+
+<span class="nb">set</span> <span class="nt">-e</span>
+
+<span class="nv">FILENAME</span><span class="o">=</span><span class="s2">"mastodon-volume.tar"</span>
+<span class="nv">FILEPATH</span><span class="o">=</span><span class="s2">"/var/lib/my-backups/</span><span class="nv">$FILENAME</span><span class="s2">"</span>
+
+docker run <span class="se">\</span>
+    <span class="nt">--rm</span> <span class="se">\</span>
+    <span class="nt">--volumes-from</span> mastodon-web <span class="se">\</span>
+    <span class="nt">-v</span> /var/lib/my-backups:/backup <span class="se">\</span>
+    ubuntu <span class="se">\</span>
+    <span class="nb">tar</span> <span class="nt">--exclude</span><span class="o">=</span><span class="s1">'mastodon/public/system/cache'</span> <span class="nt">-cf</span> <span class="s2">"/backup/</span><span class="nv">$FILENAME</span><span class="s2">"</span> <span class="nt">-C</span> / <span class="s2">"mastodon/public/system"</span> <span class="se">\</span>
+    2&gt;&amp;1
+
+<span class="k">if</span> <span class="o">[</span> <span class="nt">-f</span> <span class="s2">"</span><span class="nv">$FILEPATH</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+  </span>rclone copy <span class="s2">"</span><span class="nv">$FILEPATH</span><span class="s2">"</span> <span class="s2">"backup:Mastodon/"</span>
+  <span class="nb">rm</span> <span class="nt">-f</span> <span class="s2">"</span><span class="nv">$FILEPATH</span><span class="s2">"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<p class="warn-bubble">
+There may be better ways of doing this (like simply using block storage),
+I’m still learning.
+</p>
 
   </div>
 </article>
@@ -275,12 +825,12 @@
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202212280922" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202212280922" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202212280922" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202212280922" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202212301041" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202212301041" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202212301041" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202212301041" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202212280922" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202212301041" type="text/javascript"></script>
 
 
 <script type="text/javascript">

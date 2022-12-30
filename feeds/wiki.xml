@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 28 Dec 2022 09:22:14 +0000</pubDate>
-    <lastBuildDate>Wed, 28 Dec 2022 09:22:14 +0000</lastBuildDate>
+    <pubDate>Fri, 30 Dec 2022 10:40:41 +0000</pubDate>
+    <lastBuildDate>Fri, 30 Dec 2022 10:40:41 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -284,11 +284,11 @@
 <item>
   <title>Mastodon</title>
   <description>Article 
-    updated at November 22, 2022, 
+    updated at December 30, 2022, 
     created at November 22, 2022.</description>
   <content:encoded>&lt;p&gt;
     Article 
-    updated at November 22, 2022, 
+    updated at December 30, 2022, 
     created at November 22, 2022.
   &lt;/p&gt;
   &lt;hr&gt;
@@ -378,9 +378,521 @@
 &lt;/li&gt;
   &lt;li&gt;Modify your profile to inform your visitors that you moved;&lt;/li&gt;
   &lt;li&gt;Maybe also lock your account, to prevent new followers;&lt;/li&gt;
-&lt;/ol&gt;</content:encoded><pubDate>Tue, 22 Nov 2022 09:55:19 +0000</pubDate>
-  <dc:modified>Tue, 22 Nov 2022 14:52:15 +0000</dc:modified>
-  <atom:modified>Tue, 22 Nov 2022 14:52:15 +0000</atom:modified>
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;self-hosting&quot;&gt;Self-Hosting&lt;/h2&gt;
+
+&lt;p&gt;I’m hosting my own Mastodon instance at &lt;a href=&quot;https://social.alexn.org&quot;&gt;https://social.alexn.org&lt;/a&gt;.
+This is my own configuration, tuned to my needs:&lt;/p&gt;
+
+&lt;h3 id=&quot;docker-docker-compose&quot;&gt;Docker (docker-compose)&lt;/h3&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;3.8'&lt;/span&gt;
+
+&lt;span class=&quot;na&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;redis&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;container_name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;redis&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;redis:7&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;restart&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;unless-stopped&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/bin/sh -c &quot;redis-server --appendonly yes --requirepass $$REDIS_PASSWORD&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;healthcheck&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;CMD'&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;redis-cli'&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;-a'&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;$$REDIS_PASSWORD'&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;ping'&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;volumes&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;redis:/data&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;networks&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;internal_network&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;sysctls&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# https://github.com/docker-library/redis/issues/191#issuecomment-528693994&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;net.core.somaxconn=511&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;env_file&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;./envs/redis.env&lt;/span&gt;
+
+  &lt;span class=&quot;na&quot;&gt;postgresdb&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;container_name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;postgresdb&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;postgres:15-alpine'&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;healthcheck&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;CMD'&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;pg_isready'&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;-U'&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;postgres'&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;volumes&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;postgres-db:/var/lib/postgresql/data'&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;restart&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;unless-stopped&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;env_file&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;./envs/postgres.env&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;networks&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;internal_network&lt;/span&gt;
+
+  &lt;span class=&quot;na&quot;&gt;mastodon-web&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;container_name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;mastodon-web&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;tootsuite/mastodon:latest'&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;bash&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;-c&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;bundle&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;exec&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;rake&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;db:migrate&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;&amp;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;rm&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;-f&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/mastodon/tmp/pids/server.pid&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;&amp;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;bundle&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;exec&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;rails&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;-p&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;3000&quot;'&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;3000:3000&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;restart&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;unless-stopped&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;healthcheck&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;CMD-SHELL'&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;wget&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;-q&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;--spider&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;--proxy=off&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;localhost:3000/health&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;||&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;1'&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;volumes&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;mastodon-volume:/mastodon/public/system'&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;env_file&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;./envs/mastodon.env&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;depends_on&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;postgresdb&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;redis&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;networks&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;internal_network&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;external_network&lt;/span&gt;
+
+  &lt;span class=&quot;na&quot;&gt;mastodon-sidekiq&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;container_name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;mastodon-sidekiq&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;tootsuite/mastodon'&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;bundle&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;exec&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;sidekiq'&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;restart&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;unless-stopped&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;healthcheck&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;CMD-SHELL'&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;ps&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;aux&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;grep&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'[s]idekiq&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\ &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;6'&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;||&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;false&quot;&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;    
+    &lt;span class=&quot;na&quot;&gt;volumes&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;mastodon-volume:/mastodon/public/system'&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;env_file&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;./envs/mastodon.env&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;depends_on&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;postgresdb&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;redis&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;networks&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;internal_network&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;external_network&lt;/span&gt;
+
+  &lt;span class=&quot;na&quot;&gt;mastodon-streaming&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;container_name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;mastodon-stream&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;tootsuite/mastodon'&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;restart&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;unless-stopped&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;node ./streaming&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;healthcheck&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;CMD-SHELL'&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;wget&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;-q&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;--spider&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;--proxy=off&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;localhost:4000/api/v1/streaming/health&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;||&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;1'&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;127.0.0.1:4000:4000'&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;env_file&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;./envs/mastodon.env&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;depends_on&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;postgresdb&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;redis&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;networks&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;external_network&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;internal_network&lt;/span&gt;
+
+&lt;span class=&quot;na&quot;&gt;networks&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;external_network&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;internal_network&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;internal&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;true&lt;/span&gt;
+
+&lt;span class=&quot;na&quot;&gt;volumes&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;redis&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;postgres-db&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;mastodon-volume&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;File &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;redis.env&lt;/code&gt; for the Redis database:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;REDIS_PASSWORD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;your redis pass&gt;&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;File &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;postgres.env&lt;/code&gt; for the Postgres database:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;POSTGRES_PASSWORD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;password for 'postgres' admin&gt;&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;File &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mastodon.env&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;RAILS_ENV&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;production&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;LOCAL_DOMAIN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;social.alexn.org&quot;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# WEB_DOMAIN=&quot;social.alexn.org&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Must create DB user and database&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;DB_HOST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;postgresdb&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;DB_NAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;mastodon&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;DB_USER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;mastodon&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;DB_PASS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Must reuse the password from `redis.env`&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;REDIS_URL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;redis://default:password@redis:6379&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# -----------&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# App Secrets&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# -----------&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Can be generated with:&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# docker-compose run --rm mastodon-web bundle exec rake secret&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# -----------&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;SECRET_KEY_BASE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;OTP_SECRET&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# ----------------------&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Web Push Notifications&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# ----------------------&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Generate with `rake mastodon:webpush:generate_vapid_key`&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# docker exec mastodon-web bundle exec rake mastodon:webpush:generate_vapid_key&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# ----------------------&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;VAPID_PRIVATE_KEY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;VAPID_PUBLIC_KEY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# --------&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;MASTODON_ADMIN_USERNAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;alexelcu&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;MASTODON_ADMIN_EMAIL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;alexelcu@social.alexn.org&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# ------------------------------------------&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Email settings / via external SMTP service&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# ------------------------------------------&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# See Fastmail's App Passwords:&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# https://www.fastmail.help/hc/en-us/articles/360058752854-App-passwords&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# ------------------------------------------&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;SMTP_SERVER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;smtp.fastmail.com&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;SMTP_PORT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;465
+&lt;span class=&quot;nv&quot;&gt;SMTP_FROM_ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;noreply@social.alexn.org&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;SMTP_LOGIN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;SMTP_PASSWORD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# --------------------------------&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# For enabling cloud block storage&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# --------------------------------&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# S3_ENABLED=true&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# S3_PROTOCOL=https&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# S3_ENDPOINT=https://s3.eu-central-003.backblazeb2.com&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# S3_HOSTNAME=s3.eu-central-003.backblazeb2.com&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# S3_BUCKET=alexn-social-files&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# AWS_ACCESS_KEY_ID=&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# AWS_SECRET_ACCESS_KEY=&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# S3_ALIAS_HOST=&quot;files-social.alexn.org&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;postgres-setup&quot;&gt;Postgres Setup&lt;/h3&gt;
+
+&lt;p&gt;To create the database for Mastodon, first connect via the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;psql&lt;/code&gt; client:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;docker &lt;span class=&quot;nb&quot;&gt;exec&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-it&lt;/span&gt; postgresdb psql &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; postgres
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then run:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DATABASE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mastodon&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;USER&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mastodon&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WITH&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ENCRYPTED&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PASSWORD&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'your-password'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;GRANT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ALL&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;PRIVILEGES&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DATABASE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mastodon&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;TO&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mastodon&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;-- Above was apparently not enough to run DB migrations, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;-- so this is needed too:&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ALTER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DATABASE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mastodon&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;OWNER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;TO&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mastodon&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;nginx-config&quot;&gt;Nginx Config&lt;/h3&gt;
+
+&lt;p&gt;Mastodon has an official recommended Nginx configuration 
+(&lt;a href=&quot;https://github.com/mastodon/mastodon/blob/v4.0.2/dist/nginx.conf&quot;&gt;see their repository&lt;/a&gt;), 
+however I am hosting Mastodon inside a Docker container, and using Cloudflare, which makes
+things more complicated.&lt;/p&gt;
+
+&lt;p class=&quot;info-bubble&quot;&gt;
+Make sure to check your HTTP caching headers (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cache-Control&lt;/code&gt;), and ensure
+it plays well with Cloudflare 😉
+&lt;/p&gt;
+
+&lt;p&gt;Here’s my &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/nginx/available-sites/social.alexn.org.conf&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;div class=&quot;language-conf highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;upstream&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;backend&lt;/span&gt; {
+    &lt;span class=&quot;n&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;127&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;:&lt;span class=&quot;m&quot;&gt;3000&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fail_timeout&lt;/span&gt;=&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;;
+}
+
+&lt;span class=&quot;n&quot;&gt;upstream&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;streaming&lt;/span&gt; {
+    &lt;span class=&quot;n&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;127&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;:&lt;span class=&quot;m&quot;&gt;4000&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fail_timeout&lt;/span&gt;=&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;;
+}
+
+&lt;span class=&quot;n&quot;&gt;server&lt;/span&gt; {
+    &lt;span class=&quot;n&quot;&gt;server_name&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;social&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;alexn&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;;
+    &lt;span class=&quot;n&quot;&gt;listen&lt;/span&gt;   &lt;span class=&quot;m&quot;&gt;80&lt;/span&gt;;
+    &lt;span class=&quot;n&quot;&gt;listen&lt;/span&gt;   [::]:&lt;span class=&quot;m&quot;&gt;80&lt;/span&gt;;
+
+    &lt;span class=&quot;n&quot;&gt;access_log&lt;/span&gt; /&lt;span class=&quot;n&quot;&gt;var&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;nginx&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;social&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;alexn&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;log&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;combined&lt;/span&gt;;
+
+    &lt;span class=&quot;n&quot;&gt;location&lt;/span&gt; ~ /.&lt;span class=&quot;n&quot;&gt;well&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;known&lt;/span&gt; {
+        &lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;   /&lt;span class=&quot;n&quot;&gt;var&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;www&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;social&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;alexn&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;;
+        &lt;span class=&quot;n&quot;&gt;allow&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;all&lt;/span&gt;;
+        &lt;span class=&quot;n&quot;&gt;break&lt;/span&gt;;
+    }
+
+    &lt;span class=&quot;n&quot;&gt;location&lt;/span&gt; / {
+        &lt;span class=&quot;n&quot;&gt;rewrite&lt;/span&gt; ^(.*)$ &lt;span class=&quot;n&quot;&gt;https&lt;/span&gt;://&lt;span class=&quot;n&quot;&gt;social&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;alexn&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;$&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;permanent&lt;/span&gt;;
+    }
+}
+
+&lt;span class=&quot;n&quot;&gt;server&lt;/span&gt; {
+    &lt;span class=&quot;n&quot;&gt;server_name&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;social&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;alexn&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;;
+    &lt;span class=&quot;n&quot;&gt;listen&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;443&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ssl&lt;/span&gt;;
+    &lt;span class=&quot;n&quot;&gt;listen&lt;/span&gt; [::]:&lt;span class=&quot;m&quot;&gt;443&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ssl&lt;/span&gt;;
+
+    &lt;span class=&quot;n&quot;&gt;access_log&lt;/span&gt; /&lt;span class=&quot;n&quot;&gt;var&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;nginx&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;social&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;alexn&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;log&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;combined&lt;/span&gt;;
+
+    &lt;span class=&quot;c&quot;&gt;###############
+&lt;/span&gt;    &lt;span class=&quot;c&quot;&gt;# SSL
+&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# certs sent to the client in SERVER HELLO are concatenated in ssl_certificate
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;ssl_certificate&lt;/span&gt; /&lt;span class=&quot;n&quot;&gt;etc&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;letsencrypt&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;live&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;alexn&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;fullchain&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;pem&lt;/span&gt;;
+    &lt;span class=&quot;n&quot;&gt;ssl_certificate_key&lt;/span&gt; /&lt;span class=&quot;n&quot;&gt;etc&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;letsencrypt&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;live&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;alexn&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;privkey&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;pem&lt;/span&gt;;
+
+    &lt;span class=&quot;c&quot;&gt;## verify chain of trust of OCSP response using Root CA and Intermediate certs
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;ssl_trusted_certificate&lt;/span&gt; /&lt;span class=&quot;n&quot;&gt;etc&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;letsencrypt&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;live&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;alexn&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;fullchain&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;pem&lt;/span&gt;;
+
+    &lt;span class=&quot;c&quot;&gt;# Common config
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;include&lt;/span&gt; ./&lt;span class=&quot;n&quot;&gt;snippets&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;ssl&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;;
+
+    &lt;span class=&quot;c&quot;&gt;# END SSL
+&lt;/span&gt;    &lt;span class=&quot;c&quot;&gt;##############
+&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;keepalive_timeout&lt;/span&gt;    &lt;span class=&quot;m&quot;&gt;70&lt;/span&gt;;
+    &lt;span class=&quot;n&quot;&gt;sendfile&lt;/span&gt;             &lt;span class=&quot;n&quot;&gt;on&lt;/span&gt;;
+    &lt;span class=&quot;n&quot;&gt;client_max_body_size&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;80&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;;
+
+    &lt;span class=&quot;n&quot;&gt;root&lt;/span&gt; /&lt;span class=&quot;n&quot;&gt;var&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;www&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;social&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;alexn&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;;
+    &lt;span class=&quot;n&quot;&gt;include&lt;/span&gt; ./&lt;span class=&quot;n&quot;&gt;snippets&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;gzip&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;;
+
+    &lt;span class=&quot;n&quot;&gt;location&lt;/span&gt; / {
+        &lt;span class=&quot;n&quot;&gt;proxy_pass&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;://&lt;span class=&quot;n&quot;&gt;backend&lt;/span&gt;;
+        &lt;span class=&quot;n&quot;&gt;include&lt;/span&gt; ./&lt;span class=&quot;n&quot;&gt;snippets&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;proxy&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;backend&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;;
+    }
+
+    &lt;span class=&quot;n&quot;&gt;location&lt;/span&gt; = /&lt;span class=&quot;n&quot;&gt;sw&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;js&lt;/span&gt; {
+        &lt;span class=&quot;n&quot;&gt;proxy_pass&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;://&lt;span class=&quot;n&quot;&gt;backend&lt;/span&gt;;
+        &lt;span class=&quot;n&quot;&gt;add_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Cache&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;Control&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;public, max-age=604800, must-revalidate&quot;&lt;/span&gt;;
+        &lt;span class=&quot;n&quot;&gt;include&lt;/span&gt; ./&lt;span class=&quot;n&quot;&gt;snippets&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;proxy&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;backend&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;;
+    }
+
+    &lt;span class=&quot;n&quot;&gt;location&lt;/span&gt; ~ ^/&lt;span class=&quot;n&quot;&gt;system&lt;/span&gt;/ {
+        &lt;span class=&quot;n&quot;&gt;proxy_pass&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;://&lt;span class=&quot;n&quot;&gt;backend&lt;/span&gt;;
+        &lt;span class=&quot;n&quot;&gt;add_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Cache&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;Control&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;public, max-age=2419200, immutable&quot;&lt;/span&gt;;
+        &lt;span class=&quot;n&quot;&gt;include&lt;/span&gt; ./&lt;span class=&quot;n&quot;&gt;snippets&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;proxy&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;backend&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;;
+    }
+
+    &lt;span class=&quot;n&quot;&gt;location&lt;/span&gt; ~ ^/(&lt;span class=&quot;n&quot;&gt;assets&lt;/span&gt;/|&lt;span class=&quot;n&quot;&gt;avatars&lt;/span&gt;/|&lt;span class=&quot;n&quot;&gt;emoji&lt;/span&gt;/|&lt;span class=&quot;n&quot;&gt;headers&lt;/span&gt;/|&lt;span class=&quot;n&quot;&gt;packs&lt;/span&gt;/|&lt;span class=&quot;n&quot;&gt;shortcuts&lt;/span&gt;/|&lt;span class=&quot;n&quot;&gt;sounds&lt;/span&gt;/) {
+        &lt;span class=&quot;n&quot;&gt;proxy_pass&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;://&lt;span class=&quot;n&quot;&gt;backend&lt;/span&gt;;
+        &lt;span class=&quot;n&quot;&gt;add_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Cache&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;Control&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;public, max-age=2419200, must-revalidate&quot;&lt;/span&gt;;
+        &lt;span class=&quot;n&quot;&gt;include&lt;/span&gt; ./&lt;span class=&quot;n&quot;&gt;snippets&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;proxy&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;backend&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;;
+    }
+
+    &lt;span class=&quot;n&quot;&gt;location&lt;/span&gt; ^~ /&lt;span class=&quot;n&quot;&gt;api&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;v1&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;streaming&lt;/span&gt; {
+        &lt;span class=&quot;n&quot;&gt;proxy_pass&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;://&lt;span class=&quot;n&quot;&gt;streaming&lt;/span&gt;;
+        &lt;span class=&quot;n&quot;&gt;include&lt;/span&gt; ./&lt;span class=&quot;n&quot;&gt;snippets&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;proxy&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;streaming&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;;
+    }
+
+    &lt;span class=&quot;n&quot;&gt;error_page&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;500&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;501&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;502&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;503&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;504&lt;/span&gt; /&lt;span class=&quot;m&quot;&gt;500&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;html&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Depends on this &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;./snippets/ssl.conf&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-conf highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;###
+# https://ssl-config.mozilla.org/#server=nginx&amp;version=1.17.7&amp;config=intermediate&amp;openssl=1.1.1k&amp;guideline=5.6
+&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ssl_session_timeout&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;ssl_session_cache&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shared&lt;/span&gt;:&lt;span class=&quot;n&quot;&gt;SSL&lt;/span&gt;:&lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;;  &lt;span class=&quot;c&quot;&gt;# about 40000 sessions
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ssl_session_tickets&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;off&lt;/span&gt;;
+
+&lt;span class=&quot;c&quot;&gt;# Diffie-Hellman parameter for DHE ciphersuites, recommended 2048 bits
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ssl_dhparam&lt;/span&gt; /&lt;span class=&quot;n&quot;&gt;etc&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;nginx&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;certs&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;dh2048&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;pem&lt;/span&gt;;
+
+&lt;span class=&quot;c&quot;&gt;# intermediate configuration
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ssl_protocols&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TLSv1&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TLSv1&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;ssl_ciphers&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ECDHE&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;ECDSA&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;AES128&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;GCM&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;SHA256&lt;/span&gt;:&lt;span class=&quot;n&quot;&gt;ECDHE&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;RSA&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;AES128&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;GCM&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;SHA256&lt;/span&gt;:&lt;span class=&quot;n&quot;&gt;ECDHE&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;ECDSA&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;AES256&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;GCM&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;SHA384&lt;/span&gt;:&lt;span class=&quot;n&quot;&gt;ECDHE&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;RSA&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;AES256&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;GCM&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;SHA384&lt;/span&gt;:&lt;span class=&quot;n&quot;&gt;ECDHE&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;ECDSA&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;CHACHA20&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;POLY1305&lt;/span&gt;:&lt;span class=&quot;n&quot;&gt;ECDHE&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;RSA&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;CHACHA20&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;POLY1305&lt;/span&gt;:&lt;span class=&quot;n&quot;&gt;DHE&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;RSA&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;AES128&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;GCM&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;SHA256&lt;/span&gt;:&lt;span class=&quot;n&quot;&gt;DHE&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;RSA&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;AES256&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;GCM&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;SHA384&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;ssl_prefer_server_ciphers&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;off&lt;/span&gt;;
+
+&lt;span class=&quot;c&quot;&gt;# HSTS (ngx_http_headers_module is required) (63072000 seconds)
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Strict&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;Transport&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;Security&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;max-age=63072000; includeSubdomains; preload&quot;&lt;/span&gt;;
+
+&lt;span class=&quot;c&quot;&gt;# OCSP stapling
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ssl_stapling&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;on&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;ssl_stapling_verify&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;on&lt;/span&gt;;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Also, depends on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;./snippets/proxy-backend.conf&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-conf highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;include&lt;/span&gt; ./&lt;span class=&quot;n&quot;&gt;snippets&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;cloudflare&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;ips&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;;
+
+&lt;span class=&quot;n&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Host&lt;/span&gt; $&lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;Real&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;IP&lt;/span&gt; $&lt;span class=&quot;n&quot;&gt;remote_addr&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;Forwarded&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;For&lt;/span&gt; $&lt;span class=&quot;n&quot;&gt;proxy_add_x_forwarded_for&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;Forwarded&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;Proto&lt;/span&gt; $&lt;span class=&quot;n&quot;&gt;scheme&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Proxy&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;proxy_pass_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Server&lt;/span&gt;;
+
+&lt;span class=&quot;n&quot;&gt;proxy_buffering&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;on&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;proxy_redirect&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;off&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;proxy_http_version&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Upgrade&lt;/span&gt; $&lt;span class=&quot;n&quot;&gt;http_upgrade&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Connection&lt;/span&gt; $&lt;span class=&quot;n&quot;&gt;connection_upgrade&lt;/span&gt;;
+
+&lt;span class=&quot;n&quot;&gt;proxy_cache&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CACHE&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;proxy_cache_valid&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;200&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;proxy_cache_valid&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;410&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;24&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;proxy_cache_use_stale&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;error&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timeout&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;updating&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http_500&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http_502&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http_503&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http_504&lt;/span&gt;;
+
+&lt;span class=&quot;n&quot;&gt;add_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;Cached&lt;/span&gt; $&lt;span class=&quot;n&quot;&gt;upstream_cache_status&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;tcp_nodelay&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;on&lt;/span&gt;;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Also, depends on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;./snippets/proxy-streaming.conf&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-conf highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;include&lt;/span&gt; ./&lt;span class=&quot;n&quot;&gt;snippets&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;cloudflare&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;ips&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;;
+
+&lt;span class=&quot;n&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Host&lt;/span&gt; $&lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;Real&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;IP&lt;/span&gt; $&lt;span class=&quot;n&quot;&gt;remote_addr&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;Forwarded&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;For&lt;/span&gt; $&lt;span class=&quot;n&quot;&gt;proxy_add_x_forwarded_for&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;Forwarded&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;Proto&lt;/span&gt; $&lt;span class=&quot;n&quot;&gt;scheme&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Proxy&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;;
+
+&lt;span class=&quot;n&quot;&gt;proxy_buffering&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;off&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;proxy_redirect&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;off&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;proxy_http_version&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Upgrade&lt;/span&gt; $&lt;span class=&quot;n&quot;&gt;http_upgrade&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Connection&lt;/span&gt; $&lt;span class=&quot;n&quot;&gt;connection_upgrade&lt;/span&gt;;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Also, depends on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;./snippets/cloudflare-ips.conf&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-conf highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;## Docs:
+# https://support.cloudflare.com/hc/en-us/articles/200170786-Restoring-original-visitor-IPs-Logging-visitor-IP-addresses-with-mod-cloudflare-
+#
+# MUST KEEP UP TO DATE!
+&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# https://www.cloudflare.com/ips-v4
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_real_ip_from&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;173&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;245&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;48&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;/&lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;set_real_ip_from&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;103&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;21&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;244&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;/&lt;span class=&quot;m&quot;&gt;22&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;set_real_ip_from&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;103&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;22&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;200&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;/&lt;span class=&quot;m&quot;&gt;22&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;set_real_ip_from&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;103&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;31&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;/&lt;span class=&quot;m&quot;&gt;22&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;set_real_ip_from&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;141&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;101&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;64&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;/&lt;span class=&quot;m&quot;&gt;18&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;set_real_ip_from&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;108&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;162&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;192&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;/&lt;span class=&quot;m&quot;&gt;18&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;set_real_ip_from&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;190&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;93&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;240&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;/&lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;set_real_ip_from&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;188&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;114&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;96&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;/&lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;set_real_ip_from&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;197&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;234&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;240&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;/&lt;span class=&quot;m&quot;&gt;22&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;set_real_ip_from&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;198&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;41&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;128&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;/&lt;span class=&quot;m&quot;&gt;17&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;set_real_ip_from&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;162&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;158&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;/&lt;span class=&quot;m&quot;&gt;15&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;set_real_ip_from&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;104&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;16&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;/&lt;span class=&quot;m&quot;&gt;13&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;set_real_ip_from&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;104&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;24&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;/&lt;span class=&quot;m&quot;&gt;14&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;set_real_ip_from&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;172&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;64&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;/&lt;span class=&quot;m&quot;&gt;13&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;set_real_ip_from&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;131&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;72&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;/&lt;span class=&quot;m&quot;&gt;22&lt;/span&gt;;
+
+&lt;span class=&quot;c&quot;&gt;# https://www.cloudflare.com/ips-v6
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_real_ip_from&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2400&lt;/span&gt;:&lt;span class=&quot;n&quot;&gt;cb00&lt;/span&gt;::/&lt;span class=&quot;m&quot;&gt;32&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;set_real_ip_from&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2606&lt;/span&gt;:&lt;span class=&quot;m&quot;&gt;4700&lt;/span&gt;::/&lt;span class=&quot;m&quot;&gt;32&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;set_real_ip_from&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2803&lt;/span&gt;:&lt;span class=&quot;n&quot;&gt;f800&lt;/span&gt;::/&lt;span class=&quot;m&quot;&gt;32&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;set_real_ip_from&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2405&lt;/span&gt;:&lt;span class=&quot;n&quot;&gt;b500&lt;/span&gt;::/&lt;span class=&quot;m&quot;&gt;32&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;set_real_ip_from&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2405&lt;/span&gt;:&lt;span class=&quot;m&quot;&gt;8100&lt;/span&gt;::/&lt;span class=&quot;m&quot;&gt;32&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;set_real_ip_from&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a06&lt;/span&gt;:&lt;span class=&quot;m&quot;&gt;98&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c0&lt;/span&gt;::/&lt;span class=&quot;m&quot;&gt;29&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;set_real_ip_from&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c0f&lt;/span&gt;:&lt;span class=&quot;n&quot;&gt;f248&lt;/span&gt;::/&lt;span class=&quot;m&quot;&gt;32&lt;/span&gt;;
+
+&lt;span class=&quot;n&quot;&gt;real_ip_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CF&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;Connecting&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;IP&lt;/span&gt;;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Also, depends on this &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;./snippets/gzip.conf&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-conf highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;gzip&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;on&lt;/span&gt;;
+&lt;span class=&quot;n&quot;&gt;gzip_disable&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;msie6&quot;&lt;/span&gt;;
+
+&lt;span class=&quot;c&quot;&gt;# Enable compression both for HTTP/1.0 and HTTP/1.1.
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gzip_http_version&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;;
+
+&lt;span class=&quot;c&quot;&gt;# Compression level (1-9).
+# 5 is a perfect compromise between size and cpu usage, offering about
+# 75% reduction for most ascii files (almost identical to level 9).
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gzip_comp_level&lt;/span&gt;    &lt;span class=&quot;m&quot;&gt;6&lt;/span&gt;;
+
+&lt;span class=&quot;c&quot;&gt;# Don't compress anything that's already small and unlikely to shrink much
+# if at all (the default is 20 bytes, which is bad as that usually leads to
+# larger files after gzipping).
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gzip_min_length&lt;/span&gt;    &lt;span class=&quot;m&quot;&gt;256&lt;/span&gt;;
+
+&lt;span class=&quot;c&quot;&gt;# Compress data even for clients that are connecting to us via proxies,
+# identified by the &quot;Via&quot; header (required for CloudFront).
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gzip_proxied&lt;/span&gt;       &lt;span class=&quot;n&quot;&gt;any&lt;/span&gt;;
+
+&lt;span class=&quot;c&quot;&gt;# Tell proxies to cache both the gzipped and regular version of a resource
+# whenever the client's Accept-Encoding capabilities header varies;
+# Avoids the issue where a non-gzip capable client (which is extremely rare
+# today) would display gibberish if their proxy gave them the gzipped version.
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gzip_vary&lt;/span&gt;          &lt;span class=&quot;n&quot;&gt;on&lt;/span&gt;;
+
+&lt;span class=&quot;c&quot;&gt;# Sets the number and size of buffers used to compress a response. 
+# By default, the buffer size is equal to one memory page. 
+# This is either 4K or 8K, depending on a platform.
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gzip_buffers&lt;/span&gt;	&lt;span class=&quot;m&quot;&gt;16&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;;
+
+&lt;span class=&quot;c&quot;&gt;# Compress all output labeled with one of the following MIME-types.
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gzip_types&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;application&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;atom&lt;/span&gt;+&lt;span class=&quot;n&quot;&gt;xml&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;application&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;font&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;woff&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;application&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;javascript&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;application&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;json&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;application&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;rss&lt;/span&gt;+&lt;span class=&quot;n&quot;&gt;xml&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;application&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;vnd&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;ms&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;fontobject&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;application&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;font&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;ttf&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;application&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;font&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;woff&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;application&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;web&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;manifest&lt;/span&gt;+&lt;span class=&quot;n&quot;&gt;json&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;application&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;xhtml&lt;/span&gt;+&lt;span class=&quot;n&quot;&gt;xml&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;application&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;xml&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;application&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;xml&lt;/span&gt;+&lt;span class=&quot;n&quot;&gt;rss&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;font&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;opentype&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;font&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;woff&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;font&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;woff2&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;image&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;svg&lt;/span&gt;+&lt;span class=&quot;n&quot;&gt;xml&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;image&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;icon&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;css&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;javascript&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;plain&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;component&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;xml&lt;/span&gt;;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;backups&quot;&gt;Backups&lt;/h3&gt;
+
+&lt;p&gt;Script for periodically backing up Postgres via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rclone&lt;/code&gt;, to install in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cron.d&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/usr/bin/env bash&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;FILENAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;postgres-&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt; +&lt;span class=&quot;s2&quot;&gt;&quot;%Y-%m&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.sql.gz&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;FILEPATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/var/lib/my-backups/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$FILENAME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; /var/lib/my-backups
+
+docker &lt;span class=&quot;nb&quot;&gt;exec&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; postgresdb pg_dumpall &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; postgres | &lt;span class=&quot;nb&quot;&gt;gzip&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$FILEPATH&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$FILEPATH&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then
+  &lt;/span&gt;rclone copy &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$FILEPATH&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;backup:Postgres/&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;fi
+
+&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; /var/lib/my-backups/postgres-&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.sql.gz
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Script for periodically backing up your media files (but without the cache),
+via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rclone&lt;/code&gt;, to install in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cron.d&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/usr/bin/env bash&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;FILENAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;mastodon-volume.tar&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;FILEPATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/var/lib/my-backups/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$FILENAME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+
+docker run &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--rm&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--volumes-from&lt;/span&gt; mastodon-web &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /var/lib/my-backups:/backup &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    ubuntu &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;tar&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--exclude&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'mastodon/public/system/cache'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-cf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/backup/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$FILENAME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; / &lt;span class=&quot;s2&quot;&gt;&quot;mastodon/public/system&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    2&gt;&amp;1
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$FILEPATH&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then
+  &lt;/span&gt;rclone copy &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$FILEPATH&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;backup:Mastodon/&quot;&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$FILEPATH&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p class=&quot;warn-bubble&quot;&gt;
+There may be better ways of doing this (like simply using block storage),
+I’m still learning.
+&lt;/p&gt;</content:encoded><pubDate>Tue, 22 Nov 2022 09:55:19 +0000</pubDate>
+  <dc:modified>Fri, 30 Dec 2022 10:39:35 +0000</dc:modified>
+  <atom:modified>Fri, 30 Dec 2022 10:39:35 +0000</atom:modified>
   <link>https://alexn.org/wiki/mastodon/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/mastodon/</guid>
   
