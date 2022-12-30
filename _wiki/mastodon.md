@@ -1,6 +1,6 @@
 ---
 date: 2022-11-22 11:55:19 +02:00
-last_modified_at: 2022-12-30 12:39:35 +02:00
+last_modified_at: 2022-12-30 12:50:46 +02:00
 ---
 
 # Mastodon
@@ -79,7 +79,19 @@ If you'd like to delete your Twitter account, depending on how popular your acco
 ## Self-Hosting
 
 I'm hosting my own Mastodon instance at <https://social.alexn.org>.
-This is my own configuration, tuned to my needs:
+This is my own configuration, tuned to my needs...
+
+### Services used
+
+- [Hetzner](https://www.hetzner.com/cloud), for a VPS with 4 GB of RAM and 
+  40 GB of disk space; 2 GB should be fine, but it may need a swap setup;
+  I might also need more disk space in the future, or block storage;
+- [Cloudflare](https://www.cloudflare.com/) because it can save you bandwidth
+  (must ensure correct caching setup);
+- [Fastmail](https://www.fastmail.com/) for sending emails via SMTP, as I was
+  already using it for my personal email, and supports SMTP-only passwords;
+- [Backblaze B2](https://www.backblaze.com/b2/cloud-storage.html) for backups
+  and potentially for storing cached files;
 
 ### Docker (docker-compose)
 
