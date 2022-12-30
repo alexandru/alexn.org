@@ -19,7 +19,7 @@
     <meta content="Personal, volatile wiki documentation" property="og:description">
     <meta content="https://alexn.org/wiki/mastodon/" property="og:url">
     <meta content="2022-11-22T09:55:19+00:00" property="article:published_time">
-    <meta content="2022-12-30T10:39:35+00:00" property="article:modified_time">
+    <meta content="2022-12-30T10:50:46+00:00" property="article:modified_time">
     
     <meta content="website" property="og:type">
     <meta property="og:image" content="https://alexn.org/assets/logo/800px-bordered.png" />
@@ -109,7 +109,7 @@
       <meta itemprop="datePublished" content="2022-11-22T09:55:19+0000"/>
       
       
-      <time itemprop="dateModified" content="2022-12-30T12:39:35+0200">
+      <time itemprop="dateModified" content="2022-12-30T12:50:46+0200">
         Updated: December 30, 2022
       </time>
       
@@ -144,6 +144,7 @@
   </li>
   <li><a href="#self-hosting">Self-Hosting</a>
     <ul>
+      <li><a href="#services-used">Services used</a></li>
       <li><a href="#docker-docker-compose">Docker (docker-compose)</a></li>
       <li><a href="#postgres-setup">Postgres Setup</a></li>
       <li><a href="#nginx-config">Nginx Config</a></li>
@@ -286,7 +287,27 @@
     
 
 <p>I’m hosting my own Mastodon instance at <a href="https://social.alexn.org">https://social.alexn.org</a>.
-This is my own configuration, tuned to my needs:</p>
+This is my own configuration, tuned to my needs…</p>
+      <h3 id="services-used">
+        
+        
+          Services used <a href="#services-used" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<ul>
+  <li><a href="https://www.hetzner.com/cloud">Hetzner</a>, for a VPS with 4 GB of RAM and 
+40 GB of disk space; 2 GB should be fine, but it may need a swap setup;
+I might also need more disk space in the future, or block storage;</li>
+  <li><a href="https://www.cloudflare.com/">Cloudflare</a> because it can save you bandwidth
+(must ensure correct caching setup);</li>
+  <li><a href="https://www.fastmail.com/">Fastmail</a> for sending emails via SMTP, as I was
+already using it for my personal email, and supports SMTP-only passwords;</li>
+  <li><a href="https://www.backblaze.com/b2/cloud-storage.html">Backblaze B2</a> for backups
+and potentially for storing cached files;</li>
+</ul>
       <h3 id="docker-docker-compose">
         
         
@@ -825,12 +846,12 @@ I’m still learning.
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202212301041" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202212301041" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202212301041" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202212301041" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202212301052" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202212301052" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202212301052" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202212301052" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202212301041" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202212301052" type="text/javascript"></script>
 
 
 <script type="text/javascript">

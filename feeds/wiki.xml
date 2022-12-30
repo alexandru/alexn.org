@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 30 Dec 2022 10:40:41 +0000</pubDate>
-    <lastBuildDate>Fri, 30 Dec 2022 10:40:41 +0000</lastBuildDate>
+    <pubDate>Fri, 30 Dec 2022 10:52:04 +0000</pubDate>
+    <lastBuildDate>Fri, 30 Dec 2022 10:52:04 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -383,7 +383,25 @@
 &lt;h2 id=&quot;self-hosting&quot;&gt;Self-Hosting&lt;/h2&gt;
 
 &lt;p&gt;I’m hosting my own Mastodon instance at &lt;a href=&quot;https://social.alexn.org&quot;&gt;https://social.alexn.org&lt;/a&gt;.
-This is my own configuration, tuned to my needs:&lt;/p&gt;
+This is my own configuration, tuned to my needs…&lt;/p&gt;
+
+&lt;h3 id=&quot;services-used&quot;&gt;Services used&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://www.hetzner.com/cloud&quot;&gt;Hetzner&lt;/a&gt;, for a VPS with 4 GB of RAM and 
+40 GB of disk space; 2 GB should be fine, but it may need a swap setup;
+I might also need more disk space in the future, or block storage;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://www.cloudflare.com/&quot;&gt;Cloudflare&lt;/a&gt; because it can save you bandwidth
+(must ensure correct caching setup);&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://www.fastmail.com/&quot;&gt;Fastmail&lt;/a&gt; for sending emails via SMTP, as I was
+already using it for my personal email, and supports SMTP-only passwords;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://www.backblaze.com/b2/cloud-storage.html&quot;&gt;Backblaze B2&lt;/a&gt; for backups
+and potentially for storing cached files;&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h3 id=&quot;docker-docker-compose&quot;&gt;Docker (docker-compose)&lt;/h3&gt;
 
@@ -891,8 +909,8 @@ docker run &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
 There may be better ways of doing this (like simply using block storage),
 I’m still learning.
 &lt;/p&gt;</content:encoded><pubDate>Tue, 22 Nov 2022 09:55:19 +0000</pubDate>
-  <dc:modified>Fri, 30 Dec 2022 10:39:35 +0000</dc:modified>
-  <atom:modified>Fri, 30 Dec 2022 10:39:35 +0000</atom:modified>
+  <dc:modified>Fri, 30 Dec 2022 10:50:46 +0000</dc:modified>
+  <atom:modified>Fri, 30 Dec 2022 10:50:46 +0000</atom:modified>
   <link>https://alexn.org/wiki/mastodon/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/mastodon/</guid>
   
