@@ -10,5 +10,5 @@ tags:
   - YouTube
   - Video
 social_description: >
-  Another resource for learning OCaml, backed by a playlist o YouTube videos.
+  Another resource for learning OCaml, backed by a playlist of YouTube videos.
 ---
