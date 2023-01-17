@@ -3,9 +3,8 @@ title: "Server Monitoring with Monit"
 image: /assets/media/articles/2023-monit-panel.png
 image_caption: >
   A screenshot of my browser window, showing the 3 monitors that I configured in Monit, all green-lit, indicating that everything is fine.
-image_hide_in_post: true
 date: 2023-01-17 13:16:12 +02:00
-last_modified_at: 2023-01-17 14:32:31 +02:00
+last_modified_at: 2023-01-17 14:33:23 +02:00
 tags:
   - Docker
   - Self-hosting
@@ -159,13 +158,6 @@ exit 1
   WARN: you need an email server configured for receiving those alerts!
 </p>
 
-You need to configure Monit with an email server. I just use my `localhost` because I can configure `postfix` to use my Fastmail account as a relay. **See my [Ubuntu wiki page](../_wiki/ubuntu-server.md)** for details on how to do that.
-
-After all is well, here's how my status panel looks like:
-
-<figure>
-  <img src="{% link assets/media/articles/2023-monit-panel.png %}" alt="" />
-  <figcaption>A screenshot of my browser window, showing the 3 monitors that I configured in Monit, all green-lit, indicating that everything is fine.</figcaption>
-</figure>
+You need to configure Monit with an email server. I just use my `localhost` because I can configure `postfix` to use my Fastmail account as a relay. See my [Ubuntu wiki page](../_wiki/ubuntu-server.md) for details on how to do that.
 
 Now I can sleep well at night 🥱
