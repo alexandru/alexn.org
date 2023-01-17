@@ -1,7 +1,6 @@
 ---
 title: "Execute shell commands in F#"
 tags:
-  - Bash
   - Shell
   - dotNet
   - FSharp
@@ -14,7 +13,7 @@ image: /assets/media/snippets/execute-shell-command-fsharp.png
 image_hide_in_post: true
 description: >
   Snippet in plain F# with no dependencies. Features a neat shebang.
-last_modified_at: 2022-10-03 14:39:27 +03:00
+last_modified_at: 2023-01-17 13:17:44 +02:00
 ---
   
 ```fsharp

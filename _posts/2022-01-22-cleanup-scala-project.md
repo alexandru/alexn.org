@@ -5,13 +5,12 @@ redirect_from:
   - /snippets/2022/01/22/cleanup-scala-project/
   - /snippets/2022/01/22/cleanup-scala-project.html
 tags:
-  - Bash
   - CLI
   - Scala
   - Shell
 description: >
   Snippet for cleaning up a Scala project's directory of all compiled files.
-last_modified_at: 2022-04-01 18:37:16 +03:00
+last_modified_at: 2023-01-17 13:17:48 +02:00
 ---
 
 ```sh
