@@ -5,7 +5,7 @@ image_caption: >
   A screenshot of my browser window, showing the 3 monitors that I configured in Monit, all green-lit, indicating that everything is fine.
 image_hide_in_post: true
 date: 2023-01-17 13:16:12 +02:00
-last_modified_at: 2023-01-17 14:20:47 +02:00
+last_modified_at: 2023-01-17 14:21:36 +02:00
 tags:
   - Docker
   - Self-hosting
@@ -16,7 +16,7 @@ social_description: >
 ---
 
 <p class="intro withcap" markdown=1>
-  I self-host my blog, other websites, [Matomo](https://matomo.org/), [Mastodon](https://joinmastodon.org/), etc. I love self-hosting. But I need monitoring, to be alerted when things go wrong, as my setup is getting more and more complex. So, I recently asked a [question on the Fediverse](https://social.alexn.org/@alexelcu/109658239137618383), being in need of a monitoring system for my VPS, as I need simple, common-sense health alerts. I got a recommendation for [M/Monit](https://mmonit.com/), which seems to work well. Here's my configuration...
+  I self-host my blog, other websites, [Matomo](https://matomo.org/), [Mastodon](https://joinmastodon.org/), etc. I love self-hosting. But I need monitoring, to be alerted when things go wrong, as my setup is getting more and more complex. So, I recently asked a [question on the Fediverse](https://social.alexn.org/@alexelcu/109658239137618383), being in need of a monitoring system for my VPS, as I need simple, common-sense health alerts. I got a recommendation for [M/Monit](https://mmonit.com/), which seems to work well.
 </p>
 
 Even though I use Docker, I decided to install it at the OS level. Given I use Ubuntu on my server, this is as simple as:
