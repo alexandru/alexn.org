@@ -20,14 +20,14 @@
       <meta content="On programming and personal projects" property="og:description">
     <meta content="https://alexn.org/blog/2023/01/17/server-monitoring-with-monit/" property="og:url">
     <meta content="2023-01-17T11:16:12+00:00" property="article:published_time">
-    <meta content="2023-01-17T12:21:55+00:00" property="article:modified_time">
+    <meta content="2023-01-17T12:32:31+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2023-monit-panel.png?202301171223" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2023-monit-panel.png?202301171223" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2023-monit-panel.png?202301171234" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2023-monit-panel.png?202301171234" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2023-monit-panel.png?202301171223">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2023-monit-panel.png?202301171234">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Server Monitoring with Monit">
@@ -155,39 +155,39 @@
 
 <p>Its configuration (in <code class="language-plaintext highlighter-rouge">/etc/monit/conf.d/my.conf</code>) looks like this:</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1"># Monit configuration</span>
+<div class="language-conf highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c"># Monit configuration
+</span>
+<span class="c">## ----
+## Configures server port (proxied via Nginx)
+</span><span class="n">set</span> <span class="n">httpd</span> 
+    <span class="n">port</span> <span class="m">2812</span>
+        <span class="n">read</span>-<span class="n">only</span>
+    <span class="n">unixsocket</span> /<span class="n">run</span>/<span class="n">monit</span>.<span class="n">socket</span>
+    <span class="n">allow</span> <span class="n">localhost</span>
+    <span class="n">allow</span> <span class="n">monit</span>.<span class="n">alexn</span>.<span class="n">org</span>
+    <span class="n">signature</span> <span class="n">disable</span>
 
-<span class="c1">## ----</span>
-<span class="c1">## Configures server port (proxied via Nginx)</span>
-<span class="s">set httpd</span> 
-    <span class="s">port </span><span class="m">2812</span>
-        <span class="s">read-only</span>
-    <span class="s">unixsocket /run/monit.socket</span>
-    <span class="s">allow localhost</span>
-    <span class="s">allow monit.alexn.org</span>
-    <span class="s">signature disable</span>
+<span class="c">## Configures email alerts
+</span><span class="n">set</span> <span class="n">mailserver</span> <span class="n">localhost</span>
+<span class="n">set</span> <span class="n">alert</span> <span class="n">user</span>@<span class="n">domain</span>.<span class="n">com</span> <span class="n">not</span> <span class="n">on</span> { <span class="n">instance</span>, <span class="n">action</span> } <span class="n">with</span> <span class="n">reminder</span> <span class="n">on</span> <span class="m">500</span> <span class="n">cycles</span>
 
-<span class="c1">## Configures email alerts</span>
-<span class="s">set mailserver localhost</span>
-<span class="s">set alert user@domain.com not on { instance, action } with reminder on 500 cycles</span>
+<span class="c">## Monitors system load
+</span><span class="n">check</span> <span class="n">system</span> $<span class="n">HOST</span>
+    <span class="n">if</span> <span class="n">loadavg</span> (<span class="m">1</span><span class="n">min</span>) <span class="n">per</span> <span class="n">core</span> &gt; <span class="m">2</span> <span class="n">for</span> <span class="m">5</span> <span class="n">cycles</span> <span class="n">then</span> <span class="n">alert</span>
+    <span class="n">if</span> <span class="n">loadavg</span> (<span class="m">5</span><span class="n">min</span>) <span class="n">per</span> <span class="n">core</span> &gt; <span class="m">1</span>.<span class="m">5</span> <span class="n">for</span> <span class="m">10</span> <span class="n">cycles</span> <span class="n">then</span> <span class="n">alert</span>
+    <span class="n">if</span> <span class="n">cpu</span> <span class="n">usage</span> &gt; <span class="m">95</span>% <span class="n">for</span> <span class="m">10</span> <span class="n">cycles</span> <span class="n">then</span> <span class="n">alert</span>
+    <span class="n">if</span> <span class="n">memory</span> <span class="n">usage</span> &gt; <span class="m">90</span>% <span class="n">then</span> <span class="n">alert</span>
+    <span class="n">if</span> <span class="n">swap</span> <span class="n">usage</span> &gt; <span class="m">25</span>% <span class="n">then</span> <span class="n">alert</span>
 
-<span class="c1">## Monitors system load</span>
-<span class="s">check system $HOST</span>
-    <span class="s">if loadavg (1min) per core &gt; 2 for 5 cycles then alert</span>
-    <span class="s">if loadavg (5min) per core &gt; 1.5 for 10 cycles then alert</span>
-    <span class="s">if cpu usage &gt; 95% for 10 cycles then alert</span>
-    <span class="s">if memory usage &gt; 90% then alert</span>
-    <span class="s">if swap usage &gt; 25% then alert</span>
+<span class="c">## Monitors file-system
+</span><span class="n">check</span> <span class="n">filesystem</span> <span class="n">rootfs</span> <span class="n">with</span> <span class="n">path</span> /
+    <span class="n">if</span> <span class="n">space</span> <span class="n">usage</span> &gt; <span class="m">80</span>% <span class="n">for</span> <span class="m">5</span> <span class="n">times</span> <span class="n">within</span> <span class="m">15</span> <span class="n">cycles</span> <span class="n">then</span> <span class="n">alert</span>
+    <span class="n">if</span> <span class="n">inode</span> <span class="n">usage</span> &gt; <span class="m">80</span>% <span class="n">for</span> <span class="m">5</span> <span class="n">times</span> <span class="n">within</span> <span class="m">15</span> <span class="n">cycles</span> <span class="n">then</span> <span class="n">alert</span>
 
-<span class="c1">## Monitors file-system</span>
-<span class="s">check filesystem rootfs with path /</span>
-    <span class="s">if space usage &gt; 80% for 5 times within 15 cycles then alert</span>
-    <span class="s">if inode usage &gt; 80% for 5 times within 15 cycles then alert</span>
-
-<span class="c1">## Monitors Docker instances</span>
-<span class="s">check program docker-health with path /opt/bin/vm-docker-check-health</span>
-    <span class="s">with timeout 10 seconds</span>
-    <span class="s">if status != 0 then alert</span>
+<span class="c">## Monitors Docker instances
+</span><span class="n">check</span> <span class="n">program</span> <span class="n">docker</span>-<span class="n">health</span> <span class="n">with</span> <span class="n">path</span> /<span class="n">opt</span>/<span class="n">bin</span>/<span class="n">vm</span>-<span class="n">docker</span>-<span class="n">check</span>-<span class="n">health</span>
+    <span class="n">with</span> <span class="n">timeout</span> <span class="m">10</span> <span class="n">seconds</span>
+    <span class="n">if</span> <span class="n">status</span> != <span class="m">0</span> <span class="n">then</span> <span class="n">alert</span>
 </code></pre></div></div>
 
 <p>My hostname is <code class="language-plaintext highlighter-rouge">monit.alexn.org</code> for exposing the HTTP interfaces. I decided for a read-only interface. It’s less to worry about, and I don’t need a remote control. I use Nginx as a proxy:</p>
@@ -252,7 +252,8 @@
 
 <p>For checking the Docker containers, I have a simple script that’s configured above to be executed periodically:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c">#!/usr/bin/env bash</span>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>
+<span class="c">#!/usr/bin/env bash</span>
 
 <span class="nv">UNHEALTHY_IDS</span><span class="o">=</span><span class="s2">"</span><span class="si">$(</span>docker ps <span class="nt">-q</span> <span class="se">\</span>
     <span class="nt">-f</span> <span class="nv">health</span><span class="o">=</span><span class="s2">"none"</span> <span class="se">\</span>
@@ -263,14 +264,14 @@
     <span class="si">)</span><span class="s2">"</span>
 
 <span class="k">if</span> <span class="o">[[</span> <span class="nt">-z</span> <span class="s2">"</span><span class="nv">$UNHEALTHY_IDS</span><span class="s2">"</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then
-    </span>docker ps <span class="nt">--format</span> <span class="s2">"table </span><span class="se">\t</span><span class="s2">"</span>
+    </span>docker ps <span class="nt">--format</span> <span class="s2">"table {{.Names}}</span><span class="se">\t</span><span class="s2">{{.Status}}"</span>
     <span class="nb">exit </span>0
 <span class="k">fi
 
 </span><span class="nb">echo</span> <span class="o">&gt;</span>&amp;2
 <span class="nb">echo</span> <span class="s2">"WARN: Unhealthy docker instances!"</span> <span class="o">&gt;</span>&amp;2
 <span class="nb">echo</span> <span class="s2">"---------------------------------"</span> <span class="o">&gt;</span>&amp;2
-docker ps <span class="nt">--format</span> <span class="s2">"table </span><span class="se">\t\t</span><span class="s2">"</span> <span class="se">\</span>
+docker ps <span class="nt">--format</span> <span class="s2">"table {{.Names}}</span><span class="se">\t</span><span class="s2">{{.State}}</span><span class="se">\t</span><span class="s2">{{.Status}}"</span> <span class="se">\</span>
     <span class="nt">-f</span> <span class="nv">health</span><span class="o">=</span><span class="s2">"none"</span> <span class="se">\</span>
     <span class="nt">-f</span> <span class="nv">health</span><span class="o">=</span><span class="s2">"unhealthy"</span> <span class="se">\</span>
     <span class="nt">-f</span> <span class="nv">status</span><span class="o">=</span><span class="s2">"exited"</span> <span class="se">\</span>
@@ -298,7 +299,7 @@ docker ps <span class="nt">--format</span> <span class="s2">"table </span><span 
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2023-01-17T14:21:55+0200">
+    <time itemprop="dateModified" content="2023-01-17T14:32:31+0200">
         Updated: January 17, 2023
     </time>
     
@@ -418,12 +419,12 @@ docker ps <span class="nt">--format</span> <span class="s2">"table </span><span 
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202301171223" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202301171223" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202301171223" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202301171223" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202301171234" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202301171234" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202301171234" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202301171234" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202301171223" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202301171234" type="text/javascript"></script>
 
 
 <script type="text/javascript">
