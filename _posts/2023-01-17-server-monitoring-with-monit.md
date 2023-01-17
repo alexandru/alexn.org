@@ -5,7 +5,7 @@ image_caption: >
   A screenshot of my browser window, showing the 3 monitors that I configured in Monit, all green-lit, indicating that everything is fine.
 image_hide_in_post: true
 date: 2023-01-17 13:16:12 +02:00
-last_modified_at: 2023-01-17 14:21:55 +02:00
+last_modified_at: 2023-01-17 14:32:31 +02:00
 tags:
   - Docker
   - Self-hosting
@@ -27,7 +27,7 @@ apt install monit
 
 Its configuration (in `/etc/monit/conf.d/my.conf`) looks like this:
 
-```yaml
+```conf
 # Monit configuration
 
 ## ----
@@ -126,6 +126,7 @@ That configuration alerts me on 3 things:
 For checking the Docker containers, I have a simple script that's configured above to be executed periodically:
 
 ```sh
+{% raw -%}
 #!/usr/bin/env bash
 
 UNHEALTHY_IDS="$(docker ps -q \
@@ -151,6 +152,7 @@ docker ps --format "table {{.Names}}\t{{.State}}\t{{.Status}}" \
     -f status="dead" \
     -f status="paused" >&2
 exit 1
+{% endraw -%}
 ```
 
 <p class="warn-bubble" markdown="1">
