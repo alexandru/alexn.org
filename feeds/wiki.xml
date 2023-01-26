@@ -10,13 +10,209 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 17 Jan 2023 12:44:56 +0000</pubDate>
-    <lastBuildDate>Tue, 17 Jan 2023 12:44:56 +0000</lastBuildDate>
+    <pubDate>Thu, 26 Jan 2023 08:00:51 +0000</pubDate>
+    <lastBuildDate>Thu, 26 Jan 2023 08:00:51 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v4.3.1</generator>
     
+<item>
+  <title>RClone</title>
+  <description>Article 
+    updated at January 26, 2023, 
+    created at January 23, 2023.</description>
+  <content:encoded>&lt;p&gt;
+    Article 
+    updated at January 26, 2023, 
+    created at January 23, 2023.
+  &lt;/p&gt;
+  &lt;hr&gt;
+  
+  &lt;img referrerpolicy=&quot;no-referrer-when-downgrade&quot; src=&quot;https://ly.alexn.org/m.php?idsite=1&amp;rec=1&amp;action_name=%2Ffeeds%2Fwiki.xml&amp;url=https%3A%2F%2Falexn.org%2Ffeeds%2Fwiki.xml&amp;pk_campaign=rss&amp;pk_kwd=open&quot; width=&quot;1&quot; height=&quot;1&quot; style=&quot;position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;&quot; alt=&quot;&quot;&gt;
+&lt;h2 id=&quot;install-macos&quot;&gt;Install (macOS)&lt;/h2&gt;
+
+&lt;p&gt;This is required for getting &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mount&lt;/code&gt; to work properly, see:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/rclone/rclone/issues/5373&quot;&gt;Issue #5373&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/gromgit/homebrew-fuse&quot;&gt;gromgit/homebrew-fuse&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Run:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;brew &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--cask&lt;/span&gt; macfuse
+
+brew &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;gromgit/fuse/rclone-mac
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;mount-onedrive&quot;&gt;Mount (OneDrive)&lt;/h2&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/usr/bin/env bash&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;LOG_PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/Library/Logs/rclone-onedrive-mirror.log&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;MOUNT_DIR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/Library/CloudStorage/OneDrive&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$MOUNT_DIR&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+
+/usr/local/opt/rclone-mac/libexec/rclone/rclone mount &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    onedrive: &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$MOUNT_DIR&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--volname&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;OneDrive&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--buffer-size&lt;/span&gt; 64M &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--vfs-read-ahead&lt;/span&gt; 512M &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--vfs-cache-mode&lt;/span&gt; full &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--vfs-cache-max-age&lt;/span&gt; 8760h &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--vfs-cache-max-size&lt;/span&gt; 100G &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--vfs-cache-poll-interval&lt;/span&gt; 30s &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--vfs-write-back&lt;/span&gt; 5s &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--attr-timeout&lt;/span&gt; 8700h &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--dir-cache-time&lt;/span&gt; 8760h &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--poll-interval&lt;/span&gt; 30s &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--log-level&lt;/span&gt; INFO &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--log-file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$LOG_PATH&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# Optional:&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# --rc \&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# --rc-web-gui \&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# --rc-web-gui-no-open-browser \&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# --rc-htpasswd &quot;$HOME/.config/rclone/htpasswd&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Optionally, inform the user when the process stops.&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Requires: brew install terminal-notifier&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;PROC_EXIT_CODE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$?&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+terminal-notifier &lt;span class=&quot;nt&quot;&gt;-title&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;OneDrive mount stopped!&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-message&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$LOG_PATH&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$PROC_EXIT_CODE&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Notes:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Web interface is served at &lt;a href=&quot;http://127.0.0.1:5572/&quot;&gt;http://127.0.0.1:5572/&lt;/a&gt;, see: &lt;a href=&quot;https://rclone.org/rc/&quot;&gt;Remote controlling rclone with its API&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;For the cache options used, see: &lt;a href=&quot;https://rclone.org/commands/rclone_mount/#vfs-file-caching&quot;&gt;VFS File Caching&lt;/a&gt;;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For serving the remote control web UI, you need credentials:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;touch&lt;/span&gt; ~/.config/rclone/htpasswd
+htpasswd &lt;span class=&quot;nt&quot;&gt;-B&lt;/span&gt; ~/.config/rclone/htpasswd alex
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;macos-service&quot;&gt;macOS service&lt;/h3&gt;
+
+&lt;p&gt;The above command supports a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--daemon&lt;/code&gt; option, but I’d like automatic launch at startup, maybe even restarts.
+Create a script in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/bin/mount-onedrive&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;Create &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/Library/LaunchAgents/my.rclone-onedrive-mount.plist&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&lt;plist&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;version=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1.0&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&lt;dict&gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&lt;key&gt;&lt;/span&gt;KeepAlive&lt;span class=&quot;nt&quot;&gt;&lt;/key&gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&lt;true/&gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&lt;key&gt;&lt;/span&gt;Label&lt;span class=&quot;nt&quot;&gt;&lt;/key&gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&lt;string&gt;&lt;/span&gt;my.rclone-onedrive-mount&lt;span class=&quot;nt&quot;&gt;&lt;/string&gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&lt;key&gt;&lt;/span&gt;ProgramArguments&lt;span class=&quot;nt&quot;&gt;&lt;/key&gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&lt;array&gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&lt;string&gt;&lt;/span&gt;/Users/myname/bin/mount-onedrive&lt;span class=&quot;nt&quot;&gt;&lt;/string&gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&lt;/array&gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&lt;key&gt;&lt;/span&gt;RunAtLoad&lt;span class=&quot;nt&quot;&gt;&lt;/key&gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&lt;true/&gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&lt;key&gt;&lt;/span&gt;UserName&lt;span class=&quot;nt&quot;&gt;&lt;/key&gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&lt;string&gt;&lt;/span&gt;myname&lt;span class=&quot;nt&quot;&gt;&lt;/string&gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&lt;/dict&gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&lt;/plist&gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The service can then be loaded via:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;launchctl load &lt;span class=&quot;nt&quot;&gt;-w&lt;/span&gt; ~/Library/LaunchAgents/my.rclone-onedrive-mount.plist
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Or unloaded via:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;launchctl unload ~/Library/LaunchAgents/my.rclone-onedrive-mount.plist
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;bisync&quot;&gt;Bisync&lt;/h2&gt;
+
+&lt;p&gt;Alternatively there’s a &lt;a href=&quot;https://rclone.org/bisync/&quot;&gt;bisync&lt;/a&gt; command.&lt;/p&gt;
+
+&lt;p&gt;On first run, the database needs to be initialized, via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--resync&lt;/code&gt;, but as a warning, this can override the files of “path2” with those of “path1”.&lt;/p&gt;
+
+&lt;p&gt;This is the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;onedrive-sync-init&lt;/code&gt; script:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/usr/bin/env bash&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;notifyIfError&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;PROC_EXIT_CODE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PROC_EXIT_CODE&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-ne&lt;/span&gt; 0 &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then
+        &lt;/span&gt;terminal-notifier &lt;span class=&quot;nt&quot;&gt;-title&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;OneDrive sync failed!&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-message&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Check the logs&quot;&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;OneDrive sync failed&quot;&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PROC_EXIT_CODE&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; ~/OneDrive/Bisync
+&lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; ~/OneDrive/.db
+
+rclone bisync onedrive: ~/OneDrive/Bisync &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--resync&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--filters-file&lt;/span&gt; ~/.config/rclone/onedrive-filter.conf &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--workdir&lt;/span&gt; ~/OneDrive/.db &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$@&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+notifyIfError &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$?&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Adds .rclone-check files in the top sub-directories&lt;/span&gt;
+find ~/OneDrive/Bisync &lt;span class=&quot;nt&quot;&gt;-type&lt;/span&gt; d &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; 1 &lt;span class=&quot;nt&quot;&gt;-exec&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;touch&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;{}/.rclone-check&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\;&lt;/span&gt;
+notifyIfError &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$?&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Syncs those .rclone-check files&lt;/span&gt;
+rclone bisync onedrive: ~/OneDrive/Bisync &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--filters-file&lt;/span&gt; ~/.config/rclone/onedrive-filter.conf &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--workdir&lt;/span&gt; ~/OneDrive/.db &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$@&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+notifyIfError &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$?&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This is the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;onedrive-sync-periodic&lt;/code&gt; script, which could be installed in crontab:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/usr/bin/env bash&lt;/span&gt;
+
+rclone bisync onedrive: ~/OneDrive/Bisync &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--check-access&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--check-filename&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;.rclone-check&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--filters-file&lt;/span&gt; ~/.config/rclone/onedrive-filter.conf &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--workdir&lt;/span&gt; ~/OneDrive/.db &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$@&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;PROC_EXIT_CODE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PROC_EXIT_CODE&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-ne&lt;/span&gt; 0 &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then
+    &lt;/span&gt;terminal-notifier &lt;span class=&quot;nt&quot;&gt;-title&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;OneDrive sync failed!&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-message&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Check the logs&quot;&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;OneDrive sync failed&quot;&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PROC_EXIT_CODE&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And then there’s the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.config/rclone/onedrive-filter.conf&lt;/code&gt; file, which dictates what to sync (aka selective sync):&lt;/p&gt;
+
+&lt;div class=&quot;language-conf highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;- **/.&lt;span class=&quot;n&quot;&gt;DS_Store&lt;/span&gt;
+- **/.&lt;span class=&quot;n&quot;&gt;localized&lt;/span&gt;
+- **/*.&lt;span class=&quot;n&quot;&gt;swp&lt;/span&gt;
+
++ /&lt;span class=&quot;n&quot;&gt;Documents&lt;/span&gt;/**
++ /&lt;span class=&quot;n&quot;&gt;Scanned&lt;/span&gt;/**
++ /&lt;span class=&quot;n&quot;&gt;Screenshots&lt;/span&gt;/**
+
+&lt;span class=&quot;c&quot;&gt;# Exclude everything by default
+&lt;/span&gt;- **
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content:encoded><pubDate>Mon, 23 Jan 2023 11:34:49 +0000</pubDate>
+  <dc:modified>Thu, 26 Jan 2023 07:54:05 +0000</dc:modified>
+  <atom:modified>Thu, 26 Jan 2023 07:54:05 +0000</atom:modified>
+  <link>https://alexn.org/wiki/rclone/?pk_campaign=rss</link>
+  <guid isPermaLink="true">https://alexn.org/wiki/rclone/</guid>
+  
+  <category>Wiki</category>
+  
+</item>
+
 <item>
   <title>Web Design</title>
   <description>Article 
@@ -28,9 +224,7 @@
     created at December 13, 2022.
   &lt;/p&gt;
   &lt;hr&gt;
-  
-  &lt;img referrerpolicy=&quot;no-referrer-when-downgrade&quot; src=&quot;https://ly.alexn.org/m.php?idsite=1&amp;rec=1&amp;action_name=%2Ffeeds%2Fwiki.xml&amp;url=https%3A%2F%2Falexn.org%2Ffeeds%2Fwiki.xml&amp;pk_campaign=rss&amp;pk_kwd=open&quot; width=&quot;1&quot; height=&quot;1&quot; style=&quot;position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;&quot; alt=&quot;&quot;&gt;
-&lt;p&gt;&lt;img src=&quot;https://alexn.org/wiki/assets/under-construction.gif&quot; alt='&quot;Under Construction&quot;' style=&quot;max-width:100%;height:auto;&quot; width=&quot;266&quot; height=&quot;266&quot;&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;img src=&quot;https://alexn.org/wiki/assets/under-construction.gif&quot; alt='&quot;Under Construction&quot;' style=&quot;max-width:100%;height:auto;&quot; width=&quot;266&quot; height=&quot;266&quot;&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;resources&quot;&gt;Resources&lt;/h2&gt;
 
@@ -1063,13 +1257,13 @@ sdk &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;17.0.4-oracle
 </item>
 
 <item>
-  <title>Chromium (Brave, …)</title>
+  <title>Chromium (Brave, Vivaldi, …)</title>
   <description>Article 
-    updated at December 9, 2022, 
+    updated at January 20, 2023, 
     created at September 1, 2022.</description>
   <content:encoded>&lt;p&gt;
     Article 
-    updated at December 9, 2022, 
+    updated at January 20, 2023, 
     created at September 1, 2022.
   &lt;/p&gt;
   &lt;hr&gt;
@@ -1103,11 +1297,13 @@ sdk &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;17.0.4-oracle
 &lt;a href=&quot;https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb&quot;&gt;Vimium&lt;/a&gt;: adds some Vim-like keyboard shortcuts;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;To have in mind:&lt;/p&gt;
+&lt;p&gt;For Manifest v3:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
 &lt;a href=&quot;https://chrome.google.com/webstore/detail/adguard-adblocker-mv3-exp/apjcbfpjihpedihablmalmbbhjpklbdf/related&quot;&gt;AdGuard AdBlocker MV3 Experimental&lt;/a&gt;: an experimental ad-blocker, built on top of Manifest v3;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://chrome.google.com/webstore/detail/ublock-origin-lite/ddkjiahejlhfcafbddmgiahcphecmpfh&quot;&gt;uBlock Origin Lite&lt;/a&gt;: a version of uBlock Origin based on Manifest V3;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;internal-urls&quot;&gt;Internal URLs&lt;/h2&gt;
@@ -1146,8 +1342,8 @@ sdk &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;17.0.4-oracle
   &lt;li&gt;
 &lt;a href=&quot;https://neugierig.org/software/blog/2022/12/chrome.html&quot;&gt;Chrome, 10 years later (2022)&lt;/a&gt; (&lt;a href=&quot;https://web.archive.org/web/20221209034236/https://neugierig.org/software/blog/2022/12/chrome.html&quot;&gt;archive&lt;/a&gt;)&lt;/li&gt;
 &lt;/ul&gt;</content:encoded><pubDate>Thu, 01 Sep 2022 13:10:16 +0000</pubDate>
-  <dc:modified>Fri, 09 Dec 2022 06:24:13 +0000</dc:modified>
-  <atom:modified>Fri, 09 Dec 2022 06:24:13 +0000</atom:modified>
+  <dc:modified>Fri, 20 Jan 2023 08:12:21 +0000</dc:modified>
+  <atom:modified>Fri, 20 Jan 2023 08:12:21 +0000</atom:modified>
   <link>https://alexn.org/wiki/chromium/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/chromium/</guid>
   
@@ -1502,11 +1698,11 @@ sudo wget https://www.thawte.com/roots/thawte_Primary_Root_CA.pem
 <item>
   <title>Web</title>
   <description>Article 
-    updated at September 8, 2022, 
+    updated at January 20, 2023, 
     created at November 30, 2020.</description>
   <content:encoded>&lt;p&gt;
     Article 
-    updated at September 8, 2022, 
+    updated at January 20, 2023, 
     created at November 30, 2020.
   &lt;/p&gt;
   &lt;hr&gt;
@@ -1538,6 +1734,7 @@ sudo wget https://www.thawte.com/roots/thawte_Primary_Root_CA.pem
 &lt;h3 id=&quot;for-testing-tracking--ads-blocking&quot;&gt;For testing tracking &amp; ads blocking&lt;/h3&gt;
 
 &lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://privacytests.org/&quot; target=&quot;_blank&quot;&gt;PrivacyTests&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://adblock-tester.com/&quot; target=&quot;_blank&quot;&gt;https://adblock-tester.com/&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://coveryourtracks.eff.org/&quot; target=&quot;_blank&quot;&gt;https://coveryourtracks.eff.org/&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://d3ward.github.io/toolz/adblock.html&quot; target=&quot;_blank&quot;&gt;https://d3ward.github.io/toolz/adblock.html&lt;/a&gt;&lt;/li&gt;
@@ -1636,8 +1833,8 @@ sudo wget https://www.thawte.com/roots/thawte_Primary_Root_CA.pem
 &lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;querySelector&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;&amp;&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;!!&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;querySelector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;meta[name=darkreader]&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content:encoded><pubDate>Mon, 30 Nov 2020 14:38:13 +0000</pubDate>
-  <dc:modified>Thu, 08 Sep 2022 11:48:40 +0000</dc:modified>
-  <atom:modified>Thu, 08 Sep 2022 11:48:40 +0000</atom:modified>
+  <dc:modified>Fri, 20 Jan 2023 07:07:39 +0000</dc:modified>
+  <atom:modified>Fri, 20 Jan 2023 07:07:39 +0000</atom:modified>
   <link>https://alexn.org/wiki/web/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/web/</guid>
   
