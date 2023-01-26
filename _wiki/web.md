@@ -3,7 +3,7 @@ redirect_from:
   - /wiki/web-tricks.html
   - /wiki/web-apps.html
 date: 2020-11-30 17:38:13 +03:00
-last_modified_at: 2022-09-08 14:48:40 +03:00
+last_modified_at: 2023-01-20 09:07:39 +02:00
 ---
 
 # Web
@@ -27,6 +27,7 @@ Features:
 
 ### For testing tracking & ads blocking
 
+- [PrivacyTests](https://privacytests.org/){:target="_blank"}
 - <https://adblock-tester.com/>{:target="_blank"}
 - <https://coveryourtracks.eff.org/>{:target="_blank"}
 - <https://d3ward.github.io/toolz/adblock.html>{:target="_blank"}

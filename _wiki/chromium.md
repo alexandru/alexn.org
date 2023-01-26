@@ -1,9 +1,9 @@
 ---
 date: 2022-09-01 16:10:16 +03:00
-last_modified_at: 2022-12-09 08:24:13 +02:00
+last_modified_at: 2023-01-20 10:12:21 +02:00
 ---
 
-# Chromium (Brave, ...)
+# Chromium (Brave, Vivaldi, ...)
 
 ## Favorite Extensions
 
@@ -21,9 +21,10 @@ last_modified_at: 2022-12-09 08:24:13 +02:00
 - [uBlock Origin](https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=en), the best ad-blocker, unnecessary in Brave;
 - [Vimium](https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb): adds some Vim-like keyboard shortcuts;
 
-To have in mind:
+For Manifest v3:
 
 - [AdGuard AdBlocker MV3 Experimental](https://chrome.google.com/webstore/detail/adguard-adblocker-mv3-exp/apjcbfpjihpedihablmalmbbhjpklbdf/related): an experimental ad-blocker, built on top of Manifest v3;
+- [uBlock Origin Lite](https://chrome.google.com/webstore/detail/ublock-origin-lite/ddkjiahejlhfcafbddmgiahcphecmpfh): a version of uBlock Origin based on Manifest V3;
 
 ## Internal URLs
 
