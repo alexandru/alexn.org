@@ -1,9 +1,9 @@
 ---
 date: 2023-01-23 13:34:49 +02:00
-last_modified_at: 2023-01-26 09:54:05 +02:00
+last_modified_at: 2023-01-26 10:08:50 +02:00
 ---
 
-# RClone
+# Rclone
 
 ## Install (macOS)
 
