@@ -1,6 +1,6 @@
 ---
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2022-09-01 17:20:54 +03:00
+last_modified_at: 2023-02-03 08:14:05 +02:00
 ---
 
 # Firefox
@@ -27,6 +27,7 @@ last_modified_at: 2022-09-01 17:20:54 +03:00
 - [Wayback Machine](https://addons.mozilla.org/en-US/firefox/addon/wayback-machine_new/)
 - [uBlock Origin](https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/)
 - [vim-vixen](https://github.com/ueokande/vim-vixen)
+- [Netflix 1080p](https://addons.mozilla.org/en-US/firefox/addon/netflix-1080p-firefox/) ([GitHub](https://github.com/TheGoddessInari/netflix-1080p-firefox))
 
 ## Auto-sync about:config settings
 
@@ -45,28 +46,6 @@ Examples:
 services.sync.prefs.toolkit.legacyUserProfileCustomizations.stylesheets
 
 services.sync.prefs.media.hardwaremediakeys.enabled
-```
-
-## Enable media keys on MacOS
-
-Sources:
-
-- <https://bugzilla.mozilla.org/show_bug.cgi?id=1575995>
-- <https://bugzilla.mozilla.org/show_bug.cgi?id=1112032>
-
-In [about:config](about:config):
-
-```js
-media.hardwaremediakeys.enabled = true
-
-// For syncing the setting
-services.sync.prefs.media.hardwaremediakeys.enabled = true
-
-
-dom.media.mediasession.enabled = true
-
-// For syncing the setting
-services.sync.prefs.dom.media.mediasession.enabled = true
 ```
 
 ## Activate compact mode (after Proton)

@@ -1,6 +1,6 @@
 ---
 date: 2022-09-01 16:10:16 +03:00
-last_modified_at: 2023-01-20 10:12:21 +02:00
+last_modified_at: 2023-02-03 08:12:54 +02:00
 ---
 
 # Chromium (Brave, Vivaldi, ...)
@@ -14,12 +14,11 @@ last_modified_at: 2023-01-20 10:12:21 +02:00
 - [LanguageTool](https://chrome.google.com/webstore/detail/grammar-spell-checker-%E2%80%94-l/oldceeleldhonbafppcapldpdifcinji?utm_source=lt-homepage): for spell-checking, running this with a local server (`brew install languagetool`);
 - [LeechBlock NG](https://chrome.google.com/webstore/detail/leechblock-ng/blaaajhemilngeeffpbfkdjjoefldkok): Time-based restrictions for websites;
 - [Picture-in-Picture Extension (by Google)](https://chrome.google.com/webstore/detail/picture-in-picture-extens/hkgfoiooedgoejojocmhlaklaeopbecg?hl=en) (make sure to disable Google Analytics);
-- [Return YouTube Dislikes](https://chrome.google.com/webstore/detail/return-youtube-dislike/gebbhagfogifgggkldgodflihgfeippi);
-- [RSS Subscription Extension (by Google)](https://chrome.google.com/webstore/detail/rss-subscription-extensio/nlbjncdgjeocebhnmkbbbdekmmmcbfjd/related): not ideal, but it works;
 - [Save to Pocket](https://chrome.google.com/webstore/detail/save-to-pocket/niloccemoadcdkdjlinkgdfekeahmflj?hl=en)
 - [Tab Pinner](https://chrome.google.com/webstore/detail/tab-pinner-keyboard-short/mbcjcnomlakhkechnbhmfjhnnllpbmlh): adds a keyboard shortcut for pinning/unpinning a tab;
-- [uBlock Origin](https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=en), the best ad-blocker, unnecessary in Brave;
+- [uBlock Origin](https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=en), the best ad-blocker, deprecated due to MV3;
 - [Vimium](https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb): adds some Vim-like keyboard shortcuts;
+- [Netflix 1080p](https://chrome.google.com/webstore/detail/netflix-1080p/cankofcoohmbhfpcemhmaaeennfbnmgp) ([GitHub](https://github.com/truedread/netflix-1080p));
 
 For Manifest v3:
 
