@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 27 Jan 2023 15:03:08 +0000</pubDate>
-    <lastBuildDate>Fri, 27 Jan 2023 15:03:08 +0000</lastBuildDate>
+    <pubDate>Fri, 03 Feb 2023 07:42:20 +0000</pubDate>
+    <lastBuildDate>Fri, 03 Feb 2023 07:42:20 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -1259,11 +1259,11 @@ sdk &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;17.0.4-oracle
 <item>
   <title>Chromium (Brave, Vivaldi, …)</title>
   <description>Article 
-    updated at January 20, 2023, 
+    updated at February 3, 2023, 
     created at September 1, 2022.</description>
   <content:encoded>&lt;p&gt;
     Article 
-    updated at January 20, 2023, 
+    updated at February 3, 2023, 
     created at September 1, 2022.
   &lt;/p&gt;
   &lt;hr&gt;
@@ -1284,17 +1284,15 @@ sdk &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;17.0.4-oracle
 &lt;a href=&quot;https://chrome.google.com/webstore/detail/leechblock-ng/blaaajhemilngeeffpbfkdjjoefldkok&quot;&gt;LeechBlock NG&lt;/a&gt;: Time-based restrictions for websites;&lt;/li&gt;
   &lt;li&gt;
 &lt;a href=&quot;https://chrome.google.com/webstore/detail/picture-in-picture-extens/hkgfoiooedgoejojocmhlaklaeopbecg?hl=en&quot;&gt;Picture-in-Picture Extension (by Google)&lt;/a&gt; (make sure to disable Google Analytics);&lt;/li&gt;
-  &lt;li&gt;
-&lt;a href=&quot;https://chrome.google.com/webstore/detail/return-youtube-dislike/gebbhagfogifgggkldgodflihgfeippi&quot;&gt;Return YouTube Dislikes&lt;/a&gt;;&lt;/li&gt;
-  &lt;li&gt;
-&lt;a href=&quot;https://chrome.google.com/webstore/detail/rss-subscription-extensio/nlbjncdgjeocebhnmkbbbdekmmmcbfjd/related&quot;&gt;RSS Subscription Extension (by Google)&lt;/a&gt;: not ideal, but it works;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://chrome.google.com/webstore/detail/save-to-pocket/niloccemoadcdkdjlinkgdfekeahmflj?hl=en&quot;&gt;Save to Pocket&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;
 &lt;a href=&quot;https://chrome.google.com/webstore/detail/tab-pinner-keyboard-short/mbcjcnomlakhkechnbhmfjhnnllpbmlh&quot;&gt;Tab Pinner&lt;/a&gt;: adds a keyboard shortcut for pinning/unpinning a tab;&lt;/li&gt;
   &lt;li&gt;
-&lt;a href=&quot;https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=en&quot;&gt;uBlock Origin&lt;/a&gt;, the best ad-blocker, unnecessary in Brave;&lt;/li&gt;
+&lt;a href=&quot;https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=en&quot;&gt;uBlock Origin&lt;/a&gt;, the best ad-blocker, deprecated due to MV3;&lt;/li&gt;
   &lt;li&gt;
 &lt;a href=&quot;https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb&quot;&gt;Vimium&lt;/a&gt;: adds some Vim-like keyboard shortcuts;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://chrome.google.com/webstore/detail/netflix-1080p/cankofcoohmbhfpcemhmaaeennfbnmgp&quot;&gt;Netflix 1080p&lt;/a&gt; (&lt;a href=&quot;https://github.com/truedread/netflix-1080p&quot;&gt;GitHub&lt;/a&gt;);&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;For Manifest v3:&lt;/p&gt;
@@ -1342,8 +1340,8 @@ sdk &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;17.0.4-oracle
   &lt;li&gt;
 &lt;a href=&quot;https://neugierig.org/software/blog/2022/12/chrome.html&quot;&gt;Chrome, 10 years later (2022)&lt;/a&gt; (&lt;a href=&quot;https://web.archive.org/web/20221209034236/https://neugierig.org/software/blog/2022/12/chrome.html&quot;&gt;archive&lt;/a&gt;)&lt;/li&gt;
 &lt;/ul&gt;</content:encoded><pubDate>Thu, 01 Sep 2022 13:10:16 +0000</pubDate>
-  <dc:modified>Fri, 20 Jan 2023 08:12:21 +0000</dc:modified>
-  <atom:modified>Fri, 20 Jan 2023 08:12:21 +0000</atom:modified>
+  <dc:modified>Fri, 03 Feb 2023 06:12:54 +0000</dc:modified>
+  <atom:modified>Fri, 03 Feb 2023 06:12:54 +0000</atom:modified>
   <link>https://alexn.org/wiki/chromium/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/chromium/</guid>
   
@@ -1645,20 +1643,33 @@ sudo wget https://www.thawte.com/roots/thawte_Primary_Root_CA.pem
 <item>
   <title>Unix shell (CLI)</title>
   <description>Article 
-    updated at September 1, 2022, 
+    updated at February 1, 2023, 
     created at January 29, 2022.</description>
   <content:encoded>&lt;p&gt;
     Article 
-    updated at September 1, 2022, 
+    updated at February 1, 2023, 
     created at January 29, 2022.
   &lt;/p&gt;
   &lt;hr&gt;
   &lt;h2 id=&quot;find-zombie-processes&quot;&gt;Find zombie processes:&lt;/h2&gt;
 
 &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;ps axo &lt;span class=&quot;nb&quot;&gt;stat&lt;/span&gt;,ppid,pid,comm | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-w&lt;/span&gt; defunct
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;measure-memory&quot;&gt;Measure memory&lt;/h2&gt;
+
+&lt;p&gt;Useful project:
+&lt;a href=&quot;https://github.com/astrofrog/psrecord&quot;&gt;https://github.com/astrofrog/psrecord&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;psrecord &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--duration&lt;/span&gt; 30 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--interval&lt;/span&gt; 2 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--include-children&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--plot&lt;/span&gt; /tmp/plot.png &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;pid&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content:encoded><pubDate>Sat, 29 Jan 2022 05:08:17 +0000</pubDate>
-  <dc:modified>Thu, 01 Sep 2022 14:26:09 +0000</dc:modified>
-  <atom:modified>Thu, 01 Sep 2022 14:26:09 +0000</atom:modified>
+  <dc:modified>Wed, 01 Feb 2023 08:15:45 +0000</dc:modified>
+  <atom:modified>Wed, 01 Feb 2023 08:15:45 +0000</atom:modified>
   <link>https://alexn.org/wiki/unix-shell-cli/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/unix-shell-cli/</guid>
   
@@ -3327,11 +3338,11 @@ emacs_open_buffer&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
 <item>
   <title>Firefox</title>
   <description>Article 
-    updated at September 1, 2022, 
+    updated at February 3, 2023, 
     created at August 24, 2020.</description>
   <content:encoded>&lt;p&gt;
     Article 
-    updated at September 1, 2022, 
+    updated at February 3, 2023, 
     created at August 24, 2020.
   &lt;/p&gt;
   &lt;hr&gt;
@@ -3358,6 +3369,8 @@ emacs_open_buffer&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
   &lt;li&gt;&lt;a href=&quot;https://addons.mozilla.org/en-US/firefox/addon/wayback-machine_new/&quot;&gt;Wayback Machine&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/&quot;&gt;uBlock Origin&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/ueokande/vim-vixen&quot;&gt;vim-vixen&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://addons.mozilla.org/en-US/firefox/addon/netflix-1080p-firefox/&quot;&gt;Netflix 1080p&lt;/a&gt; (&lt;a href=&quot;https://github.com/TheGoddessInari/netflix-1080p-firefox&quot;&gt;GitHub&lt;/a&gt;)&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;auto-sync-aboutconfig-settings&quot;&gt;Auto-sync about:config settings&lt;/h2&gt;
@@ -3375,29 +3388,6 @@ emacs_open_buffer&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;services.sync.prefs.toolkit.legacyUserProfileCustomizations.stylesheets
 
 services.sync.prefs.media.hardwaremediakeys.enabled
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;enable-media-keys-on-macos&quot;&gt;Enable media keys on MacOS&lt;/h2&gt;
-
-&lt;p&gt;Sources:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1575995&quot;&gt;https://bugzilla.mozilla.org/show_bug.cgi?id=1575995&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1112032&quot;&gt;https://bugzilla.mozilla.org/show_bug.cgi?id=1112032&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;In &lt;a href=&quot;about:config&quot;&gt;about:config&lt;/a&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;media&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;hardwaremediakeys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;enabled&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// For syncing the setting&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prefs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;media&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;hardwaremediakeys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;enabled&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
-
-
-&lt;span class=&quot;nx&quot;&gt;dom&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;media&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mediasession&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;enabled&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// For syncing the setting&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prefs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dom&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;media&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mediasession&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;enabled&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;activate-compact-mode-after-proton&quot;&gt;Activate compact mode (after Proton)&lt;/h2&gt;
@@ -3486,8 +3476,8 @@ services.sync.prefs.media.hardwaremediakeys.enabled
   &lt;li&gt;&lt;a href=&quot;https://support.mozilla.org/en-US/kb/canary-domain-use-application-dnsnet&quot;&gt;Canary domain - use-application-dns.net&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://wiki.mozilla.org/Trusted_Recursive_Resolver&quot;&gt;Trusted Recursive Resolver&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</content:encoded><pubDate>Mon, 24 Aug 2020 13:24:31 +0000</pubDate>
-  <dc:modified>Thu, 01 Sep 2022 14:20:54 +0000</dc:modified>
-  <atom:modified>Thu, 01 Sep 2022 14:20:54 +0000</atom:modified>
+  <dc:modified>Fri, 03 Feb 2023 06:14:05 +0000</dc:modified>
+  <atom:modified>Fri, 03 Feb 2023 06:14:05 +0000</atom:modified>
   <link>https://alexn.org/wiki/firefox/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/firefox/</guid>
   

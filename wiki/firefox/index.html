@@ -19,7 +19,7 @@
     <meta content="Personal, volatile wiki documentation" property="og:description">
     <meta content="https://alexn.org/wiki/firefox/" property="og:url">
     <meta content="2020-08-24T13:24:31+00:00" property="article:published_time">
-    <meta content="2022-09-01T14:20:54+00:00" property="article:modified_time">
+    <meta content="2023-02-03T06:14:05+00:00" property="article:modified_time">
     
     <meta content="website" property="og:type">
     <meta property="og:image" content="https://alexn.org/assets/logo/800px-bordered.png" />
@@ -109,8 +109,8 @@
       <meta itemprop="datePublished" content="2020-08-24T13:24:31+0000"/>
       
       
-      <time itemprop="dateModified" content="2022-09-01T17:20:54+0300">
-        Updated: September 1, 2022
+      <time itemprop="dateModified" content="2023-02-03T08:14:05+0200">
+        Updated: February 3, 2023
       </time>
       
       
@@ -134,7 +134,6 @@
   <ul>
   <li><a href="#cool-extensions">Cool Extensions</a></li>
   <li><a href="#auto-sync-aboutconfig-settings">Auto-sync about:config settings</a></li>
-  <li><a href="#enable-media-keys-on-macos">Enable media keys on MacOS</a></li>
   <li><a href="#activate-compact-mode-after-proton">Activate compact mode (after Proton)</a></li>
   <li><a href="#restore-pinned-tabs-on-demand">Restore Pinned Tabs on Demand</a></li>
   <li><a href="#hide-native-tabs-for-tree-style-tabs">Hide Native Tabs (for Tree Style Tabs)</a></li>
@@ -171,6 +170,7 @@
   <li><a href="https://addons.mozilla.org/en-US/firefox/addon/wayback-machine_new/">Wayback Machine</a></li>
   <li><a href="https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/">uBlock Origin</a></li>
   <li><a href="https://github.com/ueokande/vim-vixen">vim-vixen</a></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/netflix-1080p-firefox/">Netflix 1080p</a> (<a href="https://github.com/TheGoddessInari/netflix-1080p-firefox">GitHub</a>)</li>
 </ul>
       <h2 id="auto-sync-aboutconfig-settings">
         
@@ -194,35 +194,6 @@
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>services.sync.prefs.toolkit.legacyUserProfileCustomizations.stylesheets
 
 services.sync.prefs.media.hardwaremediakeys.enabled
-</code></pre></div></div>
-      <h2 id="enable-media-keys-on-macos">
-        
-        
-          Enable media keys on MacOS <a href="#enable-media-keys-on-macos" class="anchor">#</a>
-        
-        
-      </h2>
-    
-
-<p>Sources:</p>
-
-<ul>
-  <li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1575995">https://bugzilla.mozilla.org/show_bug.cgi?id=1575995</a></li>
-  <li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1112032">https://bugzilla.mozilla.org/show_bug.cgi?id=1112032</a></li>
-</ul>
-
-<p>In <a href="about:config">about:config</a>:</p>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nx">media</span><span class="p">.</span><span class="nx">hardwaremediakeys</span><span class="p">.</span><span class="nx">enabled</span> <span class="o">=</span> <span class="kc">true</span>
-
-<span class="c1">// For syncing the setting</span>
-<span class="nx">services</span><span class="p">.</span><span class="nx">sync</span><span class="p">.</span><span class="nx">prefs</span><span class="p">.</span><span class="nx">media</span><span class="p">.</span><span class="nx">hardwaremediakeys</span><span class="p">.</span><span class="nx">enabled</span> <span class="o">=</span> <span class="kc">true</span>
-
-
-<span class="nx">dom</span><span class="p">.</span><span class="nx">media</span><span class="p">.</span><span class="nx">mediasession</span><span class="p">.</span><span class="nx">enabled</span> <span class="o">=</span> <span class="kc">true</span>
-
-<span class="c1">// For syncing the setting</span>
-<span class="nx">services</span><span class="p">.</span><span class="nx">sync</span><span class="p">.</span><span class="nx">prefs</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">media</span><span class="p">.</span><span class="nx">mediasession</span><span class="p">.</span><span class="nx">enabled</span> <span class="o">=</span> <span class="kc">true</span>
 </code></pre></div></div>
       <h2 id="activate-compact-mode-after-proton">
         
@@ -348,12 +319,12 @@ services.sync.prefs.media.hardwaremediakeys.enabled
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202301271503" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202301271503" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202301271503" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202301271503" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202302030742" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202302030742" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202302030742" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202302030742" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202301271503" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202302030742" type="text/javascript"></script>
 
 
 <script type="text/javascript">
