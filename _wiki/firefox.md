@@ -1,33 +1,32 @@
 ---
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2023-02-03 08:14:05 +02:00
+last_modified_at: 2023-02-04 21:00:21 +02:00
 ---
 
 # Firefox
 
 ## Cool Extensions
 
-- [Auto Tab Discard](https://addons.mozilla.org/en-US/firefox/addon/auto-tab-discard/)
-- [Awesome RSS](https://addons.mozilla.org/en-US/firefox/addon/awesome-rss/)
-- [CleanURLs](https://addons.mozilla.org/en-US/firefox/addon/clearurls/)
-- [Close discarded tabs](https://addons.mozilla.org/en-US/firefox/addon/close-discarded-tabs/)
-- [Cookie Quick Manager](https://addons.mozilla.org/en-US/firefox/addon/cookie-quick-manager/)
-- [Decentraleyes](https://addons.mozilla.org/en-US/firefox/addon/decentraleyes/)
-- [Enhancer for YouTube™](https://addons.mozilla.org/en-US/firefox/addon/enhancer-for-youtube/)
-- [Facebook Container](https://addons.mozilla.org/en-US/firefox/addon/facebook-container/)
-- [Firefox Multi-Account Containers](https://addons.mozilla.org/en-US/firefox/addon/multi-account-containers/)
-- [HTTPS Everywhere](https://addons.mozilla.org/en-US/firefox/addon/https-everywhere/)
-- [I don't care about cookies](https://addons.mozilla.org/en-US/firefox/addon/i-dont-care-about-cookies/)
-- [Notifier for GitHub](https://addons.mozilla.org/en-US/firefox/addon/notifier-for-github/)
-- [Privacy Badger](https://privacybadger.org/)
-- [Stylus](https://addons.mozilla.org/en-US/firefox/addon/styl-us/)
-- [Tab Reloader](https://addons.mozilla.org/en-US/firefox/addon/tab-reloader/)
-- [Terms of Service; Didn’t Read](https://addons.mozilla.org/en-US/firefox/addon/terms-of-service-didnt-read/)
-- [Tree Style Tab](https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab/)
-- [Wayback Machine](https://addons.mozilla.org/en-US/firefox/addon/wayback-machine_new/)
-- [uBlock Origin](https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/)
-- [vim-vixen](https://github.com/ueokande/vim-vixen)
-- [Netflix 1080p](https://addons.mozilla.org/en-US/firefox/addon/netflix-1080p-firefox/) ([GitHub](https://github.com/TheGoddessInari/netflix-1080p-firefox))
+- [Auto Tab Discard](https://addons.mozilla.org/en-US/firefox/addon/auto-tab-discard/);
+- [ChatGPT for Google](https://addons.mozilla.org/en-US/firefox/addon/chatgpt-for-google/) ([GitHub](https://github.com/wong2/chatgpt-google-extension)): displays ChatGPT response alongside search results, works with all search engines, not just Google;
+- [Consent-o-matic](https://addons.mozilla.org/en-US/firefox/addon/consent-o-matic/) ([GitHub](https://github.com/cavi-au/Consent-O-Matic)): automatic handling of GDPR consent popups;
+- [Cookie Quick Manager](https://addons.mozilla.org/en-US/firefox/addon/cookie-quick-manager/);
+- [Enhancer for YouTube™](https://addons.mozilla.org/en-US/firefox/addon/enhancer-for-youtube/);
+- [Firefox Multi-Account Containers](https://addons.mozilla.org/en-US/firefox/addon/multi-account-containers/);
+- [Netflix 1080p](https://addons.mozilla.org/en-US/firefox/addon/netflix-1080p-firefox/) ([GitHub](https://github.com/TheGoddessInari/netflix-1080p-firefox)): enables 1080p playback on Netflix;
+- [Notifier for GitHub](https://addons.mozilla.org/en-US/firefox/addon/notifier-for-github/): shows GitHub notifications in the toolbar;
+- [Old Reddit Redirect](https://addons.mozilla.org/en-US/firefox/addon/old-reddit-redirect/) ([GitHub](https://github.com/tom-james-watson/old-reddit-redirect));
+- [RSS Preview](https://addons.mozilla.org/en-US/firefox/addon/rsspreview/) ([GitHub](https://github.com/aureliendavid/rsspreview)): previews RSS feeds in the browser;
+- [Sideberry](https://addons.mozilla.org/en-US/firefox/addon/sidebery/) ([GitHub](https://github.com/mbnuqw/sidebery)): shows tabs like a tree, alternative to Tree Style Tab (better, IMO);
+- [Stylus](https://addons.mozilla.org/en-US/firefox/addon/styl-us/): custom CSS for websites;
+- [Tab Reloader](https://addons.mozilla.org/en-US/firefox/addon/tab-reloader/): reloads tabs at a specified interval;
+- [Tabliss](https://addons.mozilla.org/en-US/firefox/addon/tabliss/) ([GitHub](https://github.com/joelshepherd/tabliss)): a customizable new tab page with beautiful backgrounds;
+- [Terms of Service; Didn’t Read](https://addons.mozilla.org/en-US/firefox/addon/terms-of-service-didnt-read/): shows a summary of the terms of service of the website you're visiting;
+- [Toggle Tab Pin](https://addons.mozilla.org/en-US/firefox/addon/toggle-pin-tab/) ([GitHub](https://github.com/andreicristianpetcu/toggle-pin-tab)): pins/unpins tabs with a keyboard shortcut;
+- [Tree Style Tab](https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab/): shows tabs like a tree;
+- [uBlock Origin](https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/): the best ad-blocker;
+- [vim-vixen](https://github.com/ueokande/vim-vixen): Vim keybindings for Firefox;
+- [Wayback Machine](https://addons.mozilla.org/en-US/firefox/addon/wayback-machine_new/): save and view archived versions of websites;
 
 ## Auto-sync about:config settings
 
