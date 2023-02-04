@@ -1,6 +1,6 @@
 ---
 date: 2022-09-01 16:10:16 +03:00
-last_modified_at: 2023-02-04 21:17:39 +02:00
+last_modified_at: 2023-02-04 21:27:24 +02:00
 ---
 
 # Chromium (Brave, Vivaldi, ...)
@@ -21,7 +21,7 @@ last_modified_at: 2023-02-04 21:17:39 +02:00
 - [Tab pinner](https://chrome.google.com/webstore/detail/tab-pinner/mcclikmfcmcpejkaobpfkmmbekbhedoi) ([GitHub](https://github.com/bibixx/tab-pinner)): adds a keyboard shortcut for pinning/unpinning a tab;
 - [Tabliss](https://chrome.google.com/webstore/detail/tabliss-a-beautiful-new-t/hipekcciheckooncpjeljhnekcoolahp) ([GitHub](https://github.com/joelshepherd/tabliss)): a customizable new tab page with beautiful backgrounds;
 - [uBlock Origin](https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm), the best ad-blocker, deprecated due to MV3;
-- [Vimium](https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb) ([Vimium](https://github.com/philc/vimium)): adds some Vim-like keyboard shortcuts;
+- [Vimium](https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb) ([GitHub](https://github.com/philc/vimium)): adds some Vim-like keyboard shortcuts;
 
 Ad-blocking compatible with Manifest v3:
 
