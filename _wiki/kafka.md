@@ -1,6 +1,6 @@
 ---
 date: 2020-09-04 10:30:08 +03:00
-last_modified_at: 2023-04-02 08:39:36 +03:00
+last_modified_at: 2023-04-08 10:08:37 +03:00
 ---
 
 # Apache Kafka
@@ -72,6 +72,6 @@ docker exec -it kafka /opt/bitnami/kafka/bin/kafka-console-producer.sh \
     --topic test
 ```
 
-## Tools
+Tools:
 
-- [kafka-ui](https://github.com/provectus/kafka-ui): Open-Source Web UI for Apache Kafka Management;
+- [provectus/kafka-ui](https://github.com/provectus/kafka-ui): Open-Source Web UI for Apache Kafka Management;
