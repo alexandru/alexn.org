@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 04 Feb 2023 19:28:29 +0000</pubDate>
-    <lastBuildDate>Sat, 04 Feb 2023 19:28:29 +0000</lastBuildDate>
+    <pubDate>Sat, 08 Apr 2023 07:11:21 +0000</pubDate>
+    <lastBuildDate>Sat, 08 Apr 2023 07:11:21 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -2405,11 +2405,11 @@ find &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nt&quo
 <item>
   <title>Apache Kafka</title>
   <description>Article 
-    updated at September 1, 2022, 
+    updated at April 2, 2023, 
     created at September 4, 2020.</description>
   <content:encoded>&lt;p&gt;
     Article 
-    updated at September 1, 2022, 
+    updated at April 2, 2023, 
     created at September 4, 2020.
   &lt;/p&gt;
   &lt;hr&gt;
@@ -2474,9 +2474,16 @@ find &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nt&quo
 &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;docker &lt;span class=&quot;nb&quot;&gt;exec&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-it&lt;/span&gt; kafka /opt/bitnami/kafka/bin/kafka-console-producer.sh &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
     &lt;span class=&quot;nt&quot;&gt;--broker-list&lt;/span&gt; localhost:9092 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
     &lt;span class=&quot;nt&quot;&gt;--topic&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content:encoded><pubDate>Fri, 04 Sep 2020 07:30:08 +0000</pubDate>
-  <dc:modified>Thu, 01 Sep 2022 14:23:48 +0000</dc:modified>
-  <atom:modified>Thu, 01 Sep 2022 14:23:48 +0000</atom:modified>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;tools&quot;&gt;Tools&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://github.com/provectus/kafka-ui&quot;&gt;kafka-ui&lt;/a&gt;: Open-Source Web UI for Apache Kafka Management;&lt;/li&gt;
+&lt;/ul&gt;</content:encoded><pubDate>Fri, 04 Sep 2020 07:30:08 +0000</pubDate>
+  <dc:modified>Sun, 02 Apr 2023 05:39:36 +0000</dc:modified>
+  <atom:modified>Sun, 02 Apr 2023 05:39:36 +0000</atom:modified>
   <link>https://alexn.org/wiki/kafka/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/kafka/</guid>
   
