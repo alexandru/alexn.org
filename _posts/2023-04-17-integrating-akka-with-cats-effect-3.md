@@ -2,7 +2,7 @@
 title: "Integrating Akka with Cats-Effect 3"
 image: /assets/media/articles/2023-akka-plus-cats-effect.png
 date: 2023-04-17 11:05:29 +03:00
-last_modified_at: 2023-04-18 13:25:20 +03:00
+last_modified_at: 2023-04-18 13:50:48 +03:00
 generate_toc: true
 tags:
   - Cats Effect
@@ -110,7 +110,7 @@ akka.coordinated-shutdown.exit-jvm = on
 
 This setting tells Akka to forcefully stop the JVM as part of the coordinated shutdown process. And *this setting is good*, you should have this on. And that's because **Akka can decide to shut down on its own**, and afterward it's probably best to shut down the process, too. One example is when using Akka Cluster, with a [split-brain resolver](https://doc.akka.io/docs/akka-enhancements/current/split-brain-resolver.html), in which case Akka should shut down the application in case the node is removed from the cluster. If it doesn't, then the app could be left in a zombie state.
 
-Both Akka and Cats-Effect can add a shut-down hook to the JVM, via [Runtime.addShutdownHook](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Runtime.html#addShutdownHook(java.lang.Thread)). Cats-Effect can do it via its `IOApp` implementation. Akka can do it via its `akka.coordinated-shutdown.exit-jvm` setting. This triggers the disposal process on `System.exit`, no matter the reason it happened. And one problem is that both will start to dispose of resources, concurrently. In other words, Akka can shut down the actor system before Cats-Effect has had a chance to shut down all resources depending on that actor system. Which is usually bad.
+Both Akka and Cats-Effect can add a shut-down hook to the JVM, via [Runtime.addShutdownHook](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Runtime.html#addShutdownHook(java.lang.Thread)). Cats-Effect can do it via its `IOApp` implementation. Akka does it as part of its coordinated-shutdown mechanism. This triggers the disposal process on `System.exit`, no matter the reason it happened. And one problem is that both will start to dispose of resources, concurrently. In other words, Akka can shut down the actor system before Cats-Effect has had a chance to shut down all resources depending on that actor system. Which is usually bad.
 
 Another problem I discovered in testing is that in certain scenarios, Akka, on `system.terminate()`, seems to return a `Future[Done]` that never completes. Seems to be some sort of race condition, and it's bad, as it can indefinitely block Cats-Effect's resource disposal process. In my testing, this seemed to be alleviated if I first waited on a promise completed via a task registered with Akka's coordinated-shutdown (see below). I don't know if this code solves it or not, but a "timeout" on `system.whenTerminated` seems to be a good idea.
 
