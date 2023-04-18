@@ -2,7 +2,7 @@
 title: "Integrating Akka with Cats-Effect 3"
 image: /assets/media/articles/2023-akka-plus-cats-effect.png
 date: 2023-04-17 11:05:29 +03:00
-last_modified_at: 2023-04-18 12:48:22 +03:00
+last_modified_at: 2023-04-18 12:59:12 +03:00
 generate_toc: true
 tags:
   - Cats Effect
@@ -459,7 +459,8 @@ def poll1[A](
       })
       .takeWhile(_.nonEmpty)
       .collect { case Some(a) => a }
-  // Main stream, managing the sleep intervals
+
+  // Main stream, managing the sleep intervals via Akka
   Source
     .tick(initialDelay = Duration.Zero, interval = interval, tick = ())
     .flatMapConcat(_ => drain)
