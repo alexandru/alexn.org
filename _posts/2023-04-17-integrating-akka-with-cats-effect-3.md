@@ -2,7 +2,7 @@
 title: "Integrating Akka with Cats-Effect 3"
 image: /assets/media/articles/2023-akka-plus-cats-effect.png
 date: 2023-04-17 11:05:29 +03:00
-last_modified_at: 2023-04-18 11:47:59 +03:00
+last_modified_at: 2023-04-18 12:48:22 +03:00
 generate_toc: true
 tags:
   - Cats Effect
@@ -17,7 +17,7 @@ description: >
   We are using a combination of [Akka](https://akka.io/) and [Cats-Effect](https://typelevel.org/cats-effect/) (ver. 3) for building payment processors. Integrating them isn't without challenges. This post describes some solutions we've discovered.
 </p>
 
-We've been using Akka because [Akka Cluster](https://doc.akka.io/docs/akka/2.6.20/typed/index-cluster.html) and [Akka Persistence](https://doc.akka.io/docs/akka/2.6.20/typed/persistence.html) fitted our needs for data persistence. We're also using [Akka Streams](https://doc.akka.io/docs/akka/2.6.20/stream/index.html), because our flows are complicated graphs, even though at times it felt overkill and [fs2](https://fs2.io/) might have been a better fit. Note that [Akka has gone proprietary](./2022-09-07-akka-is-moving-away-from-open-source.md), and we're still on the last FOSS version (`2.6.20`). We might pay up to upgrade to the proprietary license, although I'm rooting for [Apache Pekko](https://pekko.apache.org/) to become stable.
+We've been using Akka because [Akka Cluster](https://doc.akka.io/docs/akka/2.6.20/typed/index-cluster.html) and [Akka Persistence](https://doc.akka.io/docs/akka/2.6.20/typed/persistence.html) fitted our needs for data persistence. We're also using [Akka Stream](https://doc.akka.io/docs/akka/2.6.20/stream/index.html), because our flows are complicated graphs, even though at times it felt overkill and [fs2](https://fs2.io/) might have been a better fit. Note that [Akka has gone proprietary](./2022-09-07-akka-is-moving-away-from-open-source.md), and we're still on the last FOSS version (`2.6.20`). We might pay up to upgrade to the proprietary license, although I'm rooting for [Apache Pekko](https://pekko.apache.org/) to become stable.
 
 ## Starting Actor Systems as a Resource
 
@@ -274,11 +274,21 @@ import akka.actor.typed.scaladsl.adapter.ClassicActorSystemOps
 system.toTyped
 ```
 
-## Using IO with Akka Streams
+## Using IO with Akka Stream
+
+For this section we need to depend on [Akka Stream](https://doc.akka.io/docs/akka/2.6.20/stream/index.html):
+
+```scala
+// sbt syntax
+libraryDependencies ++= Seq(
+  "com.typesafe.akka" %% "akka-stream" % "2.6.20",
+  "com.typesafe.akka" %% "akka-stream-typed" % "2.6.20",
+)
+```
 
 ### Turning an IO into a Flow
 
-An obvious solution for working with `IO` in Akka Streams is via
+An obvious solution for working with `IO` in Akka Stream is via
 [mapAsync](https://doc.akka.io/docs/akka/2.6.20/stream/operators/Source-or-Flow/mapAsync.html):
 
 ```scala
@@ -297,7 +307,7 @@ We need a [Dispatcher](https://typelevel.org/cats-effect/docs/std/dispatcher) fo
 
 There is one glaring problem: `Future` isn't cancelable, and these `IO` tasks may be long-running ones. And the code above will not cancel the running `IO` when the stream is getting cancelled. Most often this isn't a problem, and can be in fact desirable.
 
-In the context of Akka Streams, to execute `IO` tasks as cancelable tasks, we need to work with `Publisher` from the [Reactive Streams](https://github.com/reactive-streams/reactive-streams-jvm) specification. Implementation is low-level, as it has to synchronize concurrent calls:
+In the context of Akka Stream, to execute `IO` tasks as cancelable tasks, we need to work with `Publisher` from the [Reactive Streams](https://github.com/reactive-streams/reactive-streams-jvm) specification. Implementation is low-level, as it has to synchronize concurrent calls:
 
 ```scala
 import org.reactivestreams.{Publisher, Subscriber, Subscription}
@@ -375,6 +385,8 @@ def toPublisher[A](io: IO[A])(implicit d: Dispatcher[IO]): Publisher[A] =
 And we can turn `Publisher` into a `Source`:
 
 ```scala
+import akka.stream.scaladsl.Source
+
 def toSource[A](io: IO[A])(implicit d: Dispatcher[IO]): Source[A, NotUsed] =
   Source.fromPublisher(toPublisher(io))
 ```
@@ -382,6 +394,8 @@ def toSource[A](io: IO[A])(implicit d: Dispatcher[IO]): Source[A, NotUsed] =
 And finally, we can use [flatMapMerge](https://doc.akka.io/docs/akka/2.6.20/stream/operators/Source-or-Flow/flatMapMerge.html) to get the desired behavior of having a `Flow` that executes cancelable `IO` tasks:
 
 ```scala
+import akka.stream.scaladsl.Flow
+
 def cancelableIOToFlow[A, B](parallelism: Int)(
   f: A => IO[B]
 )(implicit d: Dispatcher[IO]): Flow[A, B, NotUsed] =
@@ -392,7 +406,7 @@ def cancelableIOToFlow[A, B](parallelism: Int)(
 ```
 
 <p class="warn-bubble" markdown="1">
-  <strong>Warning:</strong> `mapAsync` is much more efficient than `flatMapMerge` or `flatMapConcat`. Unfortunately, Akka Streams isn't optimized for flat-mapping on streams that emit a single event. Also, depending on how your streams are structured, you may actually want uncancelable execution. Apply good judgement!
+  <strong>Warning:</strong> `mapAsync` is much more efficient than `flatMapMerge` or `flatMapConcat`. Unfortunately, Akka Stream isn't optimized for flat-mapping on streams that emit a single event. Also, depending on how your streams are structured, you may actually want uncancelable execution. Apply good judgement!
 </p>
 
 ### Repeated execution (fixed delay)
@@ -425,7 +439,7 @@ def poll0[A](
 }
 ```
 
-The sleep itself could be managed by Akka Streams. At some point, our function looked like this:
+The sleep itself could be managed by Akka Stream. At some point, our function looked like this:
 
 ```scala
 def poll1[A](
@@ -445,7 +459,6 @@ def poll1[A](
       })
       .takeWhile(_.nonEmpty)
       .collect { case Some(a) => a }
-
   // Main stream, managing the sleep intervals
   Source
     .tick(initialDelay = Duration.Zero, interval = interval, tick = ())
@@ -495,9 +508,9 @@ def poll2[A](
 
 Note, however, that using `fs2` for use-cases like this isn't without peril. For example, the cancellation model of Cats-Effect (and that of fs2) is incompatible with the Reactive Streams API when managing resources. You can't turn a `Resource` into a `Publisher`. You can turn a `Resource` into an `fs2.Stream`, and if you then try to turn that `fs2.Stream` into a `Publisher`, you'll end up with a `Publisher` that doesn't manage the resource correctly. Simply put, an `fs2.Stream` is more powerful than a `Publisher` (from the Reactive Streams spec), and so the conversion from fs2 to Reactive Streams can be problematic.
 
-## Akka Streams Graphs
+## Akka Stream Graphs
 
-When running graphs with Akka Streams, if the processing of individual events is critical (like in our case), the question is what happens when the process is being shut down, as there will be some transactions that will be in-flight, with a process shutdown interrupting them.
+When running graphs with Akka Stream, if the processing of individual events is critical (like in our case), the question is what happens when the process is being shut down, as there will be some transactions that will be in-flight, with a process shutdown interrupting them.
 
 We want to wait (with a timeout) for the processing of in-flight transactions, before the process is terminated. To achieve that, there are 2 elements to it:
 
@@ -507,6 +520,8 @@ We want to wait (with a timeout) for the processing of in-flight transactions, b
 A `KillSwitch` can be managed via `Resource`, although, as you shall see, we may need to trigger the kill signal outside the context of this `Resource`:
 
 ```scala
+import akka.stream.{SharedKillSwitch, KillSwitches}
+
 def sharedKillSwitch(name: String): Resource[IO, SharedKillSwitch] =
   Resource(IO {
     val ks = KillSwitches.shared(name)
@@ -551,7 +566,7 @@ for {
 } yield awaitDone
 ```
 
-If we have this on our hands, we can easily describe a reusable app logic meant for executing Akka Stream graphs, which can take care of most things:
+If we have this on our hands, we can easily describe a reusable app logic meant for executing Akka Stream graphs, which can take care of most things. And we base it on [IOApp](https://typelevel.org/cats-effect/api/3.x/cats/effect/IOApp.html):
 
 ```scala
 trait ProcessorApp extends IOApp {
@@ -590,6 +605,8 @@ trait ProcessorApp extends IOApp {
     } yield awaitDone
 
     startWithResources.use { awaitDone =>
+      // Blocking on `awaitDone` makes sense, as the processor
+      // could finish without the app receiving a termination signal
       awaitDone.as(ExitCode.Success)
     }
   }
@@ -618,6 +635,8 @@ trait ProcessorApp extends IOApp {
 As mentioned before, that `IO[Done]` is the completion signal, which we'll use in our main logic. This is easily accomplished via a [Sink](https://doc.akka.io/api/akka/2.6/akka/stream/scaladsl/Sink.html):
 
 ```scala
+import akka.stream.scaladsl.Sink
+
 def ignoreSink[A]: Sink[A, IO[Done]] =
   Sink.ignore.mapMaterializedValue(f => IO.fromFuture(IO.pure(f)))
 ```
@@ -698,8 +717,6 @@ Copy/paste this script into `sample.scala`:
 //> using lib "co.fs2::fs2-reactive-streams::3.6.1"
 //> using lib "com.typesafe.akka::akka-actor-typed::2.6.20"
 //> using lib "com.typesafe.akka::akka-actor::2.6.20"
-//> using lib "com.typesafe.akka::akka-cluster-typed::2.6.20"
-//> using lib "com.typesafe.akka::akka-cluster::2.6.20"
 //> using lib "com.typesafe.akka::akka-stream-typed::2.6.20"
 //> using lib "com.typesafe.akka::akka-stream::2.6.20"
 //> using lib "org.typelevel::cats-effect::3.4.9"
@@ -800,6 +817,8 @@ trait ProcessorApp extends IOApp {
     } yield awaitDone
 
     startWithResources.use { awaitDone =>
+      // Blocking on `awaitDone` makes sense, as the processor
+      // could finish without the app receiving a termination signal
       awaitDone.as(ExitCode.Success)
     }
   }
