@@ -19,14 +19,14 @@
     <meta content="We are using a combination of Akka and Cats-Effect (ver. 3) for building payment processors. This post describes some solutions we’ve discovered." property="og:description">
     <meta content="https://alexn.org/blog/2023/04/17/integrating-akka-with-cats-effect-3/" property="og:url">
     <meta content="2023-04-17T08:05:29+00:00" property="article:published_time">
-    <meta content="2023-04-18T09:48:22+00:00" property="article:modified_time">
+    <meta content="2023-04-18T09:59:12+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2023-akka-plus-cats-effect.png?202304180950" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2023-akka-plus-cats-effect.png?202304180950" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2023-akka-plus-cats-effect.png?202304181000" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2023-akka-plus-cats-effect.png?202304181000" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2023-akka-plus-cats-effect.png?202304180950">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2023-akka-plus-cats-effect.png?202304181000">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Integrating Akka with Cats-Effect 3">
@@ -117,7 +117,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2023-akka-plus-cats-effect.png" />
-          <img src="/assets/media/articles/2023-akka-plus-cats-effect.png?202304180950" width="2376" height="864" alt="" />
+          <img src="/assets/media/articles/2023-akka-plus-cats-effect.png?202304181000" width="2376" height="864" alt="" />
           
         </figure>
         
@@ -612,7 +612,8 @@
       <span class="o">})</span>
       <span class="o">.</span><span class="py">takeWhile</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">nonEmpty</span><span class="o">)</span>
       <span class="o">.</span><span class="py">collect</span> <span class="o">{</span> <span class="k">case</span> <span class="nc">Some</span><span class="o">(</span><span class="n">a</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">a</span> <span class="o">}</span>
-  <span class="c1">// Main stream, managing the sleep intervals</span>
+
+  <span class="c1">// Main stream, managing the sleep intervals via Akka</span>
   <span class="nc">Source</span>
     <span class="o">.</span><span class="py">tick</span><span class="o">(</span><span class="n">initialDelay</span> <span class="k">=</span> <span class="nv">Duration</span><span class="o">.</span><span class="py">Zero</span><span class="o">,</span> <span class="n">interval</span> <span class="k">=</span> <span class="n">interval</span><span class="o">,</span> <span class="n">tick</span> <span class="k">=</span> <span class="o">())</span>
     <span class="o">.</span><span class="py">flatMapConcat</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">drain</span><span class="o">)</span>
@@ -1309,7 +1310,7 @@
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2023-04-18T12:48:22+0300">
+    <time itemprop="dateModified" content="2023-04-18T12:59:12+0300">
         Updated: April 18, 2023
     </time>
     
@@ -1429,12 +1430,12 @@
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202304180950" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202304180950" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202304180950" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202304180950" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202304181000" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202304181000" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202304181000" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202304181000" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202304180950" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202304181000" type="text/javascript"></script>
 
 
 <script type="text/javascript">
