@@ -19,14 +19,14 @@
     <meta content="We are using a combination of Akka and Cats-Effect (ver. 3) for building payment processors. This post describes some solutions we’ve discovered." property="og:description">
     <meta content="https://alexn.org/blog/2023/04/17/integrating-akka-with-cats-effect-3/" property="og:url">
     <meta content="2023-04-17T08:05:29+00:00" property="article:published_time">
-    <meta content="2023-04-18T08:47:59+00:00" property="article:modified_time">
+    <meta content="2023-04-18T09:48:22+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2023-akka-plus-cats-effect.png?202304180851" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2023-akka-plus-cats-effect.png?202304180851" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2023-akka-plus-cats-effect.png?202304180950" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2023-akka-plus-cats-effect.png?202304180950" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2023-akka-plus-cats-effect.png?202304180851">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2023-akka-plus-cats-effect.png?202304180950">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Integrating Akka with Cats-Effect 3">
@@ -117,7 +117,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2023-akka-plus-cats-effect.png" />
-          <img src="/assets/media/articles/2023-akka-plus-cats-effect.png?202304180851" width="2376" height="864" alt="" />
+          <img src="/assets/media/articles/2023-akka-plus-cats-effect.png?202304180950" width="2376" height="864" alt="" />
           
         </figure>
         
@@ -145,13 +145,13 @@
       <p class="toc-title">Table of Contents:</p>
       <ul>
   <li><a href="#starting-actor-systems-as-a-resource">Starting Actor Systems as a Resource</a></li>
-  <li><a href="#using-io-with-akka-streams">Using IO with Akka Streams</a>
+  <li><a href="#using-io-with-akka-stream">Using IO with Akka Stream</a>
     <ul>
       <li><a href="#turning-an-io-into-a-flow">Turning an IO into a Flow</a></li>
       <li><a href="#repeated-execution-fixed-delay">Repeated execution (fixed delay)</a></li>
     </ul>
   </li>
-  <li><a href="#akka-streams-graphs">Akka Streams Graphs</a></li>
+  <li><a href="#akka-stream-graphs">Akka Stream Graphs</a></li>
   <li><a href="#full-example-scala-cli">Full Example (Scala CLI)</a></li>
 </ul>
     </nav>
@@ -162,7 +162,7 @@
   We are using a combination of <a href="https://akka.io/">Akka</a> and <a href="https://typelevel.org/cats-effect/">Cats-Effect</a> (ver. 3) for building payment processors. Integrating them isn’t without challenges. This post describes some solutions we’ve discovered.
 </p>
 
-<p>We’ve been using Akka because <a href="https://doc.akka.io/docs/akka/2.6.20/typed/index-cluster.html">Akka Cluster</a> and <a href="https://doc.akka.io/docs/akka/2.6.20/typed/persistence.html">Akka Persistence</a> fitted our needs for data persistence. We’re also using <a href="https://doc.akka.io/docs/akka/2.6.20/stream/index.html">Akka Streams</a>, because our flows are complicated graphs, even though at times it felt overkill and <a href="https://fs2.io/">fs2</a> might have been a better fit. Note that <a href="/blog/2022/09/07/akka-is-moving-away-from-open-source/">Akka has gone proprietary</a>, and we’re still on the last FOSS version (<code class="language-plaintext highlighter-rouge">2.6.20</code>). We might pay up to upgrade to the proprietary license, although I’m rooting for <a href="https://pekko.apache.org/">Apache Pekko</a> to become stable.</p>
+<p>We’ve been using Akka because <a href="https://doc.akka.io/docs/akka/2.6.20/typed/index-cluster.html">Akka Cluster</a> and <a href="https://doc.akka.io/docs/akka/2.6.20/typed/persistence.html">Akka Persistence</a> fitted our needs for data persistence. We’re also using <a href="https://doc.akka.io/docs/akka/2.6.20/stream/index.html">Akka Stream</a>, because our flows are complicated graphs, even though at times it felt overkill and <a href="https://fs2.io/">fs2</a> might have been a better fit. Note that <a href="/blog/2022/09/07/akka-is-moving-away-from-open-source/">Akka has gone proprietary</a>, and we’re still on the last FOSS version (<code class="language-plaintext highlighter-rouge">2.6.20</code>). We might pay up to upgrade to the proprietary license, although I’m rooting for <a href="https://pekko.apache.org/">Apache Pekko</a> to become stable.</p>
       <h2 id="starting-actor-systems-as-a-resource">
         
         
@@ -416,14 +416,23 @@
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">akka.actor.typed.scaladsl.adapter.ClassicActorSystemOps</span>
 <span class="nv">system</span><span class="o">.</span><span class="py">toTyped</span>
 </code></pre></div></div>
-      <h2 id="using-io-with-akka-streams">
+      <h2 id="using-io-with-akka-stream">
         
         
-          Using IO with Akka Streams <a href="#using-io-with-akka-streams" class="anchor">#</a>
+          Using IO with Akka Stream <a href="#using-io-with-akka-stream" class="anchor">#</a>
         
         
       </h2>
     
+
+<p>For this section we need to depend on <a href="https://doc.akka.io/docs/akka/2.6.20/stream/index.html">Akka Stream</a>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// sbt syntax</span>
+<span class="n">libraryDependencies</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span>
+  <span class="s">"com.typesafe.akka"</span> <span class="o">%%</span> <span class="s">"akka-stream"</span> <span class="o">%</span> <span class="s">"2.6.20"</span><span class="o">,</span>
+  <span class="s">"com.typesafe.akka"</span> <span class="o">%%</span> <span class="s">"akka-stream-typed"</span> <span class="o">%</span> <span class="s">"2.6.20"</span><span class="o">,</span>
+<span class="o">)</span>
+</code></pre></div></div>
       <h3 id="turning-an-io-into-a-flow">
         
         
@@ -433,7 +442,7 @@
       </h3>
     
 
-<p>An obvious solution for working with <code class="language-plaintext highlighter-rouge">IO</code> in Akka Streams is via
+<p>An obvious solution for working with <code class="language-plaintext highlighter-rouge">IO</code> in Akka Stream is via
 <a href="https://doc.akka.io/docs/akka/2.6.20/stream/operators/Source-or-Flow/mapAsync.html">mapAsync</a>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">akka.NotUsed</span>
@@ -451,7 +460,7 @@
 
 <p>There is one glaring problem: <code class="language-plaintext highlighter-rouge">Future</code> isn’t cancelable, and these <code class="language-plaintext highlighter-rouge">IO</code> tasks may be long-running ones. And the code above will not cancel the running <code class="language-plaintext highlighter-rouge">IO</code> when the stream is getting cancelled. Most often this isn’t a problem, and can be in fact desirable.</p>
 
-<p>In the context of Akka Streams, to execute <code class="language-plaintext highlighter-rouge">IO</code> tasks as cancelable tasks, we need to work with <code class="language-plaintext highlighter-rouge">Publisher</code> from the <a href="https://github.com/reactive-streams/reactive-streams-jvm">Reactive Streams</a> specification. Implementation is low-level, as it has to synchronize concurrent calls:</p>
+<p>In the context of Akka Stream, to execute <code class="language-plaintext highlighter-rouge">IO</code> tasks as cancelable tasks, we need to work with <code class="language-plaintext highlighter-rouge">Publisher</code> from the <a href="https://github.com/reactive-streams/reactive-streams-jvm">Reactive Streams</a> specification. Implementation is low-level, as it has to synchronize concurrent calls:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">org.reactivestreams.</span><span class="o">{</span><span class="nc">Publisher</span><span class="o">,</span> <span class="nc">Subscriber</span><span class="o">,</span> <span class="nc">Subscription</span><span class="o">}</span>
 
@@ -527,13 +536,17 @@
 
 <p>And we can turn <code class="language-plaintext highlighter-rouge">Publisher</code> into a <code class="language-plaintext highlighter-rouge">Source</code>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">toSource</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">io</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">A</span><span class="o">])(</span><span class="k">implicit</span> <span class="n">d</span><span class="k">:</span> <span class="kt">Dispatcher</span><span class="o">[</span><span class="kt">IO</span><span class="o">])</span><span class="k">:</span> <span class="kt">Source</span><span class="o">[</span><span class="kt">A</span>, <span class="kt">NotUsed</span><span class="o">]</span> <span class="k">=</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">akka.stream.scaladsl.Source</span>
+
+<span class="k">def</span> <span class="nf">toSource</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">io</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">A</span><span class="o">])(</span><span class="k">implicit</span> <span class="n">d</span><span class="k">:</span> <span class="kt">Dispatcher</span><span class="o">[</span><span class="kt">IO</span><span class="o">])</span><span class="k">:</span> <span class="kt">Source</span><span class="o">[</span><span class="kt">A</span>, <span class="kt">NotUsed</span><span class="o">]</span> <span class="k">=</span>
   <span class="nv">Source</span><span class="o">.</span><span class="py">fromPublisher</span><span class="o">(</span><span class="nf">toPublisher</span><span class="o">(</span><span class="n">io</span><span class="o">))</span>
 </code></pre></div></div>
 
 <p>And finally, we can use <a href="https://doc.akka.io/docs/akka/2.6.20/stream/operators/Source-or-Flow/flatMapMerge.html">flatMapMerge</a> to get the desired behavior of having a <code class="language-plaintext highlighter-rouge">Flow</code> that executes cancelable <code class="language-plaintext highlighter-rouge">IO</code> tasks:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">cancelableIOToFlow</span><span class="o">[</span><span class="kt">A</span>, <span class="kt">B</span><span class="o">](</span><span class="n">parallelism</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)(</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">akka.stream.scaladsl.Flow</span>
+
+<span class="k">def</span> <span class="nf">cancelableIOToFlow</span><span class="o">[</span><span class="kt">A</span>, <span class="kt">B</span><span class="o">](</span><span class="n">parallelism</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)(</span>
   <span class="n">f</span><span class="k">:</span> <span class="kt">A</span> <span class="o">=&gt;</span> <span class="nc">IO</span><span class="o">[</span><span class="kt">B</span><span class="o">]</span>
 <span class="o">)(</span><span class="k">implicit</span> <span class="n">d</span><span class="k">:</span> <span class="kt">Dispatcher</span><span class="o">[</span><span class="kt">IO</span><span class="o">])</span><span class="k">:</span> <span class="kt">Flow</span><span class="o">[</span><span class="kt">A</span>, <span class="kt">B</span>, <span class="kt">NotUsed</span><span class="o">]</span> <span class="k">=</span>
   <span class="nc">Flow</span><span class="o">[</span><span class="kt">A</span><span class="o">].</span><span class="py">flatMapMerge</span><span class="o">(</span>
@@ -543,7 +556,7 @@
 </code></pre></div></div>
 
 <p class="warn-bubble">
-  <strong>Warning:</strong> <code class="language-plaintext highlighter-rouge">mapAsync</code> is much more efficient than <code class="language-plaintext highlighter-rouge">flatMapMerge</code> or <code class="language-plaintext highlighter-rouge">flatMapConcat</code>. Unfortunately, Akka Streams isn’t optimized for flat-mapping on streams that emit a single event. Also, depending on how your streams are structured, you may actually want uncancelable execution. Apply good judgement!
+  <strong>Warning:</strong> <code class="language-plaintext highlighter-rouge">mapAsync</code> is much more efficient than <code class="language-plaintext highlighter-rouge">flatMapMerge</code> or <code class="language-plaintext highlighter-rouge">flatMapConcat</code>. Unfortunately, Akka Stream isn’t optimized for flat-mapping on streams that emit a single event. Also, depending on how your streams are structured, you may actually want uncancelable execution. Apply good judgement!
 </p>
       <h3 id="repeated-execution-fixed-delay">
         
@@ -580,7 +593,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>The sleep itself could be managed by Akka Streams. At some point, our function looked like this:</p>
+<p>The sleep itself could be managed by Akka Stream. At some point, our function looked like this:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">poll1</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span>
   <span class="n">tryPoll</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Option</span><span class="o">[</span><span class="kt">A</span><span class="o">]],</span>
@@ -599,7 +612,6 @@
       <span class="o">})</span>
       <span class="o">.</span><span class="py">takeWhile</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">nonEmpty</span><span class="o">)</span>
       <span class="o">.</span><span class="py">collect</span> <span class="o">{</span> <span class="k">case</span> <span class="nc">Some</span><span class="o">(</span><span class="n">a</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">a</span> <span class="o">}</span>
-
   <span class="c1">// Main stream, managing the sleep intervals</span>
   <span class="nc">Source</span>
     <span class="o">.</span><span class="py">tick</span><span class="o">(</span><span class="n">initialDelay</span> <span class="k">=</span> <span class="nv">Duration</span><span class="o">.</span><span class="py">Zero</span><span class="o">,</span> <span class="n">interval</span> <span class="k">=</span> <span class="n">interval</span><span class="o">,</span> <span class="n">tick</span> <span class="k">=</span> <span class="o">())</span>
@@ -646,16 +658,16 @@
 </code></pre></div></div>
 
 <p>Note, however, that using <code class="language-plaintext highlighter-rouge">fs2</code> for use-cases like this isn’t without peril. For example, the cancellation model of Cats-Effect (and that of fs2) is incompatible with the Reactive Streams API when managing resources. You can’t turn a <code class="language-plaintext highlighter-rouge">Resource</code> into a <code class="language-plaintext highlighter-rouge">Publisher</code>. You can turn a <code class="language-plaintext highlighter-rouge">Resource</code> into an <code class="language-plaintext highlighter-rouge">fs2.Stream</code>, and if you then try to turn that <code class="language-plaintext highlighter-rouge">fs2.Stream</code> into a <code class="language-plaintext highlighter-rouge">Publisher</code>, you’ll end up with a <code class="language-plaintext highlighter-rouge">Publisher</code> that doesn’t manage the resource correctly. Simply put, an <code class="language-plaintext highlighter-rouge">fs2.Stream</code> is more powerful than a <code class="language-plaintext highlighter-rouge">Publisher</code> (from the Reactive Streams spec), and so the conversion from fs2 to Reactive Streams can be problematic.</p>
-      <h2 id="akka-streams-graphs">
+      <h2 id="akka-stream-graphs">
         
         
-          Akka Streams Graphs <a href="#akka-streams-graphs" class="anchor">#</a>
+          Akka Stream Graphs <a href="#akka-stream-graphs" class="anchor">#</a>
         
         
       </h2>
     
 
-<p>When running graphs with Akka Streams, if the processing of individual events is critical (like in our case), the question is what happens when the process is being shut down, as there will be some transactions that will be in-flight, with a process shutdown interrupting them.</p>
+<p>When running graphs with Akka Stream, if the processing of individual events is critical (like in our case), the question is what happens when the process is being shut down, as there will be some transactions that will be in-flight, with a process shutdown interrupting them.</p>
 
 <p>We want to wait (with a timeout) for the processing of in-flight transactions, before the process is terminated. To achieve that, there are 2 elements to it:</p>
 
@@ -666,7 +678,9 @@
 
 <p>A <code class="language-plaintext highlighter-rouge">KillSwitch</code> can be managed via <code class="language-plaintext highlighter-rouge">Resource</code>, although, as you shall see, we may need to trigger the kill signal outside the context of this <code class="language-plaintext highlighter-rouge">Resource</code>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">sharedKillSwitch</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Resource</span><span class="o">[</span><span class="kt">IO</span>, <span class="kt">SharedKillSwitch</span><span class="o">]</span> <span class="k">=</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">akka.stream.</span><span class="o">{</span><span class="nc">SharedKillSwitch</span><span class="o">,</span> <span class="nc">KillSwitches</span><span class="o">}</span>
+
+<span class="k">def</span> <span class="nf">sharedKillSwitch</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Resource</span><span class="o">[</span><span class="kt">IO</span>, <span class="kt">SharedKillSwitch</span><span class="o">]</span> <span class="k">=</span>
   <span class="nc">Resource</span><span class="o">(</span><span class="nc">IO</span> <span class="o">{</span>
     <span class="k">val</span> <span class="nv">ks</span> <span class="k">=</span> <span class="nv">KillSwitches</span><span class="o">.</span><span class="py">shared</span><span class="o">(</span><span class="n">name</span><span class="o">)</span>
     <span class="o">(</span><span class="n">ks</span><span class="o">,</span> <span class="nc">IO</span><span class="o">(</span><span class="nv">ks</span><span class="o">.</span><span class="py">shutdown</span><span class="o">()))</span>
@@ -707,7 +721,7 @@
 <span class="o">}</span> <span class="k">yield</span> <span class="n">awaitDone</span>
 </code></pre></div></div>
 
-<p>If we have this on our hands, we can easily describe a reusable app logic meant for executing Akka Stream graphs, which can take care of most things:</p>
+<p>If we have this on our hands, we can easily describe a reusable app logic meant for executing Akka Stream graphs, which can take care of most things. And we base it on <a href="https://typelevel.org/cats-effect/api/3.x/cats/effect/IOApp.html">IOApp</a>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">trait</span> <span class="nc">ProcessorApp</span> <span class="k">extends</span> <span class="nc">IOApp</span> <span class="o">{</span>
   <span class="cm">/** Abstract method to implement... */</span>
@@ -745,6 +759,8 @@
     <span class="o">}</span> <span class="k">yield</span> <span class="n">awaitDone</span>
 
     <span class="nv">startWithResources</span><span class="o">.</span><span class="py">use</span> <span class="o">{</span> <span class="n">awaitDone</span> <span class="k">=&gt;</span>
+      <span class="c1">// Blocking on `awaitDone` makes sense, as the processor</span>
+      <span class="c1">// could finish without the app receiving a termination signal</span>
       <span class="nv">awaitDone</span><span class="o">.</span><span class="py">as</span><span class="o">(</span><span class="nv">ExitCode</span><span class="o">.</span><span class="py">Success</span><span class="o">)</span>
     <span class="o">}</span>
   <span class="o">}</span>
@@ -772,7 +788,9 @@
 
 <p>As mentioned before, that <code class="language-plaintext highlighter-rouge">IO[Done]</code> is the completion signal, which we’ll use in our main logic. This is easily accomplished via a <a href="https://doc.akka.io/api/akka/2.6/akka/stream/scaladsl/Sink.html">Sink</a>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">ignoreSink</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span><span class="k">:</span> <span class="kt">Sink</span><span class="o">[</span><span class="kt">A</span>, <span class="kt">IO</span><span class="o">[</span><span class="kt">Done</span><span class="o">]]</span> <span class="k">=</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">akka.stream.scaladsl.Sink</span>
+
+<span class="k">def</span> <span class="nf">ignoreSink</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span><span class="k">:</span> <span class="kt">Sink</span><span class="o">[</span><span class="kt">A</span>, <span class="kt">IO</span><span class="o">[</span><span class="kt">Done</span><span class="o">]]</span> <span class="k">=</span>
   <span class="nv">Sink</span><span class="o">.</span><span class="py">ignore</span><span class="o">.</span><span class="py">mapMaterializedValue</span><span class="o">(</span><span class="n">f</span> <span class="k">=&gt;</span> <span class="nv">IO</span><span class="o">.</span><span class="py">fromFuture</span><span class="o">(</span><span class="nv">IO</span><span class="o">.</span><span class="py">pure</span><span class="o">(</span><span class="n">f</span><span class="o">)))</span>
 </code></pre></div></div>
 
@@ -854,8 +872,6 @@
 <span class="c1">//&gt; using lib "co.fs2::fs2-reactive-streams::3.6.1"</span>
 <span class="c1">//&gt; using lib "com.typesafe.akka::akka-actor-typed::2.6.20"</span>
 <span class="c1">//&gt; using lib "com.typesafe.akka::akka-actor::2.6.20"</span>
-<span class="c1">//&gt; using lib "com.typesafe.akka::akka-cluster-typed::2.6.20"</span>
-<span class="c1">//&gt; using lib "com.typesafe.akka::akka-cluster::2.6.20"</span>
 <span class="c1">//&gt; using lib "com.typesafe.akka::akka-stream-typed::2.6.20"</span>
 <span class="c1">//&gt; using lib "com.typesafe.akka::akka-stream::2.6.20"</span>
 <span class="c1">//&gt; using lib "org.typelevel::cats-effect::3.4.9"</span>
@@ -956,6 +972,8 @@
     <span class="o">}</span> <span class="k">yield</span> <span class="n">awaitDone</span>
 
     <span class="nv">startWithResources</span><span class="o">.</span><span class="py">use</span> <span class="o">{</span> <span class="n">awaitDone</span> <span class="k">=&gt;</span>
+      <span class="c1">// Blocking on `awaitDone` makes sense, as the processor</span>
+      <span class="c1">// could finish without the app receiving a termination signal</span>
       <span class="nv">awaitDone</span><span class="o">.</span><span class="py">as</span><span class="o">(</span><span class="nv">ExitCode</span><span class="o">.</span><span class="py">Success</span><span class="o">)</span>
     <span class="o">}</span>
   <span class="o">}</span>
@@ -1291,7 +1309,7 @@
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2023-04-18T11:47:59+0300">
+    <time itemprop="dateModified" content="2023-04-18T12:48:22+0300">
         Updated: April 18, 2023
     </time>
     
@@ -1411,12 +1429,12 @@
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202304180851" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202304180851" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202304180851" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202304180851" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202304180950" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202304180950" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202304180950" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202304180950" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202304180851" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202304180950" type="text/javascript"></script>
 
 
 <script type="text/javascript">
