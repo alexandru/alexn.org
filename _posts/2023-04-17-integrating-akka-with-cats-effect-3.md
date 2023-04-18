@@ -2,7 +2,7 @@
 title: "Integrating Akka with Cats-Effect 3"
 image: /assets/media/articles/2023-akka-plus-cats-effect.png
 date: 2023-04-17 11:05:29 +03:00
-last_modified_at: 2023-04-18 12:59:12 +03:00
+last_modified_at: 2023-04-18 13:25:20 +03:00
 generate_toc: true
 tags:
   - Cats Effect
@@ -561,7 +561,7 @@ for {
       _ <- IO(ks.shutdown())
       // Waits for processor to stop before proceeding;
       // Timeout is required, or this could be non-terminating
-      _ <- awaitDone.timeoutAndForget(10.seconds)
+      _ <- awaitDone.timeoutAndForget(10.seconds).attempt.void
     } yield ()
   )
 } yield awaitDone
@@ -597,9 +597,9 @@ trait ProcessorApp extends IOApp {
           _ <- IO(killSwitch.shutdown())
           // Waits the for processor to stop before proceeding;
           // Timeout is required, or this could be non-terminating
-          _ <- awaitDone.timeoutAndForget(10.seconds)
+          _ <- awaitDone.timeoutAndForget(10.seconds).attempt.void
           _ <- IO(logger.info(
-            "Awaited processor to stop, proceeding with shutdown"
+            "Awaited processor to stop, proceeding with shutdown..."
           ))
         } yield ()
       )
@@ -688,7 +688,7 @@ object Main extends ProcessorApp {
 
 ## Full Example (Scala CLI)
 
-The full example below can be executed directly via [Scala CLI](https://scala-cli.virtuslab.org/). On macOS you can install it with:
+The full example below can be executed directly via [Scala CLI](https://scala-cli.virtuslab.org/). On macOS, you can install it with:
 
 ```sh
 brew install Virtuslab/scala-cli/scala-cli
@@ -811,8 +811,10 @@ trait ProcessorApp extends IOApp {
           _ <- IO(killSwitch.shutdown())
           // Waits the for processor to stop before proceeding;
           // Timeout is required, or this could be non-terminating
-          _ <- awaitDone.timeoutAndForget(10.seconds)
-          _ <- IO(logger.info("Awaited processor to stop, proceeding with shutdown"))
+          _ <- awaitDone.timeoutAndForget(10.seconds).attempt.void
+          _ <- IO(logger.info(
+            "Awaited processor to stop, proceeding with shutdown..."
+          ))
         } yield ()
       )
     } yield awaitDone
