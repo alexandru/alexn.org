@@ -19,14 +19,14 @@
     <meta content="We are using a combination of Akka and Cats-Effect (ver. 3) for building payment processors. This post describes some solutions we’ve discovered." property="og:description">
     <meta content="https://alexn.org/blog/2023/04/17/integrating-akka-with-cats-effect-3/" property="og:url">
     <meta content="2023-04-17T08:05:29+00:00" property="article:published_time">
-    <meta content="2023-04-18T09:59:12+00:00" property="article:modified_time">
+    <meta content="2023-04-18T10:25:20+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2023-akka-plus-cats-effect.png?202304181000" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2023-akka-plus-cats-effect.png?202304181000" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2023-akka-plus-cats-effect.png?202304181026" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2023-akka-plus-cats-effect.png?202304181026" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2023-akka-plus-cats-effect.png?202304181000">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2023-akka-plus-cats-effect.png?202304181026">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Integrating Akka with Cats-Effect 3">
@@ -117,7 +117,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2023-akka-plus-cats-effect.png" />
-          <img src="/assets/media/articles/2023-akka-plus-cats-effect.png?202304181000" width="2376" height="864" alt="" />
+          <img src="/assets/media/articles/2023-akka-plus-cats-effect.png?202304181026" width="2376" height="864" alt="" />
           
         </figure>
         
@@ -716,7 +716,7 @@
       <span class="k">_</span> <span class="k">&lt;-</span> <span class="nc">IO</span><span class="o">(</span><span class="nv">ks</span><span class="o">.</span><span class="py">shutdown</span><span class="o">())</span>
       <span class="c1">// Waits for processor to stop before proceeding;</span>
       <span class="c1">// Timeout is required, or this could be non-terminating</span>
-      <span class="k">_</span> <span class="k">&lt;-</span> <span class="nv">awaitDone</span><span class="o">.</span><span class="py">timeoutAndForget</span><span class="o">(</span><span class="mf">10.</span><span class="n">seconds</span><span class="o">)</span>
+      <span class="k">_</span> <span class="k">&lt;-</span> <span class="nv">awaitDone</span><span class="o">.</span><span class="py">timeoutAndForget</span><span class="o">(</span><span class="mf">10.</span><span class="n">seconds</span><span class="o">).</span><span class="py">attempt</span><span class="o">.</span><span class="py">void</span>
     <span class="o">}</span> <span class="nf">yield</span> <span class="o">()</span>
   <span class="o">)</span>
 <span class="o">}</span> <span class="k">yield</span> <span class="n">awaitDone</span>
@@ -751,9 +751,9 @@
           <span class="k">_</span> <span class="k">&lt;-</span> <span class="nc">IO</span><span class="o">(</span><span class="nv">killSwitch</span><span class="o">.</span><span class="py">shutdown</span><span class="o">())</span>
           <span class="c1">// Waits the for processor to stop before proceeding;</span>
           <span class="c1">// Timeout is required, or this could be non-terminating</span>
-          <span class="k">_</span> <span class="k">&lt;-</span> <span class="nv">awaitDone</span><span class="o">.</span><span class="py">timeoutAndForget</span><span class="o">(</span><span class="mf">10.</span><span class="n">seconds</span><span class="o">)</span>
+          <span class="k">_</span> <span class="k">&lt;-</span> <span class="nv">awaitDone</span><span class="o">.</span><span class="py">timeoutAndForget</span><span class="o">(</span><span class="mf">10.</span><span class="n">seconds</span><span class="o">).</span><span class="py">attempt</span><span class="o">.</span><span class="py">void</span>
           <span class="k">_</span> <span class="k">&lt;-</span> <span class="nc">IO</span><span class="o">(</span><span class="nv">logger</span><span class="o">.</span><span class="py">info</span><span class="o">(</span>
-            <span class="s">"Awaited processor to stop, proceeding with shutdown"</span>
+            <span class="s">"Awaited processor to stop, proceeding with shutdown..."</span>
           <span class="o">))</span>
         <span class="o">}</span> <span class="nf">yield</span> <span class="o">()</span>
       <span class="o">)</span>
@@ -846,7 +846,7 @@
       </h2>
     
 
-<p>The full example below can be executed directly via <a href="https://scala-cli.virtuslab.org/">Scala CLI</a>. On macOS you can install it with:</p>
+<p>The full example below can be executed directly via <a href="https://scala-cli.virtuslab.org/">Scala CLI</a>. On macOS, you can install it with:</p>
 
 <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>brew <span class="nb">install </span>Virtuslab/scala-cli/scala-cli
 </code></pre></div></div>
@@ -966,8 +966,10 @@
           <span class="k">_</span> <span class="k">&lt;-</span> <span class="nc">IO</span><span class="o">(</span><span class="nv">killSwitch</span><span class="o">.</span><span class="py">shutdown</span><span class="o">())</span>
           <span class="c1">// Waits the for processor to stop before proceeding;</span>
           <span class="c1">// Timeout is required, or this could be non-terminating</span>
-          <span class="k">_</span> <span class="k">&lt;-</span> <span class="nv">awaitDone</span><span class="o">.</span><span class="py">timeoutAndForget</span><span class="o">(</span><span class="mf">10.</span><span class="n">seconds</span><span class="o">)</span>
-          <span class="k">_</span> <span class="k">&lt;-</span> <span class="nc">IO</span><span class="o">(</span><span class="nv">logger</span><span class="o">.</span><span class="py">info</span><span class="o">(</span><span class="s">"Awaited processor to stop, proceeding with shutdown"</span><span class="o">))</span>
+          <span class="k">_</span> <span class="k">&lt;-</span> <span class="nv">awaitDone</span><span class="o">.</span><span class="py">timeoutAndForget</span><span class="o">(</span><span class="mf">10.</span><span class="n">seconds</span><span class="o">).</span><span class="py">attempt</span><span class="o">.</span><span class="py">void</span>
+          <span class="k">_</span> <span class="k">&lt;-</span> <span class="nc">IO</span><span class="o">(</span><span class="nv">logger</span><span class="o">.</span><span class="py">info</span><span class="o">(</span>
+            <span class="s">"Awaited processor to stop, proceeding with shutdown..."</span>
+          <span class="o">))</span>
         <span class="o">}</span> <span class="nf">yield</span> <span class="o">()</span>
       <span class="o">)</span>
     <span class="o">}</span> <span class="k">yield</span> <span class="n">awaitDone</span>
@@ -1310,7 +1312,7 @@
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2023-04-18T12:59:12+0300">
+    <time itemprop="dateModified" content="2023-04-18T13:25:20+0300">
         Updated: April 18, 2023
     </time>
     
@@ -1430,12 +1432,12 @@
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202304181000" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202304181000" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202304181000" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202304181000" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202304181026" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202304181026" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202304181026" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202304181026" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202304181000" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202304181026" type="text/javascript"></script>
 
 
 <script type="text/javascript">
