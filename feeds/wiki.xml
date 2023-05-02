@@ -10,13 +10,49 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 24 Apr 2023 10:03:17 +0000</pubDate>
-    <lastBuildDate>Mon, 24 Apr 2023 10:03:17 +0000</lastBuildDate>
+    <pubDate>Tue, 02 May 2023 12:37:14 +0000</pubDate>
+    <lastBuildDate>Tue, 02 May 2023 12:37:14 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v4.3.1</generator>
     
+<item>
+  <title>Kotlin</title>
+  <description>Article 
+    updated at April 30, 2023, 
+    created at April 30, 2023.</description>
+  <content:encoded>&lt;p&gt;
+    Article 
+    updated at April 30, 2023, 
+    created at April 30, 2023.
+  &lt;/p&gt;
+  &lt;hr&gt;
+  
+  &lt;img referrerpolicy=&quot;no-referrer-when-downgrade&quot; src=&quot;https://ly.alexn.org/m.php?idsite=1&amp;rec=1&amp;action_name=%2Ffeeds%2Fwiki.xml&amp;url=https%3A%2F%2Falexn.org%2Ffeeds%2Fwiki.xml&amp;pk_campaign=rss&amp;pk_kwd=open&quot; width=&quot;1&quot; height=&quot;1&quot; style=&quot;position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;&quot; alt=&quot;&quot;&gt;
+&lt;h2 id=&quot;useful-libraries&quot;&gt;Useful libraries&lt;/h2&gt;
+
+&lt;p&gt;Kotlin-specific:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://arrow-kt.io/learn/&quot;&gt;Arrow&lt;/a&gt;: Functional companion to Kotlin’s Standard Library;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://github.com/Kotlin/kotlinx.serialization&quot;&gt;kotlinx.serialization&lt;/a&gt;: Kotlin multiplatform / multi-format serialization;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://ktor.io/&quot;&gt;Ktor&lt;/a&gt;: HTTP client/server library;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://github.com/cashapp/sqldelight&quot;&gt;SQLDelight&lt;/a&gt;: Generates type-safe Kotlin APIs from SQL;&lt;/li&gt;
+&lt;/ul&gt;</content:encoded><pubDate>Sun, 30 Apr 2023 13:07:39 +0000</pubDate>
+  <dc:modified>Sun, 30 Apr 2023 13:13:31 +0000</dc:modified>
+  <atom:modified>Sun, 30 Apr 2023 13:13:31 +0000</atom:modified>
+  <link>https://alexn.org/wiki/kotlin/?pk_campaign=rss</link>
+  <guid isPermaLink="true">https://alexn.org/wiki/kotlin/</guid>
+  
+  <category>Wiki</category>
+  
+</item>
+
 <item>
   <title>Rclone</title>
   <description>Article 
@@ -28,9 +64,7 @@
     created at January 23, 2023.
   &lt;/p&gt;
   &lt;hr&gt;
-  
-  &lt;img referrerpolicy=&quot;no-referrer-when-downgrade&quot; src=&quot;https://ly.alexn.org/m.php?idsite=1&amp;rec=1&amp;action_name=%2Ffeeds%2Fwiki.xml&amp;url=https%3A%2F%2Falexn.org%2Ffeeds%2Fwiki.xml&amp;pk_campaign=rss&amp;pk_kwd=open&quot; width=&quot;1&quot; height=&quot;1&quot; style=&quot;position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;&quot; alt=&quot;&quot;&gt;
-&lt;h2 id=&quot;install-macos&quot;&gt;Install (macOS)&lt;/h2&gt;
+  &lt;h2 id=&quot;install-macos&quot;&gt;Install (macOS)&lt;/h2&gt;
 
 &lt;p&gt;This is required for getting &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mount&lt;/code&gt; to work properly, see:&lt;/p&gt;
 
