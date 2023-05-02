@@ -19,14 +19,14 @@
     <meta content="The database schema should be described as code, in your repository. And you should be able to semi-automatically update your database schema on new deployments. Now in Kotlin, with Gradle and Flyway." property="og:description">
     <meta content="https://alexn.org/blog/2023/05/02/managing-database-migrations-kotlin/" property="og:url">
     <meta content="2023-05-02T07:32:06+00:00" property="article:published_time">
-    <meta content="2023-05-02T12:41:42+00:00" property="article:modified_time">
+    <meta content="2023-05-02T13:06:38+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2023-kotlin-db-migrations.png?202305021243" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2023-kotlin-db-migrations.png?202305021243" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2023-kotlin-db-migrations.png?202305021309" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2023-kotlin-db-migrations.png?202305021309" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2023-kotlin-db-migrations.png?202305021243">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2023-kotlin-db-migrations.png?202305021309">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Managing Database Migrations in Kotlin">
@@ -108,7 +108,7 @@
       <meta itemprop="datePublished" content="2023-05-02T07:32:06+0000"/>
       
       <time itemprop="dateCreated" datetime="2023-05-02T07:32:06+0000">May 2, 2023</time>
-      | <span class="nobr"><span class="time">16</span> minutes</span>
+      | <span class="nobr"><span class="time">18</span> minutes</span>
       
       | <a href="/blog/2023/05/02/managing-database-migrations-kotlin/#isso-thread" class="nobr">comments</a>
       
@@ -117,7 +117,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2023-kotlin-db-migrations.png" />
-          <img src="/assets/media/articles/2023-kotlin-db-migrations.png?202305021243" width="2980" height="1448" alt="" />
+          <img src="/assets/media/articles/2023-kotlin-db-migrations.png?202305021309" width="2980" height="1448" alt="" />
           
         </figure>
         
@@ -151,6 +151,7 @@
   <li><a href="#5-adding-the-sql-migrations">5. Adding the SQL migrations</a></li>
   <li><a href="#6-gradle-configuration">6. Gradle Configuration</a></li>
   <li><a href="#7-running-the-migrations">7. Running the migrations</a></li>
+  <li><a href="#8-pro-tip-unit-test-migrations-with-hsqldb">8. Pro-tip: Unit-test migrations with HSQLDB</a></li>
   <li><a href="#epilogue">Epilogue</a></li>
 </ul>
     </nav>
@@ -386,7 +387,7 @@
       </h2>
     
 
-<p>Create a new file in <code class="language-plaintext highlighter-rouge">app/src/main/kotlin/</code>:</p>
+<p>Create a new file <code class="language-plaintext highlighter-rouge">RunMigrations.kt</code> in <code class="language-plaintext highlighter-rouge">app/src/main/kotlin/</code>:</p>
 
 <div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">package</span> <span class="nn">migrations.sample</span>
 
@@ -400,20 +401,23 @@
 <span class="k">import</span> <span class="nn">org.flywaydb.core.api.configuration.FluentConfiguration</span>
 <span class="k">import</span> <span class="nn">org.flywaydb.core.api.output.MigrateResult</span>
 <span class="k">import</span> <span class="nn">org.slf4j.LoggerFactory</span>
+<span class="k">import</span> <span class="nn">kotlin.system.exitProcess</span>
 
 <span class="cm">/**
  * Given a JDBC configuration, run the associated DB migrations.
  *
- * NOTE: `adminUsername` and `adminPassword` are different from the credentials
- * specified in `JdbcConnectionConfig`. That's because the "admin" user may be
- * different from the app's user. So if an `adminUsername` and an `adminPassword`
- * are provided, Flyway will use that admin user to execute migrations.
+ * NOTE: `adminUsername` and `adminPassword` are different from the
+ * credentials specified in `JdbcConnectionConfig`. That's because the
+ * "admin" user may be different from the app's user. So if an
+ * `adminUsername` and an `adminPassword` are provided, Flyway will
+ * use that admin user to execute migrations.
  *
  * Flyway uses "placeholders" that can be used in the SQL migrations.
- * These can be specified in `JdbcConnectionConfig`, but this code also sets
- * 2 special placeholders to use from the `JdbcConnectionConfig` itself: 
- * `dbUsername` and `dbPassword`. These can be used to create the app's user
- * as part of the defined migrations.
+ * These can be specified in `JdbcConnectionConfig`, but this code
+ * also sets 2 special placeholders to use from the
+ * `JdbcConnectionConfig` itself: `dbUsername` and `dbPassword`. These
+ * can be used to create the app's user as part of the defined
+ * migrations.
  */</span>
 <span class="k">suspend</span> <span class="k">fun</span> <span class="nf">dbMigrate</span><span class="p">(</span>
   <span class="n">config</span><span class="p">:</span> <span class="nc">JdbcConnectionConfig</span><span class="p">,</span>
@@ -434,10 +438,11 @@
       <span class="p">.</span><span class="nf">baselineOnMigrate</span><span class="p">(</span><span class="k">true</span><span class="p">)</span>
       <span class="p">.</span><span class="nf">loggers</span><span class="p">(</span><span class="s">"slf4j"</span><span class="p">)</span>
       <span class="p">.</span><span class="nf">placeholders</span><span class="p">(</span>
-        <span class="n">config</span><span class="p">.</span><span class="n">migrationsPlaceholders</span> <span class="p">+</span> <span class="nf">mapOf</span><span class="p">(</span>
-          <span class="s">"dbUsername"</span> <span class="n">to</span> <span class="n">config</span><span class="p">.</span><span class="n">username</span><span class="p">,</span>
-          <span class="s">"dbPassword"</span> <span class="n">to</span> <span class="n">config</span><span class="p">.</span><span class="n">password</span>
-        <span class="p">)</span>
+        <span class="n">config</span><span class="p">.</span><span class="n">migrationsPlaceholders</span> <span class="p">+</span>
+            <span class="nf">mapOf</span><span class="p">(</span>
+              <span class="s">"dbUsername"</span> <span class="n">to</span> <span class="n">config</span><span class="p">.</span><span class="n">username</span><span class="p">,</span>
+              <span class="s">"dbPassword"</span> <span class="n">to</span> <span class="n">config</span><span class="p">.</span><span class="n">password</span>
+            <span class="p">).</span><span class="nf">filterValues</span> <span class="p">{</span> <span class="n">it</span> <span class="p">!=</span> <span class="k">null</span> <span class="p">}</span>
       <span class="p">)</span>
 
     <span class="kd">val</span> <span class="py">validated</span> <span class="p">=</span> <span class="n">m</span>
@@ -463,46 +468,7 @@
     <span class="n">m</span><span class="p">.</span><span class="nf">load</span><span class="p">().</span><span class="nf">migrate</span><span class="p">()</span>
   <span class="p">}</span>
 
-<span class="cm">/** 
- * Command-line tool.
- */</span>
 <span class="kd">object</span> <span class="nc">RunMigrations</span> <span class="p">{</span>
-  <span class="nd">@JvmStatic</span>
-  <span class="k">fun</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="nc">Array</span><span class="p">&lt;</span><span class="nc">String</span><span class="p">&gt;)</span> <span class="p">{</span>
-    <span class="c1">// Parsing command-line arguments via `kotlinx-cli`</span>
-    <span class="kd">val</span> <span class="py">parser</span> <span class="p">=</span> <span class="nc">ArgParser</span><span class="p">(</span><span class="s">"RunMigrations"</span><span class="p">)</span>
-    <span class="kd">val</span> <span class="py">adminUsername</span> <span class="k">by</span> <span class="n">parser</span><span class="p">.</span><span class="nf">argument</span><span class="p">(</span>
-      <span class="nc">ArgType</span><span class="p">.</span><span class="nc">String</span><span class="p">,</span>
-      <span class="n">fullName</span> <span class="p">=</span> <span class="s">"admin-username"</span><span class="p">,</span>
-      <span class="n">description</span> <span class="p">=</span> <span class="s">"Admin username for the database. Example: postgres"</span>
-    <span class="p">)</span>
-    <span class="kd">val</span> <span class="py">adminPassword</span> <span class="k">by</span> <span class="n">parser</span><span class="p">.</span><span class="nf">argument</span><span class="p">(</span>
-      <span class="nc">ArgType</span><span class="p">.</span><span class="nc">String</span><span class="p">,</span>
-      <span class="n">fullName</span> <span class="p">=</span> <span class="s">"admin-password"</span><span class="p">,</span>
-      <span class="n">description</span> <span class="p">=</span> <span class="s">"Admin password for the database."</span>
-    <span class="p">)</span>
-    <span class="n">parser</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
-
-    <span class="c1">// Go, go, go...</span>
-    <span class="nf">runBlocking</span> <span class="p">{</span>
-      <span class="c1">// Reading HOCON configuration...</span>
-      <span class="kd">val</span> <span class="py">config</span> <span class="p">=</span>
-        <span class="nc">ConfigFactory</span><span class="p">.</span><span class="nf">load</span><span class="p">(</span><span class="s">"database.conf"</span><span class="p">).</span><span class="nf">resolve</span><span class="p">()</span>
-      <span class="kd">val</span> <span class="py">mainConfig</span> <span class="p">=</span>
-        <span class="nc">JdbcConnectionConfig</span><span class="p">.</span><span class="nf">loadFromGlobal</span><span class="p">(</span>
-          <span class="s">"jdbc-connection.main"</span><span class="p">,</span>
-          <span class="n">config</span>
-        <span class="p">)</span>
-      <span class="c1">// Migrating our `JdbcConnectionConfig`</span>
-      <span class="nf">migrateNamespace</span><span class="p">(</span>
-        <span class="s">"main"</span><span class="p">,</span>
-        <span class="n">mainConfig</span><span class="p">,</span>
-        <span class="n">adminUsername</span><span class="p">,</span>
-        <span class="n">adminPassword</span>
-      <span class="p">)</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-
   <span class="k">private</span> <span class="k">suspend</span> <span class="k">fun</span> <span class="nf">migrateNamespace</span><span class="p">(</span>
     <span class="n">label</span><span class="p">:</span> <span class="nc">String</span><span class="p">,</span>
     <span class="n">config</span><span class="p">:</span> <span class="nc">JdbcConnectionConfig</span><span class="p">,</span>
@@ -519,14 +485,14 @@
     <span class="nf">println</span><span class="p">(</span><span class="s">"------------------------------------"</span><span class="p">)</span>
     <span class="nf">println</span><span class="p">(</span><span class="s">"Initial schema version: ${result.initialSchemaVersion}"</span><span class="p">)</span>
     <span class="nf">println</span><span class="p">(</span><span class="s">"Target schema version: ${result.targetSchemaVersion}"</span><span class="p">)</span>
-    <span class="k">if</span> <span class="p">(!</span><span class="n">result</span><span class="p">.</span><span class="n">migrations</span><span class="p">.</span><span class="nf">isEmpty</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">migrations</span><span class="p">.</span><span class="nf">isNotEmpty</span><span class="p">())</span> <span class="p">{</span>
       <span class="nf">println</span><span class="p">(</span><span class="s">"------------------------------------"</span><span class="p">)</span>
       <span class="nf">println</span><span class="p">(</span><span class="s">"Executed migrations:"</span><span class="p">)</span>
       <span class="k">for</span> <span class="p">(</span><span class="n">migration</span> <span class="k">in</span> <span class="n">result</span><span class="p">.</span><span class="n">migrations</span><span class="p">)</span> <span class="p">{</span>
         <span class="nf">println</span><span class="p">(</span><span class="s">" - ${migration.version} ${migration.type} ${migration.description}"</span><span class="p">)</span>
       <span class="p">}</span>
     <span class="p">}</span>
-    <span class="k">if</span> <span class="p">(!</span><span class="n">result</span><span class="p">.</span><span class="n">warnings</span><span class="p">.</span><span class="nf">isEmpty</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">warnings</span><span class="p">.</span><span class="nf">isNotEmpty</span><span class="p">())</span> <span class="p">{</span>
       <span class="nf">println</span><span class="p">(</span><span class="s">"------------------------------------"</span><span class="p">)</span>
       <span class="nc">System</span><span class="p">.</span><span class="n">err</span><span class="p">.</span><span class="nf">println</span><span class="p">(</span><span class="s">"WARNINGS:"</span><span class="p">)</span>
       <span class="k">for</span> <span class="p">(</span><span class="n">warning</span> <span class="k">in</span> <span class="n">result</span><span class="p">.</span><span class="n">warnings</span><span class="p">)</span> <span class="p">{</span>
@@ -538,7 +504,39 @@
       <span class="nf">println</span><span class="p">(</span><span class="s">"Successfully migrated: $label!"</span><span class="p">)</span>
     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
       <span class="nc">System</span><span class="p">.</span><span class="n">err</span><span class="p">.</span><span class="nf">println</span><span class="p">(</span><span class="s">"ERROR: Failed to migrate $label!"</span><span class="p">)</span>
-      <span class="nc">System</span><span class="p">.</span><span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+      <span class="nf">exitProcess</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="nd">@JvmStatic</span>
+  <span class="k">fun</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="nc">Array</span><span class="p">&lt;</span><span class="nc">String</span><span class="p">&gt;)</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="py">parser</span> <span class="p">=</span> <span class="nc">ArgParser</span><span class="p">(</span><span class="s">"RunMigrations"</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="py">adminUsername</span> <span class="k">by</span> <span class="n">parser</span><span class="p">.</span><span class="nf">argument</span><span class="p">(</span>
+      <span class="nc">ArgType</span><span class="p">.</span><span class="nc">String</span><span class="p">,</span>
+      <span class="n">fullName</span> <span class="p">=</span> <span class="s">"admin-username"</span><span class="p">,</span>
+      <span class="n">description</span> <span class="p">=</span> <span class="s">"Admin username for the database. Example: postgres"</span>
+    <span class="p">)</span>
+    <span class="kd">val</span> <span class="py">adminPassword</span> <span class="k">by</span> <span class="n">parser</span><span class="p">.</span><span class="nf">argument</span><span class="p">(</span>
+      <span class="nc">ArgType</span><span class="p">.</span><span class="nc">String</span><span class="p">,</span>
+      <span class="n">fullName</span> <span class="p">=</span> <span class="s">"admin-password"</span><span class="p">,</span>
+      <span class="n">description</span> <span class="p">=</span> <span class="s">"Admin password for the database."</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="nf">runBlocking</span> <span class="p">{</span>
+      <span class="kd">val</span> <span class="py">config</span> <span class="p">=</span>
+        <span class="nc">ConfigFactory</span><span class="p">.</span><span class="nf">load</span><span class="p">(</span><span class="s">"database.conf"</span><span class="p">).</span><span class="nf">resolve</span><span class="p">()</span>
+      <span class="kd">val</span> <span class="py">mainConfig</span> <span class="p">=</span>
+        <span class="nc">JdbcConnectionConfig</span><span class="p">.</span><span class="nf">loadFromGlobal</span><span class="p">(</span>
+          <span class="s">"jdbc-connection.main"</span><span class="p">,</span>
+          <span class="n">config</span>
+        <span class="p">)</span>
+      <span class="nf">migrateNamespace</span><span class="p">(</span>
+        <span class="s">"main"</span><span class="p">,</span>
+        <span class="n">mainConfig</span><span class="p">,</span>
+        <span class="n">adminUsername</span><span class="p">,</span>
+        <span class="n">adminPassword</span>
+      <span class="p">)</span>
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -659,6 +657,66 @@ Successfully migrated: main!
 BUILD SUCCESSFUL in 2s
 3 actionable tasks: 2 executed, 1 up-to-date
 </code></pre></div></div>
+      <h2 id="8-pro-tip-unit-test-migrations-with-hsqldb">
+        
+        
+          8. Pro-tip: Unit-test migrations with HSQLDB <a href="#8-pro-tip-unit-test-migrations-with-hsqldb" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>You can use something like HSQLDB to unit-test your JDBC-based code. HSQLDB is an in-memory database perfect for tests.</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nf">dependencies</span> <span class="p">{</span>
+  <span class="c1">//...</span>
+  <span class="nf">testImplementation</span><span class="p">(</span><span class="s">"org.hsqldb:hsqldb:2.5.1"</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>In your <code class="language-plaintext highlighter-rouge">src/test/resources</code> you could have a <code class="language-plaintext highlighter-rouge">test.database.conf</code> with a setup like:</p>
+
+<div class="language-hocon highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="l">include</span><span class="w"> </span><span class="s2">"database.conf"</span><span class="w">
+
+</span><span class="c1">// Overrides PostgreSQL connection with in-memory HSQLDB</span><span class="w">
+</span><span class="nl">jdbc-connection.main</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="k">url</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">"jdbc:hsqldb:mem:MyTestDB;sql.syntax_pgs=true"</span><span class="w">
+  </span><span class="nl">driver</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">"org.hsqldb.jdbc.JDBCDriver"</span><span class="w">
+  </span><span class="nl">username</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">null</span><span class="w">
+  </span><span class="nl">password</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Here we are using the <a href="https://hsqldb.org/doc/2.0/guide/compatibility-chapt.html#coc_compatibility_postgres">PostgreSQL compatibility mode</a>, which isn’t perfect, as it only supports standard RDBMS stuff. Depending on your SQL code, it might be enough. Note that it probably doesn’t work with <code class="language-plaintext highlighter-rouge">jsonb</code> columns 🙂 but for simpler schemas it might be enough. Or you could have code specific for HSQLDB by manipulating the <code class="language-plaintext highlighter-rouge">migrationsLocations</code> setting to point to a different path:</p>
+
+<div class="language-hocon highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="l">include</span><span class="w"> </span><span class="s2">"database.conf"</span><span class="w">
+
+</span><span class="nl">jdbc-connection.main</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="c1">//...</span><span class="w">
+  </span><span class="nl">migrationsLocations</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"classpath:db/migrations/main/hsqldb"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>And then in your tests you can run those migrations by simply calling that <code class="language-plaintext highlighter-rouge">dbMigrate</code> function, and then profit! 🤑</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="kd">class</span> <span class="nc">MyTest</span> <span class="p">{</span>
+  <span class="nd">@Test</span> <span class="k">fun</span> <span class="nf">something</span><span class="p">()</span> <span class="p">=</span>
+    <span class="nf">runBlocking</span> <span class="p">{</span>
+      <span class="kd">val</span> <span class="py">rawConfig</span> <span class="p">=</span>
+        <span class="nc">ConfigFactory</span><span class="p">.</span><span class="nf">load</span><span class="p">(</span><span class="s">"test.database.conf"</span><span class="p">).</span><span class="nf">resolve</span><span class="p">()</span>
+      <span class="kd">val</span> <span class="py">jdbcConfig</span> <span class="p">=</span>
+        <span class="nc">JdbcConnectionConfig</span><span class="p">.</span><span class="nf">loadFromGlobal</span><span class="p">(</span>
+          <span class="s">"jdbc-connection.main"</span><span class="p">,</span>
+          <span class="n">rawConfig</span>
+        <span class="p">)</span>
+      <span class="c1">// Ta da!</span>
+      <span class="nf">dbMigrate</span><span class="p">(</span><span class="n">jdbcConfig</span><span class="p">)</span>
+      <span class="c1">//...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
       <h2 id="epilogue">
         
         
@@ -668,7 +726,7 @@ BUILD SUCCESSFUL in 2s
       </h2>
     
 
-<p>For the full sample project, checkout this GitHub repository:</p>
+<p>For a sample project, checkout this GitHub repository:</p>
 
 <p><strong><a href="https://github.com/alexandru/sample-projects/tree/main/kotlin-db-migrations">sample-projects/kotlin-db-migrations</a></strong></p>
 
@@ -678,7 +736,7 @@ BUILD SUCCESSFUL in 2s
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2023-05-02T15:41:42+0300">
+    <time itemprop="dateModified" content="2023-05-02T16:06:38+0300">
         Updated: May 2, 2023
     </time>
     
@@ -786,12 +844,12 @@ BUILD SUCCESSFUL in 2s
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202305021243" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202305021243" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202305021243" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202305021243" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202305021309" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202305021309" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202305021309" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202305021309" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202305021243" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202305021309" type="text/javascript"></script>
 
 
 <script type="text/javascript">
