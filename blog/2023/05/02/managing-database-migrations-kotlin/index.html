@@ -19,14 +19,14 @@
     <meta content="The database schema should be described as code, in your repository. And you should be able to semi-automatically update your database schema on new deployments. Now in Kotlin, with Gradle and Flyway." property="og:description">
     <meta content="https://alexn.org/blog/2023/05/02/managing-database-migrations-kotlin/" property="og:url">
     <meta content="2023-05-02T07:32:06+00:00" property="article:published_time">
-    <meta content="2023-05-02T12:31:51+00:00" property="article:modified_time">
+    <meta content="2023-05-02T12:34:14+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2023-kotlin-db-migrations.png?202305021237" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2023-kotlin-db-migrations.png?202305021237" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2023-kotlin-db-migrations.png?202305021240" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2023-kotlin-db-migrations.png?202305021240" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2023-kotlin-db-migrations.png?202305021237">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2023-kotlin-db-migrations.png?202305021240">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Managing Database Migrations in Kotlin">
@@ -117,7 +117,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2023-kotlin-db-migrations.png" />
-          <img src="/assets/media/articles/2023-kotlin-db-migrations.png?202305021237" width="2980" height="1448" alt="" />
+          <img src="/assets/media/articles/2023-kotlin-db-migrations.png?202305021240" width="2980" height="1448" alt="" />
           
         </figure>
         
@@ -144,13 +144,13 @@
     <nav class="toc">
       <p class="toc-title">Table of Contents:</p>
       <ul>
-  <li><a href="#1-setup-postgresql">1. Setup PostgreSQL</a></li>
+  <li><a href="#1-postgresql-setup">1. PostgreSQL Setup</a></li>
   <li><a href="#2-initial-project-setup">2. Initial project setup</a></li>
   <li><a href="#3-configuration">3. Configuration</a></li>
   <li><a href="#4-flyway-api-library-integration">4. Flyway API library integration</a></li>
   <li><a href="#5-adding-the-sql-migrations">5. Adding the SQL migrations</a></li>
-  <li><a href="#6-configure-gradle">6. Configure Gradle</a></li>
-  <li><a href="#7-run-the-migrations">7. Run the migrations</a></li>
+  <li><a href="#6-gradle-configuration">6. Gradle Configuration</a></li>
+  <li><a href="#7-running-the-migrations">7. Running the migrations</a></li>
   <li><a href="#epilogue">Epilogue</a></li>
 </ul>
     </nav>
@@ -182,10 +182,10 @@
 <p class="warn-bubble">
   This article will depend just on Flyway’s API, or in other words, just on <code class="language-plaintext highlighter-rouge">flyway-core</code>. We are not using any available integrations with the build tools.
 </p>
-      <h2 id="1-setup-postgresql">
+      <h2 id="1-postgresql-setup">
         
         
-          1. Setup PostgreSQL <a href="#1-setup-postgresql" class="anchor">#</a>
+          1. PostgreSQL Setup <a href="#1-postgresql-setup" class="anchor">#</a>
         
         
       </h2>
@@ -602,10 +602,10 @@
 <span class="k">ON</span> <span class="k">ALL</span> <span class="n">TABLES</span> <span class="k">IN</span> <span class="k">SCHEMA</span> <span class="n">sample</span>
 <span class="k">TO</span> <span class="nv">"${dbUsername}"</span><span class="p">;</span>
 </code></pre></div></div>
-      <h2 id="6-configure-gradle">
+      <h2 id="6-gradle-configuration">
         
         
-          6. Configure Gradle <a href="#6-configure-gradle" class="anchor">#</a>
+          6. Gradle Configuration <a href="#6-gradle-configuration" class="anchor">#</a>
         
         
       </h2>
@@ -628,10 +628,10 @@
   <span class="n">args</span> <span class="p">=</span> <span class="nf">listOf</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">pass</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div></div>
-      <h2 id="7-run-the-migrations">
+      <h2 id="7-running-the-migrations">
         
         
-          7. Run the migrations <a href="#7-run-the-migrations" class="anchor">#</a>
+          7. Running the migrations <a href="#7-running-the-migrations" class="anchor">#</a>
         
         
       </h2>
@@ -678,7 +678,7 @@ BUILD SUCCESSFUL in 2s
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2023-05-02T15:31:51+0300">
+    <time itemprop="dateModified" content="2023-05-02T15:34:14+0300">
         Updated: May 2, 2023
     </time>
     
@@ -786,12 +786,12 @@ BUILD SUCCESSFUL in 2s
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202305021237" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202305021237" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202305021237" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202305021237" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202305021240" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202305021240" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202305021240" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202305021240" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202305021237" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202305021240" type="text/javascript"></script>
 
 
 <script type="text/javascript">
