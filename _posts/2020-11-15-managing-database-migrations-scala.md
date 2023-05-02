@@ -3,6 +3,7 @@ title: "Managing Database Migrations in Scala"
 tags:
   - FP
   - Scala
+  - SQL
   - Typelevel
 description: The database schema should be described as code, in your repository. And you should be able to semi-automatically update your database schema on new deployments.
 date: 2020-11-15 18:17:25+0200
@@ -247,7 +248,7 @@ Define a command, such that we can apply all migrations like:
 sbt run-db-migrations
 ```
 
-First define an "app" that can run all migrations:
+First, define an "app" that can run all migrations:
 
 ```scala
 package example
