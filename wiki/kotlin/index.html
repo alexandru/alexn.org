@@ -19,7 +19,7 @@
     <meta content="Personal, volatile wiki documentation" property="og:description">
     <meta content="https://alexn.org/wiki/kotlin/" property="og:url">
     <meta content="2023-04-30T13:07:39+00:00" property="article:published_time">
-    <meta content="2023-04-30T13:13:31+00:00" property="article:modified_time">
+    <meta content="2023-05-15T11:38:18+00:00" property="article:modified_time">
     
     <meta content="website" property="og:type">
     <meta property="og:image" content="https://alexn.org/assets/logo/800px-bordered.png" />
@@ -109,8 +109,8 @@
       <meta itemprop="datePublished" content="2023-04-30T13:07:39+0000"/>
       
       
-      <time itemprop="dateModified" content="2023-04-30T16:13:31+0300">
-        Updated: April 30, 2023
+      <time itemprop="dateModified" content="2023-05-15T14:38:18+0300">
+        Updated: May 15, 2023
       </time>
       
       
@@ -128,6 +128,17 @@
   </div>
 
   <div id="content" itemprop="articleBody">
+    
+
+  <p><strong>Contents:</strong></p>
+  <ul>
+  <li><a href="#useful-libraries">Useful libraries</a></li>
+  <li><a href="#kotlinjs--faq">Kotlin/JS — FAQ</a>
+    <ul>
+      <li><a href="#how-to-integrate-sasscss-files-in-the-webpack-build">How to integrate SASS/CSS files in the Webpack build?</a></li>
+    </ul>
+  </li>
+</ul>
       <h2 id="useful-libraries">
         
         
@@ -144,7 +155,88 @@
   <li><a href="https://github.com/Kotlin/kotlinx.serialization">kotlinx.serialization</a>: Kotlin multiplatform / multi-format serialization;</li>
   <li><a href="https://ktor.io/">Ktor</a>: HTTP client/server library;</li>
   <li><a href="https://github.com/cashapp/sqldelight">SQLDelight</a>: Generates type-safe Kotlin APIs from SQL;</li>
+  <li><a href="https://github.com/kropp/kotlinx-gettext/tree/main">kotlinx-gettext</a>: I18N library;</li>
 </ul>
+      <h2 id="kotlinjs--faq">
+        
+        
+          Kotlin/JS — FAQ <a href="#kotlinjs--faq" class="anchor">#</a>
+        
+        
+      </h2>
+    
+      <h3 id="how-to-integrate-sasscss-files-in-the-webpack-build">
+        
+        
+          How to integrate SASS/CSS files in the Webpack build? <a href="#how-to-integrate-sasscss-files-in-the-webpack-build" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Declare a <code class="language-plaintext highlighter-rouge">require</code> function:</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nd">@JsName</span><span class="p">(</span><span class="s">"require"</span><span class="p">)</span>
+<span class="k">external</span> <span class="k">fun</span> <span class="nf">jsRequire</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nc">String</span><span class="p">):</span> <span class="k">dynamic</span>
+</code></pre></div></div>
+
+<p>Declare dependencies in <code class="language-plaintext highlighter-rouge">build.gradle.kts</code>:</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nf">implementation</span><span class="p">(</span><span class="nf">devNpm</span><span class="p">(</span><span class="s">"sass"</span><span class="p">,</span> <span class="s">"^1.62.1"</span><span class="p">))</span>
+<span class="nf">implementation</span><span class="p">(</span><span class="nf">devNpm</span><span class="p">(</span><span class="s">"sass-loader"</span><span class="p">,</span> <span class="s">"^13.2.2"</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>For configuring Webpack, create a file <code class="language-plaintext highlighter-rouge">webpack.config.d/css.js</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nx">config</span><span class="p">.</span><span class="nx">module</span><span class="p">.</span><span class="nx">rules</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+    <span class="na">test</span><span class="p">:</span> <span class="sr">/</span><span class="se">\.</span><span class="sr">css$/</span><span class="p">,</span>
+    <span class="na">use</span><span class="p">:</span> <span class="p">[</span>
+        <span class="dl">"</span><span class="s2">style-loader</span><span class="dl">"</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="na">loader</span><span class="p">:</span> <span class="dl">"</span><span class="s2">css-loader</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">options</span><span class="p">:</span> <span class="p">{</span><span class="na">sourceMap</span><span class="p">:</span> <span class="kc">false</span><span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>And another file at <code class="language-plaintext highlighter-rouge">webpack.config.d/sass.js</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nx">config</span><span class="p">.</span><span class="nx">module</span><span class="p">.</span><span class="nx">rules</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+    <span class="na">test</span><span class="p">:</span> <span class="sr">/</span><span class="se">\.</span><span class="sr">s</span><span class="se">[</span><span class="sr">ac</span><span class="se">]</span><span class="sr">ss$/</span><span class="p">,</span>
+    <span class="na">use</span><span class="p">:</span> <span class="p">[</span>
+        <span class="dl">"</span><span class="s2">style-loader</span><span class="dl">"</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="na">loader</span><span class="p">:</span> <span class="dl">"</span><span class="s2">css-loader</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">options</span><span class="p">:</span> <span class="p">{</span><span class="na">sourceMap</span><span class="p">:</span> <span class="kc">false</span><span class="p">}</span>
+        <span class="p">},</span>
+        <span class="dl">"</span><span class="s2">sass-loader</span><span class="dl">"</span>
+    <span class="p">]</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>We can also declare external dependencies on CSS frameworks, such as <a href="https://bulma.io/">Bulma</a>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nx">implementation</span><span class="p">(</span><span class="nx">npm</span><span class="p">(</span><span class="dl">"</span><span class="s2">bulma</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">^0.9.4</span><span class="dl">"</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>Create <code class="language-plaintext highlighter-rouge">src/main/resources/sass/main.scss</code>:</p>
+
+<div class="language-scss highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">@import</span> <span class="s1">'~bulma/bulma'</span><span class="p">;</span>
+
+<span class="nt">html</span> <span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="no">antiquewhite</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Then in <code class="language-plaintext highlighter-rouge">src/main/kotlin/main.kt</code>:</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nf">jsRequire</span><span class="p">(</span><span class="s">"./sass/main.scss"</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Reference: <a href="https://kotlinlang.slack.com/archives/C0B8L3U69/p1684137369719519">Slack conversation</a>.</p>
 
   </div>
 </article>
@@ -152,12 +244,12 @@
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202305150532" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202305150532" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202305150532" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202305150532" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202305151140" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202305151140" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202305151140" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202305151140" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202305150532" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202305151140" type="text/javascript"></script>
 
 
 <script type="text/javascript">
