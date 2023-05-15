@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 02 May 2023 13:37:45 +0000</pubDate>
-    <lastBuildDate>Tue, 02 May 2023 13:37:45 +0000</lastBuildDate>
+    <pubDate>Mon, 15 May 2023 05:32:40 +0000</pubDate>
+    <lastBuildDate>Mon, 15 May 2023 05:32:40 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -1684,11 +1684,11 @@ sudo wget https://www.thawte.com/roots/thawte_Primary_Root_CA.pem
 <item>
   <title>Unix shell (CLI)</title>
   <description>Article 
-    updated at February 1, 2023, 
+    updated at May 15, 2023, 
     created at January 29, 2022.</description>
   <content:encoded>&lt;p&gt;
     Article 
-    updated at February 1, 2023, 
+    updated at May 15, 2023, 
     created at January 29, 2022.
   &lt;/p&gt;
   &lt;hr&gt;
@@ -1708,9 +1708,21 @@ sudo wget https://www.thawte.com/roots/thawte_Primary_Root_CA.pem
     &lt;span class=&quot;nt&quot;&gt;--include-children&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
     &lt;span class=&quot;nt&quot;&gt;--plot&lt;/span&gt; /tmp/plot.png &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
     &lt;pid&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;loadunload-environment-variables-based-on-directory&quot;&gt;Load/unload environment variables based on directory&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/direnv/direnv&quot;&gt;https://github.com/direnv/direnv&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;brew &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;direnv
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;For integrating with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zsh&lt;/code&gt;, add in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.zshrc&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;eval&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;direnv hook zsh&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content:encoded><pubDate>Sat, 29 Jan 2022 05:08:17 +0000</pubDate>
-  <dc:modified>Wed, 01 Feb 2023 08:15:45 +0000</dc:modified>
-  <atom:modified>Wed, 01 Feb 2023 08:15:45 +0000</atom:modified>
+  <dc:modified>Mon, 15 May 2023 05:25:09 +0000</dc:modified>
+  <atom:modified>Mon, 15 May 2023 05:25:09 +0000</atom:modified>
   <link>https://alexn.org/wiki/unix-shell-cli/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/unix-shell-cli/</guid>
   

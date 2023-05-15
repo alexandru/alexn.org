@@ -19,7 +19,7 @@
     <meta content="Personal, volatile wiki documentation" property="og:description">
     <meta content="https://alexn.org/wiki/unix-shell-cli/" property="og:url">
     <meta content="2022-01-29T05:08:17+00:00" property="article:published_time">
-    <meta content="2023-02-01T08:15:45+00:00" property="article:modified_time">
+    <meta content="2023-05-15T05:25:09+00:00" property="article:modified_time">
     
     <meta content="website" property="og:type">
     <meta property="og:image" content="https://alexn.org/assets/logo/800px-bordered.png" />
@@ -109,8 +109,8 @@
       <meta itemprop="datePublished" content="2022-01-29T05:08:17+0000"/>
       
       
-      <time itemprop="dateModified" content="2023-02-01T10:15:45+0200">
-        Updated: February 1, 2023
+      <time itemprop="dateModified" content="2023-05-15T08:25:09+0300">
+        Updated: May 15, 2023
       </time>
       
       
@@ -134,6 +134,7 @@
   <ul>
   <li><a href="#find-zombie-processes">Find zombie processes:</a></li>
   <li><a href="#measure-memory">Measure memory</a></li>
+  <li><a href="#loadunload-environment-variables-based-on-directory">Load/unload environment variables based on directory</a></li>
 </ul>
       <h2 id="find-zombie-processes">
         
@@ -165,6 +166,24 @@
     <span class="nt">--plot</span> /tmp/plot.png <span class="se">\</span>
     &lt;pid&gt;
 </code></pre></div></div>
+      <h2 id="loadunload-environment-variables-based-on-directory">
+        
+        
+          Load/unload environment variables based on directory <a href="#loadunload-environment-variables-based-on-directory" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p><a href="https://github.com/direnv/direnv">https://github.com/direnv/direnv</a></p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code>brew <span class="nb">install </span>direnv
+</code></pre></div></div>
+
+<p>For integrating with <code class="language-plaintext highlighter-rouge">zsh</code>, add in <code class="language-plaintext highlighter-rouge">~/.zshrc</code>:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="nb">eval</span> <span class="s2">"</span><span class="si">$(</span>direnv hook zsh<span class="si">)</span><span class="s2">"</span>
+</code></pre></div></div>
 
   </div>
 </article>
@@ -172,12 +191,12 @@
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202305021338" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202305021338" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202305021338" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202305021338" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202305150532" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202305150532" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202305150532" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202305150532" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202305021338" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202305150532" type="text/javascript"></script>
 
 
 <script type="text/javascript">
