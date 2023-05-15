@@ -1,6 +1,6 @@
 ---
 date: 2022-01-29 07:08:17 +02:00
-last_modified_at: 2023-02-01 10:15:45 +02:00
+last_modified_at: 2023-05-15 08:25:09 +03:00
 ---
 
 # Unix shell (CLI)
@@ -23,4 +23,18 @@ psrecord \
     --include-children \
     --plot /tmp/plot.png \
     <pid>
+```
+
+## Load/unload environment variables based on directory
+
+<https://github.com/direnv/direnv>
+
+```sh
+brew install direnv
+```
+
+For integrating with `zsh`, add in `~/.zshrc`:
+
+```sh
+eval "$(direnv hook zsh)"
 ```
