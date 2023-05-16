@@ -1,6 +1,6 @@
 ---
 date: 2023-04-30 16:07:39 +03:00
-last_modified_at: 2023-05-16 10:54:38 +03:00
+last_modified_at: 2023-05-16 14:46:16 +03:00
 ---
 
 # Kotlin
@@ -21,6 +21,10 @@ Kotlin/JS:
 - [kvision](https://kvision.io/): web UI framework for Kotlin, alternative to React;
   - [kvision-io (GitHub)](https://github.com/rjaros/kvision-io/): source code for a presentation website built in Kotlin, useful sample of a [Webpack](https://webpack.js.org/) configuration that integrates [Sass](https://en.wikipedia.org/wiki/Sass_(style_sheet_language)) and [Bulma](https://bulma.io/);
 
+Samples:
+
+- [Uncancelable, like in Cats-Effect](https://gist.github.com/alexandru/7527f83da03a32dbb46c281e95429ed6);
+  - Using [UncancellableRegion](https://github.com/nomisRev/arrow-fx-coroutines-utils/blob/main/src/commonMain/kotlin/io/github/nomisrev/UncancellableRegion.kt);
 
 ## Kotlin/JS — FAQ
 
