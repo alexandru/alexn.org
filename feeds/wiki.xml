@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 15 May 2023 11:40:40 +0000</pubDate>
-    <lastBuildDate>Mon, 15 May 2023 11:40:40 +0000</lastBuildDate>
+    <pubDate>Tue, 16 May 2023 07:52:28 +0000</pubDate>
+    <lastBuildDate>Tue, 16 May 2023 07:52:28 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -20,17 +20,17 @@
 <item>
   <title>Kotlin</title>
   <description>Article 
-    updated at May 15, 2023, 
+    updated at May 16, 2023, 
     created at April 30, 2023.</description>
   <content:encoded>&lt;p&gt;
     Article 
-    updated at May 15, 2023, 
+    updated at May 16, 2023, 
     created at April 30, 2023.
   &lt;/p&gt;
   &lt;hr&gt;
   
   &lt;img referrerpolicy=&quot;no-referrer-when-downgrade&quot; src=&quot;https://ly.alexn.org/m.php?idsite=1&amp;rec=1&amp;action_name=%2Ffeeds%2Fwiki.xml&amp;url=https%3A%2F%2Falexn.org%2Ffeeds%2Fwiki.xml&amp;pk_campaign=rss&amp;pk_kwd=open&quot; width=&quot;1&quot; height=&quot;1&quot; style=&quot;position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;&quot; alt=&quot;&quot;&gt;
-&lt;h2 id=&quot;useful-libraries&quot;&gt;Useful libraries&lt;/h2&gt;
+&lt;h2 id=&quot;resources&quot;&gt;Resources&lt;/h2&gt;
 
 &lt;p&gt;Kotlin-specific:&lt;/p&gt;
 
@@ -47,9 +47,23 @@
 &lt;a href=&quot;https://github.com/kropp/kotlinx-gettext/tree/main&quot;&gt;kotlinx-gettext&lt;/a&gt;: I18N library;&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;p&gt;Kotlin/JS:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://github.com/JetBrains/kotlin-wrappers/&quot;&gt;kotlin-wrappers&lt;/a&gt;: wrappers for popular JavaScript libraries;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://kvision.io/&quot;&gt;kvision&lt;/a&gt;: web UI framework for Kotlin, alternative to React;
+    &lt;ul&gt;
+      &lt;li&gt;
+&lt;a href=&quot;https://github.com/rjaros/kvision-io/&quot;&gt;kvision-io (GitHub)&lt;/a&gt;: source code for a presentation website built in Kotlin, useful sample of a &lt;a href=&quot;https://webpack.js.org/&quot;&gt;Webpack&lt;/a&gt; configuration that integrates &lt;a href=&quot;https://en.wikipedia.org/wiki/Sass_(style_sheet_language)&quot;&gt;Sass&lt;/a&gt; and &lt;a href=&quot;https://bulma.io/&quot;&gt;Bulma&lt;/a&gt;;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;h2 id=&quot;kotlinjs--faq&quot;&gt;Kotlin/JS — FAQ&lt;/h2&gt;
 
-&lt;h3 id=&quot;how-to-integrate-sasscss-files-in-the-webpack-build&quot;&gt;How to integrate SASS/CSS files in the Webpack build?&lt;/h3&gt;
+&lt;h3 id=&quot;integrate-sasscss-files-in-the-webpack-build&quot;&gt;Integrate SASS/CSS files in the Webpack build&lt;/h3&gt;
 
 &lt;p&gt;Declare a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;require&lt;/code&gt; function:&lt;/p&gt;
 
@@ -113,9 +127,41 @@
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Reference: &lt;a href=&quot;https://kotlinlang.slack.com/archives/C0B8L3U69/p1684137369719519&quot;&gt;Slack conversation&lt;/a&gt;.&lt;/p&gt;</content:encoded><pubDate>Sun, 30 Apr 2023 13:07:39 +0000</pubDate>
-  <dc:modified>Mon, 15 May 2023 11:38:18 +0000</dc:modified>
-  <atom:modified>Mon, 15 May 2023 11:38:18 +0000</atom:modified>
+&lt;p&gt;Reference: &lt;a href=&quot;https://kotlinlang.slack.com/archives/C0B8L3U69/p1684137369719519&quot;&gt;Slack conversation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;set-custom-html-attributes-when-working-with-the-kotlin-react-dsl&quot;&gt;Set custom HTML attributes, when working with the kotlin-react DSL&lt;/h3&gt;
+
+&lt;p&gt;When using the React DSL from &lt;a href=&quot;https://github.com/JetBrains/kotlin-wrappers/&quot;&gt;kotlin-wrappers&lt;/a&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-kotlin highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;code&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;react.dom.html.AnchorHTMLAttributes&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;react.dom.html.HTMLAttributes&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;operator&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;HTMLAttributes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&lt;*&gt;.&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;asDynamic&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;operator&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;HTMLAttributes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&lt;*&gt;.&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;?)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;asDynamic&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;removeAttribute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;asDynamic&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;AnchorHTMLAttributes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&lt;*&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dataTarget&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;?&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;data-target&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;data-target&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;//...&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;react.dom.html.ReactHTML&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;html&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;html&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;dataTarget&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;siteNavBar&quot;&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Reference: &lt;a href=&quot;https://github.com/JetBrains/kotlin-wrappers/issues/1788&quot;&gt;kotlin-wrappers#1788&lt;/a&gt;.&lt;/p&gt;</content:encoded><pubDate>Sun, 30 Apr 2023 13:07:39 +0000</pubDate>
+  <dc:modified>Tue, 16 May 2023 07:51:03 +0000</dc:modified>
+  <atom:modified>Tue, 16 May 2023 07:51:03 +0000</atom:modified>
   <link>https://alexn.org/wiki/kotlin/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/kotlin/</guid>
   

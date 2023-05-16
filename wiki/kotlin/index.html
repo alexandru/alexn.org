@@ -19,7 +19,7 @@
     <meta content="Personal, volatile wiki documentation" property="og:description">
     <meta content="https://alexn.org/wiki/kotlin/" property="og:url">
     <meta content="2023-04-30T13:07:39+00:00" property="article:published_time">
-    <meta content="2023-05-15T11:38:18+00:00" property="article:modified_time">
+    <meta content="2023-05-16T07:51:03+00:00" property="article:modified_time">
     
     <meta content="website" property="og:type">
     <meta property="og:image" content="https://alexn.org/assets/logo/800px-bordered.png" />
@@ -109,8 +109,8 @@
       <meta itemprop="datePublished" content="2023-04-30T13:07:39+0000"/>
       
       
-      <time itemprop="dateModified" content="2023-05-15T14:38:18+0300">
-        Updated: May 15, 2023
+      <time itemprop="dateModified" content="2023-05-16T10:51:03+0300">
+        Updated: May 16, 2023
       </time>
       
       
@@ -132,17 +132,18 @@
 
   <p><strong>Contents:</strong></p>
   <ul>
-  <li><a href="#useful-libraries">Useful libraries</a></li>
+  <li><a href="#resources">Resources</a></li>
   <li><a href="#kotlinjs--faq">Kotlin/JS — FAQ</a>
     <ul>
-      <li><a href="#how-to-integrate-sasscss-files-in-the-webpack-build">How to integrate SASS/CSS files in the Webpack build?</a></li>
+      <li><a href="#integrate-sasscss-files-in-the-webpack-build">Integrate SASS/CSS files in the Webpack build</a></li>
+      <li><a href="#set-custom-html-attributes-when-working-with-the-kotlin-react-dsl">Set custom HTML attributes, when working with the kotlin-react DSL</a></li>
     </ul>
   </li>
 </ul>
-      <h2 id="useful-libraries">
+      <h2 id="resources">
         
         
-          Useful libraries <a href="#useful-libraries" class="anchor">#</a>
+          Resources <a href="#resources" class="anchor">#</a>
         
         
       </h2>
@@ -157,6 +158,17 @@
   <li><a href="https://github.com/cashapp/sqldelight">SQLDelight</a>: Generates type-safe Kotlin APIs from SQL;</li>
   <li><a href="https://github.com/kropp/kotlinx-gettext/tree/main">kotlinx-gettext</a>: I18N library;</li>
 </ul>
+
+<p>Kotlin/JS:</p>
+
+<ul>
+  <li><a href="https://github.com/JetBrains/kotlin-wrappers/">kotlin-wrappers</a>: wrappers for popular JavaScript libraries;</li>
+  <li><a href="https://kvision.io/">kvision</a>: web UI framework for Kotlin, alternative to React;
+    <ul>
+      <li><a href="https://github.com/rjaros/kvision-io/">kvision-io (GitHub)</a>: source code for a presentation website built in Kotlin, useful sample of a <a href="https://webpack.js.org/">Webpack</a> configuration that integrates <a href="https://en.wikipedia.org/wiki/Sass_(style_sheet_language)">Sass</a> and <a href="https://bulma.io/">Bulma</a>;</li>
+    </ul>
+  </li>
+</ul>
       <h2 id="kotlinjs--faq">
         
         
@@ -165,10 +177,10 @@
         
       </h2>
     
-      <h3 id="how-to-integrate-sasscss-files-in-the-webpack-build">
+      <h3 id="integrate-sasscss-files-in-the-webpack-build">
         
         
-          How to integrate SASS/CSS files in the Webpack build? <a href="#how-to-integrate-sasscss-files-in-the-webpack-build" class="anchor">#</a>
+          Integrate SASS/CSS files in the Webpack build <a href="#integrate-sasscss-files-in-the-webpack-build" class="anchor">#</a>
         
         
       </h3>
@@ -237,6 +249,44 @@
 </code></pre></div></div>
 
 <p>Reference: <a href="https://kotlinlang.slack.com/archives/C0B8L3U69/p1684137369719519">Slack conversation</a>.</p>
+      <h3 id="set-custom-html-attributes-when-working-with-the-kotlin-react-dsl">
+        
+        
+          Set custom HTML attributes, when working with the kotlin-react DSL <a href="#set-custom-html-attributes-when-working-with-the-kotlin-react-dsl" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>When using the React DSL from <a href="https://github.com/JetBrains/kotlin-wrappers/">kotlin-wrappers</a>:</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">import</span> <span class="nn">react.dom.html.AnchorHTMLAttributes</span>
+<span class="k">import</span> <span class="nn">react.dom.html.HTMLAttributes</span>
+
+<span class="k">operator</span> <span class="k">fun</span> <span class="nf">HTMLAttributes</span><span class="p">&lt;*&gt;.</span><span class="k">get</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="nc">String</span><span class="p">):</span> <span class="nc">String</span><span class="p">?</span> <span class="p">=</span>
+    <span class="nf">asDynamic</span><span class="p">()[</span><span class="n">key</span><span class="p">]</span>
+
+<span class="k">operator</span> <span class="k">fun</span> <span class="nf">HTMLAttributes</span><span class="p">&lt;*&gt;.</span><span class="k">set</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="nc">String</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nc">String</span><span class="p">?)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+        <span class="nf">asDynamic</span><span class="p">().</span><span class="nf">removeAttribute</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">else</span>
+        <span class="nf">asDynamic</span><span class="p">()[</span><span class="n">key</span><span class="p">]</span> <span class="p">=</span> <span class="n">value</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="py">AnchorHTMLAttributes</span><span class="p">&lt;*&gt;.</span><span class="n">dataTarget</span><span class="p">:</span> <span class="nc">String</span><span class="p">?</span>
+    <span class="k">get</span><span class="p">()</span> <span class="p">=</span> <span class="k">this</span><span class="p">[</span><span class="s">"data-target"</span><span class="p">]</span>
+    <span class="k">set</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">[</span><span class="s">"data-target"</span><span class="p">]</span> <span class="p">=</span> <span class="n">value</span> <span class="p">}</span>
+
+<span class="c1">//...</span>
+<span class="k">import</span> <span class="nn">react.dom.html.ReactHTML</span> <span class="k">as</span> <span class="n">html</span>
+
+<span class="n">html</span><span class="p">.</span><span class="nf">a</span> <span class="p">{</span>
+    <span class="n">dataTarget</span> <span class="p">=</span> <span class="s">"siteNavBar"</span>
+    <span class="c1">//...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Reference: <a href="https://github.com/JetBrains/kotlin-wrappers/issues/1788">kotlin-wrappers#1788</a>.</p>
 
   </div>
 </article>
@@ -244,12 +294,12 @@
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202305151140" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202305151140" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202305151140" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202305151140" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202305160752" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202305160752" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202305160752" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202305160752" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202305151140" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202305160752" type="text/javascript"></script>
 
 
 <script type="text/javascript">
