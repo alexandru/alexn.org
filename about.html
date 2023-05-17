@@ -54,8 +54,8 @@ has_full_title: true
   <div class="content">
     <script id="email-script">
       (function () {
-        var lhs = "contact22+website";
-        var rhs = "alexn.org";
+        var lhs = "{{ site.contact.email.username }}";
+        var rhs = "{{ site.contact.email.domain }}";
         var d = document;
         var a = d.createElement("a");
         a.setAttribute("target", "_blank");

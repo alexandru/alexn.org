@@ -3,12 +3,12 @@
   <a href="#comments" class="anchor">#</a>
 </h2>
 
-<p class="only-js">
+<div class="only-js">
   Want to chat in private? Email me: 
   <script id="email-script">
     (function () {
-      var lhs = "contact22+comments";
-      var rhs = "alexn.org";
+      var lhs = "{{ site.contact.email.username }}+comments";
+      var rhs = "{{ site.contact.email.domain }}";
       var d = document;
       var a = d.createElement("a");
       a.setAttribute("target", "_blank");
@@ -18,7 +18,14 @@
       es.parentNode.insertBefore(a, es);
     })();
   </script>
-</p>
+  <noscript>
+    <em>Email address is protected via JavaScript, activate it to see it!</em>
+  </noscript>
+
+  <p class="small-note">
+    The address is changed periodically to avoid spam.
+  </p>
+</div>
 
 {% if page.has_comments %}
 <div id="comments">

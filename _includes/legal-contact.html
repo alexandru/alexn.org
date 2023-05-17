@@ -4,8 +4,8 @@
 <div class="content">
   <script id="email-script">
     (function () {
-      var lhs = "contact22+legal";
-      var rhs = "alexn.org";
+      var lhs = "{{ site.contact.email.username }}+legal";
+      var rhs = "{{ site.contact.email.domain }}";
       var d = document;
       var a = d.createElement("a");
       a.setAttribute("target", "_blank");
