@@ -19,14 +19,14 @@
     <meta content="In Scala, how do we model enumerations of values? What are the possible issues? How does Scala compare with Java? What are the changes in Scala 3?" property="og:description">
     <meta content="https://alexn.org/blog/2023/05/25/scala-enums/" property="og:url">
     <meta content="2023-05-25T11:15:29+00:00" property="article:published_time">
-    <meta content="2023-05-25T12:56:31+00:00" property="article:modified_time">
+    <meta content="2023-05-25T13:05:04+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2023-scala-enums.png?202305251257" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2023-scala-enums.png?202305251257" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2023-scala-enums.png?202305251305" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2023-scala-enums.png?202305251305" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2023-scala-enums.png?202305251257">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2023-scala-enums.png?202305251305">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Scala 3 Enums">
@@ -521,8 +521,7 @@ object Color:
 1 error found
 </code></pre>
 
-<p>In Scala 3 we can easily define enums that are compatible with Java, by extending 
-<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Enum.html">java.lang.Enum</a>:</p>
+<p>Furthermore, in Scala 3 we can easily define enums that are compatible with Java, by extending <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Enum.html">java.lang.Enum</a>, making them compatible with Java libraries:</p>
 
 <pre><code class="language-scala">// Scala 3
 
@@ -542,7 +541,7 @@ enum Color extends java.lang.Enum[Color]:
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2023-05-25T15:56:31+0300">
+    <time itemprop="dateModified" content="2023-05-25T16:05:04+0300">
         Updated: May 25, 2023
     </time>
     
@@ -662,15 +661,15 @@ enum Color extends java.lang.Enum[Color]:
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202305251257" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202305251257" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202305251257" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202305251257" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202305251305" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202305251305" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202305251305" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202305251305" type="text/javascript"></script>
 
 <!-- Syntax highlighting (https://highlightjs.org/) -->
 <script async src="/assets/js/highlight.min.js" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202305251257" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202305251305" type="text/javascript"></script>
 
 
 <script type="text/javascript">
