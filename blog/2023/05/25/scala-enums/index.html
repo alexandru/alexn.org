@@ -19,14 +19,14 @@
     <meta content="In Scala, how do we model enumerations of values? What are the possible issues? How does Scala compare with Java? What are the changes in Scala 3?" property="og:description">
     <meta content="https://alexn.org/blog/2023/05/25/scala-enums/" property="og:url">
     <meta content="2023-05-25T11:15:29+00:00" property="article:published_time">
-    <meta content="2023-05-25T12:47:14+00:00" property="article:modified_time">
+    <meta content="2023-05-25T12:48:12+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2023-scala-enums.png?202305251248" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2023-scala-enums.png?202305251248" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2023-scala-enums.png?202305251249" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2023-scala-enums.png?202305251249" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2023-scala-enums.png?202305251248">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2023-scala-enums.png?202305251249">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Scala 3 Enums">
@@ -479,16 +479,14 @@ println(Color("RED")) // Some(Red)
 
 <p>Of course, in Scala 3, we already have the new <a href="https://docs.scala-lang.org/scala3/reference/enums/enums.html">enums</a>, so the above code is only necessary if we want to port our Scala 2 code to Scala 3. In Scala 3, we can just write:</p>
 
-<pre><code class="language-scala">enum Color(val value: String) {
+<pre><code class="language-scala">enum Color(val value: String):
   case Red extends Color("RED")
   case Green extends Color("GREEN")
   case Blue extends Color("BLUE")
-}
 
-object Color {
+object Color:
   def apply(value: String): Option[Color] =
     values.find(_.value == value)
-}
   
 println(Color.values.toSet) // Set(Red, Green, Blue)
 Color("RED") // Some(Red)
@@ -541,7 +539,7 @@ enum Color extends java.lang.Enum[Color]:
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2023-05-25T15:47:14+0300">
+    <time itemprop="dateModified" content="2023-05-25T15:48:12+0300">
         Updated: May 25, 2023
     </time>
     
@@ -661,15 +659,15 @@ enum Color extends java.lang.Enum[Color]:
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202305251248" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202305251248" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202305251248" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202305251248" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202305251249" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202305251249" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202305251249" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202305251249" type="text/javascript"></script>
 
 <!-- Syntax highlighting (https://highlightjs.org/) -->
 <script async src="/assets/js/highlight.min.js" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202305251248" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202305251249" type="text/javascript"></script>
 
 
 <script type="text/javascript">
