@@ -7,6 +7,7 @@ description: "Online meetup on Scala 3's newly introduced types and features for
 tags:
   - FP
   - Scala
+  - Scala3
   - Video
 ---
 
