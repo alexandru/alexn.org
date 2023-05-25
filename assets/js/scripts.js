@@ -22,9 +22,6 @@
 		// Activate responsive navigation
 		responsiveNav(".nav-collapse");
 
-		// Activate syntax highlighting
-		hljs.highlightAll();
-
 		// Round Reading Time
 		$(".time").text(function (_index, value) {
 			return Math.round(parseFloat(value));
