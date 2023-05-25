@@ -315,7 +315,7 @@ POST STYLING
     }
   }
 
-  .highlight {
+  pre > code {
     clear: both;
     margin-bottom: 2rem;
   }
@@ -951,7 +951,7 @@ img.right {
     border: 2px dashed #f6ddd7;
   }
 
-  .highlight {
+  pre > code {
     line-height: 1.2;
     border-radius: 0;
 
@@ -962,7 +962,7 @@ img.right {
     }
   }
 
-  .formula-code, .highlight > pre.code > code {
+  .formula-code, pre > code {
     font-size: 90%;
   }
 
