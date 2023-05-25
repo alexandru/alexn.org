@@ -22,11 +22,11 @@
     <meta content="2022-10-18T17:02:09+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-effect-systems.png?202305250426" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-effect-systems.png?202305250426" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2022-effect-systems.png?202305250934" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2022-effect-systems.png?202305250934" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-effect-systems.png?202305250426">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2022-effect-systems.png?202305250934">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="The case against Effect Systems (e.g., the IO data type)">
@@ -49,7 +49,27 @@
     <link rel="canonical" href="https://alexn.org/blog/2022/10/13/the-case-against-effect-systems-io-data-type/">
     
     <style type="text/css" media="all">
-      /*! normalize.css v6.0.0 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:rgba(0,0,0,0);-webkit-text-decoration-skip:objects}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-0.25em}sup{top:-0.5em}audio,video{display:inline-block}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{margin:0}button,input{overflow:visible}button,select{text-transform:none}button,html [type=button],[type=reset],[type=submit]{-webkit-appearance:button}button::-moz-focus-inner,[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring{outline:1px dotted ButtonText}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{display:inline-block;vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details,menu{display:block}summary{display:list-item}canvas{display:inline-block}template{display:none}[hidden]{display:none}@font-face{font-family:"Fira Code";font-style:normal;font-weight:300;font-display:swap;src:url("/assets/fonts/fira-code-v8-latin-300.eot");src:local(""),url("/assets/fonts/fira-code-v8-latin-300.eot?#iefix") format("embedded-opentype"),url("/assets/fonts/fira-code-v8-latin-300.woff2") format("woff2"),url("/assets/fonts/fira-code-v8-latin-300.woff") format("woff"),url("/assets/fonts/fira-code-v8-latin-300.ttf") format("truetype"),url("/assets/fonts/fira-code-v8-latin-300.svg#FiraCode") format("svg")}@font-face{font-family:"Fira Code";font-style:normal;font-weight:500;font-display:swap;src:url("/assets/fonts/fira-code-v8-latin-500.eot");src:local(""),url("/assets/fonts/fira-code-v8-latin-500.eot?#iefix") format("embedded-opentype"),url("/assets/fonts/fira-code-v8-latin-500.woff2") format("woff2"),url("/assets/fonts/fira-code-v8-latin-500.woff") format("woff"),url("/assets/fonts/fira-code-v8-latin-500.ttf") format("truetype"),url("/assets/fonts/fira-code-v8-latin-500.svg#FiraCode") format("svg")}@font-face{font-family:"Fira Code";font-style:normal;font-weight:400;font-display:swap;src:url("/assets/fonts/fira-code-v8-latin-regular.eot");src:local(""),url("/assets/fonts/fira-code-v8-latin-regular.eot?#iefix") format("embedded-opentype"),url("/assets/fonts/fira-code-v8-latin-regular.woff2") format("woff2"),url("/assets/fonts/fira-code-v8-latin-regular.woff") format("woff"),url("/assets/fonts/fira-code-v8-latin-regular.ttf") format("truetype"),url("/assets/fonts/fira-code-v8-latin-regular.svg#FiraCode") format("svg")}@font-face{font-family:"Fira Code";font-style:normal;font-weight:600;font-display:swap;src:url("/assets/fonts/fira-code-v8-latin-600.eot");src:local(""),url("/assets/fonts/fira-code-v8-latin-600.eot?#iefix") format("embedded-opentype"),url("/assets/fonts/fira-code-v8-latin-600.woff2") format("woff2"),url("/assets/fonts/fira-code-v8-latin-600.woff") format("woff"),url("/assets/fonts/fira-code-v8-latin-600.ttf") format("truetype"),url("/assets/fonts/fira-code-v8-latin-600.svg#FiraCode") format("svg")}@font-face{font-family:"Fira Code";font-style:normal;font-weight:700;font-display:swap;src:url("/assets/fonts/fira-code-v8-latin-700.eot");src:local(""),url("/assets/fonts/fira-code-v8-latin-700.eot?#iefix") format("embedded-opentype"),url("/assets/fonts/fira-code-v8-latin-700.woff2") format("woff2"),url("/assets/fonts/fira-code-v8-latin-700.woff") format("woff"),url("/assets/fonts/fira-code-v8-latin-700.ttf") format("truetype"),url("/assets/fonts/fira-code-v8-latin-700.svg#FiraCode") format("svg")}body .intro{font-size:1.25em;line-height:1.7}h1,.h1,h2,.h2,h3,.h3,h4,.h4,h5,.h5,h6,.h6{margin:.5rem 0 1.5rem;font-family:"Gill Sans",Tahoma,Helvetica,Arial,sans-serif}h1,.h1{font-size:2em;line-height:1.25}@media(min-width: 43.75em){h1,.h1{font-size:2.5em;line-height:1.125}}@media(min-width: 56.25em){h1,.h1{font-size:3em;line-height:1.05}}h2,.h2{font-size:1.625em;line-height:1.15384615}@media(min-width: 43.75em){h2,.h2{font-size:2em;line-height:1.25}}@media(min-width: 56.25em){h2,.h2{font-size:2.25em;line-height:1.25}}h3,.h3{font-size:1.375em;line-height:1.13636364}@media(min-width: 43.75em){h3,.h3{font-size:1.5em;line-height:1.25}}@media(min-width: 56.25em){h3,.h3{font-size:1.75em;line-height:1.25}}h4,.h4{font-size:1.125em;line-height:1.11111111}@media(min-width: 43.75em){h4,.h4{line-height:1.22222222}}.button__outline,.button-tertiary,.button-secondary,.button{background-color:#00649e;display:inline-block;position:relative;font-family:"Gill Sans",Tahoma,Helvetica,Arial,sans-serif;text-decoration:none;color:#fff;font-size:1em;line-height:1.2em;font-weight:normal;padding:.5em 1.5em;border:0;border-radius:4px;cursor:pointer;margin-bottom:.5em;transition:background-color .14s ease-in-out}.button__outline:hover,.button-tertiary:hover,.button-secondary:hover,.button:hover,.button__outline:focus,.button-tertiary:focus,.button-secondary:focus,.button:focus{color:#fff;text-decoration:none;background-color:#00446b}.button__outline:active,.button-tertiary:active,.button-secondary:active,.button:active{top:1px}.button-secondary{background-color:#008bd8}.button-secondary:hover{background-color:#006aa5}.button-tertiary{background-color:#aaa}.button-tertiary:hover{background-color:#919191}.button__outline{background-color:rgba(0,0,0,0);border:3px solid #00649e;color:#00649e}.button__outline:hover{background-color:#00649e;color:#fff}span.link-logo{text-decoration:none !important}span.link-logo img{height:28px;width:28px;vertical-align:middle;margin-right:10px}a span.link-logo img{filter:invert(17%) sepia(47%) saturate(1856%) hue-rotate(174deg) brightness(95%) contrast(97%)}label{display:block;margin-bottom:5px}input[type=text],input[type=email],input[type=phone],input[type=password],input[type=number],input[type=search],textarea{background:#e6e6e6;padding:5px;outline:none;border:none;height:44px;width:300px;margin-bottom:.5rem;font-size:100%}input[type=text]:focus,input[type=email]:focus,input[type=phone]:focus,input[type=password]:focus,input[type=number]:focus,input[type=search]:focus,textarea:focus{border:1px solid #00649e}input[type=text].full-width,input[type=email].full-width,input[type=phone].full-width,input[type=password].full-width,input[type=number].full-width,input[type=search].full-width,textarea.full-width{width:100%}textarea{height:132px}form{margin-bottom:40px}form .field{margin-bottom:20px}form label{color:#666}form .note-warning{margin-top:5px;color:#aaa}form .req{font-style:italic}form .asterisk{color:darkred}form .error .reason{margin-top:5px;color:#ff4136}form .error input[type=text],form .error input[type=email],form .error input[type=phone],form .error input[type=password],form .error input[type=number],form .error input[type=search],form .error textarea{border-color:#ff4136}table{width:100%;border:1px solid #d0d0d0;margin-bottom:1.5em}table caption{margin:0 0 7px;font-size:.75em;color:#aaa;text-transform:uppercase;letter-spacing:1px}tr{border-bottom:1px solid #d0d0d0}tr:nth-child(even){background-color:#f7f7f7}td{padding:7px;border-right:1px solid #d0d0d0}td:last-child{border-right:0}th{background-color:#f7f7f7;border-bottom:1px solid #d0d0d0;border-right:1px solid #d0d0d0}th:last-child{border-right:0}.highlight{color:#333;background:#f0f0f0;white-space:pre;overflow:auto;word-wrap:normal;border:1px solid #bbb;border-radius:4px;padding:10px 0;line-height:1.3;font-size:.9em}code.highlighter-rouge{background-color:rgba(27,31,35,.05);padding:.2em .4em;margin:0;font-size:85%;border-radius:3px}div.formula-code{color:#333;background:#f0f0f0;white-space:pre;overflow:auto;word-wrap:normal;border:1px solid #bbb;border-radius:4px;padding:10px 0;margin:0 0 20px 0}div.formula-code .MathJax_Display{margin:0 !important}.highlight .hll{background-color:#ffc}.highlight .c{color:#999}.highlight .err{color:#a00;background-color:#faa}.highlight .k{color:#069}.highlight .o{color:#555}.highlight .cm{color:#09f;font-style:italic}.highlight .cp{color:#099}.highlight .c1{color:#999}.highlight .cs{color:#999}.highlight .gd{background-color:#fcc;border:1px solid #c00}.highlight .ge{font-style:italic}.highlight .gr{color:red}.highlight .gh{color:#030}.highlight .gi{background-color:#cfc;border:1px solid #0c0}.highlight .go{color:#aaa}.highlight .gp{color:#009}.highlight .gu{color:#030}.highlight .gt{color:#9c6}.highlight .kc{color:#069}.highlight .kd{color:#069}.highlight .kn{color:#069}.highlight .kp{color:#069}.highlight .kr{color:#069}.highlight .kt{color:#078}.highlight .m{color:#f60}.highlight .s{color:#d44950}.highlight .na{color:#4f9fcf}.highlight .nb{color:#366}.highlight .nc{color:#0a8}.highlight .no{color:#360}.highlight .nd{color:#99f}.highlight .ni{color:#999}.highlight .ne{color:#c00}.highlight .nf{color:#c0f}.highlight .nl{color:#99f}.highlight .nn{color:#0cf}.highlight .nt{color:#2f6f9f}.highlight .nv{color:#033}.highlight .ow{color:#000}.highlight .w{color:#bbb}.highlight .mf{color:#f60}.highlight .mh{color:#f60}.highlight .mi{color:#f60}.highlight .mo{color:#f60}.highlight .sb{color:#c30}.highlight .sc{color:#c30}.highlight .sd{color:#c30;font-style:italic}.highlight .s2{color:#c30}.highlight .se{color:#c30}.highlight .sh{color:#c30}.highlight .si{color:#a00}.highlight .sx{color:#c30}.highlight .sr{color:#3aa}.highlight .s1{color:#c30}.highlight .ss{color:#fc3}.highlight .bp{color:#366}.highlight .vc{color:#033}.highlight .vg{color:#033}.highlight .vi{color:#033}.highlight .il{color:#f60}#isso-thread *{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}#isso-thread{padding:0;margin:0}h4.isso-thread-heading{color:#555;font-weight:bold}.isso-feedlink{float:right;padding-left:1em}.isso-feedlink a{font-size:.8em;vertical-align:bottom}.isso-comment{max-width:68em;margin:0 auto}.isso-preview .isso-comment{padding-top:0;margin:0}.isso-comment:not(:first-of-type),.isso-follow-up .isso-comment{border-top:1px solid rgba(0,0,0,.1);margin-bottom:.5em}.isso-avatar{display:block;float:left;margin:.95em .95em 0}.isso-avatar svg{max-width:48px;max-height:48px;width:100%;height:100%;border:1px solid rgba(0,0,0,.2);border-radius:3px;box-shadow:0 1px 2px rgba(0,0,0,.1)}.isso-text-wrapper{display:block;padding:.95em}.isso-follow-up{padding-left:calc(7% + 20px)}.isso-comment-footer{font-size:.95em}.isso-comment-header{font-size:.85em}.isso-comment-header a{text-decoration:none}.isso-comment-header .isso-spacer{padding:0 6px}.isso-spacer,.isso-permalink,.isso-note,.isso-parent{color:gray;font-weight:normal;text-shadow:none}.isso-spacer:hover,.isso-permalink:hover,.isso-note:hover,.isso-parent:hover{color:#606060}.isso-note{float:right}.isso-author{font-weight:bold;color:#555}.isso-page-author-suffix{font-weight:bold;color:#2c2c2c}.isso-textarea,.isso-preview{margin-top:.2em;width:100%;border:1px solid #f0f0f0;border-radius:2px;box-shadow:0 0 2px #888}.isso-text p{margin-top:.2em}.isso-text p:last-child{margin-bottom:.2em}.isso-text h1,.isso-text h2,.isso-text h3,.isso-text h4,.isso-text h5,.isso-text h6{font-size:130%;font-weight:bold}.isso-text pre{background:#eee;border:1px solid #ddd;padding:10px 15px;color:#4d4d4c;overflow:auto;line-height:1.5em}.isso-text :not(pre)>code{padding:.2em .4em;margin:0;font-size:85%;background-color:#eee;border-radius:6px}.isso-comment-footer{font-size:.8em;color:gray;clear:left}.isso-feedlink,.isso-comment-footer a{font-weight:bold;text-decoration:none}.isso-feedlink:hover,.isso-comment-footer a:hover{color:#111;text-shadow:#aaa 0 0 1px}.isso-comment-footer>a{position:relative;top:.2em}.isso-comment-footer>a+a{padding-left:1em}.isso-comment-footer .isso-votes{color:gray}.isso-upvote svg,.isso-downvote svg{position:relative;top:.2em}.isso-comment .isso-postbox{margin-top:.8em}.isso-comment.isso-no-votes>*>.isso-comment-footer .isso-votes{display:none}.isso-postbox{max-width:68em;margin:0 auto 2em;clear:right}.isso-form-wrapper{display:block;padding:0}.isso-textarea,.isso-preview{margin:0 0 .3em;padding:.4em .8em;border-radius:3px;background-color:#fff;border:1px solid rgba(0,0,0,.2);box-shadow:0 1px 2px rgba(0,0,0,.1)}.isso-textarea{outline:0;width:100%;resize:none}.isso-form-wrapper input[type=checkbox]{vertical-align:middle;position:relative;bottom:1px;margin-left:0}.isso-notification-section{font-size:.9em;padding-top:.3em;display:none;padding-bottom:10px}.isso-auth-section{display:block}.isso-textarea:focus,.isso-input-wrapper input:focus,.isso-auth-section input:focus{outline:2px solid #3584e4}.isso-input-wrapper{display:inline-block;position:relative;margin:0 1% 0 0}.isso-input-wrapper input{display:block;padding:.3em 10px;max-width:100%;border-radius:3px;background-color:#fff;line-height:1.4em;border:1px solid rgba(0,0,0,.2);box-shadow:0 1px 2px rgba(0,0,0,.1)}.isso-input-wrapper label{display:block;line-height:1.4em;height:1.4em}.isso-post-action{display:block;float:right;margin:1.4em 0 0 5px}.isso-post-action>input{padding:calc(.3em - 1px);border-radius:2px;border:1px solid #ccc;background-color:#ddd;cursor:pointer;outline:0;line-height:1.4em;box-shadow:0 1px 2px rgba(0,0,0,.1)}.isso-post-action>input:hover{background-color:#ccc}.isso-post-action>input:active{background-color:#bbb}.isso-preview,.isso-post-action input[name=edit],.isso-postbox.isso-preview-mode>.isso-form-wrapper input[name=preview],.isso-postbox.isso-preview-mode>.isso-form-wrapper .isso-textarea{display:none}.isso-postbox.isso-preview-mode>.isso-form-wrapper .isso-preview{display:block}.isso-postbox.isso-preview-mode>.isso-form-wrapper input[name=edit]{display:inline}.isso-preview{background-color:#f8f8f8;background:repeating-linear-gradient(-45deg, #f8f8f8, #f8f8f8 10px, #fff 10px, #fff 20px)}.isso-target{animation:isso-target-fade 5s ease-out}@keyframes isso-target-fade{0%{background-color:#eee5a1}}@media screen and (max-width: 600px){.isso-input-wrapper{display:block;max-width:100%;margin:0 0 .3em}.isso-input-wrapper input{width:100%}.isso-post-action{margin-top:0}}html.dark-reader body{background-image:none}html.dark-reader body .footer{background-image:none}html{box-sizing:border-box;background-color:#fefefe}*,*:before,*:after{box-sizing:inherit}body{background-color:#fff;background-image:url("/assets/media/tile-graphpaper.png");font-family:Georgia,Times,serif;line-height:1.75;font-size:112.5%;color:#111;overflow-x:hidden;margin:0}body p,body ul{margin:0 0 2rem}body code{font-family:"Fira Code",monospace,monospace;font-variant-ligatures:common-ligatures}::-moz-selection{background:#00649e;color:#fff}::selection{background:#00649e;color:#fff}img,video,audio,iframe,object{max-width:100%;height:auto}.container{max-width:610px;padding:0 20px;margin-left:auto;margin-right:auto}a{color:#00649e}a:hover{color:#003452}.nav-collapse{z-index:1}.nav-collapse ul{margin:0;padding:0;width:100%;display:block;list-style:none}.nav-collapse ul li{width:100%;display:block;background:#57457a;border-bottom:2px solid #675291}.nav-collapse ul li a{color:#fff;text-decoration:none;display:block;padding:5px 2rem}.nav-collapse{clip:rect(0 0 0 0);max-height:0;position:absolute;display:block;overflow:hidden;transform:scale(1);transform-origin:0 0;clear:both;width:100%}.no-js .nav-collapse{position:relative;max-height:none}.nav-collapse.opened{max-height:9999px}.nav-toggle{-webkit-tap-highlight-color:rgba(0,0,0,0);-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none;float:right;line-height:2em;margin-top:.5em;background-color:#00649e;border-radius:4px;padding:0 .5em;color:#fff;text-decoration:none;position:relative;right:2rem;transition:all .2s ease-in-out}.nav-toggle:hover{color:#fff;background-color:#00446b}.noList{list-style:none;padding-left:0;margin-left:0}dt{font-weight:bold}dd{margin:0 0 1.5rem}.post ul ul,.post ul ol,.post ol ul,.post ol ol{margin:0}ul.links-with-icons,ol.links-with-icons{list-style:none;padding-left:20px}.pageTitle{margin:2rem auto 1em;text-align:center}.pageTitle .type{color:#888}.content{padding-top:1em}.js .header{height:3em}.header{background-color:#473864;background-size:cover;background-position:center center;color:#fff;padding:0}.header .container{padding:0;max-width:100%}.header h1{margin:0;float:left;padding-left:2rem;font-size:1em;line-height:3em;font-family:"Gill Sans",Tahoma,Helvetica,Arial,sans-serif;text-transform:lowercase}.header h1 .wide1,.header h1 .wide2{display:none}.header h1 a{color:#e9d9ff;text-decoration:none;font-family:"Fira Code",monospace,monospace;font-variant-ligatures:common-ligatures;text-shadow:0px 0px 4px #000}.post .postTitle{text-align:center;margin-top:2rem;margin-bottom:1rem}.post blockquote{color:#57606a;border-left:.25em solid #d9d9d9;display:block;margin:0;padding-left:1rem}.post blockquote p{margin-left:0;margin-right:0;width:100%}.post .meta,.post #article-details{text-align:center;color:gray;font-family:Georgia,Times,serif;font-weight:normal}.post .meta a,.post #article-details a{color:#1d8dcd;text-decoration:none}.post .meta a:hover,.post #article-details a:hover{text-decoration:underline}.post figure{margin:3rem 0}.post figure figcaption{text-align:center;font-size:.9em;font-style:italic;color:#5e5e5e}.post figure img{margin:0 auto;display:block}.post img{border-radius:3px}.post img.left{float:left;margin-right:1em;margin-bottom:1em}.post img.right{float:right;margin-left:1em;margin-bottom:1em}.post .highlight{clear:both;margin-bottom:2rem}.post .dropcap{color:#00649e;margin-right:.45rem}.post .featuredImage{position:relative;margin-top:2rem}.post .featuredImage img{margin-bottom:0}.post #article-details{border:0;border-top:2px solid #d9d9d9;width:100%;text-align:left;margin:0 auto;padding:1rem 0}.post #article-details #all-categories{margin-top:1rem;padding-top:1rem;border-top:1px solid #e6e6e6}.post .snippets ul{margin-top:1rem}.post .snippets ul li time{font-weight:normal;font-size:.9em;color:gray}.post hr{border-style:solid;border-color:#d9d9d9;border-width:1.5px 0 0 0;margin-top:2rem;margin-bottom:2rem}.post div.footnotes{font-size:85%}.post div.footnotes ol{margin:0;margin-bottom:2rem;width:100%;list-style-position:outside;padding-left:30px}.post div.footnotes li p{margin-left:0;margin-right:0;width:100%}.post.snippet .postTitle{font-size:100%}.post div.related{border-top:1.5px solid #d9d9d9}.post div.related,div.archive_list{width:100%;margin:0 auto}.post div.related h2,div.archive_list h2{margin:0;margin-top:1rem;color:#000}.post div.related div.container,div.archive_list div.container{display:block;margin-top:2rem}.post div.related div.container div.item,div.archive_list div.container div.item{clear:left;margin-bottom:1rem;width:100%}.post div.related div.container div.item div.related-image,div.archive_list div.container div.item div.related-image{display:block;float:right;margin-bottom:1rem;margin-left:1rem;width:42px;height:42px;background-position:center;background-repeat:no-repeat;background-size:cover;background-color:rgba(0,0,0,.1);border-radius:2px;text-decoration:none;padding:1rem}.post div.related div.container div.item .related-meta,div.archive_list div.container div.item .related-meta{font-family:Georgia,Times,serif;font-weight:normal;font-size:.9em;color:gray;line-height:1.5}.post div.related div.container div.item .related-meta a,div.archive_list div.container div.item .related-meta a{color:#1d8dcd;text-decoration:none}.post div.related div.container div.item .related-meta a:hover,div.archive_list div.container div.item .related-meta a:hover{text-decoration:underline}div.archive_list{position:relative}div.archive_list h3{margin-top:4rem;color:#a66c75}div.archive_list:before{content:"";position:absolute;bottom:-2rem;left:0;background:#e6e6e6;height:2px;width:60px}div.archive_list.last:before{display:none}.postNav{border-top:1px solid #d9d9d9;border-bottom:1px solid #d9d9d9;overflow:hidden}.postNav .prev,.postNav .next{display:block;width:100%;height:5rem;overflow:hidden;position:relative;font-family:"Gill Sans",Tahoma,Helvetica,Arial,sans-serif;font-weight:800;font-size:.9em;text-transform:uppercase;text-align:center}.postNav .prev img,.postNav .next img{z-index:1;display:block;position:absolute;top:50%;transform:translateY(-50%);left:0;width:100%;height:auto}.postNav .prev span,.postNav .next span{z-index:10;position:relative;padding:.5rem;position:absolute;top:50%;transform:translateY(-50%);width:100%;line-height:1.4}.postNav .prev.image,.postNav .next.image{text-decoration:none;color:#fff;text-shadow:1px 1px 3px rgba(0,0,0,.8);padding:0 .5rem;position:relative;transition:all .2s ease-in-out}.postNav .prev:hover.image,.postNav .next:hover.image{opacity:.8}.postNav .prev span{left:0}.postNav .next span{right:0}.footer{margin-top:2rem;clear:both;background:#fafafa}.footer hr{display:block;clear:both;border:1px solid #eaeaea;margin:1rem 0}.footer #footer-comments-widget{border-bottom:2px solid #eaeaea;margin-bottom:1rem}.footer .contributions{padding:1rem 0}.footer .contributions .note-warning{border:1px solid #e1e4e8;background-color:#f6f8fa;border-radius:3px;padding:16px;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;margin-bottom:1rem}.footer .contributions .note-warning .extra{color:#586069}.footer .contributions .note-warning .extra .link-logo img{opacity:.6}.footer .contributions #disqus_thread{max-width:90%;margin:0 auto;overflow:auto}.footer .contributions h2,.footer .contributions h3{margin-top:0;color:#a66c75}.footer .contributions #share{border-bottom:1px solid #c69aa1}.footer .contributions #isso-thread{font-size:90%}.footer .contributions #isso-thread .isso-comment>.isso-text-wrapper>div.isso-comment-header{display:inline-block;vertical-align:middle}.footer .contributions #isso-thread .isso-comment>.isso-text-wrapper>div.isso-text{clear:both}.footer .contributions #isso-thread .isso-comment>.isso-text-wrapper p{margin:0 0 .7rem}.footer .contributions #isso-thread .isso-comment>.isso-text-wrapper blockquote{color:#777;margin:5px 0;padding:5px;padding-left:10px;border-left:4px solid #ddd;background-color:#f7f7f7}.footer .contributions #isso-thread .isso-comment>.isso-text-wrapper code{color:#333;background:#f0f0f0}.footer .contributions #isso-thread .isso-comment>.isso-text-wrapper pre{color:#333;background:#f0f0f0;white-space:pre;overflow:auto;word-wrap:normal;border:1px solid #bbb;border-radius:4px;padding:10px 0}.footer .contributions #isso-thread .isso-form-wrapper{font-size:90%}.footer .contributions #isso-thread .isso-textarea-wrapper textarea.isso-textarea{height:80px}.footer .contributions #isso-thread .isso-auth-section{font-size:90%}.footer .contributions #isso-thread .isso-auth-section .isso-input-wrapper{display:block}.footer .contributions #isso-thread .isso-auth-section .isso-input-wrapper input{width:100%;height:auto}.footer .contributions #isso-thread .isso-auth-section .isso-post-action{margin:.5em 0px 0px 5px}.footer .contributions #isso-thread .isso-auth-section .isso-post-action input{padding:.2em 1em;border-radius:4px;border:0;margin-right:5px}.footer .contributions #isso-thread .isso-auth-section .isso-post-action input[type=submit]{background-color:#00649e;color:#fff;font-weight:bold;border:0;cursor:pointer}.footer .contributions #isso-thread .isso-auth-section .isso-post-action input[type=submit]:hover{color:#fff;background-color:#007bc2}.footer .contributions #isso-thread #isso-root{clear:both}.footer .contributions #isso-thread .isso-avatar img{max-width:24px;max-height:24px;border-radius:3px}.footer .contributions #mc_embed_signup form{margin-bottom:0}.footer .bottom{background:#f2f2f2;font-size:.8em;color:#656c7a;border-top:2px solid #eaeaea;border-bottom:2px solid #eaeaea;padding:1rem 0}.footer .bottom .container{max-width:90%;text-align:center}.footer .bottom .container .copy,.footer .bottom .container .links{display:block}.pagination div.page_number{color:gray;border-top:1px dashed #aaa;padding:1rem 0}.pagination .next{float:left}.pagination .previous{float:right}.posts li{margin-bottom:4rem;position:relative}.posts li:before{content:"";position:absolute;bottom:-2rem;left:0;background:#e6e6e6;height:2px;width:60px}.posts li:last-child:before{display:none}.posts li a{text-decoration:none}.posts li a:hover{text-decoration:underline}.posts li .meta{font-family:Georgia,Times,serif;font-weight:normal;font-size:.9em;color:gray}.posts li .meta time{display:block}.posts li .meta a{color:#1d8dcd;text-decoration:none}.posts li .meta a:hover{text-decoration:underline}.posts li h3{margin:0 0 .5em}#home{padding-top:2em}#home .postTitle{text-align:center}img.right{float:none}.patreon-button img{width:170px;height:40px}.post.about img.avatar{width:100px}.small-note{font-size:80%;color:gray}.video .youtube-play-link{position:relative;display:block;box-shadow:0px 0px 5px 0px rgba(50,50,50,.3);border-radius:3px}.video .youtube-play-link:before{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);-webkit-transform:translate(-50%, -50%);display:block;width:80px;height:56px;font-size:1px;content:" ";opacity:.8;z-index:100;background-image:url(/assets/media/youtube.png);background-size:80px 56px;background-position:center;background-repeat:no-repeat;transition-timing-function:ease-in;transition:opacity .3s}.video .youtube-play-link:hover:before{opacity:1}.video .youtube-play-link img.play-thumb{display:block;min-height:70px}.video .video-container{position:relative;padding-bottom:56.25%;padding-top:10px;height:0;overflow:hidden}.video .video-container iframe,.video .video-container object,.video .video-container embed{position:absolute;top:0;left:0;width:100%;height:100%}.no-js .only-js{display:none}.no-js .video .video-container{display:none}.posts img{border-radius:3px}.posts figure{margin:1rem 0}.posts figure figcaption{text-align:center;font-size:.9em;font-style:italic;color:#5e5e5e}.posts figure img{margin:0 auto;display:block}.hidden{display:none}.post header nav.toc{border-top:1px solid #d9d9d9;border-bottom:1px solid #d9d9d9;margin-bottom:1rem}.post header nav.toc ul{margin-bottom:1rem}.post header nav.toc .toc-title{font-weight:bold;margin:1rem auto 1rem}.post .warn-bubble,.post .info-bubble,.post.privacy_policy #opt_out_frame iframe{background-color:rgba(226,231,240,.3);color:#555;padding:7px;border:2px dashed #e2f0e7;border-radius:10px}.post .warn-bubble{color:#655;background-color:rgba(243,235,237,.3);border:2px dashed #f6ddd7}.post .highlight{line-height:1.2;border-radius:0}.post .highlight pre.code{margin:0 auto;padding:0 5px;width:100%}.post .formula-code,.post .highlight>pre.code>code{font-size:90%}.post.privacy_policy #opt_out_frame iframe{width:100%;height:300px}h1,h2,h3,h4,h5,h6{color:#111;font-weight:700}h1 a.anchor,h2 a.anchor,h3 a.anchor,h4 a.anchor,h5 a.anchor,h6 a.anchor{color:#d3d3d3;font-weight:normal;text-decoration:none}h1 a.anchor:hover,h2 a.anchor:hover,h3 a.anchor:hover,h4 a.anchor:hover,h5 a.anchor:hover,h6 a.anchor:hover{color:gray}.nobr{white-space:nowrap}.clearfix{transform:scale(1);transform-origin:0 0}.clearfix:before,.clearfix:after{content:" ";display:block;height:0;overflow:hidden}.clearfix:after{clear:both}@media only screen and (min-width: 375px){.header h1 .wide1{display:inline}}@media only screen and (min-width: 500px){.header h1 .wide1,.header h1 .wide2{display:inline}.post.privacy_policy #opt_out_frame iframe{height:260px}}@media only screen and (min-width: 800px){body{font-size:125%}.content{padding-top:0;position:relative;z-index:1}.container{max-width:880px;margin-left:auto;margin-right:auto;padding:0}#home .posts,#home .pageTitle,#home .pagination,#home .archive_list{width:75%;float:none;margin:0 auto 1.5em}#home .pageTitle{margin:2rem auto 1em}.js .header,.no-js .header{height:7em;position:relative;padding-bottom:0}.js .header .wide1,.js .header .wide2,.no-js .header .wide1,.no-js .header .wide2{display:inline}.js .header .container,.no-js .header .container{position:relative;top:50%;transform:translateY(-50%);max-width:880px;overflow:hidden}.js .header .container .inner-container,.no-js .header .container .inner-container{width:75%;margin:0 auto}.js .header h1,.no-js .header h1{font-size:2em;line-height:1;padding-left:0}.js .header nav,.no-js .header nav{float:left;clear:left}.js .header nav ul,.no-js .header nav ul{margin:0}.js .header nav ul li,.no-js .header nav ul li{display:inline;line-height:3em;background:none;padding:0 5px;border:none}.js .header nav ul li a,.no-js .header nav ul li a{color:#fff;font-size:.9em;text-decoration:none;padding:0 .25em}.js .header nav ul li a:hover,.no-js .header nav ul li a:hover{color:#ccc}.js .header nav ul li.current,.no-js .header nav ul li.current{padding-bottom:.25em;border-bottom:4px solid rgba(255,255,255,.4)}.nav-collapse{position:relative;max-height:none}.nav-collapse.closed{max-height:none}.nav-collapse ul li a{display:inline-block}.nav-toggle{display:none}.post h1,.post h2,.post h3,.post h4,.post h5,.post h6,.post p,.post ul,.post ol,.post dl,.post .pageTitle,.post .content,.post .page-width,.post blockquote,.post div.footnotes{width:75%;float:none;margin:0 auto 2rem}.post hr{width:75%}.post div.footnotes{margin:0 auto 1rem}.post div.footnotes p{margin-bottom:1rem}.post h1,.post .h1,.post h2,.post .h2,.post h3,.post .h3,.post h4,.post .h4,.post h5,.post .h5,.post h6,.post .h6{margin:1rem auto}.post .pageTitle{margin:2rem auto 1em}.post .featuredImage{position:relative;margin-top:2rem}.post .highlight{font-size:.8em;padding:20px}.post div.formula-code{padding:20px 10px}.post blockquote{padding-left:2rem}.post.snippet .postTitle{font-size:120%}.postNav .prev,.postNav .next{width:50%}.postNav .prev{float:left;text-align:left}.postNav .next{text-align:right;float:right}.footer .container{max-width:880px}.footer .contributions{width:75%;margin:0 auto}.footer .contributions .avatar img{max-width:48px;max-height:48px;border-radius:5px}.footer .contributions #isso-thread .isso-avatar img{max-width:32px;max-height:32px}.footer .bottom .container .copy::after{content:"|"}.footer .bottom .container .copy,.footer .bottom .container .links{display:inline}.contactContent{max-width:48%;margin-right:2%;float:left}#contact form{max-width:48%;width:48%;float:right;margin-right:0}img.right{float:right}.post.about img.avatar{width:300px}div.header nav{text-shadow:0px 0px 4px #000}#abonament form{width:75%;margin:0 auto 2rem}.post div.related{width:75%}.post #article-details{width:75%}.post .formula-code,.post .highlight>pre.code>code{font-size:100%}.post.privacy_policy #opt_out_frame iframe{height:190px}.video .youtube-play-link:before{width:120px;height:84px;background-size:120px 84px}}@media only screen and (min-width: 1200px){body{font-size:137.5%}.container{max-width:990px}.container .inner-container{width:75%;margin:0 auto}.js .header .container,.no-js .header .container{max-width:990px}.post .formula-code,.post .highlight>pre.code>code{font-size:110%}.post.privacy_policy #opt_out_frame iframe{height:180px}.footer .container{max-width:990px}.post.snippet .postTitle{font-size:140%}}@media(prefers-color-scheme: dark){:root{color-scheme:light dark}html,body,*{scrollbar-width:thin;scrollbar-color:#727173 #1e2223}body::-webkit-scrollbar,*::-webkit-scrollbar{width:10px}body::-webkit-scrollbar-track,*::-webkit-scrollbar-track{background:#1e2223}body::-webkit-scrollbar-thumb,*::-webkit-scrollbar-thumb{background-color:#727173;border-radius:6px;border:3px solid #1e2223}html{background-color:#171a1b;background-image:none}body{background-color:#171a1b;background-image:none;color:#c8d1d8}body a{color:#00c1ff}body a:hover{color:#0087b3}body .header{background-color:#473864}body h1,body h2,body h3,body h4,body h5,body h6{color:#dddad6}body .highlight{background:#11202c;color:#fefffe;border:1px solid #333}body div.formula-code{background:#11202c;color:#fefffe;border:1px solid #333}body code.language-plaintext.highlighter-rouge{background-color:#1e2325}body form label{color:#777}body form select,body form input,body form textarea,body form button,body form .textarea,body form input[type=text],body form input[type=email],body form input[type=phone],body form input[type=password],body form input[type=number],body form input[type=search]{border:1px solid #1a1a1a;color:#afafaf;background:#242424;transition:background-color .3s cubic-bezier(0.57, 0.21, 0.69, 1.25),transform .3s cubic-bezier(0.57, 0.21, 0.69, 1.25)}body form button,body form input[type=submit],body form input[type=button],body form input[type=reset]{border:1px solid #262626;background:#333}body form ::placeholder{color:inherit;opacity:1}body .post header nav.toc{border-color:#2f363c}body .post .info-bubble{background-color:#25313c;border-color:#384b5c;color:#c8d1d8}body .post .info-bubble code.language-plaintext.highlighter-rouge{background-color:#2f3e4c}body .post .warn-bubble{background-color:#362521;border-color:#563b34;color:inherit}body .post .warn-bubble code.language-plaintext.highlighter-rouge{background-color:#46302b}body .post hr{border-color:#2f363c}body .post #article-details{border-color:#2f363c}body .post #article-details #all-categories{border-color:#2f363c}body .post div.related{border-color:#2f363c}body .post .meta,body .post #article-details{color:#789}body .post .dropcap{color:#00c1ff}body .post blockquote{color:#8b949d;border-left-color:#2f363c}body .post .transparency-fix{background-color:#6f8288}body .button-secondary{background-color:#0ca8ff}body .button-secondary:hover{background-color:#008bd8}body a.button__outline{border:3px solid #00c1ff;color:#00c1ff}body a.button__outline:hover{background-color:#00c1ff;color:#fff}body .post div.related div.container div.item .related-meta,body div.archive_list div.container div.item .related-meta{color:#789}body .post div.related h2,body div.archive_list h2{color:#dddad6}body .footer{background-color:#232729;background-image:none}body .footer .contributions #isso-thread label{color:#777}body .footer .contributions #isso-thread select,body .footer .contributions #isso-thread input,body .footer .contributions #isso-thread textarea,body .footer .contributions #isso-thread button,body .footer .contributions #isso-thread .textarea,body .footer .contributions #isso-thread input[type=text],body .footer .contributions #isso-thread input[type=email],body .footer .contributions #isso-thread input[type=phone],body .footer .contributions #isso-thread input[type=password],body .footer .contributions #isso-thread input[type=number],body .footer .contributions #isso-thread input[type=search]{border:1px solid #1a1a1a;color:#afafaf;background:#242424;transition:background-color .3s cubic-bezier(0.57, 0.21, 0.69, 1.25),transform .3s cubic-bezier(0.57, 0.21, 0.69, 1.25)}body .footer .contributions #isso-thread button,body .footer .contributions #isso-thread input[type=submit],body .footer .contributions #isso-thread input[type=button],body .footer .contributions #isso-thread input[type=reset]{border:1px solid #262626;background:#333}body .footer .contributions #isso-thread ::placeholder{color:inherit;opacity:1}body .footer .contributions #isso-thread>h4{color:#8695a4}body .footer .contributions #isso-thread .isso-comment>div.isso-text-wrapper>.isso-comment-header{color:#789}body .footer .contributions #isso-thread .isso-comment>div.isso-text-wrapper>.isso-comment-header .author{color:#8695a4}body .footer .contributions #isso-thread .isso-comment>.isso-text-wrapper blockquote{border-left-color:#3a3e41;background-color:#1d1f20;color:#9d9488}body .footer .contributions #isso-thread .isso-comment>.isso-text-wrapper code{background:#11202c;color:#fefffe}body .footer .contributions #isso-thread .isso-comment>.isso-text-wrapper pre{background:#11202c;color:#fefffe;border:1px solid #333}body .footer .contributions .note-warning{border:1px solid #171a1b;background-color:#1e2223}body .footer .contributions .note-warning .extra{color:#789}body .footer .bottom{background:#171a1b;color:#789;border-top:2px solid #232729;border-bottom:2px solid #232729}body .footer #footer-comments-widget{border-bottom:2px solid #464f52}body div.archive_list:before,body .posts li:before{background:#3a4244}.video .youtube-play-link{box-shadow:0px 0px 5px 0px rgba(200,200,200,.3)}span.link-logo img{-webkit-filter:invert(100%);filter:invert(100%);opacity:.7}a span.link-logo img{filter:invert(84%) sepia(22%) saturate(6251%) hue-rotate(180deg) brightness(110%) contrast(111%);opacity:1}.highlight .c{color:#75715e}.highlight .err{color:#960050;background-color:#1e0010}.highlight .k{color:#66d9ef}.highlight .l{color:#ae81ff}.highlight .n{color:#f8f8f2}.highlight .o{color:#f92672}.highlight .p{color:#f8f8f2}.highlight .cm{color:#75715e}.highlight .cp{color:#75715e}.highlight .c1{color:#75715e}.highlight .cs{color:#75715e}.highlight .ge{font-style:italic}.highlight .gs{font-weight:bold}.highlight .kc{color:#66d9ef}.highlight .kd{color:#66d9ef}.highlight .kn{color:#f92672}.highlight .kp{color:#66d9ef}.highlight .kr{color:#66d9ef}.highlight .kt{color:#66d9ef}.highlight .ld{color:#e6db74}.highlight .m{color:#ae81ff}.highlight .s{color:#e6db74}.highlight .na{color:#a6e22e}.highlight .nb{color:#f8f8f2}.highlight .nc{color:#a6e22e}.highlight .no{color:#66d9ef}.highlight .nd{color:#a6e22e}.highlight .ni{color:#f8f8f2}.highlight .ne{color:#a6e22e}.highlight .nf{color:#a6e22e}.highlight .nl{color:#f8f8f2}.highlight .nn{color:#f8f8f2}.highlight .nx{color:#a6e22e}.highlight .py{color:#f8f8f2}.highlight .nt{color:#f92672}.highlight .nv{color:#f8f8f2}.highlight .ow{color:#f92672}.highlight .w{color:#f8f8f2}.highlight .mf{color:#ae81ff}.highlight .mh{color:#ae81ff}.highlight .mi{color:#ae81ff}.highlight .mo{color:#ae81ff}.highlight .sb{color:#e6db74}.highlight .sc{color:#e6db74}.highlight .sd{color:#e6db74}.highlight .s2{color:#e6db74}.highlight .se{color:#ae81ff}.highlight .sh{color:#e6db74}.highlight .si{color:#e6db74}.highlight .sx{color:#e6db74}.highlight .sr{color:#e6db74}.highlight .s1{color:#e6db74}.highlight .ss{color:#e6db74}.highlight .bp{color:#f8f8f2}.highlight .vc{color:#f8f8f2}.highlight .vg{color:#f8f8f2}.highlight .vi{color:#f8f8f2}.highlight .il{color:#ae81ff}.highlight .gu{color:#75715e}.highlight .gd{color:#f92672}.highlight .gi{color:#a6e22e}}
+      /*! normalize.css v6.0.0 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:rgba(0,0,0,0);-webkit-text-decoration-skip:objects}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-0.25em}sup{top:-0.5em}audio,video{display:inline-block}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{margin:0}button,input{overflow:visible}button,select{text-transform:none}button,html [type=button],[type=reset],[type=submit]{-webkit-appearance:button}button::-moz-focus-inner,[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring{outline:1px dotted ButtonText}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{display:inline-block;vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details,menu{display:block}summary{display:list-item}canvas{display:inline-block}template{display:none}[hidden]{display:none}@font-face{font-family:"Fira Code";font-style:normal;font-weight:300;font-display:fallback;src:url("/assets/fonts/fira-code-v8-latin-300.eot");src:local(""),url("/assets/fonts/fira-code-v8-latin-300.eot?#iefix") format("embedded-opentype"),url("/assets/fonts/fira-code-v8-latin-300.woff2") format("woff2"),url("/assets/fonts/fira-code-v8-latin-300.woff") format("woff"),url("/assets/fonts/fira-code-v8-latin-300.ttf") format("truetype"),url("/assets/fonts/fira-code-v8-latin-300.svg#FiraCode") format("svg")}@font-face{font-family:"Fira Code";font-style:normal;font-weight:500;font-display:fallback;src:url("/assets/fonts/fira-code-v8-latin-500.eot");src:local(""),url("/assets/fonts/fira-code-v8-latin-500.eot?#iefix") format("embedded-opentype"),url("/assets/fonts/fira-code-v8-latin-500.woff2") format("woff2"),url("/assets/fonts/fira-code-v8-latin-500.woff") format("woff"),url("/assets/fonts/fira-code-v8-latin-500.ttf") format("truetype"),url("/assets/fonts/fira-code-v8-latin-500.svg#FiraCode") format("svg")}@font-face{font-family:"Fira Code";font-style:normal;font-weight:400;font-display:fallback;src:url("/assets/fonts/fira-code-v8-latin-regular.eot");src:local(""),url("/assets/fonts/fira-code-v8-latin-regular.eot?#iefix") format("embedded-opentype"),url("/assets/fonts/fira-code-v8-latin-regular.woff2") format("woff2"),url("/assets/fonts/fira-code-v8-latin-regular.woff") format("woff"),url("/assets/fonts/fira-code-v8-latin-regular.ttf") format("truetype"),url("/assets/fonts/fira-code-v8-latin-regular.svg#FiraCode") format("svg")}@font-face{font-family:"Fira Code";font-style:normal;font-weight:600;font-display:fallback;src:url("/assets/fonts/fira-code-v8-latin-600.eot");src:local(""),url("/assets/fonts/fira-code-v8-latin-600.eot?#iefix") format("embedded-opentype"),url("/assets/fonts/fira-code-v8-latin-600.woff2") format("woff2"),url("/assets/fonts/fira-code-v8-latin-600.woff") format("woff"),url("/assets/fonts/fira-code-v8-latin-600.ttf") format("truetype"),url("/assets/fonts/fira-code-v8-latin-600.svg#FiraCode") format("svg")}@font-face{font-family:"Fira Code";font-style:normal;font-weight:700;font-display:fallback;src:url("/assets/fonts/fira-code-v8-latin-700.eot");src:local(""),url("/assets/fonts/fira-code-v8-latin-700.eot?#iefix") format("embedded-opentype"),url("/assets/fonts/fira-code-v8-latin-700.woff2") format("woff2"),url("/assets/fonts/fira-code-v8-latin-700.woff") format("woff"),url("/assets/fonts/fira-code-v8-latin-700.ttf") format("truetype"),url("/assets/fonts/fira-code-v8-latin-700.svg#FiraCode") format("svg")}body .intro{font-size:1.25em;line-height:1.7}h1,.h1,h2,.h2,h3,.h3,h4,.h4,h5,.h5,h6,.h6{margin:.5rem 0 1.5rem;font-family:"Gill Sans",Tahoma,Helvetica,Arial,sans-serif}h1,.h1{font-size:2em;line-height:1.25}@media(min-width: 43.75em){h1,.h1{font-size:2.5em;line-height:1.125}}@media(min-width: 56.25em){h1,.h1{font-size:3em;line-height:1.05}}h2,.h2{font-size:1.625em;line-height:1.15384615}@media(min-width: 43.75em){h2,.h2{font-size:2em;line-height:1.25}}@media(min-width: 56.25em){h2,.h2{font-size:2.25em;line-height:1.25}}h3,.h3{font-size:1.375em;line-height:1.13636364}@media(min-width: 43.75em){h3,.h3{font-size:1.5em;line-height:1.25}}@media(min-width: 56.25em){h3,.h3{font-size:1.75em;line-height:1.25}}h4,.h4{font-size:1.125em;line-height:1.11111111}@media(min-width: 43.75em){h4,.h4{line-height:1.22222222}}.button__outline,.button-tertiary,.button-secondary,.button{background-color:#00649e;display:inline-block;position:relative;font-family:"Gill Sans",Tahoma,Helvetica,Arial,sans-serif;text-decoration:none;color:#fff;font-size:1em;line-height:1.2em;font-weight:normal;padding:.5em 1.5em;border:0;border-radius:4px;cursor:pointer;margin-bottom:.5em;transition:background-color .14s ease-in-out}.button__outline:hover,.button-tertiary:hover,.button-secondary:hover,.button:hover,.button__outline:focus,.button-tertiary:focus,.button-secondary:focus,.button:focus{color:#fff;text-decoration:none;background-color:#00446b}.button__outline:active,.button-tertiary:active,.button-secondary:active,.button:active{top:1px}.button-secondary{background-color:#008bd8}.button-secondary:hover{background-color:#006aa5}.button-tertiary{background-color:#aaa}.button-tertiary:hover{background-color:#919191}.button__outline{background-color:rgba(0,0,0,0);border:3px solid #00649e;color:#00649e}.button__outline:hover{background-color:#00649e;color:#fff}span.link-logo{text-decoration:none !important}span.link-logo img{height:28px;width:28px;vertical-align:middle;margin-right:10px}a span.link-logo img{filter:invert(17%) sepia(47%) saturate(1856%) hue-rotate(174deg) brightness(95%) contrast(97%)}label{display:block;margin-bottom:5px}input[type=text],input[type=email],input[type=phone],input[type=password],input[type=number],input[type=search],textarea{background:#e6e6e6;padding:5px;outline:none;border:none;height:44px;width:300px;margin-bottom:.5rem;font-size:100%}input[type=text]:focus,input[type=email]:focus,input[type=phone]:focus,input[type=password]:focus,input[type=number]:focus,input[type=search]:focus,textarea:focus{border:1px solid #00649e}input[type=text].full-width,input[type=email].full-width,input[type=phone].full-width,input[type=password].full-width,input[type=number].full-width,input[type=search].full-width,textarea.full-width{width:100%}textarea{height:132px}form{margin-bottom:40px}form .field{margin-bottom:20px}form label{color:#666}form .note-warning{margin-top:5px;color:#aaa}form .req{font-style:italic}form .asterisk{color:darkred}form .error .reason{margin-top:5px;color:#ff4136}form .error input[type=text],form .error input[type=email],form .error input[type=phone],form .error input[type=password],form .error input[type=number],form .error input[type=search],form .error textarea{border-color:#ff4136}table{width:100%;border:1px solid #d0d0d0;margin-bottom:1.5em}table caption{margin:0 0 7px;font-size:.75em;color:#aaa;text-transform:uppercase;letter-spacing:1px}tr{border-bottom:1px solid #d0d0d0}tr:nth-child(even){background-color:#f7f7f7}td{padding:7px;border-right:1px solid #d0d0d0}td:last-child{border-right:0}th{background-color:#f7f7f7;border-bottom:1px solid #d0d0d0;border-right:1px solid #d0d0d0}th:last-child{border-right:0}pre>code{color:#333;background:#f8f8f8;display:block;white-space:pre;overflow:auto;word-wrap:normal;border:1px solid #e8e8e8;line-height:1.3;font-size:.9em}:not(pre)>code{background-color:rgba(27,31,35,.05);padding:.2em .4em;margin:0;font-size:85%;border-radius:3px}div.formula-code{color:#333;background:#f8f8f8;display:block;white-space:pre;overflow:auto;word-wrap:normal;border:1px solid #e8e8e8;margin:0 0 20px 0}div.formula-code .MathJax_Display{margin:0 !important}#isso-thread *{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}#isso-thread{padding:0;margin:0}h4.isso-thread-heading{color:#555;font-weight:bold}.isso-feedlink{float:right;padding-left:1em}.isso-feedlink a{font-size:.8em;vertical-align:bottom}.isso-comment{max-width:68em;margin:0 auto}.isso-preview .isso-comment{padding-top:0;margin:0}.isso-comment:not(:first-of-type),.isso-follow-up .isso-comment{border-top:1px solid rgba(0,0,0,.1);margin-bottom:.5em}.isso-avatar{display:block;float:left;margin:.95em .95em 0}.isso-avatar svg{max-width:48px;max-height:48px;width:100%;height:100%;border:1px solid rgba(0,0,0,.2);border-radius:3px;box-shadow:0 1px 2px rgba(0,0,0,.1)}.isso-text-wrapper{display:block;padding:.95em}.isso-follow-up{padding-left:calc(7% + 20px)}.isso-comment-footer{font-size:.95em}.isso-comment-header{font-size:.85em}.isso-comment-header a{text-decoration:none}.isso-comment-header .isso-spacer{padding:0 6px}.isso-spacer,.isso-permalink,.isso-note,.isso-parent{color:gray;font-weight:normal;text-shadow:none}.isso-spacer:hover,.isso-permalink:hover,.isso-note:hover,.isso-parent:hover{color:#606060}.isso-note{float:right}.isso-author{font-weight:bold;color:#555}.isso-page-author-suffix{font-weight:bold;color:#2c2c2c}.isso-textarea,.isso-preview{margin-top:.2em;width:100%;border:1px solid #f0f0f0;border-radius:2px;box-shadow:0 0 2px #888}.isso-text p{margin-top:.2em}.isso-text p:last-child{margin-bottom:.2em}.isso-text h1,.isso-text h2,.isso-text h3,.isso-text h4,.isso-text h5,.isso-text h6{font-size:130%;font-weight:bold}.isso-text pre{background:#eee;border:1px solid #ddd;padding:10px 15px;color:#4d4d4c;overflow:auto;line-height:1.5em}.isso-text :not(pre)>code{padding:.2em .4em;margin:0;font-size:85%;background-color:#eee;border-radius:6px}.isso-comment-footer{font-size:.8em;color:gray;clear:left}.isso-feedlink,.isso-comment-footer a{font-weight:bold;text-decoration:none}.isso-feedlink:hover,.isso-comment-footer a:hover{color:#111;text-shadow:#aaa 0 0 1px}.isso-comment-footer>a{position:relative;top:.2em}.isso-comment-footer>a+a{padding-left:1em}.isso-comment-footer .isso-votes{color:gray}.isso-upvote svg,.isso-downvote svg{position:relative;top:.2em}.isso-comment .isso-postbox{margin-top:.8em}.isso-comment.isso-no-votes>*>.isso-comment-footer .isso-votes{display:none}.isso-postbox{max-width:68em;margin:0 auto 2em;clear:right}.isso-form-wrapper{display:block;padding:0}.isso-textarea,.isso-preview{margin:0 0 .3em;padding:.4em .8em;border-radius:3px;background-color:#fff;border:1px solid rgba(0,0,0,.2);box-shadow:0 1px 2px rgba(0,0,0,.1)}.isso-textarea{outline:0;width:100%;resize:none}.isso-form-wrapper input[type=checkbox]{vertical-align:middle;position:relative;bottom:1px;margin-left:0}.isso-notification-section{font-size:.9em;padding-top:.3em;display:none;padding-bottom:10px}.isso-auth-section{display:block}.isso-textarea:focus,.isso-input-wrapper input:focus,.isso-auth-section input:focus{outline:2px solid #3584e4}.isso-input-wrapper{display:inline-block;position:relative;margin:0 1% 0 0}.isso-input-wrapper input{display:block;padding:.3em 10px;max-width:100%;border-radius:3px;background-color:#fff;line-height:1.4em;border:1px solid rgba(0,0,0,.2);box-shadow:0 1px 2px rgba(0,0,0,.1)}.isso-input-wrapper label{display:block;line-height:1.4em;height:1.4em}.isso-post-action{display:block;float:right;margin:1.4em 0 0 5px}.isso-post-action>input{padding:calc(.3em - 1px);border-radius:2px;border:1px solid #ccc;background-color:#ddd;cursor:pointer;outline:0;line-height:1.4em;box-shadow:0 1px 2px rgba(0,0,0,.1)}.isso-post-action>input:hover{background-color:#ccc}.isso-post-action>input:active{background-color:#bbb}.isso-preview,.isso-post-action input[name=edit],.isso-postbox.isso-preview-mode>.isso-form-wrapper input[name=preview],.isso-postbox.isso-preview-mode>.isso-form-wrapper .isso-textarea{display:none}.isso-postbox.isso-preview-mode>.isso-form-wrapper .isso-preview{display:block}.isso-postbox.isso-preview-mode>.isso-form-wrapper input[name=edit]{display:inline}.isso-preview{background-color:#f8f8f8;background:repeating-linear-gradient(-45deg, #f8f8f8, #f8f8f8 10px, #fff 10px, #fff 20px)}.isso-target{animation:isso-target-fade 5s ease-out}@keyframes isso-target-fade{0%{background-color:#eee5a1}}@media screen and (max-width: 600px){.isso-input-wrapper{display:block;max-width:100%;margin:0 0 .3em}.isso-input-wrapper input{width:100%}.isso-post-action{margin-top:0}}html.dark-reader body{background-image:none}html.dark-reader body .footer{background-image:none}html{box-sizing:border-box;background-color:#fefefe}*,*:before,*:after{box-sizing:inherit}body{background-color:#fff;background-image:url("/assets/media/tile-graphpaper.png");font-family:Georgia,Times,serif;line-height:1.75;font-size:112.5%;color:#111;overflow-x:hidden;margin:0}body p,body ul{margin:0 0 2rem}body code{font-family:"Fira Code",monospace,monospace;font-variant-ligatures:common-ligatures}::-moz-selection{background:#00649e;color:#fff}::selection{background:#00649e;color:#fff}img,video,audio,iframe,object{max-width:100%;height:auto}.container{max-width:610px;padding:0 20px;margin-left:auto;margin-right:auto}a{color:#00649e}a:hover{color:#003452}.nav-collapse{z-index:1}.nav-collapse ul{margin:0;padding:0;width:100%;display:block;list-style:none}.nav-collapse ul li{width:100%;display:block;background:#57457a;border-bottom:2px solid #675291}.nav-collapse ul li a{color:#fff;text-decoration:none;display:block;padding:5px 2rem}.nav-collapse{clip:rect(0 0 0 0);max-height:0;position:absolute;display:block;overflow:hidden;transform:scale(1);transform-origin:0 0;clear:both;width:100%}.no-js .nav-collapse{position:relative;max-height:none}.nav-collapse.opened{max-height:9999px}.nav-toggle{-webkit-tap-highlight-color:rgba(0,0,0,0);-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none;float:right;line-height:2em;margin-top:.5em;background-color:#00649e;border-radius:4px;padding:0 .5em;color:#fff;text-decoration:none;position:relative;right:2rem;transition:all .2s ease-in-out}.nav-toggle:hover{color:#fff;background-color:#00446b}.noList{list-style:none;padding-left:0;margin-left:0}dt{font-weight:bold}dd{margin:0 0 1.5rem}.post ul ul,.post ul ol,.post ol ul,.post ol ol{margin:0}ul.links-with-icons,ol.links-with-icons{list-style:none;padding-left:20px}.pageTitle{margin:2rem auto 1em;text-align:center}.pageTitle .type{color:#888}.content{padding-top:1em}.js .header{height:3em}.header{background-color:#473864;background-size:cover;background-position:center center;color:#fff;padding:0}.header .container{padding:0;max-width:100%}.header h1{margin:0;float:left;padding-left:2rem;font-size:1em;line-height:3em;font-family:"Gill Sans",Tahoma,Helvetica,Arial,sans-serif;text-transform:lowercase}.header h1 .wide1,.header h1 .wide2{display:none}.header h1 a{color:#e9d9ff;text-decoration:none;font-family:"Fira Code",monospace,monospace;font-variant-ligatures:common-ligatures;text-shadow:0px 0px 4px #000}.post .postTitle{text-align:center;margin-top:2rem;margin-bottom:1rem}.post blockquote{color:#57606a;border-left:.25em solid #d9d9d9;display:block;margin:0;padding-left:1rem}.post blockquote p{margin-left:0;margin-right:0;width:100%}.post .meta,.post #article-details{text-align:center;color:gray;font-family:Georgia,Times,serif;font-weight:normal}.post .meta a,.post #article-details a{color:#1d8dcd;text-decoration:none}.post .meta a:hover,.post #article-details a:hover{text-decoration:underline}.post figure{margin:3rem 0}.post figure figcaption{text-align:center;font-size:.9em;font-style:italic;color:#5e5e5e}.post figure img{margin:0 auto;display:block}.post img{border-radius:3px}.post img.left{float:left;margin-right:1em;margin-bottom:1em}.post img.right{float:right;margin-left:1em;margin-bottom:1em}.post pre>code{clear:both;margin-bottom:2rem}.post .dropcap{color:#00649e;margin-right:.45rem}.post .featuredImage{position:relative;margin-top:2rem}.post .featuredImage img{margin-bottom:0}.post #article-details{border:0;border-top:2px solid #d9d9d9;width:100%;text-align:left;margin:0 auto;padding:1rem 0}.post #article-details #all-categories{margin-top:1rem;padding-top:1rem;border-top:1px solid #e6e6e6}.post .snippets ul{margin-top:1rem}.post .snippets ul li time{font-weight:normal;font-size:.9em;color:gray}.post hr{border-style:solid;border-color:#d9d9d9;border-width:1.5px 0 0 0;margin-top:2rem;margin-bottom:2rem}.post div.footnotes{font-size:85%}.post div.footnotes ol{margin:0;margin-bottom:2rem;width:100%;list-style-position:outside;padding-left:30px}.post div.footnotes li p{margin-left:0;margin-right:0;width:100%}.post.snippet .postTitle{font-size:100%}.post div.related{border-top:1.5px solid #d9d9d9}.post div.related,div.archive_list{width:100%;margin:0 auto}.post div.related h2,div.archive_list h2{margin:0;margin-top:1rem;color:#000}.post div.related div.container,div.archive_list div.container{display:block;margin-top:2rem}.post div.related div.container div.item,div.archive_list div.container div.item{clear:left;margin-bottom:1rem;width:100%}.post div.related div.container div.item div.related-image,div.archive_list div.container div.item div.related-image{display:block;float:right;margin-bottom:1rem;margin-left:1rem;width:42px;height:42px;background-position:center;background-repeat:no-repeat;background-size:cover;background-color:rgba(0,0,0,.1);border-radius:2px;text-decoration:none;padding:1rem}.post div.related div.container div.item .related-meta,div.archive_list div.container div.item .related-meta{font-family:Georgia,Times,serif;font-weight:normal;font-size:.9em;color:gray;line-height:1.5}.post div.related div.container div.item .related-meta a,div.archive_list div.container div.item .related-meta a{color:#1d8dcd;text-decoration:none}.post div.related div.container div.item .related-meta a:hover,div.archive_list div.container div.item .related-meta a:hover{text-decoration:underline}div.archive_list{position:relative}div.archive_list h3{margin-top:4rem;color:#a66c75}div.archive_list:before{content:"";position:absolute;bottom:-2rem;left:0;background:#e6e6e6;height:2px;width:60px}div.archive_list.last:before{display:none}.postNav{border-top:1px solid #d9d9d9;border-bottom:1px solid #d9d9d9;overflow:hidden}.postNav .prev,.postNav .next{display:block;width:100%;height:5rem;overflow:hidden;position:relative;font-family:"Gill Sans",Tahoma,Helvetica,Arial,sans-serif;font-weight:800;font-size:.9em;text-transform:uppercase;text-align:center}.postNav .prev img,.postNav .next img{z-index:1;display:block;position:absolute;top:50%;transform:translateY(-50%);left:0;width:100%;height:auto}.postNav .prev span,.postNav .next span{z-index:10;position:relative;padding:.5rem;position:absolute;top:50%;transform:translateY(-50%);width:100%;line-height:1.4}.postNav .prev.image,.postNav .next.image{text-decoration:none;color:#fff;text-shadow:1px 1px 3px rgba(0,0,0,.8);padding:0 .5rem;position:relative;transition:all .2s ease-in-out}.postNav .prev:hover.image,.postNav .next:hover.image{opacity:.8}.postNav .prev span{left:0}.postNav .next span{right:0}.footer{margin-top:2rem;clear:both;background:#fafafa}.footer hr{display:block;clear:both;border:1px solid #eaeaea;margin:1rem 0}.footer #footer-comments-widget{border-bottom:2px solid #eaeaea;margin-bottom:1rem}.footer .contributions{padding:1rem 0}.footer .contributions .note-warning{border:1px solid #e1e4e8;background-color:#f6f8fa;border-radius:3px;padding:16px;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;margin-bottom:1rem}.footer .contributions .note-warning .extra{color:#586069}.footer .contributions .note-warning .extra .link-logo img{opacity:.6}.footer .contributions #disqus_thread{max-width:90%;margin:0 auto;overflow:auto}.footer .contributions h2,.footer .contributions h3{margin-top:0;color:#a66c75}.footer .contributions #share{border-bottom:1px solid #c69aa1}.footer .contributions #isso-thread{font-size:90%}.footer .contributions #isso-thread .isso-comment>.isso-text-wrapper>div.isso-comment-header{display:inline-block;vertical-align:middle}.footer .contributions #isso-thread .isso-comment>.isso-text-wrapper>div.isso-text{clear:both}.footer .contributions #isso-thread .isso-comment>.isso-text-wrapper p{margin:0 0 .7rem}.footer .contributions #isso-thread .isso-comment>.isso-text-wrapper blockquote{color:#777;margin:5px 0;padding:5px;padding-left:10px;border-left:4px solid #ddd;background-color:#f7f7f7}.footer .contributions #isso-thread .isso-comment>.isso-text-wrapper code{color:#333;background:#f8f8f8}.footer .contributions #isso-thread .isso-comment>.isso-text-wrapper pre{color:#333;background:#f8f8f8;display:block;white-space:pre;overflow:auto;word-wrap:normal;border:1px solid #e8e8e8}.footer .contributions #isso-thread .isso-form-wrapper{font-size:90%}.footer .contributions #isso-thread .isso-textarea-wrapper textarea.isso-textarea{height:80px}.footer .contributions #isso-thread .isso-auth-section{font-size:90%}.footer .contributions #isso-thread .isso-auth-section .isso-input-wrapper{display:block}.footer .contributions #isso-thread .isso-auth-section .isso-input-wrapper input{width:100%;height:auto}.footer .contributions #isso-thread .isso-auth-section .isso-post-action{margin:.5em 0px 0px 5px}.footer .contributions #isso-thread .isso-auth-section .isso-post-action input{padding:.2em 1em;border-radius:4px;border:0;margin-right:5px}.footer .contributions #isso-thread .isso-auth-section .isso-post-action input[type=submit]{background-color:#00649e;color:#fff;font-weight:bold;border:0;cursor:pointer}.footer .contributions #isso-thread .isso-auth-section .isso-post-action input[type=submit]:hover{color:#fff;background-color:#007bc2}.footer .contributions #isso-thread #isso-root{clear:both}.footer .contributions #isso-thread .isso-avatar img{max-width:24px;max-height:24px;border-radius:3px}.footer .contributions #mc_embed_signup form{margin-bottom:0}.footer .bottom{background:#f2f2f2;font-size:.8em;color:#656c7a;border-top:2px solid #eaeaea;border-bottom:2px solid #eaeaea;padding:1rem 0}.footer .bottom .container{max-width:90%;text-align:center}.footer .bottom .container .copy,.footer .bottom .container .links{display:block}.pagination div.page_number{color:gray;border-top:1px dashed #aaa;padding:1rem 0}.pagination .next{float:left}.pagination .previous{float:right}.posts li{margin-bottom:4rem;position:relative}.posts li:before{content:"";position:absolute;bottom:-2rem;left:0;background:#e6e6e6;height:2px;width:60px}.posts li:last-child:before{display:none}.posts li a{text-decoration:none}.posts li a:hover{text-decoration:underline}.posts li .meta{font-family:Georgia,Times,serif;font-weight:normal;font-size:.9em;color:gray}.posts li .meta time{display:block}.posts li .meta a{color:#1d8dcd;text-decoration:none}.posts li .meta a:hover{text-decoration:underline}.posts li h3{margin:0 0 .5em}#home{padding-top:2em}#home .postTitle{text-align:center}img.right{float:none}.patreon-button img{width:170px;height:40px}.post.about img.avatar{width:100px}.small-note{font-size:80%;color:gray}.video .youtube-play-link{position:relative;display:block;box-shadow:0px 0px 5px 0px rgba(50,50,50,.3);border-radius:3px}.video .youtube-play-link:before{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);-webkit-transform:translate(-50%, -50%);display:block;width:80px;height:56px;font-size:1px;content:" ";opacity:.8;z-index:100;background-image:url(/assets/media/youtube.png);background-size:80px 56px;background-position:center;background-repeat:no-repeat;transition-timing-function:ease-in;transition:opacity .3s}.video .youtube-play-link:hover:before{opacity:1}.video .youtube-play-link img.play-thumb{display:block;min-height:70px}.video .video-container{position:relative;padding-bottom:56.25%;padding-top:10px;height:0;overflow:hidden}.video .video-container iframe,.video .video-container object,.video .video-container embed{position:absolute;top:0;left:0;width:100%;height:100%}.no-js .only-js{display:none}.no-js .video .video-container{display:none}.posts img{border-radius:3px}.posts figure{margin:1rem 0}.posts figure figcaption{text-align:center;font-size:.9em;font-style:italic;color:#5e5e5e}.posts figure img{margin:0 auto;display:block}.hidden{display:none}.post header nav.toc{border-top:1px solid #d9d9d9;border-bottom:1px solid #d9d9d9;margin-bottom:1rem}.post header nav.toc ul{margin-bottom:1rem}.post header nav.toc .toc-title{font-weight:bold;margin:1rem auto 1rem}.post .warn-bubble,.post .info-bubble,.post.privacy_policy #opt_out_frame iframe{background-color:rgba(226,231,240,.3);color:#555;padding:7px;border:2px dashed #e2f0e7;border-radius:10px}.post .warn-bubble{color:#655;background-color:rgba(243,235,237,.3);border:2px dashed #f6ddd7}.post pre>code,.post pre>code.hljs{line-height:1.2;border-radius:0;margin:0 auto;padding:2px;width:100%}.post .formula-code,.post pre>code{font-size:90%}.post.privacy_policy #opt_out_frame iframe{width:100%;height:300px}h1,h2,h3,h4,h5,h6{color:#111;font-weight:700}h1 a.anchor,h2 a.anchor,h3 a.anchor,h4 a.anchor,h5 a.anchor,h6 a.anchor{color:#d3d3d3;font-weight:normal;text-decoration:none}h1 a.anchor:hover,h2 a.anchor:hover,h3 a.anchor:hover,h4 a.anchor:hover,h5 a.anchor:hover,h6 a.anchor:hover{color:gray}.nobr{white-space:nowrap}.clearfix{transform:scale(1);transform-origin:0 0}.clearfix:before,.clearfix:after{content:" ";display:block;height:0;overflow:hidden}.clearfix:after{clear:both}@media only screen and (min-width: 375px){.header h1 .wide1{display:inline}}@media only screen and (min-width: 500px){.header h1 .wide1,.header h1 .wide2{display:inline}.post.privacy_policy #opt_out_frame iframe{height:260px}}@media only screen and (min-width: 800px){body{font-size:125%}.content{padding-top:0;position:relative;z-index:1}.container{max-width:880px;margin-left:auto;margin-right:auto;padding:0}#home .posts,#home .pageTitle,#home .pagination,#home .archive_list{width:75%;float:none;margin:0 auto 1.5em}#home .pageTitle{margin:2rem auto 1em}.js .header,.no-js .header{height:7em;position:relative;padding-bottom:0}.js .header .wide1,.js .header .wide2,.no-js .header .wide1,.no-js .header .wide2{display:inline}.js .header .container,.no-js .header .container{position:relative;top:50%;transform:translateY(-50%);max-width:880px;overflow:hidden}.js .header .container .inner-container,.no-js .header .container .inner-container{width:75%;margin:0 auto}.js .header h1,.no-js .header h1{font-size:2em;line-height:1;padding-left:0}.js .header nav,.no-js .header nav{float:left;clear:left}.js .header nav ul,.no-js .header nav ul{margin:0}.js .header nav ul li,.no-js .header nav ul li{display:inline;line-height:3em;background:none;padding:0 5px;border:none}.js .header nav ul li a,.no-js .header nav ul li a{color:#fff;font-size:.9em;text-decoration:none;padding:0 .25em}.js .header nav ul li a:hover,.no-js .header nav ul li a:hover{color:#ccc}.js .header nav ul li.current,.no-js .header nav ul li.current{padding-bottom:.25em;border-bottom:4px solid rgba(255,255,255,.4)}.nav-collapse{position:relative;max-height:none}.nav-collapse.closed{max-height:none}.nav-collapse ul li a{display:inline-block}.nav-toggle{display:none}.post h1,.post h2,.post h3,.post h4,.post h5,.post h6,.post p,.post ul,.post ol,.post dl,.post .pageTitle,.post .content,.post .page-width,.post blockquote,.post div.footnotes{width:75%;float:none;margin:0 auto 2rem}.post hr{width:75%}.post div.footnotes{margin:0 auto 1rem}.post div.footnotes p{margin-bottom:1rem}.post h1,.post .h1,.post h2,.post .h2,.post h3,.post .h3,.post h4,.post .h4,.post h5,.post .h5,.post h6,.post .h6{margin:1rem auto}.post .pageTitle{margin:2rem auto 1em}.post .featuredImage{position:relative;margin-top:2rem}.post pre>code,.post pre>code.hljs{font-size:.8em;padding:1em;border-radius:4px}.post div.formula-code{padding:20px 10px}.post blockquote{padding-left:2rem}.post.snippet .postTitle{font-size:120%}.postNav .prev,.postNav .next{width:50%}.postNav .prev{float:left;text-align:left}.postNav .next{text-align:right;float:right}.footer .container{max-width:880px}.footer .contributions{width:75%;margin:0 auto}.footer .contributions .avatar img{max-width:48px;max-height:48px;border-radius:5px}.footer .contributions #isso-thread .isso-avatar img{max-width:32px;max-height:32px}.footer .bottom .container .copy::after{content:"|"}.footer .bottom .container .copy,.footer .bottom .container .links{display:inline}.contactContent{max-width:48%;margin-right:2%;float:left}#contact form{max-width:48%;width:48%;float:right;margin-right:0}img.right{float:right}.post.about img.avatar{width:300px}div.header nav{text-shadow:0px 0px 4px #000}#abonament form{width:75%;margin:0 auto 2rem}.post div.related{width:75%}.post #article-details{width:75%}.post.privacy_policy #opt_out_frame iframe{height:190px}.video .youtube-play-link:before{width:120px;height:84px;background-size:120px 84px}}@media only screen and (min-width: 1200px){body{font-size:137.5%}.container{max-width:990px}.container .inner-container{width:75%;margin:0 auto}.js .header .container,.no-js .header .container{max-width:990px}.post.privacy_policy #opt_out_frame iframe{height:180px}.footer .container{max-width:990px}.post.snippet .postTitle{font-size:140%}}@media(prefers-color-scheme: light){pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: StackOverflow Light
+  Description: Light theme as used on stackoverflow.com
+  Author: stackoverflow.com
+  Maintainer: @Hirse
+  Website: https://github.com/StackExchange/Stacks
+  License: MIT
+  Updated: 2021-05-15
+
+  Updated for @stackoverflow/stacks v0.64.0
+  Code Blocks: /blob/v0.64.0/lib/css/components/_stacks-code-blocks.less
+  Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
+*/.hljs{color:#2f3337;background:#f6f6f6}.hljs-subst{color:#2f3337}.hljs-comment{color:#656e77}.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag{color:#015692}.hljs-attribute{color:#803378}.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type{color:#b75501}.hljs-selector-class{color:#015692}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#54790d}.hljs-meta,.hljs-selector-pseudo{color:#015692}.hljs-built_in,.hljs-literal,.hljs-title{color:#b75501}.hljs-bullet,.hljs-code{color:#535a60}.hljs-meta .hljs-string{color:#54790d}.hljs-deletion{color:#c02d2e}.hljs-addition{color:#2f6f44}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}}@media(prefers-color-scheme: dark){:root{color-scheme:light dark}html,body,*{scrollbar-width:thin;scrollbar-color:#727173 #1e2223}body::-webkit-scrollbar,*::-webkit-scrollbar{width:10px}body::-webkit-scrollbar-track,*::-webkit-scrollbar-track{background:#1e2223}body::-webkit-scrollbar-thumb,*::-webkit-scrollbar-thumb{background-color:#727173;border-radius:6px;border:3px solid #1e2223}html{background-color:#171a1b;background-image:none}body{background-color:#171a1b;background-image:none;color:#c8d1d8}body a{color:#00c1ff}body a:hover{color:#0087b3}body .header{background-color:#473864}body h1,body h2,body h3,body h4,body h5,body h6{color:#dddad6}body pre>code,body div.formula-code{background:#22272d;color:#fefffe;border:1px solid #333}body form label{color:#777}body form select,body form input,body form textarea,body form button,body form .textarea,body form input[type=text],body form input[type=email],body form input[type=phone],body form input[type=password],body form input[type=number],body form input[type=search]{border:1px solid #1a1a1a;color:#afafaf;background:#242424;transition:background-color .3s cubic-bezier(0.57, 0.21, 0.69, 1.25),transform .3s cubic-bezier(0.57, 0.21, 0.69, 1.25)}body form button,body form input[type=submit],body form input[type=button],body form input[type=reset]{border:1px solid #262626;background:#333}body form ::placeholder{color:inherit;opacity:1}body .post header nav.toc{border-color:#2f363c}body .post .info-bubble{background-color:#25313c;border-color:#384b5c;color:#c8d1d8}body .post .warn-bubble{background-color:#362521;border-color:#563b34;color:inherit}body .post hr{border-color:#2f363c}body .post #article-details{border-color:#2f363c}body .post #article-details #all-categories{border-color:#2f363c}body .post div.related{border-color:#2f363c}body .post .meta,body .post #article-details{color:#789}body .post .dropcap{color:#00c1ff}body .post blockquote{color:#8b949d;border-left-color:#2f363c}body .post .transparency-fix{background-color:#6f8288}body .button-secondary{background-color:#0ca8ff}body .button-secondary:hover{background-color:#008bd8}body a.button__outline{border:3px solid #00c1ff;color:#00c1ff}body a.button__outline:hover{background-color:#00c1ff;color:#fff}body .post div.related div.container div.item .related-meta,body div.archive_list div.container div.item .related-meta{color:#789}body .post div.related h2,body div.archive_list h2{color:#dddad6}body .footer{background-color:#232729;background-image:none}body .footer .contributions #isso-thread label{color:#777}body .footer .contributions #isso-thread select,body .footer .contributions #isso-thread input,body .footer .contributions #isso-thread textarea,body .footer .contributions #isso-thread button,body .footer .contributions #isso-thread .textarea,body .footer .contributions #isso-thread input[type=text],body .footer .contributions #isso-thread input[type=email],body .footer .contributions #isso-thread input[type=phone],body .footer .contributions #isso-thread input[type=password],body .footer .contributions #isso-thread input[type=number],body .footer .contributions #isso-thread input[type=search]{border:1px solid #1a1a1a;color:#afafaf;background:#242424;transition:background-color .3s cubic-bezier(0.57, 0.21, 0.69, 1.25),transform .3s cubic-bezier(0.57, 0.21, 0.69, 1.25)}body .footer .contributions #isso-thread button,body .footer .contributions #isso-thread input[type=submit],body .footer .contributions #isso-thread input[type=button],body .footer .contributions #isso-thread input[type=reset]{border:1px solid #262626;background:#333}body .footer .contributions #isso-thread ::placeholder{color:inherit;opacity:1}body .footer .contributions #isso-thread>h4{color:#8695a4}body .footer .contributions #isso-thread .isso-comment>div.isso-text-wrapper>.isso-comment-header{color:#789}body .footer .contributions #isso-thread .isso-comment>div.isso-text-wrapper>.isso-comment-header .author{color:#8695a4}body .footer .contributions #isso-thread .isso-comment>.isso-text-wrapper blockquote{border-left-color:#3a3e41;background-color:#1d1f20;color:#9d9488}body .footer .contributions #isso-thread .isso-comment>.isso-text-wrapper code{background:#22272d;color:#fefffe}body .footer .contributions #isso-thread .isso-comment>.isso-text-wrapper pre{background:#22272d;color:#fefffe;border:1px solid #333}body .footer .contributions .note-warning{border:1px solid #171a1b;background-color:#1e2223}body .footer .contributions .note-warning .extra{color:#789}body .footer .bottom{background:#171a1b;color:#789;border-top:2px solid #232729;border-bottom:2px solid #232729}body .footer #footer-comments-widget{border-bottom:2px solid #464f52}body div.archive_list:before,body .posts li:before{background:#3a4244}.video .youtube-play-link{box-shadow:0px 0px 5px 0px rgba(200,200,200,.3)}span.link-logo img{-webkit-filter:invert(100%);filter:invert(100%);opacity:.7}a span.link-logo img{filter:invert(84%) sepia(22%) saturate(6251%) hue-rotate(180deg) brightness(110%) contrast(111%);opacity:1}pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: GitHub Dark Dimmed
+  Description: Dark dimmed theme as seen on github.com
+  Author: github.com
+  Maintainer: @Hirse
+  Updated: 2021-05-15
+
+  Colors taken from GitHub's CSS
+*/.hljs{color:#adbac7;background:#22272e}.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-template-tag,.hljs-template-variable,.hljs-type,.hljs-variable.language_{color:#f47067}.hljs-title,.hljs-title.class_,.hljs-title.class_.inherited__,.hljs-title.function_{color:#dcbdfb}.hljs-attr,.hljs-attribute,.hljs-literal,.hljs-meta,.hljs-number,.hljs-operator,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id,.hljs-variable{color:#6cb6ff}.hljs-meta .hljs-string,.hljs-regexp,.hljs-string{color:#96d0ff}.hljs-built_in,.hljs-symbol{color:#f69d50}.hljs-code,.hljs-comment,.hljs-formula{color:#768390}.hljs-name,.hljs-quote,.hljs-selector-pseudo,.hljs-selector-tag{color:#8ddb8c}.hljs-subst{color:#adbac7}.hljs-section{color:#316dca;font-weight:700}.hljs-bullet{color:#eac55f}.hljs-emphasis{color:#adbac7;font-style:italic}.hljs-strong{color:#adbac7;font-weight:700}.hljs-addition{color:#b4f1b4;background-color:#1b4721}.hljs-deletion{color:#ffd8d3;background-color:#78191b}}
     </style>
 </head>
 
@@ -107,7 +127,7 @@
       <meta itemprop="datePublished" content="2022-10-13T09:00:00+0000"/>
       
       <time itemprop="dateCreated" datetime="2022-10-13T09:00:00+0000">October 13, 2022</time>
-      | <span class="nobr"><span class="time">29</span> minutes</span>
+      | <span class="nobr"><span class="time">21</span> minutes</span>
       
       | <a href="/blog/2022/10/13/the-case-against-effect-systems-io-data-type/#isso-thread" class="nobr">comments</a>
       
@@ -116,7 +136,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2022-effect-systems.png" />
-          <img src="/assets/media/articles/2022-effect-systems.png?202305250426" width="2428" height="1652" alt="" />
+          <img src="/assets/media/articles/2022-effect-systems.png?202305250934" width="2428" height="1652" alt="" />
           
         </figure>
         
@@ -160,10 +180,10 @@
 
   <div id="content" itemprop="articleBody">
     <p class="intro withcap">
-As Scala developers and fans of the functional programming promoted by Haskell, how do we justify the use of <code class="language-plaintext highlighter-rouge">IO</code> to newbies coming from Java? It’s been a fun ride, but the truth is that <a href="/blog/2022/09/21/java-19/">Java 19</a> is changing everything.
+As Scala developers and fans of the functional programming promoted by Haskell, how do we justify the use of <code>IO</code> to newbies coming from Java? It’s been a fun ride, but the truth is that <a href="/blog/2022/09/21/java-19/">Java 19</a> is changing everything.
 </p>
 
-<p><code class="language-plaintext highlighter-rouge">IO</code> has been great, with libraries like <a href="https://typelevel.org/cats-effect/">Cats-Effect</a> and <a href="https://fs2.io/">fs2</a> taking functional programming on the JVM to new levels, and using these libraries has been a super-power. But here I’m going to argue that the problem hasn’t been imperative programming, and this IO-driven style of static FP has an identity crisis on its hands, due to the introduction of Virtual Threads (<a href="https://openjdk.org/jeps/425">JEP 425</a>), and the adoption of “<a href="https://en.wikipedia.org/wiki/Structured_concurrency">structured concurrency</a>” concepts (<a href="https://openjdk.org/jeps/428">JEP 428</a>), first popularized in <a href="https://kotlinlang.org/docs/coroutines-overview.html">Kotlin</a>.</p>
+<p><code>IO</code> has been great, with libraries like <a href="https://typelevel.org/cats-effect/">Cats-Effect</a> and <a href="https://fs2.io/">fs2</a> taking functional programming on the JVM to new levels, and using these libraries has been a super-power. But here I’m going to argue that the problem hasn’t been imperative programming, and this IO-driven style of static FP has an identity crisis on its hands, due to the introduction of Virtual Threads (<a href="https://openjdk.org/jeps/425">JEP 425</a>), and the adoption of “<a href="https://en.wikipedia.org/wiki/Structured_concurrency">structured concurrency</a>” concepts (<a href="https://openjdk.org/jeps/428">JEP 428</a>), first popularized in <a href="https://kotlinlang.org/docs/coroutines-overview.html">Kotlin</a>.</p>
       <h2 id="how-io-shines">
         
         
@@ -178,7 +198,7 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
 <figure class="video">
   
   <a href="https://www.youtube.com/watch?v=qgfCmQ-2tW0&amp;autoplay=1" target="_blank" class="youtube-play-link" title="Go to YouTube video">
-    <img src="https://img.youtube.com/vi/qgfCmQ-2tW0/maxresdefault.jpg?202305250426" alt="" class="play-thumb" width="1280" height="720" />
+    <img src="https://img.youtube.com/vi/qgfCmQ-2tW0/maxresdefault.jpg?202305250934" alt="" class="play-thumb" width="1280" height="720" />
   </a>
   <figcaption>
     <a href="https://www.youtube.com/watch?v=qgfCmQ-2tW0&amp;autoplay=1" target="_blank">
@@ -188,7 +208,7 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
   </figcaption>
 </figure>
 
-<p>I loved it, and I’ve long been a proponent of <code class="language-plaintext highlighter-rouge">IO</code>, having exactly these arguments. And yet …</p>
+<p>I loved it, and I’ve long been a proponent of <code>IO</code>, having exactly these arguments. And yet …</p>
       <h2 id="a-history-of-asynchrony">
         
         
@@ -202,93 +222,93 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
 
 <p>If we are to describe asynchronous computations with a type, it would go something like this:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">type</span> <span class="kt">Callback</span><span class="o">[</span><span class="kt">-A</span><span class="o">]</span> <span class="k">=</span> <span class="o">(</span><span class="n">A</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Unit</span>
+<pre><code class="language-scala">type Callback[-A] = (A) =&gt; Unit
 
-<span class="k">type</span> <span class="kt">Async</span><span class="o">[</span><span class="kt">+A</span><span class="o">]</span> <span class="k">=</span> <span class="o">(</span><span class="nc">Callback</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Unit</span>
-</code></pre></div></div>
+type Async[+A] = (Callback[A]) =&gt; Unit
+</code></pre>
 
 <p>So, an async computation is something that executes <em>somewhere else</em>, other than the current thread, so it could be on another thread, or another process, or on another machine on the network.</p>
 
 <p>Now, imagine a classic sequence of synchronous function calls:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">val</span> <span class="nv">x</span> <span class="k">=</span> <span class="nf">foo</span><span class="o">();</span>
-<span class="k">val</span> <span class="nv">y</span> <span class="k">=</span> <span class="nf">bar</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
-<span class="nf">baz</span><span class="o">();</span>
-<span class="k">val</span> <span class="nv">z</span> <span class="k">=</span> <span class="nf">qux</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">);</span>
-<span class="k">return</span> <span class="n">z</span>
-</code></pre></div></div>
+<pre><code class="language-scala">val x = foo();
+val y = bar(x);
+baz();
+val z = qux(x, y);
+return z
+</code></pre>
 
-<p>We can turn these into a callback-driven sequence, which is what would happen in JavaScript/Node.js land, before the advent of <code class="language-plaintext highlighter-rouge">Promise</code>:</p>
+<p>We can turn these into a callback-driven sequence, which is what would happen in JavaScript/Node.js land, before the advent of <code>Promise</code>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">foo</span><span class="o">()</span><span class="k">:</span> <span class="kt">A</span> <span class="o">=</span> <span class="o">???</span>
-<span class="c1">// ...becomes...</span>
-<span class="k">def</span> <span class="nf">foo</span><span class="o">()</span><span class="k">:</span> <span class="kt">Async</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+<pre><code class="language-scala">def foo(): A = ???
+// ...becomes...
+def foo(): Async[A] = ???
 
-<span class="c1">//...</span>
-<span class="c1">// Sequence becomes:</span>
-<span class="nf">foo</span><span class="o">()(</span><span class="n">x</span> <span class="k">=&gt;</span>
-  <span class="nf">bar</span><span class="o">(</span><span class="n">x</span><span class="o">)(</span><span class="n">y</span> <span class="k">=&gt;</span>
-    <span class="nf">baz</span><span class="o">()(</span><span class="k">_</span> <span class="k">=&gt;</span> 
-      <span class="nf">qux</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)(</span><span class="n">z</span> <span class="k">=&gt;</span> <span class="o">???)</span>
-    <span class="o">)</span>
-  <span class="o">)</span>
-<span class="o">)</span>
-</code></pre></div></div>
+//...
+// Sequence becomes:
+foo()(x =&gt;
+  bar(x)(y =&gt;
+    baz()(_ =&gt; 
+      qux(x, y)(z =&gt; ???)
+    )
+  )
+)
+</code></pre>
 
 <p>There are consequences for working like this:</p>
 
 <ol>
   <li>callback hell, due to all the nesting;</li>
   <li>the implementation is often stack-unsafe, so it can be hard and error-prone to express loops;</li>
-  <li>it invalidates standard language features (e.g., <code class="language-plaintext highlighter-rouge">try/catch/finally</code>);</li>
+  <li>it invalidates standard language features (e.g., <code>try/catch/finally</code>);</li>
   <li>it’s very low level, so managing concurrency is tricky (e.g., waiting on 2 or more jobs running in parallel to finish);</li>
 </ol>
 
-<p>In Scala, the answer has been the introduction of <code class="language-plaintext highlighter-rouge">Future</code>/<code class="language-plaintext highlighter-rouge">Promise</code>, which is a “monadic” type, implementing a <code class="language-plaintext highlighter-rouge">flatMap</code>:</p>
+<p>In Scala, the answer has been the introduction of <code>Future</code>/<code>Promise</code>, which is a “monadic” type, implementing a <code>flatMap</code>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Scala code</span>
+<pre><code class="language-scala">// Scala code
 
-<span class="k">def</span> <span class="nf">foo</span><span class="o">()</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
-<span class="c1">//...</span>
+def foo(): Future[A] = ???
+//...
 
-<span class="nf">foo</span><span class="o">().</span><span class="py">flatMap</span> <span class="o">{</span> <span class="n">x</span> <span class="k">=&gt;</span>
-  <span class="nf">bar</span><span class="o">(</span><span class="n">x</span><span class="o">).</span><span class="py">flatMap</span> <span class="o">{</span> <span class="n">y</span> <span class="k">=&gt;</span>
-    <span class="nf">baz</span><span class="o">().</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nf">qux</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">))</span>
-  <span class="o">}</span>
-<span class="o">}</span>
-<span class="c1">// ...or...</span>
-<span class="k">for</span> <span class="o">{</span>
-  <span class="n">x</span> <span class="k">&lt;-</span> <span class="nf">foo</span><span class="o">()</span>
-  <span class="n">y</span> <span class="k">&lt;-</span> <span class="nf">bar</span><span class="o">(</span><span class="n">x</span><span class="o">)</span>
-  <span class="k">_</span> <span class="k">&lt;-</span> <span class="nf">baz</span><span class="o">()</span>
-  <span class="n">r</span> <span class="k">&lt;-</span> <span class="nf">qux</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span>
-<span class="o">}</span> <span class="k">yield</span> <span class="n">r</span>
-</code></pre></div></div>
+foo().flatMap { x =&gt;
+  bar(x).flatMap { y =&gt;
+    baz().flatMap(_ =&gt; qux(x, y))
+  }
+}
+// ...or...
+for {
+  x &lt;- foo()
+  y &lt;- bar(x)
+  _ &lt;- baz()
+  r &lt;- qux(x, y)
+} yield r
+</code></pre>
 
 <p>Which kind of looks like our original, imperative, synchronous program. But, here be dragons — what happens if we invoke Future-driven functions outside that for-expression?</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Scala code</span>
-<span class="k">val</span> <span class="nv">b</span> <span class="k">=</span> <span class="nf">baz</span><span class="o">()</span>
-<span class="k">for</span> <span class="o">{</span>
-  <span class="n">x</span> <span class="k">&lt;-</span> <span class="nf">foo</span><span class="o">()</span>
-  <span class="n">y</span> <span class="k">&lt;-</span> <span class="nf">bar</span><span class="o">(</span><span class="n">x</span><span class="o">)</span>
-  <span class="k">_</span> <span class="k">&lt;-</span> <span class="n">b</span>
-  <span class="n">r</span> <span class="k">&lt;-</span> <span class="nf">qux</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span>
-<span class="o">}</span> <span class="k">yield</span> <span class="n">r</span>
-</code></pre></div></div>
+<pre><code class="language-scala">// Scala code
+val b = baz()
+for {
+  x &lt;- foo()
+  y &lt;- bar(x)
+  _ &lt;- b
+  r &lt;- qux(x, y)
+} yield r
+</code></pre>
 
-<p>The non-obvious answer is <em>concurrent execution</em> happens — this is no longer a sequence of steps, and it wasn’t necessarily what we wanted, leading to bugs, as the logic may access shared mutable state that may be broken by concurrent access. This is invalidating our common sense, because when we see <code class="language-plaintext highlighter-rouge">val b = baz()</code> in code, we do not expect concurrent execution, as it’s not how our brains have been trained in these imperative programming languages. This here invalidates our mental model for how things behave.</p>
+<p>The non-obvious answer is <em>concurrent execution</em> happens — this is no longer a sequence of steps, and it wasn’t necessarily what we wanted, leading to bugs, as the logic may access shared mutable state that may be broken by concurrent access. This is invalidating our common sense, because when we see <code>val b = baz()</code> in code, we do not expect concurrent execution, as it’s not how our brains have been trained in these imperative programming languages. This here invalidates our mental model for how things behave.</p>
 
-<p>Note that we were careful waiting on the result of <code class="language-plaintext highlighter-rouge">baz()</code>. What happens if we forget about it?</p>
+<p>Note that we were careful waiting on the result of <code>baz()</code>. What happens if we forget about it?</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Scala code</span>
-<span class="k">val</span> <span class="nv">b</span> <span class="k">=</span> <span class="nf">baz</span><span class="o">()</span>
-<span class="k">for</span> <span class="o">{</span>
-  <span class="n">x</span> <span class="k">&lt;-</span> <span class="nf">foo</span><span class="o">()</span>
-  <span class="n">y</span> <span class="k">&lt;-</span> <span class="nf">bar</span><span class="o">(</span><span class="n">x</span><span class="o">)</span>
-  <span class="n">r</span> <span class="k">&lt;-</span> <span class="nf">qux</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span>
-<span class="o">}</span> <span class="k">yield</span> <span class="n">r</span>
-</code></pre></div></div>
+<pre><code class="language-scala">// Scala code
+val b = baz()
+for {
+  x &lt;- foo()
+  y &lt;- bar(x)
+  r &lt;- qux(x, y)
+} yield r
+</code></pre>
 
 <p>Well, this is triggering a “fire and forget” job, and if it wasn’t intended, we may now have a leak 🙀</p>
       <h2 id="imperative-programming-the-devil-we-know">
@@ -306,142 +326,142 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
   <p><strong>Imperative programming is extraordinarily intuitive!</strong></p>
 </blockquote>
 
-<p>In imperative programming <code class="language-plaintext highlighter-rouge">;</code> is a separator between instructions, or statements. Imperative programming tends to be statement-oriented. But <code class="language-plaintext highlighter-rouge">;</code> simply denotes <em>sequencing</em> of steps. We can think of it as being an operator:</p>
+<p>In imperative programming <code>;</code> is a separator between instructions, or statements. Imperative programming tends to be statement-oriented. But <code>;</code> simply denotes <em>sequencing</em> of steps. We can think of it as being an operator:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="code"><code>A ; B ; C
-</code></pre></div></div>
+<pre><code>A ; B ; C
+</code></pre>
 
-<p>The above simply means statement <code class="language-plaintext highlighter-rouge">A</code> gets executed before statement <code class="language-plaintext highlighter-rouge">B</code>, which gets executed before statement <code class="language-plaintext highlighter-rouge">C</code>.</p>
+<p>The above simply means statement <code>A</code> gets executed before statement <code>B</code>, which gets executed before statement <code>C</code>.</p>
 
 <p>We can follow sequential steps towards achieving something. For example a vast majority of humans can cook, including many children. We may be bad cooks, we may only know simple recipes, given access to a stove we may hurt ourselves, but give people the raw ingredients and the cookware, and they won’t starve. Children understand cooking too, being a sequence of steps, not rocket science.</p>
 
 <p>My CS teacher from high school introduced us to algorithms with a recipe for pancakes. I don’t remember the specifics, and it’s been years since I cooked pancakes, so my memory is hazy, but I imagine the recipe went something like this:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// As an introductory lesson, he was completely ignoring resource safety, ofc:</span>
-<span class="k">val</span> <span class="nv">fryingPan</span> <span class="k">=</span> <span class="nf">takeFryingPan</span><span class="o">();</span> <span class="c1">// 1</span>
-<span class="k">val</span> <span class="nv">batter</span> <span class="k">=</span> <span class="nf">mix</span><span class="o">(</span><span class="n">eggs</span><span class="o">,</span> <span class="n">milk</span><span class="o">,</span> <span class="n">flour</span><span class="o">,</span> <span class="n">sugar</span><span class="o">,</span> <span class="n">bakingPowder</span><span class="o">,</span> <span class="n">salt</span><span class="o">);</span> <span class="c1">// 2</span>
-<span class="nv">fryingPan</span><span class="o">.</span><span class="py">pour</span><span class="o">(</span><span class="n">oil</span><span class="o">);</span> <span class="c1">// 3</span>
-<span class="nv">fryingPan</span><span class="o">.</span><span class="py">preHeat</span><span class="o">(</span><span class="mf">2.</span><span class="n">minutes</span><span class="o">);</span> <span class="c1">// 4</span>
-<span class="nv">fryingPan</span><span class="o">.</span><span class="py">pour</span><span class="o">(</span><span class="n">batter</span><span class="o">);</span> <span class="c1">// 5</span>
+<pre><code class="language-scala">// As an introductory lesson, he was completely ignoring resource safety, ofc:
+val fryingPan = takeFryingPan(); // 1
+val batter = mix(eggs, milk, flour, sugar, bakingPowder, salt); // 2
+fryingPan.pour(oil); // 3
+fryingPan.preHeat(2.minutes); // 4
+fryingPan.pour(batter); // 5
 
-<span class="nf">while</span> <span class="o">(!</span><span class="nv">fryingPan</span><span class="o">.</span><span class="py">check</span><span class="o">(</span><span class="n">isContentsBrown</span><span class="o">))</span> <span class="o">{</span> <span class="c1">// 6</span>
- <span class="nf">sleep</span><span class="o">(</span><span class="mf">30.</span><span class="n">seconds</span><span class="o">);</span> <span class="c1">// 7</span>
- <span class="nv">fryingPan</span><span class="o">.</span><span class="py">scoop</span><span class="o">();</span> <span class="c1">// 8</span>
-<span class="o">}</span>
+while (!fryingPan.check(isContentsBrown)) { // 6
+ sleep(30.seconds); // 7
+ fryingPan.scoop(); // 8
+}
 
-<span class="nv">fryingPan</span><span class="o">.</span><span class="py">pull</span><span class="o">();</span> <span class="c1">// 9</span>
-</code></pre></div></div>
+fryingPan.pull(); // 9
+</code></pre>
 
-<p>Our <code class="language-plaintext highlighter-rouge">IO</code>-driven programming is still a sequence of steps. We may try to describe pure data structures that get interpreted later, but that seldom happens. In our FP programs, what actually happens in practice is still imperative in nature:</p>
+<p>Our <code>IO</code>-driven programming is still a sequence of steps. We may try to describe pure data structures that get interpreted later, but that seldom happens. In our FP programs, what actually happens in practice is still imperative in nature:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Scala code</span>
-<span class="k">for</span> <span class="o">{</span>
-  <span class="n">fryingPan</span> <span class="k">&lt;-</span> <span class="nf">takeFryingPan</span><span class="o">()</span>
-  <span class="n">batter</span> <span class="k">&lt;-</span> <span class="nf">mix</span><span class="o">(</span><span class="n">eggs</span><span class="o">,</span> <span class="n">milk</span><span class="o">,</span> <span class="n">flour</span><span class="o">,</span> <span class="n">sugar</span><span class="o">,</span> <span class="n">bakingPowder</span><span class="o">,</span> <span class="n">salt</span><span class="o">)</span>
-  <span class="k">_</span> <span class="k">&lt;-</span> <span class="nv">fryingPan</span><span class="o">.</span><span class="py">pour</span><span class="o">(</span><span class="n">oil</span><span class="o">)</span>
-  <span class="k">_</span> <span class="k">&lt;-</span> <span class="nv">fryingPan</span><span class="o">.</span><span class="py">preHeat</span><span class="o">(</span><span class="mf">2.</span><span class="n">minutes</span><span class="o">)</span>
-  <span class="k">_</span> <span class="k">&lt;-</span> <span class="nv">fryingPan</span><span class="o">.</span><span class="py">pour</span><span class="o">(</span><span class="n">batter</span><span class="o">)</span>
-  <span class="k">_</span> <span class="k">&lt;-</span> <span class="o">{</span>
-    <span class="k">def</span> <span class="nf">loop</span><span class="o">()</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span>
-      <span class="nv">fryingPan</span><span class="o">.</span><span class="py">check</span><span class="o">(</span><span class="n">isBrown</span><span class="o">).</span><span class="py">flatMap</span> <span class="o">{</span>
-        <span class="k">case</span> <span class="kc">true</span> <span class="k">=&gt;</span> 
-          <span class="nv">IO</span><span class="o">.</span><span class="py">unit</span>
-        <span class="k">case</span> <span class="kc">false</span> <span class="k">=&gt;</span> 
-          <span class="nv">IO</span><span class="o">.</span><span class="py">sleep</span><span class="o">(</span><span class="mf">30.</span><span class="n">seconds</span><span class="o">).</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nf">loop</span><span class="o">())</span>
-      <span class="o">}</span>
-    <span class="nf">loop</span><span class="o">()</span>
-  <span class="o">}</span>
-  <span class="n">r</span> <span class="k">&lt;-</span> <span class="nv">fryingPan</span><span class="o">.</span><span class="py">pull</span><span class="o">()</span>
-<span class="o">}</span> <span class="k">yield</span> <span class="n">r</span>
-</code></pre></div></div>
+<pre><code class="language-scala">// Scala code
+for {
+  fryingPan &lt;- takeFryingPan()
+  batter &lt;- mix(eggs, milk, flour, sugar, bakingPowder, salt)
+  _ &lt;- fryingPan.pour(oil)
+  _ &lt;- fryingPan.preHeat(2.minutes)
+  _ &lt;- fryingPan.pour(batter)
+  _ &lt;- {
+    def loop(): IO[Unit] =
+      fryingPan.check(isBrown).flatMap {
+        case true =&gt; 
+          IO.unit
+        case false =&gt; 
+          IO.sleep(30.seconds).flatMap(_ =&gt; loop())
+      }
+    loop()
+  }
+  r &lt;- fryingPan.pull()
+} yield r
+</code></pre>
 
-<p>In Haskell, and in the Scala FP community, the semicolon (<code class="language-plaintext highlighter-rouge">;</code>) gets replaced with <code class="language-plaintext highlighter-rouge">flatMap</code> (AKA <code class="language-plaintext highlighter-rouge">bind</code>, <code class="language-plaintext highlighter-rouge">&gt;&gt;=</code>, <code class="language-plaintext highlighter-rouge">SelectMany</code>, etc.).</p>
+<p>In Haskell, and in the Scala FP community, the semicolon (<code>;</code>) gets replaced with <code>flatMap</code> (AKA <code>bind</code>, <code>&gt;&gt;=</code>, <code>SelectMany</code>, etc.).</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="n">A</span> <span class="o">;</span> <span class="n">B</span> <span class="o">;</span> <span class="n">C</span><span class="o">;</span>
+<pre><code class="language-scala">A ; B ; C;
 
-<span class="c1">// becomes...</span>
+// becomes...
 
-<span class="nv">A</span><span class="o">.</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">B</span><span class="o">).</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">C</span><span class="o">)</span>
-</code></pre></div></div>
+A.flatMap(_ =&gt; B).flatMap(_ =&gt; C)
+</code></pre>
 
 <p>This is made digestible via syntactic sugar. In Haskell that’s the <a href="https://en.wikibooks.org/wiki/Haskell/do_notation">do-notation</a>, in Scala we have the <a href="https://docs.scala-lang.org/tour/for-comprehensions.html">for comprehensions</a>, and in F# we have <a href="https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/computation-expressions">computation expressions</a>.</p>
 
 <p>So our Scala programs can look like this:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Scala code</span>
-<span class="k">for</span> <span class="o">{</span>
-  <span class="n">x</span> <span class="k">&lt;-</span> <span class="nf">foo</span><span class="o">()</span>
-  <span class="n">y</span> <span class="k">&lt;-</span> <span class="nf">bar</span><span class="o">(</span><span class="n">x</span><span class="o">)</span>
-  <span class="k">_</span> <span class="k">&lt;-</span> <span class="nf">baz</span><span class="o">()</span>
-  <span class="n">z</span> <span class="k">&lt;-</span> <span class="nf">qux</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span>
-<span class="o">}</span> <span class="k">yield</span> <span class="n">z</span>
-</code></pre></div></div>
+<pre><code class="language-scala">// Scala code
+for {
+  x &lt;- foo()
+  y &lt;- bar(x)
+  _ &lt;- baz()
+  z &lt;- qux(x, y)
+} yield z
+</code></pre>
 
-<p>This is similar to what we did with <code class="language-plaintext highlighter-rouge">Future</code>. In Scala this syntactic sugar is more generic, driven by monadic types, because in languages such as C# or TypeScript/JavaScript, we have special <code class="language-plaintext highlighter-rouge">async</code>/<code class="language-plaintext highlighter-rouge">await</code> syntax that only works with <code class="language-plaintext highlighter-rouge">Future</code>/<code class="language-plaintext highlighter-rouge">Promise</code>/<code class="language-plaintext highlighter-rouge">Task</code> data types and that looks like this:</p>
+<p>This is similar to what we did with <code>Future</code>. In Scala this syntactic sugar is more generic, driven by monadic types, because in languages such as C# or TypeScript/JavaScript, we have special <code>async</code>/<code>await</code> syntax that only works with <code>Future</code>/<code>Promise</code>/<code>Task</code> data types and that looks like this:</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// JavaScript code</span>
-<span class="k">async</span> <span class="kd">function</span> <span class="nf">doStuff</span><span class="p">()</span> <span class="p">{</span>
-  <span class="kd">const</span> <span class="nx">x</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">foo</span><span class="p">()</span>
-  <span class="kd">const</span> <span class="nx">y</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">bar</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
-  <span class="k">await</span> <span class="nf">baz</span><span class="p">()</span> <span class="c1">// better not forget the `await` 😉</span>
-  <span class="kd">const</span> <span class="nx">z</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">qux</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span>
-  <span class="k">return</span> <span class="nx">z</span>
-<span class="p">}</span>
-</code></pre></div></div>
+<pre><code class="language-typescript">// JavaScript code
+async function doStuff() {
+  const x = await foo()
+  const y = await bar(x)
+  await baz() // better not forget the `await` 😉
+  const z = await qux(x, y)
+  return z
+}
+</code></pre>
 
-<p>Call-sites of functions returning <code class="language-plaintext highlighter-rouge">IO</code>, however, are <a href="https://en.wikipedia.org/wiki/Referential_transparency">referentially transparent</a>. And it’s important to contrast with <code class="language-plaintext highlighter-rouge">Future/Promise</code>. Take for example this program:</p>
+<p>Call-sites of functions returning <code>IO</code>, however, are <a href="https://en.wikipedia.org/wiki/Referential_transparency">referentially transparent</a>. And it’s important to contrast with <code>Future/Promise</code>. Take for example this program:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Scala code</span>
-<span class="k">for</span> <span class="o">{</span>
-  <span class="n">x</span> <span class="k">&lt;-</span> <span class="nf">fireRocketsToMars</span><span class="o">()</span>
-  <span class="n">y</span> <span class="k">&lt;-</span> <span class="nf">fireRocketsToMars</span><span class="o">()</span>
-<span class="o">}</span> <span class="k">yield</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+<pre><code class="language-scala">// Scala code
+for {
+  x &lt;- fireRocketsToMars()
+  y &lt;- fireRocketsToMars()
+} yield x + y
 
-<span class="c1">// ... versus ...</span>
+// ... versus ...
 
-<span class="k">val</span> <span class="nv">r</span> <span class="k">=</span> <span class="nf">fireRocketsToMars</span><span class="o">()</span>
-<span class="k">for</span> <span class="o">{</span>
-  <span class="n">x</span> <span class="k">&lt;-</span> <span class="n">r</span>
-  <span class="n">y</span> <span class="k">&lt;-</span> <span class="n">r</span>
-<span class="o">}</span> <span class="k">yield</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+val r = fireRocketsToMars()
+for {
+  x &lt;- r
+  y &lt;- r
+} yield x + y
 
-<span class="c1">// ... versus ...</span>
+// ... versus ...
 
-<span class="k">val</span> <span class="nv">rx</span> <span class="k">=</span> <span class="nf">fireRocketsToMars</span><span class="o">()</span>
-<span class="k">val</span> <span class="nv">ry</span> <span class="k">=</span> <span class="nf">fireRocketsToMars</span><span class="o">()</span>
-<span class="k">for</span> <span class="o">{</span>
-  <span class="n">x</span> <span class="k">&lt;-</span> <span class="n">rx</span>
-  <span class="n">y</span> <span class="k">&lt;-</span> <span class="n">ry</span>
-<span class="o">}</span> <span class="k">yield</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
-</code></pre></div></div>
+val rx = fireRocketsToMars()
+val ry = fireRocketsToMars()
+for {
+  x &lt;- rx
+  y &lt;- ry
+} yield x + y
+</code></pre>
 
-<p>What’s the difference of behavior between <code class="language-plaintext highlighter-rouge">IO</code> and <code class="language-plaintext highlighter-rouge">Future</code> in this case?</p>
+<p>What’s the difference of behavior between <code>IO</code> and <code>Future</code> in this case?</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Scala code</span>
+<pre><code class="language-scala">// Scala code
 
-<span class="k">def</span> <span class="nf">fireRocketsToMars</span><span class="o">()</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span>
-<span class="c1">// ... versus ...</span>
-<span class="k">def</span> <span class="nf">fireRocketsToMars</span><span class="o">()</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span>
-</code></pre></div></div>
+def fireRocketsToMars(): IO[Int]
+// ... versus ...
+def fireRocketsToMars(): Future[Int]
+</code></pre>
 
-<p>Well, with <code class="language-plaintext highlighter-rouge">IO</code> the behavior of the program is the same, in all 3 cases, whereas with <code class="language-plaintext highlighter-rouge">Future</code> the behavior changes. With <code class="language-plaintext highlighter-rouge">Future</code> we can talk of 3 different programs with wildly different behavior. And that’s not good, as it can be counter-intuitive, being a source of bugs.  <code class="language-plaintext highlighter-rouge">IO</code> in this case behaves as it should, although in the context of Scala, <code class="language-plaintext highlighter-rouge">IO</code> isn’t without fault either.</p>
+<p>Well, with <code>IO</code> the behavior of the program is the same, in all 3 cases, whereas with <code>Future</code> the behavior changes. With <code>Future</code> we can talk of 3 different programs with wildly different behavior. And that’s not good, as it can be counter-intuitive, being a source of bugs.  <code>IO</code> in this case behaves as it should, although in the context of Scala, <code>IO</code> isn’t without fault either.</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Scala code</span>
+<pre><code class="language-scala">// Scala code
 
-<span class="c1">// No concurrent execution here, but we never use this value, </span>
-<span class="c1">// so this is a hard to trace no-op:</span>
-<span class="k">val</span> <span class="nv">bazJob</span> <span class="k">=</span> <span class="nf">baz</span><span class="o">()</span>
-<span class="k">for</span> <span class="o">{</span>
-  <span class="n">x</span> <span class="k">&lt;-</span> <span class="nf">foo</span><span class="o">()</span>
-  <span class="n">y</span> <span class="k">&lt;-</span> <span class="nf">bar</span><span class="o">(</span><span class="n">x</span><span class="o">)</span>
-  <span class="n">z</span> <span class="k">&lt;-</span> <span class="nf">qux</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span>
-<span class="o">}</span> <span class="k">yield</span> <span class="n">z</span>
-</code></pre></div></div>
+// No concurrent execution here, but we never use this value, 
+// so this is a hard to trace no-op:
+val bazJob = baz()
+for {
+  x &lt;- foo()
+  y &lt;- bar(x)
+  z &lt;- qux(x, y)
+} yield z
+</code></pre>
 
-<p>Speaking of, I am asking questions on this difference of behavior in interviews. Surprisingly, many people get this wrong, in spite of having experience with real-world <code class="language-plaintext highlighter-rouge">IO</code> usage. And that’s not their fault. The fault lies with the Scala language, because:</p>
+<p>Speaking of, I am asking questions on this difference of behavior in interviews. Surprisingly, many people get this wrong, in spite of having experience with real-world <code>IO</code> usage. And that’s not their fault. The fault lies with the Scala language, because:</p>
 
 <ol>
-  <li><code class="language-plaintext highlighter-rouge">Future</code> is a broken abstraction, completely beyond redemption, not much better than the callback hell it improves on, and the <code class="language-plaintext highlighter-rouge">async</code>/<code class="language-plaintext highlighter-rouge">await</code> syntactic sugar is only an ineffective band-aid — <code class="language-plaintext highlighter-rouge">async</code> doesn’t help, as the default evaluation model should never be concurrent execution, you shouldn’t need to mention an explicit<code class="language-plaintext highlighter-rouge">await</code> to force sequencing;</li>
+  <li><code>Future</code> is a broken abstraction, completely beyond redemption, not much better than the callback hell it improves on, and the <code>async</code>/<code>await</code> syntactic sugar is only an ineffective band-aid — <code>async</code> doesn’t help, as the default evaluation model should never be concurrent execution, you shouldn’t need to mention an explicit<code>await</code> to force sequencing;</li>
   <li>Scala, here, suffers from a severe case of <a href="https://en.wikipedia.org/wiki/There's_more_than_one_way_to_do_it">TIMTOWTDI</a>, because it’s a strict language, and has multiple ways of expressing the sequencing of instructions, and it’s no wonder that beginners are getting confused;</li>
 </ol>
 
@@ -457,12 +477,12 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
 
 <p>Math is abstraction, and it takes maturity to learn math abstraction. Some people never do. My high-school teacher used to say that there are two kinds of students, those that understand the formal definitions of limits (with the epsilon notation), and those that don’t. I always thought that’s just a language problem, use better communication and more people will understand, but it’s without doubt that children need to develop the necessary cognitive abilities before understanding abstraction.</p>
 
-<p>This is important to realize, because, while <code class="language-plaintext highlighter-rouge">IO</code>-driven programs are very much imperative in nature, laziness brings us closer to math. It’s why languages like Haskell may never be in top 5, or why Scala can have a lot of accidental complexity. In <a href="https://queue.acm.org/detail.cfm?id=2611829">Curse of the Excluded Middle</a>, Erik Meijer argues just that … in imperative, strictly-evaluated languages, lazy behavior is surprising, and that’s bad.</p>
+<p>This is important to realize, because, while <code>IO</code>-driven programs are very much imperative in nature, laziness brings us closer to math. It’s why languages like Haskell may never be in top 5, or why Scala can have a lot of accidental complexity. In <a href="https://queue.acm.org/detail.cfm?id=2611829">Curse of the Excluded Middle</a>, Erik Meijer argues just that … in imperative, strictly-evaluated languages, lazy behavior is surprising, and that’s bad.</p>
 
-<p>I’d argue that laziness can be surprising in general, even if you’re working in a non-strict language, such as Haskell. Haskell’s non-strict evaluation keeps people honest. You can always call <code class="language-plaintext highlighter-rouge">unsafePerformIO</code> to trigger side effects that aren’t tracked by the type system, but it’s tricky getting the runtime to actually evaluate it, esp if you don’t need the returned result. This means that shortcuts meant for debugging are hard (e.g., logging), and this can surprise people. And no sufficiently smart compiler or runtime has been invented yet to solve efficiency issues, which are a problem, because performance is hard to reason about when thunks get lazily evaluated, even in terms of big-O complexity. Data structures, at least, are meant to be already evaluated and inspectable. When that doesn’t happen (e.g., streams), that’s “codata”, it takes (runtime) effort to inspect such values, and Haskell seriously blurs the lines between them.</p>
+<p>I’d argue that laziness can be surprising in general, even if you’re working in a non-strict language, such as Haskell. Haskell’s non-strict evaluation keeps people honest. You can always call <code>unsafePerformIO</code> to trigger side effects that aren’t tracked by the type system, but it’s tricky getting the runtime to actually evaluate it, esp if you don’t need the returned result. This means that shortcuts meant for debugging are hard (e.g., logging), and this can surprise people. And no sufficiently smart compiler or runtime has been invented yet to solve efficiency issues, which are a problem, because performance is hard to reason about when thunks get lazily evaluated, even in terms of big-O complexity. Data structures, at least, are meant to be already evaluated and inspectable. When that doesn’t happen (e.g., streams), that’s “codata”, it takes (runtime) effort to inspect such values, and Haskell seriously blurs the lines between them.</p>
 
 <p class="info-bubble">
-For Haskell developers out there that disagree, I have a question — in your programs, are you using <code class="language-plaintext highlighter-rouge">String</code>, or are you using <code class="language-plaintext highlighter-rouge">Text</code>?
+For Haskell developers out there that disagree, I have a question — in your programs, are you using <code>String</code>, or are you using <code>Text</code>?
 </p>
 
 <p>There are many things I like about doing FP in Scala, and having strict evaluation as the default is one of them.</p>
@@ -475,47 +495,47 @@ For Haskell developers out there that disagree, I have a question — in your pr
       </h2>
     
 
-<p>When I say that <code class="language-plaintext highlighter-rouge">Future</code> is broken, the reason is that its usage is prone to accidents. <code class="language-plaintext highlighter-rouge">Future</code> is an honest representation of asynchronous computations, and that’s not the fault of imperative programming.</p>
+<p>When I say that <code>Future</code> is broken, the reason is that its usage is prone to accidents. <code>Future</code> is an honest representation of asynchronous computations, and that’s not the fault of imperative programming.</p>
 
 <p>To wit, we started from this:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Scala code</span>
+<pre><code class="language-scala">// Scala code
 
-<span class="k">def</span> <span class="nf">fireRocketsToMars</span><span class="o">()</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span>
-<span class="c1">// ... versus ...</span>
-<span class="k">def</span> <span class="nf">fireRocketsToMars</span><span class="o">()</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span>
-</code></pre></div></div>
+def fireRocketsToMars(): IO[Int]
+// ... versus ...
+def fireRocketsToMars(): Future[Int]
+</code></pre>
 
 <p>But there is a third option that we did not take into account, which is blocking I/O:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">def</span> <span class="nf">fireRocketsToMars</span><span class="o">()</span><span class="k">:</span> <span class="kt">Int</span>
-</code></pre></div></div>
+<pre><code class="language-scala">def fireRocketsToMars(): Int
+</code></pre>
 
-<p>With blocking I/O expressed like this, we have no need for <code class="language-plaintext highlighter-rouge">flatMap</code> or for special sequencing syntax, as it’s pretty damn clear what’s going on — at least in terms of sequencing of steps. It’s not all rosy, my problem being that the signature is lying, as it doesn’t make it clear that there are dangerous side effects going on (but in Scala <a href="/blog/2022/05/23/tracking-effects-in-scala/">this could be fixed</a>).</p>
+<p>With blocking I/O expressed like this, we have no need for <code>flatMap</code> or for special sequencing syntax, as it’s pretty damn clear what’s going on — at least in terms of sequencing of steps. It’s not all rosy, my problem being that the signature is lying, as it doesn’t make it clear that there are dangerous side effects going on (but in Scala <a href="/blog/2022/05/23/tracking-effects-in-scala/">this could be fixed</a>).</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">val</span> <span class="nv">x</span> <span class="k">=</span> <span class="nf">fireRocketsToMars</span><span class="o">();</span>
-<span class="k">val</span> <span class="nv">y</span> <span class="k">=</span> <span class="nf">fireRocketsToMars</span><span class="o">();</span>
-<span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
-</code></pre></div></div>
+<pre><code class="language-scala">val x = fireRocketsToMars();
+val y = fireRocketsToMars();
+x + y
+</code></pre>
 
 <p>It’s important to realize the virtues of doing this:</p>
 
 <ol>
   <li>if everything becomes synchronous/blocking by default, there are no accidents related to accidental concurrent execution;</li>
   <li>the distinction between data and codata (i.e., data structures versus computations) becomes clear as day;</li>
-  <li>standard language constructs still work (e.g., for/while loops, <code class="language-plaintext highlighter-rouge">try-catch-finally</code>, <code class="language-plaintext highlighter-rouge">try-with-resources</code> or Java’s checked exceptions);</li>
+  <li>standard language constructs still work (e.g., for/while loops, <code>try-catch-finally</code>, <code>try-with-resources</code> or Java’s checked exceptions);</li>
 </ol>
 
 <p>Here’s the other sample, again:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="k">val</span> <span class="nv">x</span> <span class="k">=</span> <span class="nf">foo</span><span class="o">();</span>
-<span class="k">val</span> <span class="nv">y</span> <span class="k">=</span> <span class="nf">bar</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
-<span class="nf">baz</span><span class="o">();</span>
-<span class="k">val</span> <span class="nv">z</span> <span class="k">=</span> <span class="nf">qux</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">);</span>
-<span class="k">return</span> <span class="n">z</span>
-</code></pre></div></div>
+<pre><code class="language-scala">val x = foo();
+val y = bar(x);
+baz();
+val z = qux(x, y);
+return z
+</code></pre>
 
-<p>I’d argue that there is no meaningful difference between this, and the equivalent IO-driven program, at least in terms of accidents that can happen. If this were <code class="language-plaintext highlighter-rouge">Future</code>-driven, a lot of things could go wrong because all of those invocations could be concurrent, by accident. But we are not using <code class="language-plaintext highlighter-rouge">Future</code> here.</p>
+<p>I’d argue that there is no meaningful difference between this, and the equivalent IO-driven program, at least in terms of accidents that can happen. If this were <code>Future</code>-driven, a lot of things could go wrong because all of those invocations could be concurrent, by accident. But we are not using <code>Future</code> here.</p>
 
 <p>There can be no accidents here, because once the execution returns from a function invocation, that function is done. And having this mental model is awesome.</p>
       <h2 id="java-whats-old-is-new-again">
@@ -529,7 +549,7 @@ For Haskell developers out there that disagree, I have a question — in your pr
 
 <p>Blocking I/O has always been the norm in Java land. Java was built for using threads, and for blocking those threads. Java’s memory model, the ease of working with threads, was one of its main innovations.</p>
 
-<p>This is why Java’s standard library is filled with concurrency primitives that block, such as <code class="language-plaintext highlighter-rouge">BlockingQueue</code>, <code class="language-plaintext highlighter-rouge">Semaphore</code>, <code class="language-plaintext highlighter-rouge">ReadWriteLock</code> or <code class="language-plaintext highlighter-rouge">ReentrantLock</code>, with no async equivalents. It’s why Java has a <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/Future.html">Future</a> interface whose only means of getting its result is a blocking <code class="language-plaintext highlighter-rouge">.get()</code> call.</p>
+<p>This is why Java’s standard library is filled with concurrency primitives that block, such as <code>BlockingQueue</code>, <code>Semaphore</code>, <code>ReadWriteLock</code> or <code>ReentrantLock</code>, with no async equivalents. It’s why Java has a <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/Future.html">Future</a> interface whose only means of getting its result is a blocking <code>.get()</code> call.</p>
 
 <p>The newer <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/CompletableFuture.html">CompletableFuture</a> happened in Java 8. Java 8 also introduced lambda expressions, so you can feel that was about the time asynchronous programming APIs took off, as a sort of detour from the official way of doing things.</p>
 
@@ -544,14 +564,14 @@ For Haskell developers out there that disagree, I have a question — in your pr
 <p>The answer in Java land has been to work with thread-pools, to reuse available threads as much as possible, and to limit the maximum number of threads that can be started. Thread-pools are problematic as well, because:</p>
 
 <ol>
-  <li><code class="language-plaintext highlighter-rouge">ThreadLocal</code> values can now leak, and thread interruption is very unsafe if you don’t own the thread;</li>
+  <li><code>ThreadLocal</code> values can now leak, and thread interruption is very unsafe if you don’t own the thread;</li>
   <li>Complicated libraries tend to start their own thread-pool, and you can assess the maturity of Java projects by the number of thread-pools active at the same time;</li>
   <li>Blocking I/O makes limiting threads hard, because you can end up with thread-starvation, a type of deadlock, a situation in which threads are unable to make progress due to hard limits on the thread-pool;</li>
 </ol>
 
 <p>And managing threads and thread-pools being low level, the community evolved towards using “reactive”/fluent APIs, such as <a href="https://github.com/ReactiveX/RxJava">RxJava</a>, <a href="https://projectreactor.io/">Project Reactor</a>, <a href="https://akka.io/">Akka</a>, and others. Which are essentially libraries meant to recreate “M:N threading” on top of the JVM, i.e., multiplexing many jobs on few OS/platform threads.</p>
 
-<p>Java 19 introduces “virtual threads”, bringing M:N threading support at the runtime level, which makes threads, and blocking I/O cheap. It’s not perfect, as the JVM can still block OS threads, generating “pinned” events in “flight recorder”, which I’m sure will be the new bread and butter of profilers everywhere. But everything in the language and the standard library starts making sense again. All those APIs built for blocking suddenly become much cheaper to use, effectively obsoleting the <code class="language-plaintext highlighter-rouge">Future</code> data types.</p>
+<p>Java 19 introduces “virtual threads”, bringing M:N threading support at the runtime level, which makes threads, and blocking I/O cheap. It’s not perfect, as the JVM can still block OS threads, generating “pinned” events in “flight recorder”, which I’m sure will be the new bread and butter of profilers everywhere. But everything in the language and the standard library starts making sense again. All those APIs built for blocking suddenly become much cheaper to use, effectively obsoleting the <code>Future</code> data types.</p>
       <h2 id="structured-concurrency">
         
         
@@ -576,31 +596,31 @@ For Haskell developers out there that disagree, I have a question — in your pr
 
 <p>In the context of concurrency, this should sound very familiar. With classical Java, concurrent execution would look like this:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Java code</span>
-<span class="kd">final</span> <span class="kt">var</span> <span class="n">mixJob</span> <span class="o">=</span>
-  <span class="n">ec</span><span class="o">.</span><span class="na">submit</span><span class="o">(()</span> <span class="o">-&gt;</span> 
-    <span class="n">mix</span><span class="o">(</span><span class="n">eggs</span><span class="o">,</span> <span class="n">milk</span><span class="o">,</span> <span class="n">flour</span><span class="o">,</span> <span class="n">sugar</span><span class="o">,</span> <span class="n">bakingPowder</span><span class="o">,</span> <span class="n">salt</span><span class="o">)</span>
-  <span class="o">);</span>
+<pre><code class="language-java">// Java code
+final var mixJob =
+  ec.submit(() -&gt; 
+    mix(eggs, milk, flour, sugar, bakingPowder, salt)
+  );
 
-<span class="kd">final</span> <span class="kt">var</span> <span class="n">prepareFryingPanJob</span> <span class="o">=</span>
-  <span class="n">ec</span><span class="o">.</span><span class="na">submit</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
-    <span class="kd">final</span> <span class="kt">var</span> <span class="n">fryingPan</span> <span class="o">=</span> <span class="n">takeFryingPan</span><span class="o">();</span>
-    <span class="n">fryingPan</span><span class="o">.</span><span class="na">pour</span><span class="o">(</span><span class="n">oil</span><span class="o">);</span>
-    <span class="n">fryingPan</span><span class="o">.</span><span class="na">preHeat</span><span class="o">(</span><span class="nc">Duration</span><span class="o">.</span><span class="na">ofMinutes</span><span class="o">(</span><span class="mi">2</span><span class="o">));</span> 
-    <span class="k">return</span> <span class="n">fryingPan</span><span class="o">;</span>
-  <span class="o">});</span>
+final var prepareFryingPanJob =
+  ec.submit(() -&gt; {
+    final var fryingPan = takeFryingPan();
+    fryingPan.pour(oil);
+    fryingPan.preHeat(Duration.ofMinutes(2)); 
+    return fryingPan;
+  });
 
-<span class="kd">final</span> <span class="kt">var</span> <span class="n">fryingPan</span> <span class="o">=</span> <span class="n">prepareFryingPanJob</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
-<span class="kd">final</span> <span class="kt">var</span> <span class="n">batter</span> <span class="o">=</span> <span class="n">mixJob</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
-<span class="c1">//...</span>
-</code></pre></div></div>
+final var fryingPan = prepareFryingPanJob.get();
+final var batter = mixJob.get();
+//...
+</code></pre>
 
 <p>We now have concurrent execution, making more efficient use of our resources. But therein lie problems:</p>
 
 <ol>
-  <li>if <code class="language-plaintext highlighter-rouge">prepareFryingPanJob.get()</code> throws an exception, the execution of <code class="language-plaintext highlighter-rouge">mixJob</code> won’t get cancelled, thus creating a leak;</li>
+  <li>if <code>prepareFryingPanJob.get()</code> throws an exception, the execution of <code>mixJob</code> won’t get cancelled, thus creating a leak;</li>
   <li>if the current thread gets interrupted, the interruption signal doesn’t propagate to the started concurrent tasks;</li>
-  <li>if <code class="language-plaintext highlighter-rouge">prepareFryingPanJob</code> takes a long time to execute, but <code class="language-plaintext highlighter-rouge">mixJob</code> fails immediately, we won’t see that failure until <code class="language-plaintext highlighter-rouge">prepareFryingPanJob</code> finishes;</li>
+  <li>if <code>prepareFryingPanJob</code> takes a long time to execute, but <code>mixJob</code> fails immediately, we won’t see that failure until <code>prepareFryingPanJob</code> finishes;</li>
 </ol>
 
 <p>Kotlin’s coroutines did not introduce the notion of “structured concurrency”, but I think it popularized it. The basic idea is this:</p>
@@ -613,123 +633,123 @@ For Haskell developers out there that disagree, I have a question — in your pr
 
 <p>This is similar to the idea behind C++’s <a href="https://en.wikipedia.org/wiki/Resource_acquisition_is_initialization">RAII</a>.</p>
 
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Kotlin code</span>
-<span class="nf">coroutineScope</span> <span class="p">{</span>
-  <span class="kd">val</span> <span class="py">mixJob</span> <span class="p">=</span> <span class="nf">async</span> <span class="p">{</span> 
-    <span class="nf">mix</span><span class="p">(</span><span class="n">eggs</span><span class="p">,</span> <span class="n">milk</span><span class="p">,</span> <span class="n">flour</span><span class="p">,</span> <span class="n">sugar</span><span class="p">,</span> <span class="n">bakingPowder</span><span class="p">,</span> <span class="n">salt</span><span class="p">)</span> 
-  <span class="p">}</span>
-  <span class="kd">val</span> <span class="py">prepareFryingPanJob</span> <span class="p">=</span> <span class="nf">async</span> <span class="p">{</span>
-    <span class="kd">val</span> <span class="py">fryingPan</span> <span class="p">=</span> <span class="nf">takeFryingPan</span><span class="p">()</span>
-    <span class="n">fryingPan</span><span class="p">.</span><span class="nf">pour</span><span class="p">(</span><span class="n">oil</span><span class="p">)</span>
-    <span class="n">fryingPan</span><span class="p">.</span><span class="nf">preHeat</span><span class="p">(</span><span class="mi">2</span><span class="p">.</span><span class="n">minutes</span><span class="p">)</span>
-    <span class="n">fryingPan</span>
-  <span class="p">}</span>
+<pre><code class="language-kotlin">// Kotlin code
+coroutineScope {
+  val mixJob = async { 
+    mix(eggs, milk, flour, sugar, bakingPowder, salt) 
+  }
+  val prepareFryingPanJob = async {
+    val fryingPan = takeFryingPan()
+    fryingPan.pour(oil)
+    fryingPan.preHeat(2.minutes)
+    fryingPan
+  }
 
-  <span class="kd">val</span> <span class="py">fryingPan</span> <span class="p">=</span> <span class="n">prepareFryingPanJob</span><span class="p">.</span><span class="nf">await</span><span class="p">()</span>
-  <span class="kd">val</span> <span class="py">mix</span> <span class="p">=</span> <span class="n">mixJob</span><span class="p">.</span><span class="nf">await</span><span class="p">()</span>
-  <span class="c1">//...</span>
-<span class="p">}</span>
-</code></pre></div></div>
+  val fryingPan = prepareFryingPanJob.await()
+  val mix = mixJob.await()
+  //...
+}
+</code></pre>
 
-<p>In Kotlin, if the code of such a <code class="language-plaintext highlighter-rouge">coroutineScope</code> throws an error, all its concurrent jobs gets cancelled. The scope also awaits all concurrent jobs to finish, before it can finish, so there can be no accidental “fire and forget” jobs. And if any of the concurrent jobs throws an exception, then the other concurrent job gets cancelled.</p>
+<p>In Kotlin, if the code of such a <code>coroutineScope</code> throws an error, all its concurrent jobs gets cancelled. The scope also awaits all concurrent jobs to finish, before it can finish, so there can be no accidental “fire and forget” jobs. And if any of the concurrent jobs throws an exception, then the other concurrent job gets cancelled.</p>
 
 <p>Java 19 also introduced very experimental extensions for doing the same, in <a href="https://openjdk.org/jeps/428">JEP 428</a>:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Java code</span>
-<span class="k">try</span> <span class="o">(</span><span class="kt">var</span> <span class="n">scope</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StructuredTaskScope</span><span class="o">.</span><span class="na">ShutdownOnFailure</span><span class="o">())</span> <span class="o">{</span>
-  <span class="kd">final</span> <span class="kt">var</span> <span class="n">mixJob</span> <span class="o">=</span>
-    <span class="n">scope</span><span class="o">.</span><span class="na">submit</span><span class="o">(()</span> <span class="o">-&gt;</span> 
-      <span class="n">mix</span><span class="o">(</span><span class="n">eggs</span><span class="o">,</span> <span class="n">milk</span><span class="o">,</span> <span class="n">flour</span><span class="o">,</span> <span class="n">sugar</span><span class="o">,</span> <span class="n">bakingPowder</span><span class="o">,</span> <span class="n">salt</span><span class="o">)</span>
-    <span class="o">);</span>
+<pre><code class="language-java">// Java code
+try (var scope = new StructuredTaskScope.ShutdownOnFailure()) {
+  final var mixJob =
+    scope.submit(() -&gt; 
+      mix(eggs, milk, flour, sugar, bakingPowder, salt)
+    );
 
-  <span class="kd">final</span> <span class="kt">var</span> <span class="n">prepareFryingPanJob</span> <span class="o">=</span>
-    <span class="n">scope</span><span class="o">.</span><span class="na">submit</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
-      <span class="kd">final</span> <span class="kt">var</span> <span class="n">fryingPan</span> <span class="o">=</span> <span class="n">takeFryingPan</span><span class="o">();</span>
-      <span class="n">fryingPan</span><span class="o">.</span><span class="na">pour</span><span class="o">(</span><span class="n">oil</span><span class="o">);</span>
-      <span class="n">fryingPan</span><span class="o">.</span><span class="na">preHeat</span><span class="o">(</span><span class="nc">Duration</span><span class="o">.</span><span class="na">ofMinutes</span><span class="o">(</span><span class="mi">2</span><span class="o">));</span> 
-      <span class="k">return</span> <span class="n">fryingPan</span><span class="o">;</span>
-    <span class="o">});</span>
+  final var prepareFryingPanJob =
+    scope.submit(() -&gt; {
+      final var fryingPan = takeFryingPan();
+      fryingPan.pour(oil);
+      fryingPan.preHeat(Duration.ofMinutes(2)); 
+      return fryingPan;
+    });
 
-  <span class="n">scope</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>           
-  <span class="n">scope</span><span class="o">.</span><span class="na">throwIfFailed</span><span class="o">();</span>
+  scope.join();           
+  scope.throwIfFailed();
 
-  <span class="kd">final</span> <span class="kt">var</span> <span class="n">fryingPan</span> <span class="o">=</span> <span class="n">prepareFryingPanJob</span><span class="o">.</span><span class="na">resultNow</span><span class="o">();</span>
-  <span class="kd">final</span> <span class="kt">var</span> <span class="n">batter</span> <span class="o">=</span> <span class="n">mixJob</span><span class="o">.</span><span class="na">resultNow</span><span class="o">();</span>
-  <span class="c1">//...</span>
-<span class="o">}</span>
-</code></pre></div></div>
+  final var fryingPan = prepareFryingPanJob.resultNow();
+  final var batter = mixJob.resultNow();
+  //...
+}
+</code></pre>
 
 <p>This API is currently “incubating” and looks clumsy, but the concept is the same, and its efficient use is made possible due to blocking I/O becoming cheap.</p>
 
-<p>What would we do in Scala with Cats-Effect’s <code class="language-plaintext highlighter-rouge">IO</code>?</p>
+<p>What would we do in Scala with Cats-Effect’s <code>IO</code>?</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Scala code</span>
+<pre><code class="language-scala">// Scala code
 
-<span class="c1">// No-op</span>
-<span class="k">val</span> <span class="nv">mixJob</span> <span class="k">=</span>
-  <span class="nf">mix</span><span class="o">(</span><span class="n">eggs</span><span class="o">,</span> <span class="n">milk</span><span class="o">,</span> <span class="n">flour</span><span class="o">,</span> <span class="n">sugar</span><span class="o">,</span> <span class="n">bakingPowder</span><span class="o">,</span> <span class="n">salt</span><span class="o">)</span>
+// No-op
+val mixJob =
+  mix(eggs, milk, flour, sugar, bakingPowder, salt)
 
-<span class="c1">// No-op</span>
-<span class="k">val</span> <span class="nv">prepareFryingPanJob</span> <span class="k">=</span> 
-  <span class="k">for</span> <span class="o">{</span>
-    <span class="n">fryingPan</span> <span class="k">&lt;-</span> <span class="n">takeFryingPan</span>
-    <span class="k">_</span> <span class="k">&lt;-</span> <span class="nv">fryingPan</span><span class="o">.</span><span class="py">pour</span><span class="o">(</span><span class="n">oil</span><span class="o">)</span>
-    <span class="k">_</span> <span class="k">&lt;-</span> <span class="nv">fryingPan</span><span class="o">.</span><span class="py">preHeat</span><span class="o">(</span><span class="mf">2.</span><span class="n">minutes</span><span class="o">)</span>
-  <span class="o">}</span> <span class="k">yield</span> <span class="nf">fryingPan</span>
+// No-op
+val prepareFryingPanJob = 
+  for {
+    fryingPan &lt;- takeFryingPan
+    _ &lt;- fryingPan.pour(oil)
+    _ &lt;- fryingPan.preHeat(2.minutes)
+  } yield fryingPan
 
-<span class="o">(</span><span class="n">mixJob</span><span class="o">,</span> <span class="n">prepareFryingPanJob</span><span class="o">).</span><span class="py">parMapN</span> <span class="o">{</span> <span class="o">(</span><span class="n">mx</span><span class="o">,</span> <span class="n">fryingPan</span><span class="o">)</span> <span class="k">=&gt;</span>
-  <span class="c1">//...</span>
-<span class="o">}</span>
-</code></pre></div></div>
+(mixJob, prepareFryingPanJob).parMapN { (mx, fryingPan) =&gt;
+  //...
+}
+</code></pre>
 
-<p>With Cats-Effect <code class="language-plaintext highlighter-rouge">IO</code> concurrency/parallel execution must be made explicit. Here we are using the <code class="language-plaintext highlighter-rouge">parMapN</code> operator from the <a href="https://typelevel.org/cats/typeclasses/parallel.html">Parallel</a> type class. The creation of those tasks is lazy. Nothing gets executed then and there. This makes it a little clumsy, so you’d better turn your linter to warn against unused values.</p>
+<p>With Cats-Effect <code>IO</code> concurrency/parallel execution must be made explicit. Here we are using the <code>parMapN</code> operator from the <a href="https://typelevel.org/cats/typeclasses/parallel.html">Parallel</a> type class. The creation of those tasks is lazy. Nothing gets executed then and there. This makes it a little clumsy, so you’d better turn your linter to warn against unused values.</p>
 
-<p>But this raises important questions — in this context, what does <code class="language-plaintext highlighter-rouge">IO</code> buy us? I’m finding this question increasingly difficult to answer. I used to say that <code class="language-plaintext highlighter-rouge">IO</code> is very explicit about how things get evaluated (e.g., in parallel or sequential), so there can be no accidents, but <code class="language-plaintext highlighter-rouge">IO</code> isn’t the only way for achieving that. And due to its laziness, it introduces some accidental complexity of its own.</p>
+<p>But this raises important questions — in this context, what does <code>IO</code> buy us? I’m finding this question increasingly difficult to answer. I used to say that <code>IO</code> is very explicit about how things get evaluated (e.g., in parallel or sequential), so there can be no accidents, but <code>IO</code> isn’t the only way for achieving that. And due to its laziness, it introduces some accidental complexity of its own.</p>
 
-<p><code class="language-plaintext highlighter-rouge">IO</code> is very composable. You can, for example, combine it with <code class="language-plaintext highlighter-rouge">Either</code>, via <code class="language-plaintext highlighter-rouge">EitherT</code>. Or you can bake <code class="language-plaintext highlighter-rouge">EitherT</code> in, like what ZIO did.</p>
+<p><code>IO</code> is very composable. You can, for example, combine it with <code>Either</code>, via <code>EitherT</code>. Or you can bake <code>EitherT</code> in, like what ZIO did.</p>
 
-<p>But with blocking I/O, in Java, you can make use of checked exceptions again. And for Kotlin, checkout <a href="https://arrow-kt.io/">Arrow</a>, see their article on <a href="https://arrow-kt.io/docs/effects/io/">why <code class="language-plaintext highlighter-rouge">suspend () -&gt; A</code> instead of <code class="language-plaintext highlighter-rouge">IO&lt;A&gt;</code></a>. If typed exceptions is your cup of team, here’s how that sample would look like:</p>
+<p>But with blocking I/O, in Java, you can make use of checked exceptions again. And for Kotlin, checkout <a href="https://arrow-kt.io/">Arrow</a>, see their article on <a href="https://arrow-kt.io/docs/effects/io/">why <code>suspend () -&gt; A</code> instead of <code>IO&lt;A&gt;</code></a>. If typed exceptions is your cup of team, here’s how that sample would look like:</p>
 
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Kotlin code</span>
-<span class="k">suspend</span> <span class="k">fun</span> <span class="nf">makePancakes</span><span class="p">():</span> <span class="nc">Either</span><span class="p">&lt;</span><span class="nc">SomeError</span><span class="p">,</span> <span class="nc">Pancakes</span><span class="p">&gt;</span> <span class="p">=</span>
-  <span class="nf">either</span> <span class="p">{</span>
-    <span class="kd">val</span> <span class="py">fryingPan</span> <span class="p">=</span> <span class="nf">takeFryingPan</span><span class="p">().</span><span class="nf">bind</span><span class="p">()</span>
-    <span class="kd">val</span> <span class="py">batter</span> <span class="p">=</span> <span class="nf">mix</span><span class="p">(</span><span class="n">eggs</span><span class="p">,</span> <span class="n">milk</span><span class="p">,</span> <span class="n">flour</span><span class="p">,</span> <span class="n">sugar</span><span class="p">,</span> <span class="n">bakingPowder</span><span class="p">,</span> <span class="n">salt</span><span class="p">).</span><span class="nf">bind</span><span class="p">()</span>
-    <span class="n">fryingPan</span><span class="p">.</span><span class="nf">pour</span><span class="p">(</span><span class="n">oil</span><span class="p">).</span><span class="nf">bind</span><span class="p">()</span>
-    <span class="n">fryingPan</span><span class="p">.</span><span class="nf">preHeat</span><span class="p">(</span><span class="mi">2</span><span class="p">.</span><span class="n">minutes</span><span class="p">).</span><span class="nf">bind</span><span class="p">()</span>
-    <span class="n">fryingPan</span><span class="p">.</span><span class="nf">pour</span><span class="p">(</span><span class="n">batter</span><span class="p">).</span><span class="nf">bind</span><span class="p">()</span>
-    <span class="c1">//...</span>
-  <span class="p">}</span>
-</code></pre></div></div>
+<pre><code class="language-kotlin">// Kotlin code
+suspend fun makePancakes(): Either&lt;SomeError, Pancakes&gt; =
+  either {
+    val fryingPan = takeFryingPan().bind()
+    val batter = mix(eggs, milk, flour, sugar, bakingPowder, salt).bind()
+    fryingPan.pour(oil).bind()
+    fryingPan.preHeat(2.minutes).bind()
+    fryingPan.pour(batter).bind()
+    //...
+  }
+</code></pre>
 
 <p>For another more real use-case, here’s a snippet from my own <a href="https://github.com/alexandru/github-webhook-listener/blob/v2.1.2/src/main/kotlin/org/alexn/hook/Server.kt#L85">personal project</a>:</p>
 
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="code"><code><span class="c1">// Kotlin code</span>
-<span class="nf">either</span> <span class="p">{</span>
-    <span class="kd">val</span> <span class="py">project</span> <span class="p">=</span> <span class="nc">Either</span>
-        <span class="p">.</span><span class="nf">fromNullable</span><span class="p">(</span><span class="n">config</span><span class="p">.</span><span class="n">projects</span><span class="p">[</span><span class="n">projectKey</span><span class="p">])</span>
-        <span class="p">.</span><span class="nf">mapLeft</span> <span class="p">{</span> <span class="nc">RequestError</span><span class="p">.</span><span class="nc">NotFound</span><span class="p">(</span><span class="s">"Project `$projectKey` does not exist"</span><span class="p">)</span> <span class="p">}</span>
-        <span class="p">.</span><span class="nf">bind</span><span class="p">()</span>
-    <span class="kd">val</span> <span class="py">signature</span> <span class="p">=</span> <span class="n">call</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="nf">header</span><span class="p">(</span><span class="s">"X-Hub-Signature-256"</span><span class="p">)</span> 
-        <span class="o">?:</span> <span class="n">call</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="nf">header</span><span class="p">(</span><span class="s">"X-Hub-Signature"</span><span class="p">)</span>
+<pre><code class="language-kotlin">// Kotlin code
+either {
+    val project = Either
+        .fromNullable(config.projects[projectKey])
+        .mapLeft { RequestError.NotFound("Project `$projectKey` does not exist") }
+        .bind()
+    val signature = call.request.header("X-Hub-Signature-256") 
+        ?: call.request.header("X-Hub-Signature")
     
-    <span class="kd">val</span> <span class="py">body</span> <span class="p">=</span> <span class="n">call</span><span class="p">.</span><span class="nf">receiveText</span><span class="p">()</span>
-    <span class="nc">EventPayload</span>
-        <span class="p">.</span><span class="nf">authenticateRequest</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">project</span><span class="p">.</span><span class="n">secret</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span>
-        <span class="p">.</span><span class="nf">bind</span><span class="p">()</span>
+    val body = call.receiveText()
+    EventPayload
+        .authenticateRequest(body, project.secret, signature)
+        .bind()
 
-    <span class="kd">val</span> <span class="py">parsed</span> <span class="p">=</span>
-        <span class="nc">EventPayload</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">call</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="nf">contentType</span><span class="p">(),</span> <span class="n">body</span><span class="p">).</span><span class="nf">bind</span><span class="p">()</span>
-    <span class="kd">val</span> <span class="py">result</span> <span class="p">=</span> <span class="k">if</span> <span class="p">(</span><span class="n">parsed</span><span class="p">.</span><span class="nf">shouldProcess</span><span class="p">(</span><span class="n">project</span><span class="p">))</span> <span class="p">{</span>
-        <span class="n">commandTriggerService</span><span class="p">.</span><span class="nf">triggerCommand</span><span class="p">(</span><span class="n">projectKey</span><span class="p">)</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="nc">RequestError</span><span class="p">.</span><span class="nc">Skipped</span><span class="p">(</span><span class="s">"Nothing to do for project `$projectKey`"</span><span class="p">).</span><span class="nf">left</span><span class="p">()</span>
-    <span class="p">}</span>
-    <span class="n">result</span><span class="p">.</span><span class="nf">bind</span><span class="p">()</span>
-<span class="p">}</span>
-</code></pre></div></div>
+    val parsed =
+        EventPayload.parse(call.request.contentType(), body).bind()
+    val result = if (parsed.shouldProcess(project)) {
+        commandTriggerService.triggerCommand(projectKey)
+    } else {
+        RequestError.Skipped("Nothing to do for project `$projectKey`").left()
+    }
+    result.bind()
+}
+</code></pre>
 
-<p>This isn’t different from what was tried in Scala via attempts like <a href="https://github.com/monadless/monadless">Monadless</a>, a use-case that Kotlin’s coroutines makes comfortable. In my opinion, if Scala continues to embrace <code class="language-plaintext highlighter-rouge">flatMap</code>, then it should expand the syntax of “for comprehensions” to be more ergonomic. F#’s “computation expressions” look more like imperative programming, going beyond <code class="language-plaintext highlighter-rouge">flatMap</code> and blending better within F#’s syntax, and that’s good.</p>
+<p>This isn’t different from what was tried in Scala via attempts like <a href="https://github.com/monadless/monadless">Monadless</a>, a use-case that Kotlin’s coroutines makes comfortable. In my opinion, if Scala continues to embrace <code>flatMap</code>, then it should expand the syntax of “for comprehensions” to be more ergonomic. F#’s “computation expressions” look more like imperative programming, going beyond <code>flatMap</code> and blending better within F#’s syntax, and that’s good.</p>
       <h2 id="in-closing">
         
         
@@ -739,11 +759,11 @@ For Haskell developers out there that disagree, I have a question — in your pr
       </h2>
     
 
-<p>Functions working with monadic types, such as <code class="language-plaintext highlighter-rouge">IO</code>, are referentially transparent, following the substitution model of evaluation, and facilitate algebraic reasoning. But showing what that is good for can be a challenge, especially in light of the TIMTOWTDI.</p>
+<p>Functions working with monadic types, such as <code>IO</code>, are referentially transparent, following the substitution model of evaluation, and facilitate algebraic reasoning. But showing what that is good for can be a challenge, especially in light of the TIMTOWTDI.</p>
 
-<p><code class="language-plaintext highlighter-rouge">IO</code> is awesome, but its existence in strictly-evaluated languages is increasingly questionable. Even in Scala land, many developers don’t believe that monads are the only or the best way to deal with effects, even if (I bet) the community’s opinion is increasingly biased, due to the natural churn that happens (people that like monads may stick around more than those that don’t). I’m happy that proposals for alternatives still happen (even if they may go nowhere), checkout: <a href="https://contributors.scala-lang.org/t/pre-sip-suspended-functions-and-continuations/5801">PRE-SIP: Suspended functions and continuations</a>.</p>
+<p><code>IO</code> is awesome, but its existence in strictly-evaluated languages is increasingly questionable. Even in Scala land, many developers don’t believe that monads are the only or the best way to deal with effects, even if (I bet) the community’s opinion is increasingly biased, due to the natural churn that happens (people that like monads may stick around more than those that don’t). I’m happy that proposals for alternatives still happen (even if they may go nowhere), checkout: <a href="https://contributors.scala-lang.org/t/pre-sip-suspended-functions-and-continuations/5801">PRE-SIP: Suspended functions and continuations</a>.</p>
 
-<p><code class="language-plaintext highlighter-rouge">IO</code> (and monads in general) on the JVM can have a bright future, but need better stories to tell.</p>
+<p><code>IO</code> (and monads in general) on the JVM can have a bright future, but need better stories to tell.</p>
 
   </div>
 
@@ -870,12 +890,15 @@ For Haskell developers out there that disagree, I have a question — in your pr
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202305250426" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202305250426" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202305250426" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202305250426" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202305250934" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202305250934" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202305250934" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202305250934" type="text/javascript"></script>
 
-<script async src="/assets/js/scripts.js?202305250426" type="text/javascript"></script>
+<!-- Syntax highlighting (https://highlightjs.org/) -->
+<script async src="/assets/js/highlight.min.js" type="text/javascript"></script>
+
+<script async src="/assets/js/scripts.js?202305250934" type="text/javascript"></script>
 
 
 <script type="text/javascript">
