@@ -25,10 +25,9 @@ jobs:
       
       - uses: actions/setup-node@v3
         with:
-          node-version: 'lts'
-          check-latest: true
+          node-version: '18.x'
           cache: 'npm'
-
+      
       - name: Build
         run: |
           ./scripts/build

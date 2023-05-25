@@ -2,7 +2,7 @@
 title: "Integrating Akka with Cats-Effect 3"
 image: /assets/media/articles/2023-akka-plus-cats-effect.png
 date: 2023-04-17 11:05:29 +03:00
-last_modified_at: 2023-04-18 13:50:48 +03:00
+last_modified_at: 2023-05-25 10:30:03 +03:00
 generate_toc: true
 tags:
   - Cats Effect
@@ -104,7 +104,7 @@ def startActorSystemUntyped(
 
 There is one more problem, best described as a setting that you'll often see in an `application.conf` file:
 
-```hocon
+```json
 akka.coordinated-shutdown.exit-jvm = on
 ```
 

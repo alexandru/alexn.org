@@ -3,7 +3,7 @@
   font-family: 'Fira Code';
   font-style: normal;
   font-weight: 300;
-  font-display: swap;
+  font-display: fallback;
   src: url('/assets/fonts/fira-code-v8-latin-300.eot'); /* IE9 Compat Modes */
   src: local(''),
        url('/assets/fonts/fira-code-v8-latin-300.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
@@ -18,7 +18,7 @@
   font-family: 'Fira Code';
   font-style: normal;
   font-weight: 500;
-  font-display: swap;
+  font-display: fallback;
   src: url('/assets/fonts/fira-code-v8-latin-500.eot'); /* IE9 Compat Modes */
   src: local(''),
        url('/assets/fonts/fira-code-v8-latin-500.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
@@ -33,7 +33,7 @@
   font-family: 'Fira Code';
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
+  font-display: fallback;
   src: url('/assets/fonts/fira-code-v8-latin-regular.eot'); /* IE9 Compat Modes */
   src: local(''),
        url('/assets/fonts/fira-code-v8-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
@@ -48,7 +48,7 @@
   font-family: 'Fira Code';
   font-style: normal;
   font-weight: 600;
-  font-display: swap;
+  font-display: fallback;
   src: url('/assets/fonts/fira-code-v8-latin-600.eot'); /* IE9 Compat Modes */
   src: local(''),
        url('/assets/fonts/fira-code-v8-latin-600.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
@@ -63,7 +63,7 @@
   font-family: 'Fira Code';
   font-style: normal;
   font-weight: 700;
-  font-display: swap;
+  font-display: fallback;
   src: url('/assets/fonts/fira-code-v8-latin-700.eot'); /* IE9 Compat Modes */
   src: local(''),
        url('/assets/fonts/fira-code-v8-latin-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */

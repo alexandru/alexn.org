@@ -50,7 +50,7 @@
   <link>{{ include.post.link | xml_escape }}</link>
   <guid isPermaLink="false">{{ include.post.url | prepend: site.baseurl | prepend: site.url }}</guid>
   {% if include.post.author -%}
-  <dc:creator>{{ include.post.author }}</dc:creator>
+  <dc:creator>{{ include.post.author | xml_escape }}</dc:creator>
   {% endif -%}
   <category>Shared link</category>
   {% for tag in include.post.tags -%}

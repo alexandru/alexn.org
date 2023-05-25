@@ -1,5 +1,5 @@
 @mixin code-inline-dark {
-  background: #11202c;
+  background: #22272d;
   color: #fefffe;
 }
 
@@ -104,16 +104,8 @@ body {
     color: $all-headers-color-dark;
   }
 
-  .highlight {
+  pre > code, div.formula-code {
     @include code-rectangle-dark;
-  }
-
-  div.formula-code {
-    @include code-rectangle-dark;
-  }
-
-  code.language-plaintext.highlighter-rouge {
-    background-color: #1e2325;
   }
 
   form {
@@ -129,20 +121,12 @@ body {
       background-color: #25313c;
       border-color: lighten($color: #25313c, $amount: 10%);
       color: $text-color-dark;
-
-      code.language-plaintext.highlighter-rouge {
-        background-color: lighten($color: #25313c, $amount: 5%);
-      }
     }
 
     .warn-bubble {
       background-color: #362521;
       border-color: lighten($color: #362521, $amount: 10%);
       color: inherit;
-
-      code.language-plaintext.highlighter-rouge {
-        background-color: lighten($color: #362521, $amount: 5%);
-      }
     }
 
     hr {

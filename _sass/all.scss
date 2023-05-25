@@ -15,7 +15,6 @@
 @import "modules/forms";
 @import "modules/tables";
 @import "modules/syntax-customizations";
-@import "modules/syntax-light";
 @import "modules/isso-comments";
 @import "modules/dark-reader-hacks";
 
@@ -26,6 +25,10 @@
 @media only screen and (min-width: 500px) { @import "breakpoints/500up";}
 @media only screen and (min-width: 800px) { @import "breakpoints/800up";}
 @media only screen and (min-width: 1200px) { @import "breakpoints/1200up";}
+
+@media (prefers-color-scheme: light) {
+  @import "modules/syntax-light";
+}
 
 // Dark mode 😎
 @media (prefers-color-scheme: dark) { 

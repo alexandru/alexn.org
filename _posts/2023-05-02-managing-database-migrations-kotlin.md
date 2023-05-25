@@ -2,7 +2,7 @@
 title: "Managing Database Migrations in Kotlin"
 image: /assets/media/articles/2023-kotlin-db-migrations.png
 date: 2023-05-02 10:32:06 +03:00
-last_modified_at: 2023-05-02 16:36:21 +03:00
+last_modified_at: 2023-05-25 10:30:16 +03:00
 generate_toc: true
 tags: 
   - Kotlin
@@ -155,7 +155,7 @@ We're adding logging (via slf4j/logback), and we might want to silence Flyway's 
 
 Create a new file `app/src/main/resources/database.conf` with the following contents:
 
-```hocon
+```json
 jdbc-connection.main {
   driver = "org.postgresql.Driver"
 
@@ -494,7 +494,7 @@ dependencies {
 
 In your `src/test/resources` you could have a `test.database.conf` with a setup like:
 
-```hocon
+```json
 include "database.conf"
 
 // Overrides PostgreSQL connection with in-memory HSQLDB
@@ -508,7 +508,7 @@ jdbc-connection.main {
 
 Here we are using the [PostgreSQL compatibility mode](https://hsqldb.org/doc/2.0/guide/compatibility-chapt.html#coc_compatibility_postgres), which isn't perfect, as it only supports standard RDBMS stuff. Depending on your SQL code, it might be enough. Note that it probably doesn't work with `jsonb` columns 🙂 but for simpler schemas it might be enough. Or you could have code specific for HSQLDB by manipulating the `migrationsLocations` setting to point to a different path:
 
-```hocon
+```json
 include "database.conf"
 
 jdbc-connection.main {

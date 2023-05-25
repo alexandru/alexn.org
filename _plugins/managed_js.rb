@@ -10,14 +10,12 @@ require 'fileutils'
 # Installs required JavaScript libraries via `npm`
 #
 Jekyll::Hooks.register :site, :after_init do |site|
-  unless ENV['CI']
-    cmd = "npm install"
-    puts "$ #{cmd}"
+  cmd = "npm install"
+  puts "$ #{cmd}"
 
-    unless system(cmd)
-      $stderr.puts("\nERROR — `#{cmd}` failed with status: #{$?}")
-      exit 1
-    end
+  unless system(cmd)
+    $stderr.puts("\nERROR — `#{cmd}` failed with status: #{$?}")
+    exit 1
   end
 end
 
