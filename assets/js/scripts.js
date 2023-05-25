@@ -28,10 +28,6 @@ layout: null
 
 		// Activate syntax highlighting
 		hljs.highlightAll();
-		window.matchMedia('(prefers-color-scheme: dark)')
-			.addEventListener('change', event => {
-				hljs.highlightAll();
-			});
 
 		// Round Reading Time
 		$(".time").text(function (_index, value) {
