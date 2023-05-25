@@ -10,17 +10,18 @@ require 'fileutils'
 # Installs required JavaScript libraries via `npm`
 #
 Jekyll::Hooks.register :site, :after_init do |site|
-  cmd = "npm install --only=production"
-  puts "$ #{cmd}"
+  unless ENV['CI']
+    cmd = "npm install"
+    puts "$ #{cmd}"
 
-  unless system(cmd)
-    $stderr.puts("\nERROR — `#{cmd}` failed with status: #{$?}")
-    exit 1
+    unless system(cmd)
+      $stderr.puts("\nERROR — `#{cmd}` failed with status: #{$?}")
+      exit 1
+    end
   end
 end
 
 module AlexN
-
   # Generator implementation that copies files from `./node_modules`
   # to `/_site/assets/js-managed`
   #
