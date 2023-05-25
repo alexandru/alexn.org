@@ -33,7 +33,7 @@ form {
 
 	// Wrap each form input/element in a field div
 	.field {
-		margin-bottom:$padding/2;
+		margin-bottom:calc($padding/2);
 	}
 
 	label {

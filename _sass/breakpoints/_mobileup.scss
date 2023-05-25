@@ -177,7 +177,7 @@ dd {
 
 ul.links-with-icons, ol.links-with-icons {
   list-style: none;
-  padding-left: $padding/2;
+  padding-left: calc($padding/2);
 }
 
 /***************
