@@ -10,13 +10,28 @@
     <description>Feed meant for publishing notifications to Twitter/LinkedIn.</description>
     <link>https://alexn.org/</link>
     <atom:link href="https://alexn.org/feeds/social.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 23 May 2023 07:20:41 +0000</pubDate>
-    <lastBuildDate>Tue, 23 May 2023 07:20:41 +0000</lastBuildDate>
+    <pubDate>Thu, 25 May 2023 04:21:49 +0000</pubDate>
+    <lastBuildDate>Thu, 25 May 2023 04:21:49 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
-    <generator>Jekyll v4.3.1</generator>
+    <generator>Jekyll v4.3.2</generator>
     <item>
+  <title>Smithy - the API definition language</title>
+  <description>Smithy, a protocol-agnostic interface definition language made by AWS, now has integration with Scala (and #Http4s). Watch this video series.
+
+Shared #link (#Programming, #Scala, #YouTube, #Video).</description>
+  <pubDate>Thu, 25 May 2023 06:42:30 +0000</pubDate>
+  <link>https://www.youtube.com/watch?v=nNUnSbyyxGI&amp;list=PL1NS3pe5mmu25RK5lJnLxnllcMkxBqaI5</link>
+  <guid isPermaLink="false">https://alexn.org/links/2023-05-25-smithy-the-api-definition-language.html</guid>
+  <dc:creator>Jakub Kozłowski</dc:creator>
+  <category>Shared link</category>
+  <category>Programming</category>
+  <category>Scala</category>
+  <category>YouTube</category>
+  <category>Video</category>
+  </item>
+<item>
   <title> Cats Effect - Dispatcher, Supervisor, IOLocal</title>
   <description>Shared #link (#Programming, #Scala, #Typelevel, #Video, #YouTube).</description>
   <pubDate>Tue, 23 May 2023 10:15:12 +0000</pubDate>
@@ -32,7 +47,7 @@
   </item>
 <item>
   <title>Coroutines Beyond Concurrency</title>
-  <description>Nice intro to Kotlin's lower-level API for coroutines; one day we may see something like this in Scala, too.
+  <description>Nice intro to Kotlin&apos;s lower-level API for coroutines; one day we may see something like this in Scala, too.
 
 Shared #link (#Kotlin, #Programming, #Video, #YouTube).</description>
   <pubDate>Mon, 22 May 2023 20:03:34 +0000</pubDate>
@@ -279,7 +294,7 @@ Shared #link (#Kotlin, #Programming, #Video, #YouTube).</description>
 
 <item>
   <title>#DeleteTwitter</title>
-  <description>#Twitter has been fun, I found my programming community on it, I've learned a lot, but those days are over.
+  <description>#Twitter has been fun, I found my programming community on it, I&apos;ve learned a lot, but those days are over.
 
 #Blog article (#Personal, #Politics).</description>
   <pubDate>Sun, 15 Jan 2023 08:30:29 +0000</pubDate>
@@ -400,7 +415,7 @@ Shared #link (#Programming, #Scala).</description>
   </item>
 <item>
   <title>Chrome, 10 years later</title>
-  <description>Notes from a former developer of Chrome. I'm becoming a Chromium fanboy, TBH.
+  <description>Notes from a former developer of Chrome. I&apos;m becoming a Chromium fanboy, TBH.
 
 Shared #link (#Browsers, #Web).</description>
   <pubDate>Fri, 09 Dec 2022 08:31:45 +0000</pubDate>
@@ -452,7 +467,7 @@ Shared #link (#Programming, #Scala, #YouTube, #Video).</description>
   </item>
 <item>
   <title>Grateful Shutdown with Structured Concurrency</title>
-  <description>`Resource`, `SuspendApp` have been championed in Scala's Cats-Effect. It's great to see them in Kotlin.
+  <description>`Resource`, `SuspendApp` have been championed in Scala&apos;s Cats-Effect. It&apos;s great to see them in Kotlin.
 
 Shared #link (#Programming, #FP, #Kotlin, #Concurrency, #YouTube, #Video).</description>
   <pubDate>Mon, 05 Dec 2022 15:25:48 +0000</pubDate>
@@ -485,7 +500,7 @@ Shared #link (#Programming, #Java, #JVM, #YouTube, #Video).</description>
   </item>
 <item>
   <title>Structured concurrency (2019)</title>
-  <description>Good presentation on how Kotlin's Coroutines were designed, also as a comparisson with alternatives.
+  <description>Good presentation on how Kotlin&apos;s Coroutines were designed, also as a comparisson with alternatives.
 
 Shared #link (#Programming, #Kotlin, #Concurrency, #YouTube, #Video).</description>
   <pubDate>Mon, 05 Dec 2022 01:25:50 +0000</pubDate>
@@ -632,7 +647,7 @@ Shared #link (#Programming, #Kotlin, #Concurrency, #YouTube, #Video).</descripti
 
 <item>
   <title>Building a Queue for Delayed Messages via a RDBMS (1): Design</title>
-  <description>Scheduling messages in the future, when your MQ isn't up to the task.
+  <description>Scheduling messages in the future, when your MQ isn&apos;t up to the task.
 
 #Blog article (#SQL).</description>
   <pubDate>Fri, 21 Oct 2022 06:46:07 +0000</pubDate>
@@ -2928,24 +2943,6 @@ Shared #link (#Programming, #Kotlin, #Concurrency, #YouTube, #Video).</descripti
   <category>Heroku</category>
   <category>Ruby</category>
   <category>Jekyll</category>
-  </item>
-
-
-<item>
-  <title>Crawling the Android Marketplace</title>
-  <description>#Blog article (#Python, #Android, #Web, #API).</description>
-  <pubDate>Thu, 15 Dec 2011 00:00:00 +0000</pubDate>
-  <dc:modified>Wed, 18 Dec 2019 00:00:00 +0000</dc:modified>
-  <atom:modified>Wed, 18 Dec 2019 00:00:00 +0000</atom:modified>
-  <link>https://alexn.org/blog/2011/12/15/crawling-the-android-marketplace-155200-apps/</link>
-  <guid isPermaLink="true">https://alexn.org/blog/2011/12/15/crawling-the-android-marketplace-155200-apps/</guid>
-  
-  <dc:creator>Alexandru Nedelcu</dc:creator>
-  <category>Blog</category>
-  <category>Python</category>
-  <category>Android</category>
-  <category>Web</category>
-  <category>API</category>
   </item>
 </channel>
 </rss>
