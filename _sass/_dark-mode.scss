@@ -1,5 +1,5 @@
 @mixin code-inline-dark {
-  background: #11202c;
+  background: #2d3440;
   color: #fefffe;
 }
 
@@ -104,7 +104,7 @@ body {
     color: $all-headers-color-dark;
   }
 
-  pre > code, pre > code.hljs, div.formula-code {
+  pre > code, div.formula-code {
     @include code-rectangle-dark;
   }
 

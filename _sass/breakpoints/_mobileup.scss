@@ -951,15 +951,12 @@ img.right {
     border: 2px dashed #f6ddd7;
   }
 
-  pre > code {
+  pre > code, pre > code.hljs {
     line-height: 1.2;
     border-radius: 0;
-
-    pre.code {
-      margin: 0 auto;
-      padding: 0 5px;
-      width: 100%;
-    }
+    margin: 0 auto;
+    padding: 2px;
+    width: 100%;
   }
 
   .formula-code, pre > code {
