@@ -21,11 +21,11 @@
     <meta content="2022-05-13T00:00:00+00:00" property="article:published_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg?202305272047" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg?202305272047" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg?202305272057" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg?202305272057" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg?202305272047">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg?202305272057">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="OOP vs Type Classes, Part 1: Ideology">
@@ -135,7 +135,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg" />
-          <img src="/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg?202305272047" width="1500" height="938" alt="Jacques-Louis David, The Intervention of the Sabine Women, 1799. Oil on canvas. Paris, musée du Louvre. 
+          <img src="/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg?202305272057" width="1500" height="938" decoding="async" alt="Jacques-Louis David, The Intervention of the Sabine Women, 1799. Oil on canvas. Paris, musée du Louvre. 
 " />
           <figcaption itemprop="caption">Jacques-Louis David, The Intervention of the Sabine Women, 1799. Oil on canvas. Paris, musée du Louvre. 
 </figcaption>
@@ -233,7 +233,7 @@
 
 <p>We are gifted with a brain that’s great at recognizing patterns. Take a look at these shapes, <a href="https://www.goodreads.com/book/show/31243369-which-one-doesn-t-belong">which one doesn’t belong?</a></p>
 
-<p><img src="/assets/media/articles/which-one-doesnt-belong-1.png" width="1394" height="1276" alt="A picture of 4 shapes (3 triangles, 2 triangles with a right angle, 2 isosceles triangles, 1 pentagon)" /></p>
+<p><img src="/assets/media/articles/which-one-doesnt-belong-1.png" width="1394" height="1276" decoding="async" alt="A picture of 4 shapes (3 triangles, 2 triangles with a right angle, 2 isosceles triangles, 1 pentagon)" /></p>
 
 <p>What’s cool is that there is no right answer, you can point at any one of them, thus grouping the other 3 with some common characteristic. We have above:</p>
 
@@ -246,7 +246,7 @@
 
 <p>Here’s another one:</p>
 
-<p><img src="/assets/media/articles/which-one-doesnt-belong-2.png" width="1424" height="1134" alt="A picture of 4 shapes (3 squares, 1 regular quadrilateral)" /></p>
+<p><img src="/assets/media/articles/which-one-doesnt-belong-2.png" width="1424" height="1134" decoding="async" alt="A picture of 4 shapes (3 squares, 1 regular quadrilateral)" /></p>
 
 <p>We have:</p>
 
@@ -260,7 +260,7 @@
 <p>What about standard Scala types, how can you group these?</p>
 
 <figure>
-  <img src="/assets/media/articles/types-cloud.png" width="1600" height="878" alt="Names of Scala types: SortedSet, List, Array, Vector, Option, String, Future, Try, Long, Either, IO" />
+  <img src="/assets/media/articles/types-cloud.png" width="1600" height="878" decoding="async" alt="Names of Scala types: SortedSet, List, Array, Vector, Option, String, Future, Try, Long, Either, IO" />
 </figure>
 
 <p>Some clues:</p>
@@ -302,7 +302,7 @@
 
 <p>We do this in order to <strong><em>manage complexity</em></strong> because abstractions allow us to map the problem domain better, by focusing on the essential, and it also helps us to reuse code.</p>
 
-<p><img src="/assets/media/articles/man-juggling.jpg" width="1600" height="1530" alt="Picture of a man juggling" /></p>
+<p><img src="/assets/media/articles/man-juggling.jpg" width="1600" height="1530" decoding="async" alt="Picture of a man juggling" /></p>
 
 <p>The complexity of software projects only grows over time and there’s only so much we can juggle with in our heads.</p>
       <h3 id="black-box-abstraction">
@@ -317,7 +317,7 @@
 <p>A black box is a device, system or object that can be viewed in terms of its inputs and outputs. This means that the input and output are well specified, such that we can form a useful <a href="https://en.wikipedia.org/wiki/Mental_model#:~:text=A%20mental%20model%20is%20an,own%20acts%20and%20their%20consequences.">mental model</a> for how it works. Note that the mental model doesn’t have to be correct, it just has to be useful, such that we can operate the system without breaking it open and taking a look at the implementation:</p>
 
 <figure>
-  <img src="/assets/media/articles/black-box.png" width="1500" height="330" alt="Illustration of the black box concept" />
+  <img src="/assets/media/articles/black-box.png" width="1500" height="330" decoding="async" alt="Illustration of the black box concept" />
   <figcaption>The engineering black box ideal</figcaption>
 </figure>
 
@@ -333,12 +333,12 @@
 <p>And in software development, a common strategy is to build bigger and bigger systems out of black boxes:</p>
 
 <figure>
-  <img src="/assets/media/articles/black-box-multi.png" width="1450" height="676" alt="Illustration of multiple black boxes connected" />
+  <img src="/assets/media/articles/black-box-multi.png" width="1450" height="676" decoding="async" alt="Illustration of multiple black boxes connected" />
 </figure>
 
 <p>No paradigm has a monopoly on composition. FP developers can talk about functions composing, OOP developers can talk about objects composing. FP has the advantage that composition is more automatic, being governed by common protocols that have laws:</p>
 
-<p><img src="/assets/media/articles/category-theory.png" width="1400" height="1400" class="transparency-fix" alt="Image illustrating category theory" /></p>
+<p><img src="/assets/media/articles/category-theory.png" width="1400" height="1400" decoding="async" class="transparency-fix" alt="Image illustrating category theory" /></p>
 
 <p>If <code>f</code> and <code>g</code> are functions, it’s easy to compose them in a bigger function, <code>g ∘ f</code>. Things get more complicated when the types involved don’t align. For example when that <code>B</code> type is a <code>Future[_]</code> or an <code>IO[_]</code>. But we can come up with protocols such that we can keep this automatic composition.</p>
 
@@ -594,7 +594,7 @@ def sum[A : Monoid](list: List[A]): A = ???
 <p>OOP and FP are ideologies — sets of beliefs on how it’s best to build programs and manage the ever-growing complexity. This is much like the political ideologies, like the Left vs Right, Progressives vs Conservatives, Anarchism vs Statism, etc., different sets of beliefs for solving the same problem, promoted by social movements.</p>
 
 <figure class="content">
-  <img src="/assets/media/articles/yin-yang.png" width="1400" height="1400" alt="Yin and Yang" class="transparency-fix" />
+  <img src="/assets/media/articles/yin-yang.png" width="1400" height="1400" decoding="async" alt="Yin and Yang" class="transparency-fix" />
   <figcaption>
     <a href="https://en.wikipedia.org/wiki/Yin_and_yang">Yin and yang</a>
   </figcaption>
@@ -607,7 +607,7 @@ def sum[A : Monoid](list: List[A]): A = ???
 <p>Two sides of the same metaphorical coin, both ideologies attack the problem of local reasoning and ever-growing complexity, and both have been succeeding, but from two slightly different perspectives.</p>
 
 <figure>
-  <img src="/assets/media/articles/fp-oop-procedural.png" width="747" height="334" alt="Meme on FP with OOP guys teaming up to attack the Procedural guy" />
+  <img src="/assets/media/articles/fp-oop-procedural.png" width="747" height="334" decoding="async" alt="Meme on FP with OOP guys teaming up to attack the Procedural guy" />
   <figcaption>OOP is an evolution on procedural programming by encapsulating side effects, whereas FP shuns side effects.</figcaption>
 </figure>
 
@@ -661,7 +661,7 @@ def sum[A : Monoid](list: List[A]): A = ???
     
 
 <figure>
-  <img src="/assets/media/articles/degenerate-era.jpg" width="1200" height="675" alt="" />
+  <img src="/assets/media/articles/degenerate-era.jpg" width="1200" height="675" decoding="async" alt="" />
   <figcaption>
     A "black hole", depiction of the <a href="https://en.wikipedia.org/wiki/Future_of_an_expanding_universe#Degenerate_Era">"Degenerate Era"</a>, taken from <a href="https://www.youtube.com/watch?v=uD4izuDMUQA" target="_blank">"TIMELAPS OF THE FUTURE" (YouTube)</a>
   </figcaption>
@@ -837,15 +837,15 @@ Everything I just said is the conflict of visions that also applies whenever we 
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202305272047" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202305272047" type="text/javascript"></script>
-<script async src="/assets/js/dropcap.min.js?202305272047" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202305272047" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202305272057" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202305272057" type="text/javascript"></script>
+<script async src="/assets/js/dropcap.min.js?202305272057" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202305272057" type="text/javascript"></script>
 
 <!-- Syntax highlighting (https://highlightjs.org/) -->
 <script async src="/assets/js/highlight.min.js" type="text/javascript" onload="hljs.highlightAll();"></script>
 
-<script async src="/assets/js/scripts.js?202305272047" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202305272057" type="text/javascript"></script>
 
 
 <script type="text/javascript">
