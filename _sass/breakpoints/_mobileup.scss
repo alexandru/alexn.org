@@ -303,14 +303,14 @@ POST STYLING
     border-radius: 3px;
 
     &.left {
-      float: left; 
-      margin-right: 1em; 
+      float: left;
+      margin-right: 1em;
       margin-bottom: 1em;
     }
 
     &.right {
-      float: right; 
-      margin-left: 1em; 
+      float: right;
+      margin-left: 1em;
       margin-bottom: 1em;
     }
   }
@@ -320,9 +320,14 @@ POST STYLING
     margin-bottom: 2rem;
   }
 
-  .dropcap {
-    color: $primary-color-light;
-    margin-right: .45rem;
+  // https://www.oddbird.net/2017/01/03/initial-letter/
+  @supports (initial-letter: 2) or (-webkit-initial-letter: 2) {
+    p.withcap:first-letter {
+      color: $primary-color-light;
+      margin-right: .45rem;
+      initial-letter: 2;
+      -webkit-initial-letter: 2;
+    }
   }
 
   .featuredImage {
@@ -369,10 +374,10 @@ POST STYLING
     margin-top: 2rem;
     margin-bottom: 2rem;
   }
-  
+
   div.footnotes {
     font-size: 85%;
-    
+
     ol {
       margin: 0;
       margin-bottom: 2rem;
@@ -600,14 +605,14 @@ FOOTER STYLING
       margin-top: 0;
       color: #A66C75;
     }
-  
+
     #share {
       border-bottom: 1px solid #C69AA1;
     }
-    
+
     #isso-thread {
       font-size: 90%;
-      
+
       .isso-comment > .isso-text-wrapper {
         & > div.isso-comment-header {
           display: inline-block;
@@ -617,12 +622,12 @@ FOOTER STYLING
         & > div.isso-text {
           // font-size: 90%;
           clear: both;
-        }		
+        }
 
         p {
           margin: 0 0 0.7rem;
         }
-      
+
         blockquote {
           color: #777;
           margin: 5px 0;
@@ -651,14 +656,14 @@ FOOTER STYLING
 
       .isso-auth-section {
         font-size: 90%;
-      
+
         .isso-input-wrapper {
           display: block;
 
           input {
             width: 100%;
             height: auto;
-          }  
+          }
         }
 
         .isso-post-action {
@@ -688,14 +693,14 @@ FOOTER STYLING
       #isso-root {
         clear: both;
       }
-    
+
       .isso-avatar img {
         max-width: 24px;
         max-height: 24px;
         border-radius: 3px;
       }
     }
-  
+
     #mc_embed_signup form {
       margin-bottom: 0;
     }
@@ -843,7 +848,7 @@ img.right {
       display: block;
       width: 80px;
       height: 56px;
-      
+
       font-size: 1px;
       content: " ";
       opacity: .8;
@@ -853,15 +858,15 @@ img.right {
       background-size: 80px 56px;
       background-position: center;
       background-repeat: no-repeat;
-      
+
       transition-timing-function: ease-in;
       transition: opacity 0.3s;
     }
-    
+
     &:hover:before {
       opacity: 1;
     }
-    
+
     img.play-thumb {
       display: block;
       min-height: 70px;
@@ -972,7 +977,7 @@ img.right {
 h1, h2, h3, h4, h5, h6 {
   color: $all-headers-color-light;
   font-weight: 700;
-  
+
   a.anchor {
     color: lightgray;
     font-weight: normal;

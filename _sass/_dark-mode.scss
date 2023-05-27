@@ -1,6 +1,6 @@
 @mixin code-inline-dark {
   background: #22272d;
-  color: #fefffe;
+  color: #adbac7;
 }
 
 @mixin code-rectangle-dark {
@@ -116,7 +116,7 @@ body {
     header nav.toc {
       border-color: $color-border-dark;
     }
-    
+
     .info-bubble {
       background-color: #25313c;
       border-color: lighten($color: #25313c, $amount: 10%);
@@ -133,7 +133,7 @@ body {
       border-color: $color-border-dark;
     }
 
-    #article-details { 
+    #article-details {
       border-color: $color-border-dark;
 
       #all-categories {
@@ -149,9 +149,11 @@ body {
     #article-details {
       color: #778899;
     }
-    
-    .dropcap {
-      color: $primary-color-dark;
+
+    @supports (initial-letter: 2) or (-webkit-initial-letter: 2) {
+      p.withcap:first-letter {
+        color: $primary-color-dark;
+      }
     }
 
     blockquote {
@@ -201,7 +203,7 @@ body {
     .contributions {
       #isso-thread {
         @include form-elements;
-        
+
         & > h4 {
           color: lighten(#778899, 5%);
         }
@@ -220,11 +222,11 @@ body {
             background-color: rgb(29, 31, 32);
             color: rgb(157, 148, 136);
           }
-    
+
           code {
             @include code-inline-dark;
           }
-    
+
           pre {
             @include code-rectangle-dark;
           }
@@ -233,7 +235,7 @@ body {
 
       .note-warning {
         border: 1px solid $site-background-dark;
-        background-color: lighten($color: $site-background-dark, $amount: 3%);      
+        background-color: lighten($color: $site-background-dark, $amount: 3%);
         .extra {
           color: lightslategray;
         }
