@@ -1,5 +1,6 @@
 <script async src="{% link /assets/js/modernizr.custom.15390.js %}?{{ 'now' | date: '%Y%m%d%H%M' }}" type="text/javascript"></script>
 <script async src="{% link /assets/js-managed/jquery/dist/jquery.slim.min.js %}?{{ 'now' | date: '%Y%m%d%H%M' }}" type="text/javascript"></script>
+<script async src="{% link /assets/js/dropcap.min.js %}?{{ 'now' | date: '%Y%m%d%H%M' }}" type="text/javascript"></script>
 <script async src="{% link /assets/js/responsive-nav.min.js %}?{{ 'now' | date: '%Y%m%d%H%M' }}" type="text/javascript"></script>
 {% if page.mathjax -%}<script async src="{% link assets/js/load-mathjax.js %}?{{ 'now' | date: '%Y%m%d%H%M' }}"></script>{% endif %}
 <!-- Syntax highlighting (https://highlightjs.org/) -->
@@ -28,7 +29,7 @@
     })();
 
     var now = new Date();
-    var url = "{{ tracker_url }}" +
+    var url = "{{ tracker_url }}" + 
       "&rand=" + encodeURIComponent(Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)) +
       "&h=" + now.getHours() +
       "&m=" + now.getMinutes() +
@@ -38,9 +39,9 @@
       url += "&_rcn=" + encodeURIComponent(p["pk_campaign"]);
     if ("pk_kwd" in p)
       url += "&_rck=" + encodeURIComponent(p["pk_kwd"]);
-    if ("referrer" in document && document.referrer)
+    if ("referrer" in document && document.referrer) 
       url += "&urlref=" + encodeURIComponent(document.referrer);
-    if ("screen" in window)
+    if ("screen" in window) 
       url += "&res=" + screen.width + "x" + screen.height;
 
     var d=document, i=d.createElement("img"),s0=d.getElementsByTagName("script"),s=s0[s0.length-1];

@@ -320,14 +320,9 @@ POST STYLING
     margin-bottom: 2rem;
   }
 
-  // https://www.oddbird.net/2017/01/03/initial-letter/
-  @supports (initial-letter: 2) or (-webkit-initial-letter: 2) {
-    p.withcap:first-letter {
-      color: $primary-color-light;
-      margin-right: .45rem;
-      initial-letter: 2;
-      -webkit-initial-letter: 2;
-    }
+  .dropcap {
+    color: $primary-color-light;
+    margin-right: .45rem;
   }
 
   .featuredImage {

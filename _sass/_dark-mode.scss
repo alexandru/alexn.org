@@ -150,10 +150,8 @@ body {
       color: #778899;
     }
 
-    @supports (initial-letter: 2) or (-webkit-initial-letter: 2) {
-      p.withcap:first-letter {
-        color: $primary-color-dark;
-      }
+    .dropcap {
+      color: $primary-color-dark;
     }
 
     blockquote {
