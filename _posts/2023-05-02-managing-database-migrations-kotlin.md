@@ -2,7 +2,7 @@
 title: "Managing Database Migrations in Kotlin"
 image: /assets/media/articles/2023-kotlin-db-migrations.png
 date: 2023-05-02 10:32:06 +03:00
-last_modified_at: 2023-05-28 09:39:22 +03:00
+last_modified_at: 2023-05-25 10:30:16 +03:00
 generate_toc: true
 tags:
   - Kotlin

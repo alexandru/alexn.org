@@ -2,7 +2,7 @@
 title: "The Trouble with Checked Exceptions: Part 2"
 image: /assets/media/articles/2022-checked-exceptions.png
 date: 2022-09-29 01:41:48 +03:00
-last_modified_at: 2023-05-28 09:39:22 +03:00
+last_modified_at: 2022-09-29 08:32:44 +03:00
 tags:
   - Java
   - Scala

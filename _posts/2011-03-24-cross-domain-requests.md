@@ -1,7 +1,7 @@
 ---
 title: "Cross-Domain, Cross-Browser AJAX Requests"
 date:   2011-03-24
-last_modified_at: 2023-05-28 09:39:22 +03:00
+last_modified_at: 2019-12-14
 tags:
   - JavaScript
   - Browser

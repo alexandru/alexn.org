@@ -2,7 +2,7 @@
 title: "Execute Shell Commands in Java/Scala/Kotlin"
 image: /assets/media/articles/2022-exec-shell-command.png
 date: 2022-10-03 08:13:13 +03:00
-last_modified_at: 2023-05-28 09:39:22 +03:00
+last_modified_at: 2022-10-05 18:34:13 +03:00
 tags:
   - Snippet
   - Java

@@ -4,7 +4,7 @@ image: /assets/media/articles/2023-passing-of-elves.jpg
 image_hide_in_post: true
 image_caption: "Elves leaving Middle Earth"
 date: 2023-01-15 10:30:29 +02:00
-last_modified_at: 2023-05-28 09:39:22 +03:00
+last_modified_at: 2023-01-15 12:00:36 +02:00
 tags:
   - Personal
   - Politics

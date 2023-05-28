@@ -2,7 +2,7 @@
 title: "I ❤️ Scala's Community"
 image: /assets/media/articles/scala.png
 date: 2022-10-28 10:21:54 +03:00
-last_modified_at: 2023-05-28 09:39:22 +03:00
+last_modified_at: 2022-10-28 19:11:49 +03:00
 generate_toc: true
 tags:
   - Scala

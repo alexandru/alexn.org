@@ -3,7 +3,7 @@ title: "Personal Server Backups"
 image: /assets/media/articles/2022-backup-vps.png
 # image_caption:
 date: 2022-12-02 19:56:39 +02:00
-last_modified_at: 2023-05-28 09:39:22 +03:00
+last_modified_at: 2023-01-17 14:43:26 +02:00
 generate_toc: true
 tags:
   - SelfHosting

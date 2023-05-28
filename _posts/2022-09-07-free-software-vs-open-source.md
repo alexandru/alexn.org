@@ -3,7 +3,7 @@ title: "Open Source vs Free Software"
 image: /assets/media/articles/open-source.png
 image_hide_in_post: true
 date: 2022-09-07 19:28:56 +03:00
-last_modified_at: 2023-05-28 09:39:22 +03:00
+last_modified_at: 2022-09-08 09:12:50 +03:00
 tags:
   - Politics
   - Open Source

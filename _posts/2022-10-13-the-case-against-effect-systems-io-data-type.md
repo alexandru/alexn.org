@@ -8,7 +8,7 @@ tags:
   - Kotlin
   - Scala
 date: 2022-10-13 12:00:00 +03:00
-last_modified_at: 2023-05-28 09:39:22 +03:00
+last_modified_at: 2022-10-18 20:02:09 +03:00
 generate_toc: true
 description: >
   As Scala developers and fans of the functional programming promoted by Haskell, how do we justify the use of `IO` to newbies coming from Java? It's been a fun ride, but the truth is that Java 19 is changing everything.

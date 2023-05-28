@@ -1,7 +1,7 @@
 ---
 title: "How To Build a Naive Bayes Classifier"
 date:   2012-02-09
-last_modified_at: 2023-05-28 09:39:22 +03:00
+last_modified_at: 2020-01-25
 tags:
   - Best Of
   - Algorithms

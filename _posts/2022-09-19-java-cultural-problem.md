@@ -7,7 +7,7 @@ tags:
   - Languages
   - Programming Rant
 date: 2022-09-19 12:00:00 +03:00
-last_modified_at: 2023-05-28 09:39:22 +03:00
+last_modified_at: 2022-09-21 23:22:39 +03:00
 description: >
   Java is good by modern standards, from a technical perspective, the platform having received a lot of improvements from Java 8 to 17. Unfortunately, it still stinks, and the problem is its "enterprise" culture.
 ---

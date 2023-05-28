@@ -2,7 +2,7 @@
 title: "Integrating Akka with Cats-Effect 3"
 image: /assets/media/articles/2023-akka-plus-cats-effect.png
 date: 2023-04-17 11:05:29 +03:00
-last_modified_at: 2023-05-28 09:39:22 +03:00
+last_modified_at: 2023-05-25 10:30:03 +03:00
 generate_toc: true
 tags:
   - Cats Effect

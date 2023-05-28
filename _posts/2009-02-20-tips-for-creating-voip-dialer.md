@@ -1,6 +1,6 @@
 ---
 title: "FreeSWITCH - Tips for Creating a Dialer"
-last_modified_at: 2023-05-28 09:39:22 +03:00
+last_modified_at: 2022-04-01 19:13:50 +03:00
 redirect_from:
   - /docs/dialer.html
 tags:

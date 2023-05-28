@@ -5,7 +5,7 @@ image_caption: Me, with my son, learning the Lua programming language on proprie
 tags:
   - Open Source
 date: 2022-09-22 10:00:00 +03:00
-last_modified_at: 2023-05-28 09:39:22 +03:00
+last_modified_at: 2022-09-22 14:42:29 +03:00
 description: >
   What to learn in order to not become obsolete as a software developer, and then being forced into early retirement from programming? What platforms to prefer for building products that last with minimal maintenance?
 ---

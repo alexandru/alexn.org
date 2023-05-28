@@ -7,7 +7,7 @@ tags:
 image: /assets/media/articles/2022-04-monix.png
 description: >
   Planning the future is difficult, but can bring clarity and purpose. I'm stepping down from the Typelevel Steering Committee. I also have plans for Monix's future.
-last_modified_at: 2023-05-28 09:39:22 +03:00
+last_modified_at: 2022-04-06 00:16:52 +03:00
 ---
 
 <p class="intro" markdown=1>

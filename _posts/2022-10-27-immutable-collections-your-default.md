@@ -5,7 +5,7 @@ redirect_from:
 image: /assets/media/articles/2022-immutable-collections.png
 image_hide_in_post: true
 date: 2022-10-27 15:34:46 +03:00
-last_modified_at: 2023-05-28 09:39:22 +03:00
+last_modified_at: 2022-12-05 00:02:50 +02:00
 generate_toc: true
 tags:
   - FP

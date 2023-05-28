@@ -4,7 +4,7 @@ image: /assets/media/articles/2022-cut-the-technobabble.jpeg
 image_caption: '"Sir, we have a bug!"; "But we used algebraic reasoning!"'
 generate_toc: true
 date: 2022-10-19 15:00:00 +03:00
-last_modified_at: 2023-05-28 09:39:22 +03:00
+last_modified_at: 2022-10-21 09:10:26 +03:00
 tags:
   - FP
   - Kotlin

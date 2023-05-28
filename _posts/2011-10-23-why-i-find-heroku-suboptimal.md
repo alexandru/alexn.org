@@ -5,7 +5,7 @@ tags:
   - Server
   - Cloud
 image: /assets/media/articles/heroku.png
-last_modified_at: 2023-05-28 09:39:22 +03:00
+last_modified_at: 2022-04-01 19:15:16 +03:00
 generate_toc: true
 description: >-
   Heroku is great. It basically allows you to avoid growing-up. The deployment itself couldn't be simpler, and when browsing their web interface for available add-ons, I feel like a child in a candy-store. But I've outgrown it.

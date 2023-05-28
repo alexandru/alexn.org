@@ -1,6 +1,6 @@
 ---
 title: "Scala OOFP Design Sample"
-last_modified_at: 2023-05-28 09:39:22 +03:00
+last_modified_at: 2023-05-25 15:36:50 +03:00
 tags:
   - FP
   - OOP

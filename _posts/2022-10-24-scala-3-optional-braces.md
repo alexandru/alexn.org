@@ -2,7 +2,7 @@
 title: "On Scala 3's Optional Braces"
 image: /assets/media/articles/2022-scala3-optional-braces.png
 date: 2022-10-24 12:07:21 +03:00
-last_modified_at: 2023-05-28 09:39:22 +03:00
+last_modified_at: 2023-05-25 15:36:46 +03:00
 generate_toc: true
 tags:
   - Programming Rant

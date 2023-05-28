@@ -3,7 +3,7 @@ title: "Scala 3 Enums"
 image: /assets/media/articles/2023-scala-enums.png
 image_hide_in_post: true
 date: 2023-05-25 14:15:29 +03:00
-last_modified_at: 2023-05-28 09:39:22 +03:00
+last_modified_at: 2023-05-25 16:05:04 +03:00
 tags:
   - Java
   - Scala

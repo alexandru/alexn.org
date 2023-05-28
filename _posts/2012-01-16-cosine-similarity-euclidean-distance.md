@@ -1,7 +1,7 @@
 ---
 title: "Data Mining: Finding Similar Items and Users"
 date:   2012-01-16
-last_modified_at: 2023-05-28 09:39:22 +03:00
+last_modified_at: 2019-12-28
 tags:
   - Best Of
   - Algorithms

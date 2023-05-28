@@ -2,7 +2,7 @@
 title: "Building a Queue for Delayed Messages via a RDBMS (1): Design"
 image: /assets/media/articles/2022-delayed-queue-design.png
 date: 2022-10-21 09:46:07 +03:00
-last_modified_at: 2023-05-28 09:39:22 +03:00
+last_modified_at: 2022-10-24 09:00:29 +03:00
 generate_toc: true
 tags:
   - SQL
