@@ -8,7 +8,8 @@
     {% else %}
       {% capture image_src %}{% if include.post.image %}{{ include.post.image }}{% else %}{{ include.post.youtube | youtube_thumb_link }}{% endif -%}{% endcapture -%}
       <figure>
-        <a href="{{ include.post.url | absolute_url | rss_campaign_link: pk_campaign }}">
+        <a href="{{ include.post.url | absolute_url | rss_campaign_link: pk_campaign }}"
+          title="Open article in browser">
           <img src="{{ image_src }}?{{ 'now' | date: '%Y%m%d%H%M' }}" alt="" />
         </a>
         {% if include.post.image_caption %}<figcaption>{{ include.post.image_caption }}</figcaption>{% endif %}

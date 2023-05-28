@@ -6,7 +6,7 @@
 {% capture item_content -%}
   {% unless include.with_social_content %}
   <p>
-    Article 
+    Article
     {% if include.post.last_modified_at %}updated at {{ include.post.last_modified_at | date_to_long_string }}, {% endif %}
     created at {{ include.post.date | date_to_long_string }}.
   </p>
@@ -18,13 +18,13 @@
   {% if include.with_social_content %}
   Started #wiki article{% if include.post.tags and include.post.tags.size != 0 %} ({% for tag in include.post.tags %}#{{ tag | twitter_taggify }}{% unless forloop.last %}, {% endunless %}{% endfor %}){% endif %}.
   {% else %}
-    Article 
+    Article
     {% if include.post.last_modified_at %}updated at {{ include.post.last_modified_at | date_to_long_string }}, {% endif %}
     created at {{ include.post.date | date_to_long_string }}.
   {% endif %}
 {% endcapture %}
 <item>
-  {% capture post_title %}{% if include.prefix %}{{ include.prefix }}{% endif -%}{{ include.post.title }}{% endcapture -%}
+  {% capture post_title %}{% if include.prefix %}{{ include.prefix }}{% endif -%}{{ include.post.title | xml_smart_escape }}{% endcapture -%}
   <title>{{ post_title | xml_smart_escape }}</title>
   <description>{{ item_description | strip_html | strip | should_have_safe_size_for_social_media: post_title | xml_escape }}</description>
   {% unless include.with_social_content %}<content:encoded>{{ item_content | rss_process | strip | xml_escape }}</content:encoded>{% endunless -%}

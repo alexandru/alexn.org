@@ -34,7 +34,7 @@
 {% endif %}Shared #link{% if include.post.tags and include.post.tags.size != 0 %} ({% for tag in include.post.tags %}#{{ tag | twitter_taggify }}{% unless forloop.last %}, {% endunless %}{% endfor %}){% endif %}.
 {% endcapture -%}
 <item>
-  {% capture post_title -%}{% if include.prefix %}{{ include.prefix }}{% endif -%}{{ include.post.title }}{% endcapture -%}
+  {% capture post_title -%}{% if include.prefix %}{{ include.prefix }}{% endif -%}{{ include.post.title | xml_smart_escape }}{% endcapture -%}
   <title>{{ post_title | xml_smart_escape }}</title>
   {% if include.with_social_content -%}
   <description>{{ item_description | strip | should_have_safe_size_for_social_media: post_title | xml_escape }}</description>
