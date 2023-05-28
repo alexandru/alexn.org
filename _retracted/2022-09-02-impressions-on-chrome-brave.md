@@ -1,7 +1,7 @@
 ---
 title: "Impressions on Web Browsers"
 date: 2022-09-01 19:09:35 +03:00
-last_modified_at: 2023-01-24 01:45:22 +02:00
+last_modified_at: 2023-05-28 09:39:22 +03:00
 image: /assets/media/articles/browser-battles.png
 tags:
   - Opinion
@@ -10,7 +10,7 @@ description: >
   I like to muse about technology, and have a fetish for web browsers, since I love the open web, being old enough to remember its rise and the browser wars. Recently I've uninstalled Firefox and fully embraced Chromium.
 ---
 
-<p class="intro withcap" markdown=1>
+<p class="intro" markdown=1>
 I like to muse about technology and have a fetish for web browsers, since I love the open web, being old enough to remember its rise and the browser wars. I've used Netscape Navigator, Mozilla 1.x, SeaMonkey and saw the rise of Firefox and then of Chrome. Recently I've uninstalled Firefox and fully embraced Chromium.
 </p>
 

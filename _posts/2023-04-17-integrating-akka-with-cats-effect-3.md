@@ -2,7 +2,7 @@
 title: "Integrating Akka with Cats-Effect 3"
 image: /assets/media/articles/2023-akka-plus-cats-effect.png
 date: 2023-04-17 11:05:29 +03:00
-last_modified_at: 2023-05-25 10:30:03 +03:00
+last_modified_at: 2023-05-28 09:39:22 +03:00
 generate_toc: true
 tags:
   - Cats Effect
@@ -13,7 +13,7 @@ description: >
   We are using a combination of Akka and Cats-Effect (ver. 3) for building payment processors. This post describes some solutions we’ve discovered.
 ---
 
-<p class="intro withcap" markdown=1>
+<p class="intro" markdown=1>
   We are using a combination of [Akka](https://akka.io/) and [Cats-Effect](https://typelevel.org/cats-effect/) (ver. 3) for building payment processors. Integrating them isn't without challenges. This post describes some solutions we've discovered.
 </p>
 
@@ -303,7 +303,7 @@ def uncancelableIOToFlow[A, B](parallelism: Int)(
   Flow[A].mapAsync(parallelism)(a => d.unsafeToFuture(f(a)))
 ```
 
-We need a [Dispatcher](https://typelevel.org/cats-effect/docs/std/dispatcher) for turning `IO` values into `Future` values, as `mapAsync` works with `Future`. 
+We need a [Dispatcher](https://typelevel.org/cats-effect/docs/std/dispatcher) for turning `IO` values into `Future` values, as `mapAsync` works with `Future`.
 
 There is one glaring problem: `Future` isn't cancelable, and these `IO` tasks may be long-running ones. And the code above will not cancel the running `IO` when the stream is getting cancelled. Most often this isn't a problem, and can be in fact desirable.
 
@@ -543,7 +543,7 @@ The method for starting the processing graph can look like this, and note that `
 def startProcessor(
   killSwitch: SharedKillSwitch
 )(implicit
-  system: ActorSystem[_], 
+  system: ActorSystem[_],
 ): Resource[IO, IO[Done]]
 ```
 
@@ -672,8 +672,8 @@ object Main extends ProcessorApp {
               val logEvents = builder.add(
                 Flow[Int].map(i => logger.info(s"Received event: $i"))
               )
-              
-              // w00t, here's our very complicated graph! 
+
+              // w00t, here's our very complicated graph!
               ints ~> logEvents ~> s
               ClosedShape
             }
@@ -771,8 +771,8 @@ object Main extends ProcessorApp {
               val logEvents = builder.add(
                 Flow[Int].map(i => logger.info(s"Received event: $i"))
               )
-              
-              // w00t, here's our very complicated graph! 
+
+              // w00t, here's our very complicated graph!
               ints ~> logEvents ~> s
               ClosedShape
             }

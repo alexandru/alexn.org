@@ -3,16 +3,16 @@ title: "Akka Fork FUD"
 image: /assets/media/articles/akka-logo.png
 image_hide_in_post: true
 generate_toc: true
-tags: 
+tags:
   - Open Source
   - Scala
 date: 2022-09-21 12:00:00 +03:00
-last_modified_at: 2022-09-21 23:22:54 +03:00
+last_modified_at: 2023-05-28 09:39:22 +03:00
 description: >
   Lightbend made Akka proprietary from version 2.7.x onward. This left the community wondering about the possibility of a fork, and unfortunately, I see some FUD that needs to be addressed.
 ---
 
-<p class="intro withcap" markdown=1>
+<p class="intro" markdown=1>
 Lightbend [made Akka proprietary](./2022-09-07-akka-is-moving-away-from-open-source.md) from version 2.7.x onward. This left the community wondering about the possibility of a fork, and unfortunately, I see some FUD that needs to be addressed.
 </p>
 
@@ -36,7 +36,7 @@ In our case, we aren't even talking of clean room reverse engineering, which is 
 
 If that's not true, then might as well drop all Open Source libraries and tools from your project right now, especially those projects built by companies that require copyright agreements or assignments, legally binding documents granting them the right to re-license everything you contribute as proprietary software.
 
-For instance, one of the contenders for Akka's market share is ZIO. Ziverge, the company behind it, does require a [grant of rights](https://zio.dev/about/contributing/#2-grant-of-rights) ([archive](https://web.archive.org/web/20220921044332/https://zio.dev/about/contributing/#2-grant-of-rights)) on all contributions, giving them the right to distribute your contributions under a proprietary license. Discussions on copyleft aside, they can do precisely what Lightbend is doing. Personally, I don't trust such CLAs and companies that require them, unless we're speaking of the Apache Foundation. If I'd fear the companies behind FOSS projects, at the very least I'd use libraries that don't require CLAs for contributions. 
+For instance, one of the contenders for Akka's market share is ZIO. Ziverge, the company behind it, does require a [grant of rights](https://zio.dev/about/contributing/#2-grant-of-rights) ([archive](https://web.archive.org/web/20220921044332/https://zio.dev/about/contributing/#2-grant-of-rights)) on all contributions, giving them the right to distribute your contributions under a proprietary license. Discussions on copyleft aside, they can do precisely what Lightbend is doing. Personally, I don't trust such CLAs and companies that require them, unless we're speaking of the Apache Foundation. If I'd fear the companies behind FOSS projects, at the very least I'd use libraries that don't require CLAs for contributions.
 
 <p class="info-bubble" markdown="1">
 **NOTE:** not all companies do this, not all FOSS projects do this. [Typelevel](https://typelevel.org/) in particular does not require the signing of any copyright agreement, and the only agreement required of you is for your work to get distributed strictly under Apache 2.0 (see [contributing](https://github.com/typelevel/cats-effect/blob/series/3.x/CONTRIBUTING.md#licensing)), mentioned here as [I was there](https://github.com/typelevel/cats-effect/issues/521), complaining. [I am not the first to have this opinion](https://www.linuxjournal.com/content/contributor-agreements-considered-harmful), I won't be the last either. And as the most successful FOSS project in history, now getting a majority of contributions from companies, the Linux kernel should be enough to give you pause.

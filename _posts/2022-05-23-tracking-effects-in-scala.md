@@ -1,7 +1,7 @@
 ---
 title: "Tracking Side Effects in Scala"
 image: /assets/media/articles/scala3-unsafe-io.png
-tags: 
+tags:
   - FP
   - Monix
   - Scala
@@ -10,7 +10,7 @@ description: >
   What if we'd use Scala's type system for tracking side-effects in impure code, too? In the Scala/FP community we use and love effect systems, such as Cats Effect, with its IO data type. "Suspending side-effects" in IO is great, but in Scala it's either `IO` or forgoing any kind of type-safety for side-effects, and that's bad.
 ---
 
-<p class="intro withcap" markdown="1">
+<p class="intro" markdown="1">
 What if we'd use Scala's type system for tracking side-effects in impure code, too? In the Scala/FP community we use and love effect systems, such as [Cats Effect](https://typelevel.org/cats-effect/) with its `IO` data type. *"Suspending side-effects"* in `IO` is great, but in Scala it's either `IO` or forgoing any kind of type-safety for side-effects, and that's bad.
 </p>
 
@@ -43,7 +43,7 @@ def unsafePerformBlockingIO[A](f: UnsafeBlockingIO[A]): A =
 object Console {
   def writeLine(msg: String): UnsafeBlockingIO[Unit] =
     println(msg)
-  
+
   def readLine: UnsafeBlockingIO[String] =
     StdIn.readLine
 }
@@ -82,7 +82,7 @@ def unsafePerformBlockingIO[A](f: UnsafeBlockingIO[A]): A =
 object Console {
   def writeLine(msg: String)(implicit permit: CanBlockThreads): Unit =
     println(msg)
-  
+
   def readLine(implicit permit: CanBlockThreads): String =
     StdIn.readLine
 }
@@ -113,7 +113,7 @@ The implementation of `result` is this one:
 ```scala
 object Await {
   // ...
-  def result[T](awaitable: Awaitable[T], atMost: Duration): T = 
+  def result[T](awaitable: Awaitable[T], atMost: Duration): T =
     blocking(awaitable.result(atMost)(AwaitPermission))
 }
 ```

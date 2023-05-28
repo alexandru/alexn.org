@@ -11,7 +11,7 @@ description:
 youtube: wi97X8_JQUk
 ---
 
-<p class="intro withcap" markdown='1'>Presentation from [Scala Days](http://scaladays.org/), held in 
+<p class="intro" markdown='1'>Presentation from [Scala Days](http://scaladays.org/), held in
 [Chicago](http://event.scaladays.org/scaladays-chicago-2017)
 and [Copenhagen](http://event.scaladays.org/scaladays-cph-2017):</p>
 

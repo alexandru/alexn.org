@@ -1,7 +1,7 @@
 ---
 title: "Scala's Gitter to Discord migration mistake"
 image: /assets/media/articles/scala.png
-tags: 
+tags:
   - Open Source
   - Opinion
   - Scala
@@ -9,7 +9,7 @@ description: >
   The Scala community is increasingly using Discord for “real-time chat”. This was announced in December, and the community page lists several Discord “servers”, one of them belonging to Typelevel. I think this move from Gitter to Discord is probably a mistake.
 ---
 
-<p class="intro withcap" markdown=1>
+<p class="intro" markdown=1>
 The Scala community is increasingly using Discord for "real-time chat". This was [announced in December](https://www.scala-lang.org/blog/2021/12/21/discord.html), and the [community page](https://www.scala-lang.org/community/) lists several Discord "servers", one of them belonging to Typelevel. I think this move from Gitter to Discord is probably a mistake.
 </p>
 
@@ -35,7 +35,7 @@ If inclusivity is a concern, usage of Discord discriminates against those that c
 
 I was triggered by the news that [Thunderbird](https://matrix.org/blog/2022/04/08/this-week-in-matrix-2022-04-08#thunderbird) now supports Matrix. Matrix is an [open standard for decentralized chat](https://matrix.org/). [Gitter has joined Element](https://element.io/blog/gitter-is-joining-element/), and it [speaks Matrix](https://matrix.org/blog/2020/12/07/gitter-now-speaks-matrix), which means you can use the [Element app](https://element.io/) to connect to it. It's not perfect, but it works.
 
-Open Source needs open platforms for teaching. We need the web to stay decentralized. And decentralization is always inconvenient at first, solutions evolve more slowly, but think of how pervasive and awesome email or the web are. I'm not even advertising for Gitter, I'm just anti-Discord. Personally, I'd wish for [Discourse.org](https://www.discourse.org/) servers to be more common in the community. Shout-out to [users.scala-lang.org](https://users.scala-lang.org/), [contributors.scala-lang.org](https://contributors.scala-lang.org/) or [discuss.lightbend.com](https://discuss.lightbend.com/). Real-time chat isn't good for providing support or for spreading knowledge, IMO, but that's a personal preference that wouldn't exclude people out of the conversation or lock information behind proprietary walls. 
+Open Source needs open platforms for teaching. We need the web to stay decentralized. And decentralization is always inconvenient at first, solutions evolve more slowly, but think of how pervasive and awesome email or the web are. I'm not even advertising for Gitter, I'm just anti-Discord. Personally, I'd wish for [Discourse.org](https://www.discourse.org/) servers to be more common in the community. Shout-out to [users.scala-lang.org](https://users.scala-lang.org/), [contributors.scala-lang.org](https://contributors.scala-lang.org/) or [discuss.lightbend.com](https://discuss.lightbend.com/). Real-time chat isn't good for providing support or for spreading knowledge, IMO, but that's a personal preference that wouldn't exclude people out of the conversation or lock information behind proprietary walls.
 
 If you're an Open Source contributor, or user, what I ask of you is to not give up on the open web. That ship may have sailed, but one can hope.
 

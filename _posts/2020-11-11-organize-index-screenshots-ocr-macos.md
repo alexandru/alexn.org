@@ -10,7 +10,7 @@ tags:
 generate_toc: true
 ---
 
-<p class="intro withcap" markdown='1'>
+<p class="intro" markdown='1'>
   I maintain a growing `Screenshots` folder. Screenshots contain text, text that should be searchable, as finding a screenshot later is the whole point of creating it.
 </p>
 
@@ -77,24 +77,24 @@ ENDUSAGE
 options = {}
 OptionParser.new do |opts|
   opts.banner = USAGE
-  
-  opts.on("-i", "--input-dir INPUT_DIR", "Path to the input directory.") {|v| 
+
+  opts.on("-i", "--input-dir INPUT_DIR", "Path to the input directory.") {|v|
     raise OptionParser::InvalidArgument unless File.directory?(v)
     options[:processingDir] = File.expand_path(v)
   }
-  opts.on("-o", "--output-ocr-dir OUTPUT_OCR_DIR", "Path to the output directory for OCR-ed PDF files.") {|v| 
+  opts.on("-o", "--output-ocr-dir OUTPUT_OCR_DIR", "Path to the output directory for OCR-ed PDF files.") {|v|
     raise OptionParser::InvalidArgument unless File.directory?(v)
     options[:ocrDir] = File.expand_path(v)
   }
-  opts.on("-r", "--output-raw-dir OUTPUT_RAW_DIR", "Path to the output directory for the raw image files.") {|v| 
+  opts.on("-r", "--output-raw-dir OUTPUT_RAW_DIR", "Path to the output directory for the raw image files.") {|v|
     raise OptionParser::InvalidArgument unless File.directory?(v)
     options[:rawDir] = File.expand_path(v)
   }
-  opts.on("-f", "--filter FILTER", "File name filter (LIST), defaults to *.jpg, *.jpeg, *.png") {|v| 
+  opts.on("-f", "--filter FILTER", "File name filter (LIST), defaults to *.jpg, *.jpeg, *.png") {|v|
     options[:filter] ||= []
     options[:filter].push(v)
   }
-  opts.on("-v", "--[no-]verbose", "Run verbosely") {|v| 
+  opts.on("-v", "--[no-]verbose", "Run verbosely") {|v|
     options[:verbose] = v
   }
 end.parse!
@@ -110,7 +110,7 @@ raise OptionParser::MissingArgument.new("--output-ocr-dir") if options[:ocrDir].
 raise OptionParser::MissingArgument.new("--output-raw-dir") if options[:rawDir].nil?
 
 if options[:verbose]
-  puts "\nRunning with options:\n\n" 
+  puts "\nRunning with options:\n\n"
   pp options
   puts
 end
@@ -138,7 +138,7 @@ options[:filter].each do |filter|
       fname = File.basename(f)
     end
 
-    raw_output = File.join(options[:rawDir], fname) 
+    raw_output = File.join(options[:rawDir], fname)
     ocr_output = File.join(options[:ocrDir], fname)
     source = File.expand_path(f)
 

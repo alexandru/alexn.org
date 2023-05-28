@@ -3,14 +3,14 @@ title: "Atom/RSS Feeds are the Best Way to Consume the Web"
 date: 2021-03-29 22:58:29+0300
 image: /assets/media/articles/highway.jpg
 generate_toc: true
-tags: 
+tags:
   - Blogging
   - Jekyll
   - Web
 description: "I stay connected to websites I care about via an RSS/Atom feed reader. It's better than social media for finding out what's new because it's clutter-free. By following RSS/Atom feeds, I discover wonderful gems that otherwise would be lost in the noise."
 ---
 
-<p class="intro withcap" markdown="1">
+<p class="intro" markdown="1">
   I stay connected to websites I care about via an RSS/Atom feed reader. It's better than social media for finding out what's new because it's clutter-free. By following RSS/Atom feeds, I discover wonderful gems that otherwise would be lost in the noise.
 </p>
 

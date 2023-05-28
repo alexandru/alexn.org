@@ -11,7 +11,7 @@ tags:
 image: /assets/media/articles/async-semaphore-typescript.png
 ---
 
-<p class="intro withcap" markdown='1'>
+<p class="intro" markdown='1'>
   This is a simple, but very effective implementation of a `Semaphore`, used for easily parallelizing work in JavaScript/TypeScript. And while libraries for doing this might be available, quality varies and implementing your own stuff is fun.
 </p>
 

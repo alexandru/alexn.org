@@ -11,7 +11,7 @@ tags:
   - Web
 ---
 
-<p class="intro withcap" markdown="1">
+<p class="intro" markdown="1">
   The attention economy, and targeted advertising, are a first world problem, one that we have to deal with, because it's affecting our well-being. In this article I'm arguing why there is no such thing as "*acceptable ads*" on the Internet. It doesn't matter if the user's data is transmitted on the Internet, or processed client-side. What matters is the end result, and the way I see it, we are headed towards a dystopia, facilitated by targeting algorithms.
 </p>
 
@@ -64,9 +64,9 @@ In the new breed of privacy-preserving advertising products, we should be wary w
 
 I don't want any relevant ads, or any ads-driven products, ever. Other people might feel differently, but collecting the data is only half the problem. That data can be abused, even if only client-side ... for example targeting could exploit your midlife crisis, to get you to buy stuff you don't need, or to convince you to not go to vote, by serving you with individualized fake news, all while reading an article that exposes your political bias. The whole point of ads is to change your behavior, if only slightly, with organizations literally bidding for your attention, and then playing mind tricks, which work because unfortunately our critical thinking often fails us.
 
-We can all see the effects of the attention economy. For example social networks are optimized for *fake news*, for the sole reason that this increases user engagement. It's not something that stakeholders wanted on purpose, there are no evil laughs at Facebook's or Google's headquarters, but it's what happened due to repeated micro-optimizations of revenue, due to perverse incentives driven by the business model. And while stake-holders pay lip service to the need to deal with fake news, that will never happen in any meaningful way, just like how Google won't ever get rid of the SEO spammers. Doing that will mean affecting the bottom line negatively, so they'll just do the minimum it takes for improving their image. 
+We can all see the effects of the attention economy. For example social networks are optimized for *fake news*, for the sole reason that this increases user engagement. It's not something that stakeholders wanted on purpose, there are no evil laughs at Facebook's or Google's headquarters, but it's what happened due to repeated micro-optimizations of revenue, due to perverse incentives driven by the business model. And while stake-holders pay lip service to the need to deal with fake news, that will never happen in any meaningful way, just like how Google won't ever get rid of the SEO spammers. Doing that will mean affecting the bottom line negatively, so they'll just do the minimum it takes for improving their image.
 
-[Information may want to be free](https://en.wikipedia.org/wiki/Information_wants_to_be_free) in a Star Trek utopia in which food is information that gets materialized out of thin air too, but in the meantime there's no free lunch, and this ideology has brought much harm to creators and consumers alike. High-quality information is not free to produce, the servers hosting that information aren't free to run. And because the Wikipedia model can't be easily replicated (i.e. big enough to successfully beg for donations, general enough that anybody can contribute), an ads-driven economy was selected as the best choice, shaping the Internet as we know it. 
+[Information may want to be free](https://en.wikipedia.org/wiki/Information_wants_to_be_free) in a Star Trek utopia in which food is information that gets materialized out of thin air too, but in the meantime there's no free lunch, and this ideology has brought much harm to creators and consumers alike. High-quality information is not free to produce, the servers hosting that information aren't free to run. And because the Wikipedia model can't be easily replicated (i.e. big enough to successfully beg for donations, general enough that anybody can contribute), an ads-driven economy was selected as the best choice, shaping the Internet as we know it.
 
 A funny, yet sad observation is that outside of the software industry only drug dealers refer to people as "*users*". If you're not paying, then you're the product, and the perverse incentives are always there. Getting you addicted to using the service is the general strategy, as increasing screen time generates more revenue, whether you're blocking those ads, or not.
 
@@ -98,7 +98,7 @@ People will also pay for convenience, and there are online services that prove t
   <figcaption>Carpet Seller, by Ettore Forti</figcaption>
 </figure>
 
-Marketing and advertising is all about communication. Companies should be allowed to position themselves in the market, and to communicate about their product to the world. Advertising is speech. Consumers don't have to listen to the message though, free speech is a double edged knife. 
+Marketing and advertising is all about communication. Companies should be allowed to position themselves in the market, and to communicate about their product to the world. Advertising is speech. Consumers don't have to listen to the message though, free speech is a double edged knife.
 
 Whenever new products happen, how else would consumers find out about it, if not by advertising? Or so the saying goes.
 
@@ -196,7 +196,7 @@ The best combination is [Firefox](https://www.mozilla.org/en-US/firefox/new/){:t
   TIP: in uBlock Origin's settings, go to "Filter lists" and enable "AdGuard Annoyances + "uBlock Annoyances". This will also get rid of many cookie banners.
 </p>
 
-uBlock Origin is the most aggressive solution for blocking ads, and it works best in Firefox, because it can protect against CNAME cloacking (third-party requests disguised as first-party). At the time of writing, Google is going ahead with [Manifest v3](https://blog.chromium.org/2020/12/manifest-v3-now-available-on-m88-beta.html){:target="_blank",rel="nofollow"}. 
+uBlock Origin is the most aggressive solution for blocking ads, and it works best in Firefox, because it can protect against CNAME cloacking (third-party requests disguised as first-party). At the time of writing, Google is going ahead with [Manifest v3](https://blog.chromium.org/2020/12/manifest-v3-now-available-on-m88-beta.html){:target="_blank",rel="nofollow"}.
 
 Soon uBlock Origin won't work in Chromium-based browsers anymore. Forks, such as Microsoft's Edge, or Brave, might claim that they're going to keep compatibility with Manifest v2, but that implies extra resources on rebasing, and while it's a useful marketing stunt, it's simply not in their interest to do so, long term. Or even doable, including the fact that all Chromium-based browsers are still dependent on Chrome's Web Store.
 
@@ -221,7 +221,7 @@ I personally use [Firefox for iOS](https://apps.apple.com/us/app/firefox-private
 ### Avoid Brave, the browser
 
 <figure>
-  <img src="{% link assets/media/articles/brave-ad-example.png %}" 
+  <img src="{% link assets/media/articles/brave-ad-example.png %}"
     alt="Screenshot shown on Brave's website, showing a contextual ad, which might as well be a scam." loading="lazy" />
   <figcaption>Screenshot from Brave's website, showing a contextual ad, which might as well be a scam.</figcaption>
 </figure>
@@ -230,7 +230,7 @@ I personally use [Firefox for iOS](https://apps.apple.com/us/app/firefox-private
 
 Brave doesn't block first-party ads by default, as a policy. They don't block Google Search, Twitter or Facebook ads. Cosmetic blocking is severely restricted, especially on mobile devices. And it doesn't have the option to add custom third-party lists, in addition to Brave's sanctioned ones. On mobile phones at least, there's nothing you can do to block first-party ads.
 
-This hasn't been a technical limitation, but company policy. They will correct this, once people realize that Brave is not very effective at blocking ads, but it does show that the incentives don't align with those of consumers. Quick, who wants Google Search, Facebook or Twitter ads? 
+This hasn't been a technical limitation, but company policy. They will correct this, once people realize that Brave is not very effective at blocking ads, but it does show that the incentives don't align with those of consumers. Quick, who wants Google Search, Facebook or Twitter ads?
 
 <p class="info-bubble" markdown="1">
   Brave serves ads, and they claim that their ads are opt-in, but this is doublespeak. Advertised images in the New Tab screen are opt-out. Creepy integrations with third-parties (e.g. scammy crypto stuff), pushed down on their users' throats with every release, are also opt-out. Their new "Brave Today" feature, that shows news on the New Tab page, has ads for Amazon products using Brave's affiliate tag.
@@ -279,7 +279,7 @@ Don't believe me? Here's what Edge asks of me, at the moment of writing:
   <figcaption>Microsoft Edge, requiring consent for sharing data with advertisers.</figcaption>
 </figure>
 
-It uses the same [dark patterns](https://en.wikipedia.org/wiki/Dark_pattern) that the rest of the industry is using: an "_I Accept_" button, with a "_Managed Preferences_" alternative — this being a dark pattern because the effort to _reject all_ is greater. People will just reach for the easier option, because it gets too annoying otherwise. I wonder if they'll keep asking me until I accept. 
+It uses the same [dark patterns](https://en.wikipedia.org/wiki/Dark_pattern) that the rest of the industry is using: an "_I Accept_" button, with a "_Managed Preferences_" alternative — this being a dark pattern because the effort to _reject all_ is greater. People will just reach for the easier option, because it gets too annoying otherwise. I wonder if they'll keep asking me until I accept.
 
 Here's the screen informing me who Edge intends to share my data with (and this means GPS location data, browsing history, etc), the whole list of "vendors":
 

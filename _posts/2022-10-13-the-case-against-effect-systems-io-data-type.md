@@ -8,13 +8,13 @@ tags:
   - Kotlin
   - Scala
 date: 2022-10-13 12:00:00 +03:00
-last_modified_at: 2022-10-18 20:02:09 +03:00
+last_modified_at: 2023-05-28 09:39:22 +03:00
 generate_toc: true
 description: >
   As Scala developers and fans of the functional programming promoted by Haskell, how do we justify the use of `IO` to newbies coming from Java? It's been a fun ride, but the truth is that Java 19 is changing everything.
 ---
 
-<p class="intro withcap" markdown=1>
+<p class="intro" markdown=1>
 As Scala developers and fans of the functional programming promoted by Haskell, how do we justify the use of `IO` to newbies coming from Java? It's been a fun ride, but the truth is that [Java 19](./2022-09-21-java-19.md) is changing everything.
 </p>
 
@@ -63,7 +63,7 @@ def foo(): Async[A] = ???
 // Sequence becomes:
 foo()(x =>
   bar(x)(y =>
-    baz()(_ => 
+    baz()(_ =>
       qux(x, y)(z => ???)
     )
   )
@@ -175,9 +175,9 @@ for {
   _ <- {
     def loop(): IO[Unit] =
       fryingPan.check(isBrown).flatMap {
-        case true => 
+        case true =>
           IO.unit
-        case false => 
+        case false =>
           IO.sleep(30.seconds).flatMap(_ => loop())
       }
     loop()
@@ -265,7 +265,7 @@ Well, with `IO` the behavior of the program is the same, in all 3 cases, whereas
 ```scala
 // Scala code
 
-// No concurrent execution here, but we never use this value, 
+// No concurrent execution here, but we never use this value,
 // so this is a hard to trace no-op:
 val bazJob = baz()
 for {
@@ -348,7 +348,7 @@ There can be no accidents here, because once the execution returns from a functi
 
 Blocking I/O has always been the norm in Java land. Java was built for using threads, and for blocking those threads. Java's memory model, the ease of working with threads, was one of its main innovations.
 
-This is why Java's standard library is filled with concurrency primitives that block, such as `BlockingQueue`, `Semaphore`, `ReadWriteLock` or `ReentrantLock`, with no async equivalents. It's why Java has a [Future](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/Future.html) interface whose only means of getting its result is a blocking `.get()` call. 
+This is why Java's standard library is filled with concurrency primitives that block, such as `BlockingQueue`, `Semaphore`, `ReadWriteLock` or `ReentrantLock`, with no async equivalents. It's why Java has a [Future](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/Future.html) interface whose only means of getting its result is a blocking `.get()` call.
 
 The newer [CompletableFuture](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/CompletableFuture.html) happened in Java 8. Java 8 also introduced lambda expressions, so you can feel that was about the time asynchronous programming APIs took off, as a sort of detour from the official way of doing things.
 
@@ -388,7 +388,7 @@ In the context of concurrency, this should sound very familiar. With classical J
 ```java
 // Java code
 final var mixJob =
-  ec.submit(() -> 
+  ec.submit(() ->
     mix(eggs, milk, flour, sugar, bakingPowder, salt)
   );
 
@@ -396,7 +396,7 @@ final var prepareFryingPanJob =
   ec.submit(() -> {
     final var fryingPan = takeFryingPan();
     fryingPan.pour(oil);
-    fryingPan.preHeat(Duration.ofMinutes(2)); 
+    fryingPan.preHeat(Duration.ofMinutes(2));
     return fryingPan;
   });
 
@@ -422,8 +422,8 @@ This is similar to the idea behind C++'s [RAII](https://en.wikipedia.org/wiki/Re
 ```kotlin
 // Kotlin code
 coroutineScope {
-  val mixJob = async { 
-    mix(eggs, milk, flour, sugar, bakingPowder, salt) 
+  val mixJob = async {
+    mix(eggs, milk, flour, sugar, bakingPowder, salt)
   }
   val prepareFryingPanJob = async {
     val fryingPan = takeFryingPan()
@@ -446,7 +446,7 @@ Java 19 also introduced very experimental extensions for doing the same, in [JEP
 // Java code
 try (var scope = new StructuredTaskScope.ShutdownOnFailure()) {
   final var mixJob =
-    scope.submit(() -> 
+    scope.submit(() ->
       mix(eggs, milk, flour, sugar, bakingPowder, salt)
     );
 
@@ -454,11 +454,11 @@ try (var scope = new StructuredTaskScope.ShutdownOnFailure()) {
     scope.submit(() -> {
       final var fryingPan = takeFryingPan();
       fryingPan.pour(oil);
-      fryingPan.preHeat(Duration.ofMinutes(2)); 
+      fryingPan.preHeat(Duration.ofMinutes(2));
       return fryingPan;
     });
 
-  scope.join();           
+  scope.join();
   scope.throwIfFailed();
 
   final var fryingPan = prepareFryingPanJob.resultNow();
@@ -479,7 +479,7 @@ val mixJob =
   mix(eggs, milk, flour, sugar, bakingPowder, salt)
 
 // No-op
-val prepareFryingPanJob = 
+val prepareFryingPanJob =
   for {
     fryingPan <- takeFryingPan
     _ <- fryingPan.pour(oil)
@@ -495,7 +495,7 @@ With Cats-Effect `IO` concurrency/parallel execution must be made explicit. Here
 
 But this raises important questions — in this context, what does `IO` buy us? I'm finding this question increasingly difficult to answer. I used to say that `IO` is very explicit about how things get evaluated (e.g., in parallel or sequential), so there can be no accidents, but `IO` isn't the only way for achieving that. And due to its laziness, it introduces some accidental complexity of its own.
 
-`IO` is very composable. You can, for example, combine it with `Either`, via `EitherT`. Or you can bake `EitherT` in, like what ZIO did. 
+`IO` is very composable. You can, for example, combine it with `Either`, via `EitherT`. Or you can bake `EitherT` in, like what ZIO did.
 
 But with blocking I/O, in Java, you can make use of checked exceptions again. And for Kotlin, checkout [Arrow](https://arrow-kt.io/), see their article on [why `suspend () -> A` instead of `IO<A>`](https://arrow-kt.io/docs/effects/io/). If typed exceptions is your cup of team, here's how that sample would look like:
 
@@ -521,9 +521,9 @@ either {
         .fromNullable(config.projects[projectKey])
         .mapLeft { RequestError.NotFound("Project `$projectKey` does not exist") }
         .bind()
-    val signature = call.request.header("X-Hub-Signature-256") 
+    val signature = call.request.header("X-Hub-Signature-256")
         ?: call.request.header("X-Hub-Signature")
-    
+
     val body = call.receiveText()
     EventPayload
         .authenticateRequest(body, project.secret, signature)

@@ -1,6 +1,6 @@
 ---
 title: "FreeSWITCH - Tips for Creating a Dialer"
-last_modified_at: 2022-04-01 19:13:50 +03:00
+last_modified_at: 2023-05-28 09:39:22 +03:00
 redirect_from:
   - /docs/dialer.html
 tags:
@@ -15,7 +15,7 @@ description: >-
 
 ## Introduction
 
-<p class="intro withcap">FreeSWITCH is a free and open source application server for real-time communication, WebRTC, telecommunications, video and Voice over Internet Protocol. Let's build a VoIP dialer with it.</p>
+<p class="intro">FreeSWITCH is a free and open source application server for real-time communication, WebRTC, telecommunications, video and Voice over Internet Protocol. Let's build a VoIP dialer with it.</p>
 
 <p class='info-bubble' markdown='1'>
   This article also refers to FreeSWITCH Revision `10694`. Things could have changed since then, there might be better ways for doing what's described in this article; ask on their mailing list.

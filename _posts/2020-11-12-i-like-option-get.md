@@ -9,7 +9,7 @@ description: We should strive to make illegal states unrepresentable. `Option.ge
 image: /assets/media/articles/option.get.png
 ---
 
-<p class="intro withcap" markdown='1'>
+<p class="intro" markdown='1'>
   In strong, static, expressive FP languages, such as Scala, or Haskell, there's the ongoing drive to "*capture invariants in the type system*" and "*to make illegal states unrepresentable*". For a nice introduction, see [Parse, don't validate](https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/) by Alexis King.
 </p>
 
@@ -92,7 +92,7 @@ type Option<A> = Some<A> | None
 
 // ----------------------------------
 
-const sample: Option<String> = 
+const sample: Option<String> =
   { nonEmpty: false } // None
 
 sample.value

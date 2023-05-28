@@ -4,14 +4,14 @@ image: /assets/media/articles/slot-machines.jpg
 image_hide_in_post: true
 image_caption: Slot machines in a Las Vegas casino.
 date: 2022-09-12 12:00:00 +03:00
-last_modified_at: 2022-09-21 23:22:04 +03:00
+last_modified_at: 2023-05-28 09:39:22 +03:00
 tags:
   - Personal
 description: >
   I finally managed to delete my Facebook account. This was a long time coming. Being disconnected feels good, it feels liberating.
 ---
 
-<p class="intro withcap">
+<p class="intro">
 I finally managed to delete my Facebook account. This was a long time coming. Being disconnected feels good, it feels liberating.
 </p>
 

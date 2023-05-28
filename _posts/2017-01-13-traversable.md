@@ -7,7 +7,7 @@ description:
 image: /assets/media/articles/scala.png
 ---
 
-<p class="intro withcap" markdown='1'>Given there's a
+<p class="intro" markdown='1'>Given there's a
 [Scala collection redesign](https://contributors.scala-lang.org/t/ongoing-work-on-standard-collections-redesign/293)
 discussion going on, it's a good time to talk about one of my personal pet peeves:
 the existence of [Traversable](http://www.scala-lang.org/api/2.12.1/scala/collection/Traversable.html)

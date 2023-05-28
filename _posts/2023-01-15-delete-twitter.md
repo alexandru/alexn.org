@@ -4,7 +4,7 @@ image: /assets/media/articles/2023-passing-of-elves.jpg
 image_hide_in_post: true
 image_caption: "Elves leaving Middle Earth"
 date: 2023-01-15 10:30:29 +02:00
-last_modified_at: 2023-01-15 12:00:36 +02:00
+last_modified_at: 2023-05-28 09:39:22 +03:00
 tags:
   - Personal
   - Politics
@@ -14,7 +14,7 @@ social_description: >
   #Twitter has been fun, I found my programming community on it, I've learned a lot, but those days are over.
 ---
 
-<p class="intro withcap" markdown=1>
+<p class="intro" markdown=1>
   Friday the 13th just passed 😳 and what a great day it was to finally leave Twitter. It's been a fun ride, I found my programming community on it, I've learned a lot, but those days are over 😞
 </p>
 

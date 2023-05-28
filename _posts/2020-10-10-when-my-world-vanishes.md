@@ -8,7 +8,7 @@ description:
   It's me, facing a hard to solve problem. It's a difficult one, and I'm having problems focusing. I make some coffee, I move to another room, and I'm already thinking of running to some coffee shop, forgetting that we're still in a pandemic.
 ---
 
-<p class="intro withcap" markdown='1'>
+<p class="intro" markdown='1'>
   It's me, facing a hard to solve problem. It's a difficult one, and I'm having problems focusing. I make some coffee, I move to another room, and I'm already thinking of running to some coffee shop, forgetting that we're still in a pandemic. I sometimes find it hard to focus, it can be hard to start, I procrastinate a lot, or I'm just too damn lazy.
 </p>
 
@@ -20,7 +20,7 @@ People can't solve multiple problems in parallel. When we do, we only do it for 
 
 When I drive alone, I'm so deep in my own thoughts, that I'm in full auto-pilot, changing gears, making turns, stopping at the red light, avoiding obstacles. I sometimes awaken while driving towards the office, even if we are still during the pandemic, it's weekend, and my trip was to the supermarket, in the opposite direction. Funny enough I get the same effect when ridding my bike, or my kick scooter, in spite of the increased effort, the constant motion of my legs, and the increased awareness needed to avoid traffic accidents.
 
-Hard problems demand focus. A single word from a colleague, or from my wife or kid, a single runaway thought could destroy my focus. Working from home can be hard, especially when you have a son that wants to play, and you can't say no to his puppy eyes. 
+Hard problems demand focus. A single word from a colleague, or from my wife or kid, a single runaway thought could destroy my focus. Working from home can be hard, especially when you have a son that wants to play, and you can't say no to his puppy eyes.
 
 To help focus I often play some tune on repeat, over and over again. Or maybe there's some inertia, the problem is exciting, and that magic moment finally comes ...
 

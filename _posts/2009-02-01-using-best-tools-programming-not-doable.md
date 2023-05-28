@@ -1,11 +1,11 @@
 ---
 title:  "Using the Best Tools in Programming: Not Really Doable"
 date:   2009-02-01
-last_modified_at: 2022-09-19 11:17:51 +03:00
+last_modified_at: 2023-05-28 09:39:22 +03:00
 image: /assets/media/articles/tools.png
 ---
 
-<p class="intro withcap">
+<p class="intro">
   There's something that bothers me when it comes to starting a new project. You can't really use the best tool for a certain job, if that tool is not integrated with the rest of your platform. Let me explain.
 </p>
 

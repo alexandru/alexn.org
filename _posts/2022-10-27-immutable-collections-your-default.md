@@ -5,7 +5,7 @@ redirect_from:
 image: /assets/media/articles/2022-immutable-collections.png
 image_hide_in_post: true
 date: 2022-10-27 15:34:46 +03:00
-last_modified_at: 2022-12-05 00:02:50 +02:00
+last_modified_at: 2023-05-28 09:39:22 +03:00
 generate_toc: true
 tags:
   - FP
@@ -15,7 +15,7 @@ description: >
   Mutable collection types should only be used strategically, with purpose, otherwise for correctness/safety purposes, the default should be immutable collection types, aka persistent data structures.
 ---
 
-<p class="intro withcap" markdown=1>
+<p class="intro" markdown=1>
 Mutable collection types should only be used strategically, with purpose, otherwise for correctness/safety purposes, the default should be immutable collection types, aka [persistent data structures](https://en.wikipedia.org/wiki/Persistent_data_structure).
 </p>
 
@@ -34,7 +34,7 @@ For working with immutable collections:
 
 Immutable collections are much like `String`. You don't need `String` to be mutable, whenever you build a bigger `String`, you just do `ref += nextLine` or you work with a `StringBuilder`. And `String` being immutable helps with sharing it safely across threads, or with using it in `HashMap` implementations. Java's Strings are surprisingly sane, compared with other implementations, people should take note. So why shouldn't collections also be immutable by default, just like `String`?
 
-Mutable collections may have a performance advantage, even when used in a concurrent context. Java's `ConcurrentLinkedQueue` for example will perform better than an `AtomicReference(immutable.Queue())`. Or an `ArrayList` will perform better than an immutable/persistent `List` (which is actually a stack). But performance optimizations are often unnecessary, and safety should be the default. 
+Mutable collections may have a performance advantage, even when used in a concurrent context. Java's `ConcurrentLinkedQueue` for example will perform better than an `AtomicReference(immutable.Queue())`. Or an `ArrayList` will perform better than an immutable/persistent `List` (which is actually a stack). But performance optimizations are often unnecessary, and safety should be the default.
 
 *Performance is a currency*, and whenever you can afford it (most of the time), what better way to spend such a currency than on correctness?
 
@@ -139,7 +139,7 @@ final class ConcurrentQueue[V]() {
     while (result == null) {
       val current = ref.get().nn
       current.dequeueOption match {
-        case None => 
+        case None =>
           result = None
         case Some((v, update)) =>
           if (ref.compareAndSet(current, update)) {
@@ -155,7 +155,7 @@ final class ConcurrentQueue[V]() {
     var continue = true
     while (continue) {
       dequeue() match {
-        case None => 
+        case None =>
           continue = false
         case Some(v) =>
           buffer.append(v)
@@ -188,7 +188,7 @@ If you're ever tempted to do this, remember, THIS IS A BUG:
 
 ```java
 // Java code
-final AtomicReference<List<String>> ref = 
+final AtomicReference<List<String>> ref =
   new AtomicReference<>(new ArrayList<>());
 
 // BUG!!!

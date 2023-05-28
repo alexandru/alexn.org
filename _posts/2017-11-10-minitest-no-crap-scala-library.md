@@ -9,7 +9,7 @@ image: /assets/media/articles/scala.png
 generate_toc: true
 ---
 
-<p class="intro withcap" markdown='1'>[Minitest](https://github.com/monix/minitest) is my minimal testing library that I've been using for developing [Monix](https://monix.io).</p>
+<p class="intro" markdown='1'>[Minitest](https://github.com/monix/minitest) is my minimal testing library that I've been using for developing [Monix](https://monix.io).</p>
 
 ## Raison d'être
 
@@ -24,9 +24,9 @@ you can integrate with. All you need to do is to build your own
 API on top. And so I did.
 
 <p class='info-bubble' markdown='1'>
-**NOTE:** My opinions in this article disagree with the design 
+**NOTE:** My opinions in this article disagree with the design
 choices of popular testing libraries. I know that libraries like
-[ScalaTest](http://www.scalatest.org/) or 
+[ScalaTest](http://www.scalatest.org/) or
 [Specs2](https://etorreborre.github.io/specs2/) are the way they
 are because people want them that way. And those are awesome
 projects, having awesome authors. They are just not for me.
@@ -118,7 +118,7 @@ Because the implementation is minimal, there's nothing that I can't
 fix in it, there's nothing that I can't implement should I need
 anything.
 
-It's also easy to port to new targets. I intend to port it to 
+It's also easy to port to new targets. I intend to port it to
 [Scala Native](https://github.com/scala-native/scala-native) as soon as it
 is available for Scala 2.12 (at the moment of writing, it isn't).
 
@@ -194,7 +194,7 @@ object MySimpleSuite extends SimpleTestSuite {
 
 In case you want to setup an environment for each test and need
 `setup` and `tearDown` semantics, you could inherit from
-[TestSuite](https://github.com/monix/minitest/blob/v2.0.0/shared/src/main/scala/minitest/TestSuite.scala). 
+[TestSuite](https://github.com/monix/minitest/blob/v2.0.0/shared/src/main/scala/minitest/TestSuite.scala).
 Then on each `test` definition, you'll receive a fresh value:
 
 ```scala
@@ -210,7 +210,7 @@ object MyTestSuite extends TestSuite[TestScheduler] {
   test("simulated async") { implicit ec =>
     val f = Future(1).map(_ + 1)
     ec.tick()
-	
+
     assertEquals(f.value, Some(Success(2)))
   }
 }
@@ -225,7 +225,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 object MySimpleSuite extends SimpleTestSuite {
   testAsync("asynchronous execution") {
     val future = Future(100).map(_+1)
-    
+
     for (result <- future) yield {
       assertEquals(result, 101)
     }
@@ -234,7 +234,7 @@ object MySimpleSuite extends SimpleTestSuite {
 ```
 
 Minitest has integration with
-[ScalaCheck](https://www.scalacheck.org/). 
+[ScalaCheck](https://www.scalacheck.org/).
 So for property-based testing:
 
 ```scala
@@ -244,7 +244,7 @@ object MyLawsTest extends SimpleTestSuite with Checkers {
   test("addition of integers is commutative") {
     check2((x: Int, y: Int) => x + y == y + x)
   }
-  
+
   test("addition of integers is transitive") {
     check3((x: Int, y: Int, z: Int) => (x + y) + z == x + (y + z))
   }
@@ -285,14 +285,14 @@ import scala.concurrent.ExecutionContext.Implicits.global
 trait PureTestSuite extends minitest.api.AbstractTestSuite {
   private[this] val ts = new SimpleTestSuite {}
   lazy val properties = ts.properties
-  
-  def test(name: String)(f: => Prop): Unit = 
+
+  def test(name: String)(f: => Prop): Unit =
     ts.test(name) {
       val result = Test.check(config, f)
       if (!result.passed) fail(Pretty.pretty(result))
     }
 
-  def testIO(name: String)(f: => IO[Prop]): Unit = 
+  def testIO(name: String)(f: => IO[Prop]): Unit =
     ts.testAsync(name) {
       f.unsafeToFuture.map { result =>
         val result = Test.check(config, f)

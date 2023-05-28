@@ -2,7 +2,7 @@
 title: "I ❤️ Scala's Community"
 image: /assets/media/articles/scala.png
 date: 2022-10-28 10:21:54 +03:00
-last_modified_at: 2022-10-28 19:11:49 +03:00
+last_modified_at: 2023-05-28 09:39:22 +03:00
 generate_toc: true
 tags:
   - Scala
@@ -10,7 +10,7 @@ description: >
   I find Scala's community to be really nice, welcoming, warm, and productive. I am not talking just of the Typelevel sub-community, which is awesome, but of the whole Scala community. The whole thing.
 ---
 
-<p class="intro withcap" markdown=1>
+<p class="intro" markdown=1>
 I find Scala's community to be really nice, welcoming, warm, and productive. I am not talking just of the [Typelevel](https://typelevel.org/) sub-community, which is awesome, but of the whole Scala community. The whole thing.
 </p>
 

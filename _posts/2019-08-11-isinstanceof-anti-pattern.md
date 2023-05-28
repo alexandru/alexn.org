@@ -10,7 +10,7 @@ image: /assets/media/articles/scala-instanceof-antipattern.png
 generate_toc: true
 ---
 
-<p class="intro withcap" markdown="1">
+<p class="intro" markdown="1">
   When you use `isInstanceOf[Class]` checks, that's an anti-pattern, as Scala has a much better way of discriminating between types. Scala has implicit parameters, with which you can describe [type classes](https://en.wikipedia.org/wiki/Type_class).
 </p>
 

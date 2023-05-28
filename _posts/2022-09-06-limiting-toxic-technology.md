@@ -4,14 +4,14 @@ generate_toc: true
 tags:
   - Personal
   - Opinion
-last_modified_at: 2022-09-06 21:33:27 +03:00
+last_modified_at: 2023-05-28 09:39:22 +03:00
 image: /assets/media/articles/2022-apuseni-mountains.jpg
 image_caption: Apuseni Moutains, Romania, near the Scărișoara Ice Cave
 description: >
   Toxic usage patterns of technology, begone — inspired by a self-help book 🤷‍♂️ I changed my philosophy and habits regarding the use of technology.
 ---
 
-<p class="intro withcap" markdown=1>
+<p class="intro" markdown=1>
 Toxic usage patterns of technology, begone — inspired by a [self-help book](https://www.calnewport.com/books/digital-minimalism/){:target="_blank"} book 🤷‍♂️ I changed my philosophy and habits regarding the use of technology.
 </p>
 

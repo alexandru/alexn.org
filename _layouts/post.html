@@ -15,14 +15,14 @@ has_subscribe: true
       <time itemprop="dateCreated" datetime="{{ page.date | date: '%Y-%m-%dT%H:%M:%S%z' }}">{{ page.date | date_to_long_string }}</time>
       | <span class="nobr"><span class="time">{{ minutes }}</span> {% if minutes == "1" %}minute{% else %}minutes{% endif %}</span>
       {% if page.has_contributions and page.has_comments %}
-      | <a href="{{ page.url | prepend: site.baseurl }}#isso-thread" class="nobr">comments</a>
+      | <a href="{{ page.url | prepend: site.baseurl }}#isso-thread" class="nobr">Comments</a>
       {% endif %}
     </p>
 
     {% if page.image -%}
       {% unless page.image_hide_in_post -%}
         {% if page.youtube %}
-        {% include youtube.html id=page.youtube image=page.image caption=page.image_caption featured=true %} 
+        {% include youtube.html id=page.youtube image=page.image caption=page.image_caption featured=true %}
         {% else %}
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="{{ page.image | absolute_url }}" />
@@ -101,7 +101,7 @@ has_subscribe: true
   {% assign related_posts = page | calculate_related_articles: site.posts -%}
   {% assign related_posts_count = related_posts | size -%}
   {% if related_posts_count > 0 %}
-  <div class="related">    
+  <div class="related">
     <h2 id="related-articles">Related Articles</h2>
     <div class="container">
       {% for related_post in related_posts limit:3 %}
@@ -116,7 +116,7 @@ has_subscribe: true
             {% for tag in related_post.tags %}
               {% unless had_first_tag %}{% assign had_first_tag = true %}{% else %} | {% endunless -%}
               <a href="{{ tag | downcase | uri_escape | prepend: '/blog/tag/' | prepend: site.baseurl }}" class="tag">{{ tag }}</a>
-            {% endfor %}            
+            {% endfor %}
           </div>
           <time>{{ related_post.date | date_to_long_string }}</time>
         </div>

@@ -8,7 +8,7 @@ tags:
 image: /assets/media/articles/scala.png
 ---
 
-<p class="intro withcap">This is a collection of best practices for Scala, something to get you started.</p>
+<p class="intro">This is a collection of best practices for Scala, something to get you started.</p>
 
 Article has been moved to its own GitHub repo:
 

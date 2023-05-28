@@ -3,14 +3,14 @@ title: "Tolerance"
 date: 2021-03-30 23:12:35+0300
 image: /assets/media/articles/tolerance.png
 image_hide_in_post: true
-tags: 
+tags:
   - FP
   - OOP
   - Personal
   - Programming Rant
 ---
 
-<p class="intro withcap" markdown="1">
+<p class="intro" markdown="1">
   I just refactored a piece of code. I deleted 6 source code files, and rebuilt the functionality with a bunch of dirty OOP classes shoved in a single file 😱
 </p>
 

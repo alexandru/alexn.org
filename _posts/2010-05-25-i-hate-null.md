@@ -9,7 +9,7 @@ redirect_from:
   - /snippets/2020/07/30/python-proxy.py.html
 ---
 
-<p class="intro withcap" markdown='1'>
+<p class="intro" markdown='1'>
     How many times have you had a chain of methods like this (example showing [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/) in action) ...
 </p>
 
@@ -108,4 +108,4 @@ all_td_elems = soup.find('table', {'class':'search-params'})\
     all_td_elements.find('input').get('name').do()
 ```
 
-Yeah, it's just a small hack, but it's so damn useful sometimes. 
+Yeah, it's just a small hack, but it's so damn useful sometimes.

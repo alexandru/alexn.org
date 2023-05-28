@@ -2,16 +2,16 @@
 title: "Building a Queue for Delayed Messages via a RDBMS (1): Design"
 image: /assets/media/articles/2022-delayed-queue-design.png
 date: 2022-10-21 09:46:07 +03:00
-last_modified_at: 2022-10-24 09:00:29 +03:00
+last_modified_at: 2023-05-28 09:39:22 +03:00
 generate_toc: true
-tags: 
+tags:
   - SQL
 social_description: "Scheduling messages in the future, when your MQ isn't up to the task."
 description: >
   Ever had the need to deliver messages on your queue at a certain timestamp in the future? Look no further, because your RDBMS can do it. This is part 1 of a series that builds a solution from scratch.
 ---
 
-<p class="intro withcap">
+<p class="intro">
 Ever had the need to deliver messages on your queue at a certain timestamp in the future? Look no further, because your RDBMS can do it. This is part 1 of a series that builds a solution from scratch.
 </p>
 
@@ -85,7 +85,7 @@ Thus, we have these fields:
 Pushing messages for new keys is easy:
 
 ```sql
-INSERT IGNORE INTO DelayedQueue 
+INSERT IGNORE INTO DelayedQueue
   (pKey, pKind, payload, scheduledAt, scheduledAtInitially, createdAt)
 VALUES (
   "c71de6b4-510f-11ed-9d4d-0242ac120002",
@@ -101,12 +101,12 @@ Note, I am using `INSERT IGNORE`, because we may deal with duplicates. MySQL/Mar
 
 ## Polling the queue
 
-We do a `SELECT` to see if there are any messages where `scheduledAt <= NOW`. 
+We do a `SELECT` to see if there are any messages where `scheduledAt <= NOW`.
 
 And for as long as there are no messages available, we repeat the query after a configurable delay. The time interval depends on your latency requirements, but for delayed messages this is not an issue, so you could repeat the query every 15 seconds or so. Repeating it more often could have a negative impact on the database, so be careful with this configuration.
 
 ```sql
-SELECT 
+SELECT
   pKey, payload, scheduledAt, createdAt
 FROM DelayedQueue
 WHERE
@@ -115,7 +115,7 @@ ORDER BY scheduledAt
 LIMIT 1;
 ```
 
-Note that this query is optimized by the index that we already created. 
+Note that this query is optimized by the index that we already created.
 
 ## Acquiring the lock
 
@@ -128,7 +128,7 @@ SET
   scheduledAt = UNIX_TIMESTAMP() + 60 * 5
 WHERE
   pKey = 'c71de6b4-510f-11ed-9d4d-0242ac120002' AND
-  pKind = 'Contact' AND 
+  pKind = 'Contact' AND
   scheduledAt = 1666422000 -- concurrency check ;-)
 ;
 ```

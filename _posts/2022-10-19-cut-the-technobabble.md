@@ -4,8 +4,8 @@ image: /assets/media/articles/2022-cut-the-technobabble.jpeg
 image_caption: '"Sir, we have a bug!"; "But we used algebraic reasoning!"'
 generate_toc: true
 date: 2022-10-19 15:00:00 +03:00
-last_modified_at: 2022-10-21 09:10:26 +03:00
-tags: 
+last_modified_at: 2023-05-28 09:39:22 +03:00
+tags:
   - FP
   - Kotlin
   - Scala
@@ -13,7 +13,7 @@ description: >
   The marketing for Functional Programming is made of technobabble. Technobabble was used in Star Trek. Those long discussions are what Star Trek was loved for, but technobabble isn't good for sharing knowledge or advancing our field.
 ---
 
-<p class="intro withcap">
+<p class="intro">
 The marketing for Functional Programming is made of technobabble. Technobabble was used in Star Trek. Those long discussions are what Star Trek was loved for, but technobabble isn't good for sharing knowledge or advancing our field.
 </p>
 
@@ -34,7 +34,7 @@ def functionAtoB: A => B = ???
 def functionBtoC: B => C = ???
 
 // We get this for free
-def functionAtoC: A => C = 
+def functionAtoC: A => C =
   a => functionBtoC(functionAtoB(a))
 ```
 
@@ -45,7 +45,7 @@ def functionAtoB: A => F[B] = ???
 def functionBtoC: B => F[C] = ???
 
 // We get this for free
-def functionAtoC[F[_]: Monad]: A => F[C] = 
+def functionAtoC[F[_]: Monad]: A => F[C] =
   a => functionAtoB(a).flatMap(functionBtoC)
 ```
 
@@ -67,8 +67,8 @@ In the context of `IO`, what people mean by "composition" is basically "reuse" v
 ```scala
 // Scala code
 def processInBatches[A, B](
-  batchSize: Int, 
-  list: List[A], 
+  batchSize: Int,
+  list: List[A],
   job: A => IO[B]
 ): IO[List[B]] =
   list
@@ -80,7 +80,7 @@ def processInBatches[A, B](
 
 **Functional programming is expression-oriented**, we process stuff by transforming input into output via function composition, essentially assembling a pipeline. Working with `IO` here allows us to remain within this paradigm, and it's awesome for it. Expressions are awesome.
 
-But as far as composition is concerned, this argument isn't as strong as you'd think, because in the context of blocking I/O and side-effecting functions, going from `() => A` to `A` or from `List[() => A]` to `List[A]` is trivial, not to mention you can always use plain-old `foreach` loops, which also compose 🤷‍♂️ 
+But as far as composition is concerned, this argument isn't as strong as you'd think, because in the context of blocking I/O and side-effecting functions, going from `() => A` to `A` or from `List[() => A]` to `List[A]` is trivial, not to mention you can always use plain-old `foreach` loops, which also compose 🤷‍♂️
 
 I don't see any monadic `IO` in the following code:
 
@@ -118,7 +118,7 @@ try (final var res1 = new Resource1()) {
 
 ## Algebraic reasoning
 
-What "algebraic reasoning" means is that *math* gets used. 
+What "algebraic reasoning" means is that *math* gets used.
 
 But this spans multiple topics, so let's see ...
 
@@ -150,13 +150,13 @@ Good UX is about exposing a user interface that, after some training, can allow 
 For one, code makes sense locally, without a wider context. This isn't a property of FP, necessarily. The Linux kernel is famous for rejecting C++ for that reason — C doesn't have classes, and its subroutines need to have any state passed in as parameters. This makes it easier for code reviewers to judge commit diffs. Don't believe me, see [Linus Torvalds' thoughts on C++](http://www.realworldtech.com/forums/index.cfm?action=detail&id=110618&threadid=110549&roomid=2):
 
 > For example, I personally don't even write much code any more, and haven't for years. I mainly merge...
-> 
+>
 > One of the absolute worst features of C++ is how it makes a lot of things so context-dependent - which just means that when you look at the code, a local view simply seldom gives enough context to know what is going on.
 >
 > That is a huge problem for communication. It immediately makes it much harder to describe things, because you have to give a much bigger context. It's one big reason why I detest things like overloading - not only can you not grep for things, but it makes it much harder to see what a snippet of code really does.
 >
 > Put another way: when you communicate in fragments (think "patches"), it's always better to see "sctp_connect()" than to see just "connect()" where some unseen context is what makes the compiler know that it is in the sctp module.
-> 
+>
 > And C is a largely context-free language. When you see a C expression, you know what it does. A function call does one thing, and one thing only - there will not be some subtle issue about "which version" of a function it calls.
 >
 > So there are particular reasons why I think C is "as simple as possible, but no simpler" for the particular case of an OS kernel, or system programming in particular.
@@ -168,7 +168,7 @@ Going back to FP, it's nice when the correctness of a computation does not depen
 ```scala
 class Counter private (ref: AtomicInt) {
   // Looks like it depends on the history of invocations to me 🤷‍♂️
-  // I mean, technically, the function call is deterministic, but it's 
+  // I mean, technically, the function call is deterministic, but it's
   // not returning the data that we crave for, this being codata (computations);
   def increment: IO[Int] = IO(ref.incrementAndGet)
 }
@@ -191,7 +191,7 @@ For example:
 3. Shared global state, even when it exists, becomes more local — ideally, still depends on code reviews;
 4. The state of the world (e.g., the current time, or randomness), passed as function parameters, forces saner data modelling (e.g., maybe you don't need that timestamp there), and makes the code easier to test — ideally, or you can just have `IO` everywhere, much like having side effects everywhere;
 
-All of these are best practices, but best practices are best enforced by a compiler 😈 
+All of these are best practices, but best practices are best enforced by a compiler 😈
 
 Also, functional programming is *expression-oriented programming*, and expressions are awesome, as it puts you into the mindset of transforming data via pipelines (aka function composition). It's all about the UX, frankly. It's always about the UX.
 

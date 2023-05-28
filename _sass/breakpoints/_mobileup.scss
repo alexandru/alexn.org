@@ -234,6 +234,7 @@ HEADER STYLING
       color: #e9d9ff;
       text-decoration: none;
       font-family: $header-font;
+      letter-spacing: .1rem;
       font-variant-ligatures: common-ligatures;
       text-shadow: 0px 0px 4px #000000;
     }
@@ -320,9 +321,10 @@ POST STYLING
     margin-bottom: 2rem;
   }
 
-  .dropcap {
+  .intro::first-letter {
     color: $primary-color-light;
-    margin-right: .45rem;
+    font-size: 250%;
+    line-height: 1;
   }
 
   .featuredImage {

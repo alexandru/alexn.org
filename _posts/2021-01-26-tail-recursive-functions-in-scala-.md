@@ -3,7 +3,7 @@ title: "Tail Recursive Functions (in Scala)"
 date: 2021-01-26 21:49:35+0200
 youtube: Ua1iMD4icLU
 image: /assets/media/articles/tail-recursive-functions.png
-tags: 
+tags:
   - Algorithms
   - FP
   - Scala
@@ -12,7 +12,7 @@ description: "Turning imperative algorithms to tail-recursive functions isn't ne
 generate_toc: true
 ---
 
-<p class="intro withcap" markdown="1">
+<p class="intro" markdown="1">
   Turning imperative algorithms to tail-recursive functions isn't necessarily obvious. In this article (and video) I'm showing you the trick you need, and in doing so, we'll discover the Zen of Functional Programming.
 </p>
 
@@ -79,7 +79,7 @@ Now this version is fine. Note the use of the `@tailrec` annotation — all this
 Let's do a more complex example to really internalize this. Let's calculate the N-th number in the Fibonacci sequence — here's the memory unsafe recursive version:
 
 ```scala
-def fib(n: Int): BigInt = 
+def fib(n: Int): BigInt =
   if (n <= 0) 0
   else if (n == 1) 1
   else fib(n - 1) + fib(n - 2)
@@ -100,7 +100,7 @@ First turn this into a dirty `while` loop:
 def fib(n: Int): BigInt = {
   // Kids, don't do this at home 😅
   if (n <= 0) return 0
-  // Going from 0 to n, instead of vice-versa  
+  // Going from 0 to n, instead of vice-versa
   var a: BigInt = 0 // instead of fib(n - 2)
   var b: BigInt = 1 // instead of fib(n - 1)
   var i = n
@@ -124,7 +124,7 @@ def fib(n: Int): BigInt = {
     // first condition
     if (i <= 0) 0
     // end of while loop
-    else if (i == 1) b     
+    else if (i == 1) b
     // logic inside while loop statement
     else loop(a = b, b = a + b, i = i - 1)
 

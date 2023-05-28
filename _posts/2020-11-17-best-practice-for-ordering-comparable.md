@@ -8,7 +8,7 @@ image: /assets/media/articles/ordering.png
 description: Definitions of `scala.math.Ordering` MUST BE consistent with `equals`, an often overlooked law that can lead to problems.
 ---
 
-<p class="intro withcap" markdown="1">
+<p class="intro" markdown="1">
   Scala has [scala.math.Ordering](https://www.scala-lang.org/api/2.13.3/scala/math/Ordering.html), Java has [java.lang.Comparable](https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html). These are interfaces used for defining a natural order, which can then be used to sort lists of elements, or in data structures implemented via binary search trees, such as [SortedSet](https://www.scala-lang.org/api/2.13.3/scala/collection/SortedSet.html).
 </p>
 
@@ -46,7 +46,7 @@ final case class Contact(
 object Contact {
   // WRONG — never do this!
   implicit val ordering: Ordering[Contact] =
-    (x: Contact, y: Contact) => 
+    (x: Contact, y: Contact) =>
       x.lastName.compareTo(y.lastName)
 }
 ```
@@ -110,7 +110,7 @@ object Contact {
 
   // Just to help us out, this time
   private implicit class IntExtensions(val num: Int) extends AnyVal {
-    def `<||>`(other: => Int): Int = 
+    def `<||>`(other: => Int): Int =
       if (num == 0) other else num
   }
 }

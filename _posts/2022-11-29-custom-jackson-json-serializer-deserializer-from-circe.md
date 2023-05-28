@@ -7,7 +7,7 @@ tags:
   - Snippet
 ---
 
-<p class="intro withcap" markdown=1>
+<p class="intro" markdown=1>
 Snippet for when you're using [Circe](https://github.com/circe/circe) and want to define custom [Jackson](https://github.com/FasterXML/jackson) serializers/deserializers from Circe's codec definitions.
 </p>
 
@@ -23,13 +23,13 @@ import io.circe.syntax._
 import io.circe.{ Decoder, Encoder }
 import scala.reflect.ClassTag
 
-class JacksonSerializerFromCirce[A: ClassTag: Encoder] 
+class JacksonSerializerFromCirce[A: ClassTag: Encoder]
 extends StdSerializer[A](
     implicitly[ClassTag[A]].runtimeClass.asInstanceOf[Class[A]]
   ) {
   override def serialize(
-    value: A, 
-    gen: JsonGenerator, 
+    value: A,
+    gen: JsonGenerator,
     provider: SerializerProvider
   ): Unit = {
     val json = value.asJson.noSpaces
@@ -37,12 +37,12 @@ extends StdSerializer[A](
   }
 }
 
-class JacksonDeserializerFromCirce[A: ClassTag: Decoder] 
+class JacksonDeserializerFromCirce[A: ClassTag: Decoder]
   extends StdDeserializer[A](
     implicitly[ClassTag[A]].runtimeClass.asInstanceOf[Class[A]]
   ) {
   override def deserialize(
-    p: JsonParser, 
+    p: JsonParser,
     ctxt: DeserializationContext
   ): A = {
     decode[A](p.readValueAsTree[TreeNode]().toString) match {
@@ -67,12 +67,12 @@ final case class Sample(
 )
 
 object Sample {
-  implicit val codec: Codec[Sample] = 
+  implicit val codec: Codec[Sample] =
     deriveCodec
 
-  class Serializer 
+  class Serializer
     extends JacksonSerializerFromCirce[Sample]
-  class Deserializer 
+  class Deserializer
     extends JacksonDeserializerFromCirce[Sample]
 }
 ```

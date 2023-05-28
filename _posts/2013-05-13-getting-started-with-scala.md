@@ -9,7 +9,7 @@ image: /assets/media/articles/scala.png
 generate_toc: true
 ---
 
-<p class="intro withcap">
+<p class="intro">
   Getting started with a new programming language shouldn't be hard,
   however navigating the web for resources on getting started with Scala
   can be a doubting experience, as many such resources are either out of
@@ -46,7 +46,7 @@ highlighting for Scala. Your choice should be done in this order:
 * your existing favorite text editor, if you have one
 * **[Sublime Text 2](https://www.sublimetext.com/)** for a good
   out-of-the-box experience, although for reasons I won't go into
-  here, I really keep away from text-editors that aren't open-source    
+  here, I really keep away from text-editors that aren't open-source
 * **[Vim](http://www.vim.org/)** or
   **[Emacs](http://www.gnu.org/software/emacs/)** (in combination with
   [scala-mode2](https://github.com/hvesalai/scala-mode2) and
@@ -54,18 +54,18 @@ highlighting for Scala. Your choice should be done in this order:
   editors are eternal and extremely productive, however if you're unfamiliar with neither of
   them, adding the overhead of learning them on top of learning Scala
   is a bit too much
-  
+
 Other tools you may need for *serious development* (TM), but not
 necessarily for learning:
 
 * **[SBT](http://www.scala-sbt.org/)** for building projects and
   managing dependencies, being much like Maven for Java, or Leiningen
-  for Clojure, or Rake+Bundler for Ruby  
+  for Clojure, or Rake+Bundler for Ruby
 * **[IntelliJ IDEA](http://www.jetbrains.com/idea/)**, in combination
   with the [sbt-idea](https://github.com/mpeltonen/sbt-idea) plugin,
   if you need a good IDE, but seriously, when getting your feet wet,
   stay away from IDEs. The community edition is open-source and fit
-  for Scala development  
+  for Scala development
 * **[Typesafe Activator](http://typesafe.com/platform/getstarted)** is a
   pretty recent development if you want to play with the TypeSafe stack
   (which really means the
@@ -86,13 +86,13 @@ For getting started, at the moment (*May 2013*) ignore all books
 by Cay S. Horstmann, is a good pragmatic book on Scala (not so much on
 functional programming), but it's for developers experienced in other
 languages, so it's fast-paced while not scaring you away with endless
-discussions on types. The PDF for the first part (out of 3) is 
-available from the 
+discussions on types. The PDF for the first part (out of 3) is
+available from the
 [Typesafe website](http://typesafe.com/resources/free-books).
 
 <div class="clear"></div>
 
-<a href="http://www.amazon.com/gp/product/B004Z1FTXS/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=B004Z1FTXS&linkCode=as2&tag=bionicspirit-20"><b>Programming in Scala</b></a> 
+<a href="http://www.amazon.com/gp/product/B004Z1FTXS/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=B004Z1FTXS&linkCode=as2&tag=bionicspirit-20"><b>Programming in Scala</b></a>
 by Martin Odersky is a good book on programming, not just Scala - many
 of the exercises in
 [Structure and Interpretation of Computer Programs](http://mitpress.mit.edu/sicp/)
@@ -103,7 +103,7 @@ solving those problems, which is good.
 
 <a href="http://www.amazon.com/gp/product/1935182706/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=1935182706&linkCode=as2&tag=bionicspirit-20"><b>Scala in Depth</b></a>
 by Joshua Suereth D. - this is an advanced book on Scala, with many
-insights into how functional idioms work in it or advice on best practices. I've yet to finish it, 
+insights into how functional idioms work in it or advice on best practices. I've yet to finish it,
 as it's not really an easy lecture. But it's a good book. Get
 the eBook straight from [Manning](http://www.manning.com/suereth/).
 
@@ -113,7 +113,7 @@ the eBook straight from [Manning](http://www.manning.com/suereth/).
 convenience and for reading other people's reviews, but if you want
 the eBook version don't buy from Amazon, prefer buying directly from
 the publisher, as you'll get both a DRM-free Kindle version and a PDF,
-useful for desktops or iPads. 
+useful for desktops or iPads.
 
 ## 3. Online Resources
 
@@ -122,7 +122,7 @@ that you should stay away from the *www.scala-lang.org* website,
 because many links are outdated and the website is not properly
 maintained, as most of the effort these days is going to the
 documention project (mentioned below), which will probably become the
-homepage for Scala at some point. 
+homepage for Scala at some point.
 
 **[Functional Programming Principles in Scala](https://www.coursera.org/course/progfun)**
 is an excellent course provided by Coursera / EPFL, taught by Martin
@@ -182,7 +182,7 @@ For seeking help for language usage:
 * [The Scala-User mailing-list](https://groups.google.com/forum/?fromgroups=#!forum/scala-user)
 * [StackOverflow.com](http://stackoverflow.com/questions/tagged/scala),
   where I got some pretty cool answers on Scala-tagged questions
- 
+
 For seeking help related to usage of various Scala frameworks or
 libraries, you may want to subscribe to their specific
 mailing-list. For instance

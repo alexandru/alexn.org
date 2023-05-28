@@ -11,7 +11,7 @@ generate_toc: true
 image: /assets/media/articles/ferrari.jpg
 ---
 
-<p class="intro withcap">
+<p class="intro">
   Multithreading is a pain to deal with. While interviewing developers,
   I noticed that surprisingly many don't have knowledge about this topic
   and I can't blame them really. However, in this day and age, for some
@@ -38,7 +38,7 @@ Over 100,000 people can watch the same soccer game from the same
 stadium, at the same time. Those same 100,000 people cannot all take a
 dump in the same bathroom at the same time. Writing data to a central
 location requires an agreed-upon protocol for establishing who's
-allowed to write and when. 
+allowed to write and when.
 
 Most of our concurrency-related problems come from our usage of
 *mutable data and data-structures*, as both reading and writing are
@@ -143,7 +143,7 @@ have such a keyword ;-)
 
 A *monitor lock* is guaranteed to be acquired by only a single thread
 at the same time. Other threads that try acquiring it in the process
-are blocked until the lock is free again. 
+are blocked until the lock is free again.
 
 Lets improve the above using the following:
 
@@ -278,7 +278,7 @@ val consumer = new Thread(new Runnable {
     while (!isDone) {}
     println(result)
   }
-})  
+})
 
 consumer.start()
 producer.start()
@@ -303,7 +303,7 @@ So what can happen?
 1. On most desktops today, most of the time (as in >50%) it will
   behave as expected, which kind of sucks really, because it's far
   better to have a fast and loud failure than one with subtle effects
-  that may or may not manifest when you're testing the app.   
+  that may or may not manifest when you're testing the app.
 2. The JVM doesn't guarantee that the instructions are executed in the
   given order. Amongst others, the VM may decide that those
   instructions are independent of each other and may reverse their
@@ -322,7 +322,7 @@ So what can happen?
   processor register) and the `consumer` thread may never see this
   new value. On my desktop in more than 1 out of 10 cases this little
   example goes into an infinite loop.
-   
+
 ### Happens-Before Relationships and Memory Barriers
 
 As I was saying at point 2 above, in addition to cached values, you
@@ -359,7 +359,7 @@ A synchronization block guarantees two things:
 
 * all the writes that happened on other threads on variables, by using
   the monitor `X`, are visible to our current thread if it acquired
-  *the same monitor* `X`  
+  *the same monitor* `X`
 * at the end of the synchronization block, a memory barrier is created
   and changes made to variables inside that block will be visible to
   other threads that *use the same monitor*
@@ -375,7 +375,7 @@ val lock = new AnyRef
 val consumer = new Thread(new Runnable {
   def run() {
     var continueLooping = true
-	
+
     while (continueLooping)
       lock.synchronized {
         continueLooping = !isDone
@@ -387,7 +387,7 @@ val consumer = new Thread(new Runnable {
 
 val producer = new Thread(new Runnable {
   def run() {
-    lock.synchronized { 
+    lock.synchronized {
       result = "Hello, World!"
       isDone = true
     } // <-- memory barrier

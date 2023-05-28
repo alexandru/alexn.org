@@ -8,7 +8,7 @@ description:
 image: /assets/media/articles/sbt.png
 ---
 
-<p class="intro withcap" markdown='1'>Builds and deployments of new versions and snapshots is a pain. This article is an explanation to how I automated this process for [monix.io](https://monix.io), an open source Scala library that's making use of [SBT](http://www.scala-sbt.org/) as the build tool and [travis-ci.org](https://travis-ci.org/) as the continuous integration.</p>
+<p class="intro" markdown='1'>Builds and deployments of new versions and snapshots is a pain. This article is an explanation to how I automated this process for [monix.io](https://monix.io), an open source Scala library that's making use of [SBT](http://www.scala-sbt.org/) as the build tool and [travis-ci.org](https://travis-ci.org/) as the continuous integration.</p>
 
 What this setup does is to trigger a `publish` script that
 automatically deploys packages on Maven Central:

@@ -4,12 +4,12 @@ tags:
   - Books
   - Android
 image: /assets/media/articles/android-development.jpg
-last_modified_at: 2019-12-18
+last_modified_at: 2023-05-28 09:39:22 +03:00
 description: >-
   Starting out learning Android development may be intimidating at first, as with any new platform of reasonable complexity you'll have a lot to learn. However the learning process is fun. So here are some learning resources that I'm currently following.
 ---
 
-<p class="intro withcap">
+<p class="intro">
   Starting out learning Android development may be intimidating at first, as with any new platform of reasonable complexity you'll have a lot to learn. However the learning process is fun. So here are some learning resources that I'm currently following.
 </p>
 

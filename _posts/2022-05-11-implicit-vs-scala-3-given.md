@@ -2,7 +2,7 @@
 title: "Implicit vs Scala 3's Given"
 image: /assets/media/articles/scala-3-given.png
 image_hide_in_post: true
-tags: 
+tags:
   - FP
   - Programming Rant
   - Scala
@@ -11,7 +11,7 @@ description: >
   I don't like `given`, as an alternative to `implicit` in Scala 3. The more I try working with it, the more it annoys me; and my understanding may be superficial, but I don't like this direction. Here's a comparisson between `given` and `implicit`, that I hope is fair...
 ---
 
-<p class="intro withcap" markdown=1>
+<p class="intro" markdown=1>
 I don't like `given`, as an alternative to `implicit` in <nobr>Scala 3</nobr>. The more I try working with it, the more it annoys me; and my understanding may be superficial, but I don't like this direction. Here's a comparisson between `given` and `implicit`, that I hope is fair...
 </p>
 
@@ -25,7 +25,7 @@ Let's define a type-safe alias for representing email addresses,
 and we'd like to implement [cats.Show](https://typelevel.org/cats/typeclasses/show.html)
 and [cats.Eq](https://typelevel.org/cats/typeclasses/eq.html).
 
-In Scala 2.13 we'd define the *"type-class instances"* in the class's 
+In Scala 2.13 we'd define the *"type-class instances"* in the class's
 [companion object](https://docs.scala-lang.org/overviews/scala-book/companion-objects.html), like so:
 
 ```scala
@@ -49,7 +49,7 @@ object EmailAddress {
 }
 ```
 
-If we'd like to use these instances, they are available in the 
+If we'd like to use these instances, they are available in the
 "global scope", so we can do:
 
 ```scala
@@ -181,7 +181,7 @@ object EmailAddress {
 }
 ```
 
-As you're probably going to guess, the answer is no — adding a 
+As you're probably going to guess, the answer is no — adding a
 simple type parameter turns this `given` definition into a `def`,
 so now we get this output:
 
@@ -200,14 +200,14 @@ Initializing Eq
 equals: false
 ```
 
-This isn't obvious at all, because in fact the object reference 
+This isn't obvious at all, because in fact the object reference
 for this `Eq` instance could be reused, this being perfectly safe:
 
 ```scala
 object EmailAddress {
   //...
-  given equals[T <: EmailAddress]: Eq[T] = 
-    // This cast is perfectly safe due to 
+  given equals[T <: EmailAddress]: Eq[T] =
+    // This cast is perfectly safe due to
     // contra-variance of function parameters 😉
     eqRef.asInstanceOf[Eq[T]]
 
