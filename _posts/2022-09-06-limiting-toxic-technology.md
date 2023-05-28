@@ -11,7 +11,7 @@ description: >
   Toxic usage patterns of technology, begone — inspired by a self-help book 🤷‍♂️ I changed my philosophy and habits regarding the use of technology.
 ---
 
-<p class="intro withcap" markdown=1>
+<p class="intro" markdown=1>
 Toxic usage patterns of technology, begone — inspired by a [self-help book](https://www.calnewport.com/books/digital-minimalism/){:target="_blank"} book 🤷‍♂️ I changed my philosophy and habits regarding the use of technology.
 </p>
 

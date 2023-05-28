@@ -7,13 +7,13 @@ description:
 image: /assets/media/articles/newsblur.png
 ---
 
-<p class="intro withcap" markdown='1'>I'm using [NewsBlur.com](https://www.newsblur.com/) for consuming RSS feeds. It's a pretty cool service, however adding a new RSS feed from iOS proves to be a challenge and the "goodies" section provides no way for easily adding a bookmarklet for adding a feed.</p>
+<p class="intro" markdown='1'>I'm using [NewsBlur.com](https://www.newsblur.com/) for consuming RSS feeds. It's a pretty cool service, however adding a new RSS feed from iOS proves to be a challenge and the "goodies" section provides no way for easily adding a bookmarklet for adding a feed.</p>
 
 The iPad itself makes it difficult to add bookmarklets, so here's a
 tutorial:
 
 1. Go to [NewsBlur.com](https://newsblur.com) and add it as a bookmark
-   (click on the box with the arrow in it next to the Safari address bar)   
+   (click on the box with the arrow in it next to the Safari address bar)
 2. We need to edit the new bookmark: tap the address bar in Safari
    and you should see all bookmarks, press and hold on the new
    "NewsBlur.com" bookmark that you created and then tap "*Edit*"
@@ -32,7 +32,7 @@ Here is the unencoded Javascript for your inspection:
 ```javascript
 (function () {
   var l = document.location+'';
-  if (l.match(/^(?:https?:[/]{2}(?:www.)?)?newsblur.com/i)) 
+  if (l.match(/^(?:https?:[/]{2}(?:www.)?)?newsblur.com/i))
     alert("Cannot add NewsBlur.com itself!");
   else
     window.location = 'https://www.newsblur.com/?url=' + encodeURIComponent(l);

@@ -14,7 +14,7 @@ social_description: >
   #Twitter has been fun, I found my programming community on it, I've learned a lot, but those days are over.
 ---
 
-<p class="intro withcap" markdown=1>
+<p class="intro" markdown=1>
   Friday the 13th just passed 😳 and what a great day it was to finally leave Twitter. It's been a fun ride, I found my programming community on it, I've learned a lot, but those days are over 😞
 </p>
 

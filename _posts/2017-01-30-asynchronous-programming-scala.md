@@ -13,7 +13,7 @@ image_hide_in_post: true
 generate_toc: true
 ---
 
-<p class="intro withcap" markdown='1'>Asynchrony is everywhere and it subsumes concurrency. This article explains what asynchronous processing is and its challenges.</p>
+<p class="intro" markdown='1'>Asynchrony is everywhere and it subsumes concurrency. This article explains what asynchronous processing is and its challenges.</p>
 
 ## 1. Introduction
 
@@ -628,7 +628,7 @@ Explanatory notes about the `ExecutionContext`:
   (because async != multithreading or parallelism).
 - The `onComplete` is basically our `Async` type defined above,
   however it takes an `ExecutionContext` because all completion
-  callbacks need to be called asynchronously.  
+  callbacks need to be called asynchronously.
 - All combinators and utilities are built on top of `onComplete`,
   therefore all combinators and utilities must also take an
   `ExecutionContext` parameter.

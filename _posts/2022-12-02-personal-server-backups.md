@@ -12,7 +12,7 @@ tags:
   - Web
 ---
 
-<p class="intro withcap" markdown="1">
+<p class="intro" markdown="1">
 Cloud hosting services like Linode or DigitalOcean offer backup services for your VPS. Save your money, you don't need it. Here's how to backup your data safely, and with no extra costs...
 </p>
 
@@ -89,8 +89,8 @@ FILEPATH2="/var/lib/my-backups/$FILENAME2"
 mkdir -p /var/lib/my-backups
 cd /var/lib/my-backups || exit 1
 
-tar cvzf ./"$FILENAME1" -C / var/lib/isso 
-tar cvzf ./"$FILENAME2" -C / etc/isso 
+tar cvzf ./"$FILENAME1" -C / var/lib/isso
+tar cvzf ./"$FILENAME2" -C / etc/isso
 
 if [ -f "$FILEPATH1" ]; then
   rclone copy "$FILEPATH1" "backup:Isso/"

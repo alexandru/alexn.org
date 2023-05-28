@@ -9,7 +9,7 @@ description:
 youtube: RYmGT905Skc
 ---
 
-<p class="intro withcap">
+<p class="intro">
   I love writing. I write long emails, long chat texts, long code comments. Some of my rants are epic. Sometimes I'm amazed that my colleagues have the patience to read it all 🙂
 </p>
 

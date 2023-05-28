@@ -13,7 +13,7 @@ description: >
   According to today’s announcement, Lightbend is changing Akka’s licensing to "Business Source License (BSL)". This is not an Open Source, or a Free Software license. This is a proprietary license.
 ---
 
-<p class="intro withcap" markdown=1>
+<p class="intro" markdown=1>
 According to [today's announcement](https://www.lightbend.com/blog/why-we-are-changing-the-license-for-akka), Lightbend is changing Akka's licensing to "*Business Source License (BSL)*". This is not an [Open Source](https://opensource.org/osd-annotated), or a [Free Software](https://www.gnu.org/philosophy/free-sw.en.html) license. This is a proprietary license.
 </p>
 

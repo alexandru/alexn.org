@@ -12,7 +12,7 @@ description: >
   Unix has a long tradition with scripting — small programs represented as text files that can be inspected, modified, and executed. Scala can be used for scripting too.
 ---
 
-<p class="intro withcap">
+<p class="intro">
   Unix has a long tradition with scripting — small programs represented as text files that can be inspected, modified, and executed. Scala can be used for scripting too.
 </p>
 
@@ -21,7 +21,7 @@ Scala is a compiled language, your average project has quite a complicated build
 - [Ammonite](https://ammonite.io/#ScalaScripts);
 - [Scala CLI](https://scala-cli.virtuslab.org/), which is newer, does more, and can embed Ammonite;
 
-For this sample **I'm going to use Scala CLI**. 
+For this sample **I'm going to use Scala CLI**.
 
 First step, install `scala-cli`. I'm on macOS, using [Homebrew](https://brew.sh/), for other operating systems refer to [its documentation](https://scala-cli.virtuslab.org/docs/overview#installation):
 
@@ -214,7 +214,7 @@ scala-cli package --native-image ./time-since.sc -o ./time-since -- --no-fallbac
 ```
 
 <p class="warn-bubble" markdown="1">
-GraalVM's native image only has partial support for libraries using reflection, and needs to know about them ahead of time. This sample was easy, but depending on your dependencies, other scripts may require some tweaking. 
+GraalVM's native image only has partial support for libraries using reflection, and needs to know about them ahead of time. This sample was easy, but depending on your dependencies, other scripts may require some tweaking.
 </p>
 
 The startup time is now much better:

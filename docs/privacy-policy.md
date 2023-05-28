@@ -3,11 +3,11 @@ layout: page
 title: Privacy & Cookie Policy
 description: "This website does not collect personally identifiable information, and has a no-cookies policy."
 date: 2017-01-16
-last_modified_at: 2022-03-31 15:45:52 +03:00
+last_modified_at: 2023-05-28 09:39:22 +03:00
 article_class: privacy_policy
 ---
 
-<p class="intro withcap">
+<p class="intro">
   This website does not collect personally identifiable information, and no cookies are installed that could be used to track visitors.
 </p>
 

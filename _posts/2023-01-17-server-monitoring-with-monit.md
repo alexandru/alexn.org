@@ -14,7 +14,7 @@ social_description: >
   How I now monitor my personal server (hosting my blog, other websites, Matomo, Mastodon, etc.).
 ---
 
-<p class="intro withcap" markdown=1>
+<p class="intro" markdown=1>
   I self-host my blog, other websites, [Matomo](https://matomo.org/), [Mastodon](https://joinmastodon.org/), etc. I love self-hosting. But I need monitoring, to be alerted when things go wrong, as my setup is getting more and more complex. So, I recently asked a [question on the Fediverse](https://social.alexn.org/@alexelcu/109658239137618383), being in need of a monitoring system for my VPS, as I need simple, common-sense health alerts. I got a recommendation for [M/Monit](https://mmonit.com/), which seems to work well. This article shows my configuration.
 </p>
 
@@ -31,7 +31,7 @@ Its configuration (in `/etc/monit/conf.d/my.conf`) looks like this:
 
 ## ----
 ## Configures server port (proxied via Nginx)
-set httpd 
+set httpd
     port 2812
         read-only
     unixsocket /run/monit.socket
@@ -101,7 +101,7 @@ server {
     location / {
         root   /var/www/monit.alexn.org;
         auth_basic "Monit";
-        auth_basic_user_file /etc/secrets/auth/monit-htpasswd; 
+        auth_basic_user_file /etc/secrets/auth/monit-htpasswd;
 
         proxy_pass http://0.0.0.0:2812;
         proxy_set_header Host $host;

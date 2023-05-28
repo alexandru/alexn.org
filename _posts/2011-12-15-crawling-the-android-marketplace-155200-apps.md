@@ -11,7 +11,7 @@ description: >-
   I had a very specific need for fetching the details for some apps in the Android marketplace, in an automated manner. Here I'm describing a script that I used to crawl the marketplace back in 2011.
 ---
 
-<p class="intro withcap">I had a very specific need for fetching the details for some apps in
+<p class="intro">I had a very specific need for fetching the details for some apps in
 the Android marketplace, in an automated manner. Here I'm describing a
 script that I used to crawl the marketplace back in 2011.</p>
 

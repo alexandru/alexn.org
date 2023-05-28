@@ -14,7 +14,7 @@ description: >-
     bloat-free, adding salt over injury.
 ---
 
-<p class="intro withcap">
+<p class="intro">
   Client-side JavaScript development can be quite overwhelming, even for
   senior developers. I'm describing here what I did in a recent piece of
   client-side functionality to keep my sanity. This interface I'm
@@ -46,7 +46,7 @@ looking like this:
 utils = require("path/to/utils")
 
 function generateRandomString() {
-  var userAgent = navigator.userAgent	
+  var userAgent = navigator.userAgent
   var rnd = Math.random() * 100000000
   return utils.md5(userAgent + rnd);
 }
@@ -93,7 +93,7 @@ it. What I really wanted however was
 JavaScript, but with nice add-ons. Unfortunately it's too immature and
 so
 [it isn't included by Brunch's authors yet](https://twitter.com/brunch/status/253571565923467264),
-but it probably will be at some point. 
+but it probably will be at some point.
 
 ## Dealing with Async Events
 
@@ -141,7 +141,7 @@ Other libraries I'm using are:
 * [Underscore.js](http://underscorejs.org/), which provides much
   needed API additions, some of which are available in latest versions
   of JS, but not on older browsers. You definitely need this if you
-  like to program in a more functional style  
+  like to program in a more functional style
 * [Zepto](http://zeptojs.com/) instead of jQuery, because this
   interface is served on mobile phones and jQuery is pretty
   bloated. I'll also probably switch to

@@ -14,7 +14,7 @@ description: >-
 mathjax: true
 ---
 
-<p class="intro withcap">
+<p class="intro">
   How to find related items? Here are recipes based on really simple
   formulas. If you pay attention, this technique is used all over the web
   (like on Amazon) to personalize the user experience and increase

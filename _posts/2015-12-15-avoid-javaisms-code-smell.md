@@ -11,7 +11,7 @@ tags:
 image: /assets/media/articles/skunk.jpg
 ---
 
-<p class="intro withcap" markdown='1'>
+<p class="intro" markdown='1'>
   I'm a man of strong opinions and I truly believe that when we are
   doing
   [mocking, stubbing](http://www.martinfowler.com/articles/mocksArentStubs.html),
@@ -114,7 +114,7 @@ woes. Wrong! Now we've got two problems:
 class ItemActor
   (icsRepo: ItemConfigsRepository, dpsRepo: DatapointsRepository)
   extends Actor {
-  
+
   def receive = {
     case Init(uuid) =>
       for (cfg <- icsRepo.read(uuid))
@@ -158,7 +158,7 @@ more stuff:
 
 So now with mocks, your tests are broken even though the business
 logic hasn't changed, whereas with stubs that ignore those calls, both
-of those calls might as well not exist. Both outcomes are wrong. 
+of those calls might as well not exist. Both outcomes are wrong.
 
 Here we are having a side-effect, which is persisting values in the
 database in response to that `State` being evolved when receiving
@@ -194,7 +194,7 @@ class ItemActor(output: Channel[Signal])
       val newState = state.evolve(value)
       output.pushNext(newState)
       context.become(active(cfg, newState))
-      
+
     case cfg: ItemConfig =>
       context.become(active(cfg, state))
   }
@@ -234,7 +234,7 @@ class MyActor extends Actor {
       context.become(active(state, subscribers - sender))
 
     case Signal(value) =>
-      val newState = state.evolve(value)      
+      val newState = state.evolve(value)
       for (subscriber <- subscribers) {
         for (event <- newState.events)
           subscriber ! event
@@ -267,7 +267,7 @@ case class State
       copy(value = newValue)
   }
 
-  def popEvents: (Seq[Event], State) = 
+  def popEvents: (Seq[Event], State) =
     (events, copy(events = Seq.empty))
 }
 

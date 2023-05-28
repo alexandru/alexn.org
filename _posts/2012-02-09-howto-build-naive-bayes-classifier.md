@@ -15,7 +15,7 @@ description: >-
   In machine learning a classifier is able to predict, given an input, a probability distribution over a set of categories. Some use-cases for building a classifier: spam detection, for example you could build your own Akismet API, automatic assignment of categories to a set of items, automatic detection of the primary language (e.g. Google Translate), sentiment analysis, which in simple terms refers to discovering if an opinion is about love or hate about a certain topic.
 ---
 
-<p class="intro withcap">
+<p class="intro">
   In machine learning a classifier is able to predict, given an input, a probability distribution over a set of categories. Some use-cases for building a classifier:
 </p>
 

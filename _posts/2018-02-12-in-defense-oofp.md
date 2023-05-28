@@ -12,7 +12,7 @@ image: /assets/media/articles/scala-stairs.jpg
 generate_toc: true
 ---
 
-<p class="intro withcap" markdown='1'>
+<p class="intro" markdown='1'>
   This article is about OOP hierarchies, in comparisson with
   [type classes](https://en.wikipedia.org/wiki/Type_class), using as
   example Scala's standard collections, which are involved in a recent
@@ -104,7 +104,7 @@ back in 2011:
     performance benefit for one of these loops. Again, this led to some
     heinous code as any of its methods which took a `Builder` or
     `CanBuildFrom` would immediately land us with a mutable.HashMap. (We
-    ended up using explicit external iterators and a while-loop, too.)    
+    ended up using explicit external iterators and a while-loop, too.)
     <br>...<br>
     The number of concepts I had to explain to new members of our team
     for even the simplest usage of a collection was surprising: implicit
@@ -182,11 +182,11 @@ criticism:
   <p><em>“
     You always care about the asymptotic properties of your data
     structures. So there is never a case where Seq makes sense, even as
-    a concept!    
+    a concept!
   ”</em></p>
   <footer>
     <p>
-      <a href="https://twitter.com/djspiewak/status/962767948774457344" target="_blank">Source</a>      
+      <a href="https://twitter.com/djspiewak/status/962767948774457344" target="_blank">Source</a>
     </p>
   </footer>
 </blockquote>
@@ -258,7 +258,7 @@ This is actually a separate argument that does have merit:
    You do not need a top-down hierarchy of collections. They're ready
    to break back compatibility, so why not do it right like Spiewak's
    suggestion 3 years ago? `Builder` and `IterableOnce` are symptoms of a
-   deeper problem: poor design choices.    
+   deeper problem: poor design choices.
   ”</em></p>
   <footer>
     <p>

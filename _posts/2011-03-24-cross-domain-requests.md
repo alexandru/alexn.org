@@ -12,7 +12,7 @@ description: >-
   This article describes how to make cross-browser requests, in all browsers (including IExplorer 6), using web standards along with fallbacks and without using a proxy or JSONP (which is limited and awkward) -- as long as you control the destination server, or if the destination server allows.
 ---
 
-<p class="intro withcap">
+<p class="intro">
   This article describes how to make cross-browser requests, in all browsers (including <u>IExplorer 6</u>), using web standards along with fallbacks and without using a proxy or JSONP (which is limited and awkward) -- as long as you control the destination server, or if the destination server allows.
 </p>
 

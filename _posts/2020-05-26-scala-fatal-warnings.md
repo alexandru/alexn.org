@@ -8,7 +8,7 @@ image: /assets/media/articles/scala-xfatal-warnings.png
 generate_toc: true
 ---
 
-<p class="intro withcap" markdown='1'>
+<p class="intro" markdown='1'>
   The best practices are those enforced by the build tools, as part of the build process. Don't annoy your colleagues in code reviews; let the build tools do that for you.
 </p>
 
@@ -24,7 +24,7 @@ def size(list: List[_]): Int =
     case _ :: rest => 1 + size(rest)
   }
 // On line 2: warning: match may not be exhaustive.
-//        It would fail on the following input: Nil  
+//        It would fail on the following input: Nil
 ```
 
 Here's what happens next:
@@ -89,7 +89,7 @@ scalac -Wconf:help
 
 ## 2. Activate All Linting Options
 
-There are many useful compiler options that you could activate. You can find a (possibly non-complete) list on [docs.scala-lang.org](https://docs.scala-lang.org/overviews/compiler-options/index.html). 
+There are many useful compiler options that you could activate. You can find a (possibly non-complete) list on [docs.scala-lang.org](https://docs.scala-lang.org/overviews/compiler-options/index.html).
 
 <p class="info-bubble">
   <strong>WARNING:</strong> the compiler evolves and it's good to keep this list up to date (see next tip)!
@@ -172,7 +172,7 @@ scalacOptions in Compile ~= { options: Seq[String] =>
 
 ### 2.3. Relax the console configuration
 
-When playing around in the console, it's a good idea to deactivate `Xfatal-warnings`, along with some of the more annoying warnings. 
+When playing around in the console, it's a good idea to deactivate `Xfatal-warnings`, along with some of the more annoying warnings.
 
 You could [use sbt-tpolecat](#21-use-the-sbt-tpolecat-plugin), which already does this automatically, or you could add this to `build.sbt`:
 

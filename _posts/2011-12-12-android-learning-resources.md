@@ -9,7 +9,7 @@ description: >-
   Starting out learning Android development may be intimidating at first, as with any new platform of reasonable complexity you'll have a lot to learn. However the learning process is fun. So here are some learning resources that I'm currently following.
 ---
 
-<p class="intro withcap">
+<p class="intro">
   Starting out learning Android development may be intimidating at first, as with any new platform of reasonable complexity you'll have a lot to learn. However the learning process is fun. So here are some learning resources that I'm currently following.
 </p>
 

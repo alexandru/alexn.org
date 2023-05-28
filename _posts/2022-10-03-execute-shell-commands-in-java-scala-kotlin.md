@@ -13,7 +13,7 @@ description: >
   The following describes snippets for executing shell commands, in Java, Scala, and Kotlin, using standard functionality. It's also useful to compare Java vs Scala vs Kotlin for this particular problem.
 ---
 
-<p class="intro withcap" markdown=1>
+<p class="intro" markdown=1>
 The following describes snippets for executing shell commands, in Java, Scala, and Kotlin, using standard functionality. It's also useful to compare Java vs Scala vs Kotlin for this particular problem.
 </p>
 
@@ -132,8 +132,8 @@ class OSUtils {
 
 class TaskUtils {
   public static <A> A withTimeout(
-    ExecutorService es, 
-    Duration timeout, 
+    ExecutorService es,
+    Duration timeout,
     Callable<A> task
   ) throws InterruptedException, TimeoutException {
     final var ft = new FutureTask<>(task);
@@ -221,8 +221,8 @@ And to have blocking I/O timing out after a timespan, we can use the same mechan
 
 ```java
 public static <A> A withTimeout(
-  ExecutorService es, 
-  Duration timeout, 
+  ExecutorService es,
+  Duration timeout,
   Callable<A> task
 ) throws InterruptedException, TimeoutException {
  final var ft = new FutureTask<>(task);
@@ -273,7 +273,7 @@ object OSUtils {
     }
     // A `bracket` works like `try-with-resources` or `try-finally`
     .bracket { proc =>
-      // These aren't "interruptible", what actually interrupts them 
+      // These aren't "interruptible", what actually interrupts them
       // is proc.destroy(); and due to how they are used, it's better
       // to not declare them as interruptible, as to not mislead:
       val collectStdout = IO.blocking {
@@ -283,7 +283,7 @@ object OSUtils {
         new String(proc.getErrorStream.readAllBytes(), UTF_8)
       }
       // This is actually cancellable via thread interruption
-      val awaitReturnCode = IO.interruptible { 
+      val awaitReturnCode = IO.interruptible {
         proc.waitFor()
       }
       for {
@@ -401,7 +401,7 @@ data class CommandResult(
  * `/bin/sh` commands.
  */
 suspend fun executeCommand(
-  executable: Path, 
+  executable: Path,
   vararg args: String
 ): CommandResult =
   // Blocking I/O should use threads designated for I/O
@@ -429,8 +429,8 @@ suspend fun executeCommand(
         stderr = stderr.await()
       )
     } finally {
-      // This interrupts the streams as well, so it terminates 
-      // async execution, even if thread interruption for that 
+      // This interrupts the streams as well, so it terminates
+      // async execution, even if thread interruption for that
       // InputStream doesn't work
       proc.destroy()
     }
@@ -443,7 +443,7 @@ suspend fun executeCommand(
  * they need to be properly escaped.
  */
 suspend fun executeShellCommand(
-  command: String, 
+  command: String,
   vararg args: String
 ): CommandResult =
   executeCommand(

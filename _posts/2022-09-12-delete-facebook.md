@@ -11,7 +11,7 @@ description: >
   I finally managed to delete my Facebook account. This was a long time coming. Being disconnected feels good, it feels liberating.
 ---
 
-<p class="intro withcap">
+<p class="intro">
 I finally managed to delete my Facebook account. This was a long time coming. Being disconnected feels good, it feels liberating.
 </p>
 

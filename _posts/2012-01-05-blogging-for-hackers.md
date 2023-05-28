@@ -13,7 +13,7 @@ description: >-
   Host your own static website on Heroku's free plan, use Google's App Engine as a CDN, keep Heroku's free dyno alive, generate the website via Jekyll.
 ---
 
-<p class="intro withcap">Host your own static website using free services. This article is a recipe for:</p>
+<p class="intro">Host your own static website using free services. This article is a recipe for:</p>
 
 * building your website with [Jekyll](https://jekyllrb.com/)
 * hosting your own static website on Heroku's free plan;

@@ -10,7 +10,7 @@ description: >
 last_modified_at: 2022-04-06 00:16:52 +03:00
 ---
 
-<p class="intro withcap" markdown=1>
+<p class="intro" markdown=1>
 Planning the future is difficult, but can bring clarity and purpose. See [Finding Focus in Harsh Times]({% link _posts/2022-03-30-focus.md %}) for context.
 </p>
 
@@ -20,7 +20,7 @@ Planning the future is difficult, but can bring clarity and purpose. See [Findin
 
 **I'm stepping down from the Typelevel "Steering Committee".**
 
-Moderating and leading a community is gruesome work made by unsung heroes, and I can't be a part of it anymore. For some time now I've been absent, with my only contributions to steering having been rants, and frankly I'd rather get back to coding or other contributions to Open Source that I can manage. 
+Moderating and leading a community is gruesome work made by unsung heroes, and I can't be a part of it anymore. For some time now I've been absent, with my only contributions to steering having been rants, and frankly I'd rather get back to coding or other contributions to Open Source that I can manage.
 
 Typelevel is growing, and you can make a difference. If you feel you're a fit, get involved, as there's a [call for 'steering committee' members](https://typelevel.org/blog/2022/04/01/call-for-steering-committee-members.html).
 

@@ -5,7 +5,7 @@ last_modified_at: 2022-09-19 11:17:51 +03:00
 image: /assets/media/articles/tools.png
 ---
 
-<p class="intro withcap">
+<p class="intro">
   There's something that bothers me when it comes to starting a new project. You can't really use the best tool for a certain job, if that tool is not integrated with the rest of your platform. Let me explain.
 </p>
 

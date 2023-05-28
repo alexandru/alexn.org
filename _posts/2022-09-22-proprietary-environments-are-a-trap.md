@@ -10,7 +10,7 @@ description: >
   What to learn in order to not become obsolete as a software developer, and then being forced into early retirement from programming? What platforms to prefer for building products that last with minimal maintenance?
 ---
 
-<p class="intro withcap" markdown=1>
+<p class="intro" markdown=1>
 What to learn in order to not become obsolete as a software developer, and then being forced into early retirement from programming? What platforms to prefer for building products that last with minimal maintenance?
 </p>
 
@@ -19,14 +19,14 @@ Jeremy Allison ([bio](https://en.wikipedia.org/wiki/Jeremy_Allison)) is a comput
 > *Proprietary environments are a trap*
 >
 > *I used to be a Microsoft Windows programmer, as well as a UNIX/POSIX programmer.*
-> 
+>
 > *The knowledge I've gained about programming POSIX is still useful, even though I learned a lot of it over twenty years ago. My Windows knowledge is now rather out of date, and getting more so over the years. It isn't worth my time anymore to keep up with each increasingly baroque change to the Windows environment. Just as an example, over this time the latest "hot" communication paradigm that Microsoft recommended developers use in Windows changed from NetBEUI, to NetDDE, then OLE, followed by OLE2, then COM, DCE/RPC, DCOM, and now currently seems to be Web Services (SOAP and the like).*
-> 
+>
 > *Meanwhile, in the UNIX world the Berkeley socket API was useful in the 1980s and is still the core of all communications frameworks in the open standards world. All the UNIX RPC, object and Web Service environments are built on that stable base. Learn as much about the proprietary environments as you need to be able to help people port programs over to open standards. You'll never be lost for work. The same is true of any proprietary environment, not just Windows. Windows just happens to be the one I know best.*
-> 
+>
 > *What will get very interesting in the future is the effect a fully open Java platform will have on the software environment in the next ten years. After initially ignoring Java due to its proprietary restrictions, I now believe Java and it's associated libraries have the potential to be the next POSIX.*
 
-This was written in 2007, so 15 years ago. Was Jeremy Allison right? 
+This was written in 2007, so 15 years ago. Was Jeremy Allison right?
 
 I know people that left the software industry due to obsoletion, not able to keep up with the latest and greatest. Learning proprietary platforms is planned obsolesce for your career. Windows, a shadow of its former self, is now just an ads-delivery vehicle and a GUI toolkit for MS Office. Java, propelled by its openness and availability on all platforms, grew and is now more popular than ever, although it's not alone in being popular, or a POSIX-like platform, others being JavaScript, .NET, or LLVM, and all are FOSS.
 
@@ -49,7 +49,7 @@ I grew up as a software developer with such words, with essays instilling ideas 
 What changed is that Open Source won. It won the hearts and minds of software developers. Most of us build on top of FOSS libraries, and deploy on top of FOSS runtimes and operating systems, using many FOSS tools in the process. But it seems to me like the trend is reversing[^7].
 
 > *"Life swings like a pendulum backward and forward between pain and boredom."*
-> 
+>
 > — Arthur Schopenhauer
 
 When freedom is abundant, we begin taking it for granted, forgetting why it is needed, forgetting to contribute. Oblivion is how freedom dies.

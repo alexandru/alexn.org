@@ -10,7 +10,7 @@ description: >-
   I’ve got a growing number of personal pictures and the collection is growing since 2003 ... Pro accounts on Flickr have unlimited storage and can upload and access full-resolution pictures.
 ---
 
-<p class="intro withcap">
+<p class="intro">
   I've got a growing number of personal pictures and the collection is growing since 2003, when I got my first digital camera, a shitty Sanyo that still works and that I still use whenever I forget about my Nikon.
 </p>
 

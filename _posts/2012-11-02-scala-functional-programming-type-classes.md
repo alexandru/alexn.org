@@ -6,17 +6,17 @@ tags:
   - Scala
 image: /assets/media/articles/scala.png
 generate_toc: true
-description: >- 
+description: >-
   I've been following the excellent Coursera course on
   [Functional Programming Principles in Scala](https://www.coursera.org/course/progfun)
   led by Martin Odersky. This was not my first encounter with Scala as
   I've been using it including for my day job.
-  
+
   In this article I'm describing my impressions of the Scala programming
   language and why I fel in love with it.
 ---
 
-<p class="intro withcap" markdown='1'>
+<p class="intro" markdown='1'>
   I've been following the excellent Coursera course on
   [Functional Programming Principles in Scala](https://www.coursera.org/course/progfun)
   led by Martin Odersky. This was not my first encounter with Scala as
@@ -58,11 +58,11 @@ We need some definitions though. Functional programming ...
 * the final output of a computation is composed out of multiple
   transformations of your input data, instead of building that
   solution by mutating state
-  
+
 A functional programming language is one that:
 
 * treats functions as first-class objects, meaning that dealing with
-  higher-order functions is not only possible, but comfortable  
+  higher-order functions is not only possible, but comfortable
 * gives you the tools needed for *composing* functions and types
 
 By that definition languages like Ruby and Javascript can be
@@ -73,11 +73,11 @@ also add:
   general if you want to assess the viability of any programming
   language, disregarding the platform it runs on, it's perfectly
   characterized by its basic primitives and data-structures;
-  e.g. think of C++, Java, or Javascript)  
+  e.g. think of C++, Java, or Javascript)
 * exposes a type-system that deals efficiently with the
-  [expression problem](http://en.wikipedia.org/wiki/Expression_problem); 
+  [expression problem](http://en.wikipedia.org/wiki/Expression_problem);
   Rich Hickey calls this "*polymorphism a la carte*"
-  
+
 You can also go to the extreme of specifying that all side-effects
 must be modeled with monadic types, but that's a little too much IMHO,
 as only one mostly-mainstream language fits that bill (Haskell).
@@ -131,7 +131,7 @@ There are several problems with doing this in Java or C#:
   strings, etc...)
 - we need to start from some *zero* (the list of elements you want to
   fold could be empty)
-  
+
 Well, you can define a type-class, like so:
 
 ```scala
@@ -143,7 +143,7 @@ trait CanFold[-T, R] {
 
 But wait, isn't this just a simple Java-like interface? Well yes, yes
 it is. That's the awesome thing about Scala - in Scala every instance
-is an object and every type is a class.  
+is an object and every type is a class.
 
 So what makes this interface a type-class?
 [Objects in combination with implicit parameters](http://ropas.snu.ac.kr/~bruno/papers/TypeClasses.pdf)
@@ -151,7 +151,7 @@ of course. Let's look at how we'll implement our `sum()` function that
 uses this:
 
 ```scala
-def sum[A, B](list: Traversable[A])(implicit adder: CanFold[A, B]): B = 
+def sum[A, B](list: Traversable[A])(implicit adder: CanFold[A, B]): B =
   list.foldLeft(adder.zero)((acc,e) => adder.sum(acc, e))
 ```
 
@@ -160,7 +160,7 @@ that's defined for type A, then it uses it to return a type B. This is
 awesomeness on multiple levels:
 
 - the implicit defined in scope for type A are establishing the return
-  type B  
+  type B
 - you can define a CanFold for any type you want, integers, strings,
   lists, whatever
 
@@ -171,7 +171,7 @@ define them in the companion object of the trait `CanFold`, like this:
 ```scala
 object CanFold {
   // default implementation for integers
-  
+
   implicit object CanFoldInts extends CanFold[Int, Long] {
     def sum(acc: Long, e: Int) = acc + e
     def zero = 0
@@ -207,7 +207,7 @@ This allows us to define a CanFold for any Traversable and it will
 work for any Seq / Vector / List and so on.
 
 ```scala
-implicit object CanFoldSeqs 
+implicit object CanFoldSeqs
 extends CanFold[Traversable[_], Traversable[_]] {
   def sum(x: Traversable[_], y: Traversable[_]) = x ++ y
   def zero = Traversable()
@@ -278,9 +278,9 @@ behavior in the current scope, you can shadow the conflicting
 definitions:
 
 ```scala
-{ 
-  // shadowing the more general definition 
-  // (notice the block, representing its own scope, 
+{
+  // shadowing the more general definition
+  // (notice the block, representing its own scope,
   //  so shadowing is local)
   def CanFoldSeqs = null
 
@@ -441,7 +441,7 @@ in Scala are lazy sequences. You can easily implement infinite lists
 of things, like Fibonacci numbers or the digits of PI or
 something. But Streams are not the only lazy collections, Scala also has
 [Views](http://www.scala-lang.org/docu/files/collections-api/collections_42.html)
-and you can transform any collection into a corresponding view, including Maps. 
+and you can transform any collection into a corresponding view, including Maps.
 
 But that's not all. Scala also has implementations of collections that
 do things in parallel. Here's how to calculate if a number is prime,
@@ -528,7 +528,7 @@ model something like this in a static language ...
 * for one, the hierarchy is simple to understand, simple to model, as subtyping is something that OOP simply does -
   you just inherit from `Function1[-T, +R]` - and you're done
 * downcasting to a function is something OOP simply does - you just
-  pass your object to something that expects a function and you can forget the original type of that value   
+  pass your object to something that expects a function and you can forget the original type of that value
 
 This is just a small and insignificant example of course, like most
 examples I'm giving here, but to me properly done OOP (where every
@@ -559,7 +559,7 @@ expected to be of type `List` and the `Maybe` type (the equivalent of
 `Option` in Scala is not a collection, but it is *viewable* as a
 collection of either 0 or 1 elements. As a consequence, because of
 good design decisions, the monadic types defined in Scala's collection
-library are more composable. 
+library are more composable.
 
 EDIT: this example is simple and shallow. As pointed out in the
 comments, it's easy to make the conversion by yourself, however I'm
@@ -609,7 +609,7 @@ why they had to extend the language. Take a look at the signature for
 `List.sum` in F#:
 
 ```ocaml
-List.sum : ^T list -> ^T (requires 
+List.sum : ^T list -> ^T (requires
   ^T with static member (+) and ^T with static member Zero)
 ```
 
@@ -735,8 +735,8 @@ why not model this with OOP in Ocaml? Because for algebraic
 data-types, the compiler helps you, like this:
 
 ```scala
-def sum(list: List[Int]): Int = list match { 
-   case Pair(head, tail) => head + sum(tail) 
+def sum(list: List[Int]): Int = list match {
+   case Pair(head, tail) => head + sum(tail)
    //-> oops, no termination
 }
 
@@ -755,7 +755,7 @@ capable of and it's mostly based on runtime reflection):
 ```scala
 type Closeable = { def close():Unit }
 
-def using[A, B <: Closeable](closable: B)(f: B => A): A = 
+def using[A, B <: Closeable](closable: B)(f: B => A): A =
   try {
     f(closable)
   }
@@ -841,14 +841,14 @@ consider:
   codepaths and low-level Scala code is still higher-level than Java
   (for instance the pimp-my-library pattern will have 0 overhead
   starting with Scala 2.10, while implicit parameters are
-  compile-time)    
+  compile-time)
 * the built-in immutable data-structures are optimized to be versioned
   / to reuse memory of prior states - just as when adding a new
   element to a List the old reference gets used as the tail, this
   also happens with Vectors and Maps - they are still less efficient
   than Java's collections, but it's a good tradeoff as these
   data-structures can be used without read-locks, so bye, bye
-  lock-contention of threads  
+  lock-contention of threads
 * Scala creates lots of short lived objects. This can stress the
   garbage collector, but on the other hand the JVM has the most
   advanced garbage collectors available, so you shouldn't worry about
@@ -890,19 +890,19 @@ are some highlights of SBT:
 * it can do cross-builds between multiple Scala versions; as is well
   known, major Scala versions are breaking binary compatibility, so if
   you want your library to support multiple Scala versions then SBT is
-  a must, as it makes cross-building a breeze (it's almost too easy)  
+  a must, as it makes cross-building a breeze (it's almost too easy)
 * it's well integrated with ScalaTest, being able of continous
   compilation and testing, with output in colors - a really good tool
-  for TDD  
+  for TDD
 * it makes it easy to deal with multiple sub-projects in the same root
   project, sub-projects that can be worked-on, tested or published
-  individually or as a whole  
+  individually or as a whole
 * all Scala projects have instructions for SBT first, Maven second and
   missing instructions for everything else - this is particularly
   painful if you're dealing with plugins (like doing precompilation of
   templates with Scalate or something)
-  
-I use Emacs. 
+
+I use Emacs.
 
 IDEs are not on the same level as Java. But I tried out
 [IntelliJ IDEA's Scala plugin](http://blog.jetbrains.com/scala/) and
@@ -926,11 +926,11 @@ It's enough to say that Scala doesn't restrict you in any way:
   and that work either on the same machine, in a single process, or
   distributed over a network
 * [Futures and Promises](http://doc.akka.io/docs/akka/2.0.1/scala/futures.html),
-  which in contrast to other languages (* cough * javascript / jquery * cough *) 
+  which in contrast to other languages (* cough * javascript / jquery * cough *)
   are properly implemented as monadic types
 * [Software transactional memory](http://nbronson.github.com/scala-stm/), as in Clojure
 * [Parallel collections](http://docs.scala-lang.org/overviews/parallel-collections/overview.html)
-* [Async/await as in C#](http://doc.akka.io/docs/akka/snapshot/scala/dataflow.html), though it requires a compiler plugin  
+* [Async/await as in C#](http://doc.akka.io/docs/akka/snapshot/scala/dataflow.html), though it requires a compiler plugin
 * The awesome Java NIO, along with Netty, Mina and the whole ecosystem
   for async I/O (you don't know what pleasure feels like until you
   wrap [Async-Http-Client](https://github.com/AsyncHttpClient/async-http-client)
@@ -969,7 +969,7 @@ stuck, you can view a solution which is often idiomatic. See also this
 complete test-suite, to spare you of the effort.
 
 <a href="http://www.amazon.com/gp/product/B004Z1FTXS/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=B004Z1FTXS&linkCode=as2&tag=bionicspirit-20"><img src="{% link assets/media/articles/programming-scala.jpg %}" align="left" style="width:100px" class="left" loading="lazy" /></a>
-<a href="http://www.amazon.com/gp/product/B004Z1FTXS/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=B004Z1FTXS&linkCode=as2&tag=bionicspirit-20"><b>Programming in Scala</b></a> 
+<a href="http://www.amazon.com/gp/product/B004Z1FTXS/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=B004Z1FTXS&linkCode=as2&tag=bionicspirit-20"><b>Programming in Scala</b></a>
 by Martin Odersky is a good book on programming, not just Scala - many
 of the exercises in
 [Structure and Interpretation of Computer Programs](http://mitpress.mit.edu/sicp/)
@@ -983,8 +983,8 @@ solving those problems, which is good.
 by Cay S. Horstmann, is a good pragmatic book on Scala (not so much on
 functional programming), but it's for developers experienced in other
 languages, so it's fast-paced while not scaring you away with endless
-discussions on types (like I just did). The PDF for the first part (out of 3) is 
-available from the 
+discussions on types (like I just did). The PDF for the first part (out of 3) is
+available from the
 [Typesafe website](http://typesafe.com/resources/free-books).
 
 <div class="clear"></div>

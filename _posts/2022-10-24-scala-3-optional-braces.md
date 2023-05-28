@@ -12,7 +12,7 @@ description: >
   I dislike Scala 3's significant whitespace syntax. At this point it's safe to say that I hate it, being (IMO) an unfortunate evolution of the language.
 ---
 
-<p class="intro withcap">
+<p class="intro">
 I dislike Scala 3's significant whitespace syntax. At this point it's safe to say that I hate it 🤷‍♂️, being (IMO) an unfortunate evolution of the language.
 </p>
 
@@ -60,7 +60,7 @@ if (x > 0) {
 // ..vs ...
 if (x > 0) {
   ...
-} 
+}
 else if (x < 0) {
   ...
 }

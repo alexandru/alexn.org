@@ -2,17 +2,17 @@
 title: "OOP vs Type Classes, Part 1: Ideology"
 image: /assets/media/articles/scala-oop-vs-type-classes-ideology.jpg
 image_caption: >
-  Jacques-Louis David, The Intervention of the Sabine Women, 1799. Oil on canvas. Paris, musée du Louvre. 
+  Jacques-Louis David, The Intervention of the Sabine Women, 1799. Oil on canvas. Paris, musée du Louvre.
 tags:
   - OOP
   - FP
-  - Scala 
+  - Scala
 generate_toc: true
 description: >
-  This is the 1st article of a series that explores the difference between OOP design, and parametric polymorphism with Type Classes, as both are possible in Scala. 
+  This is the 1st article of a series that explores the difference between OOP design, and parametric polymorphism with Type Classes, as both are possible in Scala.
 ---
 
-<p class="intro withcap">
+<p class="intro">
   This is the 1<sup>st</sup> article of a series that explores the difference between OOP design, and parametric polymorphism with Type Classes, as both are possible in Scala.
 </p>
 
@@ -36,7 +36,7 @@ Head over to YouTube if you want to watch it: [video link](https://www.youtube.c
 
 We are gifted with a brain that's great at recognizing patterns. Take a look at these shapes, [which one doesn't belong?](https://www.goodreads.com/book/show/31243369-which-one-doesn-t-belong)
 
-<img src="{% link assets/media/articles/which-one-doesnt-belong-1.png %}" 
+<img src="{% link assets/media/articles/which-one-doesnt-belong-1.png %}"
     alt="A picture of 4 shapes (3 triangles, 2 triangles with a right angle, 2 isosceles triangles, 1 pentagon)" />
 
 What's cool is that there is no right answer, you can point at any one of them, thus grouping the other 3 with some common characteristic. We have above:
@@ -48,7 +48,7 @@ What's cool is that there is no right answer, you can point at any one of them, 
 
 Here's another one:
 
-<img src="{% link assets/media/articles/which-one-doesnt-belong-2.png %}" 
+<img src="{% link assets/media/articles/which-one-doesnt-belong-2.png %}"
     alt="A picture of 4 shapes (3 squares, 1 regular quadrilateral)" />
 
 We have:
@@ -182,7 +182,7 @@ case class Customer(
 
 When contrasted with FP, the notion of _object identity_ (aka mutability) comes up a lot:
 
-> "*FP removes one important dimension of complexity — To understand a program part (a function), you need no longer account for the possible executions that can lead to that program part*" — Martin Odersky in [Simple Functional Programming](https://www.youtube.com/watch?v=YXDm3WHZT5g). 
+> "*FP removes one important dimension of complexity — To understand a program part (a function), you need no longer account for the possible executions that can lead to that program part*" — Martin Odersky in [Simple Functional Programming](https://www.youtube.com/watch?v=YXDm3WHZT5g).
 
 However, this is just an ideal, in practice being often a false statement. Let's take a mutable interface:
 
@@ -220,7 +220,7 @@ What's the difference between that, and this totally pure function?
 
 ```scala
 object Metrics {
-  // Note the internals are now exposed, but function output 
+  // Note the internals are now exposed, but function output
   // depends entirely on function input FTW /s
   def touch(ref: Ref[IO, Long]): IO[Long] = ???
 }
@@ -281,7 +281,7 @@ Yikes, that's not good. We can't combine any two objects inheriting from `Combin
 
 ```scala
 trait Combine[Self] { self: Self =>
-  def combine(other: Self): Self  
+  def combine(other: Self): Self
 }
 
 class String extends Combine[String] { ... }

@@ -10,7 +10,7 @@ tags:
 image: /assets/media/articles/monix-1024.png
 ---
 
-<p class="intro withcap" markdown='1'>The Monix [Task](https://monix.io/docs/2x/eval/task.html) was heavily inspired by `scalaz.concurrent.Task` and by `scala.concurrent.Future`. That's not a secret and I'll be forever grateful to their authors. I've ran a benchmark and I'm glad to report that the Monix [Task](https://monix.io/docs/2x/eval/task.html) beats in performance both.</p>
+<p class="intro" markdown='1'>The Monix [Task](https://monix.io/docs/2x/eval/task.html) was heavily inspired by `scalaz.concurrent.Task` and by `scala.concurrent.Future`. That's not a secret and I'll be forever grateful to their authors. I've ran a benchmark and I'm glad to report that the Monix [Task](https://monix.io/docs/2x/eval/task.html) beats in performance both.</p>
 
 Such results are actually unexpected, because the Monix `Task` has to
 do tricks in order to be "*cancelable*", a trait that allows it to

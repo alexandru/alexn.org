@@ -11,7 +11,7 @@ description: >-
   Heroku is great. It basically allows you to avoid growing-up. The deployment itself couldn't be simpler, and when browsing their web interface for available add-ons, I feel like a child in a candy-store. But I've outgrown it.
 ---
 
-<p class="intro withcap">
+<p class="intro">
   I love freebies. I often find myself compelled to search for the best price / convenience ratio, and from this perspective you cannot really argue against something offered for free. And yet, here I am bitching and moaning about Heroku.
 </p>
 

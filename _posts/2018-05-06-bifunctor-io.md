@@ -13,7 +13,7 @@ image: /assets/media/articles/bio.png
 generate_toc: true
 ---
 
-<p class="intro withcap" markdown="1">
+<p class="intro" markdown="1">
   The Bifunctor `IO` data type is a hot topic in the Scala community. In this article however I'm expressing my dislike for it because it shares the same problems as Java's Checked Exceptions.
 </p>
 
@@ -431,7 +431,7 @@ the Cats-Effect project:
   <p><em>“
     The JVM runtime is typed to a first order. Which happens to be exactly what the type
     parameter of IO reflects. I'm not talking about code in general, just IO.
-    IO is the runtime, the runtime is IO.    
+    IO is the runtime, the runtime is IO.
   ”</em></p>
   <p>
     <a href="https://twitter.com/djspiewak/status/983807277613236230">
@@ -456,7 +456,7 @@ the Cats-Effect project:
     <a href="https://twitter.com/djspiewak/status/983805298526699520">
       Source
     </a>
-  </p>  
+  </p>
 </blockquote>
 
 I agree with that and it shows which developers worked a lot in dynamic environments,

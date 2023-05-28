@@ -3,14 +3,14 @@ title: "Free Speech"
 image: /assets/media/articles/free-speech-movement-berkley.jpg
 image_caption: >
   Protesters of the Free Speech Movement, at Sather Gate, University of California, Berkeley campus.
-tags: 
+tags:
   - Opinion
   - Politics
 generate_toc: true
 last_modified_at: 2022-05-01 10:49:04 +03:00
 ---
 
-<p class="intro withcap">
+<p class="intro">
 Free speech is the right of an individual or community to articulate their opinions and ideas without fear of retaliation, censorship, or legal sanction. And it's under threat; the Internet is leading to mistrust in 20<sup>th</sup> century's institutions, with free speech being one of the casualties.
 </p>
 
@@ -26,7 +26,7 @@ By writing this, I know that I won't change minds, not immediately anyway. And I
 
 ## Rights
 
-By "rights", we mean freedoms that humans are born with and that the state protects. Conservatives are fond of saying that access to public healthcare, for example, is only a privilege, and it can never be a "right", because in order to have access to healthcare, someone else has to give it to you, either by free labor or taxes. You can also argue that protections for rights, like free speech, also costs money. After all, you need a functional justice system paid out of taxes. But a justice system is the state's primary justification for existence, and without the freedoms that people are naturally born with, society is just another tyranny, with people wishing for a regression to city states or anarchy. The state exists primarily to protect the natural rights that free men are born with, with freedom of speech being one of those rights, and perhaps the most important right of them all. 
+By "rights", we mean freedoms that humans are born with and that the state protects. Conservatives are fond of saying that access to public healthcare, for example, is only a privilege, and it can never be a "right", because in order to have access to healthcare, someone else has to give it to you, either by free labor or taxes. You can also argue that protections for rights, like free speech, also costs money. After all, you need a functional justice system paid out of taxes. But a justice system is the state's primary justification for existence, and without the freedoms that people are naturally born with, society is just another tyranny, with people wishing for a regression to city states or anarchy. The state exists primarily to protect the natural rights that free men are born with, with freedom of speech being one of those rights, and perhaps the most important right of them all.
 
 **In Western democracies, one of our shared values is *individualism*.** This means that the rights of the individual are placed over those of the community. If you don't protect the individual, you can't protect minorities, and your so-called democracy is just a tyranny of the majority. It is only the liberal values that keep our democracies from devolving into tyrannies. Given that the modern state has a monopoly on violence, free speech is the right of the individual to speak his/her mind without fearing retaliation from the state.
 
@@ -46,7 +46,7 @@ If people want to save democracy via censorship, I'm afraid we won't be left wit
 
 [Anti-defamation](https://en.wikipedia.org/wiki/Defamation) laws exist. For example in the US, incitement to violence isn't allowed, although incitement to violence can be abused too, and personally I don't think that shouting "Fire!" in a crowded theater should be punishable by law, but that's not what I'd like to talk about.
 
-The difference between many European countries and the US, is that in Europe, *"hate speech"* is not protected speech. And this is where I have a problem, which is made worse by Big Tech companies going above and beyond the law in applying censorship and banning people for wrongthink. 
+The difference between many European countries and the US, is that in Europe, *"hate speech"* is not protected speech. And this is where I have a problem, which is made worse by Big Tech companies going above and beyond the law in applying censorship and banning people for wrongthink.
 
 I believe that as governments and social media networks are rushing to criminalize or censor *"hate speech"*, *"fake news"* or what have you, then free speech is dying, and democracy and secularism cannot survive without it.
 
@@ -62,9 +62,9 @@ Is all bigotry bad, though? Tough question. I am radically pro-choice, given [th
 
 **Does bigotry mean hatred?** Hard question; it seems that it does from how it's getting used, but things aren't clear once you get to the nitty-gritty. I see people in Romania, that are pro-life, claiming that they are survivors of failed abortions, claiming that they wouldn't exist if abortions were legal (back in the 80s). Such people can very well claim that, if you're pro-choice, then you hate them, being against their very existence. They may claim that you're a murderer, that you've got blood on your hands, in their eyes that's hatred, and at that point all potential for compromise with them is gone. This happens when people don't acknowledge the concerns of the other side.
 
-In Romania, about 89% of the population is religious, being in the top 10 most religious countries in the world. Quite literally, I've got bigots among my friends and family. I would estimate a vast majority of Romanians are bigots, while only a small minority of us can be classified as assholes. I can't tolerate people that advocate for violence, I can't tolerate assholes, but if I were to start labeling the people I interact with as bigots, I'd soon be left without friends, family or job opportunities. 
+In Romania, about 89% of the population is religious, being in the top 10 most religious countries in the world. Quite literally, I've got bigots among my friends and family. I would estimate a vast majority of Romanians are bigots, while only a small minority of us can be classified as assholes. I can't tolerate people that advocate for violence, I can't tolerate assholes, but if I were to start labeling the people I interact with as bigots, I'd soon be left without friends, family or job opportunities.
 
-If *"bigotry"* simply means ethics driven by religion, then we are screwed, because you can't separate Christianity from its ethics, it has thousands of years of tradition, billions of followers, and a cultural war against Christian ethics is a societal A-bomb. You may feel safe in your bubble, but it's much better to appeal to the better angels of human nature, as our progressive bubble is actually a minority. One of the greatest gifts for social progress that happened was [secularism](https://en.wikipedia.org/wiki/Secularism). Imagine a society in which being pro-choice or being gay are considered hateful *blasphemies* that need to be punished. We don't need much imagination, this has happened not long ago, and Western society has been regressing in that direction anyway. 
+If *"bigotry"* simply means ethics driven by religion, then we are screwed, because you can't separate Christianity from its ethics, it has thousands of years of tradition, billions of followers, and a cultural war against Christian ethics is a societal A-bomb. You may feel safe in your bubble, but it's much better to appeal to the better angels of human nature, as our progressive bubble is actually a minority. One of the greatest gifts for social progress that happened was [secularism](https://en.wikipedia.org/wiki/Secularism). Imagine a society in which being pro-choice or being gay are considered hateful *blasphemies* that need to be punished. We don't need much imagination, this has happened not long ago, and Western society has been regressing in that direction anyway.
 
 **What does "fascism" mean nowadays?** AFAIK its primary traits are extreme statism, aka authoritarianism, forcible suppression of opposition, strong regulation of the economy, nostalgia for a glorious past, opposition to (classic) liberalism. And I know that the US and other countries still have (literal) fascists in their society, but either I must be going out of my mind, or "fascism" must have lost all meaning, given its widening umbrella, or given that many of the people using it tend to be pretty anti-liberal. It's dumbfounding for me to see Antifa (aka anti-fascists) advocating for censorship, in order to prevent fascism.
 
@@ -186,7 +186,7 @@ You may hate the late Christopher Hitchens. Nowadays, he would definitely be cla
 
 {% include youtube.html id="zDap-K6GmL0" caption="Christopher Hitchens - Free Speech" %}
 
-He asks a great question: **Who decides what you can say, hear or see? Whom can you trust?** 
+He asks a great question: **Who decides what you can say, hear or see? Whom can you trust?**
 
 ## Public humiliation
 
@@ -233,7 +233,7 @@ Karl Popper was inspired by Plato. It isn't based on any empirical evidence, bei
 
 ## The hard questions
 
-**Do you feel comfortable about sharing political opinions that aren't popular in your tribe?** 
+**Do you feel comfortable about sharing political opinions that aren't popular in your tribe?**
 
 Do you feel free to state your opinions without risking being kicked out of that community, or even left without a job? Can you be a contrarian for a day without putting your life's work in jeopardy?
 
@@ -347,6 +347,6 @@ Dictators want free speech now? OMFG 🤦‍♂️
 
 Being a child of communism, to me the phenomenon is horrifying and disappointing, as I expected more from the West. People are forgetting what freedom of speech is, or why we need it. Yet I have faith that the democracy of the West will prevail. And when I say democracy, I'm not talking of the corrupt notion from communism, but rather the Anglo-Saxon version that focuses on liberal values and freedom.
 
-> *"Those who don't know history are doomed to repeat it."* — Edmund Burke 
+> *"Those who don't know history are doomed to repeat it."* — Edmund Burke
 
 Truer words may have never been spoken.

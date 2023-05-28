@@ -12,7 +12,7 @@ image: /assets/media/articles/functions.png
 generate_toc: true
 ---
 
-<p class="intro withcap" markdown='1'>Functional Programming (FP) is programming with *functions*. [Mathematical functions](https://goo.gl/q8dToC).</p>
+<p class="intro" markdown='1'>Functional Programming (FP) is programming with *functions*. [Mathematical functions](https://goo.gl/q8dToC).</p>
 
 There's no other definition that's correct, unless it's equivalent
 to this one. There's no other definition that matters.
@@ -60,8 +60,8 @@ Some languages like Haskell are actually compiled / reduced to
 an intermediate language that's very close to Lambda Calculus,
 which is cool to have as a theoretical foundation, because then you
 can prove things about your language and have the ability to add new
-features safely, e.g. without risking type unsoundness. As an aside, Scala 
-doesn't have that luxury because it's also an OOP language, so they are 
+features safely, e.g. without risking type unsoundness. As an aside, Scala
+doesn't have that luxury because it's also an OOP language, so they are
 developing [DOT calculus](http://lampwww.epfl.ch/%7Eamin/dot/soundness_oopsla16.pdf)
 as an alternative. Interesting stuff.
 </p>
@@ -169,7 +169,7 @@ For all the learning that we are doing, we software developers are
 a really conservative bunch, unwilling to accept new concepts easily
 and in this context "*new*" is relative to what we've
 learned either in university or at our first job. The vigour with which
-we defend what we already know is proportional with the 
+we defend what we already know is proportional with the
 time we've invested in our knowledge and whatever it is that we
 are currently doing.
 

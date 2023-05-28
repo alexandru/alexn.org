@@ -11,11 +11,11 @@ image: /assets/media/articles/db-migrations-scala.png
 generate_toc: true
 ---
 
-<p class="intro withcap">
+<p class="intro">
   The database schema should be described as code, in your repository. And you should be able to semi-automatically update your database schema on new deployments.
 </p>
 
-A very popular Java library for handling migrations is [Flyway](https://flywaydb.org/). We'll combine that with [Typesafe Config (aka HOCON)](https://github.com/lightbend/config) for configuration, along with [PureConfig](https://github.com/pureconfig/pureconfig) for parsing it. And [Cats Effect](https://github.com/typelevel/cats-effect) for describing our effects, because we love FP, right? 😎 
+A very popular Java library for handling migrations is [Flyway](https://flywaydb.org/). We'll combine that with [Typesafe Config (aka HOCON)](https://github.com/lightbend/config) for configuration, along with [PureConfig](https://github.com/pureconfig/pureconfig) for parsing it. And [Cats Effect](https://github.com/typelevel/cats-effect) for describing our effects, because we love FP, right? 😎
 
 <p class="info-bubble" markdown="1">
   This is a complete solution, that's customizable and easy to implement (couple of lines of code), that can be used in multi-project builds, and that doesn't tie you to a [particular framework](https://www.playframework.com/documentation/2.8.x/Evolutions), or a [particular build tool](http://www.lihaoyi.com/mill/page/contrib-modules.html#flyway), or an [enterprise solution](https://www.liquibase.org/) solving problems that you don't have.
@@ -25,10 +25,10 @@ A very popular Java library for handling migrations is [Flyway](https://flywaydb
 
 We're going to use [MariaDB (MySQL)](https://mariadb.org/) as our database, but this works with any relational database.
 
-To start a MariaDB instance on your localhost, you could use Docker: 
+To start a MariaDB instance on your localhost, you could use Docker:
 
 ```sh
-# NOTE: --rm means the container gets deleted after shutdown; 
+# NOTE: --rm means the container gets deleted after shutdown;
 # if you want to keep the container around, then remove it
 
 docker run --rm \
@@ -171,7 +171,7 @@ import scala.jdk.CollectionConverters._
 
 object DBMigrations extends LazyLogging {
 
-  def migrate[F[_]: Sync](config: JdbcDatabaseConfig): F[Int] = 
+  def migrate[F[_]: Sync](config: JdbcDatabaseConfig): F[Int] =
     Sync[F].delay {
       logger.info(
         "Running migrations from locations: " +
@@ -260,7 +260,7 @@ import cats.effect.{ExitCode, IO}
 import com.typesafe.scalalogging.LazyLogging
 
 object DBMigrationsCommand extends IOApp with LazyLogging {
-  /** 
+  /**
     * Lists all JDBC data-sources, defined in `application.conf`
     */
   val dbConfigNamespaces = List(
@@ -268,7 +268,7 @@ object DBMigrationsCommand extends IOApp with LazyLogging {
   )
 
   def run(args: List[String]): IO[ExitCode] = {
-    val migrate = 
+    val migrate =
       dbConfigNamespaces.traverse_ { namespace =>
         for {
           _   <- IO(logger.info(s"Migrating database configuration: $namespace"))
@@ -337,7 +337,7 @@ lazy val root = (project in file("."))
       "org.hsqldb" % "hsqldb" % "2.5.1" % Test,
       scalaTest % Test,
     ),
-    // Recommended 
+    // Recommended
     fork in Test := true,
   )
 ```

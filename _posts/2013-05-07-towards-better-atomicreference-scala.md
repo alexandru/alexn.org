@@ -9,7 +9,7 @@ tags:
   - Concurrency
 ---
 
-<p class="intro withcap" markdown='1'>
+<p class="intro" markdown='1'>
   The
   [AtomicReference](http://docs.oracle.com/javase/6/docs/api/java/util/concurrent/atomic/package-summary.html)
   is like a container for a `volatile` reference. Usage of `volatile`
@@ -40,10 +40,10 @@ However, the interface provided leaves something to be desired:
   of numbers can be incremented too
 
 **IMPORTANT UPDATE (March 31, 2014):** The content of this article is slightly obsolete, though
-still has pedagogical value. For an up to date article on my Atomic references, checkout the wiki page maintained for project [Monifu](https://github.com/alexandru/monifu/): [Atomic References](https://github.com/alexandru/monifu/blob/master/docs/atomic.md)  
+still has pedagogical value. For an up to date article on my Atomic references, checkout the wiki page maintained for project [Monifu](https://github.com/alexandru/monifu/): [Atomic References](https://github.com/alexandru/monifu/blob/master/docs/atomic.md)
 
 <!-- read more -->
-  
+
 This is a simple and working example of how Scala can improve your
 code tremendously. And I'm basically describing the implementation of
 my own `shifter.concurrency.atomic.Ref`. You can:
@@ -72,13 +72,13 @@ With a generic implementation that for now just delegates to our inner
 
 ```scala
 class RefAny[T](initial: T) extends Ref[T] {
-  def get = 
-    instance.get()  
-  def set(update: T) = 
-    instance.set(update)  
-  def compareAndSet(expect: T, update: T) = 
+  def get =
+    instance.get()
+  def set(update: T) =
+    instance.set(update)
+  def compareAndSet(expect: T, update: T) =
     instance.compareAndSet(expect, update)
-	
+
   private[this] val instance = new AtomicReference(initial)
 }
 ```
@@ -211,7 +211,7 @@ specializing our `Ref` for `Int`:
 ```scala
 final class RefInt(initialValue: Int) extends Ref[Int] {
   // ....
-  
+
   override def incrementAndGet(implicit num: Numeric[Int]): Int =
     instance.incrementAndGet()
 
@@ -286,7 +286,7 @@ $ javap shifter.concurrency.atomic.Ref | grep incrementAndGet
 So it's basically method overloading done by the Scala
 compiler. Clearly this adds some overhead in the generated .class
 files and it might not do what you think it does, so use it only if
-you really need it. 
+you really need it.
 
 As I was saying in the beginning, make sure to also (**links update March 31, 2014**):
 

@@ -12,7 +12,7 @@ description: >
   Scala is considered a multi-paradigm language, for better or worse, being one of the best OOP languages, which is why it's so versatile. Let's do a design exercise, going from OOP to static FP, and back. Let's understand the various techniques promoted in the community, and understand why the OOP design isn't just “idiomatic” for Scala, but can be superior to alternatives.
 ---
 
-<p class="intro withcap">
+<p class="intro">
 Scala is considered a multi-paradigm language, for better or worse, being one of the best OOP languages, which is why it's so versatile. Let's do a design exercise, going from OOP to static FP, and back. Let's understand the various techniques promoted in the community, and understand why the OOP design isn't just “idiomatic” for Scala, but can be superior to alternatives.
 </p>
 
@@ -49,7 +49,7 @@ enum OfferOutcome { // Scala 3's tagged unions
   case Updated
   case Ignored
 }
-  
+
 final case class OfferedMessage[+A](
   key: String,
   payload: A,
@@ -106,8 +106,8 @@ import monix.newtypes.TypeInfo
 
 class ParsingException(message: String) extends RuntimeException(message)
 
-/** 
-  * Type-class for serializing and deserializing to and from `String`. 
+/**
+  * Type-class for serializing and deserializing to and from `String`.
   */
 trait ValueCodec[A] {
   def kind: TypeInfo[A]
@@ -231,12 +231,12 @@ import cats.Monad
 import cats.syntax.all._
 
 def drain[F[_], A](using // Scala 3's `implicit`
-  Monad[F], 
-  Logger[F], 
+  Monad[F],
+  Logger[F],
   DelayedQueue[F, A]
 ): F[Unit] =
   summon[DelayedQueue[F, A]].tryPoll.flatMap {
-    case None => 
+    case None =>
       Applicative[F].unit
     case Some(msg) =>
       summon[Logger[F]].info(s"Received: ${msg.message}")
@@ -248,9 +248,9 @@ def drain[F[_], A](using // Scala 3's `implicit`
 Let’s ignore the implementation and zoom in on this function’s signature:
 
 ```scala
-def drain[F[_], A](using 
-  Monad[F], 
-  Logger[F], 
+def drain[F[_], A](using
+  Monad[F],
+  Logger[F],
   DelayedQueue[F, A]
 ): F[Unit]
 ```
@@ -283,7 +283,7 @@ To be fair, we could restrict `F[_]` to the [cats.effect.Concurrent](https://typ
 
 ```scala
 def drain[A](
-  logger: Logger, 
+  logger: Logger,
   queue: DelayedQueue[A]
 ): IO[Unit]
 ```
@@ -295,8 +295,8 @@ There is also another difference ... implicit parameters mean that we are using 
 Nothing stops you from converting to implicit parameters, even without `F[_]`. I think people abuse implicit parameters, I prefered to reserve use of implicit parameters for type-class instances, but that battle was lost, as with tagless final these "algebras" aren't necessarily type-classes anyway:
 
 ```scala
-def drain[A](using 
-  logger: Logger, 
+def drain[A](using
+  logger: Logger,
   queue: DelayedQueue[A]
 ): IO[Unit]
 ```
@@ -308,7 +308,7 @@ For me (*personal opinion warning!*), this version is pretty damn explicit about
 If we’d like to get fancy, we could work with a type that handles “dependency injection” and explicit errors, equivalent to Java’s “checked exceptions”:
 
 ```scala
-type ZIO[-Env, +Error, +Result] = 
+type ZIO[-Env, +Error, +Result] =
   Env => IO[Either[Error, Result]]
 ```
 
@@ -317,7 +317,7 @@ We could work with this, but we have to be careful because the JVM doesn’t do 
 ```scala
 import cats.data.{EitherT, Kleisli}
 
-type ZIO[Env, Error, Result] = 
+type ZIO[Env, Error, Result] =
   Kleisli[[A] =>> EitherT[IO, Error, A], Env, Result]
 ```
 
@@ -444,9 +444,9 @@ import cats.effect.IO
 
 trait DelayedQueue[A] {
   def offer(m: OfferedMessage[A]): IO[OfferOutcome]
-  
+
   def tryPoll: IO[Option[ReceivedMessage[A]]]
-  
+
   def discard(key: String): IO[Unit]
 }
 ```

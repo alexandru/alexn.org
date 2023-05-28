@@ -12,11 +12,11 @@ description: >
   Java is good by modern standards, from a technical perspective, the platform having received a lot of improvements from Java 8 to 17. Unfortunately, it still stinks, and the problem is its "enterprise" culture.
 ---
 
-<p class="intro withcap">
+<p class="intro">
   Java is good by modern standards, from a technical perspective, the platform having received a lot of improvements from Java 8 to 17. Unfortunately, it still stinks, and the problem is its "enterprise" culture.
 </p>
 
-Let me illustrate the problem via examples ... 
+Let me illustrate the problem via examples ...
 
 [Quarkus](https://quarkus.io/) is a very promising framework, being a lightweight replacement for Spring, promising compatibility with [GraalVM's Native Image](https://www.graalvm.org/reference-manual/native-image/). Full of hope, I enthusiastically opened its documentation, and started with [how to configure an app](https://quarkus.io/guides/config), expecting something with common sense, like [Dropwizard's quick-start guide](https://www.dropwizard.io/en/latest/getting-started.html#creating-a-configuration-class).
 
@@ -25,7 +25,7 @@ Quarkus depends on [SmallRye Config](https://github.com/smallrye/smallrye-config
 ```java
 @ConfigMapping(prefix = "server")
 interface ServerConfig {
-  
+
   String host();
 
   int port();
@@ -43,9 +43,9 @@ Since Java 14 we have [records](https://docs.oracle.com/en/java/javase/14/langua
 
 ```java
 //
-// java.lang.IllegalStateException: SRCFG00043: 
+// java.lang.IllegalStateException: SRCFG00043:
 // The @ConfigMapping annotation can only be placed in interfaces...
-// 
+//
 @ConfigMapping(prefix = "server")
 final record ServerConfig(
   String host,
@@ -73,7 +73,7 @@ Dropwizard has a more common-sense approach, as it leaves you in charge of defin
 public record ServerConfig(
   @NotNull @NotEmpty
   String host,
-  
+
   @NotNull
   Integer port,
 
@@ -94,7 +94,7 @@ public record EmailAddress(String value) {
     // We could've used an Either data type, ofc;
     Objects.requireNonNull(value);
     // regexp could be better
-    if (!value.matches("^[^@\\s]+@\\S+$")) 
+    if (!value.matches("^[^@\\s]+@\\S+$"))
       throw new IllegalArgumentException(
         String.format("'%s' is not a valid email address", value));
   }
@@ -120,8 +120,8 @@ public class GreetingService {
     return "Hello, " + name + "!";
   }
 
-  // @PreDestroy is required for "closeable" resources; 
-  // I would have expected the framework to work with AutoCloseable, 
+  // @PreDestroy is required for "closeable" resources;
+  // I would have expected the framework to work with AutoCloseable,
   // but ALAS it doesn't;
   @PreDestroy
   public void close() {
@@ -132,7 +132,7 @@ public class GreetingService {
 
 In the sample above, adding a scope (e.g., `@RequestScoped`) makes the framework automatically initialize this "bean" when needed. And `@PreDestroy` marks methods that have to be called when the "bean" is disposed. Note that my "bean" should implement `Closeable`, but the framework completely ignores it, this being another instance in which a Java EE implementation ignores the Java language. You need that `@PreDestroy`, or otherwise you'll have a leak.
 
-Of note is how this approach will infect your entire codebase, forcing all your downstream users to forgo Java language constructs, such as easily building an instance with `new`, or safe disposal of resources via [try-with-resources](https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html). 
+Of note is how this approach will infect your entire codebase, forcing all your downstream users to forgo Java language constructs, such as easily building an instance with `new`, or safe disposal of resources via [try-with-resources](https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html).
 
 With this approach, not working with `final` classes jumps at me, because ["final" is a best practice](https://www.artima.com/articles/versioning-virtual-and-override). This isn't related to Quarkus in any way, but rather with DI containers in general. For instance, Kotlin's classes are [final by default](https://kotlinlang.org/docs/inheritance.html), yet if you want to [build Spring apps](https://kotlinlang.org/docs/jvm-spring-boot-restful.html), the recommended way would be to import the [kotling-spring](https://kotlinlang.org/docs/all-open-plugin.html#spring-support) plugin, which automatically "opens" your classes that have certain DI-related annotations. Whether you agree with "final by default" as a best practice or not, you're getting a bad deal if the framework makes that choice for you.
 
@@ -167,7 +167,7 @@ public final class GreetingService implements Closeable {
 // ------------------------------------------------
 // Implements the "composition root" pattern...
 //
-// All of these imports are already a code smell, but at 
+// All of these imports are already a code smell, but at
 // least it's localized, and does help with managing DI.
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Disposes;
@@ -192,7 +192,7 @@ public class AppConfiguration {
     return new GreetingService(config);
   }
 
-  // Closeable resource needs to be destroyed, and 
+  // Closeable resource needs to be destroyed, and
   // framework won't do it automatically;
   void disposesGreetingService(@Disposes GreetingService ref) {
     ref.close();

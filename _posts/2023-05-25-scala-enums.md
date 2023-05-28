@@ -13,7 +13,7 @@ description: >
   In Scala, how do we model enumerations of values? What are the possible issues? How does Scala compare with Java? What are the changes in Scala 3?
 ---
 
-<p class="intro withcap">
+<p class="intro">
   In Scala, how do we model enumerations of values? What are the possible issues? How does Scala compare with Java? What are the changes in Scala 3?
 </p>
 
@@ -93,7 +93,7 @@ object Size extends Enumeration {
 }
 
 // Yikes!
-classOf[Size.Value] == classOf[Colors.Value] 
+classOf[Size.Value] == classOf[Colors.Value]
 // => true
 ```
 
@@ -119,7 +119,7 @@ The replacement that almost everyone used was "sealed" traits/classes, which can
 
 // The `extends Product with Serializable` boilerplate
 // is needed to eliminate type-inference junk
-sealed abstract class Color(val value: String) 
+sealed abstract class Color(val value: String)
   extends Product with Serializable
 
 object Color {
@@ -150,11 +150,11 @@ One problem here is that we no longer have an enumeration of all available value
 object Color {
   // ...
 
-  // Error-prone, since we need to ensure that 
+  // Error-prone, since we need to ensure that
   // we list them all:
   val values: Set[Color] = Set(
-    Red, 
-    Green, 
+    Red,
+    Green,
     Blue
   )
 
@@ -174,7 +174,7 @@ There are libraries that can help, such as [Enumeratum](https://github.com/lloyd
 import enumeratum._
 import enumeratum.values._
 
-sealed abstract class Color(val value: String) 
+sealed abstract class Color(val value: String)
   extends StringEnumEntry
 
 object Color extends StringEnum[Color] {
@@ -194,7 +194,7 @@ Thankfully, Enumeratum is compatible with Scala 3. However, I found a flaw. The 
 ```scala
 import enumeratum.values._
 
-sealed abstract class Color(val value: String) 
+sealed abstract class Color(val value: String)
   extends StringEnumEntry
 
 object Color extends StringEnum[Color] {
@@ -203,7 +203,7 @@ object Color extends StringEnum[Color] {
   case object Blue extends Color("BLUE")
 
   // Yikes! This is most likely a bug.
-  final case class Other(r: Int, g: Int, b: Int) 
+  final case class Other(r: Int, g: Int, b: Int)
     extends Color(s"OTHER($r,$g,$b)")
 
   val values: IndexedSeq[Color] = findValues
@@ -223,10 +223,10 @@ import io.circe._
 import io.circe.parser._
 import io.circe.syntax._
 
-implicit val colorEncoder: Encoder[Color] = 
+implicit val colorEncoder: Encoder[Color] =
   Encoder[String].contramap(_.value)
 
-implicit val colorDecoder: Decoder[Color] = 
+implicit val colorDecoder: Decoder[Color] =
   Decoder[String].emap(Color.withValueOpt(_).toRight("Invalid color"))
 ```
 
@@ -266,14 +266,14 @@ def findValues[T: ru.TypeTag]: Set[T] = {
       cm.reflectModule(sym.asClass.module.asModule)
         .instance
         .asInstanceOf[T]
-    else 
+    else
       throw new AssertionError(
         s"Direct subtype of $tpe is not an object: $sym"
       )
   }
 }
 
-sealed abstract class Color(val value: String) 
+sealed abstract class Color(val value: String)
   extends Product with Serializable
 
 object Color {
@@ -296,10 +296,10 @@ Now, if you try to add a new case class, you'll get a runtime error when trying 
 ```scala
 object Color {
   // ...
-  case class Other(r: Int, g: Int, b: Int) 
+  case class Other(r: Int, g: Int, b: Int)
     extends Color(s"OTHER($r,$g,$b)")
 }
-// This will now throw a java.lang.AssertionError: 
+// This will now throw a java.lang.AssertionError:
 // 'Direct subtype of Color is not an object: class Other'
 Color.values
 ```
@@ -315,7 +315,7 @@ In Scala 3, we can easily define a macro:
 
 inline def findValues[T](using
   m: scala.deriving.Mirror.SumOf[T]
-): Set[T] = 
+): Set[T] =
   allInstances[m.MirroredElemTypes, m.MirroredType].toSet
 
 inline def allInstances[ET <: Tuple, T]: List[T] =
@@ -323,13 +323,13 @@ inline def allInstances[ET <: Tuple, T]: List[T] =
 
   inline erasedValue[ET] match
     case _: EmptyTuple => Nil
-    case _: (t *: ts)  => 
+    case _: (t *: ts)  =>
       summonInline[ValueOf[t]].value.asInstanceOf[T] :: allInstances[ts, T]
 
 //-------------------------------------------------------------------------
 //...
   
-sealed abstract class Color(val value: String) 
+sealed abstract class Color(val value: String)
   extends Product with Serializable
 
 object Color:
@@ -338,7 +338,7 @@ object Color:
   case object Blue extends Color("BLUE")
 
   // Uncomment this to get a compile-time error:
-  // case class Other(r: Int, g: Int, b: Int) 
+  // case class Other(r: Int, g: Int, b: Int)
   //   extends Color(s"OTHER($r,$g,$b)")
 
   val values = findValues[Color]
@@ -363,7 +363,7 @@ enum Color(val value: String):
 object Color:
   def apply(value: String): Option[Color] =
     values.find(_.value == value)
-  
+
 println(Color.values.toSet) // Set(Red, Green, Blue)
 Color("RED") // Some(Red)
 ```
@@ -376,7 +376,7 @@ enum Color(val value: String):
   case Red extends Color("RED")
   case Green extends Color("GREEN")
   case Blue extends Color("BLUE")
-  case Other(r: Int, g: Int, b: Int) 
+  case Other(r: Int, g: Int, b: Int)
     extends Color(s"OTHER($r,$g,$b)")
 
 object Color:

@@ -10,7 +10,7 @@ description: >
   I find Scala's community to be really nice, welcoming, warm, and productive. I am not talking just of the Typelevel sub-community, which is awesome, but of the whole Scala community. The whole thing.
 ---
 
-<p class="intro withcap" markdown=1>
+<p class="intro" markdown=1>
 I find Scala's community to be really nice, welcoming, warm, and productive. I am not talking just of the [Typelevel](https://typelevel.org/) sub-community, which is awesome, but of the whole Scala community. The whole thing.
 </p>
 

@@ -9,10 +9,10 @@ tags:
   - Scala
   - Snippet
 description:
-  Kotlin Coroutines are usually integrated in Java code via Java’s CompletableFuture, but a tighter integration might be possible with Cats-Effect. 
+  Kotlin Coroutines are usually integrated in Java code via Java’s CompletableFuture, but a tighter integration might be possible with Cats-Effect.
 ---
 
-<p class="intro withcap" markdown=1>
+<p class="intro" markdown=1>
   Kotlin [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html) are usually integrated in Java code via Java's `CompletableFuture`, but a tighter integration might be possible with [Cats-Effect](https://typelevel.org/cats-effect/). I played around to see if I can convert Kotlin's coroutines, built via suspended functions straight to `cats.effect.IO`. Turns out I could.
 </p>
 

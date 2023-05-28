@@ -12,7 +12,7 @@ image: /assets/media/snippets/on-error-retry-loop.png
 generate_toc: true
 ---
 
-<p class="intro withcap" markdown='1'>
+<p class="intro" markdown='1'>
   In the face of errors, we could interrupt what we are doing and log the incident for debugging purposes. Some errors are temporary, for example, network connection errors, the web service becoming unavailable for whatever reason, etc. It might be appropriate to do one or multiple retries, as it might not be acceptable to drop a valuable transaction on the floor.
 </p>
 
@@ -40,7 +40,7 @@ def readTextFromFile(file: File, charset: String): IO[String] =
     var line: String = null
     do {
       line = in.readLine()
-      if (line != null) 
+      if (line != null)
         builder.append(line).append("\n")
     } while (line != null)
 
@@ -112,7 +112,7 @@ We must only retry the task in situations in which it can be retried. For exampl
 And we want to retry, but not forever. So there has to be an end condition in that loop.
 
 ```scala
-/** 
+/**
   * Signaling desired outcomes via Boolean is very confusing,
   * having our own ADT for this is better.
   */
@@ -144,7 +144,7 @@ object OnErrorRetry {
         // Maximum retries reached, triggering error
         F.raiseError(error)
     }
-  } 
+  }
 }
 ```
 
@@ -165,7 +165,7 @@ Inspired by Monix's [onErrorRestartLoop](https://github.com/monix/monix/pull/507
 
 ```scala
 object OnErrorRetry {
-  /** 
+  /**
     * Saves us from describing recursive functions that accumulate state.
     */
   def loop[F[_], A, S](
@@ -256,9 +256,9 @@ object OnErrorRetry {
   // ...
   def withBackoff[F[_], A](fa: F[A], config: RetryConfig)(
     p: Throwable => F[RetryOutcome]
-  )(implicit 
-    F: MonadError[F, Throwable], 
-    D: Defer[F], 
+  )(implicit
+    F: MonadError[F, Throwable],
+    D: Defer[F],
     timer: Timer[F]
   ): F[A] = {
     OnErrorRetry.loop(fa, config) { (error, state, retry) =>

@@ -10,7 +10,7 @@ description: >
   Java's Checked Exceptions are problematic, and it's not only due to their ergonomics. The bigger problem is that they are in conflict with abstraction and OOP. Also, few people care about typed exceptions (unless they are happy path results, not errors).
 ---
 
-<p class="intro withcap" markdown=1>
+<p class="intro" markdown=1>
 Java's Checked Exceptions are problematic, and it's not only due to their ergonomics. The bigger problem is that they are in conflict with abstraction and OOP. Also, few people care about typed exceptions (unless they are happy path results, not errors).
 </p>
 
@@ -51,7 +51,7 @@ class StringBuilder implements Appendable {
 
 ```scala
 trait Appendable {
-  // Same issue, although EitherT is worse due to 
+  // Same issue, although EitherT is worse due to
   // having issues with covariance;
   def append(csq: CharSequence): EitherT[IO, IOException, Unit]
 }
@@ -66,8 +66,8 @@ trait Appendable {
 
 class StringBuilder extends Appendable {
   // ...
-  // Awkward, because the `Either` is now completely unneeded, 
-  // and because it's lying, since on top of the JVM, 
+  // Awkward, because the `Either` is now completely unneeded,
+  // and because it's lying, since on top of the JVM,
   // `Throwable` can always happen...
   override def append(Sequence s): Either<Nothing, Unit> = ???
 }

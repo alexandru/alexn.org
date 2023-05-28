@@ -4,14 +4,14 @@ image: /assets/media/articles/open-source.png
 image_hide_in_post: true
 date: 2022-09-07 19:28:56 +03:00
 last_modified_at: 2022-09-08 09:12:50 +03:00
-tags: 
+tags:
   - Politics
   - Open Source
 description: >
   You may think that Open Source is about having "access to source code", whereas Free Software is about freedom. Kids, gather around, let me tell you why that's wrong.
 ---
 
-<p class="intro withcap" markdown=1>
+<p class="intro" markdown=1>
 You may think that Open Source is about having "*access to source code*", whereas Free Software is about freedom. Kids, gather around, let me tell you why that's wrong.
 </p>
 
@@ -29,7 +29,7 @@ Open Source, on the other hand, leaves these politics behind and focuses on the 
 
 The Open Source definition exists because businesses wanted to release products as Free Software, but either wanted a more clear social contract, or wanted nothing to do with its politics, or the organization behind it. It's still about freedom though, but from a slightly different perspective.
 
-When I say that I prefer Open Source software, I say so because I want complete control over it. I want the ability to inspect it, to fix it (or pay others to fix it), to enhance it, and to freely distribute those changes. Some restrictions on redistribution may apply (e.g., GPL), but "redistribution" is clearly defined by copyright law, and those aren't restrictions on usage, or on the ability to share the derived work. Freedom is about having control, with the ensuing responsibility. 
+When I say that I prefer Open Source software, I say so because I want complete control over it. I want the ability to inspect it, to fix it (or pay others to fix it), to enhance it, and to freely distribute those changes. Some restrictions on redistribution may apply (e.g., GPL), but "redistribution" is clearly defined by copyright law, and those aren't restrictions on usage, or on the ability to share the derived work. Freedom is about having control, with the ensuing responsibility.
 
 Many times I prefer proprietary software; I'm typing this on a MacBook after all. Sometimes I don't want freedom, I just want to get the job done. But, if I am to build a program, I'd rather build on top of Open Source infrastructure, because it's a pretty bad idea to depend on the whims of some other company that may not even answer phone calls.
 
