@@ -10,13 +10,63 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 29 May 2023 06:10:25 +0000</pubDate>
-    <lastBuildDate>Mon, 29 May 2023 06:10:25 +0000</lastBuildDate>
+    <pubDate>Tue, 30 May 2023 16:37:21 +0000</pubDate>
+    <lastBuildDate>Tue, 30 May 2023 16:37:21 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v4.3.2</generator>
     
+<item>
+  <title>JavaScript / TypeScript</title>
+  <description>Article
+    updated at May 30, 2023, 
+    created at May 30, 2023.</description>
+  <content:encoded>&lt;p&gt;
+    Article
+    updated at May 30, 2023, 
+    created at May 30, 2023.
+  &lt;/p&gt;
+  &lt;hr&gt;
+  
+  &lt;img referrerpolicy=&quot;no-referrer-when-downgrade&quot; src=&quot;https://ly.alexn.org/m.php?idsite=1&amp;rec=1&amp;action_name=%2Ffeeds%2Fwiki.xml&amp;url=https%3A%2F%2Falexn.org%2Ffeeds%2Fwiki.xml&amp;pk_campaign=rss&amp;pk_kwd=open&quot; width=&quot;1&quot; height=&quot;1&quot; style=&quot;position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;&quot; alt=&quot;&quot;&gt;
+&lt;h2 id=&quot;getting-started&quot;&gt;Getting Started&lt;/h2&gt;
+
+&lt;h3 id=&quot;vite&quot;&gt;Vite&lt;/h3&gt;
+
+&lt;p&gt;Starting a new TypeScript + React project, using a &lt;a href=&quot;https://vitejs.dev/guide/&quot;&gt;Vite&lt;/a&gt; template:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;npm create vite@latest name-of-your-project -- \
+    --template react-ts
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;webpack&quot;&gt;Webpack:&lt;/h3&gt;
+
+&lt;p&gt;Relevant documentation:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://webpack.js.org/guides/getting-started/&quot;&gt;Getting started&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://webpack.js.org/guides/typescript/&quot;&gt;Using TypeScript&lt;/a&gt;;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;resources&quot;&gt;Resources&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://bulma.io/&quot;&gt;Bulma&lt;/a&gt;: CSS framework;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://reactrouter.com/&quot;&gt;React Router&lt;/a&gt;;&lt;/li&gt;
+&lt;/ul&gt;</content:encoded><pubDate>Tue, 30 May 2023 08:05:11 +0000</pubDate>
+  <dc:modified>Tue, 30 May 2023 16:36:34 +0000</dc:modified>
+  <atom:modified>Tue, 30 May 2023 16:36:34 +0000</atom:modified>
+  <link>https://alexn.org/wiki/javascript/?pk_campaign=rss</link>
+  <guid isPermaLink="true">https://alexn.org/wiki/javascript/</guid>
+  
+  <category>Wiki</category>
+  
+</item>
+
 <item>
   <title>Scala</title>
   <description>Article
@@ -28,9 +78,7 @@
     created at May 20, 2023.
   &lt;/p&gt;
   &lt;hr&gt;
-  
-  &lt;img referrerpolicy=&quot;no-referrer-when-downgrade&quot; src=&quot;https://ly.alexn.org/m.php?idsite=1&amp;rec=1&amp;action_name=%2Ffeeds%2Fwiki.xml&amp;url=https%3A%2F%2Falexn.org%2Ffeeds%2Fwiki.xml&amp;pk_campaign=rss&amp;pk_kwd=open&quot; width=&quot;1&quot; height=&quot;1&quot; style=&quot;position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;&quot; alt=&quot;&quot;&gt;
-&lt;h2 id=&quot;libraries&quot;&gt;Libraries&lt;/h2&gt;
+  &lt;h2 id=&quot;libraries&quot;&gt;Libraries&lt;/h2&gt;
 
 &lt;p&gt;For building UI:&lt;/p&gt;
 
