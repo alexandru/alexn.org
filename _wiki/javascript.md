@@ -1,6 +1,6 @@
 ---
 date: 2023-05-30 11:05:11 +03:00
-last_modified_at: 2023-05-30 19:36:34 +03:00
+last_modified_at: 2023-05-30 21:16:32 +03:00
 ---
 
 # JavaScript / TypeScript
