@@ -1,11 +1,11 @@
 ---
 title: "Scala OOFP Design Sample"
-last_modified_at: 2023-05-25 15:36:50 +03:00
+last_modified_at: 2023-06-06 15:19:40 +03:00
 tags:
   - FP
   - OOP
   - Scala
-  - Scala3
+  - Scala 3
 image: /assets/media/articles/2022-04-oofp.png
 generate_toc: true
 description: >

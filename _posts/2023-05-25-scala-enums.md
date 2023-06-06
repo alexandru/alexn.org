@@ -3,11 +3,11 @@ title: "Scala 3 Enums"
 image: /assets/media/articles/2023-scala-enums.png
 image_hide_in_post: true
 date: 2023-05-25 14:15:29 +03:00
-last_modified_at: 2023-05-25 16:05:04 +03:00
+last_modified_at: 2023-06-06 15:19:54 +03:00
 tags:
   - Java
   - Scala
-  - Scala3
+  - Scala 3
   - Programming
 description: >
   In Scala, how do we model enumerations of values? What are the possible issues? How does Scala compare with Java? What are the changes in Scala 3?

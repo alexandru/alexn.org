@@ -3,7 +3,7 @@ title: "Scala 3 Significant Indentation Woes: Sample"
 image: /assets/media/articles/2023-scala-indentation-woes.png
 image_hide_in_post: true
 date: 2023-06-06 14:48:10 +03:00
-last_modified_at: 2023-06-06 15:08:59 +03:00
+last_modified_at: 2023-06-06 15:17:19 +03:00
 tags:
   - Programming
   - Python

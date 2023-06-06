@@ -5,7 +5,7 @@ tags:
   - FP
   - Monix
   - Scala
-  - Scala3
+  - Scala 3
 description: >
   What if we'd use Scala's type system for tracking side-effects in impure code, too? In the Scala/FP community we use and love effect systems, such as Cats Effect, with its IO data type. "Suspending side-effects" in IO is great, but in Scala it's either `IO` or forgoing any kind of type-safety for side-effects, and that's bad.
 ---
