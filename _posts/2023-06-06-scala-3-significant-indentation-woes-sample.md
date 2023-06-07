@@ -3,7 +3,7 @@ title: "Scala 3 Significant Indentation Woes: Sample"
 image: /assets/media/articles/2023-scala-indentation-woes.png
 image_hide_in_post: true
 date: 2023-06-06 14:48:10 +03:00
-last_modified_at: 2023-06-06 15:17:19 +03:00
+last_modified_at: 2023-06-07 07:49:41 +03:00
 tags:
   - Programming
   - Python
@@ -53,7 +53,7 @@ def sequence[A](list: List[Option[A]]): Option[List[A]] =
   .map(_.result())
 ```
 
-FYI, this cannot happen in Python, because Python does not allow breaking lines like that:
+FYI, this cannot happen in Python, because Python does not allow breaking expressions on multiple lines like that:
 
 ```python
 class MyList:
@@ -74,15 +74,14 @@ The error is:
 IndentationError: unexpected indent
 ```
 
-And if you try what Scala expects:
+Maybe no indentation?
 ```python
 # Doesn't parse
 MyList([1, 2, 3])
 .map(lambda x: x + 1)
 ```
 
-The error is:
-```
+```text
   File "/tmp/sample.py", line 9
     .map(lambda x: x + 1)
     ^
@@ -96,4 +95,8 @@ MyList([1, 2, 3]) \
   .map(lambda x: x + 1)
 ```
 
-Scala's syntax keeps being compared with Python's, however, they couldn't be more different, as Python has had a very strict policy to avoid ambiguity.
+Scala's syntax keeps being compared with Python's, however, they couldn't be more different, as Python has had a very strict policy to avoid ambiguity, and even rejected multi-line lambdas for this reason.
+
+<p class="warn-bubble" markdown="1">
+I'm also begining to feel that 2 chars of indentation are not enough 🙊
+</p>
