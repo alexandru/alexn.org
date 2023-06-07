@@ -3,7 +3,7 @@ title: "Scala 3 Significant Indentation Woes: Sample"
 image: /assets/media/articles/2023-scala-indentation-woes.png
 image_hide_in_post: true
 date: 2023-06-06 14:48:10 +03:00
-last_modified_at: 2023-06-07 07:49:41 +03:00
+last_modified_at: 2023-06-07 07:52:16 +03:00
 tags:
   - Programming
   - Python
@@ -98,5 +98,5 @@ MyList([1, 2, 3]) \
 Scala's syntax keeps being compared with Python's, however, they couldn't be more different, as Python has had a very strict policy to avoid ambiguity, and even rejected multi-line lambdas for this reason.
 
 <p class="warn-bubble" markdown="1">
-I'm also begining to feel that 2 chars of indentation are not enough 🙊
+I'm also begining to feel that 2 spaces for indentation are not enough 🙊
 </p>
