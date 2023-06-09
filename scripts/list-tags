@@ -3,6 +3,7 @@
 require 'optparse'
 require "json"
 require "yaml"
+require "date"
 
 options = {}
 OptionParser.new do |opt|
@@ -28,7 +29,7 @@ filters.each do |filter|
     contents = File.read(path)
     if contents =~ /\A---\s*\r?\n(.*?)^---/m
       yaml_str = ($1).strip
-      yaml = YAML.load(yaml_str)
+      yaml = YAML.load(yaml_str, permitted_classes: [Date, Time])
       tags = yaml['tags'] || []
       tags.each do |tag|
         all_tags[tag] ||= 0
