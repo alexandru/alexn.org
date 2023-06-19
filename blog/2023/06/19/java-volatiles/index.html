@@ -19,14 +19,14 @@
     <meta content="In Java and other JVM languages, “volatile” reads and writes are part of the concurrency toolbox. But adding volatile on variables can be a mistake. This is a poorly understood concept. Let’s gain a better understanding." property="og:description">
     <meta content="https://alexn.org/blog/2023/06/19/java-volatiles/" property="og:url">
     <meta content="2023-06-19T10:57:50+00:00" property="article:published_time">
-    <meta content="2023-06-19T15:58:59+00:00" property="article:modified_time">
+    <meta content="2023-06-19T16:09:41+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2023-java-volatiles.png?202306191559" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2023-java-volatiles.png?202306191559" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2023-java-volatiles.png?202306191610" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2023-java-volatiles.png?202306191610" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2023-java-volatiles.png?202306191559">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2023-java-volatiles.png?202306191610">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Java Volatiles">
@@ -127,7 +127,7 @@
       <meta itemprop="datePublished" content="2023-06-19T10:57:50+0000"/>
       
       <time itemprop="dateCreated" datetime="2023-06-19T10:57:50+0000">June 19, 2023</time>
-      | <span class="nobr"><span class="time">6</span> minutes</span>
+      | <span class="nobr"><span class="time">7</span> minutes</span>
       
       | <a href="/blog/2023/06/19/java-volatiles/#isso-thread" class="nobr">Comments</a>
       
@@ -196,11 +196,11 @@ In Java and other JVM languages, “volatile” reads and writes are part of the
   <li><em>Volatile variables prevent CPU caching</em> — depending on the JVM, their use may or may not reduce caching, the problem being that CPU caching is complex, and also the JVM is free to optimize away volatile semantics, the guarantees of the JMM<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> are higher-level than that, and if you’re thinking of CPU caching, you’re probably doing it wrong.</li>
 </ul>
 
-<p>As a somewhat more advanced mental model, volatile variables introduce <a href="https://en.wikipedia.org/wiki/Memory_barrier">memory barriers</a>, however:</p>
+<p>As a somewhat more advanced mental model, volatile variables introduce memory barriers<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>, however:</p>
 
 <ul>
   <li>Memory barriers are only guaranteed when the JVM writes, and then reads from the same volatile variable (in a pair, just like you must synchronize on the same lock/monitor for synchronization to work);</li>
-  <li>The JVM is free to optimize away memory barriers, as long as the ordering guarantees are preserved; for example, that’s what the JVM’s <a href="https://en.wikipedia.org/wiki/Escape_analysis">escape analysis</a> is for.</li>
+  <li>The JVM is free to optimize away memory barriers, as long as the ordering guarantees are preserved; for example, that’s what the JVM’s escape analysis<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup> is for.</li>
 </ul>
       <h2 id="guaranteed-ordering">
         
@@ -411,6 +411,12 @@ class Main {
     <li id="fn:1" role="doc-endnote">
       <p><a href="https://en.wikipedia.org/wiki/Java_memory_model">Java Memory Model</a> is the set of multi-platform guarantees that Java makes for multithreaded code. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
+    <li id="fn:2" role="doc-endnote">
+      <p><a href="https://en.wikipedia.org/wiki/Memory_barrier">Memory barriers</a> are CPU instructions that can force the ordering of updates. The <a href="https://gee.cs.oswego.edu/dl/jmm/cookbook.html">JSR-133 Cookbook</a> can be good for gaining an understanding, but take it with a grain of salt. <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:3" role="doc-endnote">
+      <p><a href="https://en.wikipedia.org/wiki/Escape_analysis">Escape analysis</a> is a method for determining the scope of objects, in order to enable subtle optimizations. If the lifetime of an object is limited to the current method or thread, then Java may avoid intrinsic synchronization, or heap allocations. Java’s capabilities have been more limited than what’s possible. <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
   </ol>
 </div>
 
@@ -418,7 +424,7 @@ class Main {
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2023-06-19T18:58:59+0300">
+    <time itemprop="dateModified" content="2023-06-19T19:09:41+0300">
         Updated: June 19, 2023
     </time>
     
@@ -546,14 +552,14 @@ class Main {
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202306191559" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202306191559" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202306191559" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202306191610" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202306191610" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202306191610" type="text/javascript"></script>
 
 <!-- Syntax highlighting (https://highlightjs.org/) -->
 <script async src="/assets/js/highlight.min.js" type="text/javascript" onload="hljs.highlightAll();"></script>
 
-<script async src="/assets/js/scripts.js?202306191559" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202306191610" type="text/javascript"></script>
 
 
 <script type="text/javascript">
