@@ -19,14 +19,14 @@
     <meta content="In Java and other JVM languages, “volatile” reads and writes are part of the concurrency toolbox. But adding volatile on variables can be a mistake. This is a poorly understood concept. Let’s gain a better understanding." property="og:description">
     <meta content="https://alexn.org/blog/2023/06/19/java-volatiles/" property="og:url">
     <meta content="2023-06-19T10:57:50+00:00" property="article:published_time">
-    <meta content="2023-06-19T16:12:43+00:00" property="article:modified_time">
+    <meta content="2023-06-19T16:19:02+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2023-java-volatiles.png?202306191613" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2023-java-volatiles.png?202306191613" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2023-java-volatiles.png?202306191619" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2023-java-volatiles.png?202306191619" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2023-java-volatiles.png?202306191613">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2023-java-volatiles.png?202306191619">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Java Volatiles">
@@ -199,7 +199,7 @@ In Java and other JVM languages, “volatile” reads and writes are part of the
 <p>As a somewhat more advanced mental model, volatile variables introduce <em>memory barriers</em><sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>, however:</p>
 
 <ul>
-  <li>Memory barriers are only guaranteed when the JVM writes, and then reads from the same volatile variable (in a pair, just like you must synchronize on the same lock/monitor for synchronization to work);</li>
+  <li>Memory barriers are only introduced when the JVM writes, and then reads from the same volatile variable (in a pair, just like you must synchronize on the same lock/monitor for synchronization to work);</li>
   <li>The JVM is free to optimize away memory barriers, as long as the ordering guarantees are preserved; for example, that’s what the JVM’s <em>escape analysis</em><sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup> is for.</li>
 </ul>
       <h2 id="guaranteed-ordering">
@@ -211,7 +211,7 @@ In Java and other JVM languages, “volatile” reads and writes are part of the
       </h2>
     
 
-<p>What volatile reads and writes give us are <a href="https://en.wikipedia.org/wiki/Happened-before">happens-before relationships</a>, AKA guaranteed <em>ordering</em>. Say, for example, we have the following declaration:</p>
+<p>What volatile reads and writes give us are happens-before relationships<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">4</a></sup>, AKA guaranteed <em>ordering</em>. Say, for example, we have the following declaration:</p>
 
 <pre><code class="language-java">class State {
   public String value1 = null;
@@ -417,6 +417,9 @@ class Main {
     <li id="fn:3" role="doc-endnote">
       <p><a href="https://en.wikipedia.org/wiki/Escape_analysis">Escape analysis</a> is a method for determining the scope of objects, in order to enable subtle optimizations. If the lifetime of an object is limited to the current method or thread, then Java may avoid intrinsic synchronization, or heap allocations. Java’s capabilities have been more limited than what’s possible. <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
+    <li id="fn:4" role="doc-endnote">
+      <p>Reasoning about concurrency can be in terms of <a href="https://en.wikipedia.org/wiki/Happened-before">happens-before relationships</a>, i.e., the order in which events are observed. <a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
   </ol>
 </div>
 
@@ -424,7 +427,7 @@ class Main {
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2023-06-19T19:12:43+0300">
+    <time itemprop="dateModified" content="2023-06-19T19:19:02+0300">
         Updated: June 19, 2023
     </time>
     
@@ -552,14 +555,14 @@ class Main {
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202306191613" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202306191613" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202306191613" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202306191619" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202306191619" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202306191619" type="text/javascript"></script>
 
 <!-- Syntax highlighting (https://highlightjs.org/) -->
 <script async src="/assets/js/highlight.min.js" type="text/javascript" onload="hljs.highlightAll();"></script>
 
-<script async src="/assets/js/scripts.js?202306191613" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202306191619" type="text/javascript"></script>
 
 
 <script type="text/javascript">
