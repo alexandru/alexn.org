@@ -19,14 +19,14 @@
     <meta content="In Java and other JVM languages, “volatile” reads and writes are part of the concurrency toolbox. But adding volatile on variables can be a mistake. This is a poorly understood concept. Let’s gain a better understanding." property="og:description">
     <meta content="https://alexn.org/blog/2023/06/19/java-volatiles/" property="og:url">
     <meta content="2023-06-19T10:57:50+00:00" property="article:published_time">
-    <meta content="2023-06-19T15:55:07+00:00" property="article:modified_time">
+    <meta content="2023-06-19T15:58:59+00:00" property="article:modified_time">
     
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2023-java-volatiles.png?202306191555" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2023-java-volatiles.png?202306191555" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2023-java-volatiles.png?202306191559" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2023-java-volatiles.png?202306191559" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2023-java-volatiles.png?202306191555">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2023-java-volatiles.png?202306191559">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Java Volatiles">
@@ -193,7 +193,7 @@ In Java and other JVM languages, “volatile” reads and writes are part of the
 <ul>
   <li><em>Volatile variables ensure “visibility”</em> — but the notion is misleading, because it’s not about visibility per se, as all updates to variables are eventually seen by all other threads, and marking a variable as <code>volatile</code> doesn’t necessarily publish changes to that variable any sooner (although in fairness, x86 CPUs have stronger ordering guarantees than ARM CPUs in this regard, so there may be differences of behavior for normal variables, depending on what you’re doing);</li>
   <li><em>Volatile variables are not for “synchronization”</em> — which is false, as volatile reads and writes are a form of synchronization, even if the guarantees are weaker than when using locks or when using <code>compare-and-set</code> (CAS).</li>
-  <li><em>Volatile variables prevent CPU caching</em> — depending on the JVM, their use may or may not reduce caching, the problem being that CPU caching is complex, and also the JVM is free to optimize away volatile semantics, the guarantees of the JMM are higher-level than that, and if you’re thinking of CPU caching, you’re probably doing it wrong.</li>
+  <li><em>Volatile variables prevent CPU caching</em> — depending on the JVM, their use may or may not reduce caching, the problem being that CPU caching is complex, and also the JVM is free to optimize away volatile semantics, the guarantees of the JMM<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> are higher-level than that, and if you’re thinking of CPU caching, you’re probably doing it wrong.</li>
 </ul>
 
 <p>As a somewhat more advanced mental model, volatile variables introduce <a href="https://en.wikipedia.org/wiki/Memory_barrier">memory barriers</a>, however:</p>
@@ -404,13 +404,21 @@ class Main {
     }
   }
 }
-</code></pre>
+</code></pre><hr />
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p><a href="https://en.wikipedia.org/wiki/Java_memory_model">Java Memory Model</a> is the set of multi-platform guarantees that Java makes for multithreaded code. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
 
   </div>
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2023-06-19T18:55:07+0300">
+    <time itemprop="dateModified" content="2023-06-19T18:58:59+0300">
         Updated: June 19, 2023
     </time>
     
@@ -538,14 +546,14 @@ class Main {
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202306191555" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202306191555" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202306191555" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202306191559" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202306191559" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202306191559" type="text/javascript"></script>
 
 <!-- Syntax highlighting (https://highlightjs.org/) -->
 <script async src="/assets/js/highlight.min.js" type="text/javascript" onload="hljs.highlightAll();"></script>
 
-<script async src="/assets/js/scripts.js?202306191555" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202306191559" type="text/javascript"></script>
 
 
 <script type="text/javascript">
