@@ -1,6 +1,6 @@
 ---
 date: 2022-11-22 11:55:19 +02:00
-last_modified_at: 2022-12-30 12:50:46 +02:00
+last_modified_at: 2023-08-02 11:12:06 +03:00
 ---
 
 # Mastodon
@@ -83,14 +83,14 @@ This is my own configuration, tuned to my needs...
 
 ### Services used
 
-- [Hetzner](https://www.hetzner.com/cloud), for a VPS with 4 GB of RAM and 
+- [Hetzner](https://www.hetzner.com/cloud), for a VPS with 4 GB of RAM and
   40 GB of disk space; 2 GB should be fine, but it may need a swap setup;
   I might also need more disk space in the future, or block storage;
 - [Cloudflare](https://www.cloudflare.com/) because it can save you bandwidth
   (must ensure correct caching setup);
 - [Fastmail](https://www.fastmail.com/) for sending emails via SMTP, as I was
   already using it for my personal email, and supports SMTP-only passwords;
-- [Backblaze B2](https://www.backblaze.com/b2/cloud-storage.html) for backups
+- [Backblaze B2](https://www.backblaze.com/cloud-storage) for backups
   and potentially for storing cached files;
 
 ### Docker (docker-compose)
@@ -154,7 +154,7 @@ services:
     command: 'bundle exec sidekiq'
     restart: unless-stopped
     healthcheck:
-      test: ['CMD-SHELL', "ps aux | grep '[s]idekiq\ 6' || false"]    
+      test: ['CMD-SHELL', "ps aux | grep '[s]idekiq\ 6' || false"]
     volumes:
       - 'mastodon-volume:/mastodon/public/system'
     env_file:
@@ -285,15 +285,15 @@ Then run:
 CREATE DATABASE mastodon;
 CREATE USER mastodon WITH ENCRYPTED PASSWORD 'your-password';
 GRANT ALL PRIVILEGES ON DATABASE mastodon TO mastodon;
--- Above was apparently not enough to run DB migrations, 
+-- Above was apparently not enough to run DB migrations,
 -- so this is needed too:
 ALTER DATABASE mastodon OWNER TO mastodon;
 ```
 
 ### Nginx Config
 
-Mastodon has an official recommended Nginx configuration 
-([see their repository](https://github.com/mastodon/mastodon/blob/v4.0.2/dist/nginx.conf)), 
+Mastodon has an official recommended Nginx configuration
+([see their repository](https://github.com/mastodon/mastodon/blob/v4.0.2/dist/nginx.conf)),
 however I am hosting Mastodon inside a Docker container, and using Cloudflare, which makes
 things more complicated.
 
@@ -530,8 +530,8 @@ gzip_proxied       any;
 # today) would display gibberish if their proxy gave them the gzipped version.
 gzip_vary          on;
 
-# Sets the number and size of buffers used to compress a response. 
-# By default, the buffer size is equal to one memory page. 
+# Sets the number and size of buffers used to compress a response.
+# By default, the buffer size is equal to one memory page.
 # This is either 4K or 8K, depending on a platform.
 gzip_buffers	16 8k;
 

@@ -3,7 +3,7 @@ title: "Personal Server Backups"
 image: /assets/media/articles/2022-backup-vps.png
 # image_caption:
 date: 2022-12-02 19:56:39 +02:00
-last_modified_at: 2023-01-17 14:43:26 +02:00
+last_modified_at: 2023-08-02 11:12:04 +03:00
 generate_toc: true
 tags:
   - SelfHosting
@@ -37,7 +37,7 @@ Start small, and think big. Can you reconfigure a server from scratch in less th
 
 ## Rclone backups via cron jobs
 
-You can use Dropbox for storing your backups, you can use Amazon's S3, or as a pretty cheap alternative, you can use [Backblaze B2](https://www.backblaze.com/b2/cloud-storage.html). I use Dropbox, since I'm paying for a Plus account anyway, and I have a lot of unused space. Dropbox also keeps about 1-month worth of [version history](https://help.dropbox.com/delete-restore/version-history-overview), so it's decent.
+You can use Dropbox for storing your backups, you can use Amazon's S3, or as a pretty cheap alternative, you can use [Backblaze B2](https://www.backblaze.com/cloud-storage). I use Dropbox, since I'm paying for a Plus account anyway, and I have a lot of unused space. Dropbox also keeps about 1-month worth of [version history](https://help.dropbox.com/delete-restore/version-history-overview), so it's decent.
 
 The [Rclone](https://rclone.org/) utility supports a lot of backends, including the aforementioned ones.
 
