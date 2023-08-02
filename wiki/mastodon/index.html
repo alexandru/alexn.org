@@ -19,7 +19,7 @@
     <meta content="Personal, volatile wiki documentation" property="og:description">
     <meta content="https://alexn.org/wiki/mastodon/" property="og:url">
     <meta content="2022-11-22T09:55:19+00:00" property="article:published_time">
-    <meta content="2022-12-30T10:50:46+00:00" property="article:modified_time">
+    <meta content="2023-08-02T08:12:06+00:00" property="article:modified_time">
     
     <meta content="website" property="og:type">
     <meta property="og:image" content="https://alexn.org/assets/logo/800px-bordered.png" />
@@ -128,8 +128,8 @@
       <meta itemprop="datePublished" content="2022-11-22T09:55:19+0000"/>
       
       
-      <time itemprop="dateModified" content="2022-12-30T12:50:46+0200">
-        Updated: December 30, 2022
+      <time itemprop="dateModified" content="2023-08-02T11:12:06+0300">
+        Updated: August 2, 2023
       </time>
       
       
@@ -317,14 +317,14 @@ This is my own configuration, tuned to my needs…</p>
     
 
 <ul>
-  <li><a href="https://www.hetzner.com/cloud">Hetzner</a>, for a VPS with 4 GB of RAM and 
+  <li><a href="https://www.hetzner.com/cloud">Hetzner</a>, for a VPS with 4 GB of RAM and
 40 GB of disk space; 2 GB should be fine, but it may need a swap setup;
 I might also need more disk space in the future, or block storage;</li>
   <li><a href="https://www.cloudflare.com/">Cloudflare</a> because it can save you bandwidth
 (must ensure correct caching setup);</li>
   <li><a href="https://www.fastmail.com/">Fastmail</a> for sending emails via SMTP, as I was
 already using it for my personal email, and supports SMTP-only passwords;</li>
-  <li><a href="https://www.backblaze.com/b2/cloud-storage.html">Backblaze B2</a> for backups
+  <li><a href="https://www.backblaze.com/cloud-storage">Backblaze B2</a> for backups
 and potentially for storing cached files;</li>
 </ul>
       <h3 id="docker-docker-compose">
@@ -394,7 +394,7 @@ services:
     command: 'bundle exec sidekiq'
     restart: unless-stopped
     healthcheck:
-      test: ['CMD-SHELL', "ps aux | grep '[s]idekiq\ 6' || false"]    
+      test: ['CMD-SHELL', "ps aux | grep '[s]idekiq\ 6' || false"]
     volumes:
       - 'mastodon-volume:/mastodon/public/system'
     env_file:
@@ -526,7 +526,7 @@ SMTP_PASSWORD=
 <pre><code class="language-sql">CREATE DATABASE mastodon;
 CREATE USER mastodon WITH ENCRYPTED PASSWORD 'your-password';
 GRANT ALL PRIVILEGES ON DATABASE mastodon TO mastodon;
--- Above was apparently not enough to run DB migrations, 
+-- Above was apparently not enough to run DB migrations,
 -- so this is needed too:
 ALTER DATABASE mastodon OWNER TO mastodon;
 </code></pre>
@@ -539,8 +539,8 @@ ALTER DATABASE mastodon OWNER TO mastodon;
       </h3>
     
 
-<p>Mastodon has an official recommended Nginx configuration 
-(<a href="https://github.com/mastodon/mastodon/blob/v4.0.2/dist/nginx.conf">see their repository</a>), 
+<p>Mastodon has an official recommended Nginx configuration
+(<a href="https://github.com/mastodon/mastodon/blob/v4.0.2/dist/nginx.conf">see their repository</a>),
 however I am hosting Mastodon inside a Docker container, and using Cloudflare, which makes
 things more complicated.</p>
 
@@ -771,8 +771,8 @@ gzip_proxied       any;
 # today) would display gibberish if their proxy gave them the gzipped version.
 gzip_vary          on;
 
-# Sets the number and size of buffers used to compress a response. 
-# By default, the buffer size is equal to one memory page. 
+# Sets the number and size of buffers used to compress a response.
+# By default, the buffer size is equal to one memory page.
 # This is either 4K or 8K, depending on a platform.
 gzip_buffers	16 8k;
 
@@ -865,14 +865,14 @@ I’m still learning.
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202307040821" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202307040821" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202307040821" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202308020814" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202308020814" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202308020814" type="text/javascript"></script>
 
 <!-- Syntax highlighting (https://highlightjs.org/) -->
 <script async src="/assets/js/highlight.min.js" type="text/javascript" onload="hljs.highlightAll();"></script>
 
-<script async src="/assets/js/scripts.js?202307040821" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202308020814" type="text/javascript"></script>
 
 
 <script type="text/javascript">

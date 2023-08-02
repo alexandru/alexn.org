@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 04 Jul 2023 08:21:11 +0000</pubDate>
-    <lastBuildDate>Tue, 04 Jul 2023 08:21:11 +0000</lastBuildDate>
+    <pubDate>Wed, 02 Aug 2023 08:14:05 +0000</pubDate>
+    <lastBuildDate>Wed, 02 Aug 2023 08:14:05 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -730,11 +730,11 @@ void(0)
 <item>
   <title>Mastodon</title>
   <description>Article
-    updated at December 30, 2022, 
+    updated at August 2, 2023, 
     created at November 22, 2022.</description>
   <content:encoded>&lt;p&gt;
     Article
-    updated at December 30, 2022, 
+    updated at August 2, 2023, 
     created at November 22, 2022.
   &lt;/p&gt;
   &lt;hr&gt;
@@ -835,7 +835,7 @@ This is my own configuration, tuned to my needs…&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
-&lt;a href=&quot;https://www.hetzner.com/cloud&quot;&gt;Hetzner&lt;/a&gt;, for a VPS with 4 GB of RAM and 
+&lt;a href=&quot;https://www.hetzner.com/cloud&quot;&gt;Hetzner&lt;/a&gt;, for a VPS with 4 GB of RAM and
 40 GB of disk space; 2 GB should be fine, but it may need a swap setup;
 I might also need more disk space in the future, or block storage;&lt;/li&gt;
   &lt;li&gt;
@@ -845,7 +845,7 @@ I might also need more disk space in the future, or block storage;&lt;/li&gt;
 &lt;a href=&quot;https://www.fastmail.com/&quot;&gt;Fastmail&lt;/a&gt; for sending emails via SMTP, as I was
 already using it for my personal email, and supports SMTP-only passwords;&lt;/li&gt;
   &lt;li&gt;
-&lt;a href=&quot;https://www.backblaze.com/b2/cloud-storage.html&quot;&gt;Backblaze B2&lt;/a&gt; for backups
+&lt;a href=&quot;https://www.backblaze.com/cloud-storage&quot;&gt;Backblaze B2&lt;/a&gt; for backups
 and potentially for storing cached files;&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -909,7 +909,7 @@ services:
     command: &apos;bundle exec sidekiq&apos;
     restart: unless-stopped
     healthcheck:
-      test: [&apos;CMD-SHELL&apos;, &quot;ps aux | grep &apos;[s]idekiq\ 6&apos; || false&quot;]    
+      test: [&apos;CMD-SHELL&apos;, &quot;ps aux | grep &apos;[s]idekiq\ 6&apos; || false&quot;]
     volumes:
       - &apos;mastodon-volume:/mastodon/public/system&apos;
     env_file:
@@ -1035,15 +1035,15 @@ SMTP_PASSWORD=
 &lt;pre&gt;&lt;code class=&quot;language-sql&quot;&gt;CREATE DATABASE mastodon;
 CREATE USER mastodon WITH ENCRYPTED PASSWORD &apos;your-password&apos;;
 GRANT ALL PRIVILEGES ON DATABASE mastodon TO mastodon;
--- Above was apparently not enough to run DB migrations, 
+-- Above was apparently not enough to run DB migrations,
 -- so this is needed too:
 ALTER DATABASE mastodon OWNER TO mastodon;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3 id=&quot;nginx-config&quot;&gt;Nginx Config&lt;/h3&gt;
 
-&lt;p&gt;Mastodon has an official recommended Nginx configuration 
-(&lt;a href=&quot;https://github.com/mastodon/mastodon/blob/v4.0.2/dist/nginx.conf&quot;&gt;see their repository&lt;/a&gt;), 
+&lt;p&gt;Mastodon has an official recommended Nginx configuration
+(&lt;a href=&quot;https://github.com/mastodon/mastodon/blob/v4.0.2/dist/nginx.conf&quot;&gt;see their repository&lt;/a&gt;),
 however I am hosting Mastodon inside a Docker container, and using Cloudflare, which makes
 things more complicated.&lt;/p&gt;
 
@@ -1274,8 +1274,8 @@ gzip_proxied       any;
 # today) would display gibberish if their proxy gave them the gzipped version.
 gzip_vary          on;
 
-# Sets the number and size of buffers used to compress a response. 
-# By default, the buffer size is equal to one memory page. 
+# Sets the number and size of buffers used to compress a response.
+# By default, the buffer size is equal to one memory page.
 # This is either 4K or 8K, depending on a platform.
 gzip_buffers	16 8k;
 
@@ -1355,8 +1355,8 @@ fi
 There may be better ways of doing this (like simply using block storage),
 I’m still learning.
 &lt;/p&gt;</content:encoded><pubDate>Tue, 22 Nov 2022 09:55:19 +0000</pubDate>
-  <dc:modified>Fri, 30 Dec 2022 10:50:46 +0000</dc:modified>
-  <atom:modified>Fri, 30 Dec 2022 10:50:46 +0000</atom:modified>
+  <dc:modified>Wed, 02 Aug 2023 08:12:06 +0000</dc:modified>
+  <atom:modified>Wed, 02 Aug 2023 08:12:06 +0000</atom:modified>
   <link>https://alexn.org/wiki/mastodon/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/mastodon/</guid>
   
