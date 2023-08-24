@@ -1,6 +1,6 @@
 ---
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2022-12-18 16:15:52 +02:00
+last_modified_at: 2023-08-24 08:35:30 +03:00
 ---
 
 # PostgreSQL
@@ -52,3 +52,7 @@ Where `./envs/postgres.env`:
 ```sh
 POSTGRES_PASSWORD="your-admin-password"
 ```
+
+## Documentation
+
+- [PostgreSQL Lock Conflicts](https://pglocks.org/);
