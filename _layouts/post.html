@@ -1,6 +1,5 @@
 ---
 layout: default
-author: alexelcu
 has_subscribe: true
 ---
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
@@ -47,16 +46,13 @@ has_subscribe: true
         <meta itemprop="url" content="{{ '/assets/raw/logo-green.png' | absolute_url }}">
       </div>
     </div>
-    {% if page.author -%}
-      {% assign author_twitter = site.authors | map: page.author | map: "twitter" -%}
-      {% assign author_github = site.authors | map: page.author | map: "github" -%}
-      <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <meta itemprop="name" content="{{ site.authors | map: page.author | map: 'name' }}" />
-        <meta itemprop="url" content="{{ '/about/' | absolute_url }}#{{ page.author }}" />
-        {% if author_twitter -%}<meta itemprop="url" content="https://twitter.com/{{ author_twitter }}" />{% endif %}
-        {% if author_github -%}<meta itemprop="url" content="https://github.com/{{ author_github }}" />{% endif %}
-      </div>
-    {% endif %}
+    <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="{{ site.author.name }}" />
+      <meta itemprop="url" content="{{ '/about/' | absolute_url }}" />
+      <meta itemprop="url" content="https://twitter.com/{{ site.author.twitter }}" />
+      <meta itemprop="url" content="https://github.com/{{ site.author.github }}" />
+      <meta itemprop="url" content="https://www.linkedin.com/in/{{ site.author.linkedin }}/" />
+    </div>
 
     {% if page.generate_toc %}
     {% capture toc_html %}{% include toc.html h_min=2 h_max=3 html=content -%}{% endcapture -%}
@@ -85,9 +81,7 @@ has_subscribe: true
     <time itemprop="dateModified" content="{{ last_modified_at | date: '%Y-%m-%dT%H:%M:%S%z' }}">
         {{ date_action }}: {{ last_modified_at | date_to_long_string }}
     </time>
-    {% if page.author %}
-      | Written by <a href="{{ '/about/' | absolute_url }}#{{ page.author }}" itemprop="url" rel="author">{{ site.authors | map: page.author | map: 'name' }}</a>
-    {% endif %}
+    | Written by <a href="{{ '/about/' | absolute_url }}" itemprop="url" rel="author">{{ site.author.name }}</a>
 
     <div id="all-categories">
       Tags:

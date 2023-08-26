@@ -6,7 +6,7 @@
     <meta name="color-scheme" content="light dark">
     <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
     <meta name="theme-color" content="#493667">
-    
+
     <title>{% if page.title %}{{ page.title | xml_smart_escape }}{% unless page.has_full_title %} - {{ site.title }}{% endunless %}{% else %}{{ site.title | xml_smart_escape }} - {{ site.description | xml_escape }}{% endif -%}</title>
     {% capture page_or_site_title %}{% if page.title %}{{ page.title | xml_smart_escape }}{% else %}{{ site.title | xml_smart_escape }}{% endif -%}{% endcapture %}
 
@@ -33,7 +33,7 @@
     <meta property="og:video:secure_url" content="{{ page.youtube | youtube_player_link }}" />
     <meta property="og:video:type" content="text/html" />
     <meta property="og:video:width" content="560" />
-    <meta property="og:video:height" content="315" /> 
+    <meta property="og:video:height" content="315" />
     <meta property="og:image" content="{% if page.image %}{{ site.url }}{{ page.image }}?{{ 'now' | date: '%Y%m%d%H%M' }}{% else %}{{ page.youtube | youtube_thumb_link }}{% endif %}" />
     <meta property="og:image:secure_url" content="{% if page.image %}{{ site.url }}{{ page.image }}?{{ 'now' | date: '%Y%m%d%H%M' }}{% else %}{{ page.youtube | youtube_thumb_link }}{% endif %}" />
     {% elsif page.image %}
@@ -45,7 +45,7 @@
     <meta property="og:image" content="{{ '/assets/logo/800px-bordered.png' | prepend: site.url }}" />
     <meta property="og:image:secure_url" content="{{ '/assets/logo/800px-bordered.png' | prepend: site.url }}" />
     {% endif -%}
-  
+
     <!-- Twitter Cards -->
     {% if page.youtube -%}
     <meta name="twitter:card" content="player" />
@@ -60,14 +60,9 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:image:src" content="{{ '/assets/logo/800px-bordered.png' | prepend: site.url }}">
     {% endif -%}
-  
-    {% if page.author -%}
-      {% assign author_twitter = site.authors | map: page.author | map: "twitter" -%}
-    {% else %}
-      {% assign author_twitter = site.authors.alexelcu.twitter %}
-    {% endif -%}
-    <meta name="twitter:site" content="@{{ author_twitter }}">
-    <meta name="twitter:creator" content="@{{ author_twitter }}">
+
+    <meta name="twitter:site" content="@{{ site.author.twitter }}">
+    <meta name="twitter:creator" content="@{{ site.author.twitter }}">
     <meta name="twitter:title" content="{{ page_or_site_title }}">
     {% if page.url -%}
       <meta name="twitter:url" content="{{ site.url }}{{ page.url }}">
@@ -93,7 +88,7 @@
 
     <!-- Points at alexn.org, taking care of the search-engine indexing of mirrors: -->
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
-    
+
     <style type="text/css" media="all">
       {{ site.data.styles }}
     </style>

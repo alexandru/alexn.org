@@ -4,8 +4,14 @@ domain: alexn.org
 url: https://alexn.org
 baseurl: ""
 
+author:
+  name: Alexandru Nedelcu
+  github: alexandru
+  twitter: alexelcu
+  linkedin: alexelcu
+
 contact:
-  email: 
+  email:
     username: "low.flag5454"
     domain: "ac.alexn.org"
 
@@ -37,7 +43,6 @@ defaults:
     values:
       permalink: blog/:year/:month/:day/:title/
       layout: post
-      author: alexelcu
       has_contributions: true
       has_comments: true
       nav_id: /blog/
@@ -47,7 +52,6 @@ defaults:
     values:
       permalink: drafts/:title/
       layout: post
-      author: alexelcu
       has_contributions: false
       has_comments: false
       nav_id: /blog/
@@ -159,12 +163,6 @@ navigation:
   - title: Subscribe
     url: /subscribe/
     id: /subscribe/
-
-authors:
-  alexelcu:
-    name: Alexandru Nedelcu
-    github: alexandru
-    twitter: alexelcu
 
 assets:
   destination: "/assets/compiled"
