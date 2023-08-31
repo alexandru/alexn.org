@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 26 Aug 2023 06:09:14 +0000</pubDate>
-    <lastBuildDate>Sat, 26 Aug 2023 06:09:14 +0000</lastBuildDate>
+    <pubDate>Thu, 31 Aug 2023 17:20:44 +0000</pubDate>
+    <lastBuildDate>Thu, 31 Aug 2023 17:20:44 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -4614,11 +4614,11 @@ on a Sunday, even if you called and marked it done on Saturday:&lt;/p&gt;
 <item>
   <title>PostgreSQL</title>
   <description>Article
-    updated at December 18, 2022, 
+    updated at August 24, 2023, 
     created at August 24, 2020.</description>
   <content:encoded>&lt;p&gt;
     Article
-    updated at December 18, 2022, 
+    updated at August 24, 2023, 
     created at August 24, 2020.
   &lt;/p&gt;
   &lt;hr&gt;
@@ -4664,9 +4664,16 @@ volumes:
 &lt;p&gt;Where &lt;code&gt;./envs/postgres.env&lt;/code&gt;:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;POSTGRES_PASSWORD=&quot;your-admin-password&quot;
-&lt;/code&gt;&lt;/pre&gt;</content:encoded><pubDate>Mon, 24 Aug 2020 13:24:31 +0000</pubDate>
-  <dc:modified>Sun, 18 Dec 2022 14:15:52 +0000</dc:modified>
-  <atom:modified>Sun, 18 Dec 2022 14:15:52 +0000</atom:modified>
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;documentation&quot;&gt;Documentation&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://pglocks.org/&quot;&gt;PostgreSQL Lock Conflicts&lt;/a&gt;;&lt;/li&gt;
+&lt;/ul&gt;</content:encoded><pubDate>Mon, 24 Aug 2020 13:24:31 +0000</pubDate>
+  <dc:modified>Thu, 24 Aug 2023 05:35:30 +0000</dc:modified>
+  <atom:modified>Thu, 24 Aug 2023 05:35:30 +0000</atom:modified>
   <link>https://alexn.org/wiki/postgresql/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/postgresql/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
