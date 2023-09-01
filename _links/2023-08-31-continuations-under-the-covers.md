@@ -11,5 +11,5 @@ tags:
   - JVM
   - Video
   - YouTube
-social_description: "Ron Pressley tells the tale of how continuations were implemented and optimized in Project Loom."
+social_description: "Ron Pressler tells the tale of how continuations were implemented and optimized in Project Loom."
 ---
