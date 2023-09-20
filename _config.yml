@@ -17,7 +17,7 @@ contact:
 
 repo_edit: https://github.com/alexandru/alexn.org/blob/main/
 
-include: ["_redirects", ".well-known"]
+include: ["_redirects", ".well-known", "robots.txt", "CNAME"]
 exclude: ["_retracted", "scripts", "package.json", "package-lock.json", "vendor", "README.md"]
 
 analytics:
