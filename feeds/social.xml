@@ -10,13 +10,28 @@
     <description>Feed meant for publishing notifications to Twitter/LinkedIn.</description>
     <link>https://alexn.org/</link>
     <atom:link href="https://alexn.org/feeds/social.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 21 Sep 2023 19:15:36 +0000</pubDate>
-    <lastBuildDate>Thu, 21 Sep 2023 19:15:36 +0000</lastBuildDate>
+    <pubDate>Fri, 22 Sep 2023 06:41:55 +0000</pubDate>
+    <lastBuildDate>Fri, 22 Sep 2023 06:41:55 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v4.3.2</generator>
-    
+    <item>
+  <title>Rust Atomics and Locks</title>
+  <description>A book on low-level concurrency in Rust. Explains atomics, mutexes, memory ordering, integration with OS APIs.
+
+#Link #Book #Concurrency #Programming #Rust</description>
+  <pubDate>Fri, 22 Sep 2023 09:31:09 +0000</pubDate>
+  <link>https://marabos.nl/atomics/</link>
+  <guid isPermaLink="false">https://alexn.org/links/2023-09-22-rust-atomics-and-locks-mara-bos.html</guid>
+  <dc:creator>Mara Bos</dc:creator>
+  <category>Shared link</category>
+  <category>Book</category>
+  <category>Concurrency</category>
+  <category>Programming</category>
+  <category>Rust</category>
+  </item>
+
 
 <item>
   <title>Post Once, Syndicate Everywhere (POSSE)</title>
@@ -2810,18 +2825,6 @@
   <dc:creator>Alexandru Nedelcu</dc:creator>
   <category>Blog</category>
   <category>Scala</category>
-  </item>
-
-
-<item>
-  <title>Add to NewsBlur Bookmarklet</title>
-  <description>#Blog #Web</description>
-  <pubDate>Fri, 11 Nov 2016 00:00:00 +0000</pubDate>
-  <link>https://alexn.org/blog/2016/11/11/newsblur-bookmarklet/</link>
-  <guid isPermaLink="true">https://alexn.org/blog/2016/11/11/newsblur-bookmarklet/</guid>
-  <dc:creator>Alexandru Nedelcu</dc:creator>
-  <category>Blog</category>
-  <category>Web</category>
   </item>
 </channel>
 </rss>
