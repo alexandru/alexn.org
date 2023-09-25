@@ -4,7 +4,7 @@ image: /assets/media/articles/2023-passing-of-elves.jpg
 image_hide_in_post: true
 image_caption: "Elves leaving Middle Earth"
 date: 2023-01-15 10:30:29 +02:00
-last_modified_at: 2023-01-15 12:00:36 +02:00
+last_modified_at: 2023-09-25 17:57:08 +03:00
 tags:
   - Personal
   - Politics
@@ -31,7 +31,7 @@ These days, Twitter may be more alive than ever, but many of the people I care a
   </figcaption>
 </figure>
 
-Last year, I [deleted my Facebook account](./2022-09-12-delete-facebook.md), too. These days you can find me on [the Fediverse / Mastodon](https://social.alexn.org/@alexelcu).
+Last year, I [deleted my Facebook account](./2022-09-12-delete-facebook.md), too. These days you can find me on [the Fediverse / Mastodon]({{ site.author.mastodon }}).
 
 The issue with centralized social networks is that their business model is ads-driven, which means they have to steal your attention. The more you engage with their service, the more ads you consume. This creates a perverse incentive, as the timeline of these social networks was optimized for stealing your attention. And it turns out that outrage generates a lot of attention, and engagement.
 
