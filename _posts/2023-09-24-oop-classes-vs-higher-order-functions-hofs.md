@@ -1,8 +1,8 @@
 ---
 title: "OOP classes vs Higher-order Functions (HOFs)"
 image: /assets/media/articles/2023-oop-hof.png
-date: 2023-09-24 17:47:35 +03:00
-last_modified_at: 2023-09-25 10:30:01 +03:00
+date: 2023-09-25 10:30:22 +03:00
+last_modified_at: 2023-09-25 10:30:32 +03:00
 tags:
   - FP
   - OOP
