@@ -1,6 +1,6 @@
 ---
 link: "https://www.youtube.com/watch?v=n5u7DgFwLGE"
-title: "Daniel Spiewak - Micro-Optimization for Fun and Profit | Scala Days 2023 Seattle"
+title: "Micro-Optimization for Fun and Profit"
 image: "https://i.ytimg.com/vi/n5u7DgFwLGE/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGH8gFygZMA8=&rs=AOn4CLB05McLJVvuuKd_75GcMBNndEWaiQ"
 author: "Daniel Spiewak @ Scala"
 author_link: "http://www.youtube.com/@ScalaDaysConferences"
