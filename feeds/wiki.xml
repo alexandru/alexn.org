@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 27 Sep 2023 09:26:31 +0000</pubDate>
-    <lastBuildDate>Wed, 27 Sep 2023 09:26:31 +0000</lastBuildDate>
+    <pubDate>Wed, 27 Sep 2023 17:12:26 +0000</pubDate>
+    <lastBuildDate>Wed, 27 Sep 2023 17:12:26 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -4243,11 +4243,11 @@ iterm2.run_forever(main)
 <item>
   <title>macOS</title>
   <description>Article
-    updated at September 1, 2022, 
+    updated at September 27, 2023, 
     created at August 24, 2020.</description>
   <content:encoded>&lt;p&gt;
     Article
-    updated at September 1, 2022, 
+    updated at September 27, 2023, 
     created at August 24, 2020.
   &lt;/p&gt;
   &lt;hr&gt;
@@ -4278,7 +4278,7 @@ iterm2.run_forever(main)
 
 &lt;p&gt;Answer from &lt;a href=&quot;https://apple.stackexchange.com/questions/123730/is-there-a-way-to-detect-what-program-is-stealing-focus-on-my-mac&quot;&gt;StackExchange&lt;/a&gt;:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;#!/usr/bin/python                                                                                                       
+&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;#!/usr/bin/python
 
 try:
     from AppKit import NSWorkspace
@@ -4308,7 +4308,7 @@ while True:
 &lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;pip install pyobjc
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&quot;troubleshooting&quot;&gt;Troubleshooting&lt;/h2&gt;
+&lt;h2 id=&quot;resources--troubleshooting&quot;&gt;Resources / Troubleshooting&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;PRAM reset: &lt;a href=&quot;https://support.apple.com/en-us/HT204063&quot;&gt;https://support.apple.com/en-us/HT204063&lt;/a&gt;
@@ -4321,6 +4321,7 @@ while True:
       &lt;li&gt;&lt;a href=&quot;https://developer.apple.com/library/archive/documentation/Security/Conceptual/System_Integrity_Protection_Guide/ConfiguringSystemIntegrityProtection/ConfiguringSystemIntegrityProtection.html&quot;&gt;Configuring System Integrity Protection&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/dortania/OpenCore-Legacy-Patcher&quot;&gt;Force updates for older Macs&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;other-documents&quot;&gt;Other Documents&lt;/h2&gt;
@@ -4330,8 +4331,8 @@ while True:
   &lt;li&gt;&lt;a href=&quot;https://alexn.org/wiki/emacs/#emacs-server-as-macos-service&quot;&gt;Emacs server setup&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://alexn.org/wiki/dropbox/#screenshots-sync-on-macos&quot;&gt;Screenshots synchronization&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</content:encoded><pubDate>Mon, 24 Aug 2020 13:24:31 +0000</pubDate>
-  <dc:modified>Thu, 01 Sep 2022 14:24:01 +0000</dc:modified>
-  <atom:modified>Thu, 01 Sep 2022 14:24:01 +0000</atom:modified>
+  <dc:modified>Wed, 27 Sep 2023 17:11:36 +0000</dc:modified>
+  <atom:modified>Wed, 27 Sep 2023 17:11:36 +0000</atom:modified>
   <link>https://alexn.org/wiki/macos/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/macos/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
