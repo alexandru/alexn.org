@@ -1,6 +1,6 @@
 ---
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2022-09-01 17:24:01 +03:00
+last_modified_at: 2023-09-27 20:11:36 +03:00
 ---
 
 # macOS
@@ -27,7 +27,7 @@ launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist
 Answer from [StackExchange](https://apple.stackexchange.com/questions/123730/is-there-a-way-to-detect-what-program-is-stealing-focus-on-my-mac):
 
 ```python
-#!/usr/bin/python                                                                                                       
+#!/usr/bin/python
 
 try:
     from AppKit import NSWorkspace
@@ -58,13 +58,15 @@ Needs `pyobjc`:
 pip install pyobjc
 ```
 
-## Troubleshooting
+## Resources / Troubleshooting
 
 - PRAM reset: <https://support.apple.com/en-us/HT204063>
 - SMC reset: <https://support.apple.com/en-us/HT201295>
-- System Integrity Protection: 
+- System Integrity Protection:
   * [How to Disable System Integrity Protection (rootless) in Mac OS X](https://osxdaily.com/2015/10/05/disable-rootless-system-integrity-protection-mac-os-x/)
   * [Configuring System Integrity Protection](https://developer.apple.com/library/archive/documentation/Security/Conceptual/System_Integrity_Protection_Guide/ConfiguringSystemIntegrityProtection/ConfiguringSystemIntegrityProtection.html)
+
+- [Force updates for older Macs](https://github.com/dortania/OpenCore-Legacy-Patcher)
 
 ## Other Documents
 
