@@ -10,6 +10,8 @@ tags:
   - JavaScript
 image: /assets/media/articles/functions.png
 generate_toc: true
+created_at: 2017-10-15 08:40:38 +03:00
+last_modified_at: 2023-09-29 08:51:11 +03:00
 ---
 
 <p class="intro" markdown='1'>Functional Programming (FP) is programming with *functions*. [Mathematical functions](https://goo.gl/q8dToC).</p>
@@ -42,10 +44,11 @@ Given that I'm from Romania, being exposed to an education centered
 on rote learning, influenced by the French and the Russian / Soviet
 educational systems, I'm now pretty sure that I have an atypical background,
 compared to my U.S. peers. <br><br> For example we learned some
-[category theory in our 12-th grade](https://twitter.com/alexelcu/status/888343945649979392),
-of which I'm grateful, being really intriguing to me how
-6-figures Ivy League graduates can complain about having to learn
-the math material of normal teenagers.
+category theory in our 12-th grade, of which I'm grateful, being really
+intriguing to me how some 6-figures Ivy League graduates can complain about
+never hearing of the word `Monoid`, or having to learn the math material of
+normal teenagers. And don't get me wrong, our educational system isn't great,
+being in a continued decline.
 </p>
 
 If you want to get even more technical, functional programming has
@@ -139,36 +142,31 @@ Well, the problem is that:
 1. The venerable [C language](https://goo.gl/wfmLG6) has had the
    ability to pass function pointers around since forever, I know
    of no mainstream language that doesn't allow you to pass function
-   references, which makes functions "first class"
+   references, which makes functions "first class";
 2. You don't actually need anonymous functions for doing functional
-   programming — take a look at this
-   [Functional.Java](http://www.functionaljava.org/) library, which was
-   built before those "lambda expressions" came to Java 8
+   programming, if you have an equivalent — for example Java had
+   "anonymous classes" before Java 8, with the newer lambda expressions
+   actually creating anonymous classes; take a look at this
+   [Functional Java](http://www.functionaljava.org/) library, which was
+   built before Java 8;
 3. It's 2017 and most languages in use have usable lambda expressions, except
    for Python which has inherent limitations due to it being statement
    oriented and the developers refusing to introduce multi-line
    anonymous functions, which has led to a dozen or so non-orthogonal
    features to replace the need for it, under the mantra
    "*only one way of doing things*", which by now is surely some
-   kind of joke
+   kind of joke.
 
 If you reduce your "*functional programming*" qualifier
 to usage of first class (impure) functions and lambda expressions,
 I think the top 15 languages and their use on GitHub qualifies.
 
-Which is ridiculous — like how society keeps changing the obesity
-threshold, because it takes less energy and is less depressing to
-change definitions, instead of attacking the problem head on.
-We should recognize a *rebranding* for what it is, an effort by
-marketing people to make turds more attractive by embracing trends
-only in name, but not in spirit.
-
 ## Anti-intellectualism Phenomenon
 
-For all the learning that we are doing, we software developers are
+For all the learning that we are doing, software developers are
 a really conservative bunch, unwilling to accept new concepts easily
 and in this context "*new*" is relative to what we've
-learned either in university or at our first job. The vigour with which
+learned either in university or at our first job. The vigor with which
 we defend what we already know is proportional with the
 time we've invested in our knowledge and whatever it is that we
 are currently doing.
@@ -190,10 +188,6 @@ Classify it as "*academic*", a term that now has negative connotations,
 even though most interesting breakthroughs in computer science come
 from academia.
 
-Which is probably why we keep reinventing the same two languages,
-somehow expecting different results and personally I'm getting
-the feeling that we are in Groundhog Day, that movie from 1993.
-
 ## Can We do FP in Any Language?
 
 Yes, although some programming languages are better than others.
@@ -203,11 +197,10 @@ doing OOP in C with [GObject](https://en.wikipedia.org/wiki/GObject).
 Doable, but it makes one think of switching professions in the long run.
 
 But actually it's not the programming language that's the biggest
-problem, because
-[technical challenges](https://www.cl.cam.ac.uk/~jdy22/papers/lightweight-higher-kinded-polymorphism.pdf)
-can usually be worked around, but the culture around it created by the
-community, along with the libraries available, because as a developer
-you won't want to reinvent the wheel and swim against the tide.
+problem, because technical challenges can usually be worked around, but
+the surrounding culture created by the community, along with the libraries
+available, because as a developer you won't want to reinvent the wheel
+and swim against the tide.
 
 This is why in addition to Haskell and OCaml, which are the languages
 that people refer to when speaking of FP,
@@ -223,7 +216,7 @@ really popular ones like
 [React](https://reactjs.org/),
 [Redux](http://redux.js.org/),
 [Immutable.js](https://github.com/facebook/immutable-js/),
-[Underscore.js](http://underscorejs.org/) among others,
+[Underscore.js](http://underscorejs.org/) amongst others,
 which were partially inspired by the community's experience with
 [ClojureScript](https://clojurescript.org/) and now
 [ReasonML](https://github.com/reasonml),
@@ -240,7 +233,7 @@ the concerns you have are a niche, functional programming be damned.
 
 Which does highlight that if you want functional programming,
 the communities of languages being bred for FP, like Haskell,
-PureScript, OCaml, Scala, etc are probably richer and bigger than
+PureScript, OCaml, Scala, etc. are probably richer and bigger than
 the FP sub-communities of the top mainstream languages, Java and
 JavaScript included.
 
@@ -249,10 +242,9 @@ JavaScript included.
 Don't believe the opinions of people on the Internet, mine included.
 Learn some Functional Programming instead, the real stuff, not the
 pop lambda-infused mumbo jumbo, then you can make up your own mind.
-At the very least it's fun and you've got nothing to lose.
+At the very least, it's fun, and you've got nothing to lose.
 
-Thus far I found these two books to be really good as an introduction
-to FP:
+Thus far, I found these two books to be good as an introduction to FP:
 
 - [Haskell Programming from First Principles](http://haskellbook.com/)
 - [Functional Programming in Scala](https://www.manning.com/books/functional-programming-in-scala)
@@ -268,7 +260,7 @@ is pretty awesome.
 After that, you might want to read
 [Category Theory for Programmers](https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/)
 ([PDF version](https://github.com/hmemcpy/milewski-ctfp-pdf)),
-which should come only after you've went through one of the above books
+which should come only after you've gone through one of the above books
 from cover to cover.
 
 <p class='info-bubble' markdown='1'>
@@ -279,7 +271,7 @@ If you want motivation, remember that kids in Romania do it —
 put that on your fridge 😜
 </p>
 
-More good books might be out there, but for learning FP I'd advise
+More good books might be out there, but for learning FP, I'd advise
 against going with anything that's dynamically typed or LISP based. For one
 because dynamic languages tend to be more pragmatic, plus their limited
 type system don't allow many of the useful abstractions that
@@ -287,7 +279,7 @@ we've discovered in the last decade, so you'd be depriving yourself
 of many useful concepts and libraries. You should feel free to pick a
 dynamic language once you have the knowledge to make an informed choice.
 
-Also [SICP](https://mitpress.mit.edu/sicp/full-text/book/book.html)
+Also, [SICP](https://mitpress.mit.edu/sicp/full-text/book/book.html)
 (see [modern PDF compilation](https://github.com/sarabander/sicp-pdf))
 might have been good for its time and is still a good book,
 but it's not that good for learning FP in 2017.
