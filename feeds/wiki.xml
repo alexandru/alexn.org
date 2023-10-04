@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 01 Oct 2023 19:25:01 +0000</pubDate>
-    <lastBuildDate>Sun, 01 Oct 2023 19:25:01 +0000</lastBuildDate>
+    <pubDate>Wed, 04 Oct 2023 09:40:57 +0000</pubDate>
+    <lastBuildDate>Wed, 04 Oct 2023 09:40:57 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -113,11 +113,11 @@
 <item>
   <title>Kotlin</title>
   <description>Article
-    updated at May 16, 2023, 
+    updated at October 4, 2023, 
     created at April 30, 2023.</description>
   <content:encoded>&lt;p&gt;
     Article
-    updated at May 16, 2023, 
+    updated at October 4, 2023, 
     created at April 30, 2023.
   &lt;/p&gt;
   &lt;hr&gt;
@@ -138,7 +138,16 @@
 &lt;a href=&quot;https://github.com/kropp/kotlinx-gettext/tree/main&quot;&gt;kotlinx-gettext&lt;/a&gt;: I18N library;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Kotlin/JS:&lt;/p&gt;
+&lt;p&gt;CLI:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://github.com/ajalt/clikt&quot;&gt;clikt&lt;/a&gt;: Multiplatform command line interface parsing for Kotlin;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://github.com/varabyte/kotter&quot;&gt;kotter&lt;/a&gt;: A declarative, Kotlin-idiomatic API for writing dynamic console applications;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;UI, Kotlin/JS:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
@@ -150,6 +159,10 @@
 &lt;a href=&quot;https://github.com/rjaros/kvision-io/&quot;&gt;kvision-io (GitHub)&lt;/a&gt;: source code for a presentation website built in Kotlin, useful sample of a &lt;a href=&quot;https://webpack.js.org/&quot;&gt;Webpack&lt;/a&gt; configuration that integrates &lt;a href=&quot;https://en.wikipedia.org/wiki/Sass_(style_sheet_language)&quot;&gt;Sass&lt;/a&gt; and &lt;a href=&quot;https://bulma.io/&quot;&gt;Bulma&lt;/a&gt;;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://github.com/varabyte/kobweb&quot;&gt;kobweb&lt;/a&gt;: A modern framework for full stack web apps in Kotlin, built upon Compose HTML;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://github.com/JetBrains/compose-multiplatform&quot;&gt;compose-multiplatform&lt;/a&gt;: modern UI framework for Kotlin that makes building performant and beautiful user interfaces easy and enjoyable;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Samples:&lt;/p&gt;
@@ -262,8 +275,8 @@ html.a {
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Reference: &lt;a href=&quot;https://github.com/JetBrains/kotlin-wrappers/issues/1788&quot;&gt;kotlin-wrappers#1788&lt;/a&gt;.&lt;/p&gt;</content:encoded><pubDate>Sun, 30 Apr 2023 13:07:39 +0000</pubDate>
-  <dc:modified>Tue, 16 May 2023 11:46:16 +0000</dc:modified>
-  <atom:modified>Tue, 16 May 2023 11:46:16 +0000</atom:modified>
+  <dc:modified>Wed, 04 Oct 2023 06:52:33 +0000</dc:modified>
+  <atom:modified>Wed, 04 Oct 2023 06:52:33 +0000</atom:modified>
   <link>https://alexn.org/wiki/kotlin/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/kotlin/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
