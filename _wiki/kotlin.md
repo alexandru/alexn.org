@@ -1,6 +1,6 @@
 ---
 date: 2023-04-30 16:07:39 +03:00
-last_modified_at: 2023-05-16 14:46:16 +03:00
+last_modified_at: 2023-10-04 09:52:33 +03:00
 ---
 
 # Kotlin
@@ -15,11 +15,18 @@ Kotlin-specific:
 - [SQLDelight](https://github.com/cashapp/sqldelight): Generates type-safe Kotlin APIs from SQL;
 - [kotlinx-gettext](https://github.com/kropp/kotlinx-gettext/tree/main): I18N library;
 
-Kotlin/JS:
+CLI:
+
+- [clikt](https://github.com/ajalt/clikt): Multiplatform command line interface parsing for Kotlin;
+- [kotter](https://github.com/varabyte/kotter): A declarative, Kotlin-idiomatic API for writing dynamic console applications;
+
+UI, Kotlin/JS:
 
 - [kotlin-wrappers](https://github.com/JetBrains/kotlin-wrappers/): wrappers for popular JavaScript libraries;
 - [kvision](https://kvision.io/): web UI framework for Kotlin, alternative to React;
   - [kvision-io (GitHub)](https://github.com/rjaros/kvision-io/): source code for a presentation website built in Kotlin, useful sample of a [Webpack](https://webpack.js.org/) configuration that integrates [Sass](https://en.wikipedia.org/wiki/Sass_(style_sheet_language)) and [Bulma](https://bulma.io/);
+- [kobweb](https://github.com/varabyte/kobweb): A modern framework for full stack web apps in Kotlin, built upon Compose HTML;
+- [compose-multiplatform](https://github.com/JetBrains/compose-multiplatform): modern UI framework for Kotlin that makes building performant and beautiful user interfaces easy and enjoyable;
 
 Samples:
 
