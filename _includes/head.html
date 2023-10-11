@@ -36,11 +36,11 @@
     <meta property="og:video:height" content="315" />
     <meta property="og:image" content="{% if page.image %}{{ site.url }}{{ page.image }}?{{ 'now' | date: '%Y%m%d%H%M' }}{% else %}{{ page.youtube | youtube_thumb_link }}{% endif %}" />
     <meta property="og:image:secure_url" content="{% if page.image %}{{ site.url }}{{ page.image }}?{{ 'now' | date: '%Y%m%d%H%M' }}{% else %}{{ page.youtube | youtube_thumb_link }}{% endif %}" />
-    {% elsif page.image %}
+    {% elsif page.image -%}
     <meta property="og:type" content="article" />
     <meta property="og:image" content="{{ site.url }}{{ page.image }}?{{ 'now' | date: '%Y%m%d%H%M' }}" />
     <meta property="og:image:secure_url" content="{{ site.url }}{{ page.image }}?{{ 'now' | date: '%Y%m%d%H%M' }}" />
-    {% else %}
+    {% else -%}
     <meta property="og:type" content="website">
     <meta property="og:image" content="{{ '/assets/logo/800px-bordered.png' | prepend: site.url }}" />
     <meta property="og:image:secure_url" content="{{ '/assets/logo/800px-bordered.png' | prepend: site.url }}" />
