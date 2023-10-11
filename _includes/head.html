@@ -11,21 +11,21 @@
     {% capture page_or_site_title %}{% if page.title %}{{ page.title | xml_smart_escape }}{% else %}{{ site.title | xml_smart_escape }}{% endif -%}{% endcapture %}
 
     <!-- Open Graph Meta -->
-    <meta content="{{ site.title | xml_smart_escape }}" property="og:site_name">
-    <meta content="{{ page_or_site_title | xml_smart_escape }}" property="og:title">
+    <meta property="og:site_name" content="{{ site.title | xml_smart_escape }}">
+    <meta property="og:title" content="{{ page_or_site_title | xml_smart_escape }}">
     {% if page.description -%}
-      <meta content="{{ page.description | markdownify | strip_html | xml_escape | strip }}" property="og:description">
+    <meta property="og:description" content="{{ page.description | markdownify | strip_html | xml_escape | strip }}">
     {% else %}
-      <meta content="{{ site.description | markdownify | strip_html | xml_escape | strip }}" property="og:description">
+    <meta property="og:description" content="{{ site.description | markdownify | strip_html | xml_escape | strip }}">
     {% endif -%}
     {% if page.url -%}
-      <meta content="{{ site.url }}{{ page.url }}" property="og:url">
+    <meta property="og:url" content="{{ site.url }}{{ page.url }}">
     {% endif -%}
     {% if page.date -%}
-      <meta content="{{ page.date | date_to_xmlschema }}" property="article:published_time">
+    <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
     {% endif -%}
     {% if page.last_modified_at -%}
-      <meta content="{{ page.last_modified_at | date_to_xmlschema }}" property="article:modified_time">
+    <meta property="article:modified_time" content="{{ page.last_modified_at | date_to_xmlschema }}">
     {% endif -%}
     {% if page.youtube -%}
     <meta property="og:type" content="video.other" />
@@ -41,26 +41,27 @@
     <meta property="og:image" content="{{ site.url }}{{ page.image }}?{{ 'now' | date: '%Y%m%d%H%M' }}" />
     <meta property="og:image:secure_url" content="{{ site.url }}{{ page.image }}?{{ 'now' | date: '%Y%m%d%H%M' }}" />
     {% else %}
-    <meta content="website" property="og:type">
+    <meta property="og:type" content="website">
     <meta property="og:image" content="{{ '/assets/logo/800px-bordered.png' | prepend: site.url }}" />
     <meta property="og:image:secure_url" content="{{ '/assets/logo/800px-bordered.png' | prepend: site.url }}" />
     {% endif -%}
 
     <!-- Twitter Cards -->
     {% if page.youtube -%}
-    <meta name="twitter:card" content="player" />
+    <!-- <meta name="twitter:card" content="player" />
     <meta name="twitter:player" content="{{ page.youtube | youtube_player_link }}">
     <meta name="twitter:player:width" content="560">
-    <meta name="twitter:player:height" content="315">
+    <meta name="twitter:player:height" content="315"> -->
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:image" content="{% if page.image %}{{ page.image | prepend: site.url }}?{{ 'now' | date: '%Y%m%d%H%M' }}{% else %}{{ page.youtube | youtube_thumb_link }}{% endif %}" />
     {% elsif page.image -%}
-    <meta name="twitter:card" content="summary_large_image">
+    <!-- <meta name="twitter:card" content="summary_large_image"> -->
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:image:src" content="{{ page.image | prepend: site.url }}?{{ 'now' | date: '%Y%m%d%H%M' }}">
-    {% else %}
+    {% else -%}
     <meta name="twitter:card" content="summary">
     <meta name="twitter:image:src" content="{{ '/assets/logo/800px-bordered.png' | prepend: site.url }}">
     {% endif -%}
-
     <meta name="twitter:site" content="@{{ site.author.twitter }}">
     <meta name="twitter:creator" content="@{{ site.author.twitter }}">
     <meta name="twitter:title" content="{{ page_or_site_title }}">
@@ -68,9 +69,9 @@
       <meta name="twitter:url" content="{{ site.url }}{{ page.url }}">
     {% endif -%}
     {% if page.description -%}
-      <meta name="twitter:description" content="{{ page.description | markdownify | strip_html | xml_escape | strip }}">
-    {% else %}
-      <meta name="twitter:description" content="{{ site.description | markdownify | strip_html | xml_escape | strip }}">
+    <meta name="twitter:description" content="{{ page.description | markdownify | strip_html | xml_escape | strip }}">
+    {% else -%}
+    <meta name="twitter:description" content="{{ site.description | markdownify | strip_html | xml_escape | strip }}">
     {% endif -%}
 
     <!-- Favicon -->
