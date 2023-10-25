@@ -10,13 +10,27 @@
     <description>Feed meant for publishing notifications to Twitter/LinkedIn.</description>
     <link>https://alexn.org/</link>
     <atom:link href="https://alexn.org/feeds/social.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 19 Oct 2023 09:16:43 +0000</pubDate>
-    <lastBuildDate>Thu, 19 Oct 2023 09:16:43 +0000</lastBuildDate>
+    <pubDate>Wed, 25 Oct 2023 07:07:13 +0000</pubDate>
+    <lastBuildDate>Wed, 25 Oct 2023 07:07:13 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v4.3.2</generator>
     <item>
+  <title>The Trouble with Checked Exceptions (2003)</title>
+  <description>&quot;Scalability and versioning&quot; are still issues, biggest divide b/w OOP &amp; static FP, as the latter prefers &quot;parametricity&quot; over breakage or UX.
+
+#Link #Programming #Java #dotNET</description>
+  <pubDate>Wed, 25 Oct 2023 09:48:40 +0000</pubDate>
+  <link>https://www.artima.com/articles/the-trouble-with-checked-exceptions</link>
+  <guid isPermaLink="false">https://alexn.org/links/2023-10-25-artima-the-trouble-with-checked-exceptions.html</guid>
+  <dc:creator>Bill Venners with Bruce Eckel</dc:creator>
+  <category>Shared link</category>
+  <category>Programming</category>
+  <category>Java</category>
+  <category>dotNET</category>
+  </item>
+<item>
   <title>softwaremill/bootzooka: Starter kit for developing a web application</title>
   <description>Quickly start developing a Scala-based microservice or web application, without the need to write login, user registration, etc.
 
@@ -2819,21 +2833,6 @@
   <category>Haskell</category>
   <category>Scala</category>
   <category>JavaScript</category>
-  </item>
-
-
-<item>
-  <title>Scala Days 2017 — Monix Task</title>
-  <description>#Blog #FP #Scala #Monix #Video</description>
-  <pubDate>Fri, 13 Oct 2017 00:00:00 +0000</pubDate>
-  <link>https://alexn.org/blog/2017/10/13/scaladays-copenhagen/</link>
-  <guid isPermaLink="true">https://alexn.org/blog/2017/10/13/scaladays-copenhagen/</guid>
-  <dc:creator>Alexandru Nedelcu</dc:creator>
-  <category>Blog</category>
-  <category>FP</category>
-  <category>Scala</category>
-  <category>Monix</category>
-  <category>Video</category>
   </item>
 </channel>
 </rss>
