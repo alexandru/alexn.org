@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 25 Oct 2023 07:07:13 +0000</pubDate>
-    <lastBuildDate>Wed, 25 Oct 2023 07:07:13 +0000</lastBuildDate>
+    <pubDate>Sat, 28 Oct 2023 06:43:40 +0000</pubDate>
+    <lastBuildDate>Sat, 28 Oct 2023 06:43:40 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -2435,11 +2435,11 @@ So &lt;code&gt;&quot;*y&lt;/code&gt; copies to the system clipboard, and &lt;cod
 <item>
   <title>Microsoft .NET</title>
   <description>Article
-    updated at September 1, 2022, 
+    updated at October 28, 2023, 
     created at October 8, 2020.</description>
   <content:encoded>&lt;p&gt;
     Article
-    updated at September 1, 2022, 
+    updated at October 28, 2023, 
     created at October 8, 2020.
   &lt;/p&gt;
   &lt;hr&gt;
@@ -2476,6 +2476,9 @@ dotnet build
 # Run the project
 cd ./App
 dotnet run
+
+# Build for release
+dotnet publish --configuration Release
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3 id=&quot;articles&quot;&gt;Articles&lt;/h3&gt;
@@ -2486,6 +2489,15 @@ dotnet run
   &lt;li&gt;&lt;a href=&quot;https://docs.microsoft.com/en-us/dotnet/core/deploying/&quot;&gt;.NET Core application deployment&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://fsprojects.github.io/Paket/paket-generate-load-scripts.html&quot;&gt;paket generate-load-scripts&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.fssnip.net/mp/title/An-attempt-at-encoding-GADTs&quot;&gt;An attempt at encoding GADTs&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Native AOT:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/&quot;&gt;Native AOT deployment&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://devblogs.microsoft.com/dotnet/announcing-fsharp-7/#f-self-contained-deployments-native-aot&quot;&gt;F# 7 release notes&lt;/a&gt;;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;presentations&quot;&gt;Presentations&lt;/h3&gt;
@@ -2520,14 +2532,25 @@ dotnet run
 &lt;a href=&quot;https://github.com/haf/expecto#installing&quot;&gt;Expecto&lt;/a&gt;: unit testing&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;samples&quot;&gt;Samples&lt;/h3&gt;
+&lt;h2 id=&quot;net-core&quot;&gt;.NET Core&lt;/h2&gt;
+
+&lt;p&gt;To build self-contained executables, add this in &lt;code&gt;.csproj&lt;/code&gt;/&lt;code&gt;.fsproj&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-xml&quot;&gt;&lt;PropertyGroup&gt;
+    &lt;SelfContained&gt;true&lt;/SelfContained&gt;
+    &lt;PublishTrimmed&gt;true&lt;/PublishTrimmed&gt;
+    &lt;PublishSingleFile&gt;true&lt;/PublishSingleFile&gt;
+&lt;/PropertyGroup&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For NativeAOT:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
-&lt;a href=&quot;https://github.com/MichalStrehovsky/zerosharp&quot;&gt;zerosharp&lt;/a&gt;: “demo of the potential of C# for systems programming with the .NET native ahead-of-time compilation technology”&lt;/li&gt;
+&lt;a href=&quot;https://github.com/MichalStrehovsky/zerosharp&quot;&gt;zerosharp&lt;/a&gt;: “demo of the potential of C# for systems programming with the .NET native ahead-of-time compilation technology”;&lt;/li&gt;
 &lt;/ul&gt;</content:encoded><pubDate>Thu, 08 Oct 2020 05:31:40 +0000</pubDate>
-  <dc:modified>Thu, 01 Sep 2022 14:18:59 +0000</dc:modified>
-  <atom:modified>Thu, 01 Sep 2022 14:18:59 +0000</atom:modified>
+  <dc:modified>Sat, 28 Oct 2023 06:42:11 +0000</dc:modified>
+  <atom:modified>Sat, 28 Oct 2023 06:42:11 +0000</atom:modified>
   <link>https://alexn.org/wiki/dotnet/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/dotnet/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
