@@ -13,9 +13,9 @@ image: /assets/media/snippets/execute-shell-command-fsharp.png
 image_hide_in_post: true
 description: >
   Snippet in plain F# with no dependencies. Features a neat shebang.
-last_modified_at: 2023-01-17 13:17:44 +02:00
+last_modified_at: 2023-11-05 19:26:44 +02:00
 ---
-  
+
 ```fsharp
 #!/usr/bin/env -S dotnet fsi
 
@@ -23,38 +23,40 @@ open System
 open System.Diagnostics
 open System.Threading.Tasks
 
-type CommandResult = { 
-  ExitCode: int; 
-  StandardOutput: string;
-  StandardError: string 
-}
+type CommandResult =
+  { ExitCode: int
+    StandardOutput: string
+    StandardError: string }
 
 let executeCommand executable args =
   async {
+    let! ct = Async.CancellationToken
+
     let startInfo = ProcessStartInfo()
     startInfo.FileName <- executable
-    for a in args do
-      startInfo.ArgumentList.Add(a)
     startInfo.RedirectStandardOutput <- true
     startInfo.RedirectStandardError <- true
     startInfo.UseShellExecute <- false
     startInfo.CreateNoWindow <- true
+    for a in args do
+      startInfo.ArgumentList.Add(a)
+
     use p = new Process()
     p.StartInfo <- startInfo
     p.Start() |> ignore
 
-    let outTask = Task.WhenAll([|
-      p.StandardOutput.ReadToEndAsync();
-      p.StandardError.ReadToEndAsync()
-    |])
+    let outTask =
+      Task.WhenAll([|
+        p.StandardOutput.ReadToEndAsync(ct);
+        p.StandardError.ReadToEndAsync(ct) |])
 
-    do! p.WaitForExitAsync() |> Async.AwaitTask
+    do! p.WaitForExitAsync(ct) |> Async.AwaitTask
     let! out = outTask |> Async.AwaitTask
-    return {
-      ExitCode = p.ExitCode;
-      StandardOutput = out.[0];
-      StandardError = out.[1]
-    }
+
+    return
+      { ExitCode = p.ExitCode
+        StandardOutput = out.[0]
+        StandardError = out.[1] }
   }
 
 let executeShellCommand command =
@@ -62,6 +64,7 @@ let executeShellCommand command =
 
 // Invocation sample
 let r = executeShellCommand "ls -alh" |> Async.RunSynchronously
+
 if r.ExitCode = 0 then
   printfn "%s" r.StandardOutput
 else
