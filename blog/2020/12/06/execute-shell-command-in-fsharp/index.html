@@ -19,14 +19,14 @@
     <meta property="og:description" content="Snippet in plain F# with no dependencies. Features a neat shebang.">
     <meta property="og:url" content="https://alexn.org/blog/2020/12/06/execute-shell-command-in-fsharp/">
     <meta property="article:published_time" content="2020-12-06T00:00:00+00:00">
-    <meta property="article:modified_time" content="2023-01-17T11:17:44+00:00">
+    <meta property="article:modified_time" content="2023-11-05T17:26:44+00:00">
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/snippets/execute-shell-command-fsharp.png?202310280643" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/snippets/execute-shell-command-fsharp.png?202310280643" />
+    <meta property="og:image" content="https://alexn.org/assets/media/snippets/execute-shell-command-fsharp.png?202311051730" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/snippets/execute-shell-command-fsharp.png?202311051730" />
     <!-- Twitter Cards -->
     <!-- <meta name="twitter:card" content="summary_large_image"> -->
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/snippets/execute-shell-command-fsharp.png?202310280643">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/snippets/execute-shell-command-fsharp.png?202311051730">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Execute shell commands in F#">
@@ -165,38 +165,40 @@ open System
 open System.Diagnostics
 open System.Threading.Tasks
 
-type CommandResult = { 
-  ExitCode: int; 
-  StandardOutput: string;
-  StandardError: string 
-}
+type CommandResult =
+  { ExitCode: int
+    StandardOutput: string
+    StandardError: string }
 
 let executeCommand executable args =
   async {
+    let! ct = Async.CancellationToken
+
     let startInfo = ProcessStartInfo()
     startInfo.FileName &lt;- executable
-    for a in args do
-      startInfo.ArgumentList.Add(a)
     startInfo.RedirectStandardOutput &lt;- true
     startInfo.RedirectStandardError &lt;- true
     startInfo.UseShellExecute &lt;- false
     startInfo.CreateNoWindow &lt;- true
+    for a in args do
+      startInfo.ArgumentList.Add(a)
+
     use p = new Process()
     p.StartInfo &lt;- startInfo
     p.Start() |&gt; ignore
 
-    let outTask = Task.WhenAll([|
-      p.StandardOutput.ReadToEndAsync();
-      p.StandardError.ReadToEndAsync()
-    |])
+    let outTask =
+      Task.WhenAll([|
+        p.StandardOutput.ReadToEndAsync(ct);
+        p.StandardError.ReadToEndAsync(ct) |])
 
-    do! p.WaitForExitAsync() |&gt; Async.AwaitTask
+    do! p.WaitForExitAsync(ct) |&gt; Async.AwaitTask
     let! out = outTask |&gt; Async.AwaitTask
-    return {
-      ExitCode = p.ExitCode;
-      StandardOutput = out.[0];
-      StandardError = out.[1]
-    }
+
+    return
+      { ExitCode = p.ExitCode
+        StandardOutput = out.[0]
+        StandardError = out.[1] }
   }
 
 let executeShellCommand command =
@@ -204,6 +206,7 @@ let executeShellCommand command =
 
 // Invocation sample
 let r = executeShellCommand "ls -alh" |&gt; Async.RunSynchronously
+
 if r.ExitCode = 0 then
   printfn "%s" r.StandardOutput
 else
@@ -226,8 +229,8 @@ chmod +x ./test.fsi
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2023-01-17T13:17:44+0200">
-        Updated: January 17, 2023
+    <time itemprop="dateModified" content="2023-11-05T19:26:44+0200">
+        Updated: November 5, 2023
     </time>
     | Written by <a href="https://alexn.org/about/" itemprop="url" rel="author">Alexandru Nedelcu</a>
 
@@ -342,14 +345,14 @@ chmod +x ./test.fsi
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202310280643" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202310280643" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202310280643" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202311051730" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202311051730" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202311051730" type="text/javascript"></script>
 
 <!-- Syntax highlighting (https://highlightjs.org/) -->
 <script async src="/assets/js/highlight.min.js" type="text/javascript" onload="hljs.highlightAll();"></script>
 
-<script async src="/assets/js/scripts.js?202310280643" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202311051730" type="text/javascript"></script>
 
 
 <script type="text/javascript">
