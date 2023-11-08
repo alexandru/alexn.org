@@ -2,7 +2,7 @@
 title: "In Scala 3, Use 4 Spaces for Indentation"
 image: /assets/media/articles/2023-scala3-indentation-4-spaces.png
 date: 2023-11-08 20:17:04 +02:00
-last_modified_at: 2023-11-08 22:11:33 +02:00
+last_modified_at: 2023-11-08 22:21:39 +02:00
 generate_toc: true
 tags:
   - Programming
@@ -25,7 +25,7 @@ The Linux kernel uses [indentation with 8 characters](https://www.kernel.org/doc
 >
 > Now, some people will claim that having 8-character indentations makes the code move too far to the right, and makes it hard to read on an 80-character terminal screen. The answer to that is that if you need more than 3 levels of indentation, you're screwed anyway, and should fix your program.
 
-Using 2-spaces of indentation, in Scala, was a good idea in spite of the high cyclomatic complexity. This is because Scala is very expression-oriented, very type safe, and very functional. This means that the compiler can catch a lot of errors, and due to tools such as exhaustive pattern matching, tail-recursive or higher-order functions, we rarely miss branches. Using 2-spaces of indentation was already in a gray area, however. And with significant indentation, it definitely moved into the red zone.
+Using 2-spaces of indentation, in Scala, wasn't terrible despite the high cyclomatic complexity. This is because Scala is very expression-oriented, very type safe, and very functional. This means that the compiler can catch a lot of errors, and due to tools such as exhaustive pattern matching, tail-recursive or higher-order functions, we rarely miss branches. Using 2-spaces of indentation was already in a gray area, however. And with significant indentation, it definitely moved into the red zone.
 
 You may think this isn't serious. I'm seeing indentation errors in blog articles, which weren't there before. And I've made a couple of mistakes myself. Sometimes, the compiler [catches it](./2023-06-06-scala-3-significant-indentation-woes-sample.md), but that may not happen in case of effectful expressions with an irrelevant `Unit` result. And for it to be human-readable, it has to be in your face, unambiguous, even after 10 hours of looking at your screen.
 
