@@ -1,8 +1,8 @@
 ---
-title: "In Scala 3, Use 4 Spaces for Indentation"
+title: "In Scala 3, use 4 Spaces for Indentation"
 image: /assets/media/articles/2023-scala3-indentation-4-spaces.png
 date: 2023-11-08 20:17:04 +02:00
-last_modified_at: 2023-11-08 22:22:15 +02:00
+last_modified_at: 2023-11-09 09:46:11 +02:00
 generate_toc: true
 tags:
   - Programming
@@ -59,7 +59,7 @@ Here is the style guide for other languages with [the off-side rule](https://en.
 This may be my selection bias, but based on these numbers, I could draw a graph with how much people like these languages 😜
 
 <p class="warn-bubble" markdown="1">
-  **NOTE:** Python is different from Scala, as it has the *"only one way of doing things"* philosophy, it's statement oriented, and it doesn't allow significant indentation in the middle of expressions. This is the reason for why Python never got multi-line lambdas. Python is conservative, and the average cyclomatic complexity is lower. It doesn't have static types either. So comparing them is like apples with oranges.
+  **NOTE:** Python is different from Scala, as it has the *"only one way of doing things"* philosophy, it's statement oriented, and it doesn't allow significant indentation in the middle of expressions. This is the reason for why Python never got multi-line lambdas. Python is conservative, and the average cyclomatic complexity is lower.
 </p>
 
 ## Tooling & Configuration
