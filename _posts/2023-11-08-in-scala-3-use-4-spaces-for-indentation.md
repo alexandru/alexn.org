@@ -2,7 +2,7 @@
 title: "In Scala 3, use 4 Spaces for Indentation"
 image: /assets/media/articles/2023-scala3-indentation-4-spaces.png
 date: 2023-11-08 20:17:04 +02:00
-last_modified_at: 2023-11-09 09:46:11 +02:00
+last_modified_at: 2023-11-10 17:45:05 +02:00
 generate_toc: true
 tags:
   - Programming
@@ -85,11 +85,14 @@ max_line_length = 100
 
 Configure the [Scalafmt](https://scalameta.org/scalafmt/) plugin, with the following settings in `.scalafmt.conf`:
 
-```
+```ini
 runner.dialect = scala3
 
 maxColumn = 100
 indent.main = 4
+
+# Recommended, to not penalize `match` statements
+indent.matchSite = 0
 
 newlines.source = keep
 rewrite.scala3.convertToNewSyntax = true
