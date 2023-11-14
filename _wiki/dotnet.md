@@ -1,6 +1,6 @@
 ---
 date: 2020-10-08 08:31:40 +03:00
-last_modified_at: 2023-11-14 11:12:40 +02:00
+last_modified_at: 2023-11-14 11:32:51 +02:00
 ---
 
 # Microsoft .NET
@@ -75,11 +75,6 @@ Unit testing:
 
 - [Expecto](https://github.com/haf/expecto#installing).
 
-Database access:
-
-- [DbUp](https://github.com/DbUp/DbUp): database migrations;
-- [Fluent Migrator](https://github.com/fluentmigrator/fluentmigrator): database migrations.
-
 ## .NET Core
 
 To build self-contained executables, add this in `.csproj`/`.fsproj`:
@@ -95,3 +90,10 @@ To build self-contained executables, add this in `.csproj`/`.fsproj`:
 For NativeAOT:
 
 - [zerosharp](https://github.com/MichalStrehovsky/zerosharp): "demo of the potential of C# for systems programming with the .NET native ahead-of-time compilation technology";
+
+### Libraries
+
+Database migrations:
+
+- [DbUp](https://github.com/DbUp/DbUp);
+- [Fluent Migrator](https://github.com/fluentmigrator/fluentmigrator).
