@@ -1,6 +1,6 @@
 ---
 date: 2020-10-08 08:31:40 +03:00
-last_modified_at: 2023-11-14 11:32:51 +02:00
+last_modified_at: 2023-11-14 11:38:48 +02:00
 ---
 
 # Microsoft .NET
@@ -69,7 +69,7 @@ Native AOT:
 - [Paket](https://fsprojects.github.io/Paket/): for Nuget dependencies management
 - [FAKE](https://fake.build/): build management
 
-### Libraries
+### Libraries (F#)
 
 Unit testing:
 
@@ -91,7 +91,7 @@ For NativeAOT:
 
 - [zerosharp](https://github.com/MichalStrehovsky/zerosharp): "demo of the potential of C# for systems programming with the .NET native ahead-of-time compilation technology";
 
-### Libraries
+### Libraries (General)
 
 Database migrations:
 
