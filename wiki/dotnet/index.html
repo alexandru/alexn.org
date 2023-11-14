@@ -10,16 +10,16 @@
     <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
     <meta name="theme-color" content="#493667">
 
-    <title>Microsoft .NET - Alexandru Nedelcu</title>
+    <title>Microsoft .NET (dotNET) - Alexandru Nedelcu</title>
     
 
     <!-- Open Graph Meta -->
     <meta property="og:site_name" content="Alexandru Nedelcu">
-    <meta property="og:title" content="Microsoft .NET">
+    <meta property="og:title" content="Microsoft .NET (dotNET)">
     <meta property="og:description" content="Personal, volatile wiki documentation">
     <meta property="og:url" content="https://alexn.org/wiki/dotnet/">
     <meta property="article:published_time" content="2020-10-08T05:31:40+00:00">
-    <meta property="article:modified_time" content="2023-11-14T09:38:48+00:00">
+    <meta property="article:modified_time" content="2023-11-14T09:41:14+00:00">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://alexn.org/assets/logo/800px-bordered.png" />
     <meta property="og:image:secure_url" content="https://alexn.org/assets/logo/800px-bordered.png" />
@@ -28,7 +28,7 @@
     <meta name="twitter:image:src" content="https://alexn.org/assets/logo/800px-bordered.png">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
-    <meta name="twitter:title" content="Microsoft .NET">
+    <meta name="twitter:title" content="Microsoft .NET (dotNET)">
     <meta name="twitter:url" content="https://alexn.org/wiki/dotnet/">
     <meta name="twitter:description" content="Personal, volatile wiki documentation">
     <!-- Favicon -->
@@ -114,7 +114,7 @@
       <h1 class="postTitle" itemprop="headline">
         
         
-          Microsoft .NET
+          Microsoft .NET (dotNET)
         
         
       </h1>
@@ -126,7 +126,7 @@
       <meta itemprop="datePublished" content="2020-10-08T05:31:40+0000"/>
       
       
-      <time itemprop="dateModified" content="2023-11-14T11:38:48+0200">
+      <time itemprop="dateModified" content="2023-11-14T11:41:14+0200">
         Updated: November 14, 2023
       </time>
       
@@ -149,6 +149,11 @@
 
   <p><strong>Contents:</strong></p>
   <ul>
+  <li><a href="#net-core">.NET Core</a>
+    <ul>
+      <li><a href="#libraries-general">Libraries (General)</a></li>
+    </ul>
+  </li>
   <li><a href="#c-csharp">C# (CSharp)</a>
     <ul>
       <li><a href="#game-development">Game Development</a></li>
@@ -160,15 +165,48 @@
       <li><a href="#articles">Articles</a></li>
       <li><a href="#presentations">Presentations</a></li>
       <li><a href="#templates">Templates</a></li>
-      <li><a href="#tools">Tools</a></li>
+      <li><a href="#tools-f">Tools (F#)</a></li>
       <li><a href="#libraries-f">Libraries (F#)</a></li>
     </ul>
   </li>
-  <li><a href="#net-core">.NET Core</a>
-    <ul>
-      <li><a href="#libraries-general">Libraries (General)</a></li>
-    </ul>
-  </li>
+</ul>
+      <h2 id="net-core">
+        
+        
+          .NET Core <a href="#net-core" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>To build self-contained executables, add this in <code>.csproj</code>/<code>.fsproj</code>:</p>
+
+<pre><code class="language-xml">&lt;PropertyGroup&gt;
+    &lt;SelfContained&gt;true&lt;/SelfContained&gt;
+    &lt;PublishTrimmed&gt;true&lt;/PublishTrimmed&gt;
+    &lt;PublishSingleFile&gt;true&lt;/PublishSingleFile&gt;
+&lt;/PropertyGroup&gt;
+</code></pre>
+
+<p>For NativeAOT:</p>
+
+<ul>
+  <li><a href="https://github.com/MichalStrehovsky/zerosharp">zerosharp</a>: “demo of the potential of C# for systems programming with the .NET native ahead-of-time compilation technology”;</li>
+</ul>
+      <h3 id="libraries-general">
+        
+        
+          Libraries (General) <a href="#libraries-general" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Database migrations:</p>
+
+<ul>
+  <li><a href="https://github.com/DbUp/DbUp">DbUp</a>;</li>
+  <li><a href="https://github.com/fluentmigrator/fluentmigrator">Fluent Migrator</a>.</li>
 </ul>
       <h2 id="c-csharp">
         
@@ -279,10 +317,10 @@ dotnet publish --configuration Release
   <li><a href="https://github.com/fsprojects/ProjectScaffold">ProjectScaffold</a>: template for new projects</li>
   <li><a href="https://github.com/TheAngryByrd/MiniScaffold">MiniScaffold</a></li>
 </ul>
-      <h3 id="tools">
+      <h3 id="tools-f">
         
         
-          Tools <a href="#tools" class="anchor">#</a>
+          Tools (F#) <a href="#tools-f" class="anchor">#</a>
         
         
       </h3>
@@ -307,44 +345,6 @@ dotnet publish --configuration Release
 <ul>
   <li><a href="https://github.com/haf/expecto#installing">Expecto</a>.</li>
 </ul>
-      <h2 id="net-core">
-        
-        
-          .NET Core <a href="#net-core" class="anchor">#</a>
-        
-        
-      </h2>
-    
-
-<p>To build self-contained executables, add this in <code>.csproj</code>/<code>.fsproj</code>:</p>
-
-<pre><code class="language-xml">&lt;PropertyGroup&gt;
-    &lt;SelfContained&gt;true&lt;/SelfContained&gt;
-    &lt;PublishTrimmed&gt;true&lt;/PublishTrimmed&gt;
-    &lt;PublishSingleFile&gt;true&lt;/PublishSingleFile&gt;
-&lt;/PropertyGroup&gt;
-</code></pre>
-
-<p>For NativeAOT:</p>
-
-<ul>
-  <li><a href="https://github.com/MichalStrehovsky/zerosharp">zerosharp</a>: “demo of the potential of C# for systems programming with the .NET native ahead-of-time compilation technology”;</li>
-</ul>
-      <h3 id="libraries-general">
-        
-        
-          Libraries (General) <a href="#libraries-general" class="anchor">#</a>
-        
-        
-      </h3>
-    
-
-<p>Database migrations:</p>
-
-<ul>
-  <li><a href="https://github.com/DbUp/DbUp">DbUp</a>;</li>
-  <li><a href="https://github.com/fluentmigrator/fluentmigrator">Fluent Migrator</a>.</li>
-</ul>
 
   </div>
 </article>
@@ -352,14 +352,14 @@ dotnet publish --configuration Release
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202311140939" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202311140939" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202311140939" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202311140942" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202311140942" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202311140942" type="text/javascript"></script>
 
 <!-- Syntax highlighting (https://highlightjs.org/) -->
 <script async src="/assets/js/highlight.min.js" type="text/javascript" onload="hljs.highlightAll();"></script>
 
-<script async src="/assets/js/scripts.js?202311140939" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202311140942" type="text/javascript"></script>
 
 
 <script type="text/javascript">
@@ -380,7 +380,7 @@ dotnet publish --configuration Release
     })();
 
     var now = new Date();
-    var url = "https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=Microsoft+.NET&url=https%3A%2F%2Falexn.org%2Fwiki%2Fdotnet%2F" +
+    var url = "https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=Microsoft+.NET+%28dotNET%29&url=https%3A%2F%2Falexn.org%2Fwiki%2Fdotnet%2F" +
       "&rand=" + encodeURIComponent(Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)) +
       "&h=" + now.getHours() +
       "&m=" + now.getMinutes() +
@@ -406,7 +406,7 @@ dotnet publish --configuration Release
   })();
 </script>
 <noscript>
-  <img referrerpolicy="no-referrer-when-downgrade" src="https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=Microsoft+.NET&url=https%3A%2F%2Falexn.org%2Fwiki%2Fdotnet%2F" width="1" height="1" style="position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;" alt="" />
+  <img referrerpolicy="no-referrer-when-downgrade" src="https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=Microsoft+.NET+%28dotNET%29&url=https%3A%2F%2Falexn.org%2Fwiki%2Fdotnet%2F" width="1" height="1" style="position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;" alt="" />
 </noscript>
 
    <div class="footer">
@@ -428,7 +428,7 @@ dotnet publish --configuration Release
       var d = document;
       var a = d.createElement("a");
       a.setAttribute("target", "_blank");
-      a.setAttribute("href", "mailto:" + lhs + "@" + rhs + "?subject=Comment%20on%3A%20Microsoft%20.NET");
+      a.setAttribute("href", "mailto:" + lhs + "@" + rhs + "?subject=Comment%20on%3A%20Microsoft%20.NET%20(dotNET)");
       a.text = lhs + "@" + rhs;
       var es = d.getElementById("email-script");
       es.parentNode.insertBefore(a, es);
@@ -461,7 +461,7 @@ dotnet publish --configuration Release
           data-isso-vote="false"
           data-vote-levels=""
           src="https://alexn.org/comments/alexn/js/embed.min.js"></script>
-  <section id="isso-thread" data-title="Microsoft .NET">
+  <section id="isso-thread" data-title="Microsoft .NET (dotNET)">
   </section>
 </div>
 <noscript>
