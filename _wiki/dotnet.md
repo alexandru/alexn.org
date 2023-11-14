@@ -1,9 +1,32 @@
 ---
 date: 2020-10-08 08:31:40 +03:00
-last_modified_at: 2023-11-14 11:38:48 +02:00
+last_modified_at: 2023-11-14 11:41:14 +02:00
 ---
 
-# Microsoft .NET
+# Microsoft .NET (dotNET)
+
+## .NET Core
+
+To build self-contained executables, add this in `.csproj`/`.fsproj`:
+
+```xml
+<PropertyGroup>
+    <SelfContained>true</SelfContained>
+    <PublishTrimmed>true</PublishTrimmed>
+    <PublishSingleFile>true</PublishSingleFile>
+</PropertyGroup>
+```
+
+For NativeAOT:
+
+- [zerosharp](https://github.com/MichalStrehovsky/zerosharp): "demo of the potential of C# for systems programming with the .NET native ahead-of-time compilation technology";
+
+### Libraries (General)
+
+Database migrations:
+
+- [DbUp](https://github.com/DbUp/DbUp);
+- [Fluent Migrator](https://github.com/fluentmigrator/fluentmigrator).
 
 ## C# (CSharp)
 
@@ -63,7 +86,7 @@ Native AOT:
 - [ProjectScaffold](https://github.com/fsprojects/ProjectScaffold): template for new projects
 - [MiniScaffold](https://github.com/TheAngryByrd/MiniScaffold)
 
-### Tools
+### Tools (F#)
 
 - [Forge](https://github.com/ionide/Forge/): for creating projects
 - [Paket](https://fsprojects.github.io/Paket/): for Nuget dependencies management
@@ -74,26 +97,3 @@ Native AOT:
 Unit testing:
 
 - [Expecto](https://github.com/haf/expecto#installing).
-
-## .NET Core
-
-To build self-contained executables, add this in `.csproj`/`.fsproj`:
-
-```xml
-<PropertyGroup>
-    <SelfContained>true</SelfContained>
-    <PublishTrimmed>true</PublishTrimmed>
-    <PublishSingleFile>true</PublishSingleFile>
-</PropertyGroup>
-```
-
-For NativeAOT:
-
-- [zerosharp](https://github.com/MichalStrehovsky/zerosharp): "demo of the potential of C# for systems programming with the .NET native ahead-of-time compilation technology";
-
-### Libraries (General)
-
-Database migrations:
-
-- [DbUp](https://github.com/DbUp/DbUp);
-- [Fluent Migrator](https://github.com/fluentmigrator/fluentmigrator).
