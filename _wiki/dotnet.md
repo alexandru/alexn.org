@@ -1,6 +1,6 @@
 ---
 date: 2020-10-08 08:31:40 +03:00
-last_modified_at: 2023-10-28 09:42:11 +03:00
+last_modified_at: 2023-11-14 11:12:40 +02:00
 ---
 
 # Microsoft .NET
@@ -71,7 +71,14 @@ Native AOT:
 
 ### Libraries
 
-- [Expecto](https://github.com/haf/expecto#installing): unit testing
+Unit testing:
+
+- [Expecto](https://github.com/haf/expecto#installing).
+
+Database access:
+
+- [DbUp](https://github.com/DbUp/DbUp): database migrations;
+- [Fluent Migrator](https://github.com/fluentmigrator/fluentmigrator): database migrations.
 
 ## .NET Core
 
