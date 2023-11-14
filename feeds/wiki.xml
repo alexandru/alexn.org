@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 14 Nov 2023 09:16:07 +0000</pubDate>
-    <lastBuildDate>Tue, 14 Nov 2023 09:16:07 +0000</lastBuildDate>
+    <pubDate>Tue, 14 Nov 2023 09:34:16 +0000</pubDate>
+    <lastBuildDate>Tue, 14 Nov 2023 09:34:16 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -2522,15 +2522,6 @@ dotnet publish --configuration Release
 &lt;a href=&quot;https://github.com/haf/expecto#installing&quot;&gt;Expecto&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Database access:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-&lt;a href=&quot;https://github.com/DbUp/DbUp&quot;&gt;DbUp&lt;/a&gt;: database migrations;&lt;/li&gt;
-  &lt;li&gt;
-&lt;a href=&quot;https://github.com/fluentmigrator/fluentmigrator&quot;&gt;Fluent Migrator&lt;/a&gt;: database migrations.&lt;/li&gt;
-&lt;/ul&gt;
-
 &lt;h2 id=&quot;net-core&quot;&gt;.NET Core&lt;/h2&gt;
 
 &lt;p&gt;To build self-contained executables, add this in &lt;code&gt;.csproj&lt;/code&gt;/&lt;code&gt;.fsproj&lt;/code&gt;:&lt;/p&gt;
@@ -2547,9 +2538,20 @@ dotnet publish --configuration Release
 &lt;ul&gt;
   &lt;li&gt;
 &lt;a href=&quot;https://github.com/MichalStrehovsky/zerosharp&quot;&gt;zerosharp&lt;/a&gt;: “demo of the potential of C# for systems programming with the .NET native ahead-of-time compilation technology”;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;libraries-1&quot;&gt;Libraries&lt;/h3&gt;
+
+&lt;p&gt;Database migrations:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://github.com/DbUp/DbUp&quot;&gt;DbUp&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://github.com/fluentmigrator/fluentmigrator&quot;&gt;Fluent Migrator&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;</content:encoded><pubDate>Thu, 08 Oct 2020 05:31:40 +0000</pubDate>
-  <dc:modified>Tue, 14 Nov 2023 09:12:40 +0000</dc:modified>
-  <atom:modified>Tue, 14 Nov 2023 09:12:40 +0000</atom:modified>
+  <dc:modified>Tue, 14 Nov 2023 09:32:51 +0000</dc:modified>
+  <atom:modified>Tue, 14 Nov 2023 09:32:51 +0000</atom:modified>
   <link>https://alexn.org/wiki/dotnet/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/dotnet/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
