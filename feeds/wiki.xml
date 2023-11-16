@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 14 Nov 2023 09:42:19 +0000</pubDate>
-    <lastBuildDate>Tue, 14 Nov 2023 09:42:19 +0000</lastBuildDate>
+    <pubDate>Thu, 16 Nov 2023 07:07:41 +0000</pubDate>
+    <lastBuildDate>Thu, 16 Nov 2023 07:07:41 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -2549,9 +2549,16 @@ dotnet publish --configuration Release
 &lt;ul&gt;
   &lt;li&gt;
 &lt;a href=&quot;https://github.com/haf/expecto#installing&quot;&gt;Expecto&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Database access:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://github.com/efcore/EFCore.FSharp&quot;&gt;EFCore Sharp&lt;/a&gt;: F# migrations (design-time) support for EF Core.&lt;/li&gt;
 &lt;/ul&gt;</content:encoded><pubDate>Thu, 08 Oct 2020 05:31:40 +0000</pubDate>
-  <dc:modified>Tue, 14 Nov 2023 09:41:14 +0000</dc:modified>
-  <atom:modified>Tue, 14 Nov 2023 09:41:14 +0000</atom:modified>
+  <dc:modified>Tue, 14 Nov 2023 09:49:36 +0000</dc:modified>
+  <atom:modified>Tue, 14 Nov 2023 09:49:36 +0000</atom:modified>
   <link>https://alexn.org/wiki/dotnet/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/dotnet/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
@@ -4894,11 +4901,11 @@ to the project’s directory and create &lt;code&gt;.python-version&lt;/code&gt;
 <item>
   <title>Rust</title>
   <description>Article
-    updated at September 1, 2022, 
+    updated at November 16, 2023, 
     created at August 24, 2020.</description>
   <content:encoded>&lt;p&gt;
     Article
-    updated at September 1, 2022, 
+    updated at November 16, 2023, 
     created at August 24, 2020.
   &lt;/p&gt;
   &lt;hr&gt;
@@ -4919,19 +4926,34 @@ to the project’s directory and create &lt;code&gt;.python-version&lt;/code&gt;
 &lt;h2 id=&quot;tools-libraries&quot;&gt;Tools, Libraries&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://intellij-rust.github.io/&quot;&gt;IntelliJ Rust&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://neon-bindings.com/&quot;&gt;Neon: Write fast, safe native Node plugins with Rust&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://amethyst.rs/&quot;&gt;Amethyst - Game Engine&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://intellij-rust.github.io/&quot;&gt;IntelliJ Rust&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://neon-bindings.com/&quot;&gt;Neon: Write fast, safe native Node plugins with Rust&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://amethyst.rs/&quot;&gt;Amethyst - Game Engine&lt;/a&gt;;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Web:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://leptos.dev/&quot;&gt;Leptos&lt;/a&gt;: Build fast web applications with Rust;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;documentation&quot;&gt;Documentation&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://doc.rust-lang.org/&quot;&gt;The Rust Programming Language&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://rust-unofficial.github.io/too-many-lists/&quot;&gt;Learn Rust With Entirely Too Many Linked Lists&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://rust-lang.github.io/async-book/&quot;&gt;Asynchronous Programming in Rust&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://sokoban.iolivia.me/&quot;&gt;Rust Sokoban&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://tourofrust.com/&quot;&gt;Tour of Rust&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://doc.rust-lang.org/&quot;&gt;The Rust Programming Language&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://rust-unofficial.github.io/too-many-lists/&quot;&gt;Learn Rust With Entirely Too Many Linked Lists&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://rust-lang.github.io/async-book/&quot;&gt;Asynchronous Programming in Rust&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://sokoban.iolivia.me/&quot;&gt;Rust Sokoban&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://tourofrust.com/&quot;&gt;Tour of Rust&lt;/a&gt;;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;tutorials&quot;&gt;Tutorials&lt;/h2&gt;
@@ -4993,8 +5015,8 @@ cargo check
 
 &lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;rustup component add rls
 &lt;/code&gt;&lt;/pre&gt;</content:encoded><pubDate>Mon, 24 Aug 2020 13:24:31 +0000</pubDate>
-  <dc:modified>Thu, 01 Sep 2022 14:25:17 +0000</dc:modified>
-  <atom:modified>Thu, 01 Sep 2022 14:25:17 +0000</atom:modified>
+  <dc:modified>Thu, 16 Nov 2023 07:05:51 +0000</dc:modified>
+  <atom:modified>Thu, 16 Nov 2023 07:05:51 +0000</atom:modified>
   <link>https://alexn.org/wiki/rust/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/rust/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
