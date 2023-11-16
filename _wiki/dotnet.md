@@ -1,6 +1,6 @@
 ---
 date: 2020-10-08 08:31:40 +03:00
-last_modified_at: 2023-11-14 11:41:14 +02:00
+last_modified_at: 2023-11-14 11:49:36 +02:00
 ---
 
 # Microsoft .NET (dotNET)
@@ -97,3 +97,7 @@ Native AOT:
 Unit testing:
 
 - [Expecto](https://github.com/haf/expecto#installing).
+
+Database access:
+
+- [EFCore Sharp](https://github.com/efcore/EFCore.FSharp): F# migrations (design-time) support for EF Core.

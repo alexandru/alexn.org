@@ -1,6 +1,6 @@
 ---
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2022-09-01 17:25:17 +03:00
+last_modified_at: 2023-11-16 09:05:51 +02:00
 ---
 
 # Rust
@@ -23,17 +23,21 @@ rustup self uninstall
 
 ## Tools, Libraries
 
-- [IntelliJ Rust](https://intellij-rust.github.io/)
-- [Neon: Write fast, safe native Node plugins with Rust](https://neon-bindings.com/)
-- [Amethyst - Game Engine](https://amethyst.rs/)
+- [IntelliJ Rust](https://intellij-rust.github.io/);
+- [Neon: Write fast, safe native Node plugins with Rust](https://neon-bindings.com/);
+- [Amethyst - Game Engine](https://amethyst.rs/);
+
+Web:
+
+- [Leptos](https://leptos.dev/): Build fast web applications with Rust;
 
 ## Documentation
 
-- [The Rust Programming Language](https://doc.rust-lang.org/)
-- [Learn Rust With Entirely Too Many Linked Lists](https://rust-unofficial.github.io/too-many-lists/)
-- [Asynchronous Programming in Rust](https://rust-lang.github.io/async-book/)
-- [Rust Sokoban](https://sokoban.iolivia.me/)
-- [Tour of Rust](https://tourofrust.com/)
+- [The Rust Programming Language](https://doc.rust-lang.org/);
+- [Learn Rust With Entirely Too Many Linked Lists](https://rust-unofficial.github.io/too-many-lists/);
+- [Asynchronous Programming in Rust](https://rust-lang.github.io/async-book/);
+- [Rust Sokoban](https://sokoban.iolivia.me/);
+- [Tour of Rust](https://tourofrust.com/);
 
 ## Tutorials
 
