@@ -1,6 +1,6 @@
 ---
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2023-02-04 21:00:21 +02:00
+last_modified_at: 2023-12-01 19:48:20 +02:00
 ---
 
 # Firefox
@@ -28,14 +28,18 @@ last_modified_at: 2023-02-04 21:00:21 +02:00
 - [vim-vixen](https://github.com/ueokande/vim-vixen): Vim keybindings for Firefox;
 - [Wayback Machine](https://addons.mozilla.org/en-US/firefox/addon/wayback-machine_new/): save and view archived versions of websites;
 
-## Auto-sync about:config settings
+## Settings
+
+[about:config](about:config)
+
+### Auto-sync about:config settings
 
 Source:
 <https://www.addictivetips.com/web/sync-about-config-preferences-with-firefox-sync/>
 
 For each setting to be synched, add:
 
-``` 
+```
 services.sync.prefs.<setting> true
 ```
 
@@ -47,7 +51,7 @@ services.sync.prefs.toolkit.legacyUserProfileCustomizations.stylesheets
 services.sync.prefs.media.hardwaremediakeys.enabled
 ```
 
-## Activate compact mode (after Proton)
+### Activate compact mode (after Proton)
 
 In `about:config`:
 
@@ -57,7 +61,7 @@ browser.compactmode.show = true
 
 Source: <https://support.mozilla.org/en-US/kb/compact-mode-workaround-firefox>
 
-## Restore Pinned Tabs on Demand
+### Restore Pinned Tabs on Demand
 
 Note sure how to prevent the pinned tabs from opening at all, but at least this delays them loading, until you activate the tabs:
 
@@ -67,7 +71,7 @@ browser.sessionstore.restore_pinned_tabs_on_demand = true
 services.sync.prefs.browser.sessionstore.restore_pinned_tabs_on_demand = true
 ```
 
-## Hide Native Tabs (for Tree Style Tabs)
+### Hide Native Tabs (for Tree Style Tabs)
 
 <https://medium.com/@Aenon/firefox-hide-native-tabs-and-titlebar-f0b00bdbb88b>
 
@@ -91,6 +95,16 @@ Then in the `<Profile folder>/chrome/userChrome.css`:
 #sidebar-header {
   visibility: collapse !important;
 }
+```
+
+### Enable calculator
+
+Source: <https://xoxo.zone/@annika/111459732964070961>
+
+```
+browser.urlbar.suggest.calculator = true
+
+services.sync.prefs.browser.urlbar.suggest.calculator = true
 ```
 
 ## All about: Pages
