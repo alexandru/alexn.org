@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 30 Nov 2023 17:30:46 +0000</pubDate>
-    <lastBuildDate>Thu, 30 Nov 2023 17:30:46 +0000</lastBuildDate>
+    <pubDate>Fri, 01 Dec 2023 17:49:38 +0000</pubDate>
+    <lastBuildDate>Fri, 01 Dec 2023 17:49:38 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -3675,11 +3675,11 @@ alias eb=emacs_open_buffer
 <item>
   <title>Firefox</title>
   <description>Article
-    updated at February 4, 2023, 
+    updated at December 1, 2023, 
     created at August 24, 2020.</description>
   <content:encoded>&lt;p&gt;
     Article
-    updated at February 4, 2023, 
+    updated at December 1, 2023, 
     created at August 24, 2020.
   &lt;/p&gt;
   &lt;hr&gt;
@@ -3728,7 +3728,11 @@ alias eb=emacs_open_buffer
 &lt;a href=&quot;https://addons.mozilla.org/en-US/firefox/addon/wayback-machine_new/&quot;&gt;Wayback Machine&lt;/a&gt;: save and view archived versions of websites;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;auto-sync-aboutconfig-settings&quot;&gt;Auto-sync about:config settings&lt;/h2&gt;
+&lt;h2 id=&quot;settings&quot;&gt;Settings&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;about:config&quot;&gt;about:config&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;auto-sync-aboutconfig-settings&quot;&gt;Auto-sync about:config settings&lt;/h3&gt;
 
 &lt;p&gt;Source:
 &lt;a href=&quot;https://www.addictivetips.com/web/sync-about-config-preferences-with-firefox-sync/&quot;&gt;https://www.addictivetips.com/web/sync-about-config-preferences-with-firefox-sync/&lt;/a&gt;&lt;/p&gt;
@@ -3745,7 +3749,7 @@ alias eb=emacs_open_buffer
 services.sync.prefs.media.hardwaremediakeys.enabled
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&quot;activate-compact-mode-after-proton&quot;&gt;Activate compact mode (after Proton)&lt;/h2&gt;
+&lt;h3 id=&quot;activate-compact-mode-after-proton&quot;&gt;Activate compact mode (after Proton)&lt;/h3&gt;
 
 &lt;p&gt;In &lt;code&gt;about:config&lt;/code&gt;:&lt;/p&gt;
 
@@ -3754,7 +3758,7 @@ services.sync.prefs.media.hardwaremediakeys.enabled
 
 &lt;p&gt;Source: &lt;a href=&quot;https://support.mozilla.org/en-US/kb/compact-mode-workaround-firefox&quot;&gt;https://support.mozilla.org/en-US/kb/compact-mode-workaround-firefox&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;restore-pinned-tabs-on-demand&quot;&gt;Restore Pinned Tabs on Demand&lt;/h2&gt;
+&lt;h3 id=&quot;restore-pinned-tabs-on-demand&quot;&gt;Restore Pinned Tabs on Demand&lt;/h3&gt;
 
 &lt;p&gt;Note sure how to prevent the pinned tabs from opening at all, but at least this delays them loading, until you activate the tabs:&lt;/p&gt;
 
@@ -3763,7 +3767,7 @@ services.sync.prefs.media.hardwaremediakeys.enabled
 services.sync.prefs.browser.sessionstore.restore_pinned_tabs_on_demand = true
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&quot;hide-native-tabs-for-tree-style-tabs&quot;&gt;Hide Native Tabs (for Tree Style Tabs)&lt;/h2&gt;
+&lt;h3 id=&quot;hide-native-tabs-for-tree-style-tabs&quot;&gt;Hide Native Tabs (for Tree Style Tabs)&lt;/h3&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://medium.com/@Aenon/firefox-hide-native-tabs-and-titlebar-f0b00bdbb88b&quot;&gt;https://medium.com/@Aenon/firefox-hide-native-tabs-and-titlebar-f0b00bdbb88b&lt;/a&gt;&lt;/p&gt;
 
@@ -3785,6 +3789,15 @@ services.sync.prefs.toolkit.legacyUserProfileCustomizations.stylesheets = true
 #sidebar-header {
   visibility: collapse !important;
 }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;enable-calculator&quot;&gt;Enable calculator&lt;/h3&gt;
+
+&lt;p&gt;Source: &lt;a href=&quot;https://xoxo.zone/@annika/111459732964070961&quot;&gt;https://xoxo.zone/@annika/111459732964070961&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;browser.urlbar.suggest.calculator = true
+
+services.sync.prefs.browser.urlbar.suggest.calculator = true
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id=&quot;all-about-pages&quot;&gt;All about: Pages&lt;/h2&gt;
@@ -3831,8 +3844,8 @@ services.sync.prefs.toolkit.legacyUserProfileCustomizations.stylesheets = true
   &lt;li&gt;&lt;a href=&quot;https://support.mozilla.org/en-US/kb/canary-domain-use-application-dnsnet&quot;&gt;Canary domain - use-application-dns.net&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://wiki.mozilla.org/Trusted_Recursive_Resolver&quot;&gt;Trusted Recursive Resolver&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</content:encoded><pubDate>Mon, 24 Aug 2020 13:24:31 +0000</pubDate>
-  <dc:modified>Sat, 04 Feb 2023 19:00:21 +0000</dc:modified>
-  <atom:modified>Sat, 04 Feb 2023 19:00:21 +0000</atom:modified>
+  <dc:modified>Fri, 01 Dec 2023 17:48:20 +0000</dc:modified>
+  <atom:modified>Fri, 01 Dec 2023 17:48:20 +0000</atom:modified>
   <link>https://alexn.org/wiki/firefox/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/firefox/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>

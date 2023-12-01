@@ -19,7 +19,7 @@
     <meta property="og:description" content="Personal, volatile wiki documentation">
     <meta property="og:url" content="https://alexn.org/wiki/firefox/">
     <meta property="article:published_time" content="2020-08-24T13:24:31+00:00">
-    <meta property="article:modified_time" content="2023-02-04T19:00:21+00:00">
+    <meta property="article:modified_time" content="2023-12-01T17:48:20+00:00">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://alexn.org/assets/logo/800px-bordered.png" />
     <meta property="og:image:secure_url" content="https://alexn.org/assets/logo/800px-bordered.png" />
@@ -126,8 +126,8 @@
       <meta itemprop="datePublished" content="2020-08-24T13:24:31+0000"/>
       
       
-      <time itemprop="dateModified" content="2023-02-04T21:00:21+0200">
-        Updated: February 4, 2023
+      <time itemprop="dateModified" content="2023-12-01T19:48:20+0200">
+        Updated: December 1, 2023
       </time>
       
       
@@ -150,10 +150,15 @@
   <p><strong>Contents:</strong></p>
   <ul>
   <li><a href="#cool-extensions">Cool Extensions</a></li>
-  <li><a href="#auto-sync-aboutconfig-settings">Auto-sync about:config settings</a></li>
-  <li><a href="#activate-compact-mode-after-proton">Activate compact mode (after Proton)</a></li>
-  <li><a href="#restore-pinned-tabs-on-demand">Restore Pinned Tabs on Demand</a></li>
-  <li><a href="#hide-native-tabs-for-tree-style-tabs">Hide Native Tabs (for Tree Style Tabs)</a></li>
+  <li><a href="#settings">Settings</a>
+    <ul>
+      <li><a href="#auto-sync-aboutconfig-settings">Auto-sync about:config settings</a></li>
+      <li><a href="#activate-compact-mode-after-proton">Activate compact mode (after Proton)</a></li>
+      <li><a href="#restore-pinned-tabs-on-demand">Restore Pinned Tabs on Demand</a></li>
+      <li><a href="#hide-native-tabs-for-tree-style-tabs">Hide Native Tabs (for Tree Style Tabs)</a></li>
+      <li><a href="#enable-calculator">Enable calculator</a></li>
+    </ul>
+  </li>
   <li><a href="#all-about-pages">All about: Pages</a></li>
   <li><a href="#docs">Docs</a></li>
 </ul>
@@ -188,13 +193,23 @@
   <li><a href="https://github.com/ueokande/vim-vixen">vim-vixen</a>: Vim keybindings for Firefox;</li>
   <li><a href="https://addons.mozilla.org/en-US/firefox/addon/wayback-machine_new/">Wayback Machine</a>: save and view archived versions of websites;</li>
 </ul>
-      <h2 id="auto-sync-aboutconfig-settings">
+      <h2 id="settings">
+        
+        
+          Settings <a href="#settings" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p><a href="about:config">about:config</a></p>
+      <h3 id="auto-sync-aboutconfig-settings">
         
         
           Auto-sync about:config settings <a href="#auto-sync-aboutconfig-settings" class="anchor">#</a>
         
         
-      </h2>
+      </h3>
     
 
 <p>Source:
@@ -211,13 +226,13 @@
 
 services.sync.prefs.media.hardwaremediakeys.enabled
 </code></pre>
-      <h2 id="activate-compact-mode-after-proton">
+      <h3 id="activate-compact-mode-after-proton">
         
         
           Activate compact mode (after Proton) <a href="#activate-compact-mode-after-proton" class="anchor">#</a>
         
         
-      </h2>
+      </h3>
     
 
 <p>In <code>about:config</code>:</p>
@@ -226,13 +241,13 @@ services.sync.prefs.media.hardwaremediakeys.enabled
 </code></pre>
 
 <p>Source: <a href="https://support.mozilla.org/en-US/kb/compact-mode-workaround-firefox">https://support.mozilla.org/en-US/kb/compact-mode-workaround-firefox</a></p>
-      <h2 id="restore-pinned-tabs-on-demand">
+      <h3 id="restore-pinned-tabs-on-demand">
         
         
           Restore Pinned Tabs on Demand <a href="#restore-pinned-tabs-on-demand" class="anchor">#</a>
         
         
-      </h2>
+      </h3>
     
 
 <p>Note sure how to prevent the pinned tabs from opening at all, but at least this delays them loading, until you activate the tabs:</p>
@@ -241,13 +256,13 @@ services.sync.prefs.media.hardwaremediakeys.enabled
 
 services.sync.prefs.browser.sessionstore.restore_pinned_tabs_on_demand = true
 </code></pre>
-      <h2 id="hide-native-tabs-for-tree-style-tabs">
+      <h3 id="hide-native-tabs-for-tree-style-tabs">
         
         
           Hide Native Tabs (for Tree Style Tabs) <a href="#hide-native-tabs-for-tree-style-tabs" class="anchor">#</a>
         
         
-      </h2>
+      </h3>
     
 
 <p><a href="https://medium.com/@Aenon/firefox-hide-native-tabs-and-titlebar-f0b00bdbb88b">https://medium.com/@Aenon/firefox-hide-native-tabs-and-titlebar-f0b00bdbb88b</a></p>
@@ -270,6 +285,21 @@ services.sync.prefs.toolkit.legacyUserProfileCustomizations.stylesheets = true
 #sidebar-header {
   visibility: collapse !important;
 }
+</code></pre>
+      <h3 id="enable-calculator">
+        
+        
+          Enable calculator <a href="#enable-calculator" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Source: <a href="https://xoxo.zone/@annika/111459732964070961">https://xoxo.zone/@annika/111459732964070961</a></p>
+
+<pre><code>browser.urlbar.suggest.calculator = true
+
+services.sync.prefs.browser.urlbar.suggest.calculator = true
 </code></pre>
       <h2 id="all-about-pages">
         
@@ -335,14 +365,14 @@ services.sync.prefs.toolkit.legacyUserProfileCustomizations.stylesheets = true
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202311301730" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202311301730" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202311301730" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202312011749" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202312011749" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202312011749" type="text/javascript"></script>
 
 <!-- Syntax highlighting (https://highlightjs.org/) -->
 <script async src="/assets/js/highlight.min.js" type="text/javascript" onload="hljs.highlightAll();"></script>
 
-<script async src="/assets/js/scripts.js?202311301730" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202312011749" type="text/javascript"></script>
 
 
 <script type="text/javascript">
