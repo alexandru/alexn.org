@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 04 Dec 2023 14:23:10 +0000</pubDate>
-    <lastBuildDate>Mon, 04 Dec 2023 14:23:10 +0000</lastBuildDate>
+    <pubDate>Mon, 04 Dec 2023 15:25:03 +0000</pubDate>
+    <lastBuildDate>Mon, 04 Dec 2023 15:25:03 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -4914,11 +4914,11 @@ to the project’s directory and create &lt;code&gt;.python-version&lt;/code&gt;
 <item>
   <title>Rust</title>
   <description>Article
-    updated at November 16, 2023, 
+    updated at December 4, 2023, 
     created at August 24, 2020.</description>
   <content:encoded>&lt;p&gt;
     Article
-    updated at November 16, 2023, 
+    updated at December 4, 2023, 
     created at August 24, 2020.
   &lt;/p&gt;
   &lt;hr&gt;
@@ -4938,9 +4938,18 @@ to the project’s directory and create &lt;code&gt;.python-version&lt;/code&gt;
 
 &lt;h2 id=&quot;tools-libraries&quot;&gt;Tools, Libraries&lt;/h2&gt;
 
+&lt;p&gt;Build tools:&lt;/p&gt;
+
 &lt;ul&gt;
   &lt;li&gt;
-&lt;a href=&quot;https://intellij-rust.github.io/&quot;&gt;IntelliJ Rust&lt;/a&gt;;&lt;/li&gt;
+&lt;a href=&quot;https://github.com/rust-lang/rust-clippy&quot;&gt;rust-clippy&lt;/a&gt;: linting for catching common mistakes;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://github.com/rust-lang/rustfmt&quot;&gt;rustfmt&lt;/a&gt;: automatic code formatting;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Fun stuff:&lt;/p&gt;
+
+&lt;ul&gt;
   &lt;li&gt;
 &lt;a href=&quot;https://neon-bindings.com/&quot;&gt;Neon: Write fast, safe native Node plugins with Rust&lt;/a&gt;;&lt;/li&gt;
   &lt;li&gt;
@@ -4951,14 +4960,20 @@ to the project’s directory and create &lt;code&gt;.python-version&lt;/code&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
-&lt;a href=&quot;https://leptos.dev/&quot;&gt;Leptos&lt;/a&gt;: Build fast web applications with Rust;&lt;/li&gt;
+&lt;a href=&quot;https://leptos.dev/&quot;&gt;Leptos&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://rocket.rs/&quot;&gt;Rocket&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://www.arewewebyet.org/&quot;&gt;Other&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;documentation&quot;&gt;Documentation&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
-&lt;a href=&quot;https://doc.rust-lang.org/&quot;&gt;The Rust Programming Language&lt;/a&gt;;&lt;/li&gt;
+&lt;a href=&quot;https://doc.rust-lang.org/&quot;&gt;The Rust Programming Language&lt;/a&gt;: official book for beginners;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://doc.rust-lang.org/rust-by-example/&quot;&gt;Rust by Example&lt;/a&gt;: another official book;&lt;/li&gt;
   &lt;li&gt;
 &lt;a href=&quot;https://rust-unofficial.github.io/too-many-lists/&quot;&gt;Learn Rust With Entirely Too Many Linked Lists&lt;/a&gt;;&lt;/li&gt;
   &lt;li&gt;
@@ -5028,8 +5043,8 @@ cargo check
 
 &lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;rustup component add rls
 &lt;/code&gt;&lt;/pre&gt;</content:encoded><pubDate>Mon, 24 Aug 2020 13:24:31 +0000</pubDate>
-  <dc:modified>Thu, 16 Nov 2023 07:05:51 +0000</dc:modified>
-  <atom:modified>Thu, 16 Nov 2023 07:05:51 +0000</atom:modified>
+  <dc:modified>Mon, 04 Dec 2023 15:24:15 +0000</dc:modified>
+  <atom:modified>Mon, 04 Dec 2023 15:24:15 +0000</atom:modified>
   <link>https://alexn.org/wiki/rust/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/rust/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
