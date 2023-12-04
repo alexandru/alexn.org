@@ -1,8 +1,10 @@
 ---
 title: "December Adventure: Learning Rust"
 image: /assets/media/articles/2023-december.jpg
+image_caption: >
+  Postcard by publisher Brück & Sohn in Meißen.
 date: 2023-12-04 13:04:09 +02:00
-last_modified_at: 2023-12-04 16:22:29 +02:00
+last_modified_at: 2023-12-04 18:59:29 +02:00
 tags:
   - Blogging
   - Books
