@@ -1,6 +1,6 @@
 ---
 date: 2020-10-08 08:31:40 +03:00
-last_modified_at: 2023-11-14 11:49:36 +02:00
+last_modified_at: 2023-12-23 17:39:56 +02:00
 ---
 
 # Microsoft .NET (dotNET)
@@ -34,6 +34,24 @@ Database migrations:
 
 - [Game Development with .NET](https://devblogs.microsoft.com/dotnet/game-development-with-net/) (article)
 - [Available game engines](https://dotnet.microsoft.com/apps/games/engines?WT.mc_id=gamedev-blog-abhamed)
+
+### Web Development
+
+- [ASP.NET](https://dotnet.microsoft.com/en-us/apps/aspnet);
+- [PostgreSQL in C# .NET with Npgsql, Dapper, and Entity Framework](https://michaelscodingspot.com/postgres-in-csharp/);
+
+```sh
+# Starting a new solution
+dotnet new sln -o MyBigProject
+cd MyBigProject
+
+# Start a new web app
+dotnet new webapp -o web-app --no-https -f net7.0
+cd web-app
+
+# Start development server
+dotnet watch
+```
 
 ## F# (FSharp)
 
