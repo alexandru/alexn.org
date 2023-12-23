@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 13 Dec 2023 08:22:55 +0000</pubDate>
-    <lastBuildDate>Wed, 13 Dec 2023 08:22:55 +0000</lastBuildDate>
+    <pubDate>Sat, 23 Dec 2023 15:41:04 +0000</pubDate>
+    <lastBuildDate>Sat, 23 Dec 2023 15:41:04 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -2423,11 +2423,11 @@ So &lt;code&gt;&quot;*y&lt;/code&gt; copies to the system clipboard, and &lt;cod
 <item>
   <title>Microsoft .NET (dotNET)</title>
   <description>Article
-    updated at November 14, 2023, 
+    updated at December 23, 2023, 
     created at October 8, 2020.</description>
   <content:encoded>&lt;p&gt;
     Article
-    updated at November 14, 2023, 
+    updated at December 23, 2023, 
     created at October 8, 2020.
   &lt;/p&gt;
   &lt;hr&gt;
@@ -2469,6 +2469,27 @@ So &lt;code&gt;&quot;*y&lt;/code&gt; copies to the system clipboard, and &lt;cod
 &lt;a href=&quot;https://devblogs.microsoft.com/dotnet/game-development-with-net/&quot;&gt;Game Development with .NET&lt;/a&gt; (article)&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://dotnet.microsoft.com/apps/games/engines?WT.mc_id=gamedev-blog-abhamed&quot;&gt;Available game engines&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h3 id=&quot;web-development&quot;&gt;Web Development&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://dotnet.microsoft.com/en-us/apps/aspnet&quot;&gt;ASP.NET&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://michaelscodingspot.com/postgres-in-csharp/&quot;&gt;PostgreSQL in C# .NET with Npgsql, Dapper, and Entity Framework&lt;/a&gt;;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;# Starting a new solution
+dotnet new sln -o MyBigProject
+cd MyBigProject
+
+# Start a new web app
+dotnet new webapp -o web-app --no-https -f net7.0
+cd web-app
+
+# Start development server
+dotnet watch
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id=&quot;f-fsharp&quot;&gt;F# (FSharp)&lt;/h2&gt;
 
@@ -2557,8 +2578,8 @@ dotnet publish --configuration Release
   &lt;li&gt;
 &lt;a href=&quot;https://github.com/efcore/EFCore.FSharp&quot;&gt;EFCore Sharp&lt;/a&gt;: F# migrations (design-time) support for EF Core.&lt;/li&gt;
 &lt;/ul&gt;</content:encoded><pubDate>Thu, 08 Oct 2020 05:31:40 +0000</pubDate>
-  <dc:modified>Tue, 14 Nov 2023 09:49:36 +0000</dc:modified>
-  <atom:modified>Tue, 14 Nov 2023 09:49:36 +0000</atom:modified>
+  <dc:modified>Sat, 23 Dec 2023 15:39:56 +0000</dc:modified>
+  <atom:modified>Sat, 23 Dec 2023 15:39:56 +0000</atom:modified>
   <link>https://alexn.org/wiki/dotnet/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/dotnet/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
