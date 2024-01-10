@@ -55,8 +55,7 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:image" content="{% if page.image %}{{ page.image | prepend: site.url }}?{{ 'now' | date: '%Y%m%d%H%M' }}{% else %}{{ page.youtube | youtube_thumb_link }}{% endif %}" />
     {% elsif page.image -%}
-    <!-- <meta name="twitter:card" content="summary_large_image"> -->
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image:src" content="{{ page.image | prepend: site.url }}?{{ 'now' | date: '%Y%m%d%H%M' }}">
     {% else -%}
     <meta name="twitter:card" content="summary">
