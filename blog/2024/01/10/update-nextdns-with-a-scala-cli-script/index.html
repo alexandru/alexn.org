@@ -20,13 +20,13 @@
     <meta property="og:description" content="On programming and personal projects">
     <meta property="og:url" content="https://alexn.org/blog/2024/01/10/update-nextdns-with-a-scala-cli-script/">
     <meta property="article:published_time" content="2024-01-10T11:14:14+00:00">
-    <meta property="article:modified_time" content="2024-01-10T13:41:21+00:00">
+    <meta property="article:modified_time" content="2024-01-10T15:57:06+00:00">
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2014-scala-cli.png?202401101541" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2014-scala-cli.png?202401101541" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2014-scala-cli.png?202401101602" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2014-scala-cli.png?202401101602" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2014-scala-cli.png?202401101541">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2014-scala-cli.png?202401101602">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Update NextDNS with a Scala CLI script">
@@ -167,7 +167,11 @@
 
 <p><strong>Solution:</strong> a Scala script that updates the NextDNS configuration with overrides for the internal resources that I care about, as <a href="https://nextdns.github.io/api/">NextDNS has an HTTP API</a> that I can use.</p>
 
-<pre><code class="language-scala">#!/usr/bin/env -S scala-cli shebang -q
+<p class="warn-bubble">
+The following script uses <a href="https://docs.scala-lang.org/scala3/book/introduction.html">Scala 3</a>, with <a href="/blog/2023/11/08/in-scala-3-use-4-spaces-for-indentation/">4-spaces</a> for <a href="https://docs.scala-lang.org/scala3/reference/other-new-features/indentation.html">significant indentation</a>. It’s executable, and running it requires just having <a href="https://scala-cli.virtuslab.org/install">Scala CLI installed</a>.
+</p>
+
+<pre><code class="language-scala">#!/usr/bin/env -S scala-cli shebang
 
 //&gt; using scala "3.3.1"
 //&gt; using toolkit latest
@@ -275,23 +279,6 @@ object Main extends CommandApp(
 
         (apiKey, profileId, dryRun).mapN(run)
 )
-
-object Main extends CommandApp(
-    name = "nextdns-vpn-update",
-    header = "Update NextDNS's rewrites based on the current DNS (corporate VPN)",
-    main = {
-        val apiKey = Opts
-            .option[String]("api-key", help = "NextDNS API key")
-            .orElse(Opts.env[String]("NEXTDNS_API_KEY", help = "NextDNS API key"))
-        val profileId = Opts
-            .option[String]("profile-id", help = "NextDNS profile ID")
-            .orElse(Opts.env[String]("NEXTDNS_PROFILE_ID", help = "NextDNS profile ID"))
-        val dryRun = Opts
-            .flag("dry-run", help = "Dry run").orFalse
-
-        (apiKey, profileId, dryRun).mapN(run)
-   }
-)
 </code></pre>
 
 <p>Of note, the requirements for such a script:</p>
@@ -317,7 +304,7 @@ object Main extends CommandApp(
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2024-01-10T15:41:21+0200">
+    <time itemprop="dateModified" content="2024-01-10T17:57:06+0200">
         Updated: January 10, 2024
     </time>
     | Written by <a href="https://alexn.org/about/" itemprop="url" rel="author">Alexandru Nedelcu</a>
@@ -431,14 +418,14 @@ object Main extends CommandApp(
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202401101541" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202401101541" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202401101541" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202401101602" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202401101602" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202401101602" type="text/javascript"></script>
 
 <!-- Syntax highlighting (https://highlightjs.org/) -->
 <script async src="/assets/js/highlight.min.js" type="text/javascript" onload="hljs.highlightAll();"></script>
 
-<script async src="/assets/js/scripts.js?202401101541" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202401101602" type="text/javascript"></script>
 
 
 <script type="text/javascript">
