@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="color-scheme" content="light dark">
+    <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
+    <meta name="theme-color" content="#493667">
+
+    <title>Scala&#39;s Future - Alexandru Nedelcu</title>
+    
+
+    <!-- Open Graph Meta -->
+    <meta property="og:site_name" content="Alexandru Nedelcu">
+    <meta property="og:title" content="Scala&amp;#39;s Future">
+    
+    <meta property="og:description" content="On programming and personal projects">
+    <meta property="og:url" content="https://alexn.org/blog/2024/01/10/is-scala-in-trouble/">
+    <meta property="article:published_time" content="2024-01-10T17:37:53+00:00">
+    <meta property="article:modified_time" content="2024-01-10T21:51:16+00:00">
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2024-scala-hexa.png?202401102151" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2024-scala-hexa.png?202401102151" />
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2024-scala-hexa.png?202401102151">
+    <meta name="twitter:site" content="@alexelcu">
+    <meta name="twitter:creator" content="@alexelcu">
+    <meta name="twitter:title" content="Scala&#39;s Future">
+    <meta name="twitter:url" content="https://alexn.org/blog/2024/01/10/is-scala-in-trouble/">
+    <meta name="twitter:description" content="On programming and personal projects">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/logo/16px.png" sizes="16x16" />
+    <link rel="icon" href="/assets/logo/32px.png" sizes="32x32" />
+    <link rel="icon" href="/assets/logo/192px.png" sizes="192x192" />
+    <link rel="icon" href="/assets/logo/270px.png" sizes="270x270" />
+    <link rel="icon" href="/assets/logo/512px.png" sizes="512x512" />
+    <link rel="apple-touch-icon-precomposed" href="/assets/logo/180px.png" />
+    <meta name="msapplication-TileImage" content="/assets/logo/270px.png" />
+
+    <!-- Come and get me RSS readers -->
+    <link rel="alternate" type="application/rss+xml" title="All articles (blog + wiki)" href="/feeds/all.xml" />
+
+    <!-- Points at alexn.org, taking care of the search-engine indexing of mirrors: -->
+    <link rel="canonical" href="https://alexn.org/blog/2024/01/10/is-scala-in-trouble/">
+
+    <style type="text/css" media="all">
+      /*! normalize.css v6.0.0 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:rgba(0,0,0,0);-webkit-text-decoration-skip:objects}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-0.25em}sup{top:-0.5em}audio,video{display:inline-block}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{margin:0}button,input{overflow:visible}button,select{text-transform:none}button,html [type=button],[type=reset],[type=submit]{-webkit-appearance:button}button::-moz-focus-inner,[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring{outline:1px dotted ButtonText}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{display:inline-block;vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details,menu{display:block}summary{display:list-item}canvas{display:inline-block}template{display:none}[hidden]{display:none}body .intro{font-size:1.25em;line-height:1.7}h1,.h1,h2,.h2,h3,.h3,h4,.h4,h5,.h5,h6,.h6{margin:.5rem 0 1.5rem;font-family:"Gill Sans",Tahoma,Helvetica,Arial,sans-serif}h1,.h1{font-size:2em;line-height:1.25}@media(min-width: 43.75em){h1,.h1{font-size:2.5em;line-height:1.125}}@media(min-width: 56.25em){h1,.h1{font-size:3em;line-height:1.05}}h2,.h2{font-size:1.625em;line-height:1.15384615}@media(min-width: 43.75em){h2,.h2{font-size:2em;line-height:1.25}}@media(min-width: 56.25em){h2,.h2{font-size:2.25em;line-height:1.25}}h3,.h3{font-size:1.375em;line-height:1.13636364}@media(min-width: 43.75em){h3,.h3{font-size:1.5em;line-height:1.25}}@media(min-width: 56.25em){h3,.h3{font-size:1.75em;line-height:1.25}}h4,.h4{font-size:1.125em;line-height:1.11111111}@media(min-width: 43.75em){h4,.h4{line-height:1.22222222}}.button__outline,.button-tertiary,.button-secondary,.button{background-color:#00649e;display:inline-block;position:relative;font-family:"Gill Sans",Tahoma,Helvetica,Arial,sans-serif;text-decoration:none;color:#fff;font-size:1em;line-height:1.2em;font-weight:normal;padding:.5em 1.5em;border:0;border-radius:4px;cursor:pointer;margin-bottom:.5em;transition:background-color .14s ease-in-out}.button__outline:hover,.button-tertiary:hover,.button-secondary:hover,.button:hover,.button__outline:focus,.button-tertiary:focus,.button-secondary:focus,.button:focus{color:#fff;text-decoration:none;background-color:#00446b}.button__outline:active,.button-tertiary:active,.button-secondary:active,.button:active{top:1px}.button-secondary{background-color:#008bd8}.button-secondary:hover{background-color:#006aa5}.button-tertiary{background-color:#aaa}.button-tertiary:hover{background-color:#919191}.button__outline{background-color:rgba(0,0,0,0);border:3px solid #00649e;color:#00649e}.button__outline:hover{background-color:#00649e;color:#fff}span.link-logo{text-decoration:none !important}span.link-logo img{height:28px;width:28px;vertical-align:middle;margin-right:10px}a span.link-logo img{filter:invert(17%) sepia(47%) saturate(1856%) hue-rotate(174deg) brightness(95%) contrast(97%)}label{display:block;margin-bottom:5px}input[type=text],input[type=email],input[type=phone],input[type=password],input[type=number],input[type=search],textarea{background:#e6e6e6;padding:5px;outline:none;border:none;height:44px;width:300px;margin-bottom:.5rem;font-size:100%}input[type=text]:focus,input[type=email]:focus,input[type=phone]:focus,input[type=password]:focus,input[type=number]:focus,input[type=search]:focus,textarea:focus{border:1px solid #00649e}input[type=text].full-width,input[type=email].full-width,input[type=phone].full-width,input[type=password].full-width,input[type=number].full-width,input[type=search].full-width,textarea.full-width{width:100%}textarea{height:132px}form{margin-bottom:40px}form .field{margin-bottom:20px}form label{color:#666}form .note-warning{margin-top:5px;color:#aaa}form .req{font-style:italic}form .asterisk{color:darkred}form .error .reason{margin-top:5px;color:#ff4136}form .error input[type=text],form .error input[type=email],form .error input[type=phone],form .error input[type=password],form .error input[type=number],form .error input[type=search],form .error textarea{border-color:#ff4136}table{width:100%;border:1px solid #d0d0d0;margin-bottom:1.5em}table caption{margin:0 0 7px;font-size:.75em;color:#aaa;text-transform:uppercase;letter-spacing:1px}tr{border-bottom:1px solid #d0d0d0}tr:nth-child(even){background-color:#f7f7f7}td{padding:7px;border-right:1px solid #d0d0d0}td:last-child{border-right:0}th{background-color:#f7f7f7;border-bottom:1px solid #d0d0d0;border-right:1px solid #d0d0d0}th:last-child{border-right:0}pre>code{color:#333;background:#f8f8f8;display:block;white-space:pre;overflow:auto;word-wrap:normal;border:1px solid #e8e8e8;line-height:1.3;font-size:.9em}:not(pre)>code{background-color:rgba(27,31,35,.05);padding:.2em .4em;margin:0;font-size:85%;border-radius:3px}div.formula-code{color:#333;background:#f8f8f8;display:block;white-space:pre;overflow:auto;word-wrap:normal;border:1px solid #e8e8e8;margin:0 0 20px 0}div.formula-code .MathJax_Display{margin:0 !important}#isso-thread *{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}#isso-thread{padding:0;margin:0}h4.isso-thread-heading{color:#555;font-weight:bold}.isso-feedlink{float:right;padding-left:1em}.isso-feedlink a{font-size:.8em;vertical-align:bottom}.isso-comment{max-width:68em;margin:0 auto}.isso-preview .isso-comment{padding-top:0;margin:0}.isso-comment:not(:first-of-type),.isso-follow-up .isso-comment{border-top:1px solid rgba(0,0,0,.1);margin-bottom:.5em}.isso-avatar{display:block;float:left;margin:.95em .95em 0}.isso-avatar svg{max-width:48px;max-height:48px;width:100%;height:100%;border:1px solid rgba(0,0,0,.2);border-radius:3px;box-shadow:0 1px 2px rgba(0,0,0,.1)}.isso-text-wrapper{display:block;padding:.95em}.isso-follow-up{padding-left:calc(7% + 20px)}.isso-comment-footer{font-size:.95em}.isso-comment-header{font-size:.85em}.isso-comment-header a{text-decoration:none}.isso-comment-header .isso-spacer{padding:0 6px}.isso-spacer,.isso-permalink,.isso-note,.isso-parent{color:gray;font-weight:normal;text-shadow:none}.isso-spacer:hover,.isso-permalink:hover,.isso-note:hover,.isso-parent:hover{color:#606060}.isso-note{float:right}.isso-author{font-weight:bold;color:#555}.isso-page-author-suffix{font-weight:bold;color:#2c2c2c}.isso-textarea,.isso-preview{margin-top:.2em;width:100%;border:1px solid #f0f0f0;border-radius:2px;box-shadow:0 0 2px #888}.isso-text p{margin-top:.2em}.isso-text p:last-child{margin-bottom:.2em}.isso-text h1,.isso-text h2,.isso-text h3,.isso-text h4,.isso-text h5,.isso-text h6{font-size:130%;font-weight:bold}.isso-text pre{background:#eee;border:1px solid #ddd;padding:10px 15px;color:#4d4d4c;overflow:auto;line-height:1.5em}.isso-text :not(pre)>code{padding:.2em .4em;margin:0;font-size:85%;background-color:#eee;border-radius:6px}.isso-comment-footer{font-size:.8em;color:gray;clear:left}.isso-feedlink,.isso-comment-footer a{font-weight:bold;text-decoration:none}.isso-feedlink:hover,.isso-comment-footer a:hover{color:#111;text-shadow:#aaa 0 0 1px}.isso-comment-footer>a{position:relative;top:.2em}.isso-comment-footer>a+a{padding-left:1em}.isso-comment-footer .isso-votes{color:gray}.isso-upvote svg,.isso-downvote svg{position:relative;top:.2em}.isso-comment .isso-postbox{margin-top:.8em}.isso-comment.isso-no-votes>*>.isso-comment-footer .isso-votes{display:none}.isso-postbox{max-width:68em;margin:0 auto 2em;clear:right}.isso-form-wrapper{display:block;padding:0}.isso-textarea,.isso-preview{margin:0 0 .3em;padding:.4em .8em;border-radius:3px;background-color:#fff;border:1px solid rgba(0,0,0,.2);box-shadow:0 1px 2px rgba(0,0,0,.1)}.isso-textarea{outline:0;width:100%;resize:none}.isso-form-wrapper input[type=checkbox]{vertical-align:middle;position:relative;bottom:1px;margin-left:0}.isso-notification-section{font-size:.9em;padding-top:.3em;display:none;padding-bottom:10px}.isso-auth-section{display:block}.isso-textarea:focus,.isso-input-wrapper input:focus,.isso-auth-section input:focus{outline:2px solid #3584e4}.isso-input-wrapper{display:inline-block;position:relative;margin:0 1% 0 0}.isso-input-wrapper input{display:block;padding:.3em 10px;max-width:100%;border-radius:3px;background-color:#fff;line-height:1.4em;border:1px solid rgba(0,0,0,.2);box-shadow:0 1px 2px rgba(0,0,0,.1)}.isso-input-wrapper label{display:block;line-height:1.4em;height:1.4em}.isso-post-action{display:block;float:right;margin:1.4em 0 0 5px}.isso-post-action>input{padding:calc(.3em - 1px);border-radius:2px;border:1px solid #ccc;background-color:#ddd;cursor:pointer;outline:0;line-height:1.4em;box-shadow:0 1px 2px rgba(0,0,0,.1)}.isso-post-action>input:hover{background-color:#ccc}.isso-post-action>input:active{background-color:#bbb}.isso-preview,.isso-post-action input[name=edit],.isso-postbox.isso-preview-mode>.isso-form-wrapper input[name=preview],.isso-postbox.isso-preview-mode>.isso-form-wrapper .isso-textarea{display:none}.isso-postbox.isso-preview-mode>.isso-form-wrapper .isso-preview{display:block}.isso-postbox.isso-preview-mode>.isso-form-wrapper input[name=edit]{display:inline}.isso-preview{background-color:#f8f8f8;background:repeating-linear-gradient(-45deg, #f8f8f8, #f8f8f8 10px, #fff 10px, #fff 20px)}.isso-target{animation:isso-target-fade 5s ease-out}@keyframes isso-target-fade{0%{background-color:#eee5a1}}@media screen and (max-width: 600px){.isso-input-wrapper{display:block;max-width:100%;margin:0 0 .3em}.isso-input-wrapper input{width:100%}.isso-post-action{margin-top:0}}html.dark-reader body{background-image:none}html.dark-reader body .footer{background-image:none}html{box-sizing:border-box;background-color:#fefefe}*,*:before,*:after{box-sizing:inherit}body{background-color:#fff;background-image:url("/assets/media/tile-graphpaper.png");font-family:Georgia,Times,serif;line-height:1.75;font-size:112.5%;color:#111;overflow-x:hidden;margin:0}body p,body ul{margin:0 0 2rem}body code{font-family:"ui-monospace","SFMono-Regular","SF Mono",Menlo,Consolas,"Liberation Mono",monospace;font-variant-ligatures:common-ligatures}::-moz-selection{background:#00649e;color:#fff}::selection{background:#00649e;color:#fff}img,video,audio,iframe,object{max-width:100%;height:auto}.container{max-width:610px;padding:0 20px;margin-left:auto;margin-right:auto}a{color:#00649e}a:hover{color:#003452}.nav-collapse{z-index:1}.nav-collapse ul{margin:0;padding:0;width:100%;display:block;list-style:none}.nav-collapse ul li{width:100%;display:block;background:#57457a;border-bottom:2px solid #675291}.nav-collapse ul li a{color:#fff;text-decoration:none;display:block;padding:5px 2rem}.nav-collapse{clip:rect(0 0 0 0);max-height:0;position:absolute;display:block;overflow:hidden;transform:scale(1);transform-origin:0 0;clear:both;width:100%}.no-js .nav-collapse{position:relative;max-height:none}.nav-collapse.opened{max-height:9999px}.nav-toggle{-webkit-tap-highlight-color:rgba(0,0,0,0);-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none;float:right;line-height:2em;margin-top:.5em;background-color:#00649e;border-radius:4px;padding:0 .5em;color:#fff;text-decoration:none;position:relative;right:2rem;transition:all .2s ease-in-out}.nav-toggle:hover{color:#fff;background-color:#00446b}.noList{list-style:none;padding-left:0;margin-left:0}dt{font-weight:bold}dd{margin:0 0 1.5rem}.post ul ul,.post ul ol,.post ol ul,.post ol ol{margin:0}ul.links-with-icons,ol.links-with-icons{list-style:none;padding-left:20px}.pageTitle{margin:2rem auto 1em;text-align:center}.pageTitle .type{color:#888}.content{padding-top:1em}.js .header{height:3em}.header{background-color:#473864;background-size:cover;background-position:center center;color:#fff;padding:0}.header .container{padding:0;max-width:100%}.header h1{margin:0;float:left;padding-left:2rem;font-size:1em;line-height:3em;font-family:"Gill Sans",Tahoma,Helvetica,Arial,sans-serif;text-transform:lowercase}.header h1 .wide1,.header h1 .wide2{display:none}.header h1 a{color:#e9d9ff;text-decoration:none;font-family:"Gill Sans",Tahoma,Helvetica,Arial,sans-serif;letter-spacing:.1rem;font-variant-ligatures:common-ligatures;text-shadow:0px 0px 4px #000}.post .postTitle{text-align:center;margin-top:2rem;margin-bottom:1rem}.post blockquote{color:#57606a;border-left:.25em solid #d9d9d9;display:block;margin:0;padding-left:1rem}.post blockquote p{margin-left:0;margin-right:0;width:100%}.post .meta,.post #article-details{text-align:center;color:gray;font-family:Georgia,Times,serif;font-weight:normal}.post .meta a,.post #article-details a{color:#1d8dcd;text-decoration:none}.post .meta a:hover,.post #article-details a:hover{text-decoration:underline}.post figure{margin:3rem 0}.post figure figcaption{text-align:center;font-size:.9em;font-style:italic;color:#5e5e5e}.post figure img{margin:0 auto;display:block}.post img{border-radius:3px}.post img.left{float:left;margin-right:1em;margin-bottom:1em}.post img.right{float:right;margin-left:1em;margin-bottom:1em}.post pre>code{clear:both;margin-bottom:2rem}.post .intro::first-letter{color:#00649e;font-size:250%;line-height:1}.post .featuredImage{position:relative;margin-top:2rem}.post .featuredImage img{margin-bottom:0}.post #article-details{border:0;border-top:2px solid #d9d9d9;width:100%;text-align:left;margin:0 auto;padding:1rem 0}.post #article-details #all-categories{margin-top:1rem;padding-top:1rem;border-top:1px solid #e6e6e6}.post .snippets ul{margin-top:1rem}.post .snippets ul li time{font-weight:normal;font-size:.9em;color:gray}.post hr{border-style:solid;border-color:#d9d9d9;border-width:1.5px 0 0 0;margin-top:2rem;margin-bottom:2rem}.post div.footnotes{font-size:85%}.post div.footnotes ol{margin:0;margin-bottom:2rem;width:100%;list-style-position:outside;padding-left:30px}.post div.footnotes li p{margin-left:0;margin-right:0;width:100%}.post.snippet .postTitle{font-size:100%}.post div.related{border-top:1.5px solid #d9d9d9}.post div.related,div.archive_list{width:100%;margin:0 auto}.post div.related h2,div.archive_list h2{margin:0;margin-top:1rem;color:#000}.post div.related div.container,div.archive_list div.container{display:block;margin-top:2rem}.post div.related div.container div.item,div.archive_list div.container div.item{clear:left;margin-bottom:1rem;width:100%}.post div.related div.container div.item div.related-image,div.archive_list div.container div.item div.related-image{display:block;float:right;margin-bottom:1rem;margin-left:1rem;width:42px;height:42px;background-position:center;background-repeat:no-repeat;background-size:cover;background-color:rgba(0,0,0,.1);border-radius:2px;text-decoration:none;padding:1rem}.post div.related div.container div.item .related-meta,div.archive_list div.container div.item .related-meta{font-family:Georgia,Times,serif;font-weight:normal;font-size:.9em;color:gray;line-height:1.5}.post div.related div.container div.item .related-meta a,div.archive_list div.container div.item .related-meta a{color:#1d8dcd;text-decoration:none}.post div.related div.container div.item .related-meta a:hover,div.archive_list div.container div.item .related-meta a:hover{text-decoration:underline}div.archive_list{position:relative}div.archive_list h3{margin-top:4rem;color:#a66c75}div.archive_list:before{content:"";position:absolute;bottom:-2rem;left:0;background:#e6e6e6;height:2px;width:60px}div.archive_list.last:before{display:none}.postNav{border-top:1px solid #d9d9d9;border-bottom:1px solid #d9d9d9;overflow:hidden}.postNav .prev,.postNav .next{display:block;width:100%;height:5rem;overflow:hidden;position:relative;font-family:"Gill Sans",Tahoma,Helvetica,Arial,sans-serif;font-weight:800;font-size:.9em;text-transform:uppercase;text-align:center}.postNav .prev img,.postNav .next img{z-index:1;display:block;position:absolute;top:50%;transform:translateY(-50%);left:0;width:100%;height:auto}.postNav .prev span,.postNav .next span{z-index:10;position:relative;padding:.5rem;position:absolute;top:50%;transform:translateY(-50%);width:100%;line-height:1.4}.postNav .prev.image,.postNav .next.image{text-decoration:none;color:#fff;text-shadow:1px 1px 3px rgba(0,0,0,.8);padding:0 .5rem;position:relative;transition:all .2s ease-in-out}.postNav .prev:hover.image,.postNav .next:hover.image{opacity:.8}.postNav .prev span{left:0}.postNav .next span{right:0}.footer{margin-top:2rem;clear:both;background:#fafafa}.footer hr{display:block;clear:both;border:1px solid #eaeaea;margin:1rem 0}.footer #footer-comments-widget{border-bottom:2px solid #eaeaea;margin-bottom:1rem}.footer .contributions{padding:1rem 0}.footer .contributions .note-warning{border:1px solid #e1e4e8;background-color:#f6f8fa;border-radius:3px;padding:16px;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;margin-bottom:1rem}.footer .contributions .note-warning .extra{color:#586069}.footer .contributions .note-warning .extra .link-logo img{opacity:.6}.footer .contributions #disqus_thread{max-width:90%;margin:0 auto;overflow:auto}.footer .contributions h2,.footer .contributions h3{margin-top:0;color:#a66c75}.footer .contributions #share{border-bottom:1px solid #c69aa1}.footer .contributions #isso-thread{font-size:90%}.footer .contributions #isso-thread .isso-comment>.isso-text-wrapper>div.isso-comment-header{display:inline-block;vertical-align:middle}.footer .contributions #isso-thread .isso-comment>.isso-text-wrapper>div.isso-text{clear:both}.footer .contributions #isso-thread .isso-comment>.isso-text-wrapper p{margin:0 0 .7rem}.footer .contributions #isso-thread .isso-comment>.isso-text-wrapper blockquote{color:#777;margin:5px 0;padding:5px;padding-left:10px;border-left:4px solid #ddd;background-color:#f7f7f7}.footer .contributions #isso-thread .isso-comment>.isso-text-wrapper code{color:#333;background:#f8f8f8}.footer .contributions #isso-thread .isso-comment>.isso-text-wrapper pre{color:#333;background:#f8f8f8;display:block;white-space:pre;overflow:auto;word-wrap:normal;border:1px solid #e8e8e8}.footer .contributions #isso-thread .isso-form-wrapper{font-size:90%}.footer .contributions #isso-thread .isso-textarea-wrapper textarea.isso-textarea{height:80px}.footer .contributions #isso-thread .isso-auth-section{font-size:90%}.footer .contributions #isso-thread .isso-auth-section .isso-input-wrapper{display:block}.footer .contributions #isso-thread .isso-auth-section .isso-input-wrapper input{width:100%;height:auto}.footer .contributions #isso-thread .isso-auth-section .isso-post-action{margin:.5em 0px 0px 5px}.footer .contributions #isso-thread .isso-auth-section .isso-post-action input{padding:.2em 1em;border-radius:4px;border:0;margin-right:5px}.footer .contributions #isso-thread .isso-auth-section .isso-post-action input[type=submit]{background-color:#00649e;color:#fff;font-weight:bold;border:0;cursor:pointer}.footer .contributions #isso-thread .isso-auth-section .isso-post-action input[type=submit]:hover{color:#fff;background-color:#007bc2}.footer .contributions #isso-thread #isso-root{clear:both}.footer .contributions #isso-thread .isso-avatar img{max-width:24px;max-height:24px;border-radius:3px}.footer .contributions #mc_embed_signup form{margin-bottom:0}.footer .bottom{background:#f2f2f2;font-size:.8em;color:#656c7a;border-top:2px solid #eaeaea;border-bottom:2px solid #eaeaea;padding:1rem 0}.footer .bottom .container{max-width:90%;text-align:center}.footer .bottom .container .copy,.footer .bottom .container .links{display:block}.pagination div.page_number{color:gray;border-top:1px dashed #aaa;padding:1rem 0}.pagination .next{float:left}.pagination .previous{float:right}.posts li{margin-bottom:4rem;position:relative}.posts li:before{content:"";position:absolute;bottom:-2rem;left:0;background:#e6e6e6;height:2px;width:60px}.posts li:last-child:before{display:none}.posts li a{text-decoration:none}.posts li a:hover{text-decoration:underline}.posts li .meta{font-family:Georgia,Times,serif;font-weight:normal;font-size:.9em;color:gray}.posts li .meta time{display:block}.posts li .meta a{color:#1d8dcd;text-decoration:none}.posts li .meta a:hover{text-decoration:underline}.posts li h3{margin:0 0 .5em}#home{padding-top:2em}#home .postTitle{text-align:center}img.right{float:none}.patreon-button img{width:170px;height:40px}.post.about img.avatar{width:100px}.small-note{font-size:80%;color:gray}.video .youtube-play-link{position:relative;display:block;box-shadow:0px 0px 5px 0px rgba(50,50,50,.3);border-radius:3px}.video .youtube-play-link:before{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);-webkit-transform:translate(-50%, -50%);display:block;width:80px;height:56px;font-size:1px;content:" ";opacity:.8;z-index:100;background-image:url(/assets/media/youtube.png);background-size:80px 56px;background-position:center;background-repeat:no-repeat;transition-timing-function:ease-in;transition:opacity .3s}.video .youtube-play-link:hover:before{opacity:1}.video .youtube-play-link img.play-thumb{display:block;min-height:70px}.video .video-container{position:relative;padding-bottom:56.25%;padding-top:10px;height:0;overflow:hidden}.video .video-container iframe,.video .video-container object,.video .video-container embed{position:absolute;top:0;left:0;width:100%;height:100%}.no-js .only-js{display:none}.no-js .video .video-container{display:none}.posts img{border-radius:3px}.posts figure{margin:1rem 0}.posts figure figcaption{text-align:center;font-size:.9em;font-style:italic;color:#5e5e5e}.posts figure img{margin:0 auto;display:block}.hidden{display:none}.post header nav.toc{border-top:1px solid #d9d9d9;border-bottom:1px solid #d9d9d9;margin-bottom:1rem}.post header nav.toc ul{margin-bottom:1rem}.post header nav.toc .toc-title{font-weight:bold;margin:1rem auto 1rem}.post .warn-bubble,.post .info-bubble,.post.privacy_policy #opt_out_frame iframe{background-color:rgba(226,231,240,.3);color:#555;padding:7px;border:2px dashed #e2f0e7;border-radius:10px}.post .warn-bubble{color:#655;background-color:rgba(243,235,237,.3);border:2px dashed #f6ddd7}.post pre>code,.post pre>code.hljs{border-radius:0;margin:0 auto;padding:2px;width:100%}.post .formula-code,.post pre>code{font-size:90%}.post.privacy_policy #opt_out_frame iframe{width:100%;height:300px}h1,h2,h3,h4,h5,h6{color:#111;font-weight:700}h1 a.anchor,h2 a.anchor,h3 a.anchor,h4 a.anchor,h5 a.anchor,h6 a.anchor{color:#d3d3d3;font-weight:normal;text-decoration:none}h1 a.anchor:hover,h2 a.anchor:hover,h3 a.anchor:hover,h4 a.anchor:hover,h5 a.anchor:hover,h6 a.anchor:hover{color:gray}.nobr{white-space:nowrap}.clearfix{transform:scale(1);transform-origin:0 0}.clearfix:before,.clearfix:after{content:" ";display:block;height:0;overflow:hidden}.clearfix:after{clear:both}@media only screen and (min-width: 375px){.header h1 .wide1{display:inline}}@media only screen and (min-width: 500px){.header h1 .wide1,.header h1 .wide2{display:inline}.post.privacy_policy #opt_out_frame iframe{height:260px}}@media only screen and (min-width: 800px){body{font-size:125%}.content{padding-top:0;position:relative;z-index:1}.container{max-width:880px;margin-left:auto;margin-right:auto;padding:0}#home .posts,#home .pageTitle,#home .pagination,#home .archive_list{width:75%;float:none;margin:0 auto 1.5em}#home .pageTitle{margin:2rem auto 1em}.js .header,.no-js .header{height:7em;position:relative;padding-bottom:0}.js .header .wide1,.js .header .wide2,.no-js .header .wide1,.no-js .header .wide2{display:inline}.js .header .container,.no-js .header .container{position:relative;top:50%;transform:translateY(-50%);max-width:880px;overflow:hidden}.js .header .container .inner-container,.no-js .header .container .inner-container{width:75%;margin:0 auto}.js .header h1,.no-js .header h1{font-size:2em;line-height:1;padding-left:0}.js .header nav,.no-js .header nav{float:left;clear:left}.js .header nav ul,.no-js .header nav ul{margin:0}.js .header nav ul li,.no-js .header nav ul li{display:inline;line-height:3em;background:none;padding:0 5px;border:none}.js .header nav ul li a,.no-js .header nav ul li a{color:#fff;font-size:.9em;text-decoration:none;padding:0 .25em}.js .header nav ul li a:hover,.no-js .header nav ul li a:hover{color:#ccc}.js .header nav ul li.current,.no-js .header nav ul li.current{padding-bottom:.25em;border-bottom:4px solid rgba(255,255,255,.4)}.nav-collapse{position:relative;max-height:none}.nav-collapse.closed{max-height:none}.nav-collapse ul li a{display:inline-block}.nav-toggle{display:none}.post h1,.post h2,.post h3,.post h4,.post h5,.post h6,.post p,.post ul,.post ol,.post dl,.post .pageTitle,.post .content,.post .page-width,.post blockquote,.post div.footnotes{width:75%;float:none;margin:0 auto 2rem}.post hr{width:75%}.post div.footnotes{margin:0 auto 1rem}.post div.footnotes p{margin-bottom:1rem}.post h1,.post .h1,.post h2,.post .h2,.post h3,.post .h3,.post h4,.post .h4,.post h5,.post .h5,.post h6,.post .h6{margin:1rem auto}.post .pageTitle{margin:2rem auto 1em}.post .featuredImage{position:relative;margin-top:2rem}.post pre>code,.post pre>code.hljs{font-size:.8em;padding:1em;border-radius:4px}.post div.formula-code{padding:20px 10px}.post blockquote{padding-left:2rem}.post.snippet .postTitle{font-size:120%}.postNav .prev,.postNav .next{width:50%}.postNav .prev{float:left;text-align:left}.postNav .next{text-align:right;float:right}.footer .container{max-width:880px}.footer .contributions{width:75%;margin:0 auto}.footer .contributions .avatar img{max-width:48px;max-height:48px;border-radius:5px}.footer .contributions #isso-thread .isso-avatar img{max-width:32px;max-height:32px}.footer .bottom .container .copy::after{content:"|"}.footer .bottom .container .copy,.footer .bottom .container .links{display:inline}.contactContent{max-width:48%;margin-right:2%;float:left}#contact form{max-width:48%;width:48%;float:right;margin-right:0}img.right{float:right}.post.about img.avatar{width:300px}div.header nav{text-shadow:0px 0px 4px #000}#abonament form{width:75%;margin:0 auto 2rem}.post div.related{width:75%}.post #article-details{width:75%}.post.privacy_policy #opt_out_frame iframe{height:190px}.video .youtube-play-link:before{width:120px;height:84px;background-size:120px 84px}}@media only screen and (min-width: 1200px){body{font-size:137.5%}.container{max-width:990px}.container .inner-container{width:75%;margin:0 auto}.js .header .container,.no-js .header .container{max-width:990px}.post.privacy_policy #opt_out_frame iframe{height:180px}.footer .container{max-width:990px}.post.snippet .postTitle{font-size:140%}}@media(prefers-color-scheme: light){pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: StackOverflow Light
+  Description: Light theme as used on stackoverflow.com
+  Author: stackoverflow.com
+  Maintainer: @Hirse
+  Website: https://github.com/StackExchange/Stacks
+  License: MIT
+  Updated: 2021-05-15
+
+  Updated for @stackoverflow/stacks v0.64.0
+  Code Blocks: /blob/v0.64.0/lib/css/components/_stacks-code-blocks.less
+  Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
+*/.hljs{color:#2f3337;background:#f6f6f6}.hljs-subst{color:#2f3337}.hljs-comment{color:#656e77}.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag{color:#015692}.hljs-attribute{color:#803378}.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type{color:#b75501}.hljs-selector-class{color:#015692}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#54790d}.hljs-meta,.hljs-selector-pseudo{color:#015692}.hljs-built_in,.hljs-literal,.hljs-title{color:#b75501}.hljs-bullet,.hljs-code{color:#535a60}.hljs-meta .hljs-string{color:#54790d}.hljs-deletion{color:#c02d2e}.hljs-addition{color:#2f6f44}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}}@media(prefers-color-scheme: dark){:root{color-scheme:light dark}html,body,*{scrollbar-width:thin;scrollbar-color:#727173 #1e2223}body::-webkit-scrollbar,*::-webkit-scrollbar{width:10px}body::-webkit-scrollbar-track,*::-webkit-scrollbar-track{background:#1e2223}body::-webkit-scrollbar-thumb,*::-webkit-scrollbar-thumb{background-color:#727173;border-radius:6px;border:3px solid #1e2223}html{background-color:#171a1b;background-image:none}body{background-color:#171a1b;background-image:none;color:#c8d1d8}body a{color:#00c1ff}body a:hover{color:#0087b3}body .header{background-color:#473864}body h1,body h2,body h3,body h4,body h5,body h6{color:#dddad6}body pre>code,body div.formula-code{background:#22272d;color:#adbac7;border:1px solid #333}body form label{color:#777}body form select,body form input,body form textarea,body form button,body form .textarea,body form input[type=text],body form input[type=email],body form input[type=phone],body form input[type=password],body form input[type=number],body form input[type=search]{border:1px solid #1a1a1a;color:#afafaf;background:#242424;transition:background-color .3s cubic-bezier(0.57, 0.21, 0.69, 1.25),transform .3s cubic-bezier(0.57, 0.21, 0.69, 1.25)}body form button,body form input[type=submit],body form input[type=button],body form input[type=reset]{border:1px solid #262626;background:#333}body form ::placeholder{color:inherit;opacity:1}body .post header nav.toc{border-color:#2f363c}body .post .info-bubble{background-color:#25313c;border-color:#384b5c;color:#c8d1d8}body .post .warn-bubble{background-color:#362521;border-color:#563b34;color:inherit}body .post hr{border-color:#2f363c}body .post #article-details{border-color:#2f363c}body .post #article-details #all-categories{border-color:#2f363c}body .post div.related{border-color:#2f363c}body .post .meta,body .post #article-details{color:#789}body .post .intro::first-letter{color:#00c1ff}body .post blockquote{color:#8b949d;border-left-color:#2f363c}body .post .transparency-fix{background-color:#6f8288}body .button-secondary{background-color:#0ca8ff}body .button-secondary:hover{background-color:#008bd8}body a.button__outline{border:3px solid #00c1ff;color:#00c1ff}body a.button__outline:hover{background-color:#00c1ff;color:#fff}body .post div.related div.container div.item .related-meta,body div.archive_list div.container div.item .related-meta{color:#789}body .post div.related h2,body div.archive_list h2{color:#dddad6}body .footer{background-color:#232729;background-image:none}body .footer .contributions #isso-thread label{color:#777}body .footer .contributions #isso-thread select,body .footer .contributions #isso-thread input,body .footer .contributions #isso-thread textarea,body .footer .contributions #isso-thread button,body .footer .contributions #isso-thread .textarea,body .footer .contributions #isso-thread input[type=text],body .footer .contributions #isso-thread input[type=email],body .footer .contributions #isso-thread input[type=phone],body .footer .contributions #isso-thread input[type=password],body .footer .contributions #isso-thread input[type=number],body .footer .contributions #isso-thread input[type=search]{border:1px solid #1a1a1a;color:#afafaf;background:#242424;transition:background-color .3s cubic-bezier(0.57, 0.21, 0.69, 1.25),transform .3s cubic-bezier(0.57, 0.21, 0.69, 1.25)}body .footer .contributions #isso-thread button,body .footer .contributions #isso-thread input[type=submit],body .footer .contributions #isso-thread input[type=button],body .footer .contributions #isso-thread input[type=reset]{border:1px solid #262626;background:#333}body .footer .contributions #isso-thread ::placeholder{color:inherit;opacity:1}body .footer .contributions #isso-thread>h4{color:#8695a4}body .footer .contributions #isso-thread .isso-comment>div.isso-text-wrapper>.isso-comment-header{color:#789}body .footer .contributions #isso-thread .isso-comment>div.isso-text-wrapper>.isso-comment-header .author{color:#8695a4}body .footer .contributions #isso-thread .isso-comment>.isso-text-wrapper blockquote{border-left-color:#3a3e41;background-color:#1d1f20;color:#9d9488}body .footer .contributions #isso-thread .isso-comment>.isso-text-wrapper code{background:#22272d;color:#adbac7}body .footer .contributions #isso-thread .isso-comment>.isso-text-wrapper pre{background:#22272d;color:#adbac7;border:1px solid #333}body .footer .contributions .note-warning{border:1px solid #171a1b;background-color:#1e2223}body .footer .contributions .note-warning .extra{color:#789}body .footer .bottom{background:#171a1b;color:#789;border-top:2px solid #232729;border-bottom:2px solid #232729}body .footer #footer-comments-widget{border-bottom:2px solid #464f52}body div.archive_list:before,body .posts li:before{background:#3a4244}.video .youtube-play-link{box-shadow:0px 0px 5px 0px rgba(200,200,200,.3)}span.link-logo img{-webkit-filter:invert(100%);filter:invert(100%);opacity:.7}a span.link-logo img{filter:invert(84%) sepia(22%) saturate(6251%) hue-rotate(180deg) brightness(110%) contrast(111%);opacity:1}pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: GitHub Dark Dimmed
+  Description: Dark dimmed theme as seen on github.com
+  Author: github.com
+  Maintainer: @Hirse
+  Updated: 2021-05-15
+
+  Colors taken from GitHub's CSS
+*/.hljs{color:#adbac7;background:#22272e}.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-template-tag,.hljs-template-variable,.hljs-type,.hljs-variable.language_{color:#f47067}.hljs-title,.hljs-title.class_,.hljs-title.class_.inherited__,.hljs-title.function_{color:#dcbdfb}.hljs-attr,.hljs-attribute,.hljs-literal,.hljs-meta,.hljs-number,.hljs-operator,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id,.hljs-variable{color:#6cb6ff}.hljs-meta .hljs-string,.hljs-regexp,.hljs-string{color:#96d0ff}.hljs-built_in,.hljs-symbol{color:#f69d50}.hljs-code,.hljs-comment,.hljs-formula{color:#768390}.hljs-name,.hljs-quote,.hljs-selector-pseudo,.hljs-selector-tag{color:#8ddb8c}.hljs-subst{color:#adbac7}.hljs-section{color:#316dca;font-weight:700}.hljs-bullet{color:#eac55f}.hljs-emphasis{color:#adbac7;font-style:italic}.hljs-strong{color:#adbac7;font-weight:700}.hljs-addition{color:#b4f1b4;background-color:#1b4721}.hljs-deletion{color:#ffd8d3;background-color:#78191b}}
+    </style>
+</head>
+
+
+<body>
+   <div class="header">
+  <div class="container">
+    <div class="inner-container">
+      <h1 class="logo"><a href="/">Alex<span class="wide2">andru</span> Nedelcu<span class="wide1" title="strong coffee, java, etc."> ☕️</span></a></h1>
+      <nav class="nav-collapse">
+        <ul class="noList">
+          
+          <li class="element first current ">
+            <a href="/blog/">Blog</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/wiki/">Wiki</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/links/">Links</a>
+          </li>
+          
+          <li class="element   ">
+            <a href="/about/">About</a>
+          </li>
+          
+          <li class="element   last">
+            <a href="/subscribe/">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div><!-- end .header -->
+
+
+   <div class="content">
+      <div class="container">
+         <article class="post" itemscope itemtype="http://schema.org/BlogPosting"><header>
+      <h1 class="postTitle" itemprop="headline">
+        
+        
+          
+      Scala&#39;s Future
+    
+        
+        
+      </h1>
+    
+    <p class="meta">
+      <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://alexn.org/blog/2024/01/10/is-scala-in-trouble/"/>
+      <meta itemprop="datePublished" content="2024-01-10T17:37:53+0000"/>
+      
+      <time itemprop="dateCreated" datetime="2024-01-10T17:37:53+0000">January 10, 2024</time>
+      | <span class="nobr"><span class="time">11</span> minutes</span>
+      
+      | <a href="/blog/2024/01/10/is-scala-in-trouble/#isso-thread" class="nobr">Comments</a>
+      
+    </p>
+
+    
+        <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+          <meta itemprop="url" content="https://alexn.org/assets/media/articles/2024-scala-hexa.png" />
+          <img src="/assets/media/articles/2024-scala-hexa.png?202401102151" width="3555" height="2000" decoding="async" alt="" />
+          
+        </figure>
+        
+    
+
+    <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Alexandru Nedelcu">
+      <meta itemprop="url" content="https://alexn.org/about/">
+      <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="https://alexn.org/assets/raw/logo-green.png">
+      </div>
+    </div>
+    <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Alexandru Nedelcu" />
+      <meta itemprop="url" content="https://alexn.org/about/" />
+      <meta itemprop="url" content="https://twitter.com/alexelcu" />
+      <meta itemprop="url" content="https://github.com/alexandru" />
+      <meta itemprop="url" content="https://www.linkedin.com/in/alexelcu/" />
+    </div>
+
+    </header>
+
+  <div id="content" itemprop="articleBody">
+    <p class="intro">
+As software developers, we invest a lot in our tools. Time, energy, feelings. We recommend tools to others, we build on top, we belong to a community, we contribute, hence we eventually becoming stakeholders. And there's no other tool more clamoured or risky in our belt than the programming language. Well, gather around kids, me tell you 2 stories from my past in the software industry...
+</p>
+      <h2 id="the-dot-com-bubble">
+        
+        
+          The Dot-Com Bubble <a href="#the-dot-com-bubble" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>I joined the workforce in the aftermath of the <a href="https://en.wikipedia.org/wiki/Dot-com_bubble">dot-com boom and bust</a>. It was quite a bad time to be a rookie in the software industry, especially in Romania, a country just recovering from the dissolution of the Soviet Union. My first salary was $150 per month. And I remember a depressing article on <a href="https://en.wikipedia.org/wiki/Java.net">java.net</a>, advising Java developers that were left without a job, to go back to school. And this was during the time I was learning Java, hoping to replace PHP, which I deeply disliked, but paid the bills. PHP is still one of the most popular programming languages on the web. We’ll never get rid of it.</p>
+
+<p><strong>Déjà vu:</strong> we just experienced a bubble bursting. The year 2023 was no longer an employee’s market. Have you noticed all the high-profile layoffs? In 2023, more than 260,000 people lost their job in tech, from over 1100 companies, surpassing the layoffs of 2022. The numbers are shocking, especially because the industry seemed to be invincible during the pandemic. And these were just the numbers visible to Western media, e.g., countries from Easter Europe don’t have good stats, and markets like China’s are opaque. Certainly, things aren’t as bad as in 2001, with cause for optimism due to the AI hype, but the big layoffs and the downsizing are hard facts you can’t ignore.</p>
+
+<p>When you compare the activity on job websites that most people ignore, or the activity on Reddit, or on X/Twitter, or elsewhere, the activity for most programming languages seems to be declining. On StackOverflow too, and this one is interesting, because activity for mainstream languages is also going down due to most interesting questions being answered. It may not be just the tech bubble bursting, but also the pandemic-induced fatigue, with many people being tired of spending time online.</p>
+
+<p>In the Scala community, we sometimes talk of Rust or Kotlin as being shiny lights, but the proxies used for assessing a language’s popularity show that both Rust and Kotlin <a href="https://redmonk.com/sogrady/2023/05/16/language-rankings-1-23/">have stalled growth</a>. It’s funny how perception works. Don’t get me wrong, I think Rust has had and will continue to have good growth, and has a great future, and that’s because it’s positioned to compete with C++, which otherwise has no real competition. Rust is not a competitor of garbage collected languages, because it’s more difficult to use. For instance, it makes FP hard, actually, never mind the interactive development people are used to in dynamic languages. And also, your average code has a better chance of having good throughput in a managed language like Java. Which is counterproductive for people romanticizing about native code, and you can see how the hype cycles get fueled by people’s hopes and dreams, instead of hard facts, which are missing (computer science is still not a science).</p>
+
+<p>It’s important to keep in mind that all languages are having setbacks in this climate. Even TypeScript stalled, and has some noteworthy libraries that decided to drop it from their codebase, like Svelte, Drizzle, or Turbo. Time may prove that there’s more going on than just the current economic climate, but if we don’t put any observations we make in context, we may miss the confounders, and it’s a shame, given Scala’s awesome trajectory thus far.</p>
+      <h2 id="pythons-plateau-of-productivity">
+        
+        
+          Python’s Plateau of Productivity <a href="#pythons-plateau-of-productivity" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>I’ve also been a Python and a Ruby developer, and I remember well the onslaught of Ruby on Python’s seemingly fragile market share. Python (and Java) fans were actually afraid of Ruby burgeoning on the scene, and they had good reasons to, because the languages are very similar, despite the somewhat different philosophies. Ruby seemed better for DSLs, and has had “Ruby on Rails” as the killer app, which is a great showcase of what Ruby can do. At that time, Python fans were patting themselves on the back, reminding one another of the <a href="https://en.wikipedia.org/wiki/Gartner_hype_cycle">hype cycle</a>, hoping for the promised “plateau of productivity”. I’m pretty sure that’s where Li Haoyi <a href="https://www.lihaoyi.com/post/TheDeathofHypeWhatsNextforScala.html">got the idea for his Scala article</a> on the same topic, since he’s also a Python developer and fan. And yes, the “plateau of productivity” folks were right.</p>
+
+<p>Python also went through a really slow and painful migration to Python 3 (AKA Python 3000). Version 3 came with a bunch of <a href="https://docs.python.org/3.0/whatsnew/3.0.html">breaking changes</a>, and because the language is dynamic and dependent on C extensions, it took forever for libraries to migrate. My sore spot was <a href="https://www.djangoproject.com/">Django</a>. As a side note, Django was also tightly coupled with the native MySQL client, which also made it hard to introduce async I/O via monkey patching, but that’s another story. Python’s reliance on native libraries is both a blessing and a curse. Consider that the last official Python 2.7.x release was in 2020, 12 year after the Python 3 release. And in 2023 it finally reached EOL on Ubuntu, while many organizations still use Python 2, unable to migrate.</p>
+
+<p>In the meantime, Python became the world’s most popular programming language. It had to do with market fitness, of course, being the language of choice for data science, due to projects such as Numpy, Scipy, Matplotlib, TensorFlow, Jupyter, others, which aged like fine wine. And note that Python was not targeted at data science, it just happened organically. And data science is not the only domain Python is good at. For many years Python has been one of the languages recommended for developing Linux applications, being distributed by default in most Linux distros, with GUI bindings being well maintained. Python is also very decent for doing web development, with the aforementioned Django being also a killer app, despite its limitations.</p>
+
+<p>Python had a BDFL, and was definitely designed with taste, however its direction went where the community wanted it, by open consensus, not committee. People just used Python because it solved their needs, and it grew from there. Do you know what <a href="https://www.python.org/">Python.org</a>’s selling point is? That’s a rhetorical question, because you didn’t know before I asked, and nobody cares. Nobody picks Python because of the official marketing brochure.</p>
+
+<p>Also, when Python 3 was released, it was ignored. But in time, more and more new features were added to Python 3, making migration more enticing, such as <a href="https://docs.python.org/3/library/typing.html">optional type hints</a>, or <a href="https://docs.python.org/3/library/asyncio-task.html">couroutines/tasks for async I/O</a>, thus removing the need for previous hacks When you introduce breaking changes, you need carrots to entice people to migrate despite the pain. Sorry, I don’t make the rules 😉</p>
+
+<p><strong>Déjà vu:</strong> Doesn’t the above story sound similar with Scala 3 and the fears some of you have regarding it? Of course, Python isn’t Scala, and the past doesn’t necessarily repeat itself.</p>
+
+<p>However, here are some lessons we can learn from Python’s history:</p>
+
+<ol>
+  <li>Community-driven direction, simply by people doing their thing, is good, you don’t need a committee to decide what people build with the language; and complaining that multiple options exist, or complaining about certain libraries or techniques being more popular than others is silly.</li>
+  <li>Having multiple choices is not bad — Python may pride itself on being a “batteries included” language with an “only one way of doing things” philosophy, but those are just aspirations, as in practice it couldn’t be further from the truth, Python having had multiple well-maintained libraries for doing the same thing, and non-orthogonal language features that were added to cope with the fact that the language can’t have multi-line anonymous functions.</li>
+  <li>We want good build tools, but build tools don’t make or break a language; here we should look at Python’s <code>easy_install</code>, <code>pip</code>, <code>pyenv</code>, <code>virtualenv</code>, <code>pip-virtualenv</code>, <code>scons</code>, etc. or how they haven’t solved yet the problem of depending on native libraries, therefore they need Docker for reproducible builds and deployments; the irony here being that Python needs a standard library with “batteries included”, because depending on libraries turns out to be challenging for rookies. Having tools is great, but having fun and ways to get things done is more important.</li>
+  <li>Languages, that break compatibility, need new features to entice the community into migrating. When the migration isn’t painless, the greatest competition comes from older versions of the language (i.e., Scala 2.13.x is already quite good, just as Python 2.17 was already quite good). And we need to be open to new developments, while giving constructive feedback, otherwise we sound like a bunch of old farts complaining about the changing times and the kids these days. The FUD around new features may end up discouraging some <a href="https://github.com/scala-native/scala-native/pull/3286">really cool developments</a> that may even help the status quo.</li>
+  <li>Migrations, given breaking changes, can take a really long time, but established languages with active projects can afford that long wait time. What are companies going to do? Throw everything in the bin? That would be silly, and for this reason incumbents rarely wither away, with very few notable exceptions. Instead, well maintained programming languages age like fine wine, only growing in popularity.</li>
+</ol>
+
+<p>To keep in mind at least until AGI takes over 🤖</p>
+      <h2 id="hows-scala-doing">
+        
+        
+          How’s Scala doing? <a href="#hows-scala-doing" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>YMMV, but here are my impressions:</p>
+
+<ul>
+  <li>Scala 3 is objectively a better language, with much stronger compatibility guarantees.</li>
+  <li>Tooling can always improve, but it has some great tooling already that other languages can only dream of (Scala CLI, Metals, IntelliJ IDEA, Scalafmt, Scala.js, etc.).</li>
+  <li>It has several ecosystems of libraries that are mostly community-driven (Typelevel, com-lihaoyi, ZIO, etc.), distributing the risks; I mean, holy cow, the community may seem small, but it’s still super productive, and this isn’t a top-down cathedral (e.g., dotNET), it’s a bazaar.</li>
+  <li>Corporate support can be better, but we should also be thankful for Lightbend’s contributions, for VirtusLab stepping up, and other languages with their communities would be lucky to have Scala Center. If this is what an academic language looks like, I think I want more academic languages.</li>
+  <li>Scala is a mainstream language, it was used in many projects which aren’t going away.</li>
+  <li>Scala is the most popular FP language, and it has some of the best resources for practicing and learning FP. It’s also one of the most Python-like languages I’ve used. There’s no doubt in my mind that it will continue to be in demand.</li>
+</ul>
+
+<p>It’s not all roses, tools could be improved, libraries could be more stable, jobs may be harder to find these days, but Scala developers are among the best paid on average, and the projects I see are quite exciting. I tried to jump ship a few years back, to startups doing JavaScript and TypeScript, and later Python. It was awful, and maybe I was just unlucky, but Scala jobs still have this je ne sais quoi that keeps me hooked. Maybe it’s because we aren’t doing dumb web UIs to a database all the time, which also explains the attraction of some towards Rust 🤷‍♂️</p>
+
+<p>How do I feel about Scala? I feel quite good. You see, I get bored easily, and I have a track record of jumping from tech stack to tech stack, just because. On the job, I’ve used PHP, Java, C#, C++, Perl, Python, Ruby, JavaScript, TypeScript, and I’ve also learned and played in my free time with many others, including the darlings du jour. With Scala, I did not have time to be bored, either because of involvement in FOSS, or because of the awesome projects I worked on at $work. It’s a language that has grown with me, and the ecosystem always provides something new to learn, or some new library to get excited about, while matching my aspirations. And I’m not alone. If you take a look at the history of old-timers in the Scala community, you’ll notice a clear progression in their coding style, as it’s a language and ecosystem that grows with you. I always find it amazing how the same guy that worked on <a href="https://scalatra.org/">Scalatra</a>, later worked on <a href="https://github.com/http4s/http4s">Http4s</a>, and that’s the kind of evolution you seldom see elsewhere. And I’m confident Scala 3 will give us new opportunities to learn, grow and build.</p>
+
+<p>The “scalable” language, indeed 😍</p>
+
+  </div>
+
+  <div id="article-details">
+    
+    <time itemprop="dateModified" content="2024-01-10T23:51:16+0200">
+        Updated: January 10, 2024
+    </time>
+    | Written by <a href="https://alexn.org/about/" itemprop="url" rel="author">Alexandru Nedelcu</a>
+
+    <div id="all-categories">
+      Tags:
+      
+        
+        <a href="/blog/tag/scala/" class="category">Scala</a>
+      
+         | 
+        <a href="/blog/tag/programming/" class="category">Programming</a>
+      
+         | 
+        <a href="/blog/tag/opinion/" class="category">Opinion</a>
+      
+    </div>
+  </div>
+
+  
+  <div class="related">
+      <h2 id="related-articles">
+        
+        
+          Related Articles <a href="#related-articles" class="anchor">#</a>
+        
+        
+      </h2>
+    
+    <div class="container">
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2023/12/12/december-adventure-rust/">
+          December Adventure update, thoughts on Rust
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/programming" class="tag">Programming</a>
+            
+               | <a href="/blog/tag/languages" class="tag">Languages</a>
+            
+               | <a href="/blog/tag/rust" class="tag">Rust</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+          </div>
+          <time>December 12, 2023</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2023/12/04/december-adventure/">
+          December Adventure: Learning Rust
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/blogging" class="tag">Blogging</a>
+            
+               | <a href="/blog/tag/books" class="tag">Books</a>
+            
+               | <a href="/blog/tag/languages" class="tag">Languages</a>
+            
+               | <a href="/blog/tag/personal" class="tag">Personal</a>
+            
+               | <a href="/blog/tag/programming" class="tag">Programming</a>
+            
+               | <a href="/blog/tag/rust" class="tag">Rust</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+          </div>
+          <time>December 4, 2023</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2023/11/08/in-scala-3-use-4-spaces-for-indentation/">
+          In Scala 3, use 4 Spaces for Indentation
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/programming" class="tag">Programming</a>
+            
+               | <a href="/blog/tag/programming%20rant" class="tag">Programming Rant</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/scala%203" class="tag">Scala 3</a>
+            
+          </div>
+          <time>November 8, 2023</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  
+
+  
+</article>
+
+      </div>
+   </div><!-- end .content -->
+
+   <script async src="/assets/js/modernizr.custom.15390.js?202401102151" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202401102151" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202401102151" type="text/javascript"></script>
+
+<!-- Syntax highlighting (https://highlightjs.org/) -->
+<script async src="/assets/js/highlight.min.js" type="text/javascript" onload="hljs.highlightAll();"></script>
+
+<script async src="/assets/js/scripts.js?202401102151" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+  (function () {
+    var h = "hostname" in document.location && document.location.hostname || "";
+    if (h != "" && h.indexOf("alexn.org") == -1) {
+      return
+    }
+    var p = (function () {
+      var query = window.location.search.substring(1);
+      var vars = query.split('&');
+      var p = {};
+      for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        p[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+      }
+      return p;
+    })();
+
+    var now = new Date();
+    var url = "https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=Scala%27s+Future&url=https%3A%2F%2Falexn.org%2Fblog%2F2024%2F01%2F10%2Fis-scala-in-trouble%2F" +
+      "&rand=" + encodeURIComponent(Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)) +
+      "&h=" + now.getHours() +
+      "&m=" + now.getMinutes() +
+      "&s=" + now.getSeconds();
+
+    if ("pk_campaign" in p)
+      url += "&_rcn=" + encodeURIComponent(p["pk_campaign"]);
+    if ("pk_kwd" in p)
+      url += "&_rck=" + encodeURIComponent(p["pk_kwd"]);
+    if ("referrer" in document && document.referrer)
+      url += "&urlref=" + encodeURIComponent(document.referrer);
+    if ("screen" in window)
+      url += "&res=" + screen.width + "x" + screen.height;
+
+    var d=document, i=d.createElement("img"),s0=d.getElementsByTagName("script"),s=s0[s0.length-1];
+    i.setAttribute("alt", "");
+    i.setAttribute("referrerpolicy", "no-referrer-when-downgrade");
+    i.setAttribute("src", url);
+    i.setAttribute("width", "1");
+    i.setAttribute("height", "1");
+    i.setAttribute("style", "position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;");
+    s.parentNode.insertBefore(i,s);
+  })();
+</script>
+<noscript>
+  <img referrerpolicy="no-referrer-when-downgrade" src="https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=Scala%27s+Future&url=https%3A%2F%2Falexn.org%2Fblog%2F2024%2F01%2F10%2Fis-scala-in-trouble%2F" width="1" height="1" style="position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;" alt="" />
+</noscript>
+
+   <div class="footer">
+  
+  <div class="container">
+    <div class="contributions">
+      <div id="footer-comments-widget">
+  <h2 id="comments">
+  Comments
+  <a href="#comments" class="anchor">#</a>
+</h2>
+
+<div class="only-js">
+  Want to chat in private? Email me:
+  <script id="email-script">
+    (function () {
+      var lhs = "low.flag5454";
+      var rhs = "ac.alexn.org";
+      var d = document;
+      var a = d.createElement("a");
+      a.setAttribute("target", "_blank");
+      a.setAttribute("href", "mailto:" + lhs + "@" + rhs + "?subject=Comment%20on%3A%20Scala's%20Future");
+      a.text = lhs + "@" + rhs;
+      var es = d.getElementById("email-script");
+      es.parentNode.insertBefore(a, es);
+    })();
+  </script>
+  <noscript>
+    <em>Email address is protected via JavaScript, activate it to see it!</em>
+  </noscript>
+
+  <p class="small-note">
+    The address is changed periodically to avoid spam.
+  </p>
+</div>
+
+
+<div id="comments">
+  <script async
+          data-isso="https://alexn.org/comments/alexn/"
+          data-isso-css="false"
+          data-isso-lang="en"
+          data-isso-reply-to-self="true"
+          data-isso-require-author="true"
+          data-isso-require-email="false"
+          data-isso-reply-notifications="true"
+          data-isso-max-comments-top="30"
+          data-isso-max-comments-nested="20"
+          data-isso-reveal-on-click="20"
+          data-isso-gravatar="true"
+          data-isso-avatar="false"
+          data-isso-vote="false"
+          data-vote-levels=""
+          src="https://alexn.org/comments/alexn/js/embed.min.js"></script>
+  <section id="isso-thread" data-title="Scala's Future">
+  </section>
+</div>
+<noscript>
+  <div class="note-warning">
+    <strong>Enable JavaScript to see the email address or the public comments!</strong>
+    <br>
+    <span class="extra">
+      Commenting widget is powered by a self-hosted commenting server.
+      <span style="white-space: nowrap;">
+        Read the <a href="/docs/privacy-policy/">privacy policy</a>.
+      </span>
+    </span>
+  </div>
+</noscript>
+
+</div>
+
+<h2 id="contribute">
+  Contribute
+  <a href="#contribute" class="anchor">#</a>
+</h2>
+
+<p>
+  Fix or add to this article by submitting a pull request:<br/>
+  <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/main/_posts/2024-01-10-is-scala-in-trouble.md" target="_blank">Edit Page on GitHub</a>
+</p>
+
+<p>
+  Donate to cover ongoing website costs, or buy me coffee ☕️😋 <br/>
+  <a href="https://www.patreon.com/bePatron?u=6102596" target="_blank" class="patreon-button">
+    <img label="Become a Patron!" alt="Become a Patron!" title="Become a Patron!" src="/assets/media/buttons/patreon.png" />
+  </a>
+</p>
+
+
+<h2 id="subscribe">
+  Subscribe
+  <a href="#subscribe" class="anchor">#</a>
+</h2>
+
+<p>  
+  <a target="_blank" href="https://alexn.us4.list-manage.com/subscribe?u=5bffa2af025192a58345bd5dc&id=1c9005b255" rel="nofollow"><span class="link-logo"><img src="/assets/logo/email.svg" /></span>Subscribe by email</a>
+  and receive notifications for new blog articles. No spam, just content. 
+  Powered by <a href="https://mailchimp.com/" rel="nofollow" target="_blank">Mailchimp</a>. 
+  See <a href="/docs/privacy-policy/#email-newsletter">privacy policy</a>.
+</p>
+
+<!-- Begin Mailchimp Signup Form -->
+<div id="mc_embed_signup">
+  <form action="https://alexn.us4.list-manage.com/subscribe/post?u=5bffa2af025192a58345bd5dc&amp;id=1c9005b255"
+    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
+    novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="mc-field-group field">
+        <label for="mce-EMAIL">Email Address <sup class="asterisk">*</sup></label>
+        <input type="email" value="" name="EMAIL" class="required email full-width" id="mce-EMAIL" placeholder="user@domain.com" required>
+      </div>
+      <!-- <div class="mc-field-group field">
+        <label for="mce-FULLNAME">Name</label>
+        <input type="text" value="" name="FULLNAME" class="full-width" id="mce-FULLNAME" placeholder="John Doe">
+      </div> -->
+      <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+      </div>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+          name="b_5bffa2af025192a58345bd5dc_1c9005b255" tabindex="-1" value=""></div>
+      <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+          class="button"></div>
+    </div>
+  </form>
+</div>
+<!--End mc_embed_signup-->
+
+
+    </div>
+  </div>
+  
+
+  <div class="bottom">
+    <div class="container">
+      <span class="copy">
+          &copy; 2009-2024
+      </span>
+      <span class="links">
+        <a href="/docs/license/">License</a> |
+        <a href="/docs/privacy-policy/">Privacy Policy</a> |
+        <a href="/about/#contact">Contact</a>
+        <span id="other-social-profiles" class="hidden">
+          | <a href="https://social.alexn.org/@alexelcu" rel="me">Social</a>
+        </span>
+      </span>
+    </div>
+  </div>
+</div><!-- end .footer -->
+
+</body>
+</html>
