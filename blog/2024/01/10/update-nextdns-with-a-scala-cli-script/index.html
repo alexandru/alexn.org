@@ -20,13 +20,13 @@
     <meta property="og:description" content="On programming and personal projects">
     <meta property="og:url" content="https://alexn.org/blog/2024/01/10/update-nextdns-with-a-scala-cli-script/">
     <meta property="article:published_time" content="2024-01-10T11:14:14+00:00">
-    <meta property="article:modified_time" content="2024-01-10T15:57:06+00:00">
+    <meta property="article:modified_time" content="2024-01-10T16:04:09+00:00">
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2014-scala-cli.png?202401101602" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2014-scala-cli.png?202401101602" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2014-scala-cli.png?202401101604" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2014-scala-cli.png?202401101604" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2014-scala-cli.png?202401101602">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2014-scala-cli.png?202401101604">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="Update NextDNS with a Scala CLI script">
@@ -289,14 +289,14 @@ object Main extends CommandApp(
   <li>Parsing command-line arguments.</li>
 </ul>
 
-<p>My script depends on <a href="https://docs.scala-lang.org/toolkit/introduction.html">Scala Toolkit</a>, which is a set of libraries that can take care of HTTP requests (via <a href="https://sttp.softwaremill.com/en/stable/">sttp</a>) and for parsing JSON (via <a href="https://github.com/com-lihaoyi/upickle">upickle</a>). I also depend on <a href="https://github.com/bkirwi/decline">decline</a>, my favorite library for parsing command line arguments. I don’t need to install these separately, as Scala CLI takes care of managing these dependencies (unlike some of the popular scripting languages).</p>
+<p>My script depends on <a href="https://docs.scala-lang.org/toolkit/introduction.html">Scala Toolkit</a>, which is a set of libraries that can take care of doing HTTP requests (via <a href="https://sttp.softwaremill.com/en/stable/">sttp</a>) and parsing JSON (via <a href="https://github.com/com-lihaoyi/upickle">upickle</a>). The script also depends on <a href="https://github.com/bkirwi/decline">decline</a>, my favorite library for parsing command line arguments. I don’t need to install these separately, as Scala CLI takes care of managing these dependencies (unlike some of the popular scripting languages).</p>
 
-<p>The script can be executed directly, if you have Scala CLI installed, as it includes a <a href="https://en.wikipedia.org/wiki/Shebang_(Unix)">shebang</a>. Just paste the above in a file on your PATH, like <code>~/bin/nextdns-vpn-update.scala</code>. Then make it executable:</p>
+<p>The script can be executed directly, if you have <a href="https://scala-cli.virtuslab.org/install">Scala CLI installed</a>, as it includes a <a href="https://en.wikipedia.org/wiki/Shebang_(Unix)">shebang</a>. Just paste the above in a file on your PATH, like <code>~/bin/nextdns-vpn-update.scala</code>. Then make it executable:</p>
 
 <pre><code class="language-scala">chmod +x ~/bin/nextdns-vpn-update.scala
 </code></pre>
 
-<p>And <a href="https://scalameta.org/metals/">Scala Metals</a> is just wonderful for such scripts, with auto-completion, GH Copilot and everything. It took me at most 15 minutes to write and test this.</p>
+<p>And <a href="https://scalameta.org/metals/">Scala’s Metals</a>, which I use with VS Code, is just wonderful for such scripts, with auto-completion, GH Copilot and everything. It took me at most 15 minutes to write and test this.</p>
 
 <p>Python and Ruby are definitely dethroned for all my future scripting needs.</p>
 
@@ -304,7 +304,7 @@ object Main extends CommandApp(
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2024-01-10T17:57:06+0200">
+    <time itemprop="dateModified" content="2024-01-10T18:04:09+0200">
         Updated: January 10, 2024
     </time>
     | Written by <a href="https://alexn.org/about/" itemprop="url" rel="author">Alexandru Nedelcu</a>
@@ -418,14 +418,14 @@ object Main extends CommandApp(
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202401101602" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202401101602" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202401101602" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202401101604" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202401101604" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202401101604" type="text/javascript"></script>
 
 <!-- Syntax highlighting (https://highlightjs.org/) -->
 <script async src="/assets/js/highlight.min.js" type="text/javascript" onload="hljs.highlightAll();"></script>
 
-<script async src="/assets/js/scripts.js?202401101602" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202401101604" type="text/javascript"></script>
 
 
 <script type="text/javascript">
