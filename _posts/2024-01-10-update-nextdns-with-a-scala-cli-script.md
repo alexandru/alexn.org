@@ -15,7 +15,7 @@ last_modified_at: 2024-01-10 13:33:55 +02:00
     Today I was reminded how awesome [Scala](https://www.scala-lang.org/) is for scripting, via [Scala CLI](https://scala-cli.virtuslab.org/). And it goes beyond having "batteries included".
 </p>
 
-**Problem:** I have a [NextDNS account](), as my DNS provider, for privacy and for blocking ads. My work computer has VPN software on it, that overrides the Wi-Fi's DNS servers in order to access internal company resources. But I still want to configure NextDNS in my browser, and the problem is that my Chromium browser doesn't fall back to the system DNS when I configure DNS-over-HTTPS.
+**Problem:** I have a [NextDNS account](https://nextdns.io), as my DNS provider, for privacy and for blocking ads. My work computer has VPN software on it, that overrides the Wi-Fi's DNS servers in order to access internal company resources. But I still want to configure NextDNS in my browser, and the problem is that my Chromium browser doesn't fall back to the system DNS when I configure DNS-over-HTTPS.
 
 **Solution:** a Scala script that updates the NextDNS configuration with overrides for the internal resources that I care about, as [NextDNS has an HTTP API](https://nextdns.github.io/api/) that I can use.
 
