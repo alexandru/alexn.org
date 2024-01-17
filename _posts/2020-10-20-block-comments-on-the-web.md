@@ -82,7 +82,7 @@ You can then import it in uBlock Origin easily:
 
 Safari, on macOS and iOS, has content blockers too. Not as capable, but they do the job. An excellent one is [Wipr](https://giorgiocalderolla.com/wipr.html), but it doesn't allow setting custom rules.
 
-- A prepackaged solution that can block comments is [Quiet](https://lighthouse16.com/quiet/), but that's less fun
+- A prepackaged solution that can block comments is [Quiet](https://petercammeraat.net/projects/quiet/), but that's less fun
 - [1Blocker](https://1blocker.com/) appears to allow for [creating custom rules](https://support.1blocker.com/hc/en-us/articles/360002309738-Creating-Custom-Rules), but I haven't tried it yet
 - [Building your own content blocker](https://developer.apple.com/documentation/safariservices/creating_a_content_blocker) could be a fun project
 
