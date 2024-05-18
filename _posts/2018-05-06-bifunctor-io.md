@@ -424,7 +424,7 @@ In the grand scheme of things, the reason for why this is a huge problem is beca
 `IO` should reflect the runtime, because `IO` effectively replaces Java's call-stack.
 But the Bifunctor `IO` no longer does.
 
-In the words of [Daniel Spiewak](https://twitter.com/djspiewak), who initiated
+In the words of [Daniel Spiewak](https://x.com/djspiewak), who initiated
 the Cats-Effect project:
 
 <blockquote>
@@ -434,7 +434,7 @@ the Cats-Effect project:
     IO is the runtime, the runtime is IO.
   ”</em></p>
   <p>
-    <a href="https://twitter.com/djspiewak/status/983807277613236230">
+    <a href="https://x.com/djspiewak/status/983807277613236230">
       Source
     </a>
   </p>
@@ -444,7 +444,7 @@ the Cats-Effect project:
     control is weakened and can be corrupted (in this case, by uncontrolled crashes).
   ”</em></p>
   <p>
-    <a href="https://twitter.com/djspiewak/status/983808880349073408">
+    <a href="https://x.com/djspiewak/status/983808880349073408">
       Source
     </a>
   </p>
@@ -453,7 +453,7 @@ the Cats-Effect project:
     All it takes is an "innocent" throw to turn it all into a lie, and you can't prevent that.
   ”</em></p>
   <p>
-    <a href="https://twitter.com/djspiewak/status/983805298526699520">
+    <a href="https://x.com/djspiewak/status/983805298526699520">
       Source
     </a>
   </p>
@@ -463,7 +463,7 @@ I agree with that and it shows which developers worked a lot in dynamic environm
 this great divide being between those that think types can prove correctness in all cases
 and those that don't.
 
-If you're in the former camp, I think [Hillel Wayne](https://twitter.com/Hillelogram)
+If you're in the former camp, I think [Hillel Wayne](https://x.com/Hillelogram)
 is eager to [prove you wrong](https://hillelwayne.com/post/theorem-prover-showdown/) 😉
 
 ## IO Cannot Be an Alias of the Bifunctor IO

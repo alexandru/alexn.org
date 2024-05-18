@@ -3,7 +3,7 @@ redirect_from:
   - /wiki/web-tricks.html
   - /wiki/web-apps.html
 date: 2020-11-30 17:38:13 +03:00
-last_modified_at: 2023-01-20 09:07:39 +02:00
+last_modified_at: 2024-05-18 10:20:10 +03:00
 ---
 
 # Web
@@ -71,7 +71,7 @@ nativefier \
     --maximize \
     --counter \
     --name "Twitter" \
-    "https://twitter.com"
+    "https://x.com"
 ```
 
 ```
@@ -103,7 +103,7 @@ Credit: <https://stackoverflow.com/a/60954062>
 From JavaScript:
 
 ```js
-"matchMedia" in window && 
+"matchMedia" in window &&
 window.matchMedia('(prefers-color-scheme: dark)').matches
 ```
 

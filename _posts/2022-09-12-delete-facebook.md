@@ -4,7 +4,7 @@ image: /assets/media/articles/slot-machines.jpg
 image_hide_in_post: true
 image_caption: Slot machines in a Las Vegas casino.
 date: 2022-09-12 12:00:00 +03:00
-last_modified_at: 2022-09-21 23:22:04 +03:00
+last_modified_at: 2024-05-18 10:19:22 +03:00
 tags:
   - Personal
 description: >
@@ -49,6 +49,6 @@ To finally delete it, after a couple of failed attempts, I had to make recovery 
 
 I managed to do it, as I realized that I'm not missing anything. If I want pictures from my family, I'll ask for them. If I want to keep in touch with people, I'll simply call them on the phone, and then maybe go out for coffee or beer, if possible; although just having phone conversations is nice, too. For telling my distant family how my life is going, if phone calls or visits aren't practical, a plain-old newsletter might be better. I don't need the events, or the politics, or the support groups. Everything I got from Facebook was either not productive, or had better options elsewhere.
 
-And not just Facebook. I deleted multiple social media accounts, actually. For example Instagram, and TikTok. And almost 2 years ago I gave up on my Hacker News account. Giving up on HN, with my hard-earned karma, was actually more painful than Facebook. I'm still on [Twitter](https://twitter.com/alexelcu), as it can be useful for learning, or for notifying others of my blog posts. But only if kept in check, the rules being: no social interactions on it whatsoever, absolutely all notifications off, and time limited. I'm pretty sure that, given my current mentality, I'm no longer the ideal Twitter user, having turned it into a glorified RSS feed. Ditto Reddit.
+And not just Facebook. I deleted multiple social media accounts, actually. For example Instagram, and TikTok. And almost 2 years ago I gave up on my Hacker News account. Giving up on HN, with my hard-earned karma, was actually more painful than Facebook. I'm still on [Twitter](https://x.com/alexelcu), as it can be useful for learning, or for notifying others of my blog posts. But only if kept in check, the rules being: no social interactions on it whatsoever, absolutely all notifications off, and time limited. I'm pretty sure that, given my current mentality, I'm no longer the ideal Twitter user, having turned it into a glorified RSS feed. Ditto Reddit.
 
 So here I am, a 40-year-old with no Facebook. Now, you kids get off my lawn!

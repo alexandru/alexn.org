@@ -186,7 +186,7 @@ criticism:
   ”</em></p>
   <footer>
     <p>
-      <a href="https://twitter.com/djspiewak/status/962767948774457344" target="_blank">Source</a>
+      <a href="https://x.com/djspiewak/status/962767948774457344" target="_blank">Source</a>
     </p>
   </footer>
 </blockquote>
@@ -248,7 +248,7 @@ This is actually a separate argument that does have merit:
   ”</em></p>
   <footer>
     <p>
-      <a href="https://twitter.com/fommil/status/962736382467813376" target="_blank">Sam Halliday</a>
+      <a href="https://x.com/fommil/status/962736382467813376" target="_blank">Sam Halliday</a>
     </p>
   </footer>
 </blockquote>
@@ -262,7 +262,7 @@ This is actually a separate argument that does have merit:
   ”</em></p>
   <footer>
     <p>
-      <a href="https://twitter.com/emi1ypi/status/962743355192020992" target="_blank">Emily Pillmore</a>
+      <a href="https://x.com/emi1ypi/status/962743355192020992" target="_blank">Emily Pillmore</a>
     </p>
   </footer>
 </blockquote>
@@ -596,7 +596,7 @@ Here's  Phil Freeman's opinion, the creator of the PureScript language:
   ”</em></p>
   <footer>
     <p>
-      <a href="https://twitter.com/paf31/status/960270750903975936" target="_blank">Source</a>
+      <a href="https://x.com/paf31/status/960270750903975936" target="_blank">Source</a>
     </p>
   </footer>
 </blockquote>
@@ -789,7 +789,7 @@ Not everybody agrees and as mentioned in section
   ”</em></p>
   <footer>
     <p>
-      <a href="https://twitter.com/djspiewak/status/962767948774457344">Daniel Spiewak</a>
+      <a href="https://x.com/djspiewak/status/962767948774457344">Daniel Spiewak</a>
     </p>
   </footer>
 </blockquote>

@@ -1,6 +1,6 @@
 ---
 date: 2022-12-04 12:01:00 +02:00
-last_modified_at: 2023-11-07 11:56:32 +02:00
+last_modified_at: 2024-05-18 10:19:39 +03:00
 ---
 
 # Bookmarklets
@@ -16,7 +16,7 @@ Beautified:
     t = document.title;
     t = t ? '"' + t + '"' + "\n\n" : "";
     window.open(
-        `https://twitter.com/intent/tweet?text=${encodeURIComponent(t)}${document.location.href}`,
+        `https://x.com/intent/tweet?text=${encodeURIComponent(t)}${document.location.href}`,
         "Share on Twitter",
         "scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=800,height=600,left=0,top=0"
     )
@@ -26,7 +26,7 @@ Beautified:
 Minified:
 
 ```javascript
-(function(){t=document.title,t=t?'"'+t+'"\n\n':"",window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(t)}${document.location.href}`,"Share on Twitter","scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=800,height=600,left=0,top=0")})()
+(function(){t=document.title,t=t?'"'+t+'"\n\n':"",window.open(`https://x.com/intent/tweet?text=${encodeURIComponent(t)}${document.location.href}`,"Share on Twitter","scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=800,height=600,left=0,top=0")})()
 ```
 
 Encoded:

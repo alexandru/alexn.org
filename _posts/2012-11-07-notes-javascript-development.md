@@ -92,7 +92,7 @@ it. What I really wanted however was
 [TypeScript](http://www.typescriptlang.org/), which is like
 JavaScript, but with nice add-ons. Unfortunately it's too immature and
 so
-[it isn't included by Brunch's authors yet](https://twitter.com/brunch/status/253571565923467264),
+[it isn't included by Brunch's authors yet](https://x.com/brunch/status/253571565923467264),
 but it probably will be at some point.
 
 ## Dealing with Async Events

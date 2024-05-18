@@ -1097,7 +1097,7 @@ of operations and is the *only reliable* way to ensure ordering.
 
 > "*Observation: programmers doing concurrency with imperative languages
 > are tripped by the unchallenged belief that ";" defines sequencing.*"
-> -- [Aleksey Shipilëv](https://twitter.com/shipilev/status/822004316605206529)
+> -- [Aleksey Shipilëv](https://x.com/shipilev/status/822004316605206529)
 
 A simple encoding of the `Monad` type in Scala:
 
