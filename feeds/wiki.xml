@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 16 May 2024 03:48:05 +0000</pubDate>
-    <lastBuildDate>Thu, 16 May 2024 03:48:05 +0000</lastBuildDate>
+    <pubDate>Sat, 18 May 2024 07:46:14 +0000</pubDate>
+    <lastBuildDate>Sat, 18 May 2024 07:46:14 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -528,11 +528,11 @@ fi
 <item>
   <title>Bookmarklets</title>
   <description>Article
-    updated at November 7, 2023, 
+    updated at May 18, 2024, 
     created at December 4, 2022.</description>
   <content:encoded>&lt;p&gt;
     Article
-    updated at November 7, 2023, 
+    updated at May 18, 2024, 
     created at December 4, 2022.
   &lt;/p&gt;
   &lt;hr&gt;
@@ -546,7 +546,7 @@ fi
     t = document.title;
     t = t ? &apos;&quot;&apos; + t + &apos;&quot;&apos; + &quot;\n\n&quot; : &quot;&quot;;
     window.open(
-        `https://twitter.com/intent/tweet?text=${encodeURIComponent(t)}${document.location.href}`,
+        `https://x.com/intent/tweet?text=${encodeURIComponent(t)}${document.location.href}`,
         &quot;Share on Twitter&quot;,
         &quot;scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=800,height=600,left=0,top=0&quot;
     )
@@ -555,7 +555,7 @@ fi
 
 &lt;p&gt;Minified:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;(function(){t=document.title,t=t?&apos;&quot;&apos;+t+&apos;&quot;\n\n&apos;:&quot;&quot;,window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(t)}${document.location.href}`,&quot;Share on Twitter&quot;,&quot;scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=800,height=600,left=0,top=0&quot;)})()
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;(function(){t=document.title,t=t?&apos;&quot;&apos;+t+&apos;&quot;\n\n&apos;:&quot;&quot;,window.open(`https://x.com/intent/tweet?text=${encodeURIComponent(t)}${document.location.href}`,&quot;Share on Twitter&quot;,&quot;scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=800,height=600,left=0,top=0&quot;)})()
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Encoded:&lt;/p&gt;
@@ -734,8 +734,8 @@ fi
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Encoding and assembly of the final bookmarklet is left as an exercise for the reader.&lt;/p&gt;</content:encoded><pubDate>Sun, 04 Dec 2022 10:01:00 +0000</pubDate>
-  <dc:modified>Tue, 07 Nov 2023 09:56:32 +0000</dc:modified>
-  <atom:modified>Tue, 07 Nov 2023 09:56:32 +0000</atom:modified>
+  <dc:modified>Sat, 18 May 2024 07:19:39 +0000</dc:modified>
+  <atom:modified>Sat, 18 May 2024 07:19:39 +0000</atom:modified>
   <link>https://alexn.org/wiki/bookmarklets/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/bookmarklets/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
@@ -746,11 +746,11 @@ fi
 <item>
   <title>Mastodon</title>
   <description>Article
-    updated at August 2, 2023, 
+    updated at May 18, 2024, 
     created at November 22, 2022.</description>
   <content:encoded>&lt;p&gt;
     Article
-    updated at August 2, 2023, 
+    updated at May 18, 2024, 
     created at November 22, 2022.
   &lt;/p&gt;
   &lt;hr&gt;
@@ -818,7 +818,7 @@ fi
 &lt;h3 id=&quot;download-twitter-archive&quot;&gt;Download Twitter archive&lt;/h3&gt;
 
 &lt;p&gt;Download your Twitter archive and store it somewhere safe, even if you don’t plan on leaving Twitter: &lt;br&gt;
-&lt;a href=&quot;https://twitter.com/settings/download_your_data&quot;&gt;https://twitter.com/settings/download_your_data&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&quot;https://x.com/settings/download_your_data&quot;&gt;https://x.com/settings/download_your_data&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;The archive download is fairly usable. But you might want to parse your archive, to replace &lt;code&gt;t.co&lt;/code&gt; links and spit out markdown files:&lt;/p&gt;
 
@@ -830,7 +830,7 @@ fi
 &lt;h3 id=&quot;leaving-twitter&quot;&gt;Leaving Twitter?&lt;/h3&gt;
 
 &lt;p&gt;First download your Twitter archive and store it somewhere safe: &lt;br&gt;
-&lt;a href=&quot;https://twitter.com/settings/download_your_data&quot;&gt;https://twitter.com/settings/download_your_data&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&quot;https://x.com/settings/download_your_data&quot;&gt;https://x.com/settings/download_your_data&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;If you’d like to delete your Twitter account, depending on how popular your account is, you might want to avoid deleting it, to prevent impersonation/cybersquatting. I recommend to:&lt;/p&gt;
 
@@ -1371,8 +1371,8 @@ fi
 There may be better ways of doing this (like simply using block storage),
 I’m still learning.
 &lt;/p&gt;</content:encoded><pubDate>Tue, 22 Nov 2022 09:55:19 +0000</pubDate>
-  <dc:modified>Wed, 02 Aug 2023 08:12:06 +0000</dc:modified>
-  <atom:modified>Wed, 02 Aug 2023 08:12:06 +0000</atom:modified>
+  <dc:modified>Sat, 18 May 2024 07:19:54 +0000</dc:modified>
+  <atom:modified>Sat, 18 May 2024 07:19:54 +0000</atom:modified>
   <link>https://alexn.org/wiki/mastodon/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/mastodon/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
@@ -1996,11 +1996,11 @@ echo vm.swappiness = 0 | sudo tee -a /etc/sysctl.conf
 <item>
   <title>Web</title>
   <description>Article
-    updated at January 20, 2023, 
+    updated at May 18, 2024, 
     created at November 30, 2020.</description>
   <content:encoded>&lt;p&gt;
     Article
-    updated at January 20, 2023, 
+    updated at May 18, 2024, 
     created at November 30, 2020.
   &lt;/p&gt;
   &lt;hr&gt;
@@ -2081,7 +2081,7 @@ echo vm.swappiness = 0 | sudo tee -a /etc/sysctl.conf
     --maximize \
     --counter \
     --name &quot;Twitter&quot; \
-    &quot;https://twitter.com&quot;
+    &quot;https://x.com&quot;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;pre&gt;&lt;code&gt;nativefier \
@@ -2113,7 +2113,7 @@ echo vm.swappiness = 0 | sudo tee -a /etc/sysctl.conf
 
 &lt;p&gt;From JavaScript:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&quot;matchMedia&quot; in window &amp;&amp; 
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&quot;matchMedia&quot; in window &amp;&amp;
 window.matchMedia(&apos;(prefers-color-scheme: dark)&apos;).matches
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -2131,8 +2131,8 @@ window.matchMedia(&apos;(prefers-color-scheme: dark)&apos;).matches
 &lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&quot;querySelector&quot; in document &amp;&amp;
 !!document.querySelector(&quot;meta[name=darkreader]&quot;)
 &lt;/code&gt;&lt;/pre&gt;</content:encoded><pubDate>Mon, 30 Nov 2020 14:38:13 +0000</pubDate>
-  <dc:modified>Fri, 20 Jan 2023 07:07:39 +0000</dc:modified>
-  <atom:modified>Fri, 20 Jan 2023 07:07:39 +0000</atom:modified>
+  <dc:modified>Sat, 18 May 2024 07:20:10 +0000</dc:modified>
+  <atom:modified>Sat, 18 May 2024 07:20:10 +0000</atom:modified>
   <link>https://alexn.org/wiki/web/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/web/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
