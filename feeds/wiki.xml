@@ -10,13 +10,82 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 18 May 2024 07:46:14 +0000</pubDate>
-    <lastBuildDate>Sat, 18 May 2024 07:46:14 +0000</lastBuildDate>
+    <pubDate>Sat, 25 May 2024 15:32:11 +0000</pubDate>
+    <lastBuildDate>Sat, 25 May 2024 15:32:11 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v4.3.2</generator>
     
+<item>
+  <title>Gradle</title>
+  <description>Article
+    updated at May 25, 2024, 
+    created at May 25, 2024.</description>
+  <content:encoded>&lt;p&gt;
+    Article
+    updated at May 25, 2024, 
+    created at May 25, 2024.
+  &lt;/p&gt;
+  &lt;hr&gt;
+  
+  &lt;img referrerpolicy=&quot;no-referrer-when-downgrade&quot; src=&quot;https://ly.alexn.org/m.php?idsite=1&amp;rec=1&amp;action_name=%2Ffeeds%2Fwiki.xml&amp;url=https%3A%2F%2Falexn.org%2Ffeeds%2Fwiki.xml&amp;pk_campaign=rss&amp;pk_kwd=open&quot; width=&quot;1&quot; height=&quot;1&quot; style=&quot;position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;&quot; alt=&quot;&quot;&gt;
+&lt;p&gt;Upgrading the Gradle wrapper to the latest version:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;./gradlew wrapper --gradle-version latest
+&lt;/code&gt;&lt;/pre&gt;</content:encoded><pubDate>Sat, 25 May 2024 15:27:05 +0000</pubDate>
+  <dc:modified>Sat, 25 May 2024 15:28:04 +0000</dc:modified>
+  <atom:modified>Sat, 25 May 2024 15:28:04 +0000</atom:modified>
+  <link>https://alexn.org/wiki/gradle/?pk_campaign=rss</link>
+  <guid isPermaLink="true">https://alexn.org/wiki/gradle/</guid>
+  <dc:creator>Alexandru Nedelcu</dc:creator>
+  <category>Wiki</category>
+  
+</item>
+
+<item>
+  <title>OCaml</title>
+  <description>Article
+    updated at April 15, 2024, 
+    created at April 15, 2024.</description>
+  <content:encoded>&lt;p&gt;
+    Article
+    updated at April 15, 2024, 
+    created at April 15, 2024.
+  &lt;/p&gt;
+  &lt;hr&gt;
+  &lt;h2 id=&quot;installing&quot;&gt;Installing&lt;/h2&gt;
+
+&lt;p&gt;For macOS (&lt;a href=&quot;https://opam.ocaml.org/doc/Install.html&quot;&gt;see other platforms&lt;/a&gt;):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;brew install opam
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Initialize:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;opam init
+
+# Test
+opam switch
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Some utilities:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;# For the VS Code extension (OCaml Platform)
+opam install ocaml-lsp-server
+
+# OCaml REPL
+opam install utop
+
+# Standard library recommended by Real World OCaml
+opam install core core_bench
+&lt;/code&gt;&lt;/pre&gt;</content:encoded><pubDate>Mon, 15 Apr 2024 17:23:07 +0000</pubDate>
+  <dc:modified>Mon, 15 Apr 2024 17:27:49 +0000</dc:modified>
+  <atom:modified>Mon, 15 Apr 2024 17:27:49 +0000</atom:modified>
+  <link>https://alexn.org/wiki/ocaml/?pk_campaign=rss</link>
+  <guid isPermaLink="true">https://alexn.org/wiki/ocaml/</guid>
+  <dc:creator>Alexandru Nedelcu</dc:creator>
+  <category>Wiki</category>
+  
+</item>
+
 <item>
   <title>JavaScript / TypeScript</title>
   <description>Article
@@ -28,9 +97,7 @@
     created at May 30, 2023.
   &lt;/p&gt;
   &lt;hr&gt;
-  
-  &lt;img referrerpolicy=&quot;no-referrer-when-downgrade&quot; src=&quot;https://ly.alexn.org/m.php?idsite=1&amp;rec=1&amp;action_name=%2Ffeeds%2Fwiki.xml&amp;url=https%3A%2F%2Falexn.org%2Ffeeds%2Fwiki.xml&amp;pk_campaign=rss&amp;pk_kwd=open&quot; width=&quot;1&quot; height=&quot;1&quot; style=&quot;position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;&quot; alt=&quot;&quot;&gt;
-&lt;h2 id=&quot;getting-started&quot;&gt;Getting Started&lt;/h2&gt;
+  &lt;h2 id=&quot;getting-started&quot;&gt;Getting Started&lt;/h2&gt;
 
 &lt;h3 id=&quot;vite&quot;&gt;Vite&lt;/h3&gt;
 
