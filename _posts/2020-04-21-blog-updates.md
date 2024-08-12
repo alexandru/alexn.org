@@ -13,7 +13,7 @@ youtube: RYmGT905Skc
   I love writing. I write long emails, long chat texts, long code comments. Some of my rants are epic. Sometimes I'm amazed that my colleagues have the patience to read it all 🙂
 </p>
 
-Yet I've neglected my personal blog. This happens because [Twitter](https://twitter.com/alexelcu){:target="_blank"} fulfilled my needs for shitposting and for code I ended up creating snippets as [Gists](https://gist.github.com/alexandru){:target="_blank"}, many of which are private, meant for colleagues.
+Yet I've neglected my personal blog. This happens because [Twitter](https://x.com/alexelcu){:target="_blank"} fulfilled my needs for shitposting and for code I ended up creating snippets as [Gists](https://gist.github.com/alexandru){:target="_blank"}, many of which are private, meant for colleagues.
 
 No more. I dusted off my blog and will commence a regular posting schedule.
 

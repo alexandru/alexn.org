@@ -129,7 +129,7 @@ Here are the implementations that I know about that DO NOT leak memory:
 2. [Scala](https://www.scala-lang.org/)'s standard
    [Future](http://www.scala-lang.org/api/2.12.3/scala/concurrent/Future.html),
    in the wild since 2013; the fix for the leaky `flatMap`
-   chains was added by [Rich Dougherty](https://twitter.com/richdougherty)
+   chains was added by [Rich Dougherty](https://x.com/richdougherty)
    in [this PR](https://github.com/scala/scala/pull/2674), inspired
    by Twitter's `Future` implementation
 3. Twitter's [Future](https://twitter.github.io/util/docs/com/twitter/util/Future.html),
@@ -209,8 +209,8 @@ this article.
 
 ### 6. No Use-cases, This is a Niche
 
-Functional programming might be a niche, however more and more projects, 
-including at big companies such as Facebook, are now using an 
+Functional programming might be a niche, however more and more projects,
+including at big companies such as Facebook, are now using an
 [actual FP style]({% link _posts/2017-10-15-functional-programming.md %}).
 
 You cannot describe any functional programming algorithm involving loops

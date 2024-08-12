@@ -1,6 +1,6 @@
 ---
 date: 2022-11-22 11:55:19 +02:00
-last_modified_at: 2023-08-02 11:12:06 +03:00
+last_modified_at: 2024-05-18 10:19:54 +03:00
 ---
 
 # Mastodon
@@ -57,7 +57,7 @@ For following Twitter's drama, without logging into Twitter: <br>
 ### Download Twitter archive
 
 Download your Twitter archive and store it somewhere safe, even if you don't plan on leaving Twitter: <br>
-<https://twitter.com/settings/download_your_data>
+<https://x.com/settings/download_your_data>
 
 The archive download is fairly usable. But you might want to parse your archive, to replace `t.co` links and spit out markdown files:
 
@@ -67,7 +67,7 @@ The archive download is fairly usable. But you might want to parse your archive,
 ### Leaving Twitter?
 
 First download your Twitter archive and store it somewhere safe: <br>
-<https://twitter.com/settings/download_your_data>
+<https://x.com/settings/download_your_data>
 
 If you'd like to delete your Twitter account, depending on how popular your account is, you might want to avoid deleting it, to prevent impersonation/cybersquatting. I recommend to:
 
