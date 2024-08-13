@@ -20,7 +20,7 @@
     <meta property="og:description" content="On programming and personal projects">
     <meta property="og:url" content="https://alexn.org/blog/2024/08/13/cryptographically-strong-random-jvm/">
     <meta property="article:published_time" content="2024-08-13T08:17:53+00:00">
-    <meta property="article:modified_time" content="2024-08-13T12:48:15+00:00">
+    <meta property="article:modified_time" content="2024-08-13T12:50:44+00:00">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://alexn.org/assets/logo/800px-bordered.png" />
     <meta property="og:image:secure_url" content="https://alexn.org/assets/logo/800px-bordered.png" />
@@ -200,7 +200,7 @@ public class ThreadLocalSecureRandom {
 
 <p>In our Scala project, we have this helper that redirects the generation of new UUIDs on threads that can be blocked (by semantically marking the operation as “blocking”):</p>
 
-<pre><code class="language-scala">// Scala 2.x code
+<pre><code class="language-scala">// Scala code
 import cats.effect.IO
 import java.util.UUID
 
@@ -231,7 +231,7 @@ suspend fun generateRandomUUID(): UUID =
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2024-08-13T15:48:15+0300">
+    <time itemprop="dateModified" content="2024-08-13T15:50:44+0300">
         Updated: August 13, 2024
     </time>
     | Written by <a href="https://alexn.org/about/" itemprop="url" rel="author">Alexandru Nedelcu</a>
@@ -250,6 +250,9 @@ suspend fun generateRandomUUID(): UUID =
       
          | 
         <a href="/blog/tag/programming/" class="category">Programming</a>
+      
+         | 
+        <a href="/blog/tag/security/" class="category">Security</a>
       
          | 
         <a href="/blog/tag/snippet/" class="category">Snippet</a>
@@ -356,14 +359,14 @@ suspend fun generateRandomUUID(): UUID =
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202408131249" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202408131249" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202408131249" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202408131251" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202408131251" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202408131251" type="text/javascript"></script>
 
 <!-- Syntax highlighting (https://highlightjs.org/) -->
 <script async src="/assets/js/highlight.min.js" type="text/javascript" onload="hljs.highlightAll();"></script>
 
-<script async src="/assets/js/scripts.js?202408131249" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202408131251" type="text/javascript"></script>
 
 
 <script type="text/javascript">
