@@ -1,9 +1,7 @@
 ---
 title: "On Advertising and Tracking"
-image: /assets/media/articles/2024-thinking-of-ads.jpg
-image_caption: "This is me, enjoying the sea and thinking of ads 😜"
 date: 2024-08-12 11:46:00 +03:00
-last_modified_at: 2024-08-12 12:04:56 +03:00
+last_modified_at: 2024-08-13 10:20:52 +03:00
 tags:
   - Opinion
   - Web
