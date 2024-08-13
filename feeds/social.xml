@@ -10,13 +10,31 @@
     <description>Feed meant for publishing notifications to Twitter/LinkedIn.</description>
     <link>https://alexn.org/</link>
     <atom:link href="https://alexn.org/feeds/social.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 13 Aug 2024 08:15:37 +0000</pubDate>
-    <lastBuildDate>Tue, 13 Aug 2024 08:15:37 +0000</lastBuildDate>
+    <pubDate>Tue, 13 Aug 2024 12:49:21 +0000</pubDate>
+    <lastBuildDate>Tue, 13 Aug 2024 12:49:21 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v4.3.2</generator>
     
+
+<item>
+  <title>Cryptographically Strong Random on the JVM</title>
+  <description>#Blog #Java #Scala #Kotlin #Programming #Snippet</description>
+  <pubDate>Tue, 13 Aug 2024 08:17:53 +0000</pubDate>
+  <dc:modified>Tue, 13 Aug 2024 12:48:15 +0000</dc:modified>
+  <atom:modified>Tue, 13 Aug 2024 12:48:15 +0000</atom:modified>
+  <link>https://alexn.org/blog/2024/08/13/cryptographically-strong-random-jvm/</link>
+  <guid isPermaLink="true">https://alexn.org/blog/2024/08/13/cryptographically-strong-random-jvm/</guid>
+  <dc:creator>Alexandru Nedelcu</dc:creator>
+  <category>Blog</category>
+  <category>Java</category>
+  <category>Scala</category>
+  <category>Kotlin</category>
+  <category>Programming</category>
+  <category>Snippet</category>
+  </item>
+
 
 <item>
   <title>On Advertising and Tracking</title>
@@ -2816,23 +2834,5 @@
   <category>Wiki</category>
   
 </item>
-
-
-<item>
-  <title>Scala Snippet: Cats-Effect Resource to Reactive Streams</title>
-  <description>#Blog #Akka #CatsEffect #ReactiveStreams #Scala #Snippet</description>
-  <pubDate>Thu, 30 Jul 2020 00:00:00 +0000</pubDate>
-  <dc:modified>Fri, 01 Apr 2022 14:13:37 +0000</dc:modified>
-  <atom:modified>Fri, 01 Apr 2022 14:13:37 +0000</atom:modified>
-  <link>https://alexn.org/blog/2020/07/30/from-resource-to-reactivestreams.scala/</link>
-  <guid isPermaLink="true">https://alexn.org/snippets/2020/07/30/from-resource-to-reactivestreams.scala/</guid>
-  <dc:creator>Alexandru Nedelcu</dc:creator>
-  <category>Blog</category>
-  <category>Akka</category>
-  <category>Cats Effect</category>
-  <category>Reactive Streams</category>
-  <category>Scala</category>
-  <category>Snippet</category>
-  </item>
 </channel>
 </rss>
