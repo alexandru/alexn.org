@@ -1,7 +1,7 @@
 ---
 title: "1Password vs. Bitwarden"
 date: 2024-08-20 09:41:41 +03:00
-last_modified_at: 2024-08-20 13:20:55 +03:00
+last_modified_at: 2024-08-23 18:05:30 +03:00
 tags:
   - Products
   - Self Hosting
@@ -68,3 +68,7 @@ As downsides for Bitwarden:
 * Bitwarden took VC capital as well, but in fairness, its Open-Source nature makes it less prone to it turning against its customers or dying.
 
 Note that it being Open Source, being cheaper, with the ability to self-host, and having a usable FOSS (Rust-based, efficient) clone, almost makes up for these shortcomings.
+
+<p class="info-bubble" markdown="1">
+UPDATE — After writing this article, I proceeded to self-hosting [Vaultwarden](https://github.com/dani-garcia/vaultwarden) (the FOSS clone of Bitwarden built with Rust). It's incredibly efficient and easy to self-host (if you can manage a server using Docker containers). I'm impressed!
+</p>
