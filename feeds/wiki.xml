@@ -10,13 +10,154 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 23 Aug 2024 17:35:13 +0000</pubDate>
-    <lastBuildDate>Fri, 23 Aug 2024 17:35:13 +0000</lastBuildDate>
+    <pubDate>Mon, 26 Aug 2024 20:36:16 +0000</pubDate>
+    <lastBuildDate>Mon, 26 Aug 2024 20:36:16 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v4.3.2</generator>
     
+<item>
+  <title>Bitwarden / Vaultwarden</title>
+  <description>Article
+    updated at August 26, 2024, 
+    created at August 26, 2024.</description>
+  <content:encoded>&lt;p&gt;
+    Article
+    updated at August 26, 2024, 
+    created at August 26, 2024.
+  &lt;/p&gt;
+  &lt;hr&gt;
+  
+  &lt;img referrerpolicy=&quot;no-referrer-when-downgrade&quot; src=&quot;https://ly.alexn.org/m.php?idsite=1&amp;rec=1&amp;action_name=%2Ffeeds%2Fwiki.xml&amp;url=https%3A%2F%2Falexn.org%2Ffeeds%2Fwiki.xml&amp;pk_campaign=rss&amp;pk_kwd=open&quot; width=&quot;1&quot; height=&quot;1&quot; style=&quot;position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;&quot; alt=&quot;&quot;&gt;
+&lt;h2 id=&quot;self-hosting-vaultwarden&quot;&gt;Self-hosting (Vaultwarden)&lt;/h2&gt;
+
+&lt;p&gt;See &lt;a href=&quot;https://github.com/dani-garcia/vaultwarden/wiki&quot;&gt;documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Setup for &lt;code&gt;docker-compose.yaml&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-yaml&quot;&gt;vaultwarden:
+  container_name: vaultwarden
+  image: vaultwarden/server:latest
+  restart: always
+  healthcheck:
+    test: [&apos;CMD-SHELL&apos;, &apos;curl --silent --fail http://localhost:80/ || exit 1&apos;]
+  ports:
+    - &quot;3201:80&quot;
+  volumes:
+    - vaultwarden:/data
+  networks:
+    - external_network
+  env_file:
+    - ./envs/vaultwarden.env
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Related &lt;code&gt;./envs/vaultwarden.env&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;##
+# Documentation:
+# https://github.com/dani-garcia/vaultwarden/wiki/Enabling-admin-page
+#
+# To generate:
+# echo -n &quot;MySecretPassword&quot; | argon2 &quot;$(openssl rand -base64 32)&quot; -e -id -k 65540 -t 3 -p 4
+#
+ADMIN_TOKEN=
+
+##
+# https://github.com/dani-garcia/vaultwarden/wiki/Disable-registration-of-new-users
+#
+SIGNUPS_ALLOWED=false
+
+##
+# https://github.com/dani-garcia/vaultwarden/wiki/SMTP-Configuration
+#
+# NOTE: Hetzner and other cloud providers, are blocking port 467
+# https://www.fastmail.help/hc/en-us/articles/1500000278342-Server-names-and-ports
+#
+SMTP_HOST=smtp.fastmail.com
+SMTP_PORT=587
+SMTP_SECURITY=starttls
+SMTP_FROM=
+SMTP_USERNAME=
+SMTP_PASSWORD=
+
+##
+# https://github.com/dani-garcia/vaultwarden/wiki/Enabling-Mobile-Client-push-notification
+# https://bitwarden.com/host/
+#
+PUSH_RELAY_URI=https://api.bitwarden.eu
+PUSH_IDENTITY_URI=https://identity.bitwarden.eu
+PUSH_ENABLED=true
+PUSH_INSTALLATION_ID=
+PUSH_INSTALLATION_KEY=
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;My Nginx reverse proxy configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-conf&quot;&gt;root /var/www/vault.nedelcu.net;
+log_not_found off;
+
+include ./snippets/gzip.conf;
+
+location / {
+    proxy_pass http://vaultwarden;
+    include ./snippets/proxy-backend.conf;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Where &lt;code&gt;./snippets/proxy-backend.conf&lt;/code&gt; is:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-conf&quot;&gt;include ./snippets/cloudflare-ips.conf;
+
+proxy_set_header Host $host;
+proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+proxy_set_header X-Forwarded-Proto $scheme;
+proxy_set_header Proxy &quot;&quot;;
+proxy_pass_header Server;
+
+proxy_buffering on;
+proxy_redirect off;
+proxy_http_version 1.1;
+proxy_set_header Upgrade $http_upgrade;
+proxy_set_header Connection $connection_upgrade;
+
+proxy_cache CACHE;
+proxy_cache_valid 200 7d;
+proxy_cache_valid 410 24h;
+proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
+
+add_header X-Cached $upstream_cache_status;
+tcp_nodelay on;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For &lt;code&gt;./snippets/cloudflare-ips.conf&lt;/code&gt; see &lt;a href=&quot;https://developers.cloudflare.com/support/troubleshooting/restoring-visitor-ips/restoring-original-visitor-ips/&quot;&gt;Restoring original visitor IPs (Cloudflare.com)&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;cli-commands&quot;&gt;CLI commands&lt;/h2&gt;
+
+&lt;p&gt;Installation for macOS:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;brew install bitwarden-cli jq
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Lists items in the order they were modified:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;bw list items | jq &apos;[.[] | {name: .name, date: .revisionDate}] | sort_by(.date)&apos;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Lists items with &lt;a href=&quot;https://www.passkeys.io/&quot;&gt;passkeys&lt;/a&gt; defined:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;bw list items | jq &apos;.[] | select(.login.fido2Credentials | length &gt; 0) | {name: .name, id: .id, updated: .revisionDate}&apos;
+&lt;/code&gt;&lt;/pre&gt;</content:encoded><pubDate>Mon, 26 Aug 2024 10:45:19 +0000</pubDate>
+  <dc:modified>Mon, 26 Aug 2024 14:46:39 +0000</dc:modified>
+  <atom:modified>Mon, 26 Aug 2024 14:46:39 +0000</atom:modified>
+  <link>https://alexn.org/wiki/bitwarden/?pk_campaign=rss</link>
+  <guid isPermaLink="true">https://alexn.org/wiki/bitwarden/</guid>
+  <dc:creator>Alexandru Nedelcu</dc:creator>
+  <category>Wiki</category>
+  
+</item>
+
 <item>
   <title>Gradle</title>
   <description>Article
@@ -28,9 +169,7 @@
     created at May 25, 2024.
   &lt;/p&gt;
   &lt;hr&gt;
-  
-  &lt;img referrerpolicy=&quot;no-referrer-when-downgrade&quot; src=&quot;https://ly.alexn.org/m.php?idsite=1&amp;rec=1&amp;action_name=%2Ffeeds%2Fwiki.xml&amp;url=https%3A%2F%2Falexn.org%2Ffeeds%2Fwiki.xml&amp;pk_campaign=rss&amp;pk_kwd=open&quot; width=&quot;1&quot; height=&quot;1&quot; style=&quot;position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;&quot; alt=&quot;&quot;&gt;
-&lt;p&gt;Upgrading the Gradle wrapper to the latest version:&lt;/p&gt;
+  &lt;p&gt;Upgrading the Gradle wrapper to the latest version:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;./gradlew wrapper --gradle-version latest
 &lt;/code&gt;&lt;/pre&gt;</content:encoded><pubDate>Sat, 25 May 2024 15:27:05 +0000</pubDate>
