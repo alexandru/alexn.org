@@ -155,3 +155,31 @@ set clipboard+=unnamed
 - to play the macro once: `@<register>`
   - `@a` plays the macro in register `a`
 - to repeat the macro execution: `@@`
+
+## LazyVim setup
+
+The following tips assume [LazyVim](https://www.lazyvim.org/).
+
+### Shortcuts
+
+Search for files:
+```
+<leader><leader>
+```
+Search text in files:
+```
+<leader>sg
+```
+View list of errors and warnings reported in project:
+```
+<leader>xx
+```
+Switch to window:
+```
+Ctrl-w + h/j/k/l
+```
+Close current window:
+```
+Ctrl-w + q
+```
+
