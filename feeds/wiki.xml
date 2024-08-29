@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 26 Aug 2024 20:36:16 +0000</pubDate>
-    <lastBuildDate>Mon, 26 Aug 2024 20:36:16 +0000</lastBuildDate>
+    <pubDate>Thu, 29 Aug 2024 13:32:12 +0000</pubDate>
+    <lastBuildDate>Thu, 29 Aug 2024 13:32:12 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -2552,7 +2552,29 @@ So &lt;code&gt;&quot;*y&lt;/code&gt; copies to the system clipboard, and &lt;cod
   &lt;/li&gt;
   &lt;li&gt;to repeat the macro execution: &lt;code&gt;@@&lt;/code&gt;
 &lt;/li&gt;
-&lt;/ul&gt;</content:encoded><pubDate>Wed, 04 Nov 2020 11:57:32 +0000</pubDate>
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;lazyvim-setup&quot;&gt;LazyVim setup&lt;/h2&gt;
+
+&lt;p&gt;The following tips assume &lt;a href=&quot;https://www.lazyvim.org/&quot;&gt;LazyVim&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;shortcuts&quot;&gt;Shortcuts&lt;/h3&gt;
+
+&lt;p&gt;Search for files:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&lt;leader&gt;&lt;leader&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Search text in files:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&lt;leader&gt;sg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;View list of errors and warnings reported in project:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&lt;leader&gt;xx
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Switch to window:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Ctrl-w + h/j/k/l
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Close current window:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Ctrl-w + q
+&lt;/code&gt;&lt;/pre&gt;</content:encoded><pubDate>Wed, 04 Nov 2020 11:57:32 +0000</pubDate>
   <dc:modified>Thu, 01 Sep 2022 14:26:34 +0000</dc:modified>
   <atom:modified>Thu, 01 Sep 2022 14:26:34 +0000</atom:modified>
   <link>https://alexn.org/wiki/vim/?pk_campaign=rss</link>
