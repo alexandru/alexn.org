@@ -1,7 +1,7 @@
 ---
 title: "1Password vs. Bitwarden"
 date: 2024-08-20 09:41:41 +03:00
-last_modified_at: 2024-08-23 20:34:40 +03:00
+last_modified_at: 2024-09-04T08:56:06+03:00
 tags:
   - Products
   - Self Hosting
@@ -25,22 +25,24 @@ I'm not enumerating here what they both do well, such as trustworthiness, the ab
 * Full history of items, available on the web UI — Bitwarden only keeps a history of the main password.
 * Attachments management (that doesn't suck).
 * Flawless Passkey support — I did not bump into any issues with it.
+* Auto-filling works for TOTP codes, and multi-step dialogs are now automated, no longer requiring intervention (i.e., UIs that first ask for email, then for password, then for TOTP).
 * Useful [CLI](https://developer.1password.com/docs/cli/get-started/), very straightforward to use for managing secrets in your local environment.
 * Flawless unlocking with [Touch ID](https://support.1password.com/touch-id-mac/), including the CLI.
 * [SSH key management](https://developer.1password.com/docs/ssh/manage-keys/).
 * [Share items with anyone](https://support.1password.com/share-items/).
-* Global shortcut, on macOS at least; also on macOS, it can autofill in other apps, not just the browser.
-* Keyboard shortcuts that work — for both the desktop app and the browser extension.
+* Global shortcut (`⌘\`) that's very efficient, on macOS at least; also on macOS, 1Password can autofill in other apps, not just the browser, easily invoked via this global shortcut.
+* Keyboard shortcuts that work really well — for both the desktop app and the browser extension.
 * "Show in large type".
-* More document types — e.g. bank accounts, software licenses.
+* More document types — e.g. bank accounts, software licenses, Wi-Fi networks.
 * Offline support — possible to edit or save new items while offline.
 * Nicer integration with [Fastmail's masked emails](https://support.1password.com/fastmail/).
 * Managing the vaults of your organization or family is very intuitive.
+* Exports (for backups or migrations) contain everything, including shared vaults or attachments.
 
 As downsides for 1Password:
 
 * The autofill behavior for the provided "websites" are limiting — for example, I would have liked URL prefix matching.
-* Android has some issues — e.g., the aforementioned customizable autofill behavior does not work (I hope they fix it), and sometimes, the UI failed to open, so I had to restart the app.
+* Android has some issues — e.g., the aforementioned customizable autofill behavior (i.e., host vs base domain) does not work (I hope they fix it), and sometimes, the UI failed to open, so I had to restart the app.
 * High cost — I pay 68 EUR per year for the family plan (5.65 EUR per month), and I only share the subscription with my son — for professionals this is cheap, but for students, unemployed folks, or the average Joe in general, it's definitely expensive.
 * Proprietary software, closed-source — this isn't a problem for me, except...
 * Subscription-based — they used to have a standalone version that was connecting to Dropbox, and it felt like a betrayal when they dropped it.
@@ -72,10 +74,13 @@ As downsides for Bitwarden:
 * The browser extension is difficult to configure, e.g., to use Touch ID, although this has more to do with it being more conservative when asking for permissions.
 * Passkey support isn't as flawless, I bumped into some issues with it when generating passkeys.
 * CLI utility is very slow; it's as if it interrogates the server on every command, yet it still needs `bw sync` for the synchronization of the latest changes.
-* Android app works, but sometimes the UI becomes very slow.
+* CLI utility does not have integration with the desktop app's biometrics login, so you end up with a `BW_SESSION` in your bash/zsh profile, making it insecure, or you have to introduce your master password every time, which is annoying.
+* Exports (for backups or migrations) don't contain attachments, and you need separate exports for organizations — makes it hard to backup your data.
+* On Android, the UI can become very slow, if the server is slow — at the time of writing, when using the `vault.bitwarden.eu` server, the app was unusable for me, although it worked better with my self-hosted instance.
+* On Android, the UX for auto-completion is not ideal.
 * Bitwarden took VC capital as well, and while it's Open-Source nature may protect the project's future...
 * Their new Secrets Manager is, apparently, not fully open source and its UI couldn't be used by [Vaultwarden](https://github.com/dani-garcia/vaultwarden/discussions/3368). This at least points to the very real possibility that the company may pull a bait and switch in the future, like so many other companies that build their popularity via FOSS licensing.
 
 I've tried self-hosting Vaultwarden, the clone, via my Docker-enabled server, and it was effortless to install, and the running process very efficient. I'm impressed, that's how all FOSS projects meant for self-hosting should be. Furthermore, I want more stuff built with Rust + SQLite. The Fediverse should take notes 😉
 
-For me, its Open-Source nature almost makes up for the above deficiencies. Almost, but not quite. I'll try it again next year.
+For me, its Open-Source nature almost makes up for the above deficiencies. Almost, but not quite. I can see myself using Bitwarden, if I were solo, but I'm trying to get my family to use password managers, and right now the UX makes that difficult. I'll try it again next year.

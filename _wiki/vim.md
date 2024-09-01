@@ -182,4 +182,16 @@ Close current window:
 ```
 Ctrl-w + q
 ```
+Open link at cursor:
+```
+gx
+```
+Go to definition at cursor:
+```
+gd
+```
+Go back:
+```
+Ctrl-t
+```
 
