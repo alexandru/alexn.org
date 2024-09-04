@@ -1,7 +1,7 @@
 ---
 title: "1Password vs. Bitwarden"
 date: 2024-08-20 09:41:41 +03:00
-last_modified_at: 2024-09-04T09:10:45+03:00
+last_modified_at: 2024-09-04T09:51:53+03:00
 tags:
   - Products
   - Self Hosting
@@ -69,7 +69,7 @@ As downsides for Bitwarden:
 * No usable offline support — you can disconnect from the network, but it becomes read-only, and the UI is confusingly letting you edit items, and you can lose those edits.
 * Managing organizations is less than ideal. E.g., if you move items in an organization, you can only change their ownership afterward by cloning them, and you can only do that on the web UI.
 * The browser extension fails to auto-complete TOTP codes, you have to rely on those codes being copied in the clipboard.
-* Almost no usable keyboard shortcuts — i.e., `Cmd+Shift+Y` in the browser, for activating the extension, is unusable because it doesn't let you do anything via the keyboard next.
+* Almost no usable keyboard shortcuts — i.e., `Cmd+Shift+Y` in the browser, for activating the extension, is unusable because it doesn't let you do anything via the keyboard next. The desktop app is really bad at it, e.g., when editing an item, you can't even press `Cmd/Ctrl+S` for save, or `Esc` for cancel, like in every other app. This isn't just a nice to have, for people with visual impairment being an accessibility disaster.
 * Managing attachments is very unintuitive. And you can't view attached PDFs without downloading them.
 * The browser extension is difficult to configure, e.g., to use Touch ID, although this has more to do with it being more conservative when asking for permissions.
 * Passkey support isn't as flawless, I bumped into some issues with it when generating passkeys.
