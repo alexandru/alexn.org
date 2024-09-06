@@ -4,8 +4,9 @@ image: /assets/media/articles/2022-me-and-my-son-on-laptops.jpg
 image_caption: Me, with my son, learning the Lua programming language on proprietary macOS laptops.
 tags:
   - Open Source
+  - Proprietary
 date: 2022-09-22 10:00:00 +03:00
-last_modified_at: 2022-09-22 14:42:29 +03:00
+last_modified_at: 2024-09-06T09:33:48+03:00
 description: >
   What to learn in order to not become obsolete as a software developer, and then being forced into early retirement from programming? What platforms to prefer for building products that last with minimal maintenance?
 ---
