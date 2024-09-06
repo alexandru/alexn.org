@@ -10,13 +10,26 @@
     <description>Feed meant for publishing notifications to Twitter/LinkedIn.</description>
     <link>https://alexn.org/</link>
     <atom:link href="https://alexn.org/feeds/social.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 04 Sep 2024 06:59:44 +0000</pubDate>
-    <lastBuildDate>Wed, 04 Sep 2024 06:59:44 +0000</lastBuildDate>
+    <pubDate>Fri, 06 Sep 2024 06:49:23 +0000</pubDate>
+    <lastBuildDate>Fri, 06 Sep 2024 06:49:23 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v4.3.2</generator>
     
+
+<item>
+  <title>Trusting Open-Source</title>
+  <description>#Blog #OpenSource #ProprietarySoftware</description>
+  <pubDate>Fri, 06 Sep 2024 00:00:00 +0000</pubDate>
+  <link>https://alexn.org/blog/2024/09/06/trusting-open-source/</link>
+  <guid isPermaLink="true">https://alexn.org/blog/2024/09/06/trusting-open-source/</guid>
+  <dc:creator>Alexandru Nedelcu</dc:creator>
+  <category>Blog</category>
+  <category>Open Source</category>
+  <category>Proprietary Software</category>
+  </item>
+
 <item>
   <title>Bitwarden / Vaultwarden</title>
   <description>Started #Wiki page.</description>
@@ -1323,15 +1336,16 @@
 
 <item>
   <title>Proprietary Environments are a Trap</title>
-  <description>#Blog #OpenSource</description>
+  <description>#Blog #OpenSource #Proprietary</description>
   <pubDate>Thu, 22 Sep 2022 07:00:00 +0000</pubDate>
-  <dc:modified>Thu, 22 Sep 2022 11:42:29 +0000</dc:modified>
-  <atom:modified>Thu, 22 Sep 2022 11:42:29 +0000</atom:modified>
+  <dc:modified>Fri, 06 Sep 2024 06:33:48 +0000</dc:modified>
+  <atom:modified>Fri, 06 Sep 2024 06:33:48 +0000</atom:modified>
   <link>https://alexn.org/blog/2022/09/22/proprietary-environments-are-a-trap/</link>
   <guid isPermaLink="true">https://alexn.org/blog/2022/09/22/proprietary-environments-are-a-trap/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
   <category>Blog</category>
   <category>Open Source</category>
+  <category>Proprietary</category>
   </item>
 
 
@@ -2821,21 +2835,6 @@
   <category>Blog</category>
   <category>sbt</category>
   <category>Scala</category>
-  <category>Snippet</category>
-  </item>
-
-
-<item>
-  <title>TypeScript Sample: Flow Sensitive Typing</title>
-  <description>#Blog #TypeScript #Snippet</description>
-  <pubDate>Tue, 11 Aug 2020 00:00:00 +0000</pubDate>
-  <dc:modified>Fri, 01 Apr 2022 14:02:35 +0000</dc:modified>
-  <atom:modified>Fri, 01 Apr 2022 14:02:35 +0000</atom:modified>
-  <link>https://alexn.org/blog/2020/08/11/flow-sensitive-typing.ts/</link>
-  <guid isPermaLink="true">https://alexn.org/snippets/2020/08/11/flow-sensitive-typing.ts/</guid>
-  <dc:creator>Alexandru Nedelcu</dc:creator>
-  <category>Blog</category>
-  <category>TypeScript</category>
   <category>Snippet</category>
   </item>
 </channel>
