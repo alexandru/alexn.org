@@ -10,13 +10,30 @@
     <description>Feed meant for publishing notifications to Twitter/LinkedIn.</description>
     <link>https://alexn.org/</link>
     <atom:link href="https://alexn.org/feeds/social.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 23 Sep 2024 18:24:45 +0000</pubDate>
-    <lastBuildDate>Mon, 23 Sep 2024 18:24:45 +0000</lastBuildDate>
+    <pubDate>Sun, 29 Sep 2024 09:26:51 +0000</pubDate>
+    <lastBuildDate>Sun, 29 Sep 2024 09:26:51 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v4.3.2</generator>
     
+
+<item>
+  <title>Cancellable HTTP requests via Scala&#39;s Tapir</title>
+  <description>#Blog #CatsEffect #Programming #Scala #Snippet</description>
+  <pubDate>Sun, 29 Sep 2024 08:21:34 +0000</pubDate>
+  <dc:modified>Sun, 29 Sep 2024 09:26:11 +0000</dc:modified>
+  <atom:modified>Sun, 29 Sep 2024 09:26:11 +0000</atom:modified>
+  <link>https://alexn.org/blog/2024/09/29/cancellable-http-server-client-requests-via-scala-s-tapir/</link>
+  <guid isPermaLink="true">https://alexn.org/blog/2024/09/29/cancellable-http-server-client-requests-via-scala-s-tapir/</guid>
+  <dc:creator>Alexandru Nedelcu</dc:creator>
+  <category>Blog</category>
+  <category>Cats Effect</category>
+  <category>Programming</category>
+  <category>Scala</category>
+  <category>Snippet</category>
+  </item>
+
 
 <item>
   <title>Trusting Open-Source</title>
@@ -891,14 +908,14 @@
 
 #Blog #Docker #SelfHosting #Shell #Snippet</description>
   <pubDate>Tue, 17 Jan 2023 11:16:12 +0000</pubDate>
-  <dc:modified>Mon, 25 Sep 2023 14:58:06 +0000</dc:modified>
-  <atom:modified>Mon, 25 Sep 2023 14:58:06 +0000</atom:modified>
+  <dc:modified>Sun, 29 Sep 2024 09:22:06 +0000</dc:modified>
+  <atom:modified>Sun, 29 Sep 2024 09:22:06 +0000</atom:modified>
   <link>https://alexn.org/blog/2023/01/17/server-monitoring-with-monit/</link>
   <guid isPermaLink="true">https://alexn.org/blog/2023/01/17/server-monitoring-with-monit/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
   <category>Blog</category>
   <category>Docker</category>
-  <category>SelfHosting</category>
+  <category>Self Hosting</category>
   <category>Shell</category>
   <category>Snippet</category>
   </item>
@@ -1167,13 +1184,13 @@
   <title>Personal Server Backups</title>
   <description>#Blog #SelfHosting #Server #Shell #Web</description>
   <pubDate>Fri, 02 Dec 2022 17:56:39 +0000</pubDate>
-  <dc:modified>Wed, 02 Aug 2023 08:12:04 +0000</dc:modified>
-  <atom:modified>Wed, 02 Aug 2023 08:12:04 +0000</atom:modified>
+  <dc:modified>Sun, 29 Sep 2024 09:22:03 +0000</dc:modified>
+  <atom:modified>Sun, 29 Sep 2024 09:22:03 +0000</atom:modified>
   <link>https://alexn.org/blog/2022/12/02/personal-server-backups/</link>
   <guid isPermaLink="true">https://alexn.org/blog/2022/12/02/personal-server-backups/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
   <category>Blog</category>
-  <category>SelfHosting</category>
+  <category>Self Hosting</category>
   <category>Server</category>
   <category>Shell</category>
   <category>Web</category>
@@ -1840,14 +1857,14 @@
   <title>Matomo (Analytics) Hosting via Docker</title>
   <description>#Blog #Blogging #SelfHosting #Web</description>
   <pubDate>Mon, 22 Feb 2021 00:00:00 +0000</pubDate>
-  <dc:modified>Tue, 17 Jan 2023 12:42:55 +0000</dc:modified>
-  <atom:modified>Tue, 17 Jan 2023 12:42:55 +0000</atom:modified>
+  <dc:modified>Sun, 29 Sep 2024 09:21:59 +0000</dc:modified>
+  <atom:modified>Sun, 29 Sep 2024 09:21:59 +0000</atom:modified>
   <link>https://alexn.org/blog/2021/02/22/matomo-hosting-via-docker/</link>
   <guid isPermaLink="true">https://alexn.org/snippets/2021/02/22/matomo-hosting-via-docker/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
   <category>Blog</category>
   <category>Blogging</category>
-  <category>SelfHosting</category>
+  <category>Self Hosting</category>
   <category>Web</category>
   </item>
 <item>
@@ -2818,22 +2835,6 @@
   <guid isPermaLink="true">https://alexn.org/snippets/2020/08/14/error-hierarchy.scala/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
   <category>Blog</category>
-  <category>Scala</category>
-  <category>Snippet</category>
-  </item>
-
-
-<item>
-  <title>Snippet: turn on JVM debugging in sbt</title>
-  <description>#Blog #sbt #Scala #Snippet</description>
-  <pubDate>Thu, 13 Aug 2020 00:00:00 +0000</pubDate>
-  <dc:modified>Fri, 01 Apr 2022 14:00:47 +0000</dc:modified>
-  <atom:modified>Fri, 01 Apr 2022 14:00:47 +0000</atom:modified>
-  <link>https://alexn.org/blog/2020/08/13/sbt-fork-debug.sbt/</link>
-  <guid isPermaLink="true">https://alexn.org/snippets/2020/08/13/sbt-fork-debug.sbt/</guid>
-  <dc:creator>Alexandru Nedelcu</dc:creator>
-  <category>Blog</category>
-  <category>sbt</category>
   <category>Scala</category>
   <category>Snippet</category>
   </item>
