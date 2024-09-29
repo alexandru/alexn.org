@@ -4,10 +4,10 @@ image: /assets/media/articles/2023-monit-panel.png
 image_caption: >
   A screenshot of my browser window, showing the 3 monitors that I configured in Monit, all green-lit, indicating that everything is fine.
 date: 2023-01-17 13:16:12 +02:00
-last_modified_at: 2023-09-25 17:58:06 +03:00
+last_modified_at: 2024-09-29T12:22:06+03:00
 tags:
   - Docker
-  - SelfHosting
+  - Self Hosting
   - Shell
   - Snippet
 social_description: >
