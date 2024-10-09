@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 29 Sep 2024 09:26:51 +0000</pubDate>
-    <lastBuildDate>Sun, 29 Sep 2024 09:26:51 +0000</lastBuildDate>
+    <pubDate>Wed, 09 Oct 2024 10:33:04 +0000</pubDate>
+    <lastBuildDate>Wed, 09 Oct 2024 10:33:04 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -952,11 +952,11 @@ fi
 <item>
   <title>Mastodon</title>
   <description>Article
-    updated at May 18, 2024, 
+    updated at October 9, 2024, 
     created at November 22, 2022.</description>
   <content:encoded>&lt;p&gt;
     Article
-    updated at May 18, 2024, 
+    updated at October 9, 2024, 
     created at November 22, 2022.
   &lt;/p&gt;
   &lt;hr&gt;
@@ -1144,12 +1144,12 @@ services:
       - external_network
 
   mastodon-streaming:
-    container_name: mastodon-stream
-    image: &apos;tootsuite/mastodon&apos;
-    restart: unless-stopped
-    command: node ./streaming
+    container_name: mastodon-streaming
+    image: &apos;tootsuite/mastodon-streaming:latest&apos;
+    restart: always
+    command: node ./streaming/index.js
     healthcheck:
-      test: [&apos;CMD-SHELL&apos;, &apos;wget -q --spider --proxy=off localhost:4000/api/v1/streaming/health || exit 1&apos;]
+      test: [&apos;CMD-SHELL&apos;, &quot;curl -s --noproxy localhost localhost:4000/api/v1/streaming/health | grep -q &apos;OK&apos; || exit 1&quot;]
     ports:
       - &apos;127.0.0.1:4000:4000&apos;
     env_file:
@@ -1205,6 +1205,16 @@ REDIS_URL=&quot;redis://default:password@redis:6379&quot;
 # -----------
 SECRET_KEY_BASE=
 OTP_SECRET=
+
+# -----------
+# Secrets for DB encryption
+# -----------
+# Can be generated with:
+# docker run -it tootsuite/mastodon:latest bin/rails db:encryption:init
+# -----------
+ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY=
+ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT=
+ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY=
 
 # ----------------------
 # Web Push Notifications
@@ -1577,8 +1587,8 @@ fi
 There may be better ways of doing this (like simply using block storage),
 I’m still learning.
 &lt;/p&gt;</content:encoded><pubDate>Tue, 22 Nov 2022 09:55:19 +0000</pubDate>
-  <dc:modified>Sat, 18 May 2024 07:19:54 +0000</dc:modified>
-  <atom:modified>Sat, 18 May 2024 07:19:54 +0000</atom:modified>
+  <dc:modified>Wed, 09 Oct 2024 10:31:39 +0000</dc:modified>
+  <atom:modified>Wed, 09 Oct 2024 10:31:39 +0000</atom:modified>
   <link>https://alexn.org/wiki/mastodon/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/mastodon/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
