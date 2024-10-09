@@ -1,6 +1,6 @@
 ---
 date: 2022-11-22 11:55:19 +02:00
-last_modified_at: 2024-10-09T13:31:39+03:00
+last_modified_at: 2024-10-09T13:37:21+03:00
 ---
 
 # Mastodon
@@ -130,7 +130,7 @@ services:
 
   mastodon-web:
     container_name: mastodon-web
-    image: 'tootsuite/mastodon:latest'
+    image: 'ghcr.io/mastodon/mastodon:latest'
     command: 'bash -c "bundle exec rake db:migrate && rm -f /mastodon/tmp/pids/server.pid && bundle exec rails s -p 3000"'
     ports:
       - 3000:3000
@@ -150,7 +150,7 @@ services:
 
   mastodon-sidekiq:
     container_name: mastodon-sidekiq
-    image: 'tootsuite/mastodon'
+    image: 'ghcr.io/mastodon/mastodon'
     command: 'bundle exec sidekiq'
     restart: unless-stopped
     healthcheck:
@@ -168,7 +168,7 @@ services:
 
   mastodon-streaming:
     container_name: mastodon-streaming
-    image: 'tootsuite/mastodon-streaming:latest'
+    image: 'ghcr.io/mastodon/mastodon-streaming:latest'
     restart: always
     command: node ./streaming/index.js
     healthcheck:
@@ -236,7 +236,7 @@ OTP_SECRET=
 # Secrets for DB encryption
 # -----------
 # Can be generated with:
-# docker run -it tootsuite/mastodon:latest bin/rails db:encryption:init
+# docker run -it ghcr.io/mastodon/mastodon:latest bin/rails db:encryption:init
 # -----------
 ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY=
 ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT=
