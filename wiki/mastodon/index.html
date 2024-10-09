@@ -19,7 +19,7 @@
     <meta property="og:description" content="Personal, volatile wiki documentation">
     <meta property="og:url" content="https://alexn.org/wiki/mastodon/">
     <meta property="article:published_time" content="2022-11-22T09:55:19+00:00">
-    <meta property="article:modified_time" content="2024-10-09T10:31:39+00:00">
+    <meta property="article:modified_time" content="2024-10-09T10:37:21+00:00">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://alexn.org/assets/logo/800px-bordered.png" />
     <meta property="og:image:secure_url" content="https://alexn.org/assets/logo/800px-bordered.png" />
@@ -126,7 +126,7 @@
       <meta itemprop="datePublished" content="2022-11-22T09:55:19+0000"/>
       
       
-      <time itemprop="dateModified" content="2024-10-09T13:31:39+0300">
+      <time itemprop="dateModified" content="2024-10-09T13:37:21+0300">
         Updated: October 9, 2024
       </time>
       
@@ -368,7 +368,7 @@ services:
 
   mastodon-web:
     container_name: mastodon-web
-    image: 'tootsuite/mastodon:latest'
+    image: 'ghcr.io/mastodon/mastodon:latest'
     command: 'bash -c "bundle exec rake db:migrate &amp;&amp; rm -f /mastodon/tmp/pids/server.pid &amp;&amp; bundle exec rails s -p 3000"'
     ports:
       - 3000:3000
@@ -388,7 +388,7 @@ services:
 
   mastodon-sidekiq:
     container_name: mastodon-sidekiq
-    image: 'tootsuite/mastodon'
+    image: 'ghcr.io/mastodon/mastodon'
     command: 'bundle exec sidekiq'
     restart: unless-stopped
     healthcheck:
@@ -406,7 +406,7 @@ services:
 
   mastodon-streaming:
     container_name: mastodon-streaming
-    image: 'tootsuite/mastodon-streaming:latest'
+    image: 'ghcr.io/mastodon/mastodon-streaming:latest'
     restart: always
     command: node ./streaming/index.js
     healthcheck:
@@ -471,7 +471,7 @@ OTP_SECRET=
 # Secrets for DB encryption
 # -----------
 # Can be generated with:
-# docker run -it tootsuite/mastodon:latest bin/rails db:encryption:init
+# docker run -it ghcr.io/mastodon/mastodon:latest bin/rails db:encryption:init
 # -----------
 ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY=
 ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT=
@@ -873,14 +873,14 @@ I’m still learning.
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202410091033" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202410091033" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202410091033" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202410091038" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202410091038" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202410091038" type="text/javascript"></script>
 
 <!-- Syntax highlighting (https://highlightjs.org/) -->
 <script async src="/assets/js/highlight.min.js" type="text/javascript" onload="hljs.highlightAll();"></script>
 
-<script async src="/assets/js/scripts.js?202410091033" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202410091038" type="text/javascript"></script>
 
 
 <script type="text/javascript">

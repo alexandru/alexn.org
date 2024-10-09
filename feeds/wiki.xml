@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 09 Oct 2024 10:33:04 +0000</pubDate>
-    <lastBuildDate>Wed, 09 Oct 2024 10:33:04 +0000</lastBuildDate>
+    <pubDate>Wed, 09 Oct 2024 10:38:00 +0000</pubDate>
+    <lastBuildDate>Wed, 09 Oct 2024 10:38:00 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -1107,7 +1107,7 @@ services:
 
   mastodon-web:
     container_name: mastodon-web
-    image: &apos;tootsuite/mastodon:latest&apos;
+    image: &apos;ghcr.io/mastodon/mastodon:latest&apos;
     command: &apos;bash -c &quot;bundle exec rake db:migrate &amp;&amp; rm -f /mastodon/tmp/pids/server.pid &amp;&amp; bundle exec rails s -p 3000&quot;&apos;
     ports:
       - 3000:3000
@@ -1127,7 +1127,7 @@ services:
 
   mastodon-sidekiq:
     container_name: mastodon-sidekiq
-    image: &apos;tootsuite/mastodon&apos;
+    image: &apos;ghcr.io/mastodon/mastodon&apos;
     command: &apos;bundle exec sidekiq&apos;
     restart: unless-stopped
     healthcheck:
@@ -1145,7 +1145,7 @@ services:
 
   mastodon-streaming:
     container_name: mastodon-streaming
-    image: &apos;tootsuite/mastodon-streaming:latest&apos;
+    image: &apos;ghcr.io/mastodon/mastodon-streaming:latest&apos;
     restart: always
     command: node ./streaming/index.js
     healthcheck:
@@ -1210,7 +1210,7 @@ OTP_SECRET=
 # Secrets for DB encryption
 # -----------
 # Can be generated with:
-# docker run -it tootsuite/mastodon:latest bin/rails db:encryption:init
+# docker run -it ghcr.io/mastodon/mastodon:latest bin/rails db:encryption:init
 # -----------
 ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY=
 ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT=
@@ -1587,8 +1587,8 @@ fi
 There may be better ways of doing this (like simply using block storage),
 I’m still learning.
 &lt;/p&gt;</content:encoded><pubDate>Tue, 22 Nov 2022 09:55:19 +0000</pubDate>
-  <dc:modified>Wed, 09 Oct 2024 10:31:39 +0000</dc:modified>
-  <atom:modified>Wed, 09 Oct 2024 10:31:39 +0000</atom:modified>
+  <dc:modified>Wed, 09 Oct 2024 10:37:21 +0000</dc:modified>
+  <atom:modified>Wed, 09 Oct 2024 10:37:21 +0000</atom:modified>
   <link>https://alexn.org/wiki/mastodon/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/mastodon/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
