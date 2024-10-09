@@ -1,6 +1,6 @@
 ---
 date: 2022-11-22 11:55:19 +02:00
-last_modified_at: 2024-05-18 10:19:54 +03:00
+last_modified_at: 2024-10-09T13:31:39+03:00
 ---
 
 # Mastodon
@@ -167,12 +167,12 @@ services:
       - external_network
 
   mastodon-streaming:
-    container_name: mastodon-stream
-    image: 'tootsuite/mastodon'
-    restart: unless-stopped
-    command: node ./streaming
+    container_name: mastodon-streaming
+    image: 'tootsuite/mastodon-streaming:latest'
+    restart: always
+    command: node ./streaming/index.js
     healthcheck:
-      test: ['CMD-SHELL', 'wget -q --spider --proxy=off localhost:4000/api/v1/streaming/health || exit 1']
+      test: ['CMD-SHELL', "curl -s --noproxy localhost localhost:4000/api/v1/streaming/health | grep -q 'OK' || exit 1"]
     ports:
       - '127.0.0.1:4000:4000'
     env_file:
@@ -231,6 +231,16 @@ REDIS_URL="redis://default:password@redis:6379"
 # -----------
 SECRET_KEY_BASE=
 OTP_SECRET=
+
+# -----------
+# Secrets for DB encryption
+# -----------
+# Can be generated with:
+# docker run -it tootsuite/mastodon:latest bin/rails db:encryption:init
+# -----------
+ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY=
+ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT=
+ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY=
 
 # ----------------------
 # Web Push Notifications
