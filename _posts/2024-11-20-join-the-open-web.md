@@ -1,8 +1,10 @@
 ---
 title: "Join the Open Web"
-image: /assets/media/articles/2024-www-icon.png
+image: /assets/media/articles/2024-www-painting.jpg
+image_caption: >
+  "Discussing The Divine Comedy With Dante", a painting by Dai Dudu, Li Tiezi and Zhang An
 date: 2024-11-20T09:43:54+02:00
-last_modified_at: 2024-11-20T13:02:01+02:00
+last_modified_at: 2024-11-20T13:17:04+02:00
 tags:
   - Blogging
   - Opinion
