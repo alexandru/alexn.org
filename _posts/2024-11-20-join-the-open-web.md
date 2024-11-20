@@ -1,7 +1,7 @@
 ---
 title: "Join the Open Web"
 date: 2024-11-20T09:43:54+02:00
-last_modified_at: 2024-11-20T11:33:52+02:00
+last_modified_at: 2024-11-20T11:35:27+02:00
 tags:
   - Blogging
   - Opinion
@@ -20,12 +20,12 @@ Social media networks are built to be walled gardens, and come with all the prob
 Maybe it's time for you to adopt the open web, in these (possibly not so) easy steps:
 
 1. Adopt an RSS/Atom feed reader.
-2. Own your online identity, by starting a blog on your own domain.
+2. Own your online identity, by starting a blog on your domain.
 3. Break up with your smartphone.
 
 Social media posts are shallow, whereas more thought and details goes into website articles and blog posts. Your favorite people on the web have better thoughts when they blog. And RSS/Atom feeds are still the best way to consume the web.
 
-You don't want your livelihood to depend on the whims of algorithms or polarized mobs or tech owners that want to do politics. Starting a blog on your own domain is still the best way to have an online voice.
+You don't want your livelihood to depend on the whims of algorithms or polarized mobs or tech owners that want to do politics. Starting a blog on your domain is still the best way to have an online voice.
 
 Blogs are still relevant and awesome. Initially, you may not have much of an audience, but you need to remember that the primary audience for your blog is you. The more you write, the more you clarify your thoughts, and also, the more you remember. My blog is also a personal wiki. That you get an audience out of it, that's a bonus. Although, note that people who have had blogs for a while actually get more traffic on their blogs; that's because blogs get linked in documentation, or are indexed by search engines, or are subscribed (by RSS or email) by loyal followers, so the traffic you get is constant, whereas the traffic for social media posts is fleeting.
 
