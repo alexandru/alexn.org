@@ -1,7 +1,8 @@
 ---
 title: "Join the Open Web"
+image: /assets/media/articles/2024-www-icon.png
 date: 2024-11-20T09:43:54+02:00
-last_modified_at: 2024-11-20T11:35:27+02:00
+last_modified_at: 2024-11-20T13:02:01+02:00
 tags:
   - Blogging
   - Opinion
