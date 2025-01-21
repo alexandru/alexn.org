@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 03 Jan 2025 12:28:28 +0000</pubDate>
-    <lastBuildDate>Fri, 03 Jan 2025 12:28:28 +0000</lastBuildDate>
+    <pubDate>Tue, 21 Jan 2025 17:01:01 +0000</pubDate>
+    <lastBuildDate>Tue, 21 Jan 2025 17:01:01 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -5622,15 +5622,22 @@ bind Down last-window \; swap-pane -s tmp.1 \; kill-window -t tmp
 <item>
   <title>Windows 10</title>
   <description>Article
-    updated at September 1, 2022, 
+    updated at January 21, 2025, 
     created at August 24, 2020.</description>
   <content:encoded>&lt;p&gt;
     Article
-    updated at September 1, 2022, 
+    updated at January 21, 2025, 
     created at August 24, 2020.
   &lt;/p&gt;
   &lt;hr&gt;
   &lt;h2 id=&quot;installation-on-macbooks&quot;&gt;Installation on Macbooks&lt;/h2&gt;
+
+&lt;h3 id=&quot;create-bootable-usb-stick-for-installing-windows&quot;&gt;Create bootable USB stick for installing Windows&lt;/h3&gt;
+
+&lt;p&gt;1: Download the Windows ISO file from Microsoft’s website.
+2: Identify the disk number of the USB drive: &lt;code&gt;diskutil list&lt;/code&gt;
+3: &lt;code&gt;diskutil unmountDisk /dev/diskN&lt;/code&gt; 
+4: &lt;code&gt;sudo dd if=/path/to/windows.iso of=/dev/rdiskN bs=1m&lt;/code&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;boot-camp&quot;&gt;Boot Camp&lt;/h3&gt;
 
@@ -5666,8 +5673,8 @@ bind Down last-window \; swap-pane -s tmp.1 \; kill-window -t tmp
   &lt;li&gt;
 &lt;a href=&quot;https://b.s5.pm/os/2021/08/28/windows-setup.html&quot;&gt;A No-Bullshit Guide to Setting up Windows 10&lt;/a&gt; (&lt;a href=&quot;https://web.archive.org/web/20210809064346/https://b.s5.pm/os/2021/08/28/windows-setup.html&quot;&gt;archive&lt;/a&gt;)&lt;/li&gt;
 &lt;/ul&gt;</content:encoded><pubDate>Mon, 24 Aug 2020 13:24:31 +0000</pubDate>
-  <dc:modified>Thu, 01 Sep 2022 14:26:59 +0000</dc:modified>
-  <atom:modified>Thu, 01 Sep 2022 14:26:59 +0000</atom:modified>
+  <dc:modified>Tue, 21 Jan 2025 16:59:34 +0000</dc:modified>
+  <atom:modified>Tue, 21 Jan 2025 16:59:34 +0000</atom:modified>
   <link>https://alexn.org/wiki/windows/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/windows/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
