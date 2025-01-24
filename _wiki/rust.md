@@ -1,6 +1,6 @@
 ---
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2023-12-04 17:24:15 +02:00
+last_modified_at: 2024-09-15T18:15:04+03:00
 ---
 
 # Rust
@@ -41,12 +41,16 @@ Web:
 
 ## Documentation
 
-- [The Rust Programming Language](https://doc.rust-lang.org/): official book for beginners;
-- [Rust by Example](https://doc.rust-lang.org/rust-by-example/): another official book;
-- [Learn Rust With Entirely Too Many Linked Lists](https://rust-unofficial.github.io/too-many-lists/);
-- [Asynchronous Programming in Rust](https://rust-lang.github.io/async-book/);
-- [Rust Sokoban](https://sokoban.iolivia.me/);
-- [Tour of Rust](https://tourofrust.com/);
+- [The Rust Programming Language](https://doc.rust-lang.org/): official book for beginners
+- [Rust by Example](https://doc.rust-lang.org/rust-by-example/): another official book
+- [Learn Rust With Entirely Too Many Linked Lists](https://rust-unofficial.github.io/too-many-lists/)
+- [Asynchronous Programming in Rust](https://rust-lang.github.io/async-book/)
+- [Rust Sokoban](https://sokoban.iolivia.me/)
+- [Tour of Rust](https://tourofrust.com/)
+
+## Exercises
+
+- [Rustlings](https://github.com/rust-lang/rustlings/)
 
 ## Tutorials
 
