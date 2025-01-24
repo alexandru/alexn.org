@@ -1,6 +1,6 @@
 ---
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2023-09-27 20:11:36 +03:00
+last_modified_at: 2025-01-24T14:18:11+02:00
 ---
 
 # macOS
@@ -12,7 +12,10 @@ last_modified_at: 2023-09-27 20:11:36 +03:00
 
 ## Useful Apps
 
-- [Dozer](https://github.com/Mortennn/Dozer): OSS alternative to [Bartender](https://www.macbartender.com/) for sorting / hiding icons in the menu bar
+- [Ice](https://github.com/jordanbaird/Ice): Powerful menu bar manager for macOS, OSS alternative to Bartender;
+- [Hot](https://github.com/macmade/Hot): for monitoring the CPU temperature;
+- [Smart Scroll](https://www.marcmoini.com/sx_en.html): makes the mouse more useful;
+- [Turbo Booster Switcher](https://github.com/rugarciap/Turbo-Boost-Switcher): switches off "turbo boost" for Intel CPUs, prevents overheating;
 
 ## Stop Apple Music / iTunes from starting on Play
 
