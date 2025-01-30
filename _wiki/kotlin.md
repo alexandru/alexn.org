@@ -1,6 +1,6 @@
 ---
 date: 2023-04-30 16:07:39 +03:00
-last_modified_at: 2023-10-04 09:52:33 +03:00
+last_modified_at: 2025-01-28T18:02:13+02:00
 ---
 
 # Kotlin
@@ -32,6 +32,11 @@ Samples:
 
 - [Uncancelable, like in Cats-Effect](https://gist.github.com/alexandru/7527f83da03a32dbb46c281e95429ed6);
   - Using [UncancellableRegion](https://github.com/nomisRev/arrow-fx-coroutines-utils/blob/main/src/commonMain/kotlin/io/github/nomisrev/UncancellableRegion.kt);
+
+## Multiplatform
+
+- [klibs.io](https://klibs.io/): browse multiplatform libraries
+- [KMP project wizard](https://kmp.jetbrains.com/#newProject)
 
 ## Kotlin/JS — FAQ
 
