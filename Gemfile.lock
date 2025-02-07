@@ -18,9 +18,7 @@ GEM
     ffi (1.15.5)
     forwardable-extended (2.6.0)
     fspath (3.1.2)
-    google-protobuf (3.23.1-arm64-darwin)
-    google-protobuf (3.23.1-x86_64-darwin)
-    google-protobuf (3.23.1-x86_64-linux)
+    google-protobuf (3.23.1)
     http_parser.rb (0.8.0)
     i18n (1.13.0)
       concurrent-ruby (~> 1.0)
@@ -73,11 +71,9 @@ GEM
     matrix (0.4.2)
     mercenary (0.4.0)
     mini_magick (4.12.0)
-    nokogiri (1.16.2-arm64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.16.2-x86_64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.16.2-x86_64-linux)
+    mini_portile2 (2.8.8)
+    nokogiri (1.16.2)
+      mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
@@ -111,6 +107,7 @@ GEM
 PLATFORMS
   arm64-darwin-22
   x86_64-darwin-22
+  x86_64-darwin-23
   x86_64-linux
 
 DEPENDENCIES
