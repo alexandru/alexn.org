@@ -63,26 +63,4 @@ has_full_title: true
       </div>
     </div>
   </div>
-
-  <div class="archive_list last">
-    <h2>Recent Shared Links</h2>
-
-    {% assign all_links = site.links | reverse -%}
-    <div class="container">
-      {% for post in all_links offset:0 limit:3 %}
-      <div class="item">
-        <a class="related-link" href="{{ post.link }}" target="_blank">{{ post.title | xml_smart_escape }}</a> 
-        {% if post.author %} by {% if post.author_link %}<a href="{{ post.author_link }}" target="_blank">{{ post.author }}</a>{% else %}{{ post.author }}{% endif %}{% endif %}
-        <div class="related-meta">
-          <time>{{ post.date | date_to_long_string }}</time>
-        </div>
-        <div class="clearfix"></div>
-      </div>
-      {% endfor %}
-      <div class="clearfix"></div>
-      <div>
-        <a href="{{ '/links/' | absolute_url }}" class="button__outline">See full archive</a>
-      </div>
-    </div>
-  </div>
 </div>

@@ -84,7 +84,11 @@
     <meta name="msapplication-TileImage" content="{% link /assets/logo/270px.png %}" />
 
     <!-- Come and get me RSS readers -->
-    <link rel="alternate" type="application/rss+xml" title="All articles (blog + wiki)" href="{% link feeds/all.xml %}" />
+    {% if page.nav_id == '/wiki/' -%}
+    <link rel="alternate" type="application/rss+xml" title="Wiki articles" href="{% link feeds/wiki.xml %}" />
+    {% else -%}
+    <link rel="alternate" type="application/rss+xml" title="Blog articles" href="{% link feeds/blog.xml %}" />
+    {% endif -%}
 
     <!-- Points at alexn.org, taking care of the search-engine indexing of mirrors: -->
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">

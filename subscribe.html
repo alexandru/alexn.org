@@ -52,16 +52,13 @@ permalink: /subscribe/
   </p>
   <ul class="links-with-icons">
     <li>
-      <a href="{% link feeds/all.xml %}" target="_blank"><span class="link-logo"><img src="{% link /assets/logo/rss.svg %}" /></span>All (blog, wiki, links)</a>
-    </li>
-    <li>
       <a href="{% link feeds/blog.xml %}" target="_blank"><span class="link-logo"><img src="{% link /assets/logo/rss.svg %}" /></span>Blog</a>
     </li>
     <li>
       <a href="{% link feeds/wiki.xml %}" target="_blank"><span class="link-logo"><img src="{% link /assets/logo/rss.svg %}" /></span>Wiki</a>
     </li>
     <li>
-      <a href="{% link feeds/links.xml %}" target="_blank"><span class="link-logo"><img src="{% link /assets/logo/rss.svg %}" /></span>Links</a>
+      <a href="{{ site.links.feed }}" target="_blank"><span class="link-logo"><img src="{% link /assets/logo/rss.svg %}" /></span>Links</a>
     </li>
   </ul>
 

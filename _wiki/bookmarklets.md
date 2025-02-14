@@ -1,6 +1,6 @@
 ---
 date: 2022-12-04 12:01:00 +02:00
-last_modified_at: 2024-05-18 10:19:39 +03:00
+last_modified_at: 2025-02-14T09:46:52+02:00
 ---
 
 # Bookmarklets
@@ -157,6 +157,37 @@ javascript:%28function%28%29%7Bwindow.open%28%60https%3A%2F%2Fwww.linkedin.com%2
 
 Drag and drop bookmarklet:<br>
 **[<a href="javascript:%28function%28%29%7Bwindow.open%28%60https%3A%2F%2Fwww.linkedin.com%2Fsharing%2Fshare-offsite%2F%3Furl%3D%24%7BencodeURIComponent%28document.location.href%29%7D%60%2C%22Share%20on%20LinkedIn%22%2C%22scrollbars%3Dno%2Cresizable%3Dno%2Cstatus%3Dno%2Clocation%3Dno%2Ctoolbar%3Dno%2Cmenubar%3Dno%2C%20width%3D800%2Cheight%3D600%2Cleft%3D0%2Ctop%3D0%22%29%7D%29%28%29%3B">Share on LinkedIn</a>]**
+
+### Bluesky
+
+Beautified:
+
+```javascript
+(function() {
+    t = document.title;
+    t = t ? '"' + t + '"' + "\n\n" : "";
+    window.open(
+        `https://bsky.app/intent/compose?text=${encodeURIComponent(t)}${document.location.href}`,
+        "Share on Bluesky",
+        "scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=800,height=600,left=0,top=0"
+    )
+})()
+```
+
+Minified:
+
+```javascript
+(function () {t=document.title,t=t?'"'+t+'"\n\n':"",window.open(`https://bsky.app/intent/compose?text=${encodeURIComponent(t)}${document.location.href}`,"Share on Bluesky","scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=800,height=600,left=0,top=0")})()
+```
+
+Encoded:
+
+```javascript
+javascript:%28function%20%28%29%20%7Bt%3Ddocument.title%2Ct%3Dt%3F%27%22%27%2Bt%2B%27%22%5Cn%5Cn%27%3A%22%22%2Cwindow.open%28%60https%3A%2F%2Fbsky.app%2Fintent%2Fcompose%3Ftext%3D%24%7BencodeURIComponent%28t%29%7D%24%7Bdocument.location.href%7D%60%2C%22Share%20on%20Bluesky%22%2C%22scrollbars%3Dno%2Cresizable%3Dno%2Cstatus%3Dno%2Clocation%3Dno%2Ctoolbar%3Dno%2Cmenubar%3Dno%2Cwidth%3D800%2Cheight%3D600%2Cleft%3D0%2Ctop%3D0%22%29%7D%29%28%29
+```
+
+Drag and drop bookmarklet:<br>
+**[<a href="javascript:%28function%20%28%29%20%7Bt%3Ddocument.title%2Ct%3Dt%3F%27%22%27%2Bt%2B%27%22%5Cn%5Cn%27%3A%22%22%2Cwindow.open%28%60https%3A%2F%2Fbsky.app%2Fintent%2Fcompose%3Ftext%3D%24%7BencodeURIComponent%28t%29%7D%24%7Bdocument.location.href%7D%60%2C%22Share%20on%20Bluesky%22%2C%22scrollbars%3Dno%2Cresizable%3Dno%2Cstatus%3Dno%2Clocation%3Dno%2Ctoolbar%3Dno%2Cmenubar%3Dno%2Cwidth%3D800%2Cheight%3D600%2Cleft%3D0%2Ctop%3D0%22%29%7D%29%28%29">Share on Bluesky</a>]**
 
 ## Subscribing
 

@@ -19,7 +19,7 @@ layout: null
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v{{ jekyll.version }}</generator>
-    {% assign items = site.posts | concat: site.wiki | concat: site.links | rss_filter_and_sort -%}
+    {% assign items = site.posts | concat: site.wiki | rss_filter_and_sort -%}
     {% for post in items limit:200 -%}
       {% unless post.secret -%}
         {% if post.collection == 'posts' -%}
