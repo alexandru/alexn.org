@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 14 Feb 2025 06:16:19 +0000</pubDate>
-    <lastBuildDate>Fri, 14 Feb 2025 06:16:19 +0000</lastBuildDate>
+    <pubDate>Fri, 14 Feb 2025 12:54:18 +0000</pubDate>
+    <lastBuildDate>Fri, 14 Feb 2025 12:54:18 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -742,11 +742,11 @@ fi
 <item>
   <title>Bookmarklets</title>
   <description>Article
-    updated at May 18, 2024, 
+    updated at February 14, 2025, 
     created at December 4, 2022.</description>
   <content:encoded>&lt;p&gt;
     Article
-    updated at May 18, 2024, 
+    updated at February 14, 2025, 
     created at December 4, 2022.
   &lt;/p&gt;
   &lt;hr&gt;
@@ -888,6 +888,34 @@ fi
 &lt;p&gt;Drag and drop bookmarklet:&lt;br&gt;
 &lt;strong&gt;[&lt;a href=&quot;javascript:%28function%28%29%7Bwindow.open%28%60https%3A%2F%2Fwww.linkedin.com%2Fsharing%2Fshare-offsite%2F%3Furl%3D%24%7BencodeURIComponent%28document.location.href%29%7D%60%2C%22Share%20on%20LinkedIn%22%2C%22scrollbars%3Dno%2Cresizable%3Dno%2Cstatus%3Dno%2Clocation%3Dno%2Ctoolbar%3Dno%2Cmenubar%3Dno%2C%20width%3D800%2Cheight%3D600%2Cleft%3D0%2Ctop%3D0%22%29%7D%29%28%29%3B&quot;&gt;Share on LinkedIn&lt;/a&gt;]&lt;/strong&gt;&lt;/p&gt;
 
+&lt;h3 id=&quot;bluesky&quot;&gt;Bluesky&lt;/h3&gt;
+
+&lt;p&gt;Beautified:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;(function() {
+    t = document.title;
+    t = t ? &apos;&quot;&apos; + t + &apos;&quot;&apos; + &quot;\n\n&quot; : &quot;&quot;;
+    window.open(
+        `https://bsky.app/intent/compose?text=${encodeURIComponent(t)}${document.location.href}`,
+        &quot;Share on Bluesky&quot;,
+        &quot;scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=800,height=600,left=0,top=0&quot;
+    )
+})()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Minified:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;(function () {t=document.title,t=t?&apos;&quot;&apos;+t+&apos;&quot;\n\n&apos;:&quot;&quot;,window.open(`https://bsky.app/intent/compose?text=${encodeURIComponent(t)}${document.location.href}`,&quot;Share on Bluesky&quot;,&quot;scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=800,height=600,left=0,top=0&quot;)})()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Encoded:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;javascript:%28function%20%28%29%20%7Bt%3Ddocument.title%2Ct%3Dt%3F%27%22%27%2Bt%2B%27%22%5Cn%5Cn%27%3A%22%22%2Cwindow.open%28%60https%3A%2F%2Fbsky.app%2Fintent%2Fcompose%3Ftext%3D%24%7BencodeURIComponent%28t%29%7D%24%7Bdocument.location.href%7D%60%2C%22Share%20on%20Bluesky%22%2C%22scrollbars%3Dno%2Cresizable%3Dno%2Cstatus%3Dno%2Clocation%3Dno%2Ctoolbar%3Dno%2Cmenubar%3Dno%2Cwidth%3D800%2Cheight%3D600%2Cleft%3D0%2Ctop%3D0%22%29%7D%29%28%29
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Drag and drop bookmarklet:&lt;br&gt;
+&lt;strong&gt;[&lt;a href=&quot;javascript:%28function%20%28%29%20%7Bt%3Ddocument.title%2Ct%3Dt%3F%27%22%27%2Bt%2B%27%22%5Cn%5Cn%27%3A%22%22%2Cwindow.open%28%60https%3A%2F%2Fbsky.app%2Fintent%2Fcompose%3Ftext%3D%24%7BencodeURIComponent%28t%29%7D%24%7Bdocument.location.href%7D%60%2C%22Share%20on%20Bluesky%22%2C%22scrollbars%3Dno%2Cresizable%3Dno%2Cstatus%3Dno%2Clocation%3Dno%2Ctoolbar%3Dno%2Cmenubar%3Dno%2Cwidth%3D800%2Cheight%3D600%2Cleft%3D0%2Ctop%3D0%22%29%7D%29%28%29&quot;&gt;Share on Bluesky&lt;/a&gt;]&lt;/strong&gt;&lt;/p&gt;
+
 &lt;h2 id=&quot;subscribing&quot;&gt;Subscribing&lt;/h2&gt;
 
 &lt;h3 id=&quot;newsblur&quot;&gt;NewsBlur&lt;/h3&gt;
@@ -948,8 +976,8 @@ fi
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Encoding and assembly of the final bookmarklet is left as an exercise for the reader.&lt;/p&gt;</content:encoded><pubDate>Sun, 04 Dec 2022 10:01:00 +0000</pubDate>
-  <dc:modified>Sat, 18 May 2024 07:19:39 +0000</dc:modified>
-  <atom:modified>Sat, 18 May 2024 07:19:39 +0000</atom:modified>
+  <dc:modified>Fri, 14 Feb 2025 07:46:52 +0000</dc:modified>
+  <atom:modified>Fri, 14 Feb 2025 07:46:52 +0000</atom:modified>
   <link>https://alexn.org/wiki/bookmarklets/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/bookmarklets/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
