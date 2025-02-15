@@ -49,7 +49,8 @@ has_subscribe: true
     <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="{{ site.author.name }}" />
       <meta itemprop="url" content="{{ '/about/' | absolute_url }}" />
-      <meta itemprop="url" content="https://x.com/{{ site.author.twitter }}" />
+      <meta itemprop="url" content="{{ site.author.mastodon }}" />
+      <meta itemprop="url" content="{{ site.author.bluesky }}" />
       <meta itemprop="url" content="https://github.com/{{ site.author.github }}" />
       <meta itemprop="url" content="https://www.linkedin.com/in/{{ site.author.linkedin }}/" />
     </div>
