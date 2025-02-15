@@ -1,3 +1,4 @@
+@use "sass:color";
 /***************
 PAGE WIDTH
 ***************/
@@ -35,7 +36,7 @@ $primary-color-light: #00649e;
 $primary-color-dark: #00c1ff;
 
 $secondary-color-light: #008bd8;
-$secondary-color-dark: lighten($secondary-color-light, 10%);
+$secondary-color-dark: color.adjust($secondary-color-light, $lightness: 10%);
 $tertiary-color: #aaa;
 
 $link-color-light: $primary-color-light;
@@ -64,7 +65,7 @@ $site-background-dark: #171a1b;
 $muted-text-light: #57606a;
 $muted-text-dark: #8b949d;
 
-$color-border-light: darken(white, 15%);
+$color-border-light: color.adjust(white, $lightness: -15%);
 $color-border-dark: #2f363c;
 
 $scrollbar-background-dark: #1e2223;

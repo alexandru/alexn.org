@@ -2,7 +2,8 @@
 GLOBAL STYLES
 ***************/
 
-@import "../config";
+@use "sass:color";
+@use "../config";
 
 body {
   font-size: 125%;
@@ -30,7 +31,7 @@ HOMEPAGE STYLING
   .pageTitle,
   .pagination,
   .archive_list {
-    width: $elementsWidth;
+    width: config.$elementsWidth;
     float: none;
     margin: 0 auto 1.5em;
   }
@@ -95,7 +96,7 @@ HEADER STYLING
           padding: 0 0.25em;
 
           &:hover {
-            color: darken(white, 20%);
+            color: color.adjust(white, $lightness: -20%);
           }
         }
 
@@ -149,13 +150,13 @@ POST STYLING
   .page-width,
   blockquote,
   div.footnotes {
-    width: $elementsWidth;
+    width: config.$elementsWidth;
     float: none;
     margin: 0 auto 2rem;
   }
 
   hr {
-    width: $elementsWidth;
+    width: config.$elementsWidth;
   }
 
   div.footnotes {
@@ -241,7 +242,7 @@ FOOTER STYLES
   }
 
   .contributions {
-    width: $elementsWidth;
+    width: config.$elementsWidth;
     margin: 0 auto;
 
 		.avatar img {
@@ -311,18 +312,18 @@ div.header {
 
 #abonament {
   form {
-    width: $elementsWidth;
+    width: config.$elementsWidth;
     margin: 0 auto 2rem;
   }
 }
 
 .post {
   div.related {
-    width: $elementsWidth;
+    width: config.$elementsWidth;
   }
 
   #article-details {
-    width: $elementsWidth;
+    width: config.$elementsWidth;
   }
 
   &.privacy_policy #opt_out_frame iframe {

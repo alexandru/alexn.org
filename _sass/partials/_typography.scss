@@ -1,3 +1,5 @@
+@use "config";
+
 /***************
 A MORE MODERN SCALE
 http://typecast.com/blog/a-more-modern-scale-for-web-typography
@@ -12,7 +14,7 @@ body {
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
   margin: .5rem 0 1.5rem;
-  font-family: $sans-serif;
+  font-family: config.$sans-serif;
 }
 
 // Headings

@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "config";
+
 @mixin code-inline-dark {
   background: #22272d;
   color: #adbac7;
@@ -53,7 +56,7 @@ html,
 body,
 * {
   scrollbar-width: thin;
-  scrollbar-color: $scrollbar-thumb-dark $scrollbar-background-dark;
+  scrollbar-color: config.$scrollbar-thumb-dark config.$scrollbar-background-dark;
 }
 
 body::-webkit-scrollbar,
@@ -63,36 +66,36 @@ body::-webkit-scrollbar,
 
 body::-webkit-scrollbar-track,
 *::-webkit-scrollbar-track {
-  background: $scrollbar-background-dark;
+  background: config.$scrollbar-background-dark;
 }
 
 body::-webkit-scrollbar-thumb,
 *::-webkit-scrollbar-thumb {
-  background-color: $scrollbar-thumb-dark;
+  background-color: config.$scrollbar-thumb-dark;
   border-radius: 6px;
-  border: 3px solid $scrollbar-background-dark;
+  border: 3px solid config.$scrollbar-background-dark;
 }
 
 html {
-  background-color: $site-background-dark;
+  background-color: config.$site-background-dark;
   background-image: none;
 }
 
 body {
-  background-color: $site-background-dark;
+  background-color: config.$site-background-dark;
   background-image: none;
-  color: $text-color-dark;
+  color: config.$text-color-dark;
 
   a {
-    color: $link-color-dark;
+    color: config.$link-color-dark;
 
     &:hover {
-      color: darken($link-color-dark, 15%);
+      color: color.adjust(config.$link-color-dark, $lightness: -15%);
     }
   }
 
   .header {
-    background-color: $header-color-dark;
+    background-color: config.$header-color-dark;
   }
 
   h1,
@@ -101,7 +104,7 @@ body {
   h4,
   h5,
   h6 {
-    color: $all-headers-color-dark;
+    color: config.$all-headers-color-dark;
   }
 
   pre > code, div.formula-code {
@@ -114,35 +117,35 @@ body {
 
   .post {
     header nav.toc {
-      border-color: $color-border-dark;
+      border-color: config.$color-border-dark;
     }
 
     .info-bubble {
       background-color: #25313c;
-      border-color: lighten($color: #25313c, $amount: 10%);
-      color: $text-color-dark;
+      border-color: color.adjust($color: #25313c, $lightness: 10%);
+      color: config.$text-color-dark;
     }
 
     .warn-bubble {
       background-color: #362521;
-      border-color: lighten($color: #362521, $amount: 10%);
+      border-color: color.adjust($color: #362521, $lightness: 10%);
       color: inherit;
     }
 
     hr {
-      border-color: $color-border-dark;
+      border-color: config.$color-border-dark;
     }
 
     #article-details {
-      border-color: $color-border-dark;
+      border-color: config.$color-border-dark;
 
       #all-categories {
-        border-color: $color-border-dark;
+        border-color: config.$color-border-dark;
       }
     }
 
     div.related {
-      border-color: $color-border-dark;
+      border-color: config.$color-border-dark;
     }
 
     .meta,
@@ -151,12 +154,12 @@ body {
     }
 
     .intro::first-letter {
-      color: $primary-color-dark;
+      color: config.$primary-color-dark;
     }
 
     blockquote {
-      color: $muted-text-dark;
-      border-left-color: $color-border-dark;
+      color: config.$muted-text-dark;
+      border-left-color: config.$color-border-dark;
     }
 
     .transparency-fix {
@@ -166,21 +169,21 @@ body {
 
   .button {
     &-secondary {
-      background-color: $secondary-color-dark;
+      background-color: config.$secondary-color-dark;
 
       &:hover {
-        background-color: darken($secondary-color-dark, 10%);
+        background-color: color.adjust(config.$secondary-color-dark, $lightness: -10%);
       }
     }
   }
 
   a.button__outline {
-    border: 3px solid $primary-color-dark;
-    color: $primary-color-dark;
+    border: 3px solid config.$primary-color-dark;
+    color: config.$primary-color-dark;
 
     &:hover {
-      background-color: $primary-color-dark;
-      color: $white;
+      background-color: config.$primary-color-dark;
+      color: config.$white;
     }
   }
 
@@ -191,11 +194,11 @@ body {
 
   .post div.related h2,
   div.archive_list h2 {
-    color: $all-headers-color-dark;
+    color: config.$all-headers-color-dark;
   }
 
   .footer {
-    background-color: lighten($color: $site-background-dark, $amount: 5%);
+    background-color: color.adjust($color: config.$site-background-dark, $lightness: 5%);
     background-image: none;
 
     .contributions {
@@ -203,7 +206,7 @@ body {
         @include form-elements;
 
         & > h4 {
-          color: lighten(#778899, 5%);
+          color: color.adjust(#778899, $lightness: 5%);
         }
 
         .isso-comment > div.isso-text-wrapper > .isso-comment-header {
@@ -211,7 +214,7 @@ body {
         }
 
         .isso-comment > div.isso-text-wrapper > .isso-comment-header .author {
-          color: lighten(#778899, 5%);
+          color: color.adjust(#778899, $lightness: 5%);
         }
 
         .isso-comment > .isso-text-wrapper {
@@ -232,8 +235,8 @@ body {
       }
 
       .note-warning {
-        border: 1px solid $site-background-dark;
-        background-color: lighten($color: $site-background-dark, $amount: 3%);
+        border: 1px solid config.$site-background-dark;
+        background-color: color.adjust($color: config.$site-background-dark, $lightness: 3%);
         .extra {
           color: lightslategray;
         }
@@ -241,19 +244,19 @@ body {
     }
 
     .bottom {
-      background: $site-background-dark;
+      background: config.$site-background-dark;
       color: lightslategray;
-      border-top: 2px solid lighten($site-background-dark, $amount: 5%);
-      border-bottom: 2px solid lighten($site-background-dark, $amount: 5%);
+      border-top: 2px solid color.adjust(config.$site-background-dark, $lightness: 5%);
+      border-bottom: 2px solid color.adjust(config.$site-background-dark, $lightness: 5%);
     }
 
     #footer-comments-widget {
-      border-bottom: 2px solid lighten($site-background-dark, 20%);
+      border-bottom: 2px solid color.adjust(config.$site-background-dark, $lightness: 20%);
     }
   }
 
   div.archive_list:before, .posts li:before {
-    background: lighten($site-background-dark, 15%);
+    background: color.adjust(config.$site-background-dark, $lightness: 15%);
   }
 }
 

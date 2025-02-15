@@ -1,35 +1,36 @@
 // Site configuration
-@import "config";
+@use "sass:meta";
+@use "config";
 
 // Reset using Normalize
-@import "normalize";
+@use "normalize";
 
 // Import Partials
-@import "partials/typography";
-@import "partials/mixins";
+@use "partials/typography";
+@use "partials/mixins";
 
 // Modules
-@import "modules/buttons";
-@import "modules/forms";
-@import "modules/tables";
-@import "modules/syntax-customizations";
-@import "modules/isso-comments";
-@import "modules/dark-reader-hacks";
+@use "modules/buttons";
+@use "modules/forms";
+@use "modules/tables";
+@use "modules/syntax-customizations";
+@use "modules/isso-comments";
+@use "modules/dark-reader-hacks";
 
 // Base styles, starting from mobile, going up
-@import "breakpoints/mobileup";
+@use "breakpoints/mobileup";
 // Import media queries add more as you desire
-@media only screen and (min-width: 375px) { @import "breakpoints/375up";}
-@media only screen and (min-width: 500px) { @import "breakpoints/500up";}
-@media only screen and (min-width: 800px) { @import "breakpoints/800up";}
-@media only screen and (min-width: 1200px) { @import "breakpoints/1200up";}
+@media only screen and (min-width: 375px) { @include meta.load-css("breakpoints/375up");}
+@media only screen and (min-width: 500px) { @include meta.load-css("breakpoints/500up");}
+@media only screen and (min-width: 800px) { @include meta.load-css("breakpoints/800up");}
+@media only screen and (min-width: 1200px) { @include meta.load-css("breakpoints/1200up");}
 
 @media (prefers-color-scheme: light) {
-  @import "modules/syntax-light";
+  @include meta.load-css("modules/syntax-light");
 }
 
 // Dark mode 😎
 @media (prefers-color-scheme: dark) {
-  @import "dark-mode";
-  @import "modules/syntax-dark";
+  @include meta.load-css("dark-mode");
+  @include meta.load-css("modules/syntax-dark");
 }
