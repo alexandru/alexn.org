@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 04 Mar 2025 16:42:48 +0000</pubDate>
-    <lastBuildDate>Tue, 04 Mar 2025 16:42:48 +0000</lastBuildDate>
+    <pubDate>Tue, 04 Mar 2025 17:23:02 +0000</pubDate>
+    <lastBuildDate>Tue, 04 Mar 2025 17:23:02 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -750,24 +750,9 @@ fi
     created at December 4, 2022.
   &lt;/p&gt;
   &lt;hr&gt;
-  &lt;p&gt;Samples are meant for the &lt;a href=&quot;https://alexn.org/assets/html/bookmarklet-generator/&quot; target=&quot;_blank&quot;&gt;bookmarklet generator&lt;/a&gt;, that generates code compatible with Firefox for Android (as it has issues with the classic &lt;code&gt;window.open&lt;/code&gt;, which has to be avoided). The code looks like this, and it’s general purpose enough:&lt;/p&gt;
+  &lt;h2 id=&quot;about&quot;&gt;About&lt;/h2&gt;
 
-&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;javascript:(function() {
-    var url = location.href;
-    var title = document.title;
-    var a = document.createElement(&apos;a&apos;);
-    a.href = &apos;https://bsky.app/intent/compose?text=%s&apos;
-        .replace(/%s/g, encodeURIComponent(url))
-        .replace(/%t/g, encodeURIComponent(title));
-    a.target = &apos;_blank&apos;;
-    a.rel = &apos;noopener noreferrer&apos;;
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(function() {
-        document.body.removeChild(a);
-    }, 100);
-})()
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Samples are meant for the &lt;a href=&quot;https://alexn.org/assets/html/bookmarklet-generator/&quot; target=&quot;_blank&quot;&gt;bookmarklet generator&lt;/a&gt;, that generates code compatible with Firefox for Android (as it has issues with the classic &lt;code&gt;window.open&lt;/code&gt;, which has to be avoided).&lt;/p&gt;
 
 &lt;h2 id=&quot;sharing&quot;&gt;Sharing&lt;/h2&gt;
 
@@ -855,8 +840,8 @@ fi
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://alexn.org/assets/html/bookmarklet-generator/?title=Subscribe%2520(NewsBlur)&amp;url=https%253A%252F%252Fwww.newsblur.com%252F%253Furl%253D%2525s&quot; target=&quot;_blank&quot;&gt;👉 Generate bookmarklet&lt;/a&gt;&lt;/p&gt;</content:encoded><pubDate>Sun, 04 Dec 2022 10:01:00 +0000</pubDate>
-  <dc:modified>Tue, 04 Mar 2025 16:38:21 +0000</dc:modified>
-  <atom:modified>Tue, 04 Mar 2025 16:38:21 +0000</atom:modified>
+  <dc:modified>Tue, 04 Mar 2025 17:21:55 +0000</dc:modified>
+  <atom:modified>Tue, 04 Mar 2025 17:21:55 +0000</atom:modified>
   <link>https://alexn.org/wiki/bookmarklets/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/bookmarklets/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>

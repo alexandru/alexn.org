@@ -19,7 +19,7 @@
     <meta property="og:description" content="Personal, volatile wiki documentation">
     <meta property="og:url" content="https://alexn.org/wiki/bookmarklets/">
     <meta property="article:published_time" content="2022-12-04T10:01:00+00:00">
-    <meta property="article:modified_time" content="2025-03-04T16:38:21+00:00">
+    <meta property="article:modified_time" content="2025-03-04T17:21:55+00:00">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://alexn.org/assets/logo/800px-bordered.png" />
     <meta property="og:image:secure_url" content="https://alexn.org/assets/logo/800px-bordered.png" />
@@ -119,7 +119,7 @@
       <meta itemprop="datePublished" content="2022-12-04T10:01:00+0000"/>
       
       
-      <time itemprop="dateModified" content="2025-03-04T18:38:21+0200">
+      <time itemprop="dateModified" content="2025-03-04T19:21:55+0200">
         Updated: March 4, 2025
       </time>
       
@@ -142,6 +142,7 @@
 
   <p><strong>Contents:</strong></p>
   <ul>
+  <li><a href="#about">About</a></li>
   <li><a href="#sharing">Sharing</a>
     <ul>
       <li><a href="#bluesky">Bluesky</a></li>
@@ -160,24 +161,16 @@
     </ul>
   </li>
 </ul>
-<p>Samples are meant for the <a href="/assets/html/bookmarklet-generator/" target="_blank">bookmarklet generator</a>, that generates code compatible with Firefox for Android (as it has issues with the classic <code>window.open</code>, which has to be avoided). The code looks like this, and it’s general purpose enough:</p>
+      <h2 id="about">
+        
+        
+          About <a href="#about" class="anchor">#</a>
+        
+        
+      </h2>
+    
 
-<pre><code class="language-javascript">javascript:(function() {
-    var url = location.href;
-    var title = document.title;
-    var a = document.createElement('a');
-    a.href = 'https://bsky.app/intent/compose?text=%s'
-        .replace(/%s/g, encodeURIComponent(url))
-        .replace(/%t/g, encodeURIComponent(title));
-    a.target = '_blank';
-    a.rel = 'noopener noreferrer';
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(function() {
-        document.body.removeChild(a);
-    }, 100);
-})()
-</code></pre>
+<p>Samples are meant for the <a href="/assets/html/bookmarklet-generator/" target="_blank">bookmarklet generator</a>, that generates code compatible with Firefox for Android (as it has issues with the classic <code>window.open</code>, which has to be avoided).</p>
       <h2 id="sharing">
         
         
@@ -338,14 +331,14 @@
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202503041642" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202503041642" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202503041642" type="text/javascript"></script>
+   <script async src="/assets/js/modernizr.custom.15390.js?202503041723" type="text/javascript"></script>
+<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202503041723" type="text/javascript"></script>
+<script async src="/assets/js/responsive-nav.min.js?202503041723" type="text/javascript"></script>
 
 <!-- Syntax highlighting (https://highlightjs.org/) -->
 <script async src="/assets/js/highlight.min.js" type="text/javascript" onload="hljs.highlightAll();"></script>
 
-<script async src="/assets/js/scripts.js?202503041642" type="text/javascript"></script>
+<script async src="/assets/js/scripts.js?202503041723" type="text/javascript"></script>
 
 
 <script type="text/javascript">
