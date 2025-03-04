@@ -1,6 +1,6 @@
 ---
 date: 2022-12-04 12:01:00 +02:00
-last_modified_at: 2025-03-04T18:18:43+02:00
+last_modified_at: 2025-03-04T18:38:21+02:00
 ---
 
 # Bookmarklets
@@ -69,13 +69,13 @@ https://www.linkedin.com/sharing/share-offsite/?url=%s
 
 ### Facebook
 
-URL used (both page title and URL):
+URL used (just page URL):
 
 ```
-https://www.facebook.com/sharer.php?src=bm&v=4&i=1628766166&u=%s&t=%t
+https://www.facebook.com/sharer.php?src=bm&v=4&i=1628766166&u=%s
 ```
 
-[👉 Generate bookmarklet]({% link assets/html/bookmarklet-generator.html %}?title=Share%2520on%2520Facebook&url=https%253A%252F%252Fwww.facebook.com%252Fsharer.php%253Fsrc%253Dbm%2526v%253D4%2526i%253D1628766166%2526u%253D%2525s%2526t%253D%2525t){:target="_blank"}
+[👉 Generate bookmarklet]({% link assets/html/bookmarklet-generator.html %}?title=Share%2520on%2520Facebook&url=https%253A%252F%252Fwww.facebook.com%252Fsharer.php%253Fsrc%253Dbm%2526v%253D4%2526i%253D1628766166%2526u%253D%2525s){:target="_blank"}
 
 ### 𝕏/Twitter
 
@@ -88,6 +88,18 @@ https://x.com/intent/tweet?text=%22%t%22%0A%0A%s
 [👉 Generate bookmarklet]({% link assets/html/bookmarklet-generator.html %}?title=Share%2520on%2520%25F0%259D%2595%258F%252FTwitter&url=https%253A%252F%252Fx.com%252Fintent%252Ftweet%253Ftext%253D%252522%2525t%252522%25250A%25250A%2525s){:target="_blank"}
 
 ## Subscribing
+
+### Linkding
+
+[See homepage](https://linkding.link/).
+
+URL:
+
+```
+https://my.linkding.host/bookmarks/new?url=%s&title=%t&auto_close
+```
+
+[👉 Generate bookmarklet]({% link assets/html/bookmarklet-generator.html %}?title=Save&url=https%253A%252F%252Fmy.linkding.host%252Fbookmarks%252Fnew%253Furl%253D%2525s%2526title%253D%2525t%2526auto_close){:target="_blank"}
 
 ### FreshRSS
 
