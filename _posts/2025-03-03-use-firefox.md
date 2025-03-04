@@ -3,7 +3,7 @@ title: "Use Firefox in 2025"
 image: /assets/media/articles/2025-firefox.jpg
 image_hide_in_post: true
 date: 2025-03-03T23:51:40+02:00
-last_modified_at: 2025-03-04T12:28:17+02:00
+last_modified_at: 2025-03-04T21:55:31+02:00
 generate_toc: true
 tags:
   - Browser
@@ -24,7 +24,8 @@ Firefox remains the only one supporting [uBlock Origin](https://github.com/gorhi
 Firefox can have extensions that expose a sidebar. This is how [Sideberry](https://addons.mozilla.org/en-US/firefox/addon/sidebery/) or [Tree Style Tab](https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab/) can work. Tab grouping from Chrome is nice, but you have to make a conscious effort to use groups, whereas trees are automatic, and you can simply hide that sidebar if you're not interested in it. It actually works well with Firefox's vertical tabs, with `Ctrl-E` toggling my "Sideberry" panel whenever I need it, otherwise seeing a nice vertical column of icons.
 
 <p class="info-bubble" markdown="1">
-  You can activate vertical tabs even in the stable version by going to `about:config` and toggling `sidebar.verticalTabs`. I also like my UI to be more compact, which you can do by toggling `browser.compactmode.show`. Then go to `Customize Toolbar...` and select the `Compact` density for the UI.
+  Vertical tabs have been officially released in [Firefox 136](https://www.mozilla.org/en-US/firefox/136.0/releasenotes/).
+  Tab groups are supported if you toggle `browser.tabs.groups.enabled` in `about:config`.
 </p>
 
 `Ctrl-Tab` in Firefox has the best behavior, and it's nice that if you keep `Ctrl` pressed it shows you a graphical switcher previewing around 7 tabs on my laptop's screen. I've only seen something equivalent in Vivaldi.
