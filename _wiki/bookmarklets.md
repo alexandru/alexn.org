@@ -1,29 +1,13 @@
 ---
 date: 2022-12-04 12:01:00 +02:00
-last_modified_at: 2025-03-04T18:38:21+02:00
+last_modified_at: 2025-03-04T19:21:55+02:00
 ---
 
 # Bookmarklets
 
-Samples are meant for the [bookmarklet generator]({% link assets/html/bookmarklet-generator.html %}){:target="_blank"}, that generates code compatible with Firefox for Android (as it has issues with the classic `window.open`, which has to be avoided). The code looks like this, and it's general purpose enough:
+## About
 
-```javascript
-javascript:(function() {
-    var url = location.href;
-    var title = document.title;
-    var a = document.createElement('a');
-    a.href = 'https://bsky.app/intent/compose?text=%s'
-        .replace(/%s/g, encodeURIComponent(url))
-        .replace(/%t/g, encodeURIComponent(title));
-    a.target = '_blank';
-    a.rel = 'noopener noreferrer';
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(function() {
-        document.body.removeChild(a);
-    }, 100);
-})()
-```
+Samples are meant for the [bookmarklet generator]({% link assets/html/bookmarklet-generator.html %}){:target="_blank"}, that generates code compatible with Firefox for Android (as it has issues with the classic `window.open`, which has to be avoided).
 
 ## Sharing
 

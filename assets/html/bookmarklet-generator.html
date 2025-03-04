@@ -265,20 +265,24 @@ layout: null
                 return;
             }
 
-            const expandedCode = `javascript:(function() {
-    var url = location.href;
-    var title = document.title;
-    var a = document.createElement('a');
-    a.href = '${urlTemplate}'
-        .replace(/%s/g, encodeURIComponent(url))
-        .replace(/%t/g, encodeURIComponent(title));
-    a.target = '_blank';
-    a.rel = 'noopener noreferrer';
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(function() {
-        document.body.removeChild(a);
-    }, 100);
+            const expandedCode = `javascript:(function(){
+    var u=location.href,
+        t=document.title,
+        d='${urlTemplate}'
+            .replace(/%s/g,encodeURIComponent(u))
+            .replace(/%t/g,encodeURIComponent(t)),
+        f=/Android.*Firefox/.test(navigator.userAgent);
+    if (f)
+        document.location.href=d;
+    else{
+        a=document.createElement('a');
+        a.href=d;
+        a.target='_blank';
+        a.rel='noopener noreferrer';
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function(){document.body.removeChild(a)},100);
+    }
 })()`;
 
             const minified = expandedCode
