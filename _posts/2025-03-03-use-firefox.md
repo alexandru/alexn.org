@@ -3,7 +3,7 @@ title: "Use Firefox in 2025"
 image: /assets/media/articles/2025-firefox.jpg
 image_hide_in_post: true
 date: 2025-03-03T23:51:40+02:00
-last_modified_at: 2025-03-04T12:23:22+02:00
+last_modified_at: 2025-03-04T12:28:17+02:00
 generate_toc: true
 tags:
   - Browser
@@ -98,11 +98,11 @@ Note that I'm not naive about where the major contributions are coming from. The
 
 Mozilla isn't without controversy, and lately, they've [doubled down](https://blog.mozilla.org/en/mozilla/mozilla-leadership-growth-planning-updates/) on them diversifying their revenue via more advertising, [updating their privacy](https://blog.mozilla.org/en/products/firefox/update-on-terms-of-use/) to make it unambiguous that they intend to share your personal data with advertisers. Yikes! 
 
-Many people view this as a sort of betrayal of their values, and there's some truth to that. Take a look at this old ad, when they seemed to have more of a drive for doing the right thing:
+Many people view this as a betrayal of their values, and there's some truth to that. Take a look at this old ad, when they seemed to have more of a drive for doing the right thing:
 
 {% include youtube.html id="AIKLdVEWPrE" caption="Firefox a different kind of browser" image="https://img.youtube.com/vi/AIKLdVEWPrE/hqdefault.jpg" %}
 
-When talking about Mozilla's direction, one has to keep in mind that to develop and maintain a browser, you need a lot of money. Chrome's estimates, for example, exceed 1 billion $ per year in development costs. People don't want to pay for browsers, you can't rely on the donations of people preferring to ad-block YouTube instead of paying for Premium. And asking for governments, like the EU, to fund it is a terrible idea for obvious reasons, such as Mozilla not being an EU entity or the fact that the state serves the interest of their taxpayers, and not the interest of the whole world.
+But when talking about Mozilla's direction, one has to keep in mind that to develop and maintain a browser, you need a lot of money. In our country, we have a saying like *"you're my brother, but cheese costs money".* Chrome's estimates, for example, exceed 1 billion $ per year in development costs. People don't want to pay for browsers, you can't rely on the donations of people preferring to ad-block YouTube instead of paying for Premium. And asking for governments, like the EU, to fund it is not a great idea for obvious reasons, such as Mozilla not being an EU entity or the fact that the state serves the interest of their taxpayers, and not the interest of the whole world. 
 
 Mozilla has been surviving on Google's Ads ever since the Search deal. Google, at this point, is funding all 3 major browser engines, and this includes Safari, given that Google is paying Apple around 20 billions per year in the search deal. This has consequences. For example, even though both Mozilla and Apple have been singing the privacy tune, they never did anything to upset their cash cow, which is Google Search. So let's be honest — Firefox has been funded by ad-tech since 2006, and Mozilla diversifying their revenue can't be a worse betrayal of their values than what happened since then.
 
