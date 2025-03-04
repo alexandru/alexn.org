@@ -24,8 +24,7 @@ Firefox remains the only one supporting [uBlock Origin](https://github.com/gorhi
 Firefox can have extensions that expose a sidebar. This is how [Sideberry](https://addons.mozilla.org/en-US/firefox/addon/sidebery/) or [Tree Style Tab](https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab/) can work. Tab grouping from Chrome is nice, but you have to make a conscious effort to use groups, whereas trees are automatic, and you can simply hide that sidebar if you're not interested in it. It actually works well with Firefox's vertical tabs, with `Ctrl-E` toggling my "Sideberry" panel whenever I need it, otherwise seeing a nice vertical column of icons.
 
 <p class="info-bubble" markdown="1">
-  Vertical tabs have been officially released in [Firefox 136](https://www.mozilla.org/en-US/firefox/136.0/releasenotes/).
-  Tab groups (experimental) can be enabled if you toggle `browser.tabs.groups.enabled` in `about:config`.
+  Vertical tabs have been officially released in [Firefox 136](https://www.mozilla.org/en-US/firefox/136.0/releasenotes/), and the implementation seems to be quite good. Tab groups (experimental) can be enabled if you toggle `browser.tabs.groups.enabled` in `about:config`.
 </p>
 
 `Ctrl-Tab` in Firefox has the best behavior, and it's nice that if you keep `Ctrl` pressed it shows you a graphical switcher previewing around 7 tabs on my laptop's screen. I've only seen something equivalent in Vivaldi.
