@@ -1,0 +1,312 @@
+---
+layout: null
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookmarklet Generator</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 800px;
+            margin: 1rem auto;
+            padding: 0 1rem;
+            line-height: 1.5;
+            box-sizing: border-box;
+        }
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+        .header-info {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            padding: 0.5rem;
+            background: #f5f5f5;
+            border-radius: 4px;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 0.5rem;
+            font-family: monospace;
+            font-size: 1rem;
+            max-width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="text"]:invalid {
+            border-color: #dc3545;
+            box-shadow: 0 0 0 1px #dc3545;
+        }
+        input[type="text"]:invalid:focus {
+            outline: none;
+            border-color: #dc3545;
+            box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.25);
+        }
+        input[type="text"]:required {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Ccircle cx='4' cy='4' r='3' fill='%23dc3545'/%3E%3C/svg%3E");
+            background-position: right 8px center;
+            background-repeat: no-repeat;
+            padding-right: 2rem;
+        }
+        input[type="text"]:valid {
+            background-image: none;
+        }
+        .output {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #f5f5f5;
+            border-radius: 4px;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+        .output-section {
+            margin-bottom: 1.5rem;
+        }
+        .code-block {
+            white-space: pre-wrap;
+            word-break: break-all;
+            padding: 1rem;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: 0.5rem 0;
+            font-family: monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+        .help {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+        .test-area {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #e9e9e9;
+            border-radius: 4px;
+        }
+        .truncate {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+            display: inline-block;
+        }
+        button {
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            cursor: pointer;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 300px;
+            margin: 1rem 0;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        h1 {
+            font-size: 1.75rem;
+            margin: 1rem 0;
+        }
+        h3 {
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+            border: 1px solid #ffeeba;
+        }
+        code {
+            word-break: break-all;
+        }
+        @media (max-width: 600px) {
+            body {
+                margin: 0.5rem auto;
+                padding: 0 0.75rem;
+            }
+            .output, .test-area {
+                padding: 0.75rem;
+            }
+            .code-block {
+                padding: 0.75rem;
+                font-size: 0.8rem;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+            .header-info {
+                margin-bottom: 1rem;
+            }
+            input[type="text"] {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Bookmarklet Generator</h1>
+
+    <noscript>
+        <div class="warning">
+            <strong>Warning:</strong> This tool requires JavaScript to generate bookmarklets.
+            Please enable JavaScript in your browser to use this generator.
+        </div>
+    </noscript>
+
+    <div class="form-group">
+        <label for="bookmarkletTitle">Bookmarklet Title:</label>
+        <input type="text" id="bookmarkletTitle" 
+               placeholder="Subscribe in NewsBlur"
+               value=""
+               required>
+    </div>
+
+    <div class="form-group">
+        <label for="urlTemplate">URL Template:</label>
+        <input type="text" id="urlTemplate" 
+               placeholder="https://example.com/?url=%s&title=%t"
+               value=""
+               required>
+        <div class="help">
+            Use <code>%s</code> for the current page's URL<br>
+            Use <code>%t</code> for the current page's title
+        </div>
+    </div>
+
+    <button onclick="generateBookmarklet()">Generate Bookmarklet</button>
+
+    <div id="output" class="output" style="display: none">
+        <div class="output-section">
+            <h3>Your Bookmarklet:</h3>
+            <p><a id="bookmarkletLink" href="#" style="font-weight: bold;"></a> ← Drag this to your bookmarks bar</p>
+            
+            <h3>Encoded Bookmarklet Code:</h3>
+            <div id="bookmarklet" class="code-block"></div>
+            
+            <h3>Expanded JavaScript Code:</h3>
+            <div id="expandedCode" class="code-block"></div>
+        </div>
+
+        <div class="output-section">
+            <h3>Test Your Bookmarklet:</h3>
+            <div class="test-area">
+                <p>Current page URL:<br><code class="truncate" id="currentUrl"></code></p>
+                <p>Current page title:<br><code class="truncate" id="currentTitle"></code></p>
+                <p><a id="testLink" href="#">Test Bookmarklet</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                title: params.get('title') || '',
+                url: params.get('url') || ''
+            };
+        }
+
+        function updateUrl(title, url) {
+            const params = new URLSearchParams();
+            if (title) params.set('title', encodeURIComponent(title));
+            if (url) params.set('url', encodeURIComponent(url));
+            const newUrl = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`;
+            window.history.pushState({}, '', newUrl);
+        }
+
+        function initializeForm() {
+            const params = getUrlParams();
+            const titleInput = document.getElementById('bookmarkletTitle');
+            const urlInput = document.getElementById('urlTemplate');
+            
+            titleInput.value = decodeURIComponent(params.title);
+            urlInput.value = decodeURIComponent(params.url);
+
+            titleInput.addEventListener('input', function() {
+                updateUrl(this.value, urlInput.value);
+                generateBookmarklet();
+            });
+
+            urlInput.addEventListener('input', function() {
+                updateUrl(titleInput.value, this.value);
+                generateBookmarklet();
+            });
+
+            if (params.title || params.url) {
+                generateBookmarklet();
+            }
+        }
+
+        function generateBookmarklet() {
+            const urlTemplate = document.getElementById('urlTemplate').value;
+            const bookmarkletTitle = document.getElementById('bookmarkletTitle').value;
+            
+            if (!urlTemplate || !bookmarkletTitle) {
+                document.getElementById('output').style.display = 'none';
+                return;
+            }
+
+            const expandedCode = `javascript:(function() {
+    var url = location.href;
+    var title = document.title;
+    var a = document.createElement('a');
+    a.href = '${urlTemplate}'
+        .replace(/%s/g, encodeURIComponent(url))
+        .replace(/%t/g, encodeURIComponent(title));
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function() {
+        document.body.removeChild(a);
+    }, 100);
+})()`;
+
+            const minified = expandedCode
+                .replace(/\s+/g, ' ')
+                .trim();
+
+            const encoded = encodeURIComponent(minified).replace(/^javascript%3A/, 'javascript:');
+            
+            document.getElementById('output').style.display = 'block';
+            
+            const bookmarkletDisplay = document.getElementById('bookmarklet');
+            const expandedDisplay = document.getElementById('expandedCode');
+            const testLink = document.getElementById('testLink');
+            const bookmarkletLink = document.getElementById('bookmarkletLink');
+            
+            bookmarkletDisplay.textContent = encoded;
+            expandedDisplay.textContent = expandedCode;
+            
+            const fullBookmarklet = encoded;
+            testLink.href = fullBookmarklet;
+            bookmarkletLink.href = fullBookmarklet;
+            bookmarkletLink.textContent = bookmarkletTitle;
+            
+            document.getElementById('currentUrl').textContent = location.href;
+            document.getElementById('currentTitle').textContent = document.title;
+        }
+
+        document.addEventListener('DOMContentLoaded', initializeForm);
+    </script>
+</body>
+</html>
