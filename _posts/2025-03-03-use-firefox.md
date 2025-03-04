@@ -3,7 +3,7 @@ title: "Use Firefox in 2025"
 image: /assets/media/articles/2025-firefox.jpg
 image_hide_in_post: true
 date: 2025-03-03T23:51:40+02:00
-last_modified_at: 2025-03-04T21:55:31+02:00
+last_modified_at: 2025-03-04T21:57:13+02:00
 generate_toc: true
 tags:
   - Browser
@@ -25,7 +25,7 @@ Firefox can have extensions that expose a sidebar. This is how [Sideberry](https
 
 <p class="info-bubble" markdown="1">
   Vertical tabs have been officially released in [Firefox 136](https://www.mozilla.org/en-US/firefox/136.0/releasenotes/).
-  Tab groups are supported if you toggle `browser.tabs.groups.enabled` in `about:config`.
+  Tab groups (experimental) can be enabled if you toggle `browser.tabs.groups.enabled` in `about:config`.
 </p>
 
 `Ctrl-Tab` in Firefox has the best behavior, and it's nice that if you keep `Ctrl` pressed it shows you a graphical switcher previewing around 7 tabs on my laptop's screen. I've only seen something equivalent in Vivaldi.
