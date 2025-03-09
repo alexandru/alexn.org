@@ -1,6 +1,15 @@
-[No Annoyances 1.0]
-! Version: 20250309.2
+[No Annoyances 1.1]
+! Version: 20250309.3
 ! Title: No Annoyances
 
-www.facebook.com##.m.fixed-container.bottom
-m.facebook.com##.m.fixed-container.bottom
+! Desktop Facebook
+www.facebook.com##div[class*="fixed-container"][class*="bottom"]
+www.facebook.com##.fixed-container.bottom
+
+! Mobile Facebook
+m.facebook.com##div[class*="fixed-container"][class*="bottom"]
+m.facebook.com##.fixed-container.bottom
+
+! More generic approach (might catch more elements)
+facebook.com##div[class*="fixed"][class*="bottom"]
+facebook.com##*[class*="fixed-container"][class*="bottom"]
