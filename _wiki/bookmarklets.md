@@ -1,13 +1,13 @@
 ---
 date: 2022-12-04 12:01:00 +02:00
-last_modified_at: 2025-03-04T19:21:55+02:00
+last_modified_at: 2025-03-04T19:28:36+02:00
 ---
 
 # Bookmarklets
 
 ## About
 
-Samples are meant for the [bookmarklet generator]({% link assets/html/bookmarklet-generator.html %}){:target="_blank"}, that generates code compatible with Firefox for Android (as it has issues with the classic `window.open`, which has to be avoided).
+Samples are meant for the [bookmarklet generator]({% link assets/html/bookmarklet-generator.html %}){:target="_blank"} (just a simple HTML+JS file), that generates code compatible with Firefox for Android (as the latter has issues with the classic `window.open`, which has to be avoided).
 
 ## Sharing
 
