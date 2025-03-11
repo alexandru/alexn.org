@@ -13,3 +13,8 @@ m.facebook.com##.fixed-container.bottom
 ! More generic approach (might catch more elements)
 facebook.com##div[class*="fixed"][class*="bottom"]
 facebook.com##*[class*="fixed-container"][class*="bottom"]
+
+! Hide Firefox warning
+! Mar 6, 2025 https://theforge.ing.net
+theforge.ing.net###overlay-content--ssrct0q0op
+theforge.ing.net##.global-overlays__backdrop--fade-in.global-overlays__backdrop--visible.global-overlays__backdrop
