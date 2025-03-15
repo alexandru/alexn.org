@@ -1,7 +1,7 @@
 ---
 title: "My Favorite Firefox Extensions"
 date: 2025-03-15T20:29:27+02:00
-last_modified_at: 2025-03-15T21:27:24+02:00
+last_modified_at: 2025-03-15T21:30:37+02:00
 tags:
   - Browser
   - Open Source
@@ -12,7 +12,7 @@ redirect_from:
 ---
 
 <p class="intro" markdown="1">
-  [In my previous post](./2025-03-03-use-firefox.md), I mentioned that I now use Firefox as my main browser and you should too. Firefox's strength is its extensions, with many available on Android devices as well. Here's a list of my favorite extensions...
+  [In my previous post](./2025-03-03-use-firefox.md), I mentioned that I now use Firefox as my main browser and you should too. Firefox's strength is its extensions, with many available on Android devices as well. Here's a list of my favorites.
 </p>
 
 On both the desktop and in [Firefox for Android](https://www.mozilla.org/en-US/firefox/browsers/mobile/android/) 🤖:
