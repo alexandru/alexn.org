@@ -3,7 +3,7 @@ title: "Use Firefox in 2025"
 image: /assets/media/articles/2025-firefox.jpg
 image_hide_in_post: true
 date: 2025-03-03T23:51:40+02:00
-last_modified_at: 2025-03-04T21:57:13+02:00
+last_modified_at: 2025-03-15T20:27:58+02:00
 generate_toc: true
 tags:
   - Browser
@@ -51,13 +51,14 @@ Other things I like:
 ## For Android (Mobile)
 
 Firefox on Android supports extensions, and here are the ones I'm using:
-* [uBlock Origin](https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/)
-* [Dark Reader](https://addons.mozilla.org/en-US/firefox/addon/darkreader/)
 * [Cookie AutoDelete](https://addons.mozilla.org/en-US/firefox/addon/cookie-autodelete/)
+* [Dark Reader](https://addons.mozilla.org/en-US/firefox/addon/darkreader/)
 * [LeechBlock NG](https://addons.mozilla.org/en-US/firefox/addon/leechblock-ng/)
 * [SponsorBlock - Skip Sponsorships on YouTube](https://addons.mozilla.org/en-US/firefox/addon/sponsorblock/)
 * [Stylus](https://addons.mozilla.org/en-US/firefox/addon/styl-us/)
+* [uBlock Origin](https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/)
 * [Web Archives](https://addons.mozilla.org/en-US/firefox/addon/view-page-archive/)
+* [Yang!](https://addons.mozilla.org/en-US/firefox/addon/yang-addon/)
 
 Some of these features may be built into some of the available browsers, but not all of them, plus the functionality provided is better, for example:
 
