@@ -1,7 +1,7 @@
 ---
 title: "Tagged vs Untagged Unions (in Scala)"
 date: 2025-04-02T11:30:19+03:00
-last_modified_at: 2025-04-02T12:32:15+03:00
+last_modified_at: 2025-04-02T12:40:02+03:00
 image: /assets/media/articles/2025-untagged-types.png
 image_hide_in_post: true
 tags:
@@ -136,7 +136,7 @@ val a: A = ???
 foo(a) // Error
 ```
 
-Of course, the old fashioned way of dealing with this is to use method overloading, assuming you can do it, because there are cases in which it doesn't due to type erasure:
+Of course, the old fashioned way of dealing with this is to use method overloading, assuming you can do it (unless type erasure gets in the way):
 
 ```scala
 def foo(value: A): B = foo(Some(value))
