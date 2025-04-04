@@ -1,6 +1,6 @@
 ---
 date: 2022-09-12 08:58:10 +03:00
-last_modified_at: 2022-09-18 12:42:18 +03:00
+last_modified_at: 2025-04-04T12:15:04+03:00
 ---
 
 # Java
@@ -96,4 +96,10 @@ Also see: [JDK distributions](https://sdkman.io/jdks).
 
 - [Quarkus / CDI and "java config" DI definitions](https://stackoverflow.com/questions/58544079/quarkus-cdi-and-java-config-di-definitions);
   - [Composition Root](https://blog.ploeh.dk/2011/07/28/CompositionRoot/);
-  
+
+## GC / Garbage Collection tweaks
+
+Since Java 24+:
+```
+-XX:+UnlockExperimentalVMOptions -XX:+UseCompactObjectHeaders
+```
