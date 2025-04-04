@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 02 Apr 2025 09:40:42 +0000</pubDate>
-    <lastBuildDate>Wed, 02 Apr 2025 09:40:42 +0000</lastBuildDate>
+    <pubDate>Fri, 04 Apr 2025 09:16:07 +0000</pubDate>
+    <lastBuildDate>Fri, 04 Apr 2025 09:16:07 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -1499,11 +1499,11 @@ I’m still learning.
 <item>
   <title>Java</title>
   <description>Article
-    updated at September 18, 2022, 
+    updated at April 4, 2025, 
     created at September 12, 2022.</description>
   <content:encoded>&lt;p&gt;
     Article
-    updated at September 18, 2022, 
+    updated at April 4, 2025, 
     created at September 12, 2022.
   &lt;/p&gt;
   &lt;hr&gt;
@@ -1630,9 +1630,15 @@ sdk install 17.0.4-oracle
 &lt;a href=&quot;https://blog.ploeh.dk/2011/07/28/CompositionRoot/&quot;&gt;Composition Root&lt;/a&gt;;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-&lt;/ul&gt;</content:encoded><pubDate>Mon, 12 Sep 2022 05:58:10 +0000</pubDate>
-  <dc:modified>Sun, 18 Sep 2022 09:42:18 +0000</dc:modified>
-  <atom:modified>Sun, 18 Sep 2022 09:42:18 +0000</atom:modified>
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;gc--garbage-collection-tweaks&quot;&gt;GC / Garbage Collection tweaks&lt;/h2&gt;
+
+&lt;p&gt;Since Java 24+:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;-XX:+UnlockExperimentalVMOptions -XX:+UseCompactObjectHeaders
+&lt;/code&gt;&lt;/pre&gt;</content:encoded><pubDate>Mon, 12 Sep 2022 05:58:10 +0000</pubDate>
+  <dc:modified>Fri, 04 Apr 2025 09:15:04 +0000</dc:modified>
+  <atom:modified>Fri, 04 Apr 2025 09:15:04 +0000</atom:modified>
   <link>https://alexn.org/wiki/java/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/java/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
