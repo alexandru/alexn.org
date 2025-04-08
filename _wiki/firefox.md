@@ -8,7 +8,6 @@ last_modified_at: 2023-12-01 19:48:20 +02:00
 ## Cool Extensions
 
 - [Auto Tab Discard](https://addons.mozilla.org/en-US/firefox/addon/auto-tab-discard/);
-- [ChatGPT for Google](https://addons.mozilla.org/en-US/firefox/addon/chatgpt-for-google/) ([GitHub](https://github.com/wong2/chatgpt-google-extension)): displays ChatGPT response alongside search results, works with all search engines, not just Google;
 - [Consent-o-matic](https://addons.mozilla.org/en-US/firefox/addon/consent-o-matic/) ([GitHub](https://github.com/cavi-au/Consent-O-Matic)): automatic handling of GDPR consent popups;
 - [Cookie Quick Manager](https://addons.mozilla.org/en-US/firefox/addon/cookie-quick-manager/);
 - [Enhancer for YouTube™](https://addons.mozilla.org/en-US/firefox/addon/enhancer-for-youtube/);
