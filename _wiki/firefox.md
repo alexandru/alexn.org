@@ -1,6 +1,6 @@
 ---
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2023-12-01 19:48:20 +02:00
+last_modified_at: 2025-04-08 20:37:15 +0300
 ---
 
 # Firefox
@@ -24,7 +24,6 @@ last_modified_at: 2023-12-01 19:48:20 +02:00
 - [Toggle Tab Pin](https://addons.mozilla.org/en-US/firefox/addon/toggle-pin-tab/) ([GitHub](https://github.com/andreicristianpetcu/toggle-pin-tab)): pins/unpins tabs with a keyboard shortcut;
 - [Tree Style Tab](https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab/): shows tabs like a tree;
 - [uBlock Origin](https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/): the best ad-blocker;
-- [vim-vixen](https://github.com/ueokande/vim-vixen): Vim keybindings for Firefox;
 - [Wayback Machine](https://addons.mozilla.org/en-US/firefox/addon/wayback-machine_new/): save and view archived versions of websites;
 
 ## Settings
