@@ -23,7 +23,16 @@ links:
 repo_edit: https://github.com/alexandru/alexn.org/blob/main/
 
 include: ["_redirects", ".well-known", "robots.txt", "CNAME"]
-exclude: ["_retracted", "scripts", "package.json", "package-lock.json", "vendor", "README.md"]
+exclude:
+  [
+    "Makefile",
+    "README.md",
+    "_retracted",
+    "package-lock.json",
+    "package.json",
+    "scripts",
+    "vendor",
+  ]
 
 analytics:
   enabled: true
@@ -128,7 +137,7 @@ pagination:
 #       - "png:exclude-chunk=all"
 
 titles_from_headings:
-  enabled:     true
+  enabled: true
   strip_title: true
   collections: true
 

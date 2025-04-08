@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem "jekyll", "~> 4.3"
+gem "jekyll", "~> 4.4"
 # gem 'gsl'
 gem "base64"
 gem "bigdecimal"
