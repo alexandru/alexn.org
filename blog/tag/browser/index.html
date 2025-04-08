@@ -232,62 +232,107 @@
       </div>
    </div><!-- end .content -->
 
-   <script async src="/assets/js/modernizr.custom.15390.js?202504081749" type="text/javascript"></script>
-<script async src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202504081749" type="text/javascript"></script>
-<script async src="/assets/js/responsive-nav.min.js?202504081749" type="text/javascript"></script>
+   <script
+    defer
+    src="/assets/js/modernizr.custom.15390.js?202504081932"
+    type="text/javascript"
+></script>
+<script
+    defer
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202504081932"
+    type="text/javascript"
+></script>
+<script
+    defer
+    src="/assets/js/responsive-nav.min.js?202504081932"
+    type="text/javascript"
+></script>
 
-<!-- Syntax highlighting (https://highlightjs.org/) -->
-<script async src="/assets/js/highlight.min.js" type="text/javascript" onload="hljs.highlightAll();"></script>
+<script 
+    defer 
+    type="module" 
+    src="/assets/js/highlight.js"
+></script>
+<script
+    defer
+    src="/assets/js/scripts.js?202504081932"
+    type="text/javascript"
+></script>
 
-<script async src="/assets/js/scripts.js?202504081749" type="text/javascript"></script>
+ <script type="text/javascript">
+    (function () {
+        var h =
+            ("hostname" in document.location && document.location.hostname) ||
+            "";
+        if (h != "" && h.indexOf("alexn.org") == -1) {
+            return;
+        }
+        var p = (function () {
+            var query = window.location.search.substring(1);
+            var vars = query.split("&");
+            var p = {};
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                p[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+            }
+            return p;
+        })();
 
+        var now = new Date();
+        var url =
+            "https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=Blog+posts+tagged+with+%60browser%60&url=https%3A%2F%2Falexn.org%2Fblog%2Ftag%2Fbrowser%2Findex.html" +
+            "&rand=" +
+            encodeURIComponent(
+                Math.floor(Math.random() * Number.MAX_SAFE_INTEGER),
+            ) +
+            "&h=" +
+            now.getHours() +
+            "&m=" +
+            now.getMinutes() +
+            "&s=" +
+            now.getSeconds();
 
-<script type="text/javascript">
-  (function () {
-    var h = "hostname" in document.location && document.location.hostname || "";
-    if (h != "" && h.indexOf("alexn.org") == -1) {
-      return
-    }
-    var p = (function () {
-      var query = window.location.search.substring(1);
-      var vars = query.split('&');
-      var p = {};
-      for (var i = 0; i < vars.length; i++) {
-        var pair = vars[i].split('=');
-        p[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
-      }
-      return p;
+        if ("pk_campaign" in p)
+            url += "&_rcn=" + encodeURIComponent(p["pk_campaign"]);
+        if ("pk_kwd" in p) url += "&_rck=" + encodeURIComponent(p["pk_kwd"]);
+        if ("referrer" in document && document.referrer)
+            url += "&urlref=" + encodeURIComponent(document.referrer);
+        if ("screen" in window)
+            url += "&res=" + screen.width + "x" + screen.height;
+
+        var d = document,
+            i = d.createElement("img"),
+            s0 = d.getElementsByTagName("script"),
+            s = s0[s0.length - 1];
+        i.setAttribute("alt", "");
+        i.setAttribute("referrerpolicy", "no-referrer-when-downgrade");
+        i.setAttribute("src", url);
+        i.setAttribute("width", "1");
+        i.setAttribute("height", "1");
+        i.setAttribute(
+            "style",
+            "position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;",
+        );
+        s.parentNode.insertBefore(i, s);
     })();
-
-    var now = new Date();
-    var url = "https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=Blog+posts+tagged+with+%60browser%60&url=https%3A%2F%2Falexn.org%2Fblog%2Ftag%2Fbrowser%2Findex.html" +
-      "&rand=" + encodeURIComponent(Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)) +
-      "&h=" + now.getHours() +
-      "&m=" + now.getMinutes() +
-      "&s=" + now.getSeconds();
-
-    if ("pk_campaign" in p)
-      url += "&_rcn=" + encodeURIComponent(p["pk_campaign"]);
-    if ("pk_kwd" in p)
-      url += "&_rck=" + encodeURIComponent(p["pk_kwd"]);
-    if ("referrer" in document && document.referrer)
-      url += "&urlref=" + encodeURIComponent(document.referrer);
-    if ("screen" in window)
-      url += "&res=" + screen.width + "x" + screen.height;
-
-    var d=document, i=d.createElement("img"),s0=d.getElementsByTagName("script"),s=s0[s0.length-1];
-    i.setAttribute("alt", "");
-    i.setAttribute("referrerpolicy", "no-referrer-when-downgrade");
-    i.setAttribute("src", url);
-    i.setAttribute("width", "1");
-    i.setAttribute("height", "1");
-    i.setAttribute("style", "position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;");
-    s.parentNode.insertBefore(i,s);
-  })();
 </script>
 <noscript>
-  <img referrerpolicy="no-referrer-when-downgrade" src="https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=Blog+posts+tagged+with+%60browser%60&url=https%3A%2F%2Falexn.org%2Fblog%2Ftag%2Fbrowser%2Findex.html" width="1" height="1" style="position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;" alt="" />
+    <img
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=Blog+posts+tagged+with+%60browser%60&url=https%3A%2F%2Falexn.org%2Fblog%2Ftag%2Fbrowser%2Findex.html"
+        width="1"
+        height="1"
+        style="
+            position: fixed !important;
+            bottom: -1px !important;
+            right: -1px !important;
+            border: none !important;
+            margin: 0px !important;
+        "
+        alt=""
+    />
 </noscript>
+
 
    <div class="footer">
   

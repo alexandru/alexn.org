@@ -1,0 +1,46 @@
+import hljs from "/assets/js-managed/@highlightjs/cdn-assets/es/core.min.js?202504081932";
+
+import bash from "/assets/js-managed/@highlightjs/cdn-assets/es/languages/bash.min.js?202504081932";
+import csharp from "/assets/js-managed/@highlightjs/cdn-assets/es/languages/csharp.min.js?202504081932";
+import fsharp from "/assets/js-managed/@highlightjs/cdn-assets/es/languages/fsharp.min.js?202504081932";
+import haskell from "/assets/js-managed/@highlightjs/cdn-assets/es/languages/haskell.min.js?202504081932";
+import ini from "/assets/js-managed/@highlightjs/cdn-assets/es/languages/ini.min.js?202504081932";
+import java from "/assets/js-managed/@highlightjs/cdn-assets/es/languages/java.min.js?202504081932";
+import javascript from "/assets/js-managed/@highlightjs/cdn-assets/es/languages/javascript.min.js?202504081932";
+import json from "/assets/js-managed/@highlightjs/cdn-assets/es/languages/json.min.js?202504081932";
+import kotlin from "/assets/js-managed/@highlightjs/cdn-assets/es/languages/kotlin.min.js?202504081932";
+import ocaml from "/assets/js-managed/@highlightjs/cdn-assets/es/languages/ocaml.min.js?202504081932";
+import perl from "/assets/js-managed/@highlightjs/cdn-assets/es/languages/perl.min.js?202504081932";
+import python from "/assets/js-managed/@highlightjs/cdn-assets/es/languages/python.min.js?202504081932";
+import ruby from "/assets/js-managed/@highlightjs/cdn-assets/es/languages/ruby.min.js?202504081932";
+import scala from "/assets/js-managed/@highlightjs/cdn-assets/es/languages/scala.min.js?202504081932";
+import sql from "/assets/js-managed/@highlightjs/cdn-assets/es/languages/sql.min.js?202504081932";
+import typescript from "/assets/js-managed/@highlightjs/cdn-assets/es/languages/typescript.min.js?202504081932";
+import xml from "/assets/js-managed/@highlightjs/cdn-assets/es/languages/xml.min.js?202504081932";
+import yaml from "/assets/js-managed/@highlightjs/cdn-assets/es/languages/yaml.min.js?202504081932";
+
+hljs.registerLanguage("bash", bash);
+hljs.registerLanguage("csharp", csharp);
+hljs.registerLanguage("fsharp", fsharp);
+hljs.registerLanguage("haskell", haskell);
+hljs.registerLanguage("ini", ini);
+hljs.registerLanguage("java", java);
+hljs.registerLanguage("javascript", javascript);
+hljs.registerLanguage("js", javascript);
+hljs.registerLanguage("json", java);
+hljs.registerLanguage("json", json);
+hljs.registerLanguage("kotlin", kotlin);
+hljs.registerLanguage("ocaml", ocaml);
+hljs.registerLanguage("perl", perl);
+hljs.registerLanguage("python", python);
+hljs.registerLanguage("py", python);
+hljs.registerLanguage("ruby", ruby);
+hljs.registerLanguage("scala", scala);
+hljs.registerLanguage("sh", bash);
+hljs.registerLanguage("sql", sql);
+hljs.registerLanguage("ts", typescript);
+hljs.registerLanguage("typescript", typescript);
+hljs.registerLanguage("xml", xml);
+hljs.registerLanguage("yaml", yaml);
+
+hljs.highlightAll();
