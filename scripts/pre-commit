@@ -1,0 +1,31 @@
+#!/bin/bash
+
+set -e
+
+# Get the current timestamp in the required format
+CURRENT_DATE="$(date "+%Y-%m-%d %H:%M:%S %z")"
+
+# Get the list of staged files
+FILES="$(git diff --cached --name-only)"
+
+for FILE in "$FILES"; do
+    # Check if file exists and is a regular file
+    if [ -f "$FILE" ]; then
+        # Check if the file has the required header structure with last_modified_at field
+        if grep -q "^last_modified_at:" "$FILE"; then
+            # Detect OS and use appropriate sed command
+            if [[ "$OSTYPE" == "darwin"* ]]; then
+                # macOS version
+                sed -i '' "s/last_modified_at:.*/last_modified_at: $CURRENT_DATE/" "$FILE"
+            else
+                # Linux/Unix version
+                sed -i "s/last_modified_at:.*/last_modified_at: $CURRENT_DATE/" "$FILE"
+            fi
+            # Stage the modified file
+            git add "$FILE"
+            echo "Updated timestamp in $FILE"
+        fi
+    fi
+done
+
+exit 0

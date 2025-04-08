@@ -1,0 +1,11 @@
+#!/bin/bash
+
+cd "$(dirname "$0")/.." || exit 1
+
+HOOK_DIR="$(git rev-parse --git-dir)/hooks"
+
+# Remove existing hook if it exists
+rm -f "$HOOK_DIR/pre-commit"
+
+# Create symlink
+ln -s "../../scripts/pre-commit" "$HOOK_DIR/pre-commit"
