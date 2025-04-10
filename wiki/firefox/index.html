@@ -19,7 +19,7 @@
     <meta property="og:description" content="Personal, volatile wiki documentation">
     <meta property="og:url" content="https://alexn.org/wiki/firefox/">
     <meta property="article:published_time" content="2020-08-24T13:24:31+00:00">
-    <meta property="article:modified_time" content="2025-04-08T17:37:15+00:00">
+    <meta property="article:modified_time" content="2025-04-10T12:43:34+00:00">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://alexn.org/assets/logo/800px-bordered.png" />
     <meta property="og:image:secure_url" content="https://alexn.org/assets/logo/800px-bordered.png" />
@@ -119,8 +119,8 @@
       <meta itemprop="datePublished" content="2020-08-24T13:24:31+0000"/>
       
       
-      <time itemprop="dateModified" content="2025-04-08T20:37:15+0300">
-        Updated: April 8, 2025
+      <time itemprop="dateModified" content="2025-04-10T15:43:34+0300">
+        Updated: April 10, 2025
       </time>
       
       
@@ -149,6 +149,7 @@
       <li><a href="#activate-compact-mode-after-proton">Activate compact mode (after Proton)</a></li>
       <li><a href="#restore-pinned-tabs-on-demand">Restore Pinned Tabs on Demand</a></li>
       <li><a href="#hide-native-tabs-for-tree-style-tabs">Hide Native Tabs (for Tree Style Tabs)</a></li>
+      <li><a href="#suggest-javascript-bookmarklets">Suggest JavaScript Bookmarklets</a></li>
       <li><a href="#enable-calculator">Enable calculator</a></li>
     </ul>
   </li>
@@ -165,24 +166,30 @@
     
 
 <ul>
-  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/auto-tab-discard/">Auto Tab Discard</a>;</li>
-  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/consent-o-matic/">Consent-o-matic</a> (<a href="https://github.com/cavi-au/Consent-O-Matic">GitHub</a>): automatic handling of GDPR consent popups;</li>
-  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/cookie-quick-manager/">Cookie Quick Manager</a>;</li>
-  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/enhancer-for-youtube/">Enhancer for YouTube™</a>;</li>
-  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/multi-account-containers/">Firefox Multi-Account Containers</a>;</li>
-  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/netflix-1080p-firefox/">Netflix 1080p</a> (<a href="https://github.com/TheGoddessInari/netflix-1080p-firefox">GitHub</a>): enables 1080p playback on Netflix;</li>
-  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/notifier-for-github/">Notifier for GitHub</a>: shows GitHub notifications in the toolbar;</li>
-  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/old-reddit-redirect/">Old Reddit Redirect</a> (<a href="https://github.com/tom-james-watson/old-reddit-redirect">GitHub</a>);</li>
-  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/rsspreview/">RSS Preview</a> (<a href="https://github.com/aureliendavid/rsspreview">GitHub</a>): previews RSS feeds in the browser;</li>
-  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/sidebery/">Sideberry</a> (<a href="https://github.com/mbnuqw/sidebery">GitHub</a>): shows tabs like a tree, alternative to Tree Style Tab (better, IMO);</li>
-  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/styl-us/">Stylus</a>: custom CSS for websites;</li>
-  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/tab-reloader/">Tab Reloader</a>: reloads tabs at a specified interval;</li>
-  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/tabliss/">Tabliss</a> (<a href="https://github.com/joelshepherd/tabliss">GitHub</a>): a customizable new tab page with beautiful backgrounds;</li>
-  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/terms-of-service-didnt-read/">Terms of Service; Didn’t Read</a>: shows a summary of the terms of service of the website you’re visiting;</li>
-  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/toggle-pin-tab/">Toggle Tab Pin</a> (<a href="https://github.com/andreicristianpetcu/toggle-pin-tab">GitHub</a>): pins/unpins tabs with a keyboard shortcut;</li>
-  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab/">Tree Style Tab</a>: shows tabs like a tree;</li>
-  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/">uBlock Origin</a>: the best ad-blocker;</li>
-  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/wayback-machine_new/">Wayback Machine</a>: save and view archived versions of websites;</li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/auto-tab-discard/">Auto Tab Discard</a></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/consent-o-matic/">Consent-o-matic</a></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/cookie-autodelete/">Cookie AutoDelete</a></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/cookie-quick-manager/">Cookie Quick Manager</a></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/darkreader/">Dark Reader</a></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/enhancer-for-youtube/">Enhancer for YouTube™</a></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/multi-account-containers/">Firefox Multi-Account Containers</a></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/leechblock-ng/">LeechBlock NG</a></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/netflix-1080p-firefox/">Netflix 1080p</a></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/notifier-for-github/">Notifier for GitHub</a></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/old-reddit-redirect/">Old Reddit Redirect</a></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/rsspreview/">RSS Preview</a></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/sidebery/">Sideberry</a></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/sponsorblock/">SponsorBlock - Skip Sponsorships on YouTube</a></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/styl-us/">Stylus</a></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/tab-reloader/">Tab Reloader</a></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/tabliss/">Tabliss</a></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/terms-of-service-didnt-read/">Terms of Service; Didn’t Read</a></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/toggle-pin-tab/">Toggle Tab Pin</a></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab/">Tree Style Tab</a></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/">uBlock Origin</a></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/wayback-machine_new/">Wayback Machine</a></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/view-page-archive/">Web Archives</a></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/yang-addon/">Yang!</a></li>
 </ul>
       <h2 id="settings">
         
@@ -277,6 +284,21 @@ services.sync.prefs.toolkit.legacyUserProfileCustomizations.stylesheets = true
   visibility: collapse !important;
 }
 </code></pre>
+      <h3 id="suggest-javascript-bookmarklets">
+        
+        
+          Suggest JavaScript Bookmarklets <a href="#suggest-javascript-bookmarklets" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<pre><code>browser.urlbar.filter.javascript = true
+
+services.sync.prefs.browser.urlbar.filter.javascript = true
+</code></pre>
+
+<p><a href="https://old.reddit.com/r/firefox/comments/1i5wryz/searching_bookmarks_missing_results_bookmarklets/m89n7pv/">Source</a></p>
       <h3 id="enable-calculator">
         
         
@@ -358,17 +380,17 @@ services.sync.prefs.browser.urlbar.suggest.calculator = true
 
    <script
     defer
-    src="/assets/js/modernizr.custom.15390.js?202504081941"
+    src="/assets/js/modernizr.custom.15390.js?202504101244"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202504081941"
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202504101244"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js/responsive-nav.min.js?202504081941"
+    src="/assets/js/responsive-nav.min.js?202504101244"
     type="text/javascript"
 ></script>
 
@@ -379,7 +401,7 @@ services.sync.prefs.browser.urlbar.suggest.calculator = true
 ></script>
 <script
     defer
-    src="/assets/js/scripts.js?202504081941"
+    src="/assets/js/scripts.js?202504101244"
     type="text/javascript"
 ></script>
 
