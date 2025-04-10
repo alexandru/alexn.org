@@ -1,30 +1,36 @@
 ---
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2025-04-08 20:37:15 +0300
+last_modified_at: 2025-04-10 15:43:34 +0300
 ---
 
 # Firefox
 
 ## Cool Extensions
 
-- [Auto Tab Discard](https://addons.mozilla.org/en-US/firefox/addon/auto-tab-discard/);
-- [Consent-o-matic](https://addons.mozilla.org/en-US/firefox/addon/consent-o-matic/) ([GitHub](https://github.com/cavi-au/Consent-O-Matic)): automatic handling of GDPR consent popups;
-- [Cookie Quick Manager](https://addons.mozilla.org/en-US/firefox/addon/cookie-quick-manager/);
-- [Enhancer for YouTube™](https://addons.mozilla.org/en-US/firefox/addon/enhancer-for-youtube/);
-- [Firefox Multi-Account Containers](https://addons.mozilla.org/en-US/firefox/addon/multi-account-containers/);
-- [Netflix 1080p](https://addons.mozilla.org/en-US/firefox/addon/netflix-1080p-firefox/) ([GitHub](https://github.com/TheGoddessInari/netflix-1080p-firefox)): enables 1080p playback on Netflix;
-- [Notifier for GitHub](https://addons.mozilla.org/en-US/firefox/addon/notifier-for-github/): shows GitHub notifications in the toolbar;
-- [Old Reddit Redirect](https://addons.mozilla.org/en-US/firefox/addon/old-reddit-redirect/) ([GitHub](https://github.com/tom-james-watson/old-reddit-redirect));
-- [RSS Preview](https://addons.mozilla.org/en-US/firefox/addon/rsspreview/) ([GitHub](https://github.com/aureliendavid/rsspreview)): previews RSS feeds in the browser;
-- [Sideberry](https://addons.mozilla.org/en-US/firefox/addon/sidebery/) ([GitHub](https://github.com/mbnuqw/sidebery)): shows tabs like a tree, alternative to Tree Style Tab (better, IMO);
-- [Stylus](https://addons.mozilla.org/en-US/firefox/addon/styl-us/): custom CSS for websites;
-- [Tab Reloader](https://addons.mozilla.org/en-US/firefox/addon/tab-reloader/): reloads tabs at a specified interval;
-- [Tabliss](https://addons.mozilla.org/en-US/firefox/addon/tabliss/) ([GitHub](https://github.com/joelshepherd/tabliss)): a customizable new tab page with beautiful backgrounds;
-- [Terms of Service; Didn’t Read](https://addons.mozilla.org/en-US/firefox/addon/terms-of-service-didnt-read/): shows a summary of the terms of service of the website you're visiting;
-- [Toggle Tab Pin](https://addons.mozilla.org/en-US/firefox/addon/toggle-pin-tab/) ([GitHub](https://github.com/andreicristianpetcu/toggle-pin-tab)): pins/unpins tabs with a keyboard shortcut;
-- [Tree Style Tab](https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab/): shows tabs like a tree;
-- [uBlock Origin](https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/): the best ad-blocker;
-- [Wayback Machine](https://addons.mozilla.org/en-US/firefox/addon/wayback-machine_new/): save and view archived versions of websites;
+* [Auto Tab Discard](https://addons.mozilla.org/en-US/firefox/addon/auto-tab-discard/)
+* [Consent-o-matic](https://addons.mozilla.org/en-US/firefox/addon/consent-o-matic/) 
+* [Cookie AutoDelete](https://addons.mozilla.org/en-US/firefox/addon/cookie-autodelete/)
+* [Cookie Quick Manager](https://addons.mozilla.org/en-US/firefox/addon/cookie-quick-manager/)
+* [Dark Reader](https://addons.mozilla.org/en-US/firefox/addon/darkreader/)
+* [Enhancer for YouTube™](https://addons.mozilla.org/en-US/firefox/addon/enhancer-for-youtube/)
+* [Firefox Multi-Account Containers](https://addons.mozilla.org/en-US/firefox/addon/multi-account-containers/)
+* [LeechBlock NG](https://addons.mozilla.org/en-US/firefox/addon/leechblock-ng/)
+* [Netflix 1080p](https://addons.mozilla.org/en-US/firefox/addon/netflix-1080p-firefox/) 
+* [Notifier for GitHub](https://addons.mozilla.org/en-US/firefox/addon/notifier-for-github/)
+* [Old Reddit Redirect](https://addons.mozilla.org/en-US/firefox/addon/old-reddit-redirect/) 
+* [RSS Preview](https://addons.mozilla.org/en-US/firefox/addon/rsspreview/) 
+* [Sideberry](https://addons.mozilla.org/en-US/firefox/addon/sidebery/) 
+* [SponsorBlock - Skip Sponsorships on YouTube](https://addons.mozilla.org/en-US/firefox/addon/sponsorblock/)
+* [Stylus](https://addons.mozilla.org/en-US/firefox/addon/styl-us/)
+* [Tab Reloader](https://addons.mozilla.org/en-US/firefox/addon/tab-reloader/)
+* [Tabliss](https://addons.mozilla.org/en-US/firefox/addon/tabliss/) 
+* [Terms of Service; Didn’t Read](https://addons.mozilla.org/en-US/firefox/addon/terms-of-service-didnt-read/)
+* [Toggle Tab Pin](https://addons.mozilla.org/en-US/firefox/addon/toggle-pin-tab/)
+* [Tree Style Tab](https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab/)
+* [uBlock Origin](https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/)
+* [Wayback Machine](https://addons.mozilla.org/en-US/firefox/addon/wayback-machine_new/)
+* [Web Archives](https://addons.mozilla.org/en-US/firefox/addon/view-page-archive/)
+* [Yang!](https://addons.mozilla.org/en-US/firefox/addon/yang-addon/)
 
 ## Settings
 
@@ -94,6 +100,16 @@ Then in the `<Profile folder>/chrome/userChrome.css`:
   visibility: collapse !important;
 }
 ```
+
+### Suggest JavaScript Bookmarklets
+
+```
+browser.urlbar.filter.javascript = true
+
+services.sync.prefs.browser.urlbar.filter.javascript = true
+```
+
+[Source](https://old.reddit.com/r/firefox/comments/1i5wryz/searching_bookmarks_missing_results_bookmarklets/m89n7pv/)
 
 ### Enable calculator
 
