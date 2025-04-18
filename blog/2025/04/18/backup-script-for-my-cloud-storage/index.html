@@ -20,7 +20,7 @@
     <meta property="og:description" content="On programming and personal projects">
     <meta property="og:url" content="https://alexn.org/blog/2025/04/18/backup-script-for-my-cloud-storage/">
     <meta property="article:published_time" content="2025-04-18T15:53:12+00:00">
-    <meta property="article:modified_time" content="2025-04-18T16:09:32+00:00">
+    <meta property="article:modified_time" content="2025-04-18T16:57:06+00:00">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://alexn.org/assets/logo/800px-bordered.png" />
     <meta property="og:image:secure_url" content="https://alexn.org/assets/logo/800px-bordered.png" />
@@ -150,7 +150,7 @@
   <div id="content" itemprop="articleBody">
     <p>I currently have around ~370 GB stored in OneDrive, including the family’s photo archive that I’d rather not lose. It needs backups, and currently I don’t have a home NAS. I used to just sync my files, via <a href="https://rclone.org/">rclone</a> to Backblaze B2, which can keep <a href="https://www.backblaze.com/docs/cloud-storage-file-versions">older versions of files</a>.</p>
 
-<p>Recently, I moved my backups to a <a href="https://www.hetzner.com/storage/storage-share/">Hetzner’s Storage Share</a>, which is a managed <a href="https://nextcloud.com/">Nextcloud</a> service — I prefer this because it’s a reasonably priced EU service, and it’s based on FOSS that I could self-host. But the problem is: <strong>how to keep older versions of files?</strong> This is important as backups are meant to prevent accidents, such accidental deletions, or <a href="https://en.wikipedia.org/wiki/Data_degradation">data degradation</a>.</p>
+<p>Recently, I moved my backups to a <a href="https://www.hetzner.com/storage/storage-share/">Hetzner’s Storage Share</a>, which is a managed <a href="https://nextcloud.com/">Nextcloud</a> service — I prefer this because it’s a reasonably priced EU service, and it’s based on FOSS that I could self-host. But the problem is: <strong>how to keep older versions of files?</strong> This is important as backups are meant to prevent accidents, such as accidental deletions, or <a href="https://en.wikipedia.org/wiki/Data_degradation">data degradation</a>.</p>
 
 <p>The trick is in using the <code>--backup-dir</code> option of <code>rclone sync</code> (<a href="https://rclone.org/docs/#backup-dir-dir">see documentation</a>). This tells the <code>rclone</code> command to copy any files that have changed or were deleted in the specified directory.</p>
 
@@ -239,7 +239,7 @@ if __name__ == "__main__":
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2025-04-18T19:09:32+0300">
+    <time itemprop="dateModified" content="2025-04-18T19:57:06+0300">
         Updated: April 18, 2025
     </time>
     | Written by <a href="https://alexn.org/about/" itemprop="url" rel="author">Alexandru Nedelcu</a>
@@ -356,17 +356,17 @@ if __name__ == "__main__":
 
    <script
     defer
-    src="/assets/js/modernizr.custom.15390.js?202504181656"
+    src="/assets/js/modernizr.custom.15390.js?202504181657"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202504181656"
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202504181657"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js/responsive-nav.min.js?202504181656"
+    src="/assets/js/responsive-nav.min.js?202504181657"
     type="text/javascript"
 ></script>
 
@@ -377,7 +377,7 @@ if __name__ == "__main__":
 ></script>
 <script
     defer
-    src="/assets/js/scripts.js?202504181656"
+    src="/assets/js/scripts.js?202504181657"
     type="text/javascript"
 ></script>
 
