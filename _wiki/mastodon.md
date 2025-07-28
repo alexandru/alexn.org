@@ -78,7 +78,7 @@ If you'd like to delete your Twitter account, depending on how popular your acco
 
 ## Self-Hosting
 
-I'm hosting my own Mastodon instance at <https://social.alexn.org>.
+I have self-hosted my own Mastodon instance at <https://social.alexn.org> (at the time of writing I've moved to <https://mastodon.social/@alexelcu>).
 This is my own configuration, tuned to my needs...
 
 ### Services used
