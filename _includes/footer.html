@@ -16,9 +16,12 @@
         <a href="{{ site.baseurl }}/docs/license/">License</a> |
         <a href="{{ site.baseurl }}/docs/privacy-policy/">Privacy Policy</a> |
         <a href="{{ site.baseurl }}/about/#contact">Contact</a>
-        <span id="other-social-profiles" class="hidden">
-          | <a href="{{ site.author.mastodon }}" rel="me">Social</a>
-        </span>
+        <!-- Hidden links -->
+        <link href="{{ site.author.mastodon }}" rel="me" />
+        <link href="https://github.com/{{ site.author.github }}" rel="me authn" />
+        <link href="https://www.linkedin.com/in/{{ site.author.linkedin }}/" rel="me" />
+        <link href="https://www.youtube.com/alexelcu/" rel="me" />
+        <link href="{{ site.author.bluesky }}" rel="me" />
       </span>
     </div>
   </div>
