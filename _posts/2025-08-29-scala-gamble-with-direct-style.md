@@ -1,7 +1,9 @@
 ---
 title: "Scala's Gamble with Direct Style"
+image: /assets/media/articles/scala-stairs.jpg
+image_caption: The staircase at EPFL that inspired Scala's logo.
 date: 2025-08-29T08:33:16+03:00
-last_modified_at: 2025-08-29T11:11:06+03:00
+last_modified_at: 2025-08-29T11:15:15+03:00
 tags:
   - FP
   - Opinion
