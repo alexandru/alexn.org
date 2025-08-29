@@ -19,13 +19,13 @@
     <meta property="og:description" content="Scala does not move in the direction of more monadic IO, but rather in the direction of “direct style”, preferring continuations to monads, but without providing support for continuations out of the box.">
     <meta property="og:url" content="https://alexn.org/blog/2025/08/29/scala-gamble-with-direct-style/">
     <meta property="article:published_time" content="2025-08-29T05:33:16+00:00">
-    <meta property="article:modified_time" content="2025-08-29T08:19:45+00:00">
+    <meta property="article:modified_time" content="2025-08-29T08:25:48+00:00">
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/scala-stairs.jpg?202508290821" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/scala-stairs.jpg?202508290821" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/scala-stairs.jpg?202508290826" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/scala-stairs.jpg?202508290826" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/scala-stairs.jpg?202508290821">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/scala-stairs.jpg?202508290826">
     <meta name="twitter:title" content="Scala&#39;s Gamble with Direct Style">
     <meta name="twitter:url" content="https://alexn.org/blog/2025/08/29/scala-gamble-with-direct-style/">
     <meta name="twitter:description" content="Scala does not move in the direction of more monadic IO, but rather in the direction of “direct style”, preferring continuations to monads, but without providing support for continuations out of the box.">
@@ -129,7 +129,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/scala-stairs.jpg" />
-          <img src="/assets/media/articles/scala-stairs.jpg?202508290821" width="1200" height="1200" decoding="async" alt="The staircase at EPFL that inspired Scala&apos;s logo." />
+          <img src="/assets/media/articles/scala-stairs.jpg?202508290826" width="1200" height="1200" decoding="async" alt="The staircase at EPFL that inspired Scala&apos;s logo." />
           <figcaption itemprop="caption">The staircase at EPFL that inspired Scala's logo.</figcaption>
         </figure>
         
@@ -181,11 +181,11 @@
   <li>It’s a language that evolves as well. For instance, <a href="https://github.com/Kotlin/KEEP/blob/context-parameters/proposals/context-parameters.md">context parameters</a> are almost here, <a href="https://www.youtube.com/watch?v=IUrA3mDSWZQ">rich errors</a> as well, and it may even get better <a href="https://www.youtube.com/watch?v=qpM3_ymNkP8">immutability support</a> before Scala.</li>
 </ul>
 
-<p>Scala is still my preferred language by far, and it obviously relies more on community and less on commercial support. I actually loved that about Scala, but there’s an elephant in the room that will have to be addressed…</p>
+<p>Scala obviously relies more on community and less on commercial support. I actually loved that about Scala, despite it being unable to remain viable for targeting mobile devices, but…</p>
 
-<p>Scala 2.x thrived due to making it saner to work with asynchronous I/O and concurrency. But the world isn’t standing still. Scala could’ve taken the path of <a href="https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/computation-expressions">F#’s computation expressions</a>, thus improving the ergonomics of working with monadic IO. Scala could also include support for continuations out-of-the-box. Scala 3 does neither of those things, which means monadic IO is not getting the support it needs in order to be mainstream and the <em>“direct style”</em> approaches are currently in limbo.</p>
+<p>Scala 2.x thrived due to making it saner to work with asynchronous I/O and concurrency. And yet the world isn’t standing still and alternatives have improved. Scala could’ve taken the path of <a href="https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/computation-expressions">F#’s computation expressions</a>, thus improving the ergonomics of working with monadic IO. Scala could also include support for continuations out-of-the-box. Scala 3 does neither of those things, which means monadic IO is not getting the support it needs in order to go mainstream and the <em>“direct style”</em> approaches are currently in limbo.</p>
 
-<p>I understand why Scala’s designers may prefer a “direct style” path. I’m not sure if I believe in the long-term success of monadic IO. Undoubtedly, it’s currently a marketplace failure, and when you solve concurrency issues by other means, <a href="/blog/2022/10/13/the-case-against-effect-systems-io-data-type/">it’s debatable if monadic IO is still worth it</a>.</p>
+<p>I understand why Scala’s designers may prefer a “direct style” path. I’m not sure if I believe in the long-term success of monadic IO. Undoubtedly, it’s currently a marketplace failure, and when you solve concurrency issues by other means, <a href="/blog/2022/10/13/the-case-against-effect-systems-io-data-type/">it’s debatable if monadic IO is still worth it</a>. Even those that swear by <a href="https://effect.website/">Effect-TS</a> have to realize that its apparent success only has to do with how much async/await/Promise in JavaScript sucks, and if that pain is ever fixed, the project’s growth will likely stagnate.</p>
 
 <p>But Scala’s evolution is currently alienating the part of the community that builds cutting-edge, user-space I/O runtimes that are the envy of the industry, while not providing the support required for making “direct style” work for the folks that would rather prefer that over monads. And I think that’s bad, especially as alternatives exist, one of those alternatives being Java 25.</p>
 
@@ -195,7 +195,7 @@
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2025-08-29T11:19:45+0300">
+    <time itemprop="dateModified" content="2025-08-29T11:25:48+0300">
         Updated: August 29, 2025
     </time>
     | Written by <a href="https://alexn.org/about/" itemprop="url" rel="author">Alexandru Nedelcu</a>
@@ -316,17 +316,17 @@
 
    <script
     defer
-    src="/assets/js/modernizr.custom.15390.js?202508290821"
+    src="/assets/js/modernizr.custom.15390.js?202508290826"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202508290821"
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202508290826"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js/responsive-nav.min.js?202508290821"
+    src="/assets/js/responsive-nav.min.js?202508290826"
     type="text/javascript"
 ></script>
 
@@ -337,7 +337,7 @@
 ></script>
 <script
     defer
-    src="/assets/js/scripts.js?202508290821"
+    src="/assets/js/scripts.js?202508290826"
     type="text/javascript"
 ></script>
 
