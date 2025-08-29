@@ -3,7 +3,7 @@ title: "Scala's Gamble with Direct Style"
 image: /assets/media/articles/scala-stairs.jpg
 image_caption: The staircase at EPFL that inspired Scala's logo.
 date: 2025-08-29T08:33:16+03:00
-last_modified_at: 2025-08-29T11:15:15+03:00
+last_modified_at: 2025-08-29T11:19:45+03:00
 tags:
   - FP
   - Opinion
@@ -38,6 +38,8 @@ Scala is still my preferred language by far, and it obviously relies more on com
 
 Scala 2.x thrived due to making it saner to work with asynchronous I/O and concurrency. But the world isn't standing still. Scala could've taken the path of [F#'s computation expressions](https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/computation-expressions), thus improving the ergonomics of working with monadic IO. Scala could also include support for continuations out-of-the-box. Scala 3 does neither of those things, which means monadic IO is not getting the support it needs in order to be mainstream and the *"direct style"* approaches are currently in limbo.
 
-In other words, Scala is alienating the part of the community that builds cutting-edge, user-space I/O runtimes that are the envy of the industry, while not providing the support required for making "direct style" work for the folks that would rather prefer that over monads. And I think that's bad, especially as alternatives exist, one of those alternatives being Java 25.
+I understand why Scala's designers may prefer a "direct style" path. I'm not sure if I believe in the long-term success of monadic IO. Undoubtedly, it's currently a marketplace failure, and when you solve concurrency issues by other means, [it's debatable if monadic IO is still worth it](./2022-10-13-the-case-against-effect-systems-io-data-type.md).
+
+But Scala's evolution is currently alienating the part of the community that builds cutting-edge, user-space I/O runtimes that are the envy of the industry, while not providing the support required for making "direct style" work for the folks that would rather prefer that over monads. And I think that's bad, especially as alternatives exist, one of those alternatives being Java 25.
 
 I still ❤️ Scala, it's a productive language, and I believe it will be even more awesome with [capture checking](https://nrinaudo.github.io/articles/capture_checking.html). But making programming safer is just one aspect of what makes or breaks a language. There are other aspects, such as the platforms and problem domains a language is able to target. Most problems we solve on a daily basis are I/O-related problems and without a consistent story that targets the mainstream, I fear for its future.
