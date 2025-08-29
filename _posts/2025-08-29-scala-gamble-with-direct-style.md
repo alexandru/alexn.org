@@ -3,7 +3,7 @@ title: "Scala's Gamble with Direct Style"
 image: /assets/media/articles/scala-stairs.jpg
 image_caption: The staircase at EPFL that inspired Scala's logo.
 date: 2025-08-29T08:33:16+03:00
-last_modified_at: 2025-08-29T11:19:45+03:00
+last_modified_at: 2025-08-29T11:25:48+03:00
 tags:
   - FP
   - Opinion
@@ -34,11 +34,11 @@ Keep the above in mind and compare with Kotlin:
 - [Multiplatform](https://www.jetbrains.com/kotlin-multiplatform/) support is top-notch. It has a [growing ecosystem of libraries](https://klibs.io/), with [Compose Multiplatform](https://www.jetbrains.com/compose-multiplatform/) having stable iOS support and getting contributions from Google and others.
 - It's a language that evolves as well. For instance, [context parameters](https://github.com/Kotlin/KEEP/blob/context-parameters/proposals/context-parameters.md) are almost here, [rich errors](https://www.youtube.com/watch?v=IUrA3mDSWZQ) as well, and it may even get better [immutability support](https://www.youtube.com/watch?v=qpM3_ymNkP8) before Scala.
 
-Scala is still my preferred language by far, and it obviously relies more on community and less on commercial support. I actually loved that about Scala, but there's an elephant in the room that will have to be addressed...
+Scala obviously relies more on community and less on commercial support. I actually loved that about Scala, despite it being unable to remain viable for targeting mobile devices, but...
 
-Scala 2.x thrived due to making it saner to work with asynchronous I/O and concurrency. But the world isn't standing still. Scala could've taken the path of [F#'s computation expressions](https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/computation-expressions), thus improving the ergonomics of working with monadic IO. Scala could also include support for continuations out-of-the-box. Scala 3 does neither of those things, which means monadic IO is not getting the support it needs in order to be mainstream and the *"direct style"* approaches are currently in limbo.
+Scala 2.x thrived due to making it saner to work with asynchronous I/O and concurrency. And yet the world isn't standing still and alternatives have improved. Scala could've taken the path of [F#'s computation expressions](https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/computation-expressions), thus improving the ergonomics of working with monadic IO. Scala could also include support for continuations out-of-the-box. Scala 3 does neither of those things, which means monadic IO is not getting the support it needs in order to go mainstream and the *"direct style"* approaches are currently in limbo.
 
-I understand why Scala's designers may prefer a "direct style" path. I'm not sure if I believe in the long-term success of monadic IO. Undoubtedly, it's currently a marketplace failure, and when you solve concurrency issues by other means, [it's debatable if monadic IO is still worth it](./2022-10-13-the-case-against-effect-systems-io-data-type.md).
+I understand why Scala's designers may prefer a "direct style" path. I'm not sure if I believe in the long-term success of monadic IO. Undoubtedly, it's currently a marketplace failure, and when you solve concurrency issues by other means, [it's debatable if monadic IO is still worth it](./2022-10-13-the-case-against-effect-systems-io-data-type.md). Even those that swear by [Effect-TS](https://effect.website/) have to realize that its apparent success only has to do with how much async/await/Promise in JavaScript sucks, and if that pain is ever fixed, the project's growth will likely stagnate.
 
 But Scala's evolution is currently alienating the part of the community that builds cutting-edge, user-space I/O runtimes that are the envy of the industry, while not providing the support required for making "direct style" work for the folks that would rather prefer that over monads. And I think that's bad, especially as alternatives exist, one of those alternatives being Java 25.
 
