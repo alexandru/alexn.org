@@ -44,3 +44,9 @@ Courses:
 
 - [Coder Dojo](https://www.coderdojo.ro/): a volunteer-led community of free programming workshops for young people between 7 and 17
 - [Scratch: Programming for Kids (8+)](https://www.edx.org/course/scratch-programming-for-kids-8): MOOC from EdX
+
+
+## Games
+
+* [libGDX](https://libgdx.com/): Desktop/Android/HTML5/iOS Java game development framework
+  * [KTX](https://github.com/libktx/ktx): Kotlin extensions for the libGDX game framework

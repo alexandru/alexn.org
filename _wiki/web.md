@@ -3,7 +3,7 @@ redirect_from:
   - /wiki/web-tricks.html
   - /wiki/web-apps.html
 date: 2020-11-30 17:38:13 +03:00
-last_modified_at: 2024-05-18 10:20:10 +03:00
+last_modified_at: 2025-08-31T09:56:20+03:00
 ---
 
 # Web
@@ -35,10 +35,11 @@ Features:
 
 ## Block lists
 
-For getting rid of cookie banners and other annoyances:
+Extra lists I used:
 
-- [I don't care about cookies](https://www.i-dont-care-about-cookies.eu/abp/){:target="_blank"}
-- [Adguard Annoyances](https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_14_Annoyances/filter.txt){:target="_blank"}
+- [Hide YouTube Shorts](https://github.com/gijsdev/ublock-hide-yt-shorts)
+- [Huge AI Blocklist](https://github.com/laylavish/uBlockOrigin-HUGE-AI-Blocklist)
+- [Bypass Paywalls Clean filters](https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean-filters) (unsure if this is trustworthy)
 
 Personal:
 
