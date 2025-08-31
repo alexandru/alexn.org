@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 29 Aug 2025 08:26:24 +0000</pubDate>
-    <lastBuildDate>Fri, 29 Aug 2025 08:26:24 +0000</lastBuildDate>
+    <pubDate>Sun, 31 Aug 2025 06:58:00 +0000</pubDate>
+    <lastBuildDate>Sun, 31 Aug 2025 06:58:00 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -2118,11 +2118,11 @@ echo vm.swappiness = 0 | sudo tee -a /etc/sysctl.conf
 <item>
   <title>Web</title>
   <description>Article
-    updated at May 18, 2024, 
+    updated at August 31, 2025, 
     created at November 30, 2020.</description>
   <content:encoded>&lt;p&gt;
     Article
-    updated at May 18, 2024, 
+    updated at August 31, 2025, 
     created at November 30, 2020.
   &lt;/p&gt;
   &lt;hr&gt;
@@ -2163,11 +2163,13 @@ echo vm.swappiness = 0 | sudo tee -a /etc/sysctl.conf
 
 &lt;h2 id=&quot;block-lists&quot;&gt;Block lists&lt;/h2&gt;
 
-&lt;p&gt;For getting rid of cookie banners and other annoyances:&lt;/p&gt;
+&lt;p&gt;Extra lists I used:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.i-dont-care-about-cookies.eu/abp/&quot; target=&quot;_blank&quot;&gt;I don’t care about cookies&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_14_Annoyances/filter.txt&quot; target=&quot;_blank&quot;&gt;Adguard Annoyances&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/gijsdev/ublock-hide-yt-shorts&quot;&gt;Hide YouTube Shorts&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/laylavish/uBlockOrigin-HUGE-AI-Blocklist&quot;&gt;Huge AI Blocklist&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean-filters&quot;&gt;Bypass Paywalls Clean filters&lt;/a&gt; (unsure if this is trustworthy)&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Personal:&lt;/p&gt;
@@ -2253,8 +2255,8 @@ window.matchMedia(&apos;(prefers-color-scheme: dark)&apos;).matches
 &lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&quot;querySelector&quot; in document &amp;&amp;
 !!document.querySelector(&quot;meta[name=darkreader]&quot;)
 &lt;/code&gt;&lt;/pre&gt;</content:encoded><pubDate>Mon, 30 Nov 2020 14:38:13 +0000</pubDate>
-  <dc:modified>Sat, 18 May 2024 07:20:10 +0000</dc:modified>
-  <atom:modified>Sat, 18 May 2024 07:20:10 +0000</atom:modified>
+  <dc:modified>Sun, 31 Aug 2025 06:56:20 +0000</dc:modified>
+  <atom:modified>Sun, 31 Aug 2025 06:56:20 +0000</atom:modified>
   <link>https://alexn.org/wiki/web/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/web/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
@@ -5309,6 +5311,18 @@ cargo check
 &lt;a href=&quot;https://www.coderdojo.ro/&quot;&gt;Coder Dojo&lt;/a&gt;: a volunteer-led community of free programming workshops for young people between 7 and 17&lt;/li&gt;
   &lt;li&gt;
 &lt;a href=&quot;https://www.edx.org/course/scratch-programming-for-kids-8&quot;&gt;Scratch: Programming for Kids (8+)&lt;/a&gt;: MOOC from EdX&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;games&quot;&gt;Games&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://libgdx.com/&quot;&gt;libGDX&lt;/a&gt;: Desktop/Android/HTML5/iOS Java game development framework
+    &lt;ul&gt;
+      &lt;li&gt;
+&lt;a href=&quot;https://github.com/libktx/ktx&quot;&gt;KTX&lt;/a&gt;: Kotlin extensions for the libGDX game framework&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;</content:encoded><pubDate>Mon, 24 Aug 2020 13:24:31 +0000</pubDate>
   <dc:modified>Thu, 01 Sep 2022 14:25:25 +0000</dc:modified>
   <atom:modified>Thu, 01 Sep 2022 14:25:25 +0000</atom:modified>
