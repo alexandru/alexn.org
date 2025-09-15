@@ -8,7 +8,7 @@ tags:
   - Opinion
   - Politics
 generate_toc: true
-last_modified_at: 2025-09-15T08:54:43+03:00
+last_modified_at: 2025-09-15T09:01:04+03:00
 ---
 
 <p class="intro">
@@ -297,7 +297,7 @@ If you believe that we need a shared notion of truth, then censorship becomes at
 
 ### 7) Speech is violence
 
-This is post-modern BS. We've gotten the Free Speech ideal from The Enlightenment. Philosophers of the time, such as Voltaire, reached the inevitable conclusion that it's better to fight with words, than with actual violence. Free Speech actually is the solution to political polarization.
+This is post-modern BS. We've gotten the Free Speech ideal from The Enlightenment. Philosophers of the time, such as Voltaire, reached the inevitable conclusion that it's better to fight with words, than with actual violence. Free Speech actually is the solution to political polarization, and I hope this isn't a lesson we have to re-learn the hard way.
 
 **Speech is not violence; silence is not violence; violence is violence.**
 
