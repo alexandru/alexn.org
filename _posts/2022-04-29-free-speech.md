@@ -1,5 +1,6 @@
 ---
 title: "Free Speech"
+is_noise: true
 image: /assets/media/articles/free-speech-movement-berkley.jpg
 image_caption: >
   Protesters of the Free Speech Movement, at Sather Gate, University of California, Berkeley campus.
@@ -7,7 +8,7 @@ tags:
   - Opinion
   - Politics
 generate_toc: true
-last_modified_at: 2022-05-01 10:49:04 +03:00
+last_modified_at: 2025-09-15T08:54:43+03:00
 ---
 
 <p class="intro">
@@ -123,28 +124,7 @@ For Romanians at least, **there is no greater freedom** than was gained at our r
 
 If what happened in communist Romania sounds familiar, it should — what is *"hate speech"* anyway? Can you define it in a way that doesn't nullify freedom of speech in a court of law?
 
-Let's consider the following, how many of these items can represent hate speech?
-
-- Criticism of Christianity;
-- Criticism of Islamism;
-- Criticism of Scientology;
-- Criticism of "white people";
-- Criticism of veganism;
-- Criticism of vaxxers or of anti-vaxxers;
-- Criticism of US republicans;
-- Criticism of cops;
-- Criticism of "white supremacists";
-- Criticism of gender ideology;
-- Criticism of "gender critical" feminists;
-- Criticism of men and masculinity;
-- Criticism of the cultures practicing female genital mutilation;
-- Criticism of "baby boomers";
-- Criticism of "Black Lives Matter" movement;
-- Support for slavery;
-- Support for race science;
-- Anti-Zionism;
-
-These point to groups of people. Not all the groups have to do with sex, ethnicity, or religion (although it can be argued, an ideology is a religion). They are all groups of people, nonetheless. And for example, as any vegan will tell you, being vegan becomes part of one's identity. Criticism of these groups can offend, it may even incite violence against these groups. If you think that a slogan such as *"all cops are bastards"* isn't hate speech, it shows your political bias. If you haven't ticked all the boxes, it shows your political bias.
+Hate speech is speech directed at groups of people. Not all the groups have to do with sex, ethnicity, or religion (although it can be argued, an ideology is a religion). Some people will claim that "hate speech" is speech going against an individual's immutable characteristics (that they were born with), but that's not true, as religion isn't immutable. And for example, as any vegan will tell you, being vegan becomes part of one's identity. Criticism of these groups can offend, it may even incite violence against these groups. If you think that a slogan such as *"all cops are bastards"* can't become hate speech, it shows your political bias.
 
 In Romania, our parliament just voted a law that criminalizes "hate speech" targeted based on political affiliation. They can do this because the Constitution guarantees freedom of speech only as long as it isn't "hate speech". And the law is meant to favor Romania's largest party. I don't know what happened to it, I no longer follow the news, I hope it will get struck down as being unconstitutional, due to common sense, but I can certainly see why a law like this is possible, and I'm not holding my breath.
 
@@ -168,7 +148,7 @@ An infamous example is that of Brigitte Bardot. Dedicating her life to animal ac
 Finding examples of wrongful court ruling is easy. I'm picking a hardcore example, precisely because it's hard to defend.
 </p>
 
-You may agree with this, we can certainly see in her writing a concrete example of speech that may be used to incite racial hatred. Her writing seems to be xenophobic, or Islamophobic. Yes, this can be seen as "hate speech". She did offend, and if you're against "hate speech", her condemnation seems justified.
+You may agree with this, we can certainly see in her writing a concrete example of speech that may be used to incite racial hatred, which could lead to violence. Her writing seems to be xenophobic, or Islamophobic. Yes, this can be seen as "hate speech". She did offend, and if you're against "hate speech", her condemnation seems justified.
 
 However, her criticism was primarily against a religious dogma that was (arguably) going against the shared values of the French society. A society without shared values is at risk of tearing itself apart. For example, the Western society is based on individualism and secularism. Conservatives point out that in 2020 a study revealed that about 74% of Muslim youth placed Islam above secular justice — whether that is true or not, I wouldn't know, although we can point at events such as the "Charlie Hebdo shooting" from 2015, terrible events "caused" by a publication's satirical drawings of the Islamic prophet Muhammad. YES, not all Muslims. I remember one of the cops, that heroically died to save lives in that shooting, was Muslim. And YES, they are a vulnerable minority in Europe. YES, the French society may have a problem with racism. Yet, we can certainly see how criticism of (any) religion is needed, and not allowing criticism hurts the law-abiding minorities, because then the far-right happens.
 
@@ -180,7 +160,7 @@ And blasphemy laws are wrong, because:
 
 - The law must not legislate emotions;
 - If the law legislates emotions, [secular](https://en.wikipedia.org/wiki/Secularism) justice stops being secular, as all arguments based on emotions are arguments based on religion;
-- "Blasphemy laws" favor the powerful and religious organizations are the most powerful;
+- "Blasphemy laws" favor the powerful and religious organizations are the most powerful.
 
 You may hate the late Christopher Hitchens. Nowadays, he would definitely be classified as alt-right, fascist, or a bigot. He would definitely be canceled. But he said it much better than I can:
 
@@ -227,7 +207,7 @@ This is used as the excuse of Internet mobs everywhere, and yet:
 
 - This is a self-defeating argument;
 - Paradoxes imply axioms, and in the real-world we don't have any, this is just [rationalist bullshit](https://en.wikipedia.org/wiki/Rationalism); we only have shared values (aka tradition) that withstood the test of time;
-- This is just mental gymnastics, being a carte blanche for censorship and if we are to err, we should err on the side of tolerance;
+- This is just mental gymnastics, being a carte blanche for censorship and if we are to err, we should err on the side of tolerance.
 
 Karl Popper was inspired by Plato. It isn't based on any empirical evidence, being just armchair philosophy. Plato came up with it to justify autocracy, possibly while on drugs.
 
@@ -241,7 +221,7 @@ Do you feel free to state your opinions without risking being kicked out of that
 
 Are you so confident that your political opinions will always match those of your tribe? Are you so confident that your tribe is always right?
 
-What online mobs don't understand is that it's far easier to criticize your perceived enemies, especially since online platforms make us forget about the humans behind the keyboards. It's much, much harder to criticize your online friends and allies, risking being ousted from the group, and seeing your life in ruin. And the Internet is amplifying everything, exponentially. People are self-censoring themselves in a way that has never happened before.
+What online mobs don't understand is that it's far easier to criticize your perceived enemies, especially since online platforms make us forget about the humans behind the keyboards. It's much, much harder to criticize your online friends and allies, risking being ousted from the group, and seeing your life in ruin. And the Internet is amplifying everything, exponentially. People are self-censoring themselves in a way that has never happened before — society used *shaming* before, don't get me wrong, but the current climate is one of fear, reminiscent of what happened under the USSR.
 
 > OH: *"Before social media, it was only your family that knew how stupid you are."*
 
@@ -265,7 +245,7 @@ That's still not a reason for censorship, for one because censorship increases m
 
 Those shared values are crumbling, YES, I agree, except that those shared values don't get decided by a committee, or an algorithm. Those shared values get decided by the population, a population in which every vote or opinion should count, a population that isn't made of sheep that need shepherding.
 
-Controlling people's thoughts via censorship is the opposite of democracy, and there's no amount of mental gymnastics that can fix this idea.
+Controlling people's thoughts via censorship is the opposite of democracy, and there's no amount of mental gymnastics that can fix this idea. 
 
 ### 3) Polarization is a threat to democracy
 
@@ -281,11 +261,9 @@ Before blaming fake news for polarization, maybe we should look in the mirror fi
 
 Some people believe the moon landing was a hoax, or that the Earth is flat, pointing to a total mistrust in institutions that provide indirect evidence. These are seemingly benign beliefs, but then we have QAnon, or the storming of the US Capitol based on the belief that the election was stolen, and these aren't so benign.
 
-But we need to zoom out a little. These are manifestations of the counterculture fighting the establishment. Personally, I see no difference between the storming of the US Capitol and the "Black Lives Matter" or the "Occupy Wall Street" protests, except for their duration. I also believe communism is more toxic for society than QAnon, because it fools more people, we know it has led to unspeakable violence, and that failure to universally condemn it can be the cause for WW3 — yet I'm not preaching for the censoring of Marx and Hegel's bullshit, because education is always the better choice.
+But we need to zoom out a little. These are manifestations of the counterculture fighting the establishment. A vast majority of people are normal folks just living their lives, and conspiracy lunatics wouldn't have power of persuasion without society having some real problems. I also believe communism is more toxic for society than QAnon, because it fools more people, we know it has led to unspeakable violence, and that failure to universally condemn it can be the cause for WW3 — yet I'm not preaching for the censoring of Marx and Hegel's bullshit, because education is always the better choice.
 
 **Education is always the answer, so we need more speech, not less.**
-
-**Speech is not violence; silence is not violence; violence is violence.**
 
 ### 5) Social media is private property
 
@@ -317,6 +295,12 @@ Democracy is a political system and a process that manages the eternal conflict 
 
 If you believe that we need a shared notion of truth, then censorship becomes attractive, in spite of this idea being not even wrong. If you believe that democracy is a process for compromise, such that we can leave with each other, it's becoming clear that censorship may be the last thing we want.
 
+### 7) Speech is violence
+
+This is post-modern BS. We've gotten the Free Speech ideal from The Enlightenment. Philosophers of the time, such as Voltaire, reached the inevitable conclusion that it's better to fight with words, than with actual violence. Free Speech actually is the solution to political polarization.
+
+**Speech is not violence; silence is not violence; violence is violence.**
+
 ---
 
 For many of these pro-censorship arguments, see the following talk, which presents these pro-censorship arguments well, with Sacha Baron Cohen being a talented actor and individual, delivering a powerful speech.
@@ -341,7 +325,7 @@ This man says that democracy needs more censorship. Interesting notion.
 
 > *"An 'uncontrolled' Internet is ... the dream of every dictator, strongman, demagogue and modern-day robber baron on Earth."* — The Guardian
 
-Dictators want free speech now? OMFG 🤦‍♂️
+Dictators want free speech now? 🤦‍♂️
 
 ## Epilogue
 
