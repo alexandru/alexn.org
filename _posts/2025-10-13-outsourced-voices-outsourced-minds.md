@@ -1,13 +1,16 @@
 ---
 title: "Outsourced Voices, Outsourced Minds"
 date: 2025-10-13T08:24:14+03:00
-last_modified_at: 2025-10-13T15:57:11+03:00
+last_modified_at: 2025-10-13T16:02:18+03:00
 image: /assets/media/articles/2025-thomas-in-a-box.jpg
 image_caption: >
   My cat, Thomas, sitting in a box, telling me that maybe it's better if I went to touch some grass.
 tags:
+  - AI
+  - Blogging
   - Opinion
   - Politics
+  - Web
 description: >
   We are not machines, or automatons. We were fooled, but we can fight back. Don't let algorithms control your thoughts and actions. 
 ---
