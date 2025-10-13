@@ -1,12 +1,15 @@
 ---
 title: "Outsourced Voices, Outsourced Minds"
 date: 2025-10-13T08:24:14+03:00
-last_modified_at: 2025-10-13T14:21:50+03:00
+last_modified_at: 2025-10-13T15:57:11+03:00
+image: /assets/media/articles/2025-thomas-in-a-box.jpg
+image_caption: >
+  My cat, Thomas, sitting in a box, telling me that maybe it's better if I went to touch some grass.
 tags:
   - Opinion
   - Politics
 description: >
-  We are not machines, or automatons. We were fooled, but we can fight back. Don't let algorithms control your actions, don't outsource your voice and your thoughts. 
+  We are not machines, or automatons. We were fooled, but we can fight back. Don't let algorithms control your thoughts and actions. 
 ---
 
 <p class="intro">
@@ -15,9 +18,9 @@ description: >
 
 [Jekyll](https://en.wikipedia.org/wiki/Jekyll_(software)), the most popular static site generator, was released in 2008. That's around the time I registered the `alexn.org` domain, although I wouldn't start blogging on it until later. I had another blog before this, it was powered by WordPress, hosted by a local service provider, but it died due to neglect, the articles I had on it lost forever. And before turning it off, I discovered that it had been infested with malware. 
 
-That's how I could see the value in a static website generator like Jekyll: a git repository seemed immortal, I could no longer lose my old thoughts, and the cheaper it is to host, the higher the probability that it would stay alive and kicking, just waiting for me to come back and share new articles. And nothing could be more secure than a static website.
+That's how I could see the value in a static website generator like Jekyll: a git repository seemed immortal, I could no longer lose my old thoughts, and the cheaper it is to host, the higher the probability that it would stay alive and kicking, just waiting for me to come back and share new articles. And nothing could be more secure than a static website. 
 
-This was happening around 2010, it was right when people were starting to use social media, alongside forums, like Hacker News, Reddit, to distribute and comment on links. So tech blogs stopped having their own commenting widget, and those that continued to have comments, outsourced them to services such as [Disqus](https://en.wikipedia.org/wiki/Disqus). Alongside comments, amongst dynamic features of blogs, other casualties were [trackbacks and pingbacks](https://wordpress.org/documentation/article/trackbacks-and-pingbacks/) ([archive](https://web.archive.org/web/20251007002950/https://wordpress.org/documentation/article/trackbacks-and-pingbacks/)), which were the equivalent of seeing who mentioned or quoted you on social media. And yet another was the mailing list, outsourced to Feedburner, then Mailgun.
+This was happening around 2010, it was right when people were starting to use social media, alongside forums, like Hacker News, Reddit, to distribute and comment on links. So tech blogs stopped having their own commenting widget, and those that continued to have comments, outsourced them to services such as [Disqus](https://en.wikipedia.org/wiki/Disqus). Alongside comments, amongst dynamic features of blogs, other casualties were [trackbacks and pingbacks](https://wordpress.org/documentation/article/trackbacks-and-pingbacks/) ([archive](https://web.archive.org/web/20251007002950/https://wordpress.org/documentation/article/trackbacks-and-pingbacks/)), which were the equivalent of seeing who mentioned or quoted you on social media. And yet another was the mailing list, outsourced to Feedburner, then Mailgun. In optimizing my online presence, I achieved what I wanted, but in retrospect, I now realize that optimizing for hosting costs is foolish.
 
 Up until around 2010, it seemed like RSS/Atom feeds were thriving, but then in 2013 [Google killed Reader](https://en.wikipedia.org/wiki/Google_Reader#Discontinuation), being perceived as the death of RSS/Atom feed readers. They were trying to create their own Facebook competitor, [Google+](https://en.wikipedia.org/wiki/Google%2B), and Reader was standing in their way. I can't tell you how much joy the death of Google+ brought, I've never been happier about an online service dying, but I digress. Well, feed readers are still alive and thriving, just with a much smaller audience. The web is dying, and Google Reader proved to be the canary in the coal mine.
 
@@ -35,6 +38,6 @@ And now social media platforms are being filled with AI slop, with the platform 
 
 We've outsourced our voices on the Internet, because it was convenient. We've outsourced our minds as well.
 
-But we are people with thoughts, feelings, aspirations, lives. We are not machines, we are not automatons, we have souls. And we deserve to own our identity, our voice, and our thoughts. We deserve access to an open web, a web that's good for connecting with like-minded people, a web good for learning and exploring our passions.
+But we are people with ideas, feelings, aspirations, lives. We are not machines, we are not automatons, we have souls. And we deserve to own our identity, our voice, and our thoughts. We deserve access to an open web, a web that's good for connecting with like-minded people, a web good for learning and exploring our passions.
 
-We were fooled, but we can fight back. Don't let algorithms control your actions, don't outsource your voice and your thoughts. Choose wisely, as in the future we may find ourselves completely unable to make choices.
+We were fooled, but we can fight back. Don't let algorithms control your actions, don't outsource your voice and your mind. Choose wisely, as in the future we may find ourselves completely unable to make choices.
