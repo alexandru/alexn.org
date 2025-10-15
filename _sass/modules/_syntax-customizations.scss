@@ -36,3 +36,40 @@ div.formula-code {
     margin: 0 !important;
   }
 }
+
+// Mobile-friendly math expressions
+mjx-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  
+  // Enable smooth scrolling on mobile
+  -webkit-overflow-scrolling: touch;
+  
+  // Add subtle scroll hint on small screens
+  @media (max-width: 768px) {
+    &[display="block"] {
+      // Slight shadow on right edge to indicate scrollable content
+      background: linear-gradient(90deg, 
+        transparent 0%, 
+        transparent calc(100% - 40px), 
+        rgba(0, 0, 0, 0.05) 100%);
+      padding-right: 10px;
+    }
+  }
+}
+
+// Make display math scrollable on small screens
+mjx-math[display="block"] {
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  display: block !important;
+}
+
+// Reduce font size slightly on mobile for better fit
+@media (max-width: 600px) {
+  mjx-container {
+    font-size: 0.9em;
+  }
+}
