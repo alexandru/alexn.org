@@ -67,7 +67,7 @@ The solutions may or may not jump at you, but there's a little [Vieta's formula]
 $$
 \begin{align*}
 (x - a)(x + b) &= 0 \iff \\
-x^2 - (a + b)x + ab &= 0 \\
+x^2 - (a + b)x + ab &= 0 \iff \\
 x^2 - 97 x + 2352 &= 0
 \end{align*}
 $$
@@ -145,10 +145,13 @@ x_2 &= b = \frac{23 - 1}{2} = \frac{22}{2} = 11
 \end{align*}
 $$
 
-Therefore our sum can be rewritten as:
+Therefore our sum can be rewritten as (we remember that we have a minus sign though 🙂):
 
 $$
-23 - 2\sqrt{132} = (\sqrt{12} - \sqrt{11})^2
+\begin{align*}
+23 - 2\sqrt{132} &= (\sqrt{12} - \sqrt{11})^2 \\
+&= (2\sqrt{3} - \sqrt{11})^2
+\end{align*}
 $$
 
 We can now rewrite our A:
