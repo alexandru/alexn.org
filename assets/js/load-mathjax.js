@@ -57,6 +57,14 @@ layout: null
           }, '']
         }
       },
+      chtml: {
+        scale: 1,
+        minScale: 0.5,
+        matchFontHeight: true,
+        mtextInheritFont: false,
+        merrorInheritFont: false,
+        adaptiveCSS: true
+      },
       loader: {load: ['[tex]/ams', '[tex]/noerrors', '[tex]/noundefined', '[tex]/newcommand']}
     };
 

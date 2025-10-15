@@ -97,7 +97,7 @@ $$
 \frac{7k^2 + k}{(7k-3)(7k+4)} = a + \frac{b}{7k-3} - \frac{b}{7k+4}
 $$
 
-To solve it:
+To solve it, after eliminating the denominator, the trick is to group by powers of `k`:
 
 $$
 \begin{align*}
@@ -131,15 +131,9 @@ $$
 And now we can finally write the sum as:
 
 $$
-S = \sum_{k=1}^{n} \left( \frac{1}{7} + \frac{12}{49} \left( \frac{1}{7k-3} - \frac{1}{7k+4} \right) \right)
-$$
-
-Simplification:
-
-$$
-S = \frac{n}{7} + \frac{12}{49} \sum_{k=1}^{n} \left( \frac{1}{7k-3} - \frac{1}{7k+4} \right)
-$$
-
-$$
-S = \frac{n}{7} + \frac{12}{49} \left( \frac{1}{4} - \frac{1}{7n+4} \right)
+\begin{align*}
+S &= \sum_{k=1}^{n} \left( \frac{1}{7} + \frac{12}{49} \left( \frac{1}{7k-3} - \frac{1}{7k+4} \right) \right) \\
+&= \frac{n}{7} + \frac{12}{49} \sum_{k=1}^{n} \left( \frac{1}{7k-3} - \frac{1}{7k+4} \right) \\
+&= \frac{n}{7} + \frac{12}{49} \left( \frac{1}{4} - \frac{1}{7n+4} \right)
+\end{align*}
 $$
