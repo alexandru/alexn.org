@@ -37,7 +37,10 @@
       tex: {
         inlineMath: [['$', '$'], ['\\(', '\\)']],
         displayMath: [['$$', '$$'], ['\\[', '\\]']],
-        packages: ['base', 'ams', 'noerrors', 'noundefined']
+        packages: ['base', 'ams', 'noerrors', 'noundefined', 'newcommand'],
+        tags: 'ams',
+        processEnvironments: true,
+        processRefs: true
       },
       options: {
         enableMenu: true,
@@ -50,7 +53,15 @@
           }, '']
         }
       },
-      loader: {load: ['[tex]/ams', '[tex]/noerrors', '[tex]/noundefined']}
+      chtml: {
+        scale: 1,
+        minScale: 0.5,
+        matchFontHeight: true,
+        mtextInheritFont: false,
+        merrorInheritFont: false,
+        adaptiveCSS: true
+      },
+      loader: {load: ['[tex]/ams', '[tex]/noerrors', '[tex]/noundefined', '[tex]/newcommand']}
     };
 
     var script = document.createElement('script');
