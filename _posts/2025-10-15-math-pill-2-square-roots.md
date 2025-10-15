@@ -50,7 +50,7 @@ $$
 We observe the formula:
 
 $$
-(\sqrt{a} + \sqrt{b})^2 = x + y + 2\sqrt{ab}
+(\sqrt{a} + \sqrt{b})^2 = a + b + 2\sqrt{ab}
 $$
 
 Therefore, we end up with the following system of equations:
@@ -76,8 +76,9 @@ Solving that:
 
 $$
 \begin{align*}
-\Delta &= 1^2 - 4(a + b)ab \\
-\Delta &= 9409 - 9408 = 1 \\
+\Delta &= 97^2 - 4*2352 \\
+&= 9409 - 9408 \\
+&= 1 \\
 x_1 &= a = \frac{97 + \sqrt{1}}{2} = 49 \\
 x_2 &= b = \frac{97 - \sqrt{1}}{2} = 48
 \end{align*}
