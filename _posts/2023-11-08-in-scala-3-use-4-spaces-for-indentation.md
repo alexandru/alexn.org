@@ -2,7 +2,7 @@
 title: "In Scala 3, use 4 Spaces for Indentation"
 image: /assets/media/articles/2023-scala3-indentation-4-spaces.png
 date: 2023-11-08 20:17:04 +02:00
-last_modified_at: 2023-11-10 17:45:05 +02:00
+last_modified_at: 2025-10-19T09:46:28+03:00
 generate_toc: true
 tags:
   - Programming
@@ -42,7 +42,7 @@ That battle is already lost:
 
 BONUS — using spaces will piss off the tabs-people:
 
-{% include youtube.html id="SsoOG6ZeyUI" caption="Tabs versus Spaces" %}
+{% include youtube.html id="oRva7UxGQDw" caption="Tabs versus Spaces" %}
 
 ### What are similar languages doing?
 
