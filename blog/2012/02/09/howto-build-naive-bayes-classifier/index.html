@@ -21,11 +21,11 @@
     <meta property="article:published_time" content="2012-02-09T00:00:00+00:00">
     <meta property="article:modified_time" content="2020-01-25T00:00:00+00:00">
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/conditional-prob.png?202510211447" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/conditional-prob.png?202510211447" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/conditional-prob.png?202510211737" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/conditional-prob.png?202510211737" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/conditional-prob.png?202510211447">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/conditional-prob.png?202510211737">
     <meta name="twitter:title" content="How To Build a Naive Bayes Classifier">
     <meta name="twitter:url" content="https://alexn.org/blog/2012/02/09/howto-build-naive-bayes-classifier/">
     <meta name="twitter:description" content="In machine learning a classifier is able to predict, given an input, a probability distribution over a set of categories. Some use-cases for building a classifier: spam detection, for example you could build your own Akismet API, automatic assignment of categories to a set of items, automatic detection of the primary language (e.g. Google Translate), sentiment analysis, which in simple terms refers to discovering if an opinion is about love or hate about a certain topic.">
@@ -285,7 +285,7 @@ independent events, because calculating the intersection (both
 happening at the same time) depends on it. So for independent events,
 calculating the intersection is easy:</p>
 
-<div class="math-display page-width"><img src="/assets/math/d4dc272807b50935969c395a6c490e1a.svg" alt="Math formula" title="P(A \cap B) = P(A) \cdot P(B)" width="288" height="24" /></div>
+<div class="math-display page-width"><img src="/assets/math/transparent/d4dc272807b50935969c395a6c490e1a.svg" alt="Math formula" title="P(A \cap B) = P(A) \cdot P(B)" width="288" height="24" loading="lazy" /></div>
 
 <p>Some examples:</p>
 
@@ -322,7 +322,7 @@ email is a spam message, given that it contains the word “penis”?</p>
 <p>So these 2 events are clearly dependent, which is why you must use the
 simple form of the Bayes Theorem:</p>
 
-<div class="math-display page-width"><img src="/assets/math/bfb225bb49b7b2633ce6e1a147f184c3.svg" alt="Math formula" title="P(A | B) = \frac{P(A \cap B)}{P(B)} = \frac{P(B|A) P(A)}{P(B)}" width="444" height="60" /></div>
+<div class="math-display page-width"><img src="/assets/math/transparent/bfb225bb49b7b2633ce6e1a147f184c3.svg" alt="Math formula" title="P(A | B) = \frac{P(A \cap B)}{P(B)} = \frac{P(B|A) P(A)}{P(B)}" width="444" height="60" loading="lazy" /></div>
 
 <p>Or visually:</p>
 
@@ -332,7 +332,7 @@ simple form of the Bayes Theorem:</p>
 
 <p>With the solution being:</p>
 
-<div class="math-display page-width"><img src="/assets/math/a9b78ca3ebfab7ec9977d1fb229b0052.svg" alt="Math formula" title="\begin{eqnarray} r &amp;=&amp; P(spam|penis) \\[6pt] &amp;=&amp; \frac{P(penis|spam) \cdot P(spam)}{ P(penis) } \\[6pt] &amp;=&amp; \frac{\frac{20}{30} \cdot \frac{30}{74}}{\frac{51}{74}} = \frac{20}{51} = 0.39 \end{eqnarray}" width="360" height="216" /></div>
+<div class="math-display page-width"><img src="/assets/math/transparent/a9b78ca3ebfab7ec9977d1fb229b0052.svg" alt="Math formula" title="\begin{eqnarray} r &amp;=&amp; P(spam|penis) \\[6pt] &amp;=&amp; \frac{P(penis|spam) \cdot P(spam)}{ P(penis) } \\[6pt] &amp;=&amp; \frac{\frac{20}{30} \cdot \frac{30}{74}}{\frac{51}{74}} = \frac{20}{51} = 0.39 \end{eqnarray}" width="360" height="216" loading="lazy" /></div>
 
 <p>This was a simple one, you could definitely see the result without
 complicating yourself with the Bayes formula.</p>
@@ -356,14 +356,14 @@ contains both “viagra” and “penis”?</li>
 
 <p>Shit just got more complicated, because now the formula is this one:</p>
 
-<div class="math-display page-width"><img src="/assets/math/b1447dcaddf1cac38e7fd6ba26e92af9.svg" alt="Math formula" title="\frac{ P(penis|spam \cap viagra) \cdot P(viagra|spam) \cdot P(spam) }{ P(penis|viagra) \cdot P(viagra) }" width="624" height="60" /></div>
+<div class="math-display page-width"><img src="/assets/math/transparent/b1447dcaddf1cac38e7fd6ba26e92af9.svg" alt="Math formula" title="\frac{ P(penis|spam \cap viagra) \cdot P(viagra|spam) \cdot P(spam) }{ P(penis|viagra) \cdot P(viagra) }" width="624" height="60" loading="lazy" /></div>
 
 <p>And you definitely don’t want to bother with it if we keep adding
 words. But what if we simplified our assumptions and just say that the
 occurrence of <em>penis</em> is totally independent from the occurrence of
 <em>viagra</em>? Then the formula just got much simpler:</p>
 
-<div class="math-display page-width"><img src="/assets/math/504a9f4f3ecea69e23a8621a1ca5b8d1.svg" alt="Math formula" title="\begin{eqnarray} r &amp;=&amp; P(spam|penis,viagra) \\[6pt] &amp;=&amp; \frac{ P(penis|spam) \cdot P(viagra|spam) \cdot P(spam) }{ P(penis)\cdot P(viagra) } \\[6pt] &amp;=&amp; \frac{ \frac{24}{30} \cdot \frac{20}{30} \cdot \frac{30}{74} }{ \frac{25}{74} \cdot \frac{51}{74} } = 0.928 \end{eqnarray}" width="564" height="216" /></div>
+<div class="math-display page-width"><img src="/assets/math/transparent/504a9f4f3ecea69e23a8621a1ca5b8d1.svg" alt="Math formula" title="\begin{eqnarray} r &amp;=&amp; P(spam|penis,viagra) \\[6pt] &amp;=&amp; \frac{ P(penis|spam) \cdot P(viagra|spam) \cdot P(spam) }{ P(penis)\cdot P(viagra) } \\[6pt] &amp;=&amp; \frac{ \frac{24}{30} \cdot \frac{20}{30} \cdot \frac{30}{74} }{ \frac{25}{74} \cdot \frac{51}{74} } = 0.928 \end{eqnarray}" width="564" height="216" loading="lazy" /></div>
 
 <p>To classify an email as spam, you’ll have to calculate the conditional
 probability by taking hints from the words contained. And the Naive
@@ -401,7 +401,7 @@ at
 categories you test against. The category with the highest probability
 for the given text wins:</p>
 
-<div class="math-display page-width"><img src="/assets/math/4a41191fa2d0823f7c1b542b10f65d34.svg" alt="Math formula" title="classify(word_1, word_2 \ldots word_n) = \\[6pt] \operatorname*{argmax}_{cat} P(cat) \cdot \prod_{i=1}^{n} P(word_i|cat)" width="792" height="72" /></div>
+<div class="math-display page-width"><img src="/assets/math/transparent/4a41191fa2d0823f7c1b542b10f65d34.svg" alt="Math formula" title="classify(word_1, word_2 \ldots word_n) = \\[6pt] \operatorname*{argmax}_{cat} P(cat) \cdot \prod_{i=1}^{n} P(word_i|cat)" width="792" height="72" loading="lazy" /></div>
 
 <p>Do note that above I also eliminated the <em>denominator</em> from our original
 formula, because it is a constant that we do not need (called
@@ -428,7 +428,7 @@ logarithms of those probabilities</li>
 <p>So instead of the above formula, if you need this optimization, then
 use this one:</p>
 
-<div class="math-display page-width"><img src="/assets/math/8d348b5ff21c797e6ad1f23d6bf53297.svg" alt="Math formula" title="classify(word_1, word_2 \ldots word_n) = \\[6pt] \operatorname*{argmax}_{cat} log_{e} (P(cat)) + \sum_{i=1}^{n} log_{e} (P(word_i|cat))" width="948" height="72" /></div>
+<div class="math-display page-width"><img src="/assets/math/transparent/8d348b5ff21c797e6ad1f23d6bf53297.svg" alt="Math formula" title="classify(word_1, word_2 \ldots word_n) = \\[6pt] \operatorname*{argmax}_{cat} log_{e} (P(cat)) + \sum_{i=1}^{n} log_{e} (P(word_i|cat))" width="948" height="72" loading="lazy" /></div>
       <h3 id="23-training">
         
         
@@ -709,12 +709,12 @@ you started.</p>
 
    <script
     defer
-    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202510211447"
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202510211737"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js/responsive-nav.min.js?202510211447"
+    src="/assets/js/responsive-nav.min.js?202510211737"
     type="text/javascript"
 ></script>
 
@@ -725,7 +725,7 @@ you started.</p>
 ></script>
 <script
     defer
-    src="/assets/js/scripts.js?202510211447"
+    src="/assets/js/scripts.js?202510211737"
     type="text/javascript"
 ></script>
 
