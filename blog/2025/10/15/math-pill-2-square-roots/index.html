@@ -123,7 +123,7 @@
       <meta itemprop="datePublished" content="2025-10-15T00:00:00+0000"/>
       
       <time itemprop="dateCreated" datetime="2025-10-15T00:00:00+0000">October 15, 2025</time>
-      | <span class="nobr"><span class="time">5</span> minutes</span>
+      | <span class="nobr"><span class="time">3</span> minutes</span>
       
       | <a href="/blog/2025/10/15/math-pill-2-square-roots/#isso-thread" class="nobr">Comments</a>
       
@@ -166,21 +166,11 @@ I’m helping my son with mathematics, and I have to re-learn it, but this is fu
 
 <p>Given:</p>
 
-<div class="math-display page-width"><img src="/assets/math/57a8e57d6677c16629fad2414d4b73a8.svg" width="396" height="132" decoding="async" alt="\begin{cases}
-\begin{aligned}
-A &amp;= \sqrt{4 + \sqrt{11} + \sqrt{23 - 2\sqrt{132}}} \\
-B &amp;= \sqrt{\sqrt{97 + 56\sqrt{3}}}
-\end{aligned}
-\end{cases}" title="\begin{cases}
-\begin{aligned}
-A &amp;= \sqrt{4 + \sqrt{11} + \sqrt{23 - 2\sqrt{132}}} \\
-B &amp;= \sqrt{\sqrt{97 + 56\sqrt{3}}}
-\end{aligned}
-\end{cases}" /></div>
+<div class="math-display page-width"><img src="/assets/math/57a8e57d6677c16629fad2414d4b73a8.svg" alt="Math formula" title="\begin{cases} \begin{aligned} A &amp;= \sqrt{4 + \sqrt{11} + \sqrt{23 - 2\sqrt{132}}} \\ B &amp;= \sqrt{\sqrt{97 + 56\sqrt{3}}} \end{aligned} \end{cases}" width="396" height="132" /></div>
 
 <p>Show that:</p>
 
-<div class="math-display page-width"><img src="/assets/math/c5997b69213d978014e6a24d3ef6c863.svg" width="168" height="60" decoding="async" alt="\frac{B^2 - 4A}{B - A} \in \mathbb{N}." title="\frac{B^2 - 4A}{B - A} \in \mathbb{N}." /></div>
+<div class="math-display page-width"><img src="/assets/math/c5997b69213d978014e6a24d3ef6c863.svg" alt="Math formula" title="\frac{B^2 - 4A}{B - A} \in \mathbb{N}." width="168" height="60" /></div>
       <h2 id="solution">
         
         
@@ -192,163 +182,67 @@ B &amp;= \sqrt{\sqrt{97 + 56\sqrt{3}}}
 
 <p>Starting with:</p>
 
-<div class="math-display page-width"><img src="/assets/math/9bea0dcfcc10a704026448a61927aeed.svg" width="228" height="60" decoding="async" alt="B = \sqrt{\sqrt{97 + 56\sqrt{3}}}" title="B = \sqrt{\sqrt{97 + 56\sqrt{3}}}" /></div>
+<div class="math-display page-width"><img src="/assets/math/9bea0dcfcc10a704026448a61927aeed.svg" alt="Math formula" title="B = \sqrt{\sqrt{97 + 56\sqrt{3}}}" width="228" height="60" /></div>
 
 <p>Often such sums can be rewritten like this:</p>
 
-<div class="math-display page-width"><img src="/assets/math/6cb3934ad33f1a10f2fc8f7d6c89857d.svg" width="288" height="24" decoding="async" alt="97 + 56\sqrt{3} = (\sqrt{a} + \sqrt{b})^2" title="97 + 56\sqrt{3} = (\sqrt{a} + \sqrt{b})^2" /></div>
+<div class="math-display page-width"><img src="/assets/math/6cb3934ad33f1a10f2fc8f7d6c89857d.svg" alt="Math formula" title="97 + 56\sqrt{3} = (\sqrt{a} + \sqrt{b})^2" width="288" height="24" /></div>
 
 <p>We observe the formula:</p>
 
-<div class="math-display page-width"><img src="/assets/math/3728a7ee0a7375dd1ff121395ce7f944.svg" width="324" height="24" decoding="async" alt="(\sqrt{a} + \sqrt{b})^2 = a + b + 2\sqrt{ab}" title="(\sqrt{a} + \sqrt{b})^2 = a + b + 2\sqrt{ab}" /></div>
+<div class="math-display page-width"><img src="/assets/math/3728a7ee0a7375dd1ff121395ce7f944.svg" alt="Math formula" title="(\sqrt{a} + \sqrt{b})^2 = a + b + 2\sqrt{ab}" width="324" height="24" /></div>
 
 <p>Therefore, we end up with the following system of equations:</p>
 
-<div class="math-display page-width"><img src="/assets/math/de657b2a7f999fcac530e05fc38d2b7c.svg" width="144" height="60" decoding="async" alt="\begin{cases}
-a + b = 97 \\
-ab = 28^2 \cdot 3
-\end{cases}" title="\begin{cases}
-a + b = 97 \\
-ab = 28^2 \cdot 3
-\end{cases}" /></div>
+<div class="math-display page-width"><img src="/assets/math/de657b2a7f999fcac530e05fc38d2b7c.svg" alt="Math formula" title="\begin{cases} a + b = 97 \\ ab = 28^2 \cdot 3 \end{cases}" width="144" height="60" /></div>
 
 <p>The solutions may or may not jump at you, but there’s a little <a href="https://en.wikipedia.org/wiki/Vieta%27s_formulas">Vieta’s formula</a> that can help — we can find <code>a</code> and <code>b</code> as being the solutions to this quadratic equation:</p>
 
-<div class="math-display page-width"><img src="/assets/math/76d072d247db8197c1ff674c25bfb408.svg" width="336" height="96" decoding="async" alt="\begin{aligned}
-(x - a)(x + b) &amp;= 0 \iff \\
-x^2 - (a + b)x + ab &amp;= 0 \iff \\
-x^2 - 97 x + 2352 &amp;= 0
-\end{aligned}" title="\begin{aligned}
-(x - a)(x + b) &amp;= 0 \iff \\
-x^2 - (a + b)x + ab &amp;= 0 \iff \\
-x^2 - 97 x + 2352 &amp;= 0
-\end{aligned}" /></div>
+<div class="math-display page-width"><img src="/assets/math/76d072d247db8197c1ff674c25bfb408.svg" alt="Math formula" title="\begin{aligned} (x - a)(x + b) &amp;= 0 \iff \\ x^2 - (a + b)x + ab &amp;= 0 \iff \\ x^2 - 97 x + 2352 &amp;= 0 \end{aligned}" width="336" height="96" /></div>
 
 <p>Solving that:</p>
 
-<div class="math-display page-width"><img src="/assets/math/b776a1f2552bce244d3b7d0144017518.svg" width="276" height="240" decoding="async" alt="\begin{aligned}
-\Delta &amp;= 97^2 - 4 \cdot 2352 \\
-&amp;= 9409 - 9408 \\
-&amp;= 1 \\
-x_1 &amp;= a = \frac{97 + \sqrt{1}}{2} = 49 \\
-x_2 &amp;= b = \frac{97 - \sqrt{1}}{2} = 48
-\end{aligned}" title="\begin{aligned}
-\Delta &amp;= 97^2 - 4 \cdot 2352 \\
-&amp;= 9409 - 9408 \\
-&amp;= 1 \\
-x_1 &amp;= a = \frac{97 + \sqrt{1}}{2} = 49 \\
-x_2 &amp;= b = \frac{97 - \sqrt{1}}{2} = 48
-\end{aligned}" /></div>
+<div class="math-display page-width"><img src="/assets/math/b776a1f2552bce244d3b7d0144017518.svg" alt="Math formula" title="\begin{aligned} \Delta &amp;= 97^2 - 4 \cdot 2352 \\ &amp;= 9409 - 9408 \\ &amp;= 1 \\ x_1 &amp;= a = \frac{97 + \sqrt{1}}{2} = 49 \\ x_2 &amp;= b = \frac{97 - \sqrt{1}}{2} = 48 \end{aligned}" width="276" height="240" /></div>
 
 <p>Threfore:</p>
 
-<div class="math-display page-width"><img src="/assets/math/a0698a9300f432630445ad6c2bbcdf66.svg" width="324" height="72" decoding="async" alt="\begin{aligned}
-97 + 56\sqrt{3} &amp;= (\sqrt{49} + \sqrt{48})^2 \\
-&amp;= (7 + 4\sqrt{3})^2
-\end{aligned}" title="\begin{aligned}
-97 + 56\sqrt{3} &amp;= (\sqrt{49} + \sqrt{48})^2 \\
-&amp;= (7 + 4\sqrt{3})^2
-\end{aligned}" /></div>
+<div class="math-display page-width"><img src="/assets/math/a0698a9300f432630445ad6c2bbcdf66.svg" alt="Math formula" title="\begin{aligned} 97 + 56\sqrt{3} &amp;= (\sqrt{49} + \sqrt{48})^2 \\ &amp;= (7 + 4\sqrt{3})^2 \end{aligned}" width="324" height="72" /></div>
 
 <p>Going back to our original value, we rewrite it:</p>
 
-<div class="math-display page-width"><img src="/assets/math/bcc478f355ddd584e10358ce4dd70380.svg" width="240" height="192" decoding="async" alt="\begin{aligned}
-B &amp;= \sqrt{\sqrt{97 + 56\sqrt{3}}} \\
-&amp;= \sqrt{\sqrt{(7 + 4\sqrt{3})^2}} \\
-&amp;= \sqrt{7 + 4\sqrt{3}}
-\end{aligned}" title="\begin{aligned}
-B &amp;= \sqrt{\sqrt{97 + 56\sqrt{3}}} \\
-&amp;= \sqrt{\sqrt{(7 + 4\sqrt{3})^2}} \\
-&amp;= \sqrt{7 + 4\sqrt{3}}
-\end{aligned}" /></div>
+<div class="math-display page-width"><img src="/assets/math/bcc478f355ddd584e10358ce4dd70380.svg" alt="Math formula" title="\begin{aligned} B &amp;= \sqrt{\sqrt{97 + 56\sqrt{3}}} \\ &amp;= \sqrt{\sqrt{(7 + 4\sqrt{3})^2}} \\ &amp;= \sqrt{7 + 4\sqrt{3}} \end{aligned}" width="240" height="192" /></div>
 
-<p>We still have a square of a sum, but this time we can spot the <img src="/assets/math/9abb3dbf80119c1ac482c855c88a56e9.svg" width="84" height="24" decoding="async" alt="(a + b)^2" title="(a + b)^2" class="math-inline" /> formula easily:</p>
+<p>We still have a square of a sum, but this time we can spot the <img src="/assets/math/9abb3dbf80119c1ac482c855c88a56e9.svg" alt="Math formula" title="(a + b)^2" class="math-inline" width="84" height="24" /> formula easily:</p>
 
-<div class="math-display page-width"><img src="/assets/math/e5493fc6a322f9b34f4c29a07c1d3c10.svg" width="300" height="204" decoding="async" alt="\begin{aligned}
-B &amp;= \sqrt{7 + 4\sqrt{3}} \\
-&amp;= \sqrt{2^2 + 2 \cdot 2\sqrt{3} + \sqrt{3}^2} \\
-&amp;= \sqrt{(2 + \sqrt{3})^2} \\
-&amp;= 2 + \sqrt{3}
-\end{aligned}" title="\begin{aligned}
-B &amp;= \sqrt{7 + 4\sqrt{3}} \\
-&amp;= \sqrt{2^2 + 2 \cdot 2\sqrt{3} + \sqrt{3}^2} \\
-&amp;= \sqrt{(2 + \sqrt{3})^2} \\
-&amp;= 2 + \sqrt{3}
-\end{aligned}" /></div>
+<div class="math-display page-width"><img src="/assets/math/e5493fc6a322f9b34f4c29a07c1d3c10.svg" alt="Math formula" title="\begin{aligned} B &amp;= \sqrt{7 + 4\sqrt{3}} \\ &amp;= \sqrt{2^2 + 2 \cdot 2\sqrt{3} + \sqrt{3}^2} \\ &amp;= \sqrt{(2 + \sqrt{3})^2} \\ &amp;= 2 + \sqrt{3} \end{aligned}" width="300" height="204" /></div>
 
 <p>Next, for simplifying A, we’ll focus on rewriting this:</p>
 
-<div class="math-display page-width"><img src="/assets/math/c129741932f66d107421afe9033cdbfd.svg" width="312" height="24" decoding="async" alt="23 - 2\sqrt{132} = (\sqrt{a} - \sqrt{b})^2" title="23 - 2\sqrt{132} = (\sqrt{a} - \sqrt{b})^2" /></div>
+<div class="math-display page-width"><img src="/assets/math/c129741932f66d107421afe9033cdbfd.svg" alt="Math formula" title="23 - 2\sqrt{132} = (\sqrt{a} - \sqrt{b})^2" width="312" height="24" /></div>
 
 <p>Same trick applies, so we’re dealing with this system:</p>
 
-<div class="math-display page-width"><img src="/assets/math/bd8c3d180bc92342b44a29e7c69aa567.svg" width="132" height="60" decoding="async" alt="\begin{cases}
-a + b = 23 \\
-ab = 132
-\end{cases}" title="\begin{cases}
-a + b = 23 \\
-ab = 132
-\end{cases}" /></div>
+<div class="math-display page-width"><img src="/assets/math/bd8c3d180bc92342b44a29e7c69aa567.svg" alt="Math formula" title="\begin{cases} a + b = 23 \\ ab = 132 \end{cases}" width="132" height="60" /></div>
 
 <p>Which will have solutions generated by this quadratic equation:</p>
 
-<div class="math-display page-width"><img src="/assets/math/447b663943cbf054e01a521084195511.svg" width="216" height="24" decoding="async" alt="x^2 - 23x + 132 = 0" title="x^2 - 23x + 132 = 0" /></div>
+<div class="math-display page-width"><img src="/assets/math/447b663943cbf054e01a521084195511.svg" alt="Math formula" title="x^2 - 23x + 132 = 0" width="216" height="24" /></div>
 
 <p>Solving it:</p>
 
-<div class="math-display page-width"><img src="/assets/math/50c672d8e8ed482b43d72b75279fcd3a.svg" width="408" height="156" decoding="async" alt="\begin{aligned}
-\Delta &amp;= 23^2 - 4 \cdot 132 = 529 - 528 = 1 \\
-x_1 &amp;= a = \frac{23 + 1}{2} = \frac{24}{2} = 12 \\
-x_2 &amp;= b = \frac{23 - 1}{2} = \frac{22}{2} = 11
-\end{aligned}" title="\begin{aligned}
-\Delta &amp;= 23^2 - 4 \cdot 132 = 529 - 528 = 1 \\
-x_1 &amp;= a = \frac{23 + 1}{2} = \frac{24}{2} = 12 \\
-x_2 &amp;= b = \frac{23 - 1}{2} = \frac{22}{2} = 11
-\end{aligned}" /></div>
+<div class="math-display page-width"><img src="/assets/math/50c672d8e8ed482b43d72b75279fcd3a.svg" alt="Math formula" title="\begin{aligned} \Delta &amp;= 23^2 - 4 \cdot 132 = 529 - 528 = 1 \\ x_1 &amp;= a = \frac{23 + 1}{2} = \frac{24}{2} = 12 \\ x_2 &amp;= b = \frac{23 - 1}{2} = \frac{22}{2} = 11 \end{aligned}" width="408" height="156" /></div>
 
 <p>Therefore our sum can be rewritten as (we remember that we have a minus sign though 🙂):</p>
 
-<div class="math-display page-width"><img src="/assets/math/e2a09a7968c0aae06d5455d95124ed82.svg" width="336" height="72" decoding="async" alt="\begin{aligned}
-23 - 2\sqrt{132} &amp;= (\sqrt{12} - \sqrt{11})^2 \\
-&amp;= (2\sqrt{3} - \sqrt{11})^2
-\end{aligned}" title="\begin{aligned}
-23 - 2\sqrt{132} &amp;= (\sqrt{12} - \sqrt{11})^2 \\
-&amp;= (2\sqrt{3} - \sqrt{11})^2
-\end{aligned}" /></div>
+<div class="math-display page-width"><img src="/assets/math/e2a09a7968c0aae06d5455d95124ed82.svg" alt="Math formula" title="\begin{aligned} 23 - 2\sqrt{132} &amp;= (\sqrt{12} - \sqrt{11})^2 \\ &amp;= (2\sqrt{3} - \sqrt{11})^2 \end{aligned}" width="336" height="72" /></div>
 
 <p>We can now rewrite our A:</p>
 
-<div class="math-display page-width"><img src="/assets/math/a23595e3eca88df2995a8738d4cc0095.svg" width="408" height="408" decoding="async" alt="\begin{aligned}
-A &amp;= \sqrt{4 + \sqrt{11} + \sqrt{23 - 2\sqrt{132}}} \\
-  &amp;= \sqrt{4 + \sqrt{11} + \sqrt{(2\sqrt{3} - \sqrt{11})^2}} \\
-  &amp;= \sqrt{4 + \sqrt{11} + 2\sqrt{3} - \sqrt{11}} \\
-  &amp;= \sqrt{4 + 2\sqrt{3}} \\
-  &amp;= \sqrt{1^2 + 2\sqrt{3} + \sqrt{3}^2} \\
-  &amp;= \sqrt{(1 + \sqrt{3})^2} \\
-  &amp;= 1 + \sqrt{3}
-\end{aligned}" title="\begin{aligned}
-A &amp;= \sqrt{4 + \sqrt{11} + \sqrt{23 - 2\sqrt{132}}} \\
-  &amp;= \sqrt{4 + \sqrt{11} + \sqrt{(2\sqrt{3} - \sqrt{11})^2}} \\
-  &amp;= \sqrt{4 + \sqrt{11} + 2\sqrt{3} - \sqrt{11}} \\
-  &amp;= \sqrt{4 + 2\sqrt{3}} \\
-  &amp;= \sqrt{1^2 + 2\sqrt{3} + \sqrt{3}^2} \\
-  &amp;= \sqrt{(1 + \sqrt{3})^2} \\
-  &amp;= 1 + \sqrt{3}
-\end{aligned}" /></div>
+<div class="math-display page-width"><img src="/assets/math/a23595e3eca88df2995a8738d4cc0095.svg" alt="Math formula" title="\begin{aligned} A &amp;= \sqrt{4 + \sqrt{11} + \sqrt{23 - 2\sqrt{132}}} \\ &amp;= \sqrt{4 + \sqrt{11} + \sqrt{(2\sqrt{3} - \sqrt{11})^2}} \\ &amp;= \sqrt{4 + \sqrt{11} + 2\sqrt{3} - \sqrt{11}} \\ &amp;= \sqrt{4 + 2\sqrt{3}} \\ &amp;= \sqrt{1^2 + 2\sqrt{3} + \sqrt{3}^2} \\ &amp;= \sqrt{(1 + \sqrt{3})^2} \\ &amp;= 1 + \sqrt{3} \end{aligned}" width="408" height="408" /></div>
 
 <p>And finally:</p>
 
-<div class="math-display page-width"><img src="/assets/math/8b0b1b0418f6091835dd113e7a0c9eb0.svg" width="432" height="180" decoding="async" alt="\begin{aligned}
-\frac{B^2 - 4A}{B - A} 
-&amp;= \frac{(2 + \sqrt{3})^2 - 4(1 + \sqrt{3})}{(2 + \sqrt{3}) - (1 + \sqrt{3})} \\
-&amp;= \frac{4 + 4\sqrt{3} + 3 - 4 - 4\sqrt{3}}{1} \\
-&amp;= 3 \in \mathbb{N}
-\end{aligned}" title="\begin{aligned}
-\frac{B^2 - 4A}{B - A} 
-&amp;= \frac{(2 + \sqrt{3})^2 - 4(1 + \sqrt{3})}{(2 + \sqrt{3}) - (1 + \sqrt{3})} \\
-&amp;= \frac{4 + 4\sqrt{3} + 3 - 4 - 4\sqrt{3}}{1} \\
-&amp;= 3 \in \mathbb{N}
-\end{aligned}" /></div>
+<div class="math-display page-width"><img src="/assets/math/8b0b1b0418f6091835dd113e7a0c9eb0.svg" alt="Math formula" title="\begin{aligned} \frac{B^2 - 4A}{B - A} &amp;= \frac{(2 + \sqrt{3})^2 - 4(1 + \sqrt{3})}{(2 + \sqrt{3}) - (1 + \sqrt{3})} \\ &amp;= \frac{4 + 4\sqrt{3} + 3 - 4 - 4\sqrt{3}}{1} \\ &amp;= 3 \in \mathbb{N} \end{aligned}" width="432" height="180" /></div>
 
   </div>
 
@@ -468,12 +362,12 @@ A &amp;= \sqrt{4 + \sqrt{11} + \sqrt{23 - 2\sqrt{132}}} \\
 
    <script
     defer
-    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202510211354"
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202510211439"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js/responsive-nav.min.js?202510211354"
+    src="/assets/js/responsive-nav.min.js?202510211439"
     type="text/javascript"
 ></script>
 
@@ -484,7 +378,7 @@ A &amp;= \sqrt{4 + \sqrt{11} + \sqrt{23 - 2\sqrt{132}}} \\
 ></script>
 <script
     defer
-    src="/assets/js/scripts.js?202510211354"
+    src="/assets/js/scripts.js?202510211439"
     type="text/javascript"
 ></script>
 

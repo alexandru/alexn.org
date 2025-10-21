@@ -124,7 +124,7 @@
       <meta itemprop="datePublished" content="2025-10-15T00:00:00+0000"/>
       
       <time itemprop="dateCreated" datetime="2025-10-15T00:00:00+0000">October 15, 2025</time>
-      | <span class="nobr"><span class="time">4</span> minutes</span>
+      | <span class="nobr"><span class="time">3</span> minutes</span>
       
       | <a href="/blog/2025/10/15/math-pill-1-sums/#isso-thread" class="nobr">Comments</a>
       
@@ -155,39 +155,29 @@
 
 <p>Here’s an interesting sum:</p>
 
-<div class="math-display page-width"><img src="/assets/math/d0d115fa9019e2a8d6efca8dbe858af4.svg" width="528" height="48" decoding="async" alt="S = \frac{1}{3 \cdot 7} + \frac{1}{7 \cdot 11} + \frac{1}{11 \cdot 15} + \cdots + \frac{1}{99 \cdot 103}" title="S = \frac{1}{3 \cdot 7} + \frac{1}{7 \cdot 11} + \frac{1}{11 \cdot 15} + \cdots + \frac{1}{99 \cdot 103}" /></div>
+<div class="math-display page-width"><img src="/assets/math/d0d115fa9019e2a8d6efca8dbe858af4.svg" alt="Math formula" title="S = \frac{1}{3 \cdot 7} + \frac{1}{7 \cdot 11} + \frac{1}{11 \cdot 15} + \cdots + \frac{1}{99 \cdot 103}" width="528" height="48" /></div>
 
 <p>In order to write it with the summation notation, we first need to observe that the difference between elements in this number sequence is 4, therefore <code>4k</code> is involved in the formula of the general term:</p>
 
-<div class="math-display page-width"><img src="/assets/math/88861847bee6be5feedff47e7b8bd333.svg" width="300" height="72" decoding="async" alt="S = \sum_{k=1}^{25} \frac{1}{(4k - 1)(4k + 3)}" title="S = \sum_{k=1}^{25} \frac{1}{(4k - 1)(4k + 3)}" /></div>
+<div class="math-display page-width"><img src="/assets/math/88861847bee6be5feedff47e7b8bd333.svg" alt="Math formula" title="S = \sum_{k=1}^{25} \frac{1}{(4k - 1)(4k + 3)}" width="300" height="72" /></div>
 
 <p>Such sums are actually <a href="https://en.wikipedia.org/wiki/Telescoping_series">telescopic</a>. And when you have fractions like these with a constant numerator, the general term can be split in 2 fractions, with the help of an equation, needing to find an <code>a</code> satisfying this:</p>
 
-<div class="math-display page-width"><img src="/assets/math/c60fee23a0860e71c2f7c87db072b117.svg" width="504" height="60" decoding="async" alt="\frac{1}{(4k-1)(4k+3)} = a \left( \frac{1}{4k-1} - \frac{1}{4k+3} \right)" title="\frac{1}{(4k-1)(4k+3)} = a \left( \frac{1}{4k-1} - \frac{1}{4k+3} \right)" /></div>
+<div class="math-display page-width"><img src="/assets/math/c60fee23a0860e71c2f7c87db072b117.svg" alt="Math formula" title="\frac{1}{(4k-1)(4k+3)} = a \left( \frac{1}{4k-1} - \frac{1}{4k+3} \right)" width="504" height="60" /></div>
 
-<div class="math-display page-width"><img src="/assets/math/4b4aa9c9180863b2597e7eb2c021a8b8.svg" width="540" height="48" decoding="async" alt="a \left( (4k+3) - (4k-1) \right) = a \cdot 4 = 1
-\implies a = \frac{1}{4}" title="a \left( (4k+3) - (4k-1) \right) = a \cdot 4 = 1
-\implies a = \frac{1}{4}" /></div>
+<div class="math-display page-width"><img src="/assets/math/4b4aa9c9180863b2597e7eb2c021a8b8.svg" alt="Math formula" title="a \left( (4k+3) - (4k-1) \right) = a \cdot 4 = 1 \implies a = \frac{1}{4}" width="540" height="48" /></div>
 
 <p>The sum becomes:</p>
 
-<div class="math-display page-width"><img src="/assets/math/423f75e09ad63cf8bb3398496d244c73.svg" width="372" height="252" decoding="async" alt="\begin{aligned}
-S &amp;= \sum_{k=1}^{25} \frac{1}{(4k-1)(4k+3)} \\
-&amp;= \sum_{k=1}^{25} \frac{1}{4} \left( \frac{1}{4k-1} - \frac{1}{4k+3} \right) \\
-&amp;= \frac{1}{4} \sum_{k=1}^{25} \left( \frac{1}{4k-1} - \frac{1}{4k+3} \right)
-\end{aligned}" title="\begin{aligned}
-S &amp;= \sum_{k=1}^{25} \frac{1}{(4k-1)(4k+3)} \\
-&amp;= \sum_{k=1}^{25} \frac{1}{4} \left( \frac{1}{4k-1} - \frac{1}{4k+3} \right) \\
-&amp;= \frac{1}{4} \sum_{k=1}^{25} \left( \frac{1}{4k-1} - \frac{1}{4k+3} \right)
-\end{aligned}" /></div>
+<div class="math-display page-width"><img src="/assets/math/423f75e09ad63cf8bb3398496d244c73.svg" alt="Math formula" title="\begin{aligned} S &amp;= \sum_{k=1}^{25} \frac{1}{(4k-1)(4k+3)} \\ &amp;= \sum_{k=1}^{25} \frac{1}{4} \left( \frac{1}{4k-1} - \frac{1}{4k+3} \right) \\ &amp;= \frac{1}{4} \sum_{k=1}^{25} \left( \frac{1}{4k-1} - \frac{1}{4k+3} \right) \end{aligned}" width="372" height="252" /></div>
 
 <p>Expanding it:</p>
 
-<div class="math-display page-width"><img src="/assets/math/e078a4b0fd73be713c58195065d764e9.svg" width="696" height="60" decoding="async" alt="S = \frac{1}{4} \left( \frac{1}{3} - \frac{1}{7} + \frac{1}{7} - \frac{1}{11} + \frac{1}{11} - \frac{1}{15} + \ldots + \frac{1}{99} - \frac{1}{103} \right)" title="S = \frac{1}{4} \left( \frac{1}{3} - \frac{1}{7} + \frac{1}{7} - \frac{1}{11} + \frac{1}{11} - \frac{1}{15} + \ldots + \frac{1}{99} - \frac{1}{103} \right)" /></div>
+<div class="math-display page-width"><img src="/assets/math/e078a4b0fd73be713c58195065d764e9.svg" alt="Math formula" title="S = \frac{1}{4} \left( \frac{1}{3} - \frac{1}{7} + \frac{1}{7} - \frac{1}{11} + \frac{1}{11} - \frac{1}{15} + \ldots + \frac{1}{99} - \frac{1}{103} \right)" width="696" height="60" /></div>
 
 <p>The terms get cancelled, the result being:</p>
 
-<div class="math-display page-width"><img src="/assets/math/46b55745990e775c5bbc79a7ce4fa493.svg" width="228" height="60" decoding="async" alt="S = \frac{1}{4} \left( \frac{1}{3} - \frac{1}{103} \right)" title="S = \frac{1}{4} \left( \frac{1}{3} - \frac{1}{103} \right)" /></div>
+<div class="math-display page-width"><img src="/assets/math/46b55745990e775c5bbc79a7ce4fa493.svg" alt="Math formula" title="S = \frac{1}{4} \left( \frac{1}{3} - \frac{1}{103} \right)" width="228" height="60" /></div>
       <h2 id="more-samples">
         
         
@@ -199,19 +189,19 @@ S &amp;= \sum_{k=1}^{25} \frac{1}{(4k-1)(4k+3)} \\
 
 <p>We can apply this solution to other similar sums as well, for example:</p>
 
-<div class="math-display page-width"><img src="/assets/math/b2b1fef4c0a190c32e8740c92cf106cb.svg" width="336" height="72" decoding="async" alt="\sum_{k=1}^{n} \frac{1}{(2k-1)(2k+1)(2k+3)}" title="\sum_{k=1}^{n} \frac{1}{(2k-1)(2k+1)(2k+3)}" /></div>
+<div class="math-display page-width"><img src="/assets/math/b2b1fef4c0a190c32e8740c92cf106cb.svg" alt="Math formula" title="\sum_{k=1}^{n} \frac{1}{(2k-1)(2k+1)(2k+3)}" width="336" height="72" /></div>
 
 <p>In which case the fraction decomposition can be found with this equation:</p>
 
-<div class="math-display page-width"><img src="/assets/math/26f1b414c8003ef8bdf71a20ca5eed4c.svg" width="828" height="60" decoding="async" alt="\frac{1}{(2k-1)(2k+1)(2k+3)} = a \left( \frac{1}{(2k-1)(2k+1)} - \frac{1}{(2k+1)(2k+3)} \right)" title="\frac{1}{(2k-1)(2k+1)(2k+3)} = a \left( \frac{1}{(2k-1)(2k+1)} - \frac{1}{(2k+1)(2k+3)} \right)" /></div>
+<div class="math-display page-width"><img src="/assets/math/26f1b414c8003ef8bdf71a20ca5eed4c.svg" alt="Math formula" title="\frac{1}{(2k-1)(2k+1)(2k+3)} = a \left( \frac{1}{(2k-1)(2k+1)} - \frac{1}{(2k+1)(2k+3)} \right)" width="828" height="60" /></div>
 
 <p>And it works with more denominator factors as well:</p>
 
-<div class="math-display page-width"><img src="/assets/math/a7f4d7f0861c5b0191ae88a9b74eb504.svg" width="312" height="72" decoding="async" alt="\sum_{k=1}^{n} \frac{1}{k(k+1)(k+2)(k+3)}" title="\sum_{k=1}^{n} \frac{1}{k(k+1)(k+2)(k+3)}" /></div>
+<div class="math-display page-width"><img src="/assets/math/a7f4d7f0861c5b0191ae88a9b74eb504.svg" alt="Math formula" title="\sum_{k=1}^{n} \frac{1}{k(k+1)(k+2)(k+3)}" width="312" height="72" /></div>
 
 <p>With the equation for finding the fraction decomposition being:</p>
 
-<div class="math-display page-width"><img src="/assets/math/dec5bd0a7c389faab13797fc2f888ac3.svg" width="840" height="60" decoding="async" alt="\frac{1}{k(k+1)(k+2)(k+3)} = a \left( \frac{1}{k(k+1)(k+2)} - \frac{1}{(k+1)(k+2)(k+3)} \right)" title="\frac{1}{k(k+1)(k+2)(k+3)} = a \left( \frac{1}{k(k+1)(k+2)} - \frac{1}{(k+1)(k+2)(k+3)} \right)" /></div>
+<div class="math-display page-width"><img src="/assets/math/dec5bd0a7c389faab13797fc2f888ac3.svg" alt="Math formula" title="\frac{1}{k(k+1)(k+2)(k+3)} = a \left( \frac{1}{k(k+1)(k+2)} - \frac{1}{(k+1)(k+2)(k+3)} \right)" width="840" height="60" /></div>
       <h2 id="non-constant-numerators">
         
         
@@ -223,65 +213,25 @@ S &amp;= \sum_{k=1}^{25} \frac{1}{(4k-1)(4k+3)} \\
 
 <p>For this one we no longer have a constant numerator and the above solution no longer works:</p>
 
-<div class="math-display page-width"><img src="/assets/math/b91aaa9a17667cfd9150b3743672d5f0.svg" width="300" height="72" decoding="async" alt="S = \sum_{k=1}^n \frac{7k^2 + k}{(7k-3)(7k+4)}" title="S = \sum_{k=1}^n \frac{7k^2 + k}{(7k-3)(7k+4)}" /></div>
+<div class="math-display page-width"><img src="/assets/math/b91aaa9a17667cfd9150b3743672d5f0.svg" alt="Math formula" title="S = \sum_{k=1}^n \frac{7k^2 + k}{(7k-3)(7k+4)}" width="300" height="72" /></div>
 
 <p>To do this fraction decomposition, we now need to find 2 constants, <code>a</code> and <code>b</code>, the equation now being:</p>
 
-<div class="math-display page-width"><img src="/assets/math/d28b9f3d47f26e6bacbe39aef0532a30.svg" width="492" height="60" decoding="async" alt="\frac{7k^2 + k}{(7k-3)(7k+4)} = a + \frac{b}{7k-3} - \frac{b}{7k+4}" title="\frac{7k^2 + k}{(7k-3)(7k+4)} = a + \frac{b}{7k-3} - \frac{b}{7k+4}" /></div>
+<div class="math-display page-width"><img src="/assets/math/d28b9f3d47f26e6bacbe39aef0532a30.svg" alt="Math formula" title="\frac{7k^2 + k}{(7k-3)(7k+4)} = a + \frac{b}{7k-3} - \frac{b}{7k+4}" width="492" height="60" /></div>
 
 <p>To solve it, after eliminating the denominator, the trick is to group by powers of <code>k</code>:</p>
 
-<div class="math-display page-width"><img src="/assets/math/70130427cb34c0820679be0cde0f04cd.svg" width="672" height="144" decoding="async" alt="\begin{aligned}
-7k^2 + k &amp;= a(7k-3)(7k+4) + b(7k+4) - b(7k-3) \\
-7k^2 + k &amp;= a(49k^2 + 28k - 21k - 12) + 7kb + 4b - 7kb + 3b \\
-0 &amp;= 49a k^2 + 7a k + 7b - 12a \\
-0 &amp;= k^2 (49a-7) + k(-1+7a) + (7b - 12a)
-\end{aligned}" title="\begin{aligned}
-7k^2 + k &amp;= a(7k-3)(7k+4) + b(7k+4) - b(7k-3) \\
-7k^2 + k &amp;= a(49k^2 + 28k - 21k - 12) + 7kb + 4b - 7kb + 3b \\
-0 &amp;= 49a k^2 + 7a k + 7b - 12a \\
-0 &amp;= k^2 (49a-7) + k(-1+7a) + (7b - 12a)
-\end{aligned}" /></div>
+<div class="math-display page-width"><img src="/assets/math/70130427cb34c0820679be0cde0f04cd.svg" alt="Math formula" title="\begin{aligned} 7k^2 + k &amp;= a(7k-3)(7k+4) + b(7k+4) - b(7k-3) \\ 7k^2 + k &amp;= a(49k^2 + 28k - 21k - 12) + 7kb + 4b - 7kb + 3b \\ 0 &amp;= 49a k^2 + 7a k + 7b - 12a \\ 0 &amp;= k^2 (49a-7) + k(-1+7a) + (7b - 12a) \end{aligned}" width="672" height="144" /></div>
 
 <p><code>k</code> being variable, it means that, in order for the above equation to have solutions, we need the constants to nullify <code>k</code>, so we have this system of equations:</p>
 
-<div class="math-display page-width"><img src="/assets/math/522b2fa2b19ac427a28f1cfc1488f1c4.svg" width="168" height="96" decoding="async" alt="\left\{
-\begin{array}{l}
-49a - 7 = 0 \\
-7a - 1 = 0 \\
-7b - 12a = 0
-\end{array}
-\right." title="\left\{
-\begin{array}{l}
-49a - 7 = 0 \\
-7a - 1 = 0 \\
-7b - 12a = 0
-\end{array}
-\right." /></div>
+<div class="math-display page-width"><img src="/assets/math/522b2fa2b19ac427a28f1cfc1488f1c4.svg" alt="Math formula" title="\left\{ \begin{array}{l} 49a - 7 = 0 \\ 7a - 1 = 0 \\ 7b - 12a = 0 \end{array} \right." width="168" height="96" /></div>
 
-<div class="math-display page-width"><img src="/assets/math/624182b4f56ade356f7650b299777f6f.svg" width="168" height="240" decoding="async" alt="\begin{aligned}
-a &amp;= \frac{1}{7} \\
-7b - \frac{12}{7} &amp;= 0 \\
-7b &amp;= \frac{12}{7} \\
-b &amp;= \frac{12}{49}
-\end{aligned}" title="\begin{aligned}
-a &amp;= \frac{1}{7} \\
-7b - \frac{12}{7} &amp;= 0 \\
-7b &amp;= \frac{12}{7} \\
-b &amp;= \frac{12}{49}
-\end{aligned}" /></div>
+<div class="math-display page-width"><img src="/assets/math/624182b4f56ade356f7650b299777f6f.svg" alt="Math formula" title="\begin{aligned} a &amp;= \frac{1}{7} \\ 7b - \frac{12}{7} &amp;= 0 \\ 7b &amp;= \frac{12}{7} \\ b &amp;= \frac{12}{49} \end{aligned}" width="168" height="240" /></div>
 
 <p>And now we can finally write the sum as:</p>
 
-<div class="math-display page-width"><img src="/assets/math/ef667caa96fbdbb2805111d5f88006d6.svg" width="480" height="228" decoding="async" alt="\begin{aligned}
-S &amp;= \sum_{k=1}^{n} \left( \frac{1}{7} + \frac{12}{49} \left( \frac{1}{7k-3} - \frac{1}{7k+4} \right) \right) \\
-&amp;= \frac{n}{7} + \frac{12}{49} \sum_{k=1}^{n} \left( \frac{1}{7k-3} - \frac{1}{7k+4} \right) \\
-&amp;= \frac{n}{7} + \frac{12}{49} \left( \frac{1}{4} - \frac{1}{7n+4} \right)
-\end{aligned}" title="\begin{aligned}
-S &amp;= \sum_{k=1}^{n} \left( \frac{1}{7} + \frac{12}{49} \left( \frac{1}{7k-3} - \frac{1}{7k+4} \right) \right) \\
-&amp;= \frac{n}{7} + \frac{12}{49} \sum_{k=1}^{n} \left( \frac{1}{7k-3} - \frac{1}{7k+4} \right) \\
-&amp;= \frac{n}{7} + \frac{12}{49} \left( \frac{1}{4} - \frac{1}{7n+4} \right)
-\end{aligned}" /></div>
+<div class="math-display page-width"><img src="/assets/math/ef667caa96fbdbb2805111d5f88006d6.svg" alt="Math formula" title="\begin{aligned} S &amp;= \sum_{k=1}^{n} \left( \frac{1}{7} + \frac{12}{49} \left( \frac{1}{7k-3} - \frac{1}{7k+4} \right) \right) \\ &amp;= \frac{n}{7} + \frac{12}{49} \sum_{k=1}^{n} \left( \frac{1}{7k-3} - \frac{1}{7k+4} \right) \\ &amp;= \frac{n}{7} + \frac{12}{49} \left( \frac{1}{4} - \frac{1}{7n+4} \right) \end{aligned}" width="480" height="228" /></div>
 
   </div>
 
@@ -401,12 +351,12 @@ S &amp;= \sum_{k=1}^{n} \left( \frac{1}{7} + \frac{12}{49} \left( \frac{1}{7k-3}
 
    <script
     defer
-    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202510211354"
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202510211439"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js/responsive-nav.min.js?202510211354"
+    src="/assets/js/responsive-nav.min.js?202510211439"
     type="text/javascript"
 ></script>
 
@@ -417,7 +367,7 @@ S &amp;= \sum_{k=1}^{n} \left( \frac{1}{7} + \frac{12}{49} \left( \frac{1}{7k-3}
 ></script>
 <script
     defer
-    src="/assets/js/scripts.js?202510211354"
+    src="/assets/js/scripts.js?202510211439"
     type="text/javascript"
 ></script>
 
