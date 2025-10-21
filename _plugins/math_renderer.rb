@@ -49,19 +49,27 @@ module Jekyll
       svg_path
     end
     
+    def escape_html(str)
+      str.gsub('&', '&amp;')
+         .gsub('<', '&lt;')
+         .gsub('>', '&gt;')
+         .gsub('"', '&quot;')
+         .gsub("'", '&#39;')
+    end
+    
     def process_content(content)
       # Process display math first (to avoid conflicts with inline math)
       content = content.gsub(DISPLAY_MATH_REGEX) do |match|
         formula = $1.strip
         svg_path = render_formula(formula, false)
-        %(<img src="#{svg_path}" alt="#{formula.gsub('"', '&quot;')}" class="math-display" />)
+        %(<img src="#{svg_path}" alt="#{escape_html(formula)}" class="math-display" />)
       end
       
       # Process inline math
       content = content.gsub(INLINE_MATH_REGEX) do |match|
         formula = $1.strip
         svg_path = render_formula(formula, true)
-        %(<img src="#{svg_path}" alt="#{formula.gsub('"', '&quot;')}" class="math-inline" />)
+        %(<img src="#{svg_path}" alt="#{escape_html(formula)}" class="math-inline" />)
       end
       
       content
