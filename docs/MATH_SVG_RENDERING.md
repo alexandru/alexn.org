@@ -1,15 +1,16 @@
 # Math Formula SVG Rendering
 
-This document describes the changes made to convert the website from client-side MathJax rendering to server-side SVG generation.
+This document describes the changes made to convert the website from client-side MathJax rendering to server-side SVG generation using MathJax 3.
 
 ## Changes Made
 
 ### 1. Added SVG Rendering Infrastructure
 
 **File: `scripts/tex2svg.js`**
-- Node.js script that uses `mathjax-node` to convert TeX formulas to SVG
+- Node.js script that uses `mathjax-full` (MathJax 3) to convert TeX formulas to SVG
 - Generates hash-based filenames (MD5 of formula)
 - Caches generated SVG files for reuse
+- Adds `<title>` elements to SVGs for accessibility
 
 **File: `_plugins/math_renderer.rb`**
 - Jekyll plugin that processes markdown content before rendering
@@ -26,7 +27,7 @@ This document describes the changes made to convert the website from client-side
 - MathJax script tag from `_includes/scripts.html`
 
 **Updated:**
-- `package.json` - Removed `mathjax` dependency, added `mathjax-node` and `mathjax-node-cli`
+- `package.json` - Uses `mathjax-full` (MathJax 3) instead of old `mathjax-node`
 
 ### 3. Updated Content
 
@@ -56,6 +57,8 @@ To:
 4. **Portability**: Math formulas work everywhere, including in RSS feeds, email clients, and environments where JavaScript is disabled.
 
 5. **SEO Friendly**: Search engines can index the alt text containing the mathematical formulas.
+
+6. **Modern MathJax**: Uses MathJax 3 (latest stable version) via `mathjax-full` package for server-side rendering.
 
 ## Technical Details
 
@@ -90,8 +93,8 @@ $$
 
 **SVG Content:**
 ```xml
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" ... >
-  <title id="MathJax-SVG-1-Title">x^2 + y^2 = z^2</title>
+<svg role="img" focusable="false" ...>
+  <title>x^2 + y^2 = z^2</title>
   ...
 </svg>
 ```
@@ -101,7 +104,7 @@ $$
 1. Jekyll processes markdown files
 2. For files with `mathjax: true` in frontmatter:
    - Plugin detects math formulas
-   - Calls `scripts/tex2svg.js` to generate SVG files
+   - Calls `scripts/tex2svg.js` to generate SVG files using MathJax 3
    - Replaces formulas with `<img>` tags
 3. SVG files are copied to `_site/assets/math/`
 
@@ -110,3 +113,8 @@ $$
 - SVG files in `assets/math/` should be committed to the repository
 - When formulas change, new SVG files will be generated automatically
 - Old unused SVG files can be manually cleaned up if desired
+
+## Dependencies
+
+- **mathjax-full**: MathJax 3 library for server-side TeX to SVG conversion
+- Provides comprehensive TeX/LaTeX support including AMS packages

@@ -1,19 +1,22 @@
 #!/usr/bin/env node
 
-const mjAPI = require("mathjax-node");
+const {mathjax} = require('mathjax-full/js/mathjax');
+const {TeX} = require('mathjax-full/js/input/tex');
+const {SVG} = require('mathjax-full/js/output/svg');
+const {liteAdaptor} = require('mathjax-full/js/adaptors/liteAdaptor');
+const {RegisterHTMLHandler} = require('mathjax-full/js/handlers/html');
+const {AllPackages} = require('mathjax-full/js/input/tex/AllPackages');
 const fs = require("fs");
 const crypto = require("crypto");
 const path = require("path");
 
-mjAPI.config({
-  MathJax: {
-    tex: {
-      packages: ['base', 'ams', 'noerrors', 'noundefined', 'newcommand']
-    }
-  }
-});
+// Setup MathJax
+const adaptor = liteAdaptor();
+RegisterHTMLHandler(adaptor);
 
-mjAPI.start();
+const tex = new TeX({packages: AllPackages});
+const svg = new SVG({fontCache: 'none'});
+const html = mathjax.document('', {InputJax: tex, OutputJax: svg});
 
 /**
  * Generate hash from formula
@@ -26,19 +29,24 @@ function hashFormula(formula) {
  * Convert TeX formula to SVG
  */
 async function tex2svg(formula, inline = false) {
-  return new Promise((resolve, reject) => {
-    mjAPI.typeset({
-      math: formula,
-      format: inline ? "inline-TeX" : "TeX",
-      svg: true,
-    }, (data) => {
-      if (data.errors) {
-        reject(new Error(data.errors.join(", ")));
-      } else {
-        resolve(data.svg);
-      }
-    });
-  });
+  try {
+    // Convert formula to MathJax node
+    const node = html.convert(formula, {display: !inline});
+    
+    // Extract the SVG element from the container
+    const svgElement = adaptor.firstChild(node);
+    let svgString = adaptor.outerHTML(svgElement);
+    
+    // Add title element for accessibility
+    svgString = svgString.replace(
+      /<svg([^>]*)>/,
+      `<svg$1><title>${formula.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</title>`
+    );
+    
+    return svgString;
+  } catch (error) {
+    throw new Error(`Failed to render formula: ${error.message}`);
+  }
 }
 
 /**
