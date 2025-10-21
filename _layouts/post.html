@@ -69,9 +69,11 @@ has_subscribe: true
 
   <div id="content" itemprop="articleBody">
     {% if page.mathjax -%}
-    <p class="warn-bubble">
-<strong>WARN:</strong> This article is using <a href="https://github.com/mathjax/MathJax">Mathjax</a> to render math expressions. In case you're using a feed reader, you might want to load this article in the browser with JavaScript enabled.
-    </p>
+    <noscript>
+      <p class="warn-bubble">
+<strong>WARN:</strong> This article is using <a href="https://github.com/mathjax/MathJax">Mathjax</a> to render math expressions. JavaScript is required to view the mathematical formulas properly.
+      </p>
+    </noscript>
     {% endif -%}
     {{ content }}
   </div>

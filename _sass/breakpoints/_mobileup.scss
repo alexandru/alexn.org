@@ -975,7 +975,7 @@ img.right {
     visibility: hidden;
   }
 
-  &.mathjax-ready .math {
+  body.mathjax-ready & .math {
     visibility: visible;
   }
 

@@ -27,6 +27,39 @@ layout: null
       return x;
     }
 
+    // Wrap math expressions in div.math before MathJax processes them
+    function wrapMathExpressions() {
+      var contentDiv = document.getElementById('content');
+      if (!contentDiv) return;
+      
+      // Process all child nodes of content
+      var nodesToProcess = [];
+      for (var i = 0; i < contentDiv.childNodes.length; i++) {
+        nodesToProcess.push(contentDiv.childNodes[i]);
+      }
+      
+      nodesToProcess.forEach(function(node) {
+        // Check if this is a text node containing math delimiters
+        if (node.nodeType === Node.TEXT_NODE) {
+          var text = node.textContent.trim();
+          
+          // Check if this text node contains display math delimiters
+          if (text.match(/^\\\[[\s\S]*\\\]$/m) || text.match(/^\$\$[\s\S]*\$\$$/m)) {
+            // Create a wrapper div
+            var wrapper = document.createElement('div');
+            wrapper.className = 'math';
+            wrapper.textContent = node.textContent;
+            
+            // Replace the text node with the wrapper
+            node.parentNode.replaceChild(wrapper, node);
+          }
+        }
+      });
+    }
+    
+    // Wrap math expressions before loading MathJax
+    wrapMathExpressions();
+
     // Convert existing math elements to new format
     document.querySelectorAll("script[type='math/tex']").forEach(function (el) {
       el.outerHTML = "<div class='formula-code'><span class='math inline'>" + scriptCData(el.textContent) + "</span></div>";
