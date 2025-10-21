@@ -1,0 +1,51 @@
+name: check
+on:
+  push:
+  pull_request:
+  schedule:
+  - cron: 45 4 * * 3
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby:
+        - '2.0'
+        - '2.1'
+        - '2.2'
+        - '2.3'
+        - '2.4'
+        - '2.5'
+        - '2.6'
+        - '2.7'
+        - '3.0'
+        - '3.1'
+        - jruby-9.1
+        - jruby-9.2
+        - jruby-9.3
+        include:
+        - ruby: ruby-head
+          allow-failure: allow-failure
+      fail-fast: false
+    continue-on-error: ${{ matrix.allow-failure && true || false }}
+    timeout-minutes: 5
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: "${{ matrix.ruby }}"
+        bundler-cache: true
+    - run: bundle exec rspec --format documentation
+  legacy:
+    runs-on: ubuntu-latest
+    container: ${{ matrix.container }}
+    strategy:
+      matrix:
+        container:
+        - rspec/ci:1.8.7
+        - rspec/ci:1.9.3
+      fail-fast: false
+    steps:
+    - uses: actions/checkout@v2
+    - run: bundle install
+    - run: bundle exec rspec --format documentation
