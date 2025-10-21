@@ -70,7 +70,7 @@ module Jekyll
         formula = $1.strip
         alt_text = escape_html(formula)
         svg_path = render_formula(formula, false)
-        %(<figure class="math-display"><img src="#{svg_path}" alt="#{alt_text}" title="#{alt_text}" /></figure>)
+        %(<div class="math-display page-width"><img src="#{svg_path}" alt="#{alt_text}" title="#{alt_text}" /></div>)
       end
       
       # Process inline math

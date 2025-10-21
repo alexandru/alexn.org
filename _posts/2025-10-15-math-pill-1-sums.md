@@ -8,10 +8,6 @@ tags:
 
 My son started high-school, so I'm helping him with mathematics. It's been a long time, and I have to re-learn. But it's fun, and I'm hoping to start a [series of articles](/blog/tag/math/).
 
-<p class="info-bubble" markdown="1">
-**Note:** Math formulas in this article are rendered as SVG images for better portability and accessibility.
-</p>
-
 Here's an interesting sum:
 
 $$

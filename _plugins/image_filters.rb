@@ -47,13 +47,8 @@ module Jekyll
           height = size[1]
 
           if path.include?("/assets/math") && path.end_with?(".svg")            
-            if suffix.include?("math-inline")
-              width = width * 8
-              height = height * 8
-            else
-              width = width * 12
-              height = height * 12
-            end
+            width = width * 12
+            height = height * 12
           end
 
           "<img#{prefix}src=#{img0} width=\"#{width}\" height=\"#{height}\"#{decoding}#{suffix}>"

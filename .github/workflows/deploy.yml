@@ -11,6 +11,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Cache math SVGs
+        uses: actions/cache@v4
+        with:
+          path: .jekyll-cache/math-svg
+          key: math-svg-${{ runner.os }}-${{ github.ref_name }}
+          restore-keys: |
+            math-svg-${{ runner.os }}-
+            
       - name: Checkout
         uses: actions/checkout@v4
         with:

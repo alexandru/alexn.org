@@ -38,11 +38,10 @@ div.formula-code {
 }
 
 // Mobile-friendly math expressions
-.post figure.math-display {
+.post .math-display {
   overflow-x: auto;
   overflow-y: hidden;
   max-width: 100%;
-  margin: 1em 0;
   
   // Enable smooth scrolling on mobile
   -webkit-overflow-scrolling: touch;
@@ -64,7 +63,11 @@ div.formula-code {
     
     img {
       transform: scale(0.9);
-      transform-origin: center center;
+      transform-origin: left center;
     }
   }
+}
+
+.math-inline {
+  vertical-align: middle;
 }

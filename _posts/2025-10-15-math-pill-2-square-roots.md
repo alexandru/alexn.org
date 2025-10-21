@@ -14,19 +14,17 @@ Simplifying radicals is strangely satisfying.
 I'm helping my son with mathematics, and I have to re-learn it, but this is fun. Hence, I'm hoping to start a [series of articles](/blog/tag/math/).
 </p>
 
-<p class="info-bubble" markdown="1">
-**Note:** Math formulas in this article are rendered as SVG images for better portability and accessibility.
-</p>
-
 ## Problem statement
 
 Given:
 
 $$
+\begin{cases}
 \begin{aligned}
 A &= \sqrt{4 + \sqrt{11} + \sqrt{23 - 2\sqrt{132}}} \\
 B &= \sqrt{\sqrt{97 + 56\sqrt{3}}}
 \end{aligned}
+\end{cases}
 $$
 
 Show that:
