@@ -38,7 +38,7 @@ div.formula-code {
 }
 
 // Mobile-friendly math expressions
-mjx-container {
+.post .math-display {
   overflow-x: auto;
   overflow-y: hidden;
   max-width: 100%;
@@ -46,6 +46,10 @@ mjx-container {
   // Enable smooth scrolling on mobile
   -webkit-overflow-scrolling: touch;
   
+  img {
+    max-width: unset;
+  }
+
   // Add subtle scroll hint on small screens
   @media (max-width: 768px) {
     &[display="block"] {
@@ -56,20 +60,14 @@ mjx-container {
         rgba(0, 0, 0, 0.05) 100%);
       padding-right: 10px;
     }
+    
+    img {
+      transform: scale(0.9);
+      transform-origin: left center;
+    }
   }
 }
 
-// Make display math scrollable on small screens
-mjx-math[display="block"] {
-  overflow-x: auto;
-  overflow-y: hidden;
-  max-width: 100%;
-  display: block !important;
-}
-
-// Reduce font size slightly on mobile for better fit
-@media (max-width: 600px) {
-  mjx-container {
-    font-size: 0.9em;
-  }
+.math-inline {
+  vertical-align: middle;
 }

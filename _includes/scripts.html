@@ -8,11 +8,7 @@
     src="{% link /assets/js/responsive-nav.min.js %}?{{ 'now' | date: '%Y%m%d%H%M' }}"
     type="text/javascript"
 ></script>
-{% if page.mathjax -%}
-<script
-    src="{% link assets/js/load-mathjax.js %}?{{ 'now' | date: '%Y%m%d%H%M' }}"
-></script>
-{% endif %}
+
 <script 
     defer 
     type="module" 
