@@ -7,6 +7,15 @@ module MyImages
   def self.size_of(path, log=false)
     local_path = "." + path.gsub(/^#{Regexp.quote(@@site['baseurl'])}|[?][^$]+$/, "")
     local_path = local_path.sub("/wiki/assets/", "/_wiki/assets/")
+    
+    # Special handling for math SVG files (they're in .jekyll-cache during build)
+    if local_path.start_with?("./assets/math/")
+      math_cache_path = local_path.sub("./assets/math/", "./.jekyll-cache/math-svg/")
+      if File.exist?(math_cache_path)
+        local_path = math_cache_path
+      end
+    end
+    
     unless @@image_cache.include? local_path
       unless File.exist? local_path
         throw ArgumentError.new("Cannot find image at path: '#{local_path}'")

@@ -2,6 +2,7 @@ require 'digest'
 require 'fileutils'
 require 'json'
 require 'open3'
+require 'tmpdir'
 
 module Jekyll
   class MathRenderer
@@ -10,8 +11,10 @@ module Jekyll
     
     def initialize(site)
       @site = site
-      @math_dir = File.join(site.source, 'assets', 'math')
+      # Use Jekyll's cache directory for temporary math SVG files
+      @math_dir = File.join(site.source, '.jekyll-cache', 'math-svg')
       @cache = {}
+      @generated_files = {}
       FileUtils.mkdir_p(@math_dir)
     end
     
@@ -42,6 +45,9 @@ module Jekyll
           return formula # Return original formula on error
         end
       end
+      
+      # Track generated file for later addition to static_files
+      @generated_files[filename] = filepath
       
       # Cache and return the result
       svg_path = "/assets/math/#{filename}"
@@ -74,6 +80,44 @@ module Jekyll
       
       content
     end
+    
+    def add_static_files
+      @generated_files.each do |filename, filepath|
+        file = MathStaticFile.new(
+          @site,
+          @math_dir,
+          '',
+          filename
+        )
+        @site.static_files << file
+      end
+    end
+  end
+  
+  # Custom StaticFile class for math SVG files
+  class MathStaticFile < Jekyll::StaticFile
+    def initialize(site, base, dir, name)
+      super(site, base, dir, name)
+      @relative_path = File.join('/assets/math', name)
+    end
+    
+    def destination(dest)
+      File.join(dest, 'assets', 'math', @name)
+    end
+    
+    def destination_rel_dir
+      File.dirname(@relative_path)
+    end
+    
+    def path
+      # Override path to return the actual file location for size_of to work
+      File.join(@base, @name)
+    end
+  end
+  
+  # Hook to initialize the renderer early
+  Jekyll::Hooks.register :site, :post_read do |site|
+    site.config['math_renderer'] = MathRenderer.new(site)
   end
   
   # Hook to process pages and posts
@@ -81,8 +125,16 @@ module Jekyll
     # Only process documents that have mathjax enabled
     if doc.data['mathjax']
       site = doc.site
-      renderer = site.config['math_renderer'] ||= MathRenderer.new(site)
+      renderer = site.config['math_renderer']
       doc.content = renderer.process_content(doc.content)
+    end
+  end
+  
+  # Hook to add generated SVG files to static_files after content is processed
+  Jekyll::Hooks.register :site, :post_render do |site|
+    if site.config['math_renderer']
+      renderer = site.config['math_renderer']
+      renderer.add_static_files
     end
   end
 end
