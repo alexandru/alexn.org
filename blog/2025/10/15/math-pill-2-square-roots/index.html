@@ -168,14 +168,16 @@ I’m helping my son with mathematics, and I have to re-learn it, but this is fu
       </h2>
     
 
-<p>Given
-\(\begin{align*}
+<p>Given:</p>
+
+\[\begin{aligned}
 A &amp;= \sqrt{4 + \sqrt{11} + \sqrt{23 - 2\sqrt{132}}} \\
 B &amp;= \sqrt{\sqrt{97 + 56\sqrt{3}}}
-\end{align*}\)</p>
+\end{aligned}\]
 
-<p>Show that:
-\(\frac{B^2 - 4A}{B - A} \in \mathbb{N}.\)</p>
+<p>Show that:</p>
+
+\[\frac{B^2 - 4A}{B - A} \in \mathbb{N}.\]
       <h2 id="solution">
         
         
@@ -206,45 +208,45 @@ ab = 28^2 \cdot 3
 
 <p>The solutions may or may not jump at you, but there’s a little <a href="https://en.wikipedia.org/wiki/Vieta%27s_formulas">Vieta’s formula</a> that can help — we can find <code>a</code> and <code>b</code> as being the solutions to this quadratic equation:</p>
 
-\[\begin{align*}
+\[\begin{aligned}
 (x - a)(x + b) &amp;= 0 \iff \\
 x^2 - (a + b)x + ab &amp;= 0 \iff \\
 x^2 - 97 x + 2352 &amp;= 0
-\end{align*}\]
+\end{aligned}\]
 
 <p>Solving that:</p>
 
-\[\begin{align*}
-\Delta &amp;= 97^2 - 4*2352 \\
+\[\begin{aligned}
+\Delta &amp;= 97^2 - 4 \cdot 2352 \\
 &amp;= 9409 - 9408 \\
 &amp;= 1 \\
 x_1 &amp;= a = \frac{97 + \sqrt{1}}{2} = 49 \\
 x_2 &amp;= b = \frac{97 - \sqrt{1}}{2} = 48
-\end{align*}\]
+\end{aligned}\]
 
 <p>Threfore:</p>
 
-\[\begin{align*}
+\[\begin{aligned}
 97 + 56\sqrt{3} &amp;= (\sqrt{49} + \sqrt{48})^2 \\
 &amp;= (7 + 4\sqrt{3})^2
-\end{align*}\]
+\end{aligned}\]
 
 <p>Going back to our original value, we rewrite it:</p>
 
-\[\begin{align*}
+\[\begin{aligned}
 B &amp;= \sqrt{\sqrt{97 + 56\sqrt{3}}} \\
 &amp;= \sqrt{\sqrt{(7 + 4\sqrt{3})^2}} \\
 &amp;= \sqrt{7 + 4\sqrt{3}}
-\end{align*}\]
+\end{aligned}\]
 
 <p>We still have a square of a sum, but this time we can spot the $(a + b)^2$ formula easily:</p>
 
-\[\begin{align*}
+\[\begin{aligned}
 B &amp;= \sqrt{7 + 4\sqrt{3}} \\
-&amp;= \sqrt{2^2 + 2 * 2\sqrt{3} + \sqrt{3}^2} \\
+&amp;= \sqrt{2^2 + 2 \cdot 2\sqrt{3} + \sqrt{3}^2} \\
 &amp;= \sqrt{(2 + \sqrt{3})^2} \\
 &amp;= 2 + \sqrt{3}
-\end{align*}\]
+\end{aligned}\]
 
 <p>Next, for simplifying A, we’ll focus on rewriting this:</p>
 
@@ -263,22 +265,22 @@ ab = 132
 
 <p>Solving it:</p>
 
-\[\begin{align*}
-\Delta &amp;= 23^2 - 4 * 132 = 529 - 528 = 1 \\
+\[\begin{aligned}
+\Delta &amp;= 23^2 - 4 \cdot 132 = 529 - 528 = 1 \\
 x_1 &amp;= a = \frac{23 + 1}{2} = \frac{24}{2} = 12 \\
 x_2 &amp;= b = \frac{23 - 1}{2} = \frac{22}{2} = 11
-\end{align*}\]
+\end{aligned}\]
 
 <p>Therefore our sum can be rewritten as (we remember that we have a minus sign though 🙂):</p>
 
-\[\begin{align*}
+\[\begin{aligned}
 23 - 2\sqrt{132} &amp;= (\sqrt{12} - \sqrt{11})^2 \\
 &amp;= (2\sqrt{3} - \sqrt{11})^2
-\end{align*}\]
+\end{aligned}\]
 
 <p>We can now rewrite our A:</p>
 
-\[\begin{align*}
+\[\begin{aligned}
 A &amp;= \sqrt{4 + \sqrt{11} + \sqrt{23 - 2\sqrt{132}}} \\
   &amp;= \sqrt{4 + \sqrt{11} + \sqrt{(2\sqrt{3} - \sqrt{11})^2}} \\
   &amp;= \sqrt{4 + \sqrt{11} + 2\sqrt{3} - \sqrt{11}} \\
@@ -286,16 +288,16 @@ A &amp;= \sqrt{4 + \sqrt{11} + \sqrt{23 - 2\sqrt{132}}} \\
   &amp;= \sqrt{1^2 + 2\sqrt{3} + \sqrt{3}^2} \\
   &amp;= \sqrt{(1 + \sqrt{3})^2} \\
   &amp;= 1 + \sqrt{3}
-\end{align*}\]
+\end{aligned}\]
 
 <p>And finally:</p>
 
-\[\begin{align*}
+\[\begin{aligned}
 \frac{B^2 - 4A}{B - A} 
 &amp;= \frac{(2 + \sqrt{3})^2 - 4(1 + \sqrt{3})}{(2 + \sqrt{3}) - (1 + \sqrt{3})} \\
 &amp;= \frac{4 + 4\sqrt{3} + 3 - 4 - 4\sqrt{3}}{1} \\
 &amp;= 3 \in \mathbb{N}
-\end{align*}\]
+\end{aligned}\]
 
   </div>
 
@@ -415,21 +417,21 @@ A &amp;= \sqrt{4 + \sqrt{11} + \sqrt{23 - 2\sqrt{132}}} \\
 
    <script
     defer
-    src="/assets/js/modernizr.custom.15390.js?202510190647"
+    src="/assets/js/modernizr.custom.15390.js?202510210445"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202510190647"
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202510210445"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js/responsive-nav.min.js?202510190647"
+    src="/assets/js/responsive-nav.min.js?202510210445"
     type="text/javascript"
 ></script>
 <script
-    src="/assets/js/load-mathjax.js?202510190647"
+    src="/assets/js/load-mathjax.js?202510210445"
 ></script>
 
 <script 
@@ -439,7 +441,7 @@ A &amp;= \sqrt{4 + \sqrt{11} + \sqrt{23 - 2\sqrt{132}}} \\
 ></script>
 <script
     defer
-    src="/assets/js/scripts.js?202510190647"
+    src="/assets/js/scripts.js?202510210445"
     type="text/javascript"
 ></script>
 

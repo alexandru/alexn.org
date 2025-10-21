@@ -174,11 +174,11 @@
 
 <p>The sum becomes:</p>
 
-\[\begin{align*}
+\[\begin{aligned}
 S &amp;= \sum_{k=1}^{25} \frac{1}{(4k-1)(4k+3)} \\
 &amp;= \sum_{k=1}^{25} \frac{1}{4} \left( \frac{1}{4k-1} - \frac{1}{4k+3} \right) \\
 &amp;= \frac{1}{4} \sum_{k=1}^{25} \left( \frac{1}{4k-1} - \frac{1}{4k+3} \right)
-\end{align*}\]
+\end{aligned}\]
 
 <p>Expanding it:</p>
 
@@ -230,12 +230,12 @@ S &amp;= \sum_{k=1}^{25} \frac{1}{(4k-1)(4k+3)} \\
 
 <p>To solve it, after eliminating the denominator, the trick is to group by powers of <code>k</code>:</p>
 
-\[\begin{align*}
+\[\begin{aligned}
 7k^2 + k &amp;= a(7k-3)(7k+4) + b(7k+4) - b(7k-3) \\
 7k^2 + k &amp;= a(49k^2 + 28k - 21k - 12) + 7kb + 4b - 7kb + 3b \\
 0 &amp;= 49a k^2 + 7a k + 7b - 12a \\
 0 &amp;= k^2 (49a-7) + k(-1+7a) + (7b - 12a)
-\end{align*}\]
+\end{aligned}\]
 
 <p><code>k</code> being variable, it means that, in order for the above equation to have solutions, we need the constants to nullify <code>k</code>, so we have this system of equations:</p>
 
@@ -247,20 +247,20 @@ S &amp;= \sum_{k=1}^{25} \frac{1}{(4k-1)(4k+3)} \\
 \end{array}
 \right.\]
 
-\[\begin{align*}
+\[\begin{aligned}
 a &amp;= \frac{1}{7} \\
 7b - \frac{12}{7} &amp;= 0 \\
 7b &amp;= \frac{12}{7} \\
 b &amp;= \frac{12}{49}
-\end{align*}\]
+\end{aligned}\]
 
 <p>And now we can finally write the sum as:</p>
 
-\[\begin{align*}
+\[\begin{aligned}
 S &amp;= \sum_{k=1}^{n} \left( \frac{1}{7} + \frac{12}{49} \left( \frac{1}{7k-3} - \frac{1}{7k+4} \right) \right) \\
 &amp;= \frac{n}{7} + \frac{12}{49} \sum_{k=1}^{n} \left( \frac{1}{7k-3} - \frac{1}{7k+4} \right) \\
 &amp;= \frac{n}{7} + \frac{12}{49} \left( \frac{1}{4} - \frac{1}{7n+4} \right)
-\end{align*}\]
+\end{aligned}\]
 
   </div>
 
@@ -380,21 +380,21 @@ S &amp;= \sum_{k=1}^{n} \left( \frac{1}{7} + \frac{12}{49} \left( \frac{1}{7k-3}
 
    <script
     defer
-    src="/assets/js/modernizr.custom.15390.js?202510190647"
+    src="/assets/js/modernizr.custom.15390.js?202510210445"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202510190647"
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202510210445"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js/responsive-nav.min.js?202510190647"
+    src="/assets/js/responsive-nav.min.js?202510210445"
     type="text/javascript"
 ></script>
 <script
-    src="/assets/js/load-mathjax.js?202510190647"
+    src="/assets/js/load-mathjax.js?202510210445"
 ></script>
 
 <script 
@@ -404,7 +404,7 @@ S &amp;= \sum_{k=1}^{n} \left( \frac{1}{7} + \frac{12}{49} \left( \frac{1}{7k-3}
 ></script>
 <script
     defer
-    src="/assets/js/scripts.js?202510190647"
+    src="/assets/js/scripts.js?202510210445"
     type="text/javascript"
 ></script>
 
