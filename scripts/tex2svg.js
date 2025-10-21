@@ -37,10 +37,24 @@ async function tex2svg(formula, inline = false) {
     const svgElement = adaptor.firstChild(node);
     let svgString = adaptor.outerHTML(svgElement);
     
-    // Add title element for accessibility
+    // Add title element for accessibility, escaping all XML special characters
+    function escapeXml(str) {
+      // Remove newlines, carriage returns, and tabs
+      str = str.replace(/[\n\r\t]+/g, ' ');
+      // Escape XML special characters
+      return str.replace(/[&<>'"]/g, function (c) {
+        switch (c) {
+          case '&': return '&amp;';
+          case '<': return '&lt;';
+          case '>': return '&gt;';
+          case '"': return '&quot;';
+          case "'": return '&apos;';
+        }
+      });
+    }
     svgString = svgString.replace(
       /<svg([^>]*)>/,
-      `<svg$1><title>${formula.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</title>`
+      `<svg$1><title>${escapeXml(formula)}</title>`
     );
     
     return svgString;
@@ -63,16 +77,29 @@ async function processFormula(formula, outputDir, inline = false) {
   }
   
   // Generate SVG
-  const svg = await tex2svg(formula, inline);
-  
-  // Ensure output directory exists
-  if (!fs.existsSync(outputDir)) {
-    fs.mkdirSync(outputDir, { recursive: true });
+  let svg;
+  try {
+    svg = await tex2svg(formula, inline);
+  } catch (err) {
+    throw new Error(`SVG generation failed: ${err.message}`);
   }
-  
+
+  // Ensure output directory exists
+  try {
+    if (!fs.existsSync(outputDir)) {
+      fs.mkdirSync(outputDir, { recursive: true });
+    }
+  } catch (err) {
+    throw new Error(`Failed to create output directory: ${err.message}`);
+  }
+
   // Save to file
-  fs.writeFileSync(filepath, svg);
-  
+  try {
+    fs.writeFileSync(filepath, svg);
+  } catch (err) {
+    throw new Error(`Failed to write SVG file: ${err.message}`);
+  }
+
   return filename;
 }
 
