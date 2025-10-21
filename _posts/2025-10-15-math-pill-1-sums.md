@@ -38,11 +38,11 @@ $$
 The sum becomes:
 
 $$
-\begin{align*}
+\begin{aligned}
 S &= \sum_{k=1}^{25} \frac{1}{(4k-1)(4k+3)} \\
 &= \sum_{k=1}^{25} \frac{1}{4} \left( \frac{1}{4k-1} - \frac{1}{4k+3} \right) \\
 &= \frac{1}{4} \sum_{k=1}^{25} \left( \frac{1}{4k-1} - \frac{1}{4k+3} \right)
-\end{align*}
+\end{aligned}
 $$
 
 Expanding it:
@@ -100,12 +100,12 @@ $$
 To solve it, after eliminating the denominator, the trick is to group by powers of `k`:
 
 $$
-\begin{align*}
+\begin{aligned}
 7k^2 + k &= a(7k-3)(7k+4) + b(7k+4) - b(7k-3) \\
 7k^2 + k &= a(49k^2 + 28k - 21k - 12) + 7kb + 4b - 7kb + 3b \\
 0 &= 49a k^2 + 7a k + 7b - 12a \\
 0 &= k^2 (49a-7) + k(-1+7a) + (7b - 12a)
-\end{align*}
+\end{aligned}
 $$
 
 `k` being variable, it means that, in order for the above equation to have solutions, we need the constants to nullify `k`, so we have this system of equations:
@@ -121,20 +121,20 @@ $$
 $$
 
 $$
-\begin{align*}
+\begin{aligned}
 a &= \frac{1}{7} \\
 7b - \frac{12}{7} &= 0 \\
 7b &= \frac{12}{7} \\
 b &= \frac{12}{49}
-\end{align*}
+\end{aligned}
 $$
 
 And now we can finally write the sum as:
 
 $$
-\begin{align*}
+\begin{aligned}
 S &= \sum_{k=1}^{n} \left( \frac{1}{7} + \frac{12}{49} \left( \frac{1}{7k-3} - \frac{1}{7k+4} \right) \right) \\
 &= \frac{n}{7} + \frac{12}{49} \sum_{k=1}^{n} \left( \frac{1}{7k-3} - \frac{1}{7k+4} \right) \\
 &= \frac{n}{7} + \frac{12}{49} \left( \frac{1}{4} - \frac{1}{7n+4} \right)
-\end{align*}
+\end{aligned}
 $$

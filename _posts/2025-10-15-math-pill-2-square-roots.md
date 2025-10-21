@@ -20,15 +20,17 @@ I'm helping my son with mathematics, and I have to re-learn it, but this is fun.
 
 ## Problem statement
 
-Given
+Given:
+
 $$
-\begin{align*}
+\begin{aligned}
 A &= \sqrt{4 + \sqrt{11} + \sqrt{23 - 2\sqrt{132}}} \\
 B &= \sqrt{\sqrt{97 + 56\sqrt{3}}}
-\end{align*}
+\end{aligned}
 $$
 
 Show that:
+
 $$
 \frac{B^2 - 4A}{B - A} \in \mathbb{N}.
 $$
@@ -65,53 +67,53 @@ $$
 The solutions may or may not jump at you, but there's a little [Vieta's formula](https://en.wikipedia.org/wiki/Vieta%27s_formulas) that can help — we can find `a` and `b` as being the solutions to this quadratic equation:
 
 $$
-\begin{align*}
+\begin{aligned}
 (x - a)(x + b) &= 0 \iff \\
 x^2 - (a + b)x + ab &= 0 \iff \\
 x^2 - 97 x + 2352 &= 0
-\end{align*}
+\end{aligned}
 $$
 
 Solving that:
 
 $$
-\begin{align*}
-\Delta &= 97^2 - 4*2352 \\
+\begin{aligned}
+\Delta &= 97^2 - 4 \cdot 2352 \\
 &= 9409 - 9408 \\
 &= 1 \\
 x_1 &= a = \frac{97 + \sqrt{1}}{2} = 49 \\
 x_2 &= b = \frac{97 - \sqrt{1}}{2} = 48
-\end{align*}
+\end{aligned}
 $$
 
 Threfore:
 
 $$
-\begin{align*}
+\begin{aligned}
 97 + 56\sqrt{3} &= (\sqrt{49} + \sqrt{48})^2 \\
 &= (7 + 4\sqrt{3})^2
-\end{align*}
+\end{aligned}
 $$
 
 Going back to our original value, we rewrite it:
 
 $$
-\begin{align*}
+\begin{aligned}
 B &= \sqrt{\sqrt{97 + 56\sqrt{3}}} \\
 &= \sqrt{\sqrt{(7 + 4\sqrt{3})^2}} \\
 &= \sqrt{7 + 4\sqrt{3}}
-\end{align*}
+\end{aligned}
 $$
 
 We still have a square of a sum, but this time we can spot the $(a + b)^2$ formula easily:
 
 $$
-\begin{align*}
+\begin{aligned}
 B &= \sqrt{7 + 4\sqrt{3}} \\
-&= \sqrt{2^2 + 2 * 2\sqrt{3} + \sqrt{3}^2} \\
+&= \sqrt{2^2 + 2 \cdot 2\sqrt{3} + \sqrt{3}^2} \\
 &= \sqrt{(2 + \sqrt{3})^2} \\
 &= 2 + \sqrt{3}
-\end{align*}
+\end{aligned}
 $$
 
 Next, for simplifying A, we'll focus on rewriting this:
@@ -138,26 +140,26 @@ $$
 Solving it:
 
 $$
-\begin{align*}
-\Delta &= 23^2 - 4 * 132 = 529 - 528 = 1 \\
+\begin{aligned}
+\Delta &= 23^2 - 4 \cdot 132 = 529 - 528 = 1 \\
 x_1 &= a = \frac{23 + 1}{2} = \frac{24}{2} = 12 \\
 x_2 &= b = \frac{23 - 1}{2} = \frac{22}{2} = 11
-\end{align*}
+\end{aligned}
 $$
 
 Therefore our sum can be rewritten as (we remember that we have a minus sign though 🙂):
 
 $$
-\begin{align*}
+\begin{aligned}
 23 - 2\sqrt{132} &= (\sqrt{12} - \sqrt{11})^2 \\
 &= (2\sqrt{3} - \sqrt{11})^2
-\end{align*}
+\end{aligned}
 $$
 
 We can now rewrite our A:
 
 $$
-\begin{align*}
+\begin{aligned}
 A &= \sqrt{4 + \sqrt{11} + \sqrt{23 - 2\sqrt{132}}} \\
   &= \sqrt{4 + \sqrt{11} + \sqrt{(2\sqrt{3} - \sqrt{11})^2}} \\
   &= \sqrt{4 + \sqrt{11} + 2\sqrt{3} - \sqrt{11}} \\
@@ -165,16 +167,16 @@ A &= \sqrt{4 + \sqrt{11} + \sqrt{23 - 2\sqrt{132}}} \\
   &= \sqrt{1^2 + 2\sqrt{3} + \sqrt{3}^2} \\
   &= \sqrt{(1 + \sqrt{3})^2} \\
   &= 1 + \sqrt{3}
-\end{align*}
+\end{aligned}
 $$
 
 And finally:
 
 $$
-\begin{align*}
+\begin{aligned}
 \frac{B^2 - 4A}{B - A} 
 &= \frac{(2 + \sqrt{3})^2 - 4(1 + \sqrt{3})}{(2 + \sqrt{3}) - (1 + \sqrt{3})} \\
 &= \frac{4 + 4\sqrt{3} + 3 - 4 - 4\sqrt{3}}{1} \\
 &= 3 \in \mathbb{N}
-\end{align*}
+\end{aligned}
 $$
