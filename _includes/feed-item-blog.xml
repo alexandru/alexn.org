@@ -27,6 +27,9 @@
   {% unless include.with_social_content %}
     {% if include.with_full_post %}
       {{ tracking_pixel | strip }}{{ item_image }}
+      {% if include.post.mathjax -%}
+      <p><strong>WARN:</strong> This article is using <a href="https://github.com/mathjax/MathJax">Mathjax</a> to render math expressions. In case you're using a feed reader, you might want to load this article in the browser with JavaScript enabled.</p>
+      {% endif -%}
       {{ include.post.content }}
       <hr/>
       <p>

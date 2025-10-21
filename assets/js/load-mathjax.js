@@ -65,7 +65,15 @@ layout: null
         merrorInheritFont: false,
         adaptiveCSS: true
       },
-      loader: {load: ['[tex]/ams', '[tex]/noerrors', '[tex]/noundefined', '[tex]/newcommand']}
+      loader: {load: ['[tex]/ams', '[tex]/noerrors', '[tex]/noundefined', '[tex]/newcommand']},
+      startup: {
+        pageReady: function () {
+          return MathJax.startup.defaultPageReady().then(function () {
+            // Add class to body to show math content after rendering
+            document.body.classList.add('mathjax-ready');
+          });
+        }
+      }
     };
 
     var script = document.createElement('script');

@@ -970,6 +970,15 @@ img.right {
     font-size: 90%;
   }
 
+  // Hide math content until MathJax is ready to prevent flashing of raw LaTeX
+  .math {
+    visibility: hidden;
+  }
+
+  &.mathjax-ready .math {
+    visibility: visible;
+  }
+
   &.privacy_policy #opt_out_frame iframe {
     width: 100%;
     height: 300px;
