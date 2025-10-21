@@ -64,18 +64,20 @@ module Jekyll
     end
     
     def process_content(content)
+      alt_text = escape_html(formula)
+
       # Process display math first (to avoid conflicts with inline math)
       content = content.gsub(DISPLAY_MATH_REGEX) do |match|
         formula = $1.strip
         svg_path = render_formula(formula, false)
-        %(<img src="#{svg_path}" alt="#{escape_html(formula)}" class="math-display" />)
+        %(<figure class="math-display"><img src="#{svg_path}" alt="#{alt_text}" title="#{alt_text}" /></figure>)
       end
       
       # Process inline math
       content = content.gsub(INLINE_MATH_REGEX) do |match|
         formula = $1.strip
         svg_path = render_formula(formula, true)
-        %(<img src="#{svg_path}" alt="#{escape_html(formula)}" class="math-inline" />)
+        %(<img src="#{svg_path}" alt="#{alt_text}" title="#{alt_text}" class="math-inline" />)
       end
       
       content
