@@ -8,8 +8,8 @@ tags:
 
 My son started high-school, so I'm helping him with mathematics. It's been a long time, and I have to re-learn. But it's fun, and I'm hoping to start a [series of articles](/blog/tag/math/).
 
-<p class="warn-bubble" markdown="1">
-**WARN:** This article is using [Mathjax](https://github.com/mathjax/MathJax) to render math expressions. In case you're using a feed reader, you might want to load this article in the browser with JavaScript enabled.
+<p class="info-bubble" markdown="1">
+**Note:** Math formulas in this article are rendered as SVG images for better portability and accessibility.
 </p>
 
 Here's an interesting sum:

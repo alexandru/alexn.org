@@ -15,7 +15,14 @@
   "homepage": "https://github.com/alexandru/alexn.org#readme",
   "dependencies": {
     "@highlightjs/cdn-assets": "^11.11.1",
-    "jquery": "^3.7.1",
-    "mathjax": "^3.2.2"
+    "jquery": "^3.7.1"
+  },
+  "devDependencies": {
+    "mathjax-node": "^2.1.1",
+    "mathjax-node-cli": "^1.0.1"
+  },
+  "devDependencies": {
+    "mathjax-node": "^2.1.1",
+    "mathjax-node-cli": "^1.0.1"
   }
 }
