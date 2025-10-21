@@ -111,6 +111,12 @@ body {
     @include code-rectangle-dark;
   }
 
+  // Invert math SVGs for dark mode
+  .math-display img, 
+  img.math-inline {
+    filter: invert(1) hue-rotate(180deg);
+  }
+
   form {
     @include form-elements;
   }

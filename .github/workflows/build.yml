@@ -13,10 +13,10 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .jekyll-cache/math-svg
-          key: math-svg-${{ runner.os }}-${{ github.ref_name }}-${{ hashFiles('package-lock.json') }}
+          key: math-svg-v2-${{ runner.os }}-${{ github.ref_name }}-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            math-svg-${{ runner.os }}-${{ github.ref_name }}-
-            math-svg-${{ runner.os }}-
+            math-svg-v2-${{ runner.os }}-${{ github.ref_name }}-
+            math-svg-v2-${{ runner.os }}-
             
       - name: Checkout
         uses: actions/checkout@v4
