@@ -74,8 +74,10 @@ has_subscribe: true
 <strong>WARN:</strong> This article is using <a href="https://github.com/mathjax/MathJax">Mathjax</a> to render math expressions. JavaScript is required to view the mathematical formulas properly.
       </p>
     </noscript>
-    {% endif -%}
+    {{ content | wrap_math_expressions }}
+    {% else -%}
     {{ content }}
+    {% endif -%}
   </div>
 
   <div id="article-details">

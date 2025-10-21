@@ -150,6 +150,26 @@ module Jekyll
         str
       end    
     end
+
+    def wrap_math_expressions(html)
+      # Wrap display math expressions ($$...$$ and \[...\]) in div.math
+      # This prevents flash of unstyled content before MathJax renders
+      
+      # Handle \[...\] delimiters
+      html = html.gsub(/\\\[((?:(?!\\\]).)+)\\\]/m) do |match|
+        "<div class=\"math\">#{match}</div>"
+      end
+      
+      # Handle $$...$$ delimiters (but not inline $...$)
+      # Look for $$ at the beginning of a line or after whitespace
+      html = html.gsub(/(^|\n)\s*\$\$((?:(?!\$\$).)+)\$\$/m) do |match|
+        leading = $1
+        content = $2
+        "#{leading}<div class=\"math\">$$#{content}$$</div>"
+      end
+      
+      html
+    end
   end
 end
 
