@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 
-const {mathjax} = require('mathjax-full/js/mathjax');
-const {TeX} = require('mathjax-full/js/input/tex');
-const {SVG} = require('mathjax-full/js/output/svg');
-const {liteAdaptor} = require('mathjax-full/js/adaptors/liteAdaptor');
-const {RegisterHTMLHandler} = require('mathjax-full/js/handlers/html');
-const {AllPackages} = require('mathjax-full/js/input/tex/AllPackages');
+const { mathjax } = require('mathjax-full/js/mathjax');
+const { TeX } = require('mathjax-full/js/input/tex');
+const { SVG } = require('mathjax-full/js/output/svg');
+const { liteAdaptor } = require('mathjax-full/js/adaptors/liteAdaptor');
+const { RegisterHTMLHandler } = require('mathjax-full/js/handlers/html');
+const { AllPackages } = require('mathjax-full/js/input/tex/AllPackages');
 const fs = require("fs");
+const { optimize } = require('svgo');
 const crypto = require("crypto");
 const path = require("path");
 
@@ -14,9 +15,9 @@ const path = require("path");
 const adaptor = liteAdaptor();
 RegisterHTMLHandler(adaptor);
 
-const tex = new TeX({packages: AllPackages});
-const svg = new SVG({fontCache: 'none'});
-const html = mathjax.document('', {InputJax: tex, OutputJax: svg});
+const tex = new TeX({ packages: AllPackages });
+const svg = new SVG({ fontCache: 'none' });
+const html = mathjax.document('', { InputJax: tex, OutputJax: svg });
 
 /**
  * Generate hash from formula
@@ -31,12 +32,12 @@ function hashFormula(formula) {
 async function tex2svg(formula, inline = false) {
   try {
     // Convert formula to MathJax node
-    const node = html.convert(formula, {display: !inline});
-    
+    const node = html.convert(formula, { display: !inline });
+
     // Extract the SVG element from the container
     const svgElement = adaptor.firstChild(node);
     let svgString = adaptor.outerHTML(svgElement);
-    
+
     // Add title element for accessibility, escaping all XML special characters
     function escapeXml(str) {
       // Remove newlines, carriage returns, and tabs
@@ -56,7 +57,15 @@ async function tex2svg(formula, inline = false) {
       /<svg([^>]*)>/,
       `<svg$1><title>${escapeXml(formula)}</title>`
     );
-    
+
+    // Minify SVG using SVGO, preserving <title>
+    const result = optimize(svgString, {
+      plugins: [
+        { name: 'preset-default', params: { overrides: { removeTitle: false } } }
+      ]
+    });
+    svgString = result.data;
+
     return svgString;
   } catch (error) {
     throw new Error(`Failed to render formula: ${error.message}`);
@@ -70,12 +79,12 @@ async function processFormula(formula, outputDir, inline = false) {
   const hash = hashFormula(formula);
   const filename = `${hash}.svg`;
   const filepath = path.join(outputDir, filename);
-  
+
   // Check if file already exists
   if (fs.existsSync(filepath)) {
     return filename;
   }
-  
+
   // Generate SVG
   let svg;
   try {
@@ -106,16 +115,16 @@ async function processFormula(formula, outputDir, inline = false) {
 // Main execution
 if (require.main === module) {
   const args = process.argv.slice(2);
-  
+
   if (args.length < 2) {
     console.log("Usage: tex2svg.js <formula> <output_dir> [--inline]");
     process.exit(1);
   }
-  
+
   const formula = args[0];
   const outputDir = args[1];
   const inline = args.includes("--inline");
-  
+
   processFormula(formula, outputDir, inline)
     .then((filename) => {
       console.log(filename);
