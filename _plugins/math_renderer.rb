@@ -11,7 +11,7 @@ module Jekyll
     
     def initialize(site)
       @site = site
-      # Use Jekyll's cache directory for temporary math SVG files
+      # Use Jekyll's cache directory for generated math SVG files
       @math_dir = File.join(site.source, '.jekyll-cache', 'math-svg')
       @cache = {}
       @generated_files = {}
@@ -19,7 +19,7 @@ module Jekyll
     end
     
     def hash_formula(formula)
-      Digest::MD5.hexdigest(formula)
+      Digest::MD5.hexdigest(formula.strip)
     end
     
     def render_formula(formula, inline = false)
@@ -36,7 +36,7 @@ module Jekyll
         inline_flag = inline ? '--inline' : ''
         
         stdout, stderr, status = Open3.capture3(
-          'node', script_path, formula, @math_dir, inline_flag
+          'node', script_path, formula, @math_dir, inline_flag, "--optimize"
         )
         
         unless status.success?

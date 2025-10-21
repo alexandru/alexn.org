@@ -29,7 +29,7 @@ function hashFormula(formula) {
 /**
  * Convert TeX formula to SVG
  */
-async function tex2svg(formula, inline = false) {
+async function tex2svg(formula, inline = false, optimizeSvg = false) {
   try {
     // Convert formula to MathJax node
     const node = html.convert(formula, { display: !inline });
@@ -58,13 +58,15 @@ async function tex2svg(formula, inline = false) {
       `<svg$1><title>${escapeXml(formula)}</title>`
     );
 
-    // Minify SVG using SVGO, preserving <title>
-    const result = optimize(svgString, {
-      plugins: [
-        { name: 'preset-default', params: { overrides: { removeTitle: false } } }
-      ]
-    });
-    svgString = result.data;
+    // Minify SVG using SVGO, preserving <title> if requested
+    if (optimizeSvg) {
+      const result = optimize(svgString, {
+        plugins: [
+          { name: 'preset-default', params: { overrides: { removeTitle: false } } }
+        ]
+      });
+      svgString = result.data;
+    }
 
     return svgString;
   } catch (error) {
@@ -75,7 +77,7 @@ async function tex2svg(formula, inline = false) {
 /**
  * Process a formula and save to file
  */
-async function processFormula(formula, outputDir, inline = false) {
+async function processFormula(formula, outputDir, inline = false, optimizeSvg = false) {
   const hash = hashFormula(formula);
   const filename = `${hash}.svg`;
   const filepath = path.join(outputDir, filename);
@@ -88,7 +90,7 @@ async function processFormula(formula, outputDir, inline = false) {
   // Generate SVG
   let svg;
   try {
-    svg = await tex2svg(formula, inline);
+    svg = await tex2svg(formula, inline, optimizeSvg);
   } catch (err) {
     throw new Error(`SVG generation failed: ${err.message}`);
   }
@@ -124,8 +126,9 @@ if (require.main === module) {
   const formula = args[0];
   const outputDir = args[1];
   const inline = args.includes("--inline");
+  const optimizeSvg = args.includes("--optimize");
 
-  processFormula(formula, outputDir, inline)
+  processFormula(formula, outputDir, inline, optimizeSvg)
     .then((filename) => {
       console.log(filename);
       process.exit(0);
