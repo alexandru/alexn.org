@@ -10,8 +10,8 @@
     <description>Feed of blog articles, published at alexn.org/blog/</description>
     <link>https://alexn.org/</link>
     <atom:link href="https://alexn.org/feeds/blog.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 21 Oct 2025 17:37:27 +0000</pubDate>
-    <lastBuildDate>Tue, 21 Oct 2025 17:37:27 +0000</lastBuildDate>
+    <pubDate>Wed, 22 Oct 2025 06:18:43 +0000</pubDate>
+    <lastBuildDate>Wed, 22 Oct 2025 06:18:43 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -19,11 +19,102 @@
     
 
 <item>
-  <title>Math Pill #2: Square Roots</title>
-  <description>Simplifying radicals is strangely satisfying.</description>
+  <title>Update on Math Formulas via Copilot</title>
+  <description>Or how I&apos;m using GitHub&apos;s Copilot in Agent mode for yak shaving, evolving my Jekyll-powered website for rendering mathematical formulas by SVG images, instead of heavy JavaScript.</description>
   <content:encoded>&lt;img referrerpolicy=&quot;no-referrer-when-downgrade&quot; src=&quot;https://ly.alexn.org/m.php?idsite=1&amp;rec=1&amp;action_name=RSS+Feed&amp;url=https%3A%2F%2Falexn.org%2Ffeeds%2Fblog.xml&amp;pk_campaign=rss&amp;pk_kwd=open&quot; width=&quot;1&quot; height=&quot;1&quot; style=&quot;position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;&quot; alt=&quot;&quot;&gt;
   
-      &lt;p&gt;Simplifying radicals is strangely satisfying.&lt;/p&gt;
+  
+      &lt;p class=&quot;intro&quot;&gt;
+Or how I&apos;m using GitHub&apos;s Copilot in Agent mode for yak shaving, evolving my Jekyll-powered website for rendering mathematical formulas by SVG images, instead of heavy JavaScript.
+&lt;/p&gt;
+
+&lt;p&gt;This blog uses &lt;a href=&quot;https://github.com/mathjax/MathJax&quot;&gt;Mathjax&lt;/a&gt; for rendering math formulas, see my posts on &lt;a href=&quot;https://alexn.org/blog/tag/math/&quot;&gt;Math&lt;/a&gt;. But Mathjax is a JavaScript library, and it was running client-side, in the browser. And I tend to avoid JavaScript for this particular website.&lt;/p&gt;
+
+&lt;p&gt;Given that I intend to write more math formulas, it bothered me that the dependence on JavaScript is hurting this blog’s &lt;a href=&quot;https://alexn.org/feeds/blog.xml&quot; target=&quot;_blank&quot;&gt;RSS feed&lt;/a&gt;, as RSS feed items can’t have JS in them. Also, the page rendering is slow and dirty, hurting the user experience due to that brief moment between the static HTML being loaded and MathJax doing its job, during which one can see the raw TeX syntax, and the page layout shifts to accommodate the JS-powered rendering.&lt;/p&gt;
+
+&lt;p&gt;I’ve now switched the implementation to one that uses Mathjax on the server-side, when the website is built, translating those formulas to SVG images. Here’s how:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/alexandru/alexn.org/pull/83&quot;&gt;PR, started by Copilot&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;
+&lt;a href=&quot;https://github.com/alexandru/alexn.org/commit/ebe455f2c5e450227e744412f5f66aedaa584f7d&quot;&gt;Commit fixing RSS and dark-mode&lt;/a&gt;, because life can’t be simple.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Here’s a sample. You can inspect it or “view source” for confirmation:&lt;/p&gt;
+
+&lt;div class=&quot;math-display page-width&quot;&gt;&lt;img src=&quot;https://alexn.org/assets/math/white/0349585f18238d55f8fd783f0b7d7ef0.svg&quot; alt=&quot;Math formula&quot; title=&quot;F = G\frac{m1 \cdot m2}{r^2}&quot; width=&quot;180&quot; height=&quot;48&quot; loading=&quot;lazy&quot;&gt;&lt;/div&gt;
+
+&lt;p&gt;As a side-note, this is one of those times when I appreciate having full control over the implementation of my blog, instead of using WordPress or other, more evolved off-the-shelf solutions (I’m thinking here of &lt;a href=&quot;https://alexn.org/blog/2025/10/13/outsourced-voices-outsourced-minds/&quot;&gt;my previous article on outsourced voices&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;I used GitHub’s Copilot, &lt;a href=&quot;https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-coding-agent&quot;&gt;running as an Agent on GitHub&lt;/a&gt;, to start the PR and take care of the most difficult parts. It worked, but it needed supervision. Therefore, this is also a tale of how I used Copilot to modify my blog’s implementation.&lt;/p&gt;
+
+&lt;p&gt;For instructing Copilot, I started with this prompt:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;This website currently uses Mathjax for rendering math formulas. However, I’d like those math formulas to be more portable, i.e., to not require JavaScript for rendering.&lt;/p&gt;
+
+  &lt;p&gt;Modify the website such that math formulas get rendered to SVG images, using the original TeX formula as “alt” text for the visually impaired.&lt;/p&gt;
+
+  &lt;p&gt;Suggestions:&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;Use mathjax-node for the rendering to SVG files (placed in &lt;code&gt;/assets/math&lt;/code&gt; at build time).&lt;/li&gt;
+    &lt;li&gt;Use the formula’s hashcode as the SVG file name.&lt;/li&gt;
+    &lt;li&gt;Reuse already generated files for repeated formulas.&lt;/li&gt;
+    &lt;li&gt;Introduce a Jekyll plugin that searches and replaces math/TeX code to image tags pointing to these SVG files, also generating the files when needed.&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Upon inspecting the result, which wasn’t bad, I then followed up with a change request:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Unfortunately, I now saw that &lt;code&gt;mathjax-node&lt;/code&gt; is an old package.&lt;/p&gt;
+
+  &lt;p&gt;Drop it from the project and use the latest stable version of Mathjax and whatever it is needed to make it work.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;After reviewing the generated code, I noticed Copilot didn’t do the right thing. It broke the command meant for development, &lt;code&gt;jekyll serve&lt;/code&gt;. It certainly helped that I know how to do the job well:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;There is a problem with this approach. These SVG files shouldn’t be generated directly in the project’s sources, for one, because I don’t want them to be added to the repository, but also, because it breaks &lt;code&gt;jekyll serve&lt;/code&gt;.&lt;/p&gt;
+
+  &lt;p&gt;These files should be generated using Jekyll’s mechanism, by appending to &lt;code&gt;site.static_files&lt;/code&gt; a &lt;code&gt;Jekyll::StaticFile&lt;/code&gt; instance. There is already an example in &lt;code&gt;managed_js.rb&lt;/code&gt;.&lt;/p&gt;
+
+  &lt;p&gt;The result of this should be that &lt;code&gt;/assets/math&lt;/code&gt; should be available only in the &lt;code&gt;_site&lt;/code&gt; directory after a jekyll build and the images should be served via &lt;code&gt;jekyll serve&lt;/code&gt; as well (so without an explicit &lt;code&gt;_site&lt;/code&gt; directory being built).&lt;/p&gt;
+
+  &lt;p&gt;Also, remove the current &lt;code&gt;assets/math&lt;/code&gt; directory from this PR.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Plenty of micro-management here, telling it precisely what to do. And then the result was buggy:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;I discovered that it doesn’t escape the SVG’s &lt;code&gt;title&lt;/code&gt; properly, and followed up with a fix myself.&lt;/li&gt;
+  &lt;li&gt;The &lt;code&gt;width&lt;/code&gt; and &lt;code&gt;height&lt;/code&gt; attributes were not calculated correctly by my setup, due to Mathjax preferring &lt;code&gt;ex&lt;/code&gt; as the unit type, referring to the width and height of an &lt;code&gt;x&lt;/code&gt; character of a font (weird). I did plenty of CSS tweaks that I’m not sure Copilot could’ve done.&lt;/li&gt;
+  &lt;li&gt;The RSS feed wouldn’t work in dark mode, because the SVGs are black text on transparent background, and I couldn’t find a way to add CSS styling to the RSS feeds. Here, Copilot was completely disappointing. My final solution was to generate “transparent background” versions for the website and “light background” versions for the RSS feed.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I used the “agent mode” in Visual Studio Code as well. The results when using GPT-4.1 are very poor, which is a pity, as this is the model with an unlimited number of requests on GitHub Copilot’s Pro plan. Claude Sonnet fared much better (at coding tasks in agent mode, but it’s poor at others, such as high-school math).&lt;/p&gt;
+
+&lt;p&gt;At the time of writing, I now have another attempt at using Copilot Agent for optimizations: &lt;a href=&quot;https://github.com/alexandru/alexn.org/pull/84&quot;&gt;Optimize Jekyll build time for Mathjax and image processing&lt;/a&gt;; because the build times have gone up and that’s bad, too.&lt;/p&gt;
+
+&lt;p&gt;It certainly has potential.&lt;/p&gt;
+
+      &lt;hr&gt;
+      &lt;p&gt;
+        &lt;i&gt;The article &lt;a href=&quot;https://alexn.org/blog/2025/10/21/update-on-math-formulas/?pk_campaign=rss&quot;&gt;Update on Math Formulas via Copilot&lt;/a&gt; first appeared on &lt;a href=&quot;https://alexn.org?pk_campaign=rss&quot;&gt;alexn.org&lt;/a&gt;.&lt;/i&gt;
+      &lt;/p&gt;</content:encoded>
+  <pubDate>Tue, 21 Oct 2025 00:00:00 +0000</pubDate>
+  <link>https://alexn.org/blog/2025/10/21/update-on-math-formulas/?pk_campaign=rss</link>
+  <guid isPermaLink="true">https://alexn.org/blog/2025/10/21/update-on-math-formulas/</guid>
+  <dc:creator>Alexandru Nedelcu</dc:creator>
+  <category>Blog</category>
+  </item>
+
+
+<item>
+  <title>Math Pill #2: Square Roots</title>
+  <description>Simplifying radicals is strangely satisfying.</description>
+  <content:encoded>&lt;p&gt;Simplifying radicals is strangely satisfying.&lt;/p&gt;
 
 &lt;p class=&quot;info-bubble&quot;&gt;
 I’m helping my son with mathematics, and I have to re-learn it, but this is fun. Hence, I’m hoping to start a &lt;a href=&quot;https://alexn.org/blog/tag/math/&quot;&gt;series of articles&lt;/a&gt;.
@@ -213,7 +304,7 @@ I’m helping my son with mathematics, and I have to re-learn it, but this is fu
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2025/10/13/outsourced-voices-outsourced-minds/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2025-thomas-in-a-box.jpg?202510211737&quot; alt=&quot;&quot; width=&quot;2000&quot; height=&quot;1562&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2025-thomas-in-a-box.jpg?202510220618&quot; alt=&quot;&quot; width=&quot;2000&quot; height=&quot;1562&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;My cat, Thomas, sitting in a box, telling me that maybe it&apos;s better if I went to touch some grass.
 &lt;/em&gt;&lt;/p&gt;&lt;/figcaption&gt;
@@ -276,7 +367,7 @@ I’m helping my son with mathematics, and I have to re-learn it, but this is fu
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2025/08/29/scala-gamble-with-direct-style/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-stairs.jpg?202510211737&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;1200&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-stairs.jpg?202510220618&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;1200&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;The staircase at EPFL that inspired Scala&apos;s logo.&lt;/em&gt;&lt;/p&gt;&lt;/figcaption&gt;
       &lt;/figure&gt;
@@ -349,7 +440,7 @@ I’m helping my son with mathematics, and I have to re-learn it, but this is fu
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2025/04/18/backup-script-for-my-cloud-storage/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2025-backup-cloud.png?202510211737&quot; alt=&quot;&quot; width=&quot;1972&quot; height=&quot;504&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2025-backup-cloud.png?202510220618&quot; alt=&quot;&quot; width=&quot;1972&quot; height=&quot;504&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -801,7 +892,7 @@ def foo(value: A): B
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=AIKLdVEWPrE&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/AIKLdVEWPrE/hqdefault.jpg?202510211737&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/AIKLdVEWPrE/hqdefault.jpg?202510220618&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=AIKLdVEWPrE&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -1032,7 +1123,7 @@ docker system prune -f  2&gt;&amp;1
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2024/11/20/join-the-open-web/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2024-www-painting.jpg?202510211737&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;694&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2024-www-painting.jpg?202510220618&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;694&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;&quot;Discussing The Divine Comedy With Dante&quot;, a painting by Dai Dudu, Li Tiezi and Zhang An
 &lt;/em&gt;&lt;/p&gt;&lt;/figcaption&gt;
@@ -1234,7 +1325,7 @@ chmod +x ./tapir-client-server.scala
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2024/09/06/trusting-open-source/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2024-thomas-surprised.jpg?202510211737&quot; alt=&quot;&quot; width=&quot;2000&quot; height=&quot;1726&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2024-thomas-surprised.jpg?202510220618&quot; alt=&quot;&quot; width=&quot;2000&quot; height=&quot;1726&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;My cat, Thomas, trying to understand &quot;source available&quot; licenses
 &lt;/em&gt;&lt;/p&gt;&lt;/figcaption&gt;
@@ -1567,7 +1658,7 @@ My wish is to write more and to publish more on my blog, and less on social medi
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2024/01/10/scala-future/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2024-scala-hexa.png?202510211737&quot; alt=&quot;&quot; width=&quot;3555&quot; height=&quot;2000&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2024-scala-hexa.png?202510220618&quot; alt=&quot;&quot; width=&quot;3555&quot; height=&quot;2000&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;The Scala logo, in the shape of a hexagon, meant to fit the logos of certain well known libraries, as a hint 😜&lt;/em&gt;&lt;/p&gt;&lt;/figcaption&gt;
       &lt;/figure&gt;
@@ -1825,7 +1916,7 @@ object Main extends CommandApp(
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2024/01/01/new-year-resolutions/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2024-new-year.png?202510211737&quot; alt=&quot;&quot; width=&quot;2304&quot; height=&quot;1440&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2024-new-year.png?202510220618&quot; alt=&quot;&quot; width=&quot;2304&quot; height=&quot;1440&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -1926,7 +2017,7 @@ A new year is upon us, and it&apos;s customary to make resolutions. The problem 
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2023/12/12/december-adventure-rust/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2023-december-adventure-2.png?202510211737&quot; alt=&quot;&quot; width=&quot;1638&quot; height=&quot;1024&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2023-december-adventure-2.png?202510220618&quot; alt=&quot;&quot; width=&quot;1638&quot; height=&quot;1024&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -1977,7 +2068,7 @@ A new year is upon us, and it&apos;s customary to make resolutions. The problem 
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2023/12/04/december-adventure/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2023-december.jpg?202510211737&quot; alt=&quot;&quot; width=&quot;2560&quot; height=&quot;1812&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2023-december.jpg?202510220618&quot; alt=&quot;&quot; width=&quot;2560&quot; height=&quot;1812&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;Postcard by publisher Brück &amp; Sohn in Meißen.
 &lt;/em&gt;&lt;/p&gt;&lt;/figcaption&gt;
@@ -2050,7 +2141,7 @@ A new year is upon us, and it&apos;s customary to make resolutions. The problem 
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2023/11/08/in-scala-3-use-4-spaces-for-indentation/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2023-scala3-indentation-4-spaces.png?202510211737&quot; alt=&quot;&quot; width=&quot;1786&quot; height=&quot;1116&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2023-scala3-indentation-4-spaces.png?202510220618&quot; alt=&quot;&quot; width=&quot;1786&quot; height=&quot;1116&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -2092,7 +2183,7 @@ A new year is upon us, and it&apos;s customary to make resolutions. The problem 
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=oRva7UxGQDw&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/oRva7UxGQDw/maxresdefault.jpg?202510211737&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/oRva7UxGQDw/maxresdefault.jpg?202510220618&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=oRva7UxGQDw&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -2288,7 +2379,7 @@ This stuff matters 💪&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2023/09/25/oop-classes-vs-higher-order-functions-hofs/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2023-oop-hof.png?202510211737&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;996&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2023-oop-hof.png?202510220618&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;996&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -2442,7 +2533,7 @@ final class SafeExecutionContext(ec: ExecutionContext) {
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2023/09/21/post-once-syndicate-everywhere-pose/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/zuzi-1.jpg?202510211737&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;1000&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/zuzi-1.jpg?202510220618&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;1000&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;This is my cat, Zuzi. She&apos;s completely black with green eyes. A rescued girl. My sweetheart.
 &lt;/em&gt;&lt;/p&gt;&lt;/figcaption&gt;
@@ -3235,7 +3326,7 @@ enum Color extends java.lang.Enum[Color]:
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2023/05/02/managing-database-migrations-kotlin/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2023-kotlin-db-migrations.png?202510211737&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;1000&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2023-kotlin-db-migrations.png?202510220618&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;1000&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -3940,7 +4031,7 @@ object KotlinCoroutines {
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2023/04/17/integrating-akka-with-cats-effect-3/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2023-akka-plus-cats-effect.png?202510211737&quot; alt=&quot;&quot; width=&quot;2376&quot; height=&quot;864&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2023-akka-plus-cats-effect.png?202510220618&quot; alt=&quot;&quot; width=&quot;2376&quot; height=&quot;864&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -5085,7 +5176,7 @@ object AkkaUtils {
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2023/01/17/server-monitoring-with-monit/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2023-monit-panel.png?202510211737&quot; alt=&quot;&quot; width=&quot;1984&quot; height=&quot;928&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2023-monit-panel.png?202510220618&quot; alt=&quot;&quot; width=&quot;1984&quot; height=&quot;928&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;A screenshot of my browser window, showing the 3 monitors that I configured in Monit, all green-lit, indicating that everything is fine.
 &lt;/em&gt;&lt;/p&gt;&lt;/figcaption&gt;
@@ -5322,7 +5413,7 @@ exit 1
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/12/02/personal-server-backups/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-backup-vps.png?202510211737&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;1000&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-backup-vps.png?202510220618&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;1000&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -5580,7 +5671,7 @@ object Sample {
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/10/28/love-scala-community/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202510211737&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202510220618&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -5843,7 +5934,7 @@ ref.get().add(&quot;value&quot;)
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/10/24/scala-3-optional-braces/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-scala3-optional-braces.png?202510211737&quot; alt=&quot;&quot; width=&quot;2856&quot; height=&quot;1884&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-scala3-optional-braces.png?202510220618&quot; alt=&quot;&quot; width=&quot;2856&quot; height=&quot;1884&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -6037,7 +6128,7 @@ x = createX()
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/10/21/modeling-queue-for-delayed-messages-via-rdbms/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-delayed-queue-design.png?202510211737&quot; alt=&quot;&quot; width=&quot;2484&quot; height=&quot;1244&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-delayed-queue-design.png?202510220618&quot; alt=&quot;&quot; width=&quot;2484&quot; height=&quot;1244&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -6221,7 +6312,7 @@ WHERE
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/10/19/cut-the-technobabble/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-cut-the-technobabble.jpeg?202510211737&quot; alt=&quot;&quot; width=&quot;1400&quot; height=&quot;700&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-cut-the-technobabble.jpeg?202510220618&quot; alt=&quot;&quot; width=&quot;1400&quot; height=&quot;700&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;&quot;Sir, we have a bug!&quot;; &quot;But we used algebraic reasoning!&quot;&lt;/em&gt;&lt;/p&gt;&lt;/figcaption&gt;
       &lt;/figure&gt;
@@ -6415,7 +6506,7 @@ try (final var res1 = new Resource1()) {
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=h4idB5KAfyc&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-technobabble-2.jpg?202510211737&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-technobabble-2.jpg?202510220618&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=h4idB5KAfyc&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -6449,7 +6540,7 @@ try (final var res1 = new Resource1()) {
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/10/13/the-case-against-effect-systems-io-data-type/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-effect-systems.png?202510211737&quot; alt=&quot;&quot; width=&quot;2428&quot; height=&quot;1652&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-effect-systems.png?202510220618&quot; alt=&quot;&quot; width=&quot;2428&quot; height=&quot;1652&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -6468,7 +6559,7 @@ As Scala developers and fans of the functional programming promoted by Haskell, 
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=qgfCmQ-2tW0&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/qgfCmQ-2tW0/maxresdefault.jpg?202510211737&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/qgfCmQ-2tW0/maxresdefault.jpg?202510220618&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=qgfCmQ-2tW0&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -7021,7 +7112,7 @@ either {
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/10/03/execute-shell-commands-in-java-scala-kotlin/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202510211737&quot; alt=&quot;&quot; width=&quot;2024&quot; height=&quot;1012&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-exec-shell-command.png?202510220618&quot; alt=&quot;&quot; width=&quot;2024&quot; height=&quot;1012&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -7529,7 +7620,7 @@ val r = withTimeout(3.seconds) {
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/09/28/the-trouble-with-checked-exceptions-part-2/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202510211737&quot; alt=&quot;&quot; width=&quot;2152&quot; height=&quot;1268&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-checked-exceptions.png?202510220618&quot; alt=&quot;&quot; width=&quot;2152&quot; height=&quot;1268&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -7705,7 +7796,7 @@ trait Appendable[+E] {
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/09/22/proprietary-environments-are-a-trap/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-me-and-my-son-on-laptops.jpg?202510211737&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;1000&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-me-and-my-son-on-laptops.jpg?202510220618&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;1000&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;Me, with my son, learning the Lua programming language on proprietary macOS laptops.&lt;/em&gt;&lt;/p&gt;&lt;/figcaption&gt;
       &lt;/figure&gt;
@@ -7810,7 +7901,7 @@ What to learn in order to not become obsolete as a software developer, and then 
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/09/21/java-19/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/java-duke.png?202510211737&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;901&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/java-duke.png?202510220618&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;901&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;Honestly, Java&apos;s mascot is pretty cool, Scala needs a mascot too.&lt;/em&gt;&lt;/p&gt;&lt;/figcaption&gt;
       &lt;/figure&gt;
@@ -7865,7 +7956,7 @@ Did you know that Cats-Effect’s &lt;code&gt;IO&lt;/code&gt; now &lt;a href=&qu
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=KmMU5Y_r0Uk&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/KmMU5Y_r0Uk/maxresdefault.jpg?202510211737&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/KmMU5Y_r0Uk/maxresdefault.jpg?202510220618&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=KmMU5Y_r0Uk&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -7971,7 +8062,7 @@ Speaking of a fork, I’d license all new development of a fork in a copyleft li
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/09/19/java-cultural-problem/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/java-logo.png?202510211737&quot; alt=&quot;&quot; width=&quot;1800&quot; height=&quot;1013&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/java-logo.png?202510220618&quot; alt=&quot;&quot; width=&quot;1800&quot; height=&quot;1013&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -8191,7 +8282,7 @@ public class AppConfiguration {
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/09/13/scripting-with-scala/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-09-scala-cli.png?202510211737&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;900&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-09-scala-cli.png?202510220618&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;900&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -8493,7 +8584,7 @@ I finally managed to delete my Facebook account. This was a long time coming. Be
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/09/09/scala-isnt-fun-anymore/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202510211737&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202510220618&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -8741,7 +8832,7 @@ You may think that Open Source is about having “&lt;em&gt;access to source cod
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/09/06/limiting-toxic-technology/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-apuseni-mountains.jpg?202510211737&quot; alt=&quot;&quot; width=&quot;1400&quot; height=&quot;788&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-apuseni-mountains.jpg?202510220618&quot; alt=&quot;&quot; width=&quot;1400&quot; height=&quot;788&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;Apuseni Moutains, Romania, near the Scărișoara Ice Cave&lt;/em&gt;&lt;/p&gt;&lt;/figcaption&gt;
       &lt;/figure&gt;
@@ -8884,7 +8975,7 @@ Toxic usage patterns of technology, begone — inspired by a &lt;a href=&quot;ht
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/05/23/tracking-effects-in-scala/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala3-unsafe-io.png?202510211737&quot; alt=&quot;&quot; width=&quot;1500&quot; height=&quot;937&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala3-unsafe-io.png?202510220618&quot; alt=&quot;&quot; width=&quot;1500&quot; height=&quot;937&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -9022,7 +9113,7 @@ Await.result(future, 10.seconds)
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=YXDm3WHZT5g&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/YXDm3WHZT5g/maxresdefault.jpg?202510211737&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/YXDm3WHZT5g/maxresdefault.jpg?202510220618&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=YXDm3WHZT5g&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -9059,7 +9150,7 @@ Await.result(future, 10.seconds)
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/05/13/oop-vs-type-classes-part-1-ideology/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg?202510211737&quot; alt=&quot;&quot; width=&quot;1500&quot; height=&quot;938&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg?202510220618&quot; alt=&quot;&quot; width=&quot;1500&quot; height=&quot;938&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;Jacques-Louis David, The Intervention of the Sabine Women, 1799. Oil on canvas. Paris, musée du Louvre.
 &lt;/em&gt;&lt;/p&gt;&lt;/figcaption&gt;
@@ -9874,7 +9965,7 @@ object FullName extends Newtype[String] {
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/04/29/free-speech/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/free-speech-movement-berkley.jpg?202510211737&quot; alt=&quot;&quot; width=&quot;1400&quot; height=&quot;934&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/free-speech-movement-berkley.jpg?202510220618&quot; alt=&quot;&quot; width=&quot;1400&quot; height=&quot;934&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;Protesters of the Free Speech Movement, at Sather Gate, University of California, Berkeley campus.
 &lt;/em&gt;&lt;/p&gt;&lt;/figcaption&gt;
@@ -10017,7 +10108,7 @@ This article is tagged with &lt;a href=&quot;https://alexn.org/blog/tag/politics
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=BiqDZlAZygU&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/BiqDZlAZygU/maxresdefault.jpg?202510211737&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/BiqDZlAZygU/maxresdefault.jpg?202510220618&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=BiqDZlAZygU&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -10056,7 +10147,7 @@ Finding examples of wrongful court ruling is easy. I&apos;m picking a hardcore e
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=zDap-K6GmL0&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/zDap-K6GmL0/maxresdefault.jpg?202510211737&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/zDap-K6GmL0/maxresdefault.jpg?202510220618&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=zDap-K6GmL0&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -10096,7 +10187,7 @@ Finding examples of wrongful court ruling is easy. I&apos;m picking a hardcore e
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=wAIP6fI0NAI&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/wAIP6fI0NAI/maxresdefault.jpg?202510211737&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/wAIP6fI0NAI/maxresdefault.jpg?202510220618&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=wAIP6fI0NAI&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -10111,7 +10202,7 @@ Finding examples of wrongful court ruling is easy. I&apos;m picking a hardcore e
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=OjMPJVmXxV8&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/OjMPJVmXxV8/maxresdefault.jpg?202510211737&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/OjMPJVmXxV8/maxresdefault.jpg?202510220618&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=OjMPJVmXxV8&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -10236,7 +10327,7 @@ Finding examples of wrongful court ruling is easy. I&apos;m picking a hardcore e
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=ymaWq5yZIYM&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/ymaWq5yZIYM/maxresdefault.jpg?202510211737&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/ymaWq5yZIYM/maxresdefault.jpg?202510220618&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=ymaWq5yZIYM&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -10305,7 +10396,7 @@ Finding examples of wrongful court ruling is easy. I&apos;m picking a hardcore e
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/04/18/scala-oop-design-sample/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-04-oofp.png?202510211737&quot; alt=&quot;&quot; width=&quot;1400&quot; height=&quot;787&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-04-oofp.png?202510220618&quot; alt=&quot;&quot; width=&quot;1400&quot; height=&quot;787&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -10474,7 +10565,7 @@ final case class ReceivedMessage[+A](
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=qgfCmQ-2tW0&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/qgfCmQ-2tW0/maxresdefault.jpg?202510211737&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/qgfCmQ-2tW0/maxresdefault.jpg?202510220618&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=qgfCmQ-2tW0&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -10808,7 +10899,7 @@ trait DelayedQueue[A] {
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/04/09/scala-gitter-discord-mistake/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202510211737&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202510220618&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -10878,7 +10969,7 @@ The Scala community is increasingly using Discord for “real-time chat”. This
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/04/05/future-monix-typelevel/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-04-monix.png?202510211737&quot; alt=&quot;&quot; width=&quot;1052&quot; height=&quot;587&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/2022-04-monix.png?202510220618&quot; alt=&quot;&quot; width=&quot;1052&quot; height=&quot;587&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -10953,7 +11044,7 @@ Planning the future is difficult, but can bring clarity and purpose. See &lt;a h
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2022/04/01/blogging/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/writing.jpg?202510211737&quot; alt=&quot;&quot; width=&quot;1300&quot; height=&quot;746&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/writing.jpg?202510220618&quot; alt=&quot;&quot; width=&quot;1300&quot; height=&quot;746&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -11466,7 +11557,7 @@ fi
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2021/03/29/atom-rss-feeds-are-the-best-way-to-consume-the-web/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/highway.jpg?202510211737&quot; alt=&quot;&quot; width=&quot;1400&quot; height=&quot;935&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/highway.jpg?202510220618&quot; alt=&quot;&quot; width=&quot;1400&quot; height=&quot;935&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -11557,7 +11648,7 @@ fi
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=qqqfImDtduE&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://alexn.org/assets/media/articles/ing-meetup-working-with-dotty-2.jpg?202510211737&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://alexn.org/assets/media/articles/ing-meetup-working-with-dotty-2.jpg?202510220618&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=qqqfImDtduE&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -11572,7 +11663,7 @@ fi
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=qqqfImDtduE&amp;autoplay=1&amp;t=4963&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://alexn.org/assets/media/articles/ing-meetup-working-with-dotty-1.jpg?202510211737&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://alexn.org/assets/media/articles/ing-meetup-working-with-dotty-1.jpg?202510220618&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=qqqfImDtduE&amp;autoplay=1&amp;t=4963&quot; target=&quot;_blank&quot;&gt;
@@ -11604,7 +11695,7 @@ fi
   <content:encoded>&lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=R6pl91IRVaI&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://alexn.org/assets/media/articles/countdownlatch-async-dirty.png?202510211737&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://alexn.org/assets/media/articles/countdownlatch-async-dirty.png?202510220618&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=R6pl91IRVaI&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -12052,7 +12143,7 @@ case object Nil extends List[Nothing]
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=Ua1iMD4icLU&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://alexn.org/assets/media/articles/tail-recursive-functions.png?202510211737&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://alexn.org/assets/media/articles/tail-recursive-functions.png?202510220618&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=Ua1iMD4icLU&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -12584,7 +12675,7 @@ object EffectTestSuite {
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2020/11/17/best-practice-for-ordering-comparable/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/ordering.png?202510211737&quot; alt=&quot;&quot; width=&quot;1608&quot; height=&quot;1000&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/ordering.png?202510220618&quot; alt=&quot;&quot; width=&quot;1608&quot; height=&quot;1000&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -12723,7 +12814,7 @@ val set2 = SortedSet(agenda2:_*)
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2020/11/15/managing-database-migrations-scala/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/db-migrations-scala.png?202510211737&quot; alt=&quot;&quot; width=&quot;1400&quot; height=&quot;700&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/db-migrations-scala.png?202510220618&quot; alt=&quot;&quot; width=&quot;1400&quot; height=&quot;700&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -13209,7 +13300,7 @@ end
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2020/11/12/i-like-option-get/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/option.get.png?202510211737&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;800&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/option.get.png?202510220618&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;800&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -13331,7 +13422,7 @@ if (sample.nonEmpty) {
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2020/11/11/organize-index-screenshots-ocr-macos/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/spotlight-search.png?202510211737&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;800&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/spotlight-search.png?202510220618&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;800&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -13597,7 +13688,7 @@ youtube.com###comments
 &lt;p&gt;Here’s how it should look like:&lt;/p&gt;
 
 &lt;figure&gt;
-  &lt;img src=&quot;https://alexn.org/assets/media/articles/block-comments.png?202510211737&quot; alt=&quot;Screenshot of uBlock Origin&apos;s My Filters section&quot; width=&quot;1526&quot; height=&quot;763&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+  &lt;img src=&quot;https://alexn.org/assets/media/articles/block-comments.png?202510220618&quot; alt=&quot;Screenshot of uBlock Origin&apos;s My Filters section&quot; width=&quot;1526&quot; height=&quot;763&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;These rules block comments from:&lt;/p&gt;
@@ -13648,7 +13739,7 @@ youtube.com###comments
 &lt;p&gt;You can then import it in uBlock Origin easily:&lt;/p&gt;
 
 &lt;figure&gt;
-  &lt;img src=&quot;https://alexn.org/assets/media/articles/block-comments2.png?202510211737&quot; alt=&quot;Screenshot of uBlock Origin&apos;s Filter List&quot; width=&quot;1375&quot; height=&quot;728&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+  &lt;img src=&quot;https://alexn.org/assets/media/articles/block-comments2.png?202510220618&quot; alt=&quot;Screenshot of uBlock Origin&apos;s Filter List&quot; width=&quot;1375&quot; height=&quot;728&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
 &lt;/figure&gt;
 
 &lt;h2 id=&quot;safari--ios-iphone-ipad&quot;&gt;Safari / iOS (iPhone, iPad)&lt;/h2&gt;
@@ -13962,7 +14053,7 @@ see &lt;a href=&quot;https://alexn.org/blog/2020/08/03/on-error-retry-loop/&quot
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=mlXtwZY4ko4&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/mlXtwZY4ko4/maxresdefault.jpg?202510211737&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/mlXtwZY4ko4/maxresdefault.jpg?202510220618&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=mlXtwZY4ko4&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -14372,7 +14463,7 @@ object FlowToEffect {
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2020/09/10/privilege/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/fi-miu.jpg?202510211737&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;800&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/fi-miu.jpg?202510220618&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;800&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;My son ❤️&lt;/em&gt;&lt;/p&gt;&lt;/figcaption&gt;
       &lt;/figure&gt;
@@ -14725,7 +14816,7 @@ if (value.either == &quot;left&quot;) {
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2020/08/03/on-error-retry-loop/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/snippets/on-error-retry-loop.png?202510211737&quot; alt=&quot;&quot; width=&quot;1400&quot; height=&quot;700&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/snippets/on-error-retry-loop.png?202510220618&quot; alt=&quot;&quot; width=&quot;1400&quot; height=&quot;700&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -15140,7 +15231,7 @@ trigger(5000)
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2020/05/26/scala-fatal-warnings/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-xfatal-warnings.png?202510211737&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;600&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-xfatal-warnings.png?202510220618&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;600&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -15461,7 +15552,7 @@ wartremoverErrors in (Test, test) := Seq.empty,
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2020/04/21/javascript-semaphore/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/async-semaphore-typescript.png?202510211737&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;800&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/async-semaphore-typescript.png?202510220618&quot; alt=&quot;&quot; width=&quot;1600&quot; height=&quot;800&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -15637,7 +15728,7 @@ console.log(&quot;Done!&quot;)
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=RYmGT905Skc&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/RYmGT905Skc/maxresdefault.jpg?202510211737&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/RYmGT905Skc/maxresdefault.jpg?202510220618&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=RYmGT905Skc&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -15676,7 +15767,7 @@ console.log(&quot;Done!&quot;)
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=RYmGT905Skc&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/RYmGT905Skc/maxresdefault.jpg?202510211737&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/RYmGT905Skc/maxresdefault.jpg?202510220618&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=RYmGT905Skc&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -15877,7 +15968,7 @@ main = mapM_ putStrLn lines
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2019/11/22/howto-regexp-replacement-via-function-java-scala/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-replace-all-function.png?202510211737&quot; alt=&quot;&quot; width=&quot;1238&quot; height=&quot;530&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-replace-all-function.png?202510220618&quot; alt=&quot;&quot; width=&quot;1238&quot; height=&quot;530&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -16259,7 +16350,7 @@ def blocking[A](f: =&gt; A): Task[A] =
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2019/08/11/isinstanceof-anti-pattern/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-instanceof-antipattern.png?202510211737&quot; alt=&quot;&quot; width=&quot;768&quot; height=&quot;574&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-instanceof-antipattern.png?202510220618&quot; alt=&quot;&quot; width=&quot;768&quot; height=&quot;574&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -16527,7 +16618,7 @@ guarantee { println(&quot;Executing!&quot;) } { println(&quot;Done!&quot;) }
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2018/05/06/bifunctor-io/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/bio.png?202510211737&quot; alt=&quot;&quot; width=&quot;1368&quot; height=&quot;684&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/bio.png?202510220618&quot; alt=&quot;&quot; width=&quot;1368&quot; height=&quot;684&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -17075,7 +17166,7 @@ the current status quo. Scala is a great environment.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2018/02/12/in-defense-oofp/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-stairs.jpg?202510211737&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;1200&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala-stairs.jpg?202510220618&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;1200&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -18063,7 +18154,7 @@ Scala’s OOP and the new collections.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2017/11/10/minitest-no-crap-scala-library/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202510211737&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202510220618&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -18409,7 +18500,7 @@ codebase much.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2017/10/15/functional-programming/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/functions.png?202510211737&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;900&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/functions.png?202510220618&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;900&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -18720,7 +18811,7 @@ but it’s not that good for learning FP in 2017.&lt;/p&gt;
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=wi97X8_JQUk&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/wi97X8_JQUk/maxresdefault.jpg?202510211737&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/wi97X8_JQUk/maxresdefault.jpg?202510220618&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=wi97X8_JQUk&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -18744,7 +18835,7 @@ and &lt;a href=&quot;http://event.scaladays.org/scaladays-cph-2017&quot;&gt;Cope
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=wi97X8_JQUk&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/wi97X8_JQUk/maxresdefault.jpg?202510211737&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/wi97X8_JQUk/maxresdefault.jpg?202510220618&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=wi97X8_JQUk&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -19170,7 +19261,7 @@ where people are afraid to take on dependencies.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2017/08/16/automatic-releases-sbt-travis/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/sbt.png?202510211737&quot; alt=&quot;&quot; width=&quot;641&quot; height=&quot;277&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/sbt.png?202510220618&quot; alt=&quot;&quot; width=&quot;641&quot; height=&quot;277&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -21050,7 +21141,7 @@ avoiding concurrency 💀&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2017/01/16/iterator/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202510211737&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202510220618&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -21345,7 +21436,7 @@ grandparents, I’m afraid to wish for it.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2017/01/13/traversable/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202510211737&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202510220618&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -21518,7 +21609,7 @@ if you want to learn more checkout this presentation:
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2016/11/11/newsblur-bookmarklet/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/newsblur.png?202510211737&quot; alt=&quot;&quot; width=&quot;512&quot; height=&quot;512&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/newsblur.png?202510220618&quot; alt=&quot;&quot; width=&quot;512&quot; height=&quot;512&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -21579,7 +21670,7 @@ and you should see all bookmarks, press and hold on the new
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2016/08/25/monix-task-performance/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/monix-1024.png?202510211737&quot; alt=&quot;&quot; width=&quot;1024&quot; height=&quot;1024&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/monix-1024.png?202510220618&quot; alt=&quot;&quot; width=&quot;1024&quot; height=&quot;1024&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -21948,7 +22039,7 @@ forked tasks it evens out with the performance of &lt;code&gt;Future.sequence&lt
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=CQxviYlAKaY&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/CQxviYlAKaY/maxresdefault.jpg?202510211737&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/CQxviYlAKaY/maxresdefault.jpg?202510220618&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=CQxviYlAKaY&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -21964,7 +22055,7 @@ forked tasks it evens out with the performance of &lt;code&gt;Future.sequence&lt
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=CQxviYlAKaY&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/CQxviYlAKaY/maxresdefault.jpg?202510211737&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/CQxviYlAKaY/maxresdefault.jpg?202510220618&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=CQxviYlAKaY&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -22036,7 +22127,7 @@ presentation of Monix Observable and how that helps.&lt;/p&gt;
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=rftcbxj7et0&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/rftcbxj7et0/maxresdefault.jpg?202510211737&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/rftcbxj7et0/maxresdefault.jpg?202510220618&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=rftcbxj7et0&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -22052,7 +22143,7 @@ presentation of Monix Observable and how that helps.&lt;/p&gt;
 &lt;figure class=&quot;video&quot;&gt;
   
   &lt;a href=&quot;https://www.youtube.com/watch?v=rftcbxj7et0&amp;autoplay=1&quot; target=&quot;_blank&quot; class=&quot;youtube-play-link&quot; title=&quot;Go to YouTube video&quot;&gt;
-    &lt;img src=&quot;https://img.youtube.com/vi/rftcbxj7et0/maxresdefault.jpg?202510211737&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
+    &lt;img src=&quot;https://img.youtube.com/vi/rftcbxj7et0/maxresdefault.jpg?202510220618&quot; alt=&quot;&quot; class=&quot;play-thumb&quot; width=&quot;1280&quot; height=&quot;720&quot;&gt;
   &lt;/a&gt;
   &lt;figcaption&gt;&lt;p&gt;&lt;em&gt;
     &lt;a href=&quot;https://www.youtube.com/watch?v=rftcbxj7et0&amp;autoplay=1&quot; target=&quot;_blank&quot;&gt;
@@ -22125,7 +22216,7 @@ instead of blocking threads.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2015/12/15/avoid-javaisms-code-smell/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/skunk.jpg?202510211737&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;630&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/skunk.jpg?202510220618&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;630&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -22852,7 +22943,7 @@ which is why I’m dumbfounded by claims of parallelism&lt;/li&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2014/10/20/scala-best-practices/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202510211737&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202510220618&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -22894,7 +22985,7 @@ which is why I’m dumbfounded by claims of parallelism&lt;/li&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2013/05/13/getting-started-with-scala/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202510211737&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202510220618&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -23441,7 +23532,7 @@ orchestrate multiple atomic references at once.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2013/03/14/jvm-multithreading-monitor-locks-visibility/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/ferrari.jpg?202510211737&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;800&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/ferrari.jpg?202510220618&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;800&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -23920,7 +24011,7 @@ that you can’t do with plain volatiles.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2012/11/07/notes-javascript-development/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/javascript.jpg?202510211737&quot; alt=&quot;&quot; width=&quot;1280&quot; height=&quot;720&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/javascript.jpg?202510220618&quot; alt=&quot;&quot; width=&quot;1280&quot; height=&quot;720&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -24116,7 +24207,7 @@ In this article I’m describing my impressions of the Scala programming languag
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2012/11/02/scala-functional-programming-type-classes/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202510211737&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/scala.png?202510220618&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;675&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -25464,6 +25555,7 @@ you started.&lt;/p&gt;
   <category>Algorithms</category>
   <category>Mining</category>
   <category>Ruby</category>
+  <category>Math</category>
   </item>
 
 
@@ -25474,7 +25566,7 @@ you started.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2012/01/16/cosine-similarity-euclidean-distance/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/cosine-distance.png?202510211737&quot; alt=&quot;&quot; width=&quot;1285&quot; height=&quot;830&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/cosine-distance.png?202510220618&quot; alt=&quot;&quot; width=&quot;1285&quot; height=&quot;830&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -25861,8 +25953,8 @@ some text into another.&lt;/p&gt;
         &lt;i&gt;The article &lt;a href=&quot;https://alexn.org/blog/2012/01/16/cosine-similarity-euclidean-distance/?pk_campaign=rss&quot;&gt;Data Mining: Finding Similar Items and Users&lt;/a&gt; first appeared on &lt;a href=&quot;https://alexn.org?pk_campaign=rss&quot;&gt;alexn.org&lt;/a&gt;.&lt;/i&gt;
       &lt;/p&gt;</content:encoded>
   <pubDate>Mon, 16 Jan 2012 00:00:00 +0000</pubDate>
-  <dc:modified>Sat, 28 Dec 2019 00:00:00 +0000</dc:modified>
-  <atom:modified>Sat, 28 Dec 2019 00:00:00 +0000</atom:modified>
+  <dc:modified>Wed, 22 Oct 2025 05:56:17 +0000</dc:modified>
+  <atom:modified>Wed, 22 Oct 2025 05:56:17 +0000</atom:modified>
   <link>https://alexn.org/blog/2012/01/16/cosine-similarity-euclidean-distance/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/blog/2012/01/16/cosine-similarity-euclidean-distance/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
@@ -25871,6 +25963,7 @@ some text into another.&lt;/p&gt;
   <category>Algorithms</category>
   <category>Mining</category>
   <category>Ruby</category>
+  <category>Math</category>
   </item>
 
 
@@ -25881,7 +25974,7 @@ some text into another.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2012/01/05/blogging-for-hackers/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/jekyll.png?202510211737&quot; alt=&quot;&quot; width=&quot;960&quot; height=&quot;489&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/jekyll.png?202510220618&quot; alt=&quot;&quot; width=&quot;960&quot; height=&quot;489&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -26417,7 +26510,7 @@ anyway, but this was fun.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2011/12/15/crawling-the-android-marketplace-155200-apps/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/wolf-spider.jpg?202510211737&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;947&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/wolf-spider.jpg?202510220618&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;947&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -26546,7 +26639,7 @@ distribution is freemium based.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2011/12/12/android-learning-resources/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/android-development.jpg?202510211737&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;800&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/android-development.jpg?202510220618&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;800&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -26675,7 +26768,7 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2011/11/29/earning-money-as-an-amazon-affiliate/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/amazon-associates.jpg?202510211737&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;650&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/amazon-associates.jpg?202510220618&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;650&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -26918,7 +27011,7 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2011/11/25/4-books-for-learning-to-design-the-hard-way/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/book-design-all.jpg?202510211737&quot; alt=&quot;&quot; width=&quot;1915&quot; height=&quot;648&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/book-design-all.jpg?202510220618&quot; alt=&quot;&quot; width=&quot;1915&quot; height=&quot;648&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -27163,7 +27256,7 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2011/10/29/how-i-use-flickr/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/flickr.jpg?202510211737&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;800&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/flickr.jpg?202510220618&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;800&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -27237,7 +27330,7 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2011/10/23/why-i-find-heroku-suboptimal/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/heroku.png?202510211737&quot; alt=&quot;&quot; width=&quot;1440&quot; height=&quot;608&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/heroku.png?202510220618&quot; alt=&quot;&quot; width=&quot;1440&quot; height=&quot;608&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -27355,7 +27448,7 @@ experience. Hopefully this will change for the better.&lt;/p&gt;
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2011/03/24/cross-domain-requests/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/cors-ajax.png?202510211737&quot; alt=&quot;&quot; width=&quot;1368&quot; height=&quot;328&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/cors-ajax.png?202510220618&quot; alt=&quot;&quot; width=&quot;1368&quot; height=&quot;328&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -27691,7 +27784,7 @@ if (!xhr) {
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2010/05/25/i-hate-null/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/beautiful-soup.png?202510211737&quot; alt=&quot;&quot; width=&quot;1542&quot; height=&quot;592&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/beautiful-soup.png?202510220618&quot; alt=&quot;&quot; width=&quot;1542&quot; height=&quot;592&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -27816,7 +27909,7 @@ soup.find(&apos;table&apos;, {&apos;class&apos;:&apos;search-params&apos;}).find
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2009/02/20/tips-for-creating-voip-dialer/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/freeswitch1.png?202510211737&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;674&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/freeswitch1.png?202510220618&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;674&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
@@ -28154,7 +28247,7 @@ $fs-&gt;disconnect();
     
       &lt;figure&gt;
         &lt;a href=&quot;https://alexn.org/blog/2009/02/01/using-best-tools-programming-not-doable/?pk_campaign=rss&quot; title=&quot;Open article in browser&quot;&gt;
-          &lt;img src=&quot;https://alexn.org/assets/media/articles/tools.png?202510211737&quot; alt=&quot;&quot; width=&quot;768&quot; height=&quot;768&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
+          &lt;img src=&quot;https://alexn.org/assets/media/articles/tools.png?202510220618&quot; alt=&quot;&quot; width=&quot;768&quot; height=&quot;768&quot; style=&quot;max-width:100%;height:auto;&quot;&gt;
         &lt;/a&gt;
         
       &lt;/figure&gt;
