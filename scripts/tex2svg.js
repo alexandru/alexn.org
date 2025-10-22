@@ -141,46 +141,115 @@ async function processFormula(formula, outputDir, inline = false) {
   return filename;
 }
 
+/**
+ * Process multiple formulas in batch
+ */
+async function processBatch(formulas, outputDir) {
+  const results = [];
+  
+  // Process formulas in parallel batches of 10 to avoid overwhelming the system
+  const batchSize = 10;
+  for (let i = 0; i < formulas.length; i += batchSize) {
+    const batch = formulas.slice(i, i + batchSize);
+    const batchResults = await Promise.all(
+      batch.map(async ({ formula, inline }) => {
+        try {
+          const filename = await processFormula(formula, outputDir, inline);
+          const hash = hashFormula(formula);
+          return {
+            formula,
+            inline,
+            hash,
+            filename,
+            success: true
+          };
+        } catch (error) {
+          return {
+            formula,
+            inline,
+            error: error.message,
+            success: false
+          };
+        }
+      })
+    );
+    results.push(...batchResults);
+  }
+  
+  return results;
+}
+
 // Main execution
 if (require.main === module) {
   const args = process.argv.slice(2);
 
-  if (args.length < 2) {
-    console.log("Usage: tex2svg.js <formula> <output_dir> [--inline] [--transparent|--white]");
-    process.exit(1);
-  }
-
-  const formula = args[0];
-  const outputDir = args[1];
-  const inline = args.includes("--inline");
-  const forceTransparent = args.includes("--transparent");
-  const forceWhite = args.includes("--white");
-
-  // Process formula to generate both versions
-  processFormula(formula, outputDir, inline)
-    .then((filename) => {
-      // Determine which path to output based on options
-      let outputPath;
-      if (forceTransparent) {
-        outputPath = path.join('transparent', filename);
-      } else if (forceWhite) {
-        outputPath = path.join('white', filename);
-      } else {
-        // Default to transparent for backward compatibility
-        outputPath = path.join('transparent', filename);
-      }
-      console.log(outputPath);
-      process.exit(0);
-    })
-    .catch((err) => {
-      console.error("Error:", err.message);
+  // Check for batch mode
+  if (args[0] === '--batch') {
+    if (args.length < 2) {
+      console.error("Usage: tex2svg.js --batch <output_dir>");
+      console.error("Expects JSON array of {formula: string, inline: boolean} on stdin");
       process.exit(1);
+    }
+
+    const outputDir = args[1];
+    let inputData = '';
+
+    process.stdin.on('data', (chunk) => {
+      inputData += chunk;
     });
+
+    process.stdin.on('end', async () => {
+      try {
+        const formulas = JSON.parse(inputData);
+        const results = await processBatch(formulas, outputDir);
+        console.log(JSON.stringify(results));
+        process.exit(0);
+      } catch (err) {
+        console.error("Error:", err.message);
+        process.exit(1);
+      }
+    });
+  } else {
+    // Original single-formula mode for backward compatibility
+    if (args.length < 2) {
+      console.log("Usage: tex2svg.js <formula> <output_dir> [--inline] [--transparent|--white]");
+      console.log("   or: tex2svg.js --batch <output_dir>");
+      process.exit(1);
+    }
+
+    const formula = args[0];
+    const outputDir = args[1];
+    const inline = args.includes("--inline");
+    const forceTransparent = args.includes("--transparent");
+    const forceWhite = args.includes("--white");
+
+    // Process formula to generate both versions
+    processFormula(formula, outputDir, inline)
+      .then((filename) => {
+        // Determine which path to output based on options
+        let outputPath;
+        if (forceTransparent) {
+          outputPath = path.join('transparent', filename);
+        } else if (forceWhite) {
+          outputPath = path.join('white', filename);
+        } else {
+          // Default to transparent for backward compatibility
+          outputPath = path.join('transparent', filename);
+        }
+        console.log(outputPath);
+        process.exit(0);
+      })
+      .catch((err) => {
+        console.error("Error:", err.message);
+        process.exit(1);
+      });
+  }
 }
 
 module.exports = { 
   tex2svg, 
-  processFormula, 
+  processFormula,
+  processBatch,
   hashFormula,
   // Helper function to get specific SVG paths
   getSvgPaths: (hash, baseDir) => {
