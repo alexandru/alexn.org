@@ -7,6 +7,7 @@ tags:
   - Algorithms
   - Mining
   - Ruby
+  - Math
 image: /assets/media/articles/conditional-prob.png
 image_hide_in_post: true
 mathjax: true
