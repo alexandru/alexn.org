@@ -3,6 +3,11 @@ title: "Update on Math Formulas via Copilot"
 mathjax: true
 image: /assets/media/articles/2025-math-github-copilot.png
 image_hide_in_post: true
+tags:
+  - AI
+  - Blogging
+  - Jekyll
+  - Self Hosting
 ---
 
 <p class="intro">
