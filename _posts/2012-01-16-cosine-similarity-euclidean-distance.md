@@ -1,12 +1,13 @@
 ---
 title: "Data Mining: Finding Similar Items and Users"
 date:   2012-01-16
-last_modified_at: 2019-12-28
+last_modified_at: 2025-10-22T08:56:17+03:00
 tags:
   - Best Of
   - Algorithms
   - Mining
   - Ruby
+  - Math
 image: /assets/media/articles/cosine-distance.png
 generate_toc: true
 description: >-
