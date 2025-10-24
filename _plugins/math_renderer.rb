@@ -7,8 +7,8 @@ require 'tmpdir'
 
 module Jekyll
   class MathRenderer
-    INLINE_MATH_REGEX = /\$([^\$]+)\$|\\\(([^)]+)\\\)/
-    DISPLAY_MATH_REGEX = /\$\$([^\$]+?)\$\$|\\\[([^\]]+)\\\]/m
+    INLINE_MATH_REGEX = /\$([^\$]+)\$/
+    DISPLAY_MATH_REGEX = /\$\$([^\$]+?)\$\$/m
 
     def initialize(site)
       @site = site
