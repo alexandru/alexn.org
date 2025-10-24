@@ -111,7 +111,15 @@ body {
     @include code-rectangle-dark;
   }
 
-  // Invert math SVGs for dark mode
+  // Style MathML for dark mode
+  .math-display, 
+  .math-inline {
+    math {
+      color: #adbac7;
+    }
+  }
+  
+  // Invert math SVGs for dark mode (legacy)
   .math-display img, 
   img.math-inline {
     filter: invert(1) hue-rotate(180deg);

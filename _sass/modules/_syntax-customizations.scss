@@ -46,6 +46,17 @@ div.formula-code {
   // Enable smooth scrolling on mobile
   -webkit-overflow-scrolling: touch;
   
+  // Left-align display math
+  text-align: left;
+  margin: 1em 0;
+  
+  // MathML styling
+  math {
+    display: inline-block;
+    font-size: 1.1em;
+    line-height: 1.5;
+  }
+  
   img {
     max-width: unset;
   }
@@ -65,9 +76,69 @@ div.formula-code {
       transform: scale(0.9);
       transform-origin: left center;
     }
+    
+    math {
+      font-size: 1em;
+    }
   }
 }
 
 .math-inline {
   vertical-align: middle;
+  
+  math {
+    display: inline;
+    font-size: 1em;
+  }
+}
+
+// MathML specific styling for better rendering
+math {
+  // Ensure proper font rendering with fallbacks
+  font-family: "Latin Modern Math", "STIX Two Math", "Cambria Math", "Times New Roman", serif;
+  
+  // Better spacing for operators
+  mo {
+    padding: 0 0.15em;
+  }
+  
+  // Ensure tables respect alignment attributes
+  mtable {
+    display: inline-table;
+    vertical-align: middle;
+    text-align: left;
+    line-height: 1.8;
+    
+    mtr {
+      display: table-row;
+    }
+    
+    mtd {
+      display: table-cell;
+      padding: 0.3em 0.5em;
+      vertical-align: baseline;
+    }
+  }
+  
+  // Proper alignment for multi-line equations
+  mtable[columnalign*="right left"] {
+    mtd:first-child {
+      text-align: right;
+      padding-right: 0.3em;
+    }
+    
+    mtd:nth-child(2) {
+      text-align: left;
+      padding-left: 0.5em;
+    }
+  }
+  
+  // Handle rowspacing attribute for better vertical spacing
+  mtable[rowspacing] {
+    mtr:not(:last-child) {
+      mtd {
+        padding-bottom: 0.4em;
+      }
+    }
+  }
 }
