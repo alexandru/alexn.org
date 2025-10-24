@@ -7,15 +7,7 @@ module MyImages
   def self.size_of(path, log=false)
     local_path = "." + path.gsub(/^#{Regexp.quote(@@site['baseurl'])}|[?][^$]+$/, "")
     local_path = local_path.sub("/wiki/assets/", "/_wiki/assets/")
-    
-    # Special handling for math SVG files (they're in .jekyll-cache during build)
-    if local_path.start_with?("./assets/math/")
-      math_cache_path = local_path.sub("./assets/math/", "./.jekyll-cache/math-svg/")
-      if File.exist?(math_cache_path)
-        local_path = math_cache_path
-      end
-    end
-    
+
     unless @@image_cache.include? local_path
       unless File.exist? local_path
         throw ArgumentError.new("Cannot find image at path: '#{local_path}'")
@@ -32,7 +24,7 @@ end
 module Jekyll
   module MyImageFilters
     def fix_images(html)
-      html.gsub(/<img([^>]+)src=(['"](\/[^'"]+)['"])([^>]+)>/) do |img|
+      html.gsub(/<img([^>]+)src=(['"](\/[^'"\)]+)['"])([^>]+)>/) do |img|
         if img.include?("width=") || img.include?("height=")
           img
         else
@@ -45,11 +37,6 @@ module Jekyll
           size = MyImages.size_of(path)
           width = size[0]
           height = size[1]
-
-          if path.include?("/assets/math") && path.end_with?(".svg")            
-            width = width * 12
-            height = height * 12
-          end
 
           "<img#{prefix}src=#{img0} width=\"#{width}\" height=\"#{height}\"#{decoding}#{suffix}>"
         end

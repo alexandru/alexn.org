@@ -114,14 +114,9 @@ module Jekyll
       doc.css("img").each do |elem|
         if elem["src"] =~ /^\//
           path = elem["src"]
-          
-          # Convert transparent math SVGs to white background SVGs for RSS feeds
-          if elem["src"].include?("/assets/math/transparent/")
-            elem["src"] = elem["src"].gsub("/assets/math/transparent/", "/assets/math/white/")
-          end
-          
+
           elem["src"] = to_absolute_url(@@site, elem['src'])
-          if !(elem.has_attribute?("width") && elem.has_attribute?("height")) && !elem['src'].include?("/assets/math")
+          if !(elem.has_attribute?("width") && elem.has_attribute?("height"))
             size = MyImages.size_of(path)
             elem["width"] = size[0]
             elem["height"] = size[1]

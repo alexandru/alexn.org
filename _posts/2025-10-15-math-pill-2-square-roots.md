@@ -75,13 +75,13 @@ $$
 Solving that:
 
 $$
-\begin{aligned}
+\[\begin{aligned}
 \Delta &= 97^2 - 4 \cdot 2352 \\
 &= 9409 - 9408 \\
 &= 1 \\
 x_1 &= a = \frac{97 + \sqrt{1}}{2} = 49 \\
 x_2 &= b = \frac{97 - \sqrt{1}}{2} = 48
-\end{aligned}
+\end{aligned}\]
 $$
 
 Threfore:
