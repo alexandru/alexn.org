@@ -111,14 +111,37 @@ module Jekyll
 
       doc.search(".hide-in-feed").remove
 
+      # Replace math SVG images with MathML for RSS feeds
+      doc.css("img[data-math-hash]").each do |elem|
+        hash = elem["data-math-hash"]
+        if hash
+          # Try to load the MathML file
+          mathml_path = File.join(@@site['source'], '.jekyll-cache', 'math', 'mathml', "#{hash}.html")
+          if File.exist?(mathml_path)
+            begin
+              mathml_content = File.read(mathml_path)
+              # Parse the MathML and replace the img element
+              mathml_doc = Nokogiri::XML(mathml_content)
+              math_node = mathml_doc.at_css('math')
+              if math_node
+                # For display math, wrap in div
+                if elem.parent.name == 'div' && elem.parent['class']&.include?('math-display')
+                  elem.parent.replace(math_node.to_xml)
+                else
+                  # For inline math, just replace the img
+                  elem.replace(math_node.to_xml)
+                end
+              end
+            rescue => e
+              Jekyll.logger.warn "RSSFilter:", "Failed to load MathML for hash #{hash}: #{e.message}"
+            end
+          end
+        end
+      end
+
       doc.css("img").each do |elem|
         if elem["src"] =~ /^\//
           path = elem["src"]
-          
-          # Convert transparent math SVGs to white background SVGs for RSS feeds
-          if elem["src"].include?("/assets/math/transparent/")
-            elem["src"] = elem["src"].gsub("/assets/math/transparent/", "/assets/math/white/")
-          end
           
           elem["src"] = to_absolute_url(@@site, elem['src'])
           if !(elem.has_attribute?("width") && elem.has_attribute?("height")) && !elem['src'].include?("/assets/math")

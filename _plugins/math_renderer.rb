@@ -12,9 +12,8 @@ module Jekyll
     
     def initialize(site)
       @site = site
-      # Use Jekyll's cache directory for generated math SVG files
-      @math_dir = File.join(site.source, '.jekyll-cache', 'math-svg')
-      @cache = {}
+      # Use Jekyll's cache directory for generated math files
+      @math_dir = File.join(site.source, '.jekyll-cache', 'math')
       @generated_files = {}
       FileUtils.mkdir_p(@math_dir)
     end
@@ -23,103 +22,119 @@ module Jekyll
       Digest::MD5.hexdigest(formula.strip)
     end
     
-    def render_formula(formula, inline = false)
-      hash = hash_formula(formula)
-      filename = "#{hash}.svg"
-      
-      # Use the transparent SVG by default (for website)
-      transparent_dir = File.join(@math_dir, 'transparent')
-      white_dir = File.join(@math_dir, 'white')
-      
-      transparent_filepath = File.join(transparent_dir, filename)
-      white_filepath = File.join(white_dir, filename)
-      
-      # Return cached result if available
-      return @cache[hash] if @cache.key?(hash)
-      
-      # Generate SVG if either version doesn't exist
-      unless File.exist?(transparent_filepath) && File.exist?(white_filepath)
-        script_path = File.join(@site.source, 'scripts', 'tex2svg.js')
-        inline_flag = inline ? '--inline' : ''
-        
-        stdout, stderr, status = Open3.capture3(
-          'node', script_path, formula, @math_dir, inline_flag
-        )
-        
-        unless status.success?
-          Jekyll.logger.error "MathRenderer:", "Failed to render formula: #{formula}"
-          Jekyll.logger.error "MathRenderer:", stderr
-          return formula # Return original formula on error
-        end
-      end
-      
-      # Track both generated files for later addition to static_files
-      # Use just the filename as the key, since the path structure is already in the filepath
-      @generated_files["transparent/#{filename}"] = transparent_filepath
-      @generated_files["white/#{filename}"] = white_filepath
-      
-      # Cache and return the transparent version result (for website)
-      size = FastImage.size(transparent_filepath)
-      svg_path = "/assets/math/transparent/#{filename}"
-      @cache[hash] = [svg_path, size]
-      @cache[hash]
-    end
-    
-
     def escape_html(str)
       CGI.escapeHTML(str).gsub(/\s+/, ' ')
     end
     
-    def process_content(content)
-
-      # Process display math first (to avoid conflicts with inline math)
-      content = content.gsub(DISPLAY_MATH_REGEX) do |match|
-        formula = $1.strip
-        alt_text = escape_html(formula)
-        svg_path, size = render_formula(formula, false)
-        %(<div class="math-display page-width"><img src="#{svg_path}" alt="Math formula" title="#{alt_text}" width="#{size[0] * 12}" height="#{size[1] * 12}" loading="lazy" /></div>)
+    def collect_formulas(content)
+      formulas = []
+      
+      # Collect display math formulas
+      content.scan(DISPLAY_MATH_REGEX) do |match|
+        formulas << { formula: match[0].strip, inline: false }
       end
       
-      # Process inline math
+      # Collect inline math formulas
+      content.scan(INLINE_MATH_REGEX) do |match|
+        formulas << { formula: match[0].strip, inline: true }
+      end
+      
+      formulas
+    end
+    
+    def process_formulas_batch(formulas)
+      return if formulas.empty?
+      
+      script_path = File.join(@site.source, 'scripts', 'tex2svg.js')
+      json_input = formulas.to_json
+      
+      stdout, stderr, status = Open3.capture3(
+        'node', script_path, json_input, @math_dir
+      )
+      
+      unless status.success?
+        Jekyll.logger.error "MathRenderer:", "Failed to render formulas"
+        Jekyll.logger.error "MathRenderer:", stderr
+        return
+      end
+      
+      # Parse the results
+      begin
+        results = JSON.parse(stdout)
+        results.each do |result|
+          next if result['error']
+          
+          hash = result['hash']
+          svg_filename = result['svgFilename']
+          
+          # Track generated SVG file for static_files
+          svg_filepath = File.join(@math_dir, 'svg', svg_filename)
+          @generated_files[svg_filename] = svg_filepath
+        end
+      rescue JSON::ParserError => e
+        Jekyll.logger.error "MathRenderer:", "Failed to parse results: #{e.message}"
+      end
+    end
+    
+    def process_content(content)
+      # Collect all formulas first
+      formulas = collect_formulas(content)
+      
+      # Process all formulas in batch
+      process_formulas_batch(formulas)
+      
+      # Replace display math
+      content = content.gsub(DISPLAY_MATH_REGEX) do |match|
+        formula = $1.strip
+        hash = hash_formula(formula)
+        filename = "#{hash}.svg"
+        svg_filepath = File.join(@math_dir, 'svg', filename)
+        
+        # Get size if file exists
+        if File.exist?(svg_filepath)
+          size = FastImage.size(svg_filepath)
+          svg_path = "/assets/math/#{filename}"
+          alt_text = escape_html(formula)
+          %(<div class="math-display page-width"><img src="#{svg_path}" alt="Math formula" title="#{alt_text}" width="#{size[0] * 12}" height="#{size[1] * 12}" loading="lazy" data-math-hash="#{hash}" /></div>)
+        else
+          Jekyll.logger.warn "MathRenderer:", "SVG not found for formula: #{formula}"
+          match # Return original if rendering failed
+        end
+      end
+      
+      # Replace inline math
       content = content.gsub(INLINE_MATH_REGEX) do |match|
         formula = $1.strip
-        alt_text = escape_html(formula)
-        svg_path, size = render_formula(formula, true)
-        %(<img src="#{svg_path}" alt="Math formula" title="#{alt_text}" class="math-inline" width="#{size[0] * 12}" height="#{size[1] * 12}" loading="lazy" />)
+        hash = hash_formula(formula)
+        filename = "#{hash}.svg"
+        svg_filepath = File.join(@math_dir, 'svg', filename)
+        
+        # Get size if file exists
+        if File.exist?(svg_filepath)
+          size = FastImage.size(svg_filepath)
+          svg_path = "/assets/math/#{filename}"
+          alt_text = escape_html(formula)
+          %(<img src="#{svg_path}" alt="Math formula" title="#{alt_text}" class="math-inline" width="#{size[0] * 12}" height="#{size[1] * 12}" loading="lazy" data-math-hash="#{hash}" />)
+        else
+          Jekyll.logger.warn "MathRenderer:", "SVG not found for formula: #{formula}"
+          match # Return original if rendering failed
+        end
       end
       
       content
     end
     
     def add_static_files
-      @generated_files.each do |rel_path, filepath|
-        # The filepath already contains the correct full path to the file
-        # Extract directory components to create the correct MathStaticFile
-        dir_parts = rel_path.split(File::SEPARATOR)
-        base_name = dir_parts.last
-        
-        if dir_parts.length > 1
-          # For files in subdirectories (transparent or white)
-          subdir = dir_parts.first
-          parent_dir = File.dirname(filepath)  # Path to the parent directory
-          
-          file = MathStaticFile.new(
-            @site,
-            parent_dir,  # Base directory is parent dir of the file
-            '',  # Empty string as dir since we handle this in name
-            base_name,
-            subdir  # Pass the subdirectory as a parameter
-          )
-        else
-          # Legacy case - files directly in math_dir
-          file = MathStaticFile.new(
-            @site,
-            @math_dir,
-            '',
-            rel_path
-          )
-        end
-        
+      svg_dir = File.join(@math_dir, 'svg')
+      
+      @generated_files.each do |filename, filepath|
+        # Add SVG file to static_files
+        file = MathStaticFile.new(
+          @site,
+          svg_dir,
+          '',
+          filename
+        )
         @site.static_files << file
       end
     end
@@ -127,27 +142,13 @@ module Jekyll
   
   # Custom StaticFile class for math SVG files
   class MathStaticFile < Jekyll::StaticFile
-    def initialize(site, base, dir, name, subdir = nil)
+    def initialize(site, base, dir, name)
       super(site, base, dir, name)
-      @subdir = subdir
-      
-      if @subdir
-        # If we have a subdirectory specified
-        @relative_path = File.join('/assets/math', @subdir, name)
-      else
-        # Backwards compatibility case
-        @relative_path = File.join('/assets/math', name)
-      end
+      @relative_path = File.join('/assets/math', name)
     end
     
     def destination(dest)
-      if @subdir
-        # If we have a subdirectory
-        File.join(dest, 'assets', 'math', @subdir, @name)
-      else
-        # Backwards compatibility case
-        File.join(dest, 'assets', 'math', @name)
-      end
+      File.join(dest, 'assets', 'math', @name)
     end
     
     def destination_rel_dir
@@ -155,7 +156,7 @@ module Jekyll
     end
     
     def path
-      # Override path to return the actual file location for size_of to work
+      # Override path to return the actual file location
       File.join(@base, @name)
     end
   end

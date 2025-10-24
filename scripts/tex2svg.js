@@ -6,9 +6,11 @@ const { SVG } = require('mathjax-full/js/output/svg');
 const { liteAdaptor } = require('mathjax-full/js/adaptors/liteAdaptor');
 const { RegisterHTMLHandler } = require('mathjax-full/js/handlers/html');
 const { AllPackages } = require('mathjax-full/js/input/tex/AllPackages');
-const fs = require("fs");
+const { SerializedMmlVisitor } = require('mathjax-full/js/core/MmlTree/SerializedMmlVisitor');
+const fs = require("fs").promises;
 const crypto = require("crypto");
 const path = require("path");
+const os = require("os");
 
 // Setup MathJax
 const adaptor = liteAdaptor();
@@ -26,63 +28,77 @@ function hashFormula(formula) {
 }
 
 /**
- * Convert TeX formula to SVG and return both transparent and white background versions
+ * Escape XML special characters
+ */
+function escapeXml(str) {
+  // Remove newlines, carriage returns, and tabs
+  str = str.replace(/[\n\r\t]+/g, ' ');
+  // Escape XML special characters
+  return str.replace(/[&<>'"]/g, function (c) {
+    switch (c) {
+      case '&': return '&amp;';
+      case '<': return '&lt;';
+      case '>': return '&gt;';
+      case '"': return '&quot;';
+      case "'": return '&apos;';
+    }
+  });
+}
+
+/**
+ * Convert TeX formula to SVG and MathML
  */
 async function tex2svg(formula, inline = false) {
   try {
-    // Convert formula to MathJax node
-    const node = html.convert(formula, { display: !inline });
-
-    // Extract the SVG element from the container
-    const svgElement = adaptor.firstChild(node);
-    let svgString = adaptor.outerHTML(svgElement);
-
-    // Add title element for accessibility, escaping all XML special characters
-    function escapeXml(str) {
-      // Remove newlines, carriage returns, and tabs
-      str = str.replace(/[\n\r\t]+/g, ' ');
-      // Escape XML special characters
-      return str.replace(/[&<>'"]/g, function (c) {
-        switch (c) {
-          case '&': return '&amp;';
-          case '<': return '&lt;';
-          case '>': return '&gt;';
-          case '"': return '&quot;';
-          case "'": return '&apos;';
-        }
-      });
+    // Create a temporary document with the formula
+    // Use \(...\) for inline and $$...$$ for display as these are recognized by default
+    const wrappedFormula = inline 
+      ? `\\(${formula}\\)` 
+      : `$$${formula}$$`;
+    const tempDoc = mathjax.document(`<div>${wrappedFormula}</div>`, { 
+      InputJax: tex, 
+      OutputJax: svg 
+    });
+    
+    // Find and compile the math to get the internal MML tree
+    tempDoc.findMath();
+    tempDoc.compile();
+    
+    // Get the MathML from the compiled math item
+    let mmlString = '';
+    for (const mathItem of tempDoc.math) {
+      if (mathItem.root) {
+        const visitor = new SerializedMmlVisitor(tex.mmlFactory);
+        mmlString = visitor.visitTree(mathItem.root);
+        break; // We only expect one formula per document
+      }
     }
     
-    // Add title to the SVG
+    // Now render to get the SVG
+    tempDoc.render();
+    
+    // Extract the SVG element from the rendered HTML
+    const body = adaptor.body(tempDoc.document);
+    const rendered = adaptor.innerHTML(body);
+    
+    // Parse the rendered HTML to extract the SVG
+    const svgMatch = rendered.match(/<svg[^>]*>[\s\S]*?<\/svg>/);
+    if (!svgMatch) {
+      throw new Error('Failed to extract SVG from rendered output');
+    }
+    
+    let svgString = svgMatch[0];
+
+    // Add title to the SVG for accessibility
     const svgWithTitle = svgString.replace(
       /<svg([^>]*)>/,
       `<svg$1><title>${escapeXml(formula)}</title>`
     );
-    
-    // Create transparent version (base version with title)
-    const transparentSvg = svgWithTitle;
-    
-    // Create white background version
-    let whiteBgSvg = svgWithTitle;
-    whiteBgSvg = whiteBgSvg.replace(
-      /<svg([^>]*)>(<title>.*?<\/title>)/,
-      (match, attrs, title) => {
-        // Extract viewBox to determine size
-        const viewBoxMatch = attrs.match(/viewBox="([^"]+)"/);
-        if (!viewBoxMatch) return match;
-        
-        const viewBox = viewBoxMatch[1].split(' ');
-        if (viewBox.length !== 4) return match;
-        
-        const [x, y, width, height] = viewBox;
-        return `<svg${attrs}>${title}<rect x="${x}" y="${y}" width="${width}" height="${height}" fill="rgba(255, 255, 255, 0.6)"/>`
-      }
-    );
 
     // Return both versions
     return {
-      transparent: transparentSvg,
-      white: whiteBgSvg
+      svg: svgWithTitle,
+      mathml: mmlString
     };
   } catch (error) {
     throw new Error(`Failed to render formula: ${error.message}`);
@@ -90,86 +106,108 @@ async function tex2svg(formula, inline = false) {
 }
 
 /**
- * Process a formula and save to file
+ * Process a single formula and save to files
  */
 async function processFormula(formula, outputDir, inline = false) {
   const hash = hashFormula(formula);
-  const filename = `${hash}.svg`;
+  const svgFilename = `${hash}.svg`;
+  const mathmlFilename = `${hash}.html`;
   
-  // Create paths for both versions
-  const baseDir = outputDir;
-  const whiteDir = path.join(baseDir, 'white');
-  const transparentDir = path.join(baseDir, 'transparent');
+  // Create paths
+  const svgDir = path.join(outputDir, 'svg');
+  const mathmlDir = path.join(outputDir, 'mathml');
   
-  const whiteFilepath = path.join(whiteDir, filename);
-  const transparentFilepath = path.join(transparentDir, filename);
+  const svgFilepath = path.join(svgDir, svgFilename);
+  const mathmlFilepath = path.join(mathmlDir, mathmlFilename);
 
-  // Create both directories if they don't exist
-  for (const dir of [whiteDir, transparentDir]) {
-    try {
-      if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
-      }
-    } catch (err) {
-      throw new Error(`Failed to create directory ${dir}: ${err.message}`);
-    }
-  }
+  // Create directories if they don't exist
+  await fs.mkdir(svgDir, { recursive: true });
+  await fs.mkdir(mathmlDir, { recursive: true });
   
-  // Skip generation if both files exist
-  if (fs.existsSync(transparentFilepath) && fs.existsSync(whiteFilepath)) {
-    return filename;
-  }
-  
-  // Generate both versions in a single call
+  // Check if both files exist
   try {
-    const svgVersions = await tex2svg(formula, inline);
-    
-    // Write transparent version
-    if (!fs.existsSync(transparentFilepath)) {
-      fs.writeFileSync(transparentFilepath, svgVersions.transparent);
-    }
-    
-    // Write white background version
-    if (!fs.existsSync(whiteFilepath)) {
-      fs.writeFileSync(whiteFilepath, svgVersions.white);
-    }
+    await Promise.all([
+      fs.access(svgFilepath),
+      fs.access(mathmlFilepath)
+    ]);
+    // Both files exist, return early
+    return { hash, svgFilename, mathmlFilename };
   } catch (err) {
-    throw new Error(`Failed to generate SVG files: ${err.message}`);
+    // One or both files don't exist, generate them
   }
+  
+  // Generate both versions
+  const { svg, mathml } = await tex2svg(formula, inline);
+  
+  // Write both files in parallel
+  await Promise.all([
+    fs.writeFile(svgFilepath, svg, 'utf8'),
+    fs.writeFile(mathmlFilepath, mathml, 'utf8')
+  ]);
 
-  // Return the transparent version filename for backward compatibility
-  return filename;
+  return { hash, svgFilename, mathmlFilename };
+}
+
+/**
+ * Process multiple formulas in parallel
+ */
+async function processFormulas(formulas, outputDir) {
+  const concurrency = os.cpus().length;
+  const results = [];
+  
+  // Process formulas in batches for parallelism
+  for (let i = 0; i < formulas.length; i += concurrency) {
+    const batch = formulas.slice(i, i + concurrency);
+    const batchResults = await Promise.all(
+      batch.map(({ formula, inline }) => 
+        processFormula(formula, outputDir, inline)
+          .catch(err => ({ error: err.message, formula }))
+      )
+    );
+    results.push(...batchResults);
+  }
+  
+  return results;
 }
 
 // Main execution
 if (require.main === module) {
   const args = process.argv.slice(2);
 
-  if (args.length < 2) {
-    console.log("Usage: tex2svg.js <formula> <output_dir> [--inline] [--transparent|--white]");
+  if (args.length < 1) {
+    console.log("Usage: tex2svg.js <json_input> <output_dir>");
+    console.log("  json_input: JSON string with format [{\"formula\": \"...\", \"inline\": true/false}, ...]");
+    console.log("  output_dir: Base directory for output (will create svg/ and mathml/ subdirs)");
     process.exit(1);
   }
 
-  const formula = args[0];
+  const jsonInput = args[0];
   const outputDir = args[1];
-  const inline = args.includes("--inline");
-  const forceTransparent = args.includes("--transparent");
-  const forceWhite = args.includes("--white");
 
-  // Process formula to generate both versions
-  processFormula(formula, outputDir, inline)
-    .then((filename) => {
-      // Determine which path to output based on options
-      let outputPath;
-      if (forceTransparent) {
-        outputPath = path.join('transparent', filename);
-      } else if (forceWhite) {
-        outputPath = path.join('white', filename);
-      } else {
-        // Default to transparent for backward compatibility
-        outputPath = path.join('transparent', filename);
+  let formulas;
+  try {
+    formulas = JSON.parse(jsonInput);
+    if (!Array.isArray(formulas)) {
+      throw new Error("Input must be an array");
+    }
+  } catch (err) {
+    console.error("Error parsing JSON input:", err.message);
+    process.exit(1);
+  }
+
+  // Process all formulas
+  processFormulas(formulas, outputDir)
+    .then((results) => {
+      // Output results as JSON
+      console.log(JSON.stringify(results, null, 2));
+      
+      // Check for errors
+      const errors = results.filter(r => r.error);
+      if (errors.length > 0) {
+        console.error("Some formulas failed to process:", errors);
+        process.exit(1);
       }
-      console.log(outputPath);
+      
       process.exit(0);
     })
     .catch((err) => {
@@ -180,14 +218,7 @@ if (require.main === module) {
 
 module.exports = { 
   tex2svg, 
-  processFormula, 
-  hashFormula,
-  // Helper function to get specific SVG paths
-  getSvgPaths: (hash, baseDir) => {
-    const filename = `${hash}.svg`;
-    return {
-      white: path.join(baseDir, 'white', filename),
-      transparent: path.join(baseDir, 'transparent', filename)
-    };
-  }
+  processFormula,
+  processFormulas,
+  hashFormula
 };
