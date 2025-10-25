@@ -4,9 +4,11 @@ image: /assets/media/articles/2025-scala-match-types.png
 image_hide_in_post: true
 mathjax: true
 tags:
+  - Languages
+  - Programming
   - Scala
   - Scala 3
-  - Programming
+  - TypeScript
 description: >
   Scala has a neat new feature, resembling TypeScript's "conditional types", but more powerful.
 ---
