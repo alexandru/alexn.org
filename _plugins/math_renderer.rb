@@ -61,6 +61,40 @@ module Jekyll
       @cache[hash] = nil
       nil
     end
+
+    def call_process_script(formulas)
+      already_existing, missing = 
+        formulas.partition { |f| File.exist?(f[:path]) }
+      formulas_data = missing
+        .map { |f| { formula: f[:formula], inline: f[:inline] } }
+      
+      if formulas_data.length > 0
+        input_json = JSON.generate(formulas_data)
+        
+        FileUtils.mkdir_p(@math_dir)
+        script_path = File.join(@site.source, 'scripts', 'tex2svg.js')
+        stdout, stderr, status = Open3.capture3(
+          'node', script_path, '--batch', @math_dir,
+          stdin_data: input_json
+        )
+        unless status.success?
+          Jekyll.logger.error "MathRenderer:", "Batch processing failed"
+          Jekyll.logger.error "MathRenderer:", stderr
+          raise "MathRenderer batch processing failed: #{stderr}"
+        end
+        results = JSON.parse(stdout)
+      else 
+        results = []
+      end
+
+      already_existing.each do |f|
+        results << {
+          "formula": f[:formula],
+          "inline": f[:inline],
+          "success": true
+        }
+      end
+    end
     
     def process_pending_formulas
       return if @pending_formulas.empty?
@@ -68,31 +102,11 @@ module Jekyll
       Jekyll.logger.info "MathRenderer:", "Processing #{@pending_formulas.length} formulas in batch..."
       
       # Prepare input data for batch processing
-      formulas_data = @pending_formulas
-        .map { |f| { formula: f[:formula], inline: f[:inline] } }
-      input_json = JSON.generate(formulas_data)
-      
-      FileUtils.mkdir_p(@math_dir)
-      script_path = File.join(@site.source, 'scripts', 'tex2svg.js')
-      stdout, stderr, status = Open3.capture3(
-        'node', script_path, '--batch', @math_dir,
-        stdin_data: input_json
-      )
-      
-      unless status.success?
-        Jekyll.logger.error "MathRenderer:", "Batch processing failed"
-        Jekyll.logger.error "MathRenderer:", stderr
-        # Fall back to individual processing
-        @pending_formulas.each do |pending|
-          process_single_formula(pending[:formula], pending[:inline])
-        end
-        @pending_formulas.clear
-        return
-      end
+      results = call_process_script(@pending_formulas)
+      @pending_formulas.clear
       
       # Process results
       begin
-        results = JSON.parse(stdout)
         results.each do |result|
           if result['success']
             hash = result['hash']
@@ -118,8 +132,6 @@ module Jekyll
       rescue JSON::ParserError => e
         Jekyll.logger.error "MathRenderer:", "Failed to parse batch results: #{e.message}"
       end
-      
-      @pending_formulas.clear
     end
     
     def process_single_formula(formula, inline)
@@ -314,5 +326,4 @@ module Jekyll
       renderer.add_static_files
     end
   end
-
 end
