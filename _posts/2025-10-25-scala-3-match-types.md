@@ -3,6 +3,7 @@ title: "Scala 3 / Match Types"
 image: /assets/media/articles/2025-scala-match-types.png
 image_hide_in_post: true
 mathjax: true
+last_modified_at: 2025-10-26T17:28:38+02:00
 tags:
   - Languages
   - Programming
@@ -17,52 +18,58 @@ description: >
 Scala has a neat feature called [match types](https://docs.scala-lang.org/scala3/reference/new-types/match-types.html). Let's play…
 </p>
 
+<p class="info-bubble" markdown="1">
+This article is using [Scala 3](https://docs.scala-lang.org/scala3/new-in-scala3.html) syntax and features using [-no-indent](./2025-10-26-scala-3-no-indent.md).
+</p>
+
 Here's an example:
 
 ```scala
-type Head[T] = T match
-    case Array[a]        => Option[a]
-    case List[a]         => Option[a]
-    case String          => Option[Char]
-    case NonEmptyList[a] => a
-    case Map[k, v]       => Option[(k, v)]
-    case k *: v          => k
-    case _               => Nothing
+type Head[T] = T match {
+  case Array[a]        => Option[a]
+  case List[a]         => Option[a]
+  case String          => Option[Char]
+  case NonEmptyList[a] => a
+  case Map[k, v]       => Option[(k, v)]
+  case k *: v          => k
+  case _               => Nothing
+}
 
-def head[T](t: T): Head[T] = t match
-    case ref: Array[a] =>
-        ref.headOption
-    case ref: List[a] =>
-        ref.headOption
-    case ref: String =>
-        ref.headOption
-    case ref: NonEmptyList[a] =>
-        ref.head
-    case ref: Map[k, v] =>
-        ref.headOption
-    case ref: (k *: v) =>
-        ref.head.asInstanceOf[Head[k *: v]]
-    case _ =>
-        throw new IllegalArgumentException()
+def head[T](t: T): Head[T] = t match {
+  case ref: Array[a] =>
+    ref.headOption
+  case ref: List[a] =>
+    ref.headOption
+  case ref: String =>
+    ref.headOption
+  case ref: NonEmptyList[a] =>
+    ref.head
+  case ref: Map[k, v] =>
+    ref.headOption
+  case ref: (k *: v) =>
+    ref.head.asInstanceOf[Head[k *: v]]
+  case _ =>
+    throw IllegalArgumentException()
+}
 
 // Using it works as expected, with the compiler
 // correctly inferring the types in each case:
 val v1: Option[Int] =
-    head(Array(1, 2, 3))
+  head(Array(1, 2, 3))
 val v2: Option[String] =
-    head(List("a", "b", "c"))
+  head(List("a", "b", "c"))
 val v3: Option[Char] =
-    head("hello")
+  head("hello")
 val v4: Int =
-    head(NonEmptyList.of(10, 20, 30))
+  head(NonEmptyList.of(10, 20, 30))
 val v5: Option[(String, Int)] =
-    head(Map("a" -> 1, "b" -> 2))
+  head(Map("a" -> 1, "b" -> 2))
 val v6: String =
-    head("hello" *: 42 *: true *: EmptyTuple)
+  head("hello" *: 42 *: true *: EmptyTuple)
 val v7: Nothing =
-    head(())
+  head(())
 val v8: Nothing =
-    head(123)
+  head(123)
 ```
 
 The above exposes an ability called [dependent typing](https://en.wikipedia.org/wiki/Dependent_type).
@@ -113,22 +120,28 @@ const v5: string = // tuple
 Scala's match types can also have _recursive definitions_, so for example:
 
 ```scala
-type AtomOf[T] = T match
-    case Iterable[a] => AtomOf[a]
-    case t => t
+type AtomOf[T] = T match {
+  case Iterable[a] => AtomOf[a]
+  case t => t
+}
 
 // These are valid
-val x: AtomOf[List[List[String]]] = "atom"
-val y: AtomOf[Int] = 42
-val z: AtomOf[List[Set[Map[String, Int]]]] = ("key", 1)
+val x: AtomOf[List[List[String]]] = 
+  "atom"
+val y: AtomOf[Int] = 
+  42
+val z: AtomOf[List[Set[Map[String, Int]]]] = 
+  ("key", 1)
 ```
 
 This makes inferring types related to tuples easier, e.g., straight from that documentation page, we can see that tuple concatenation can be expressed:
 
 ```scala
-type Concat[Xs <: Tuple, Ys <: Tuple] = Xs match
+type Concat[Xs <: Tuple, Ys <: Tuple] = 
+  Xs match {
     case EmptyTuple => Ys
     case h *: t     => h *: Concat[t, Ys]
+  }
 ```
 
 If you want to waste time on things that bring you joy, you can now do type-level arithmetic, even without the awesome utilities in `scala.compiletime.ops.int`, taking inspiration from [Peano's axioms](https://en.wikipedia.org/wiki/Peano_axioms#Addition):
@@ -147,9 +160,10 @@ Which can be expressed almost literally:
 import scala.compiletime.ops.int.S as Succ
 
 type Sum[A <: Int, B <: Int] <: Int =
-    A match
-        case 0        => B
-        case Succ[a0] => Sum[a0, Succ[B]]
+  A match {
+    case 0        => B
+    case Succ[a0] => Sum[a0, Succ[B]]
+  }
 
 val x: Sum[3, 4] = 7 // works
 val y: Sum[3, 4] = 8 // fails with a compile-time error
@@ -159,12 +173,13 @@ As a note, one would think that `Succ` could be defined like this:
 
 ```scala
 type Succ[A <: Int] <: Int =
-    A match
-        case 0 => 1
-        case 1 => 2
-        case 2 => 3
-        //...
-        case 2147483646 => 2147483647
+  A match {
+    case 0 => 1
+    case 1 => 2
+    case 2 => 3
+    //...
+    case 2147483646 => 2147483647
+  }
 ````
 
 But I couldn't make it work, maybe some kind soul from the Internet could explain why. Thankfully, it's already defined by the Scala standard library at `scala.compiletime.ops.int.S`, and this one works. And note that the Scala library defines types in terms of `S`, with gems such as this one:
@@ -173,11 +188,14 @@ But I couldn't make it work, maybe some kind soul from the Internet could explai
 // Standard library
 package scala
 
-object Tuple:
-    /** Literal constant Int size of a tuple */
-    type Size[X <: Tuple] <: Int = X match
-        case EmptyTuple => 0
-        case x *: xs => S[Size[xs]]
+object Tuple {
+  /** Literal constant Int size of a tuple */
+  type Size[X <: Tuple] <: Int = 
+    X match {
+      case EmptyTuple => 0
+      case x *: xs => S[Size[xs]]
+    }
+}
 
 //...
 val x: Tuple.Size[(Int, String, Double)] = 3
@@ -190,15 +208,18 @@ You can just smell the Turing completeness 😁
 Match types without exhaustive matches don't really work. And the behavior changed somewhat in later Scala versions. For example, the following would trigger a compile time error in Scala `3.3.7` ([LTS](https://www.scala-lang.org/blog/2022/08/17/long-term-compatibility-plans.html)), but not in the latest `3.7.3`:
 
 ```scala
-type Head[T] = T match
-    case Array[a] => Option[a]
-    case List[a]  => Option[a]
+type Head[T] = T match {
+  case Array[a] => Option[a]
+  case List[a]  => Option[a]
+}
 
-def head[T](t: T): Head[T] = t match
+def head[T](t: T): Head[T] = 
+  t match {
     case ref: Array[a] =>
-        ref.headOption
+      ref.headOption
     case ref: List[a] =>
-        ref.headOption
+      ref.headOption
+  }
 
 // ... these calls would trigger compile-time errors in 3.3.7,
 // but not in later versions...
@@ -211,9 +232,10 @@ The issue here is that `Head[String]`, in the above definition, is not allowed t
 ```scala
 class Foo[T](val value: T)
 
-type Unpacked[T] = T match
+type Unpacked[T] = 
+  T match {
     case Foo[a] => a
-
+  }
 def unpack[T](t: T): Unpacked[T] = t match
     case ref: Foo[a] => ref.value
 
@@ -228,8 +250,9 @@ The kicker here is that you can make the above fail at compile-time, on Scala 3.
 ```scala
 final class Foo[T](val value: T)
 
-type Unpacked[T] = T match
-    case Foo[a] => a
+type Unpacked[T] = T match {
+  case Foo[a] => A
+}
 
 // Compile-time error in Scala 3.3.7
 // Compilation passes in Scala 3.7.3
@@ -242,10 +265,11 @@ My shoddy rationalization goes like this: If `Foo` is an open class (a class tha
 **The solution** to the above is to just allow it to exist, by having a `case _ => Nothing` branch:
 
 ```scala
-type Head[T] = T match
-    case Array[a] => Option[a]
-    case List[a]  => Option[a]
-    case _        => Nothing
+type Head[T] = T match {
+  case Array[a] => Option[a]
+  case List[a]  => Option[a]
+  case _        => Nothing
+}
 
 // Type allowed to exist, but it reduces to Nothing
 def x: Head[String] = throw IllegalArgumentException("Boo")
@@ -255,21 +279,26 @@ val y: Nothing = x
 And keep in mind that this match type is a return type that's equivalent to a "union type" function parameter, which is how you can protect functions:
 
 ```scala
-type Head[T] = T match
-    case Array[a] => Option[a]
-    case List[a]  => Option[a]
-    case _        => Nothing
+type Head[T] = T match {
+  case Array[a] => Option[a]
+  case List[a]  => Option[a]
+  case _        => Nothing
+}
 
-// Protecting the function call by using an "untagged union type"
-// as the "upper bound" of our type parameter.
-def head[T <: Array[?] | List[?]](t: T): Head[T] = t match
+// Protecting the function call by using an 
+// "untagged union type" as the "upper bound" 
+// of our type parameter.
+def head[T <: Array[?] | List[?]](t: T): Head[T] = 
+  t match {
     case ref: Array[a] =>
-        ref.headOption
+      ref.headOption
     case ref: List[a] =>
-        ref.headOption
+      ref.headOption
     case _ =>
-        // Note we don't really need this branch, but the compiler
-        // can't see it, and it also gives us a really scary compiler
-        // error, if we try removing it.
-        throw IllegalArgumentException("Boo")
+      // Note we don't really need this branch, but 
+      // the compiler can't see it, and it also gives 
+      // us a really scary compiler error, if we try 
+      // removing it.
+      throw IllegalArgumentException("Boo")
+  }
 ````
