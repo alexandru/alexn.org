@@ -95,6 +95,7 @@ highlighter: none
 kramdown:
   input: GFM
   hard_wrap: false
+  math_engine: null
   syntax_highlighter_opts:
     disable: true
     css_class: code

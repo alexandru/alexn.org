@@ -8,7 +8,7 @@ redirect_from:
   - /blog/2024/01/10/is-scala-in-trouble/
 tags:
   - Scala
-  - Scala3
+  - Scala 3
   - Programming
   - Opinion
 ---
