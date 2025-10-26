@@ -146,9 +146,8 @@ async function processFormula(formula, outputDir, inline = false) {
  */
 async function processBatch(formulas, outputDir) {
   const results = [];
-  
-  // Process formulas in parallel batches of 10 to avoid overwhelming the system
-  const batchSize = 10;
+  const batchSize = 100;
+
   for (let i = 0; i < formulas.length; i += batchSize) {
     const batch = formulas.slice(i, i + batchSize);
     const batchResults = await Promise.all(

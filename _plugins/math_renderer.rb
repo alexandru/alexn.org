@@ -7,8 +7,7 @@ require 'tmpdir'
 
 module Jekyll
   class MathRenderer
-    INLINE_MATH_REGEX = /\$([^\$]+)\$/
-    DISPLAY_MATH_REGEX = /\$\$([^\$]+?)\$\$/m
+    MATH_REGEX = /(\$\$)([^\$]+?)\1|(?<!\$)(\$)([^\$\r\n]+)\3(?!\$)/m
     
     def initialize(site)
       @site = site
@@ -17,7 +16,6 @@ module Jekyll
       @cache = {}
       @generated_files = {}
       @pending_formulas = []
-      FileUtils.mkdir_p(@math_dir)
     end
     
     def hash_formula(formula)
@@ -52,7 +50,12 @@ module Jekyll
       end
       
       # Queue formula for batch processing
-      @pending_formulas << { formula: formula, inline: inline, hash: hash }
+      @pending_formulas << { 
+        formula: formula, 
+        inline: inline, 
+        hash: hash,
+        path: File.join(@math_dir, "#{hash}.svg")
+      }
       
       # Return placeholder that will be populated after batch processing
       @cache[hash] = nil
@@ -64,13 +67,13 @@ module Jekyll
       
       Jekyll.logger.info "MathRenderer:", "Processing #{@pending_formulas.length} formulas in batch..."
       
-      script_path = File.join(@site.source, 'scripts', 'tex2svg.js')
-      
       # Prepare input data for batch processing
-      formulas_data = @pending_formulas.map { |f| { formula: f[:formula], inline: f[:inline] } }
+      formulas_data = @pending_formulas
+        .map { |f| { formula: f[:formula], inline: f[:inline] } }
       input_json = JSON.generate(formulas_data)
       
-      # Call the batch processing script
+      FileUtils.mkdir_p(@math_dir)
+      script_path = File.join(@site.source, 'scripts', 'tex2svg.js')
       stdout, stderr, status = Open3.capture3(
         'node', script_path, '--batch', @math_dir,
         stdin_data: input_json
@@ -159,57 +162,44 @@ module Jekyll
     end
     
     def process_content(content)
+      matches, parts = split_with_matches(content, MATH_REGEX)
+      if !matches || matches.length == 0
+        return content
+      end
 
-      # First pass: collect all formulas and check/queue them for processing
-      # Process display math first (to avoid conflicts with inline math)
-      display_formulas = []
-      content.scan(DISPLAY_MATH_REGEX) do |match|
-        formula = match[0].strip
-        display_formulas << formula
-        render_formula(formula, false)
+      matches.each do |match|
+        formula = (match[2] || match[4]).strip
+        is_inline = !!match[3]
+        render_formula(formula, is_inline)
       end
-      
-      # Process inline math
-      inline_formulas = []
-      content.scan(INLINE_MATH_REGEX) do |match|
-        formula = match[0].strip
-        inline_formulas << formula
-        render_formula(formula, true)
-      end
-      
+
       # Batch process any pending formulas
       process_pending_formulas
       
-      # Second pass: replace formulas with rendered HTML
-      # Process display math first (to avoid conflicts with inline math)
-      content = content.gsub(DISPLAY_MATH_REGEX) do |match|
-        formula = $1.strip
-        alt_text = escape_html(formula)
-        result = @cache[hash_formula(formula)]
-        if result
-          svg_path, size = result
-          %(<div class="math-display page-width"><img src="#{svg_path}" alt="Math formula" title="#{alt_text}" width="#{size[0] * 12}" height="#{size[1] * 12}" loading="lazy" /></div>)
-        else
-          # Fallback to original if rendering failed
-          match
+      new_content = []
+      parts.each do |part|
+        has_formula = part.match(/^\s*([\$]+)/)
+        if has_formula
+          is_inline = has_formula[1] == "$"
+          formula = part.gsub(/^\s*[\$]+\s*|\s*[\$]+\s*$/, "")
+          alt_text = escape_html(formula)
+          result = @cache[hash_formula(formula)]
+          if result
+            svg_path, size = result
+            if !is_inline
+              new_content << %(<div class="math-display page-width"><img src="#{svg_path}" alt="Math formula" title="#{alt_text}" width="#{size[0] * 12}" height="#{size[1] * 12}" loading="lazy" /></div>)
+            else 
+              new_content << %(<img src="#{svg_path}" alt="Math formula" title="#{alt_text}" class="math-inline" width="#{size[0] * 12}" height="#{size[1] * 12}" loading="lazy" />)
+            end
+          else
+            new_content << part
+          end
+        else 
+          new_content << part
         end
       end
-      
-      # Process inline math
-      content = content.gsub(INLINE_MATH_REGEX) do |match|
-        formula = $1.strip
-        alt_text = escape_html(formula)
-        result = @cache[hash_formula(formula)]
-        if result
-          svg_path, size = result
-          %(<img src="#{svg_path}" alt="Math formula" title="#{alt_text}" class="math-inline" width="#{size[0] * 12}" height="#{size[1] * 12}" loading="lazy" />)
-        else
-          # Fallback to original if rendering failed
-          match
-        end
-      end
-      
-      content
+
+      new_content.join("")
     end
     
     def add_static_files
@@ -243,6 +233,27 @@ module Jekyll
         
         @site.static_files << file
       end
+    end
+
+    def split_with_matches(text, regex)
+      parts = []
+      matches = []
+      position = 0
+
+      text.scan(regex) do |match|
+        md = Regexp.last_match
+        # Add text before the match
+        parts << text[position...md.begin(0)]
+        # Add the match itself
+        parts << md[0]
+        matches << md
+        position = md.end(0)
+      end
+      
+      # Add remaining text after last match
+      parts << text[position..-1]
+      
+      [matches, parts.reject(&:empty?)]
     end
   end
   
@@ -303,4 +314,5 @@ module Jekyll
       renderer.add_static_files
     end
   end
+
 end
