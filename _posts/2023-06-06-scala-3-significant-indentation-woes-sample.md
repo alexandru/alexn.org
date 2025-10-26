@@ -3,9 +3,11 @@ title: "Scala 3 Significant Indentation Woes: Sample"
 image: /assets/media/articles/2023-scala-indentation-woes.png
 image_hide_in_post: true
 date: 2023-06-06 14:48:10 +03:00
-last_modified_at: 2023-06-07 07:52:16 +03:00
+last_modified_at: 2025-10-26T12:08:59+02:00
 tags:
+  - Languages
   - Programming
+  - Programming Rant
   - Python
   - Scala
   - Scala 3
