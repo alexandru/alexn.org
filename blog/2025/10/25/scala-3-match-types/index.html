@@ -19,12 +19,13 @@
     <meta property="og:description" content="Scala has a neat new feature, resembling TypeScript’s “conditional types”, but more powerful.">
     <meta property="og:url" content="https://alexn.org/blog/2025/10/25/scala-3-match-types/">
     <meta property="article:published_time" content="2025-10-25T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-10-26T15:26:54+00:00">
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2025-scala-match-types.png?202510261018" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2025-scala-match-types.png?202510261018" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2025-scala-match-types.png?202510261528" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2025-scala-match-types.png?202510261528" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2025-scala-match-types.png?202510261018">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2025-scala-match-types.png?202510261528">
     <meta name="twitter:title" content="Scala 3 / Match Types">
     <meta name="twitter:url" content="https://alexn.org/blog/2025/10/25/scala-3-match-types/">
     <meta name="twitter:description" content="Scala has a neat new feature, resembling TypeScript’s “conditional types”, but more powerful.">
@@ -160,51 +161,57 @@
 Scala has a neat feature called <a href="https://docs.scala-lang.org/scala3/reference/new-types/match-types.html">match types</a>. Let’s play…
 </p>
 
+<p class="info-bubble">
+This article is using <a href="https://docs.scala-lang.org/scala3/new-in-scala3.html">Scala 3</a> syntax and features using <a href="/blog/2025/10/26/scala-3-no-indent/">-no-indent</a>.
+</p>
+
 <p>Here’s an example:</p>
 
-<pre><code class="language-scala">type Head[T] = T match
-    case Array[a]        =&gt; Option[a]
-    case List[a]         =&gt; Option[a]
-    case String          =&gt; Option[Char]
-    case NonEmptyList[a] =&gt; a
-    case Map[k, v]       =&gt; Option[(k, v)]
-    case k *: v          =&gt; k
-    case _               =&gt; Nothing
+<pre><code class="language-scala">type Head[T] = T match {
+  case Array[a]        =&gt; Option[a]
+  case List[a]         =&gt; Option[a]
+  case String          =&gt; Option[Char]
+  case NonEmptyList[a] =&gt; a
+  case Map[k, v]       =&gt; Option[(k, v)]
+  case k *: v          =&gt; k
+  case _               =&gt; Nothing
+}
 
-def head[T](t: T): Head[T] = t match
-    case ref: Array[a] =&gt;
-        ref.headOption
-    case ref: List[a] =&gt;
-        ref.headOption
-    case ref: String =&gt;
-        ref.headOption
-    case ref: NonEmptyList[a] =&gt;
-        ref.head
-    case ref: Map[k, v] =&gt;
-        ref.headOption
-    case ref: (k *: v) =&gt;
-        ref.head.asInstanceOf[Head[k *: v]]
-    case _ =&gt;
-        throw new IllegalArgumentException()
+def head[T](t: T): Head[T] = t match {
+  case ref: Array[a] =&gt;
+    ref.headOption
+  case ref: List[a] =&gt;
+    ref.headOption
+  case ref: String =&gt;
+    ref.headOption
+  case ref: NonEmptyList[a] =&gt;
+    ref.head
+  case ref: Map[k, v] =&gt;
+    ref.headOption
+  case ref: (k *: v) =&gt;
+    ref.head.asInstanceOf[Head[k *: v]]
+  case _ =&gt;
+    throw new IllegalArgumentException()
+}
 
 // Using it works as expected, with the compiler
 // correctly inferring the types in each case:
 val v1: Option[Int] =
-    head(Array(1, 2, 3))
+  head(Array(1, 2, 3))
 val v2: Option[String] =
-    head(List("a", "b", "c"))
+  head(List("a", "b", "c"))
 val v3: Option[Char] =
-    head("hello")
+  head("hello")
 val v4: Int =
-    head(NonEmptyList.of(10, 20, 30))
+  head(NonEmptyList.of(10, 20, 30))
 val v5: Option[(String, Int)] =
-    head(Map("a" -&gt; 1, "b" -&gt; 2))
+  head(Map("a" -&gt; 1, "b" -&gt; 2))
 val v6: String =
-    head("hello" *: 42 *: true *: EmptyTuple)
+  head("hello" *: 42 *: true *: EmptyTuple)
 val v7: Nothing =
-    head(())
+  head(())
 val v8: Nothing =
-    head(123)
+  head(123)
 </code></pre>
 
 <p>The above exposes an ability called <a href="https://en.wikipedia.org/wiki/Dependent_type">dependent typing</a>.</p>
@@ -259,9 +266,10 @@ const v5: string = // tuple
 
 <p>Scala’s match types can also have <em>recursive definitions</em>, so for example:</p>
 
-<pre><code class="language-scala">type AtomOf[T] = T match
-    case Iterable[a] =&gt; AtomOf[a]
-    case t =&gt; t
+<pre><code class="language-scala">type AtomOf[T] = T match {
+  case Iterable[a] =&gt; AtomOf[a]
+  case t =&gt; t
+}
 
 // These are valid
 val x: AtomOf[List[List[String]]] = "atom"
@@ -271,9 +279,11 @@ val z: AtomOf[List[Set[Map[String, Int]]]] = ("key", 1)
 
 <p>This makes inferring types related to tuples easier, e.g., straight from that documentation page, we can see that tuple concatenation can be expressed:</p>
 
-<pre><code class="language-scala">type Concat[Xs &lt;: Tuple, Ys &lt;: Tuple] = Xs match
+<pre><code class="language-scala">type Concat[Xs &lt;: Tuple, Ys &lt;: Tuple] = 
+  Xs match {
     case EmptyTuple =&gt; Ys
     case h *: t     =&gt; h *: Concat[t, Ys]
+  }
 </code></pre>
 
 <p>If you want to waste time on things that bring you joy, you can now do type-level arithmetic, even without the awesome utilities in <code>scala.compiletime.ops.int</code>, taking inspiration from <a href="https://en.wikipedia.org/wiki/Peano_axioms#Addition">Peano’s axioms</a>:</p>
@@ -285,9 +295,10 @@ val z: AtomOf[List[Set[Map[String, Int]]]] = ("key", 1)
 <pre><code class="language-scala">import scala.compiletime.ops.int.S as Succ
 
 type Sum[A &lt;: Int, B &lt;: Int] &lt;: Int =
-    A match
-        case 0        =&gt; B
-        case Succ[a0] =&gt; Sum[a0, Succ[B]]
+  A match {
+    case 0        =&gt; B
+    case Succ[a0] =&gt; Sum[a0, Succ[B]]
+  }
 
 val x: Sum[3, 4] = 7 // works
 val y: Sum[3, 4] = 8 // fails with a compile-time error
@@ -296,12 +307,13 @@ val y: Sum[3, 4] = 8 // fails with a compile-time error
 <p>As a note, one would think that <code>Succ</code> could be defined like this:</p>
 
 <pre><code class="language-scala">type Succ[A &lt;: Int] &lt;: Int =
-    A match
-        case 0 =&gt; 1
-        case 1 =&gt; 2
-        case 2 =&gt; 3
-        //...
-        case 2147483646 =&gt; 2147483647
+  A match {
+    case 0 =&gt; 1
+    case 1 =&gt; 2
+    case 2 =&gt; 3
+    //...
+    case 2147483646 =&gt; 2147483647
+  }
 </code></pre>
 
 <p>But I couldn’t make it work, maybe some kind soul from the Internet could explain why. Thankfully, it’s already defined by the Scala standard library at <code>scala.compiletime.ops.int.S</code>, and this one works. And note that the Scala library defines types in terms of <code>S</code>, with gems such as this one:</p>
@@ -309,11 +321,14 @@ val y: Sum[3, 4] = 8 // fails with a compile-time error
 <pre><code class="language-scala">// Standard library
 package scala
 
-object Tuple:
-    /** Literal constant Int size of a tuple */
-    type Size[X &lt;: Tuple] &lt;: Int = X match
-        case EmptyTuple =&gt; 0
-        case x *: xs =&gt; S[Size[xs]]
+object Tuple {
+  /** Literal constant Int size of a tuple */
+  type Size[X &lt;: Tuple] &lt;: Int = 
+    X match {
+      case EmptyTuple =&gt; 0
+      case x *: xs =&gt; S[Size[xs]]
+    }
+}
 
 //...
 val x: Tuple.Size[(Int, String, Double)] = 3
@@ -331,15 +346,18 @@ val x: Tuple.Size[(Int, String, Double)] = 3
 
 <p>Match types without exhaustive matches don’t really work. And the behavior changed somewhat in later Scala versions. For example, the following would trigger a compile time error in Scala <code>3.3.7</code> (<a href="https://www.scala-lang.org/blog/2022/08/17/long-term-compatibility-plans.html">LTS</a>), but not in the latest <code>3.7.3</code>:</p>
 
-<pre><code class="language-scala">type Head[T] = T match
-    case Array[a] =&gt; Option[a]
-    case List[a]  =&gt; Option[a]
+<pre><code class="language-scala">type Head[T] = T match {
+  case Array[a] =&gt; Option[a]
+  case List[a]  =&gt; Option[a]
+}
 
-def head[T](t: T): Head[T] = t match
+def head[T](t: T): Head[T] = 
+  t match {
     case ref: Array[a] =&gt;
-        ref.headOption
+      ref.headOption
     case ref: List[a] =&gt;
-        ref.headOption
+      ref.headOption
+  }
 
 // ... these calls would trigger compile-time errors in 3.3.7,
 // but not in later versions...
@@ -351,9 +369,10 @@ head("a string")
 
 <pre><code class="language-scala">class Foo[T](val value: T)
 
-type Unpacked[T] = T match
+type Unpacked[T] = 
+  T match {
     case Foo[a] =&gt; a
-
+  }
 def unpack[T](t: T): Unpacked[T] = t match
     case ref: Foo[a] =&gt; ref.value
 
@@ -367,8 +386,9 @@ unpack(List(1,2,3))
 
 <pre><code class="language-scala">final class Foo[T](val value: T)
 
-type Unpacked[T] = T match
-    case Foo[a] =&gt; a
+type Unpacked[T] = T match {
+  case Foo[a] =&gt; A
+}
 
 // Compile-time error in Scala 3.3.7
 // Compilation passes in Scala 3.7.3
@@ -380,10 +400,11 @@ unpack(List(1,2,3))
 
 <p><strong>The solution</strong> to the above is to just allow it to exist, by having a <code>case _ =&gt; Nothing</code> branch:</p>
 
-<pre><code class="language-scala">type Head[T] = T match
-    case Array[a] =&gt; Option[a]
-    case List[a]  =&gt; Option[a]
-    case _        =&gt; Nothing
+<pre><code class="language-scala">type Head[T] = T match {
+  case Array[a] =&gt; Option[a]
+  case List[a]  =&gt; Option[a]
+  case _        =&gt; Nothing
+}
 
 // Type allowed to exist, but it reduces to Nothing
 def x: Head[String] = throw IllegalArgumentException("Boo")
@@ -392,31 +413,36 @@ val y: Nothing = x
 
 <p>And keep in mind that this match type is a return type that’s equivalent to a “union type” function parameter, which is how you can protect functions:</p>
 
-<pre><code class="language-scala">type Head[T] = T match
-    case Array[a] =&gt; Option[a]
-    case List[a]  =&gt; Option[a]
-    case _        =&gt; Nothing
+<pre><code class="language-scala">type Head[T] = T match {
+  case Array[a] =&gt; Option[a]
+  case List[a]  =&gt; Option[a]
+  case _        =&gt; Nothing
+}
 
-// Protecting the function call by using an "untagged union type"
-// as the "upper bound" of our type parameter.
-def head[T &lt;: Array[?] | List[?]](t: T): Head[T] = t match
+// Protecting the function call by using an 
+// "untagged union type" as the "upper bound" 
+// of our type parameter.
+def head[T &lt;: Array[?] | List[?]](t: T): Head[T] = 
+  t match {
     case ref: Array[a] =&gt;
-        ref.headOption
+      ref.headOption
     case ref: List[a] =&gt;
-        ref.headOption
+      ref.headOption
     case _ =&gt;
-        // Note we don't really need this branch, but the compiler
-        // can't see it, and it also gives us a really scary compiler
-        // error, if we try removing it.
-        throw IllegalArgumentException("Boo")
+      // Note we don't really need this branch, but 
+      // the compiler can't see it, and it also gives 
+      // us a really scary compiler error, if we try 
+      // removing it.
+      throw IllegalArgumentException("Boo")
+  }
 </code></pre>
 
   </div>
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2025-10-25T00:00:00+0000">
-        Published: October 25, 2025
+    <time itemprop="dateModified" content="2025-10-26T17:26:54+0200">
+        Updated: October 26, 2025
     </time>
     | Written by <a href="https://alexn.org/about/" itemprop="url" rel="author">Alexandru Nedelcu</a>
 
@@ -542,12 +568,12 @@ def head[T &lt;: Array[?] | List[?]](t: T): Head[T] = t match
 
    <script
     defer
-    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202510261018"
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202510261528"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js/responsive-nav.min.js?202510261018"
+    src="/assets/js/responsive-nav.min.js?202510261528"
     type="text/javascript"
 ></script>
 
@@ -558,7 +584,7 @@ def head[T &lt;: Array[?] | List[?]](t: T): Head[T] = t match
 ></script>
 <script
     defer
-    src="/assets/js/scripts.js?202510261018"
+    src="/assets/js/scripts.js?202510261528"
     type="text/javascript"
 ></script>
 
