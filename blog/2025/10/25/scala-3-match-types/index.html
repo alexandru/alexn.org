@@ -19,13 +19,13 @@
     <meta property="og:description" content="Scala has a neat new feature, resembling TypeScript’s “conditional types”, but more powerful.">
     <meta property="og:url" content="https://alexn.org/blog/2025/10/25/scala-3-match-types/">
     <meta property="article:published_time" content="2025-10-25T00:00:00+00:00">
-    <meta property="article:modified_time" content="2025-10-27T04:59:44+00:00">
+    <meta property="article:modified_time" content="2025-10-27T05:30:56+00:00">
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2025-scala-match-types.png?202510270510" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2025-scala-match-types.png?202510270510" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2025-scala-match-types.png?202510270532" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2025-scala-match-types.png?202510270532" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2025-scala-match-types.png?202510270510">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2025-scala-match-types.png?202510270532">
     <meta name="twitter:title" content="Scala 3 / Match Types">
     <meta name="twitter:url" content="https://alexn.org/blog/2025/10/25/scala-3-match-types/">
     <meta name="twitter:description" content="Scala has a neat new feature, resembling TypeScript’s “conditional types”, but more powerful.">
@@ -214,7 +214,7 @@ val v8: Nothing =
   head(123)
 </code></pre>
 
-<p>The above exposes an ability called <a href="https://en.wikipedia.org/wiki/Dependent_type">dependent typing</a>.</p>
+<p>The above seems to achieve <a href="https://en.wikipedia.org/wiki/Dependent_type">dependent typing</a>.</p>
 
 <p>Scala isn’t alone in having this ability, here’s a TypeScript equivalent using its <a href="https://www.typescriptlang.org/docs/handbook/2/conditional-types.html">conditional types</a> (<a href="https://web.archive.org/web/20251011202517/https://www.typescriptlang.org/docs/handbook/2/conditional-types.html">archive</a>), although note that Scala’s match types are more powerful (and better looking):</p>
 
@@ -447,7 +447,7 @@ def head[T &lt;: Array[?] | List[?]](t: T): Head[T] =
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2025-10-27T06:59:44+0200">
+    <time itemprop="dateModified" content="2025-10-27T07:30:56+0200">
         Updated: October 27, 2025
     </time>
     | Written by <a href="https://alexn.org/about/" itemprop="url" rel="author">Alexandru Nedelcu</a>
@@ -574,12 +574,12 @@ def head[T &lt;: Array[?] | List[?]](t: T): Head[T] =
 
    <script
     defer
-    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202510270510"
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202510270532"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js/responsive-nav.min.js?202510270510"
+    src="/assets/js/responsive-nav.min.js?202510270532"
     type="text/javascript"
 ></script>
 
@@ -590,7 +590,7 @@ def head[T &lt;: Array[?] | List[?]](t: T): Head[T] =
 ></script>
 <script
     defer
-    src="/assets/js/scripts.js?202510270510"
+    src="/assets/js/scripts.js?202510270532"
     type="text/javascript"
 ></script>
 
