@@ -7,8 +7,7 @@ require 'tmpdir'
 
 module Jekyll
   class MathRenderer
-    INLINE_MATH_REGEX = /\$([^\$]+)\$/
-    DISPLAY_MATH_REGEX = /\$\$([^\$]+?)\$\$/m
+    MATH_REGEX = /(\$\$)([^\$]+?)\1|(?<!\$)(\$)([^\$\r\n]+)\3(?!\$)/m
     
     def initialize(site)
       @site = site
@@ -16,7 +15,7 @@ module Jekyll
       @math_dir = File.join(site.source, '.jekyll-cache', 'math-svg')
       @cache = {}
       @generated_files = {}
-      FileUtils.mkdir_p(@math_dir)
+      @pending_formulas = []
     end
     
     def hash_formula(formula)
@@ -37,58 +36,182 @@ module Jekyll
       # Return cached result if available
       return @cache[hash] if @cache.key?(hash)
       
-      # Generate SVG if either version doesn't exist
-      unless File.exist?(transparent_filepath) && File.exist?(white_filepath)
-        script_path = File.join(@site.source, 'scripts', 'tex2svg.js')
-        inline_flag = inline ? '--inline' : ''
+      # Check if files already exist (from previous build)
+      if File.exist?(transparent_filepath) && File.exist?(white_filepath)
+        # Track both generated files for later addition to static_files
+        @generated_files["transparent/#{filename}"] = transparent_filepath
+        @generated_files["white/#{filename}"] = white_filepath
         
-        stdout, stderr, status = Open3.capture3(
-          'node', script_path, formula, @math_dir, inline_flag
-        )
-        
-        unless status.success?
-          Jekyll.logger.error "MathRenderer:", "Failed to render formula: #{formula}"
-          Jekyll.logger.error "MathRenderer:", stderr
-          return formula # Return original formula on error
-        end
+        # Cache and return the transparent version result (for website)
+        size = FastImage.size(transparent_filepath)
+        svg_path = "/assets/math/transparent/#{filename}"
+        @cache[hash] = [svg_path, size]
+        return @cache[hash]
       end
       
-      # Track both generated files for later addition to static_files
-      # Use just the filename as the key, since the path structure is already in the filepath
+      # Queue formula for batch processing
+      @pending_formulas << { 
+        formula: formula, 
+        inline: inline, 
+        hash: hash,
+        path: File.join(@math_dir, "#{hash}.svg")
+      }
+      
+      # Return placeholder that will be populated after batch processing
+      @cache[hash] = nil
+      nil
+    end
+
+    def call_process_script(formulas)
+      already_existing, missing = 
+        formulas.partition { |f| File.exist?(f[:path]) }
+      formulas_data = missing
+        .map { |f| { formula: f[:formula], inline: f[:inline] } }
+      
+      if formulas_data.length > 0
+        input_json = JSON.generate(formulas_data)
+        
+        FileUtils.mkdir_p(@math_dir)
+        script_path = File.join(@site.source, 'scripts', 'tex2svg.js')
+        stdout, stderr, status = Open3.capture3(
+          'node', script_path, '--batch', @math_dir,
+          stdin_data: input_json
+        )
+        unless status.success?
+          Jekyll.logger.error "MathRenderer:", "Batch processing failed"
+          Jekyll.logger.error "MathRenderer:", stderr
+          raise "MathRenderer batch processing failed: #{stderr}"
+        end
+        results = JSON.parse(stdout)
+      else 
+        results = []
+      end
+
+      already_existing.each do |f|
+        results << {
+          "formula": f[:formula],
+          "inline": f[:inline],
+          "success": true
+        }
+      end
+    end
+    
+    def process_pending_formulas
+      return if @pending_formulas.empty?
+      
+      Jekyll.logger.info "MathRenderer:", "Processing #{@pending_formulas.length} formulas in batch..."
+      
+      # Prepare input data for batch processing
+      results = call_process_script(@pending_formulas)
+      @pending_formulas.clear
+      
+      # Process results
+      begin
+        results.each do |result|
+          if result['success']
+            hash = result['hash']
+            filename = result['filename']
+            
+            transparent_filepath = File.join(@math_dir, 'transparent', filename)
+            white_filepath = File.join(@math_dir, 'white', filename)
+            
+            # Track both generated files for later addition to static_files
+            @generated_files["transparent/#{filename}"] = transparent_filepath
+            @generated_files["white/#{filename}"] = white_filepath
+            
+            # Update cache with the results
+            if File.exist?(transparent_filepath)
+              size = FastImage.size(transparent_filepath)
+              svg_path = "/assets/math/transparent/#{filename}"
+              @cache[hash] = [svg_path, size]
+            end
+          else
+            Jekyll.logger.warn "MathRenderer:", "Failed to render: #{result['formula']}"
+          end
+        end
+      rescue JSON::ParserError => e
+        Jekyll.logger.error "MathRenderer:", "Failed to parse batch results: #{e.message}"
+      end
+    end
+    
+    def process_single_formula(formula, inline)
+      hash = hash_formula(formula)
+      filename = "#{hash}.svg"
+      
+      transparent_dir = File.join(@math_dir, 'transparent')
+      white_dir = File.join(@math_dir, 'white')
+      
+      transparent_filepath = File.join(transparent_dir, filename)
+      white_filepath = File.join(white_dir, filename)
+      
+      script_path = File.join(@site.source, 'scripts', 'tex2svg.js')
+      inline_flag = inline ? '--inline' : ''
+      
+      stdout, stderr, status = Open3.capture3(
+        'node', script_path, formula, @math_dir, inline_flag
+      )
+      
+      unless status.success?
+        Jekyll.logger.error "MathRenderer:", "Failed to render formula: #{formula}"
+        Jekyll.logger.error "MathRenderer:", stderr
+        return
+      end
+      
+      # Track both generated files
       @generated_files["transparent/#{filename}"] = transparent_filepath
       @generated_files["white/#{filename}"] = white_filepath
       
-      # Cache and return the transparent version result (for website)
-      size = FastImage.size(transparent_filepath)
-      svg_path = "/assets/math/transparent/#{filename}"
-      @cache[hash] = [svg_path, size]
-      @cache[hash]
+      # Update cache
+      if File.exist?(transparent_filepath)
+        size = FastImage.size(transparent_filepath)
+        svg_path = "/assets/math/transparent/#{filename}"
+        @cache[hash] = [svg_path, size]
+      end
     end
-    
 
     def escape_html(str)
       CGI.escapeHTML(str).gsub(/\s+/, ' ')
     end
     
     def process_content(content)
+      matches, parts = split_with_matches(content, MATH_REGEX)
+      if !matches || matches.length == 0
+        return content
+      end
 
-      # Process display math first (to avoid conflicts with inline math)
-      content = content.gsub(DISPLAY_MATH_REGEX) do |match|
-        formula = $1.strip
-        alt_text = escape_html(formula)
-        svg_path, size = render_formula(formula, false)
-        %(<div class="math-display page-width"><img src="#{svg_path}" alt="Math formula" title="#{alt_text}" width="#{size[0] * 12}" height="#{size[1] * 12}" loading="lazy" /></div>)
+      matches.each do |match|
+        formula = (match[2] || match[4]).strip
+        is_inline = !!match[3]
+        render_formula(formula, is_inline)
       end
+
+      # Batch process any pending formulas
+      process_pending_formulas
       
-      # Process inline math
-      content = content.gsub(INLINE_MATH_REGEX) do |match|
-        formula = $1.strip
-        alt_text = escape_html(formula)
-        svg_path, size = render_formula(formula, true)
-        %(<img src="#{svg_path}" alt="Math formula" title="#{alt_text}" class="math-inline" width="#{size[0] * 12}" height="#{size[1] * 12}" loading="lazy" />)
+      new_content = []
+      parts.each do |part|
+        has_formula = part.match(/^\s*([\$]+)/)
+        if has_formula
+          is_inline = has_formula[1] == "$"
+          formula = part.gsub(/^\s*[\$]+\s*|\s*[\$]+\s*$/, "")
+          alt_text = escape_html(formula)
+          result = @cache[hash_formula(formula)]
+          if result
+            svg_path, size = result
+            if !is_inline
+              new_content << %(<div class="math-display page-width"><img src="#{svg_path}" alt="Math formula" title="#{alt_text}" width="#{size[0] * 12}" height="#{size[1] * 12}" loading="lazy" /></div>)
+            else 
+              new_content << %(<img src="#{svg_path}" alt="Math formula" title="#{alt_text}" class="math-inline" width="#{size[0] * 12}" height="#{size[1] * 12}" loading="lazy" />)
+            end
+          else
+            new_content << part
+          end
+        else 
+          new_content << part
+        end
       end
-      
-      content
+
+      new_content.join("")
     end
     
     def add_static_files
@@ -122,6 +245,27 @@ module Jekyll
         
         @site.static_files << file
       end
+    end
+
+    def split_with_matches(text, regex)
+      parts = []
+      matches = []
+      position = 0
+
+      text.scan(regex) do |match|
+        md = Regexp.last_match
+        # Add text before the match
+        parts << text[position...md.begin(0)]
+        # Add the match itself
+        parts << md[0]
+        matches << md
+        position = md.end(0)
+      end
+      
+      # Add remaining text after last match
+      parts << text[position..-1]
+      
+      [matches, parts.reject(&:empty?)]
     end
   end
   
