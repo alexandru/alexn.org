@@ -19,13 +19,13 @@
     <meta property="og:description" content="Scala has a neat new feature, resembling TypeScript’s “conditional types”, but more powerful.">
     <meta property="og:url" content="https://alexn.org/blog/2025/10/25/scala-3-match-types/">
     <meta property="article:published_time" content="2025-10-25T00:00:00+00:00">
-    <meta property="article:modified_time" content="2025-10-27T05:30:56+00:00">
+    <meta property="article:modified_time" content="2025-10-27T05:33:38+00:00">
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2025-scala-match-types.png?202510270532" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2025-scala-match-types.png?202510270532" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2025-scala-match-types.png?202510270536" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2025-scala-match-types.png?202510270536" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2025-scala-match-types.png?202510270532">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2025-scala-match-types.png?202510270536">
     <meta name="twitter:title" content="Scala 3 / Match Types">
     <meta name="twitter:url" content="https://alexn.org/blog/2025/10/25/scala-3-match-types/">
     <meta name="twitter:description" content="Scala has a neat new feature, resembling TypeScript’s “conditional types”, but more powerful.">
@@ -289,7 +289,7 @@ val z: AtomOf[List[Set[Map[String, Int]]]] =
   }
 </code></pre>
 
-<p>If you want to waste time on things that bring you joy, you can now do type-level arithmetic, even without the awesome utilities in <code>scala.compiletime.ops.int</code>, taking inspiration from <a href="https://en.wikipedia.org/wiki/Peano_axioms#Addition">Peano’s axioms</a>:</p>
+<p>If you want to waste time on things that bring you joy, you can now do type-level arithmetic (already expressed in <code>scala.compiletime.ops.int.+</code>), taking inspiration from <a href="https://en.wikipedia.org/wiki/Peano_axioms#Addition">Peano’s axioms</a>:</p>
 
 <div class="math-display page-width"><img src="/assets/math/transparent/c09bb6ddabe74edd03e6e331290560f4.svg" alt="Math formula" title="\begin{cases} a + 0 = a \\ a + Succ(b) = Succ(a + b) \end{cases} \implies Succ(a) + b = a + Succ(b)" width="708" height="60" loading="lazy" /></div>
 
@@ -447,7 +447,7 @@ def head[T &lt;: Array[?] | List[?]](t: T): Head[T] =
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2025-10-27T07:30:56+0200">
+    <time itemprop="dateModified" content="2025-10-27T07:33:38+0200">
         Updated: October 27, 2025
     </time>
     | Written by <a href="https://alexn.org/about/" itemprop="url" rel="author">Alexandru Nedelcu</a>
@@ -574,12 +574,12 @@ def head[T &lt;: Array[?] | List[?]](t: T): Head[T] =
 
    <script
     defer
-    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202510270532"
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202510270536"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js/responsive-nav.min.js?202510270532"
+    src="/assets/js/responsive-nav.min.js?202510270536"
     type="text/javascript"
 ></script>
 
@@ -590,7 +590,7 @@ def head[T &lt;: Array[?] | List[?]](t: T): Head[T] =
 ></script>
 <script
     defer
-    src="/assets/js/scripts.js?202510270532"
+    src="/assets/js/scripts.js?202510270536"
     type="text/javascript"
 ></script>
 
