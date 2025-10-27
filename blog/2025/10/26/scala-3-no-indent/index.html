@@ -19,13 +19,13 @@
     <meta property="og:description" content="Scala 3 came with “significant indentation”. And I still dislike it, despite trying hard, so I’m switching back to braces.">
     <meta property="og:url" content="https://alexn.org/blog/2025/10/26/scala-3-no-indent/">
     <meta property="article:published_time" content="2025-10-26T08:35:53+00:00">
-    <meta property="article:modified_time" content="2025-10-26T10:15:55+00:00">
+    <meta property="article:modified_time" content="2025-10-27T05:07:05+00:00">
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2023-scala3-indentation-4-spaces.png?202510270502" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2023-scala3-indentation-4-spaces.png?202510270502" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2023-scala3-indentation-4-spaces.png?202510270510" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2023-scala3-indentation-4-spaces.png?202510270510" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2023-scala3-indentation-4-spaces.png?202510270502">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2023-scala3-indentation-4-spaces.png?202510270510">
     <meta name="twitter:title" content="Scala 3 / No Indent">
     <meta name="twitter:url" content="https://alexn.org/blog/2025/10/26/scala-3-no-indent/">
     <meta name="twitter:description" content="Scala 3 came with “significant indentation”. And I still dislike it, despite trying hard, so I’m switching back to braces.">
@@ -179,9 +179,9 @@ Oh, no 😱 not this kind of rant again! Sorry, but it must be said about once p
   </li>
   <li>You could avoid some braces before, e.g., by being more expression-oriented. Braces are a visual aid for blocks using statements, and for example, you could easily spot functions described by single expressions (with a high likelihood that they are pure), versus functions using statements.</li>
   <li>Braces are a visual aid for <a href="https://en.wikipedia.org/wiki/Scope_(computer_science)">lexical scope</a> — they make it easier to explain what scopes or blocks of code are to beginners. I’ve heard the argument that students have an easier time with significant indentation, but that’s just NOT true in my experience, quite the opposite. You can feel the tension due to the existence of (optional) <code>end</code> markers, as if non-English students needed yet another English keyword.</li>
-  <li>Whitespace changes make diffs (PR reviews) noisy. With braces, we do have formatting changes, but we can ignore it when insignificant.</li>
-  <li>Like it or not, braces are a <em>de facto standard</em> due to the popularity of the C/C++ family. Even relatively newer languages, like Rust, use braces. Folks, sorry, but Pascal is dead, ML-languages are still niche, despite first appearing in the 1970s, and everyone hates CoffeeScript.</li>
-  <li>Scala 2.x codebases will be with us for a very long time, which is why we’ll have to live with both old-style and new-style syntax, forever. Like with Perl’s <a href="https://en.wikipedia.org/wiki/Perl#Philosophy">TMTOWTDI</a>, having the ability to use the Klingon language is cool, but the risk/reward ratio isn’t great.</li>
+  <li>Whitespace changes make diffs (in PR reviews) noisy. With braces, we do have formatting changes, but we can ignore it when insignificant.</li>
+  <li>Like it or not, braces are a <em>de facto</em> standard due to the popularity of the C/C++ family. Even relatively newer languages, like Rust, use braces. Folks, sorry, but Pascal is dead, ML-languages are still niche, despite first appearing in the 1970s, and everyone hates CoffeeScript.</li>
+  <li>Scala 2.x codebases will be with us for a very long time, which is why we’ll have to live with both old-style and new-style syntax, forever. As with Perl’s <a href="https://en.wikipedia.org/wiki/Perl#Philosophy">TMTOWTDI</a>, having the ability to use the Klingon language is cool, but the risk/reward ratio isn’t great.</li>
 </ol>
       <h2 id="no-indent-">
         
@@ -213,14 +213,23 @@ rewrite.scala3.convertToNewSyntax = true
 rewrite.scala3.removeOptionalBraces = false
 </code></pre>
 
+<p>UPDATE — As an alternative, <a href="https://gist.github.com/kubukoz/95dc1abd3f5bc028b95a3927d73c4698/">Jakub Kozłowski suggests</a> disabling “significant indentation” in Scalafmt, unsure if this is better or worse, but note that the dialect override may prevent Scalafmt from recognizing code using significant indentation as being valid Scala code:</p>
+
+<pre><code class="language-ini"># Alternative to the above config
+runner.dialect = scala3
+runner.dialectOverride.allowSignificantIndentation = false
+# allows `if x then y`
+runner.dialectOverride.allowQuietSyntax = true
+</code></pre>
+
 <p>Note: Scalafmt doesn’t appear to have the ability to rewrite the code from significant indentation to old-syntax, but it can rewrite from old-syntax to significant indentation (which is why we have to rely on Scalac’s <code>-no-indent -rewrite</code>). This suggests Scalafmt has more information when braces are available, and so do we 😉</p>
 
   </div>
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2025-10-26T12:15:55+0200">
-        Updated: October 26, 2025
+    <time itemprop="dateModified" content="2025-10-27T07:07:05+0200">
+        Updated: October 27, 2025
     </time>
     | Written by <a href="https://alexn.org/about/" itemprop="url" rel="author">Alexandru Nedelcu</a>
 
@@ -348,12 +357,12 @@ rewrite.scala3.removeOptionalBraces = false
 
    <script
     defer
-    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202510270502"
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202510270510"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js/responsive-nav.min.js?202510270502"
+    src="/assets/js/responsive-nav.min.js?202510270510"
     type="text/javascript"
 ></script>
 
@@ -364,7 +373,7 @@ rewrite.scala3.removeOptionalBraces = false
 ></script>
 <script
     defer
-    src="/assets/js/scripts.js?202510270502"
+    src="/assets/js/scripts.js?202510270510"
     type="text/javascript"
 ></script>
 
