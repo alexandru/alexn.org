@@ -3,7 +3,7 @@ title: "Scala 3 / Match Types"
 image: /assets/media/articles/2025-scala-match-types.png
 image_hide_in_post: true
 mathjax: true
-last_modified_at: 2025-10-26T17:28:38+02:00
+last_modified_at: 2025-10-27T07:33:38+02:00
 tags:
   - Languages
   - Programming
@@ -72,7 +72,7 @@ val v8: Nothing =
   head(123)
 ```
 
-The above exposes an ability called [dependent typing](https://en.wikipedia.org/wiki/Dependent_type).
+The above seems to achieve [dependent typing](https://en.wikipedia.org/wiki/Dependent_type).
 
 Scala isn't alone in having this ability, here's a TypeScript equivalent using its [conditional types](https://www.typescriptlang.org/docs/handbook/2/conditional-types.html) ([archive](https://web.archive.org/web/20251011202517/https://www.typescriptlang.org/docs/handbook/2/conditional-types.html)), although note that Scala's match types are more powerful (and better looking):
 
@@ -144,7 +144,7 @@ type Concat[Xs <: Tuple, Ys <: Tuple] =
   }
 ```
 
-If you want to waste time on things that bring you joy, you can now do type-level arithmetic, even without the awesome utilities in `scala.compiletime.ops.int`, taking inspiration from [Peano's axioms](https://en.wikipedia.org/wiki/Peano_axioms#Addition):
+If you want to waste time on things that bring you joy, you can now do type-level arithmetic (already expressed in `scala.compiletime.ops.int.+`), taking inspiration from [Peano's axioms](https://en.wikipedia.org/wiki/Peano_axioms#Addition):
 
 $$
 \begin{cases}
@@ -236,8 +236,11 @@ type Unpacked[T] =
   T match {
     case Foo[a] => a
   }
-def unpack[T](t: T): Unpacked[T] = t match
+
+def unpack[T](t: T): Unpacked[T] = 
+  t match {
     case ref: Foo[a] => ref.value
+  }
 
 // No compile-time errors whatsoever, in either versions,
 // just runtime  exceptions:

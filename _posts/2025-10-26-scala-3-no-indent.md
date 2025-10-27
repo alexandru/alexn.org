@@ -3,7 +3,7 @@ title: "Scala 3 / No Indent"
 image: /assets/media/articles/2023-scala3-indentation-4-spaces.png
 image_hide_in_post: true
 date: 2025-10-26T10:35:53+02:00
-last_modified_at: 2025-10-26T12:15:55+02:00
+last_modified_at: 2025-10-27T07:07:05+02:00
 tags:
   - Languages
   - Programming
@@ -32,9 +32,9 @@ Here are some reasons:
    - `%` for jumping to matching brace or paren.
 4. You could avoid some braces before, e.g., by being more expression-oriented. Braces are a visual aid for blocks using statements, and for example, you could easily spot functions described by single expressions (with a high likelihood that they are pure), versus functions using statements.
 5. Braces are a visual aid for [lexical scope](https://en.wikipedia.org/wiki/Scope_(computer_science)) — they make it easier to explain what scopes or blocks of code are to beginners. I've heard the argument that students have an easier time with significant indentation, but that's just NOT true in my experience, quite the opposite. You can feel the tension due to the existence of (optional) `end` markers, as if non-English students needed yet another English keyword.
-6. Whitespace changes make diffs (PR reviews) noisy. With braces, we do have formatting changes, but we can ignore it when insignificant.
-7. Like it or not, braces are a _de facto standard_ due to the popularity of the C/C++ family. Even relatively newer languages, like Rust, use braces. Folks, sorry, but Pascal is dead, ML-languages are still niche, despite first appearing in the 1970s, and everyone hates CoffeeScript.
-8. Scala 2.x codebases will be with us for a very long time, which is why we'll have to live with both old-style and new-style syntax, forever. Like with Perl's [TMTOWTDI](https://en.wikipedia.org/wiki/Perl#Philosophy), having the ability to use the Klingon language is cool, but the risk/reward ratio isn't great.
+6. Whitespace changes make diffs (in PR reviews) noisy. With braces, we do have formatting changes, but we can ignore it when insignificant.
+7. Like it or not, braces are a _de facto_ standard due to the popularity of the C/C++ family. Even relatively newer languages, like Rust, use braces. Folks, sorry, but Pascal is dead, ML-languages are still niche, despite first appearing in the 1970s, and everyone hates CoffeeScript.
+8. Scala 2.x codebases will be with us for a very long time, which is why we'll have to live with both old-style and new-style syntax, forever. As with Perl's [TMTOWTDI](https://en.wikipedia.org/wiki/Perl#Philosophy), having the ability to use the Klingon language is cool, but the risk/reward ratio isn't great.
 
 ## No-Indent 💪
 
@@ -59,6 +59,16 @@ rewrite.redundantBraces.maxBreaks = 10
 
 rewrite.scala3.convertToNewSyntax = true
 rewrite.scala3.removeOptionalBraces = false
+```
+
+UPDATE — As an alternative, [Jakub Kozłowski suggests](https://gist.github.com/kubukoz/95dc1abd3f5bc028b95a3927d73c4698/) disabling "significant indentation" in Scalafmt, unsure if this is better or worse, but note that the dialect override may prevent Scalafmt from recognizing code using significant indentation as being valid Scala code:
+
+```ini
+# Alternative to the above config
+runner.dialect = scala3
+runner.dialectOverride.allowSignificantIndentation = false
+# allows `if x then y`
+runner.dialectOverride.allowQuietSyntax = true
 ```
 
 Note: Scalafmt doesn't appear to have the ability to rewrite the code from significant indentation to old-syntax, but it can rewrite from old-syntax to significant indentation (which is why we have to rely on Scalac's `-no-indent -rewrite`). This suggests Scalafmt has more information when braces are available, and so do we 😉
