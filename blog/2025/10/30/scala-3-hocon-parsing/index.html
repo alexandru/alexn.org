@@ -19,13 +19,13 @@
     <meta property="og:description" content="How to do HOCON parsing in Scala 3? How to migrate away from the PureConfig library? How to work with multiple JSON codecs per data structure?">
     <meta property="og:url" content="https://alexn.org/blog/2025/10/30/scala-3-hocon-parsing/">
     <meta property="article:published_time" content="2025-10-30T17:33:31+00:00">
-    <meta property="article:modified_time" content="2025-10-31T07:53:25+00:00">
+    <meta property="article:modified_time" content="2025-10-31T08:29:26+00:00">
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2025-scala-configcodec.png?202510310754" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2025-scala-configcodec.png?202510310754" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2025-scala-configcodec.png?202510310833" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2025-scala-configcodec.png?202510310833" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2025-scala-configcodec.png?202510310754">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2025-scala-configcodec.png?202510310833">
     <meta name="twitter:title" content="Scala 3 / HOCON Parsing">
     <meta name="twitter:url" content="https://alexn.org/blog/2025/10/30/scala-3-hocon-parsing/">
     <meta name="twitter:description" content="How to do HOCON parsing in Scala 3? How to migrate away from the PureConfig library? How to work with multiple JSON codecs per data structure?">
@@ -133,7 +133,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2025-scala-configcodec.png" />
-          <img src="/assets/media/articles/2025-scala-configcodec.png?202510310754" width="1132" height="504" decoding="async" alt="" />
+          <img src="/assets/media/articles/2025-scala-configcodec.png?202510310833" width="1132" height="504" decoding="async" alt="" />
           
         </figure>
         
@@ -161,6 +161,14 @@
     <p class="intro">
   How to do HOCON parsing in Scala 3? How to migrate away from the PureConfig library? How to work with multiple JSON codecs per data structure?
 </p>
+
+<p class="info-bubble">
+This article is using Scala 3 with <code>-no-indent</code>. And this file is executable with <a href="https://scala-cli.virtuslab.org/docs/guides/power/markdown">Scala CLI’s Markdown support</a> 🤖
+</p>
+
+<pre><code class="language-bash">scala --power --enable-markdown \
+  https://raw.githubusercontent.com/alexandru/alexn.org/refs/heads/main/_posts/2025-10-30-scala-3-hocon-parsing.md
+</code></pre>
 
 <p>I’ve started migrating our project at work to Scala 3. It’s a work-in-progress, but it’s been going well, and thus far the biggest roadblock has been the PureConfig library not having complete support for Scala 3. In particular, it doesn’t seem to have support for <code>ConfigWriter</code> derivation, yet.</p>
 
@@ -216,7 +224,8 @@ given hoconConventions: Configuration = {
 )
 
 object HttpConfig {
-  given Codec[HttpConfig] = Codec.AsObject.derivedConfigured[A]
+  given Codec[HttpConfig] = 
+    Codec.AsObject.derivedConfigured[A]
 }
 </code></pre>
 
@@ -225,11 +234,11 @@ object HttpConfig {
 <pre><code class="language-scala">import io.circe.{Encoder, Decoder, Codec}
 
 trait ConfigEncoder[A] {
-  def encoder: io.circe.Encoder.AsObject[A]
+  def encoder: Encoder.AsObject[A]
 }
 
 trait ConfigDecoder[A] {
-  def decoder: io.circe.Decoder[A]
+  def decoder: Decoder[A]
 }
 
 trait ConfigCodec[A]
@@ -541,7 +550,7 @@ println(appConfigFromJson.asJson.spaces2)
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2025-10-31T09:53:25+0200">
+    <time itemprop="dateModified" content="2025-10-31T10:29:26+0200">
         Updated: October 31, 2025
     </time>
     | Written by <a href="https://alexn.org/about/" itemprop="url" rel="author">Alexandru Nedelcu</a>
@@ -663,12 +672,12 @@ println(appConfigFromJson.asJson.spaces2)
 
    <script
     defer
-    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202510310754"
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202510310833"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js/responsive-nav.min.js?202510310754"
+    src="/assets/js/responsive-nav.min.js?202510310833"
     type="text/javascript"
 ></script>
 
@@ -679,7 +688,7 @@ println(appConfigFromJson.asJson.spaces2)
 ></script>
 <script
     defer
-    src="/assets/js/scripts.js?202510310754"
+    src="/assets/js/scripts.js?202510310833"
     type="text/javascript"
 ></script>
 
