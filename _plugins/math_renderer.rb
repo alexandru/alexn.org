@@ -6,17 +6,42 @@ require 'open3'
 require 'tmpdir'
 
 module Jekyll
-  class MathRenderer
-    INLINE_MATH_REGEX = /\$([^\$]+)\$/
-    DISPLAY_MATH_REGEX = /\$\$([^\$]+?)\$\$/m
+  class MathGenerator < Generator
+    safe true
+    priority :low
+
+    def generate(site)
+      engine = MathEngine.new(site)
+      # Process all pages
+      site.pages.each { |page| engine.process_page(page) }
+      # Process all posts
+      site.posts.docs.each { |post| engine.process_page(post) }
+      # Process all collections
+      site.collections.each do |_, collection|
+        collection.docs.each { |doc| engine.process_page(doc) }
+      end
+      # Add generated files to site
+      engine.add_static_files
+    end
+  end
+
+  class MathEngine
+    MATH_REGEX = /
+      \$\$([^\$]+)\$\$ |           # Display math
+      (?<!\$)\$([^\$]+)\$(?!\$)    # Inline math
+    /mx
     
     def initialize(site)
       @site = site
-      # Use Jekyll's cache directory for generated math SVG files
       @math_dir = File.join(site.source, '.jekyll-cache', 'math-svg')
       @cache = {}
       @generated_files = {}
       FileUtils.mkdir_p(@math_dir)
+    end
+
+    def process_page(page)
+      return unless page.data['mathjax']
+      page.content = process_content(page.content)
     end
     
     def hash_formula(formula)
@@ -71,21 +96,20 @@ module Jekyll
     end
     
     def process_content(content)
-
-      # Process display math first (to avoid conflicts with inline math)
-      content = content.gsub(DISPLAY_MATH_REGEX) do |match|
-        formula = $1.strip
-        alt_text = escape_html(formula)
-        svg_path, size = render_formula(formula, false)
-        %(<div class="math-display page-width"><img src="#{svg_path}" alt="Math formula" title="#{alt_text}" width="#{size[0] * 12}" height="#{size[1] * 12}" loading="lazy" /></div>)
-      end
-      
-      # Process inline math
-      content = content.gsub(INLINE_MATH_REGEX) do |match|
-        formula = $1.strip
-        alt_text = escape_html(formula)
-        svg_path, size = render_formula(formula, true)
-        %(<img src="#{svg_path}" alt="Math formula" title="#{alt_text}" class="math-inline" width="#{size[0] * 12}" height="#{size[1] * 12}" loading="lazy" />)
+      content = content.gsub(MATH_REGEX) do |match|
+        if $1 && !($1.strip.empty?)
+          formula = $1.strip
+          alt_text = escape_html(formula)
+          svg_path, size = render_formula(formula, false)
+          %(<div class="math-display page-width"><img src="#{svg_path}" alt="Math formula" title="#{alt_text}" width="#{size[0] * 12}" height="#{size[1] * 12}" loading="lazy" /></div>)
+        elsif $2 && !($2.strip.empty?)
+          formula = $2.strip
+          alt_text = escape_html(formula)
+          svg_path, size = render_formula(formula, true)
+          %(<img src="#{svg_path}" alt="Math formula" title="#{alt_text}" class="math-inline" width="#{size[0] * 12}" height="#{size[1] * 12}" loading="lazy" />)
+        else
+          match
+        end
       end
       
       content
@@ -157,29 +181,6 @@ module Jekyll
     def path
       # Override path to return the actual file location for size_of to work
       File.join(@base, @name)
-    end
-  end
-  
-  # Hook to initialize the renderer early
-  Jekyll::Hooks.register :site, :post_read do |site|
-    site.config['math_renderer'] = MathRenderer.new(site)
-  end
-  
-  # Hook to process pages and posts
-  Jekyll::Hooks.register [:pages, :posts, :documents], :pre_render do |doc|
-    # Only process documents that have mathjax enabled
-    if doc.data['mathjax']
-      site = doc.site
-      renderer = site.config['math_renderer']
-      doc.content = renderer.process_content(doc.content)
-    end
-  end
-  
-  # Hook to add generated SVG files to static_files after content is processed
-  Jekyll::Hooks.register :site, :post_render do |site|
-    if site.config['math_renderer']
-      renderer = site.config['math_renderer']
-      renderer.add_static_files
     end
   end
 end
