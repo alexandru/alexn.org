@@ -19,13 +19,13 @@
     <meta property="og:description" content="How to do HOCON parsing in Scala 3? How to migrate away from the PureConfig library? How to work with multiple JSON codecs per data structure?">
     <meta property="og:url" content="https://alexn.org/blog/2025/10/30/scala-3-hocon-parsing/">
     <meta property="article:published_time" content="2025-10-30T17:33:31+00:00">
-    <meta property="article:modified_time" content="2025-10-31T07:05:25+00:00">
+    <meta property="article:modified_time" content="2025-10-31T07:24:29+00:00">
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2025-scala-configcodec.png?202510310706" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2025-scala-configcodec.png?202510310706" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2025-scala-configcodec.png?202510310727" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2025-scala-configcodec.png?202510310727" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2025-scala-configcodec.png?202510310706">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2025-scala-configcodec.png?202510310727">
     <meta name="twitter:title" content="Scala 3 / HOCON Parsing">
     <meta name="twitter:url" content="https://alexn.org/blog/2025/10/30/scala-3-hocon-parsing/">
     <meta name="twitter:description" content="How to do HOCON parsing in Scala 3? How to migrate away from the PureConfig library? How to work with multiple JSON codecs per data structure?">
@@ -133,7 +133,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2025-scala-configcodec.png" />
-          <img src="/assets/media/articles/2025-scala-configcodec.png?202510310706" width="1132" height="504" decoding="async" alt="" />
+          <img src="/assets/media/articles/2025-scala-configcodec.png?202510310727" width="1132" height="504" decoding="async" alt="" />
           
         </figure>
         
@@ -161,14 +161,6 @@
     <p class="intro">
   How to do HOCON parsing in Scala 3? How to migrate away from the PureConfig library? How to work with multiple JSON codecs per data structure?
 </p>
-
-<p class="info-bubble">
-This article is using Scala 3 with <code>-no-indent</code>. And this file is executable with <a href="https://scala-cli.virtuslab.org/docs/guides/power/markdown">Scala CLI’s Markdown support</a> 🤖
-</p>
-
-<pre><code class="language-bash">scala --power --enable-markdown \
-  https://raw.githubusercontent.com/alexandru/alexn.org/refs/heads/main/_posts/2025-10-30-scala-3-hocon-parsing.md
-</code></pre>
 
 <p>I’ve started migrating our project at work to Scala 3. It’s a work-in-progress, but it’s been going well, and thus far the biggest roadblock has been the PureConfig library not having complete support for Scala 3. In particular, it doesn’t seem to have support for <code>ConfigWriter</code> derivation, yet.</p>
 
@@ -217,21 +209,21 @@ given hoconConventions: Configuration = {
 
 <p>Note that with Circe, the auto-derivation we want goes something like this:</p>
 
-<p>```scala ignore
+<pre><code class="language-scala">//ignore
 case class HttpConfig(
   hostname: String,
   port: Int,
   contextPath: Option[String]
-)</p>
+)
 
-<p>object HttpConfig {
+object HttpConfig {
   given Codec[HttpConfig] = Codec.AsObject.derivedConfigured[A]
-}</p>
-<pre><code>
-As mentioned before, I'd rather have a different type-class, and I don't want to have to remember to import `hoconConventions`, but we can just create different type-classes that wrap Circe's:
+}
+</code></pre>
 
-```scala
-import io.circe.{Encoder, Decoder, Codec}
+<p>As mentioned before, I’d rather have a different type-class, and I don’t want to have to remember to import <code>hoconConventions</code>, but we can just create different type-classes that wrap Circe’s:</p>
+
+<pre><code class="language-scala">import io.circe.{Encoder, Decoder, Codec}
 
 trait ConfigEncoder[A] {
   def encoder: io.circe.Encoder.AsObject[A]
@@ -313,8 +305,7 @@ object ConfigCodec {
 
 <p>OK, so I think we can do better than this with some utilities. This is a copy/paste-able snippet:</p>
 
-<p>```scala reset
-import com.typesafe.config.Config
+<pre><code class="language-scala">import com.typesafe.config.Config
 import com.typesafe.config.ConfigFactory
 import com.typesafe.config.ConfigRenderOptions
 import com.typesafe.config.ConfigValue
@@ -326,107 +317,108 @@ import io.circe.Decoder
 import io.circe.Encoder
 import io.circe.Json
 import scala.deriving.Mirror
-import scala.jdk.CollectionConverters.*</p>
+import scala.jdk.CollectionConverters.*
 
-<p>trait ConfigEncoder[A] {
-  def encoder: io.circe.Encoder.AsObject[A]</p>
+trait ConfigEncoder[A] {
+  def encoder: io.circe.Encoder.AsObject[A]
 
-<p>extension (a: A) {
+  extension (a: A) {
     def toRawConfig: Config = {
       given Encoder.AsObject[A] =
         encoder
       ConfigFactory.empty().withFallback(
         jsonToConfigValue(a.asJson)
       )
-    }</p>
+    }
 
-<pre><code>def renderConfigString: String =
-  toRawConfig.root().render(renderOptions)   } }
-</code></pre>
+    def renderConfigString: String =
+      toRawConfig.root().render(renderOptions)
+  }
+}
 
-<p>object ConfigEncoder {
-  inline def derived<a href="using inline A: Mirror.Of[A]">A</a>: ConfigEncoder[A] = {
+object ConfigEncoder {
+  inline def derived[A](using inline A: Mirror.Of[A]): ConfigEncoder[A] = {
     import Givens.given
     val underlying = io.circe.Encoder.AsObject.derivedConfigured[A]
     Derived(underlying)
-  }</p>
+  }
 
-<p>final private case class Derived<a href="encoder: Encoder.AsObject[A]">A</a>
+  final private case class Derived[A](encoder: Encoder.AsObject[A])
     extends ConfigEncoder[A]
-}</p>
+}
 
-<p>trait ConfigDecoder[A] {
-  def decoder: io.circe.Decoder[A]</p>
+trait ConfigDecoder[A] {
+  def decoder: io.circe.Decoder[A]
 
-<p>final def decodeConfig(
+  final def decodeConfig(
     config: com.typesafe.config.Config
   ): Either[io.circe.Error, A] = {
     import io.circe.config.parser
-    parser.decode<a href="config">A</a>(using decoder)
-  }</p>
+    parser.decode[A](config)(using decoder)
+  }
 
-<p>final def parseConfigString(
+  final def parseConfigString(
     configString: String
   ): Either[io.circe.Error, A] = {
     val config = ConfigFactory.parseString(configString)
     decodeConfig(config)
   }
-}</p>
+}
 
-<p>object ConfigDecoder {
-  def apply<a href="using ConfigDecoder[A]">A</a>: ConfigDecoder[A] =
-    summon[ConfigDecoder[A]]</p>
+object ConfigDecoder {
+  def apply[A](using ConfigDecoder[A]): ConfigDecoder[A] =
+    summon[ConfigDecoder[A]]
 
-<p>inline def derived<a href="using inline A: Mirror.Of[A]">A</a>: ConfigDecoder[A] = {
+  inline def derived[A](using inline A: Mirror.Of[A]): ConfigDecoder[A] = {
     import Givens.given
     val underlying = Decoder.derivedConfigured[A]
     Derived(underlying)
-  }</p>
+  }
 
-<p>final private case class Derived<a href="decoder: Decoder[A]">A</a>
+  final private case class Derived[A](decoder: Decoder[A])
     extends ConfigDecoder[A]
-}</p>
+}
 
-<p>trait ConfigCodec[A]
+trait ConfigCodec[A]
   extends ConfigEncoder[A]
-  with ConfigDecoder[A] {</p>
+  with ConfigDecoder[A] {
 
-<p>def codec: Codec.AsObject[A]
-}</p>
+  def codec: Codec.AsObject[A]
+}
 
-<p>object ConfigCodec {
-  inline def derived<a href="using inline A: Mirror.Of[A]">A</a>: ConfigCodec[A] = {
+object ConfigCodec {
+  inline def derived[A](using inline A: Mirror.Of[A]): ConfigCodec[A] = {
     import Givens.given
     val underlying = Codec.AsObject.derivedConfigured[A]
     Derived(underlying)
-  }</p>
+  }
 
-<p>final private case class Derived<a href="codec: Codec.AsObject[A]">A</a> extends ConfigCodec[A] {
+  final private case class Derived[A](codec: Codec.AsObject[A]) extends ConfigCodec[A] {
     override def decoder =
       codec
     override def encoder =
       codec
   }
-}</p>
+}
 
-<p>private object Givens {
-  given circeEncoder<a href="using encoder: ConfigEncoder[A]">A</a>: Encoder.AsObject[A] =
-    encoder.encoder</p>
+private object Givens {
+  given circeEncoder[A](using encoder: ConfigEncoder[A]): Encoder.AsObject[A] =
+    encoder.encoder
 
-<p>given circeDecoder<a href="using decoder: ConfigDecoder[A]">A</a>: Decoder[A] =
-    decoder.decoder</p>
+  given circeDecoder[A](using decoder: ConfigDecoder[A]): Decoder[A] =
+    decoder.decoder
 
-<p>given hoconConventions: Configuration =
+  given hoconConventions: Configuration =
     Configuration.default
       .withTransformMemberNames(kebabCase)
-      .withDiscriminator(“type”)
-      .withTransformConstructorNames(kebabCase)</p>
+      .withDiscriminator("type")
+      .withTransformConstructorNames(kebabCase)
 
-<p>private val kebabCase: String =&gt; String =
-    _.replaceAll(“([a-z])([A-Z])”, “$1-$2”).toLowerCase
-}</p>
+  private val kebabCase: String =&gt; String =
+    _.replaceAll("([a-z])([A-Z])", "$1-$2").toLowerCase
+}
 
-<p>private def jsonToConfigValue(json: Json): ConfigValue =
+private def jsonToConfigValue(json: Json): ConfigValue =
   json.fold(
     ConfigValueFactory.fromAnyRef(null),
     boolean =&gt; ConfigValueFactory.fromAnyRef(boolean),
@@ -438,20 +430,20 @@ import scala.jdk.CollectionConverters.*</p>
     str =&gt; ConfigValueFactory.fromAnyRef(str),
     arr =&gt; ConfigValueFactory.fromIterable(arr.map(jsonToConfigValue).asJava),
     obj =&gt; ConfigValueFactory.fromMap(obj.toMap.view.mapValues(jsonToConfigValue).toMap.asJava)
-  )</p>
+  )
 
-<p>private val renderOptions =
+private val renderOptions =
   ConfigRenderOptions
     .defaults()
     .setOriginComments(false)
     .setComments(true)
     .setFormatted(true)
-    .setJson(false)</p>
-<pre><code>
-To test it, we first define a more complex data structure:
+    .setJson(false)
+</code></pre>
 
-```scala
-// Providing both HOCON and JSON codecs, separately 
+<p>To test it, we first define a more complex data structure:</p>
+
+<pre><code class="language-scala">// Providing both HOCON and JSON codecs, separately 
 // (to prove it works)
 
 final case class AppConfig(
@@ -550,7 +542,7 @@ println(appConfigFromJson.asJson.spaces2)
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2025-10-31T09:05:25+0200">
+    <time itemprop="dateModified" content="2025-10-31T09:24:29+0200">
         Updated: October 31, 2025
     </time>
     | Written by <a href="https://alexn.org/about/" itemprop="url" rel="author">Alexandru Nedelcu</a>
@@ -672,12 +664,12 @@ println(appConfigFromJson.asJson.spaces2)
 
    <script
     defer
-    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202510310706"
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202510310727"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js/responsive-nav.min.js?202510310706"
+    src="/assets/js/responsive-nav.min.js?202510310727"
     type="text/javascript"
 ></script>
 
@@ -688,7 +680,7 @@ println(appConfigFromJson.asJson.spaces2)
 ></script>
 <script
     defer
-    src="/assets/js/scripts.js?202510310706"
+    src="/assets/js/scripts.js?202510310727"
     type="text/javascript"
 ></script>
 
