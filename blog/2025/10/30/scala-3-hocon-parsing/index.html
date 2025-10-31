@@ -19,13 +19,13 @@
     <meta property="og:description" content="How to parse HOCON in Scala 3? How to use Circe for HOCON? How to work with multiple JSON codecs per data structure?">
     <meta property="og:url" content="https://alexn.org/blog/2025/10/30/scala-3-hocon-parsing/">
     <meta property="article:published_time" content="2025-10-30T17:33:31+00:00">
-    <meta property="article:modified_time" content="2025-10-31T10:00:31+00:00">
+    <meta property="article:modified_time" content="2025-10-31T10:05:00+00:00">
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2025-scala-configcodec.png?202510311001" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2025-scala-configcodec.png?202510311001" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2025-scala-configcodec.png?202510311006" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2025-scala-configcodec.png?202510311006" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2025-scala-configcodec.png?202510311001">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2025-scala-configcodec.png?202510311006">
     <meta name="twitter:title" content="Scala 3 / HOCON Parsing">
     <meta name="twitter:url" content="https://alexn.org/blog/2025/10/30/scala-3-hocon-parsing/">
     <meta name="twitter:description" content="How to parse HOCON in Scala 3? How to use Circe for HOCON? How to work with multiple JSON codecs per data structure?">
@@ -133,7 +133,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2025-scala-configcodec.png" />
-          <img src="/assets/media/articles/2025-scala-configcodec.png?202510311001" width="1132" height="504" decoding="async" alt="" />
+          <img src="/assets/media/articles/2025-scala-configcodec.png?202510311006" width="1132" height="504" decoding="async" alt="" />
           
         </figure>
         
@@ -172,8 +172,8 @@ This article is using Scala 3 with <a href="/blog/2025/10/26/scala-3-no-indent/"
 
 <p>I’ve just started migrating our project at work to Scala 3. It’s a work-in-progress, but it’s been going well, and thus far the biggest roadblock has been the <a href="https://github.com/pureconfig/pureconfig">PureConfig library</a>, an awesome library, but it didn’t seem to have complete support for Scala 3. In particular, it doesn’t seem to have support for <code>ConfigWriter</code> derivation, yet. So I’ve started to think of alternatives.</p>
 
-<p class="warn-bubble">
-<strong>UPDATE:</strong> PureConfig apparently has <code>ConfigWriter</code> derivation in the codebase, as part of a different module, found out about it from this <a href="https://old.reddit.com/r/scala/comments/1okokac/scala_3_hocon_parsing/nmc3s2u/">Reddit comment</a>: <a href="https://github.com/pureconfig/pureconfig/blob/1f272aa/modules/generic-scala3/src/main/scala/pureconfig/generic/scala3/HintsAwareConfigWriterDerivation.scala">generic-scala3 source code</a>, added in <a href="https://github.com/pureconfig/pureconfig/pull/1671">this PR</a>. I don’t know how well it works, but it’s encouraging.
+<p class="warn-bubble" name="update-1">
+<strong>UPDATE:</strong> PureConfig apparently has <code>ConfigWriter</code> derivation in the codebase, as part of a different module, found out about it from this <a href="https://old.reddit.com/r/scala/comments/1okokac/scala_3_hocon_parsing/nmc3s2u/">Reddit comment</a>: see <a href="https://github.com/pureconfig/pureconfig/blob/1f272aa/modules/generic-scala3/src/main/scala/pureconfig/generic/scala3/HintsAwareConfigWriterDerivation.scala">source code</a>, added in <a href="https://github.com/pureconfig/pureconfig/pull/1671">this PR</a>. I don’t know how well it works, but it’s encouraging. Unfortunately, I checked the status by just <a href="https://pureconfig.github.io/docs/scala-3-derivation.html#limitations">looking at outdated docs</a> 🤦‍♂️
 </p>
 
 <p>One solution I’ve found is to use the <a href="https://github.com/circe/circe">circe</a> library, with <a href="https://github.com/circe/circe-config">circe-config</a>. And here-in lie challenges:</p>
@@ -556,7 +556,7 @@ println(appConfigFromJson.asJson.spaces2)
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2025-10-31T12:00:31+0200">
+    <time itemprop="dateModified" content="2025-10-31T12:05:00+0200">
         Updated: October 31, 2025
     </time>
     | Written by <a href="https://alexn.org/about/" itemprop="url" rel="author">Alexandru Nedelcu</a>
@@ -678,12 +678,12 @@ println(appConfigFromJson.asJson.spaces2)
 
    <script
     defer
-    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202510311001"
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202510311006"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js/responsive-nav.min.js?202510311001"
+    src="/assets/js/responsive-nav.min.js?202510311006"
     type="text/javascript"
 ></script>
 
@@ -694,7 +694,7 @@ println(appConfigFromJson.asJson.spaces2)
 ></script>
 <script
     defer
-    src="/assets/js/scripts.js?202510311001"
+    src="/assets/js/scripts.js?202510311006"
     type="text/javascript"
 ></script>
 
