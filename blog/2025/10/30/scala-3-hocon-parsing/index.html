@@ -21,11 +21,11 @@
     <meta property="article:published_time" content="2025-10-30T17:33:31+00:00">
     <meta property="article:modified_time" content="2025-10-31T09:50:24+00:00">
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2025-scala-configcodec.png?202510310951" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2025-scala-configcodec.png?202510310951" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2025-scala-configcodec.png?202510310955" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2025-scala-configcodec.png?202510310955" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2025-scala-configcodec.png?202510310951">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2025-scala-configcodec.png?202510310955">
     <meta name="twitter:title" content="Scala 3 / HOCON Parsing">
     <meta name="twitter:url" content="https://alexn.org/blog/2025/10/30/scala-3-hocon-parsing/">
     <meta name="twitter:description" content="How to parse HOCON in Scala 3? How to use Circe for HOCON? How to work with multiple JSON codecs per data structure?">
@@ -133,7 +133,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2025-scala-configcodec.png" />
-          <img src="/assets/media/articles/2025-scala-configcodec.png?202510310951" width="1132" height="504" decoding="async" alt="" />
+          <img src="/assets/media/articles/2025-scala-configcodec.png?202510310955" width="1132" height="504" decoding="async" alt="" />
           
         </figure>
         
@@ -173,7 +173,7 @@ This article is using Scala 3 with <a href="/blog/2025/10/26/scala-3-no-indent/"
 <p>I’ve started migrating our project at work to Scala 3. It’s a work-in-progress, but it’s been going well, and thus far the biggest roadblock has been the PureConfig library not having complete support for Scala 3. In particular, it doesn’t seem to have support for <code>ConfigWriter</code> derivation, yet.</p>
 
 <p class="info-bubble">
-<strong>UPDATE:</strong> PureConfig may have <code>ConfigWriter</code> derivation in the codebase, as part of a different module, found out about it from this <a href="https://old.reddit.com/r/scala/comments/1okokac/scala_3_hocon_parsing/nmc3s2u/">Reddit comment</a>: <a href="https://github.com/pureconfig/pureconfig/blob/1f272aa/modules/generic-scala3/src/main/scala/pureconfig/generic/scala3/HintsAwareConfigWriterDerivation.scala">generic-scala3/HintsAwareConfigWriterDerivation</a>. I don’t know how well it works, but it’s encouraging.
+<strong>UPDATE:</strong> PureConfig may have <code>ConfigWriter</code> derivation in the codebase, as part of a different module, found out about it from this <a href="https://old.reddit.com/r/scala/comments/1okokac/scala_3_hocon_parsing/nmc3s2u/">Reddit comment</a>: <a href="https://github.com/pureconfig/pureconfig/blob/1f272aa/modules/generic-scala3/src/main/scala/pureconfig/generic/scala3/HintsAwareConfigWriterDerivation.scala">generic-scala3 source code</a>, added in <a href="https://github.com/pureconfig/pureconfig/pull/1671">this PR</a>. I don’t know how well it works, but it’s encouraging.
 </p>
 
 <p>One solution I’ve found is to use the <a href="https://github.com/circe/circe">circe</a> library, with <a href="https://github.com/circe/circe-config">circe-config</a>. And here-in lie challenges:</p>
@@ -678,12 +678,12 @@ println(appConfigFromJson.asJson.spaces2)
 
    <script
     defer
-    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202510310951"
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202510310955"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js/responsive-nav.min.js?202510310951"
+    src="/assets/js/responsive-nav.min.js?202510310955"
     type="text/javascript"
 ></script>
 
@@ -694,7 +694,7 @@ println(appConfigFromJson.asJson.spaces2)
 ></script>
 <script
     defer
-    src="/assets/js/scripts.js?202510310951"
+    src="/assets/js/scripts.js?202510310955"
     type="text/javascript"
 ></script>
 
