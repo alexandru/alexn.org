@@ -19,13 +19,13 @@
     <meta property="og:description" content="Which language leans more towards functional programming? In this binary choice, people have perceived F# to be that language, due to its ML roots, but I have a different perspective…">
     <meta property="og:url" content="https://alexn.org/blog/2025/11/01/scala-vs-fsharp/">
     <meta property="article:published_time" content="2025-11-01T06:58:37+00:00">
-    <meta property="article:modified_time" content="2025-11-01T08:48:03+00:00">
+    <meta property="article:modified_time" content="2025-11-01T08:50:14+00:00">
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2025-scala-vs-fsharp.png?202511010849" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2025-scala-vs-fsharp.png?202511010849" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2025-scala-vs-fsharp.png?202511010852" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2025-scala-vs-fsharp.png?202511010852" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2025-scala-vs-fsharp.png?202511010849">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2025-scala-vs-fsharp.png?202511010852">
     <meta name="twitter:title" content="Scala vs F#">
     <meta name="twitter:url" content="https://alexn.org/blog/2025/11/01/scala-vs-fsharp/">
     <meta name="twitter:description" content="Which language leans more towards functional programming? In this binary choice, people have perceived F# to be that language, due to its ML roots, but I have a different perspective…">
@@ -124,7 +124,7 @@
       <meta itemprop="datePublished" content="2025-11-01T06:58:37+0000"/>
       
       <time itemprop="dateCreated" datetime="2025-11-01T06:58:37+0000">November 1, 2025</time>
-      | <span class="nobr"><span class="time">10</span> minutes</span>
+      | <span class="nobr"><span class="time">9</span> minutes</span>
       
       | <a href="/blog/2025/11/01/scala-vs-fsharp/#isso-thread" class="nobr">Comments</a>
       
@@ -161,17 +161,13 @@
   Which language leans more towards functional programming? In this binary choice, people have perceived F# to be that language, due to its ML roots, but I have a different perspective... 
 </p>
 
-<p class="info-bubble">
-<a href="https://users.scala-lang.org/t/f-versus-scala/10370/14">This is a comment</a> of mine that I’m now publishing on my blog as well.
-</p>
-
 <p class="warn-bubble">
 <strong>Before bringing your pitchforks:</strong> I’m an expert in Scala, but I only have superficial experience with F#, so take this opinion for what it is. I also think both languages are great, and this is just an opinion on which one I prefer.
 </p>
 
 <p>F# is a wonderful language, and the primary choice between Scala and F# would actually be driven by your preferred choice of platform and ecosystem (JVM vs .NET). That being said,</p>
 
-<p>Scala is actually a more “functional” language than F# because it wins in the expressiveness and the culture departments; first, in Scala, you can work with higher-kinded types and type classes. To understand why that’s important, consider that Scala does not need .NET’s flavor of reification for generics because what it has is far more potent. These are features that Don Syme <a href="https://github.com/fsharp/fslang-suggestions/issues/243#issuecomment-916079347">has been explicitly against</a> because, according to him, it complicates the type system. This is partially true, I’m actually inclined to agree; however, in my experience, the actual problems in programming come from elsewhere, code reuse being good. And I’d also argue that this opinion against type-classes and higher-kinds may also be due to bias, with .NET itself making higher-kinds complicated due to the runtime-based reification (you can do type-erasure on .NET, but people and libraries expect reification, which would mean interop would suffer). The irony of .NET’s original marketing is that the JVM has been an easier-to-target platform for languages that are not Java or C#.</p>
+<p>Scala is actually a more “functional” language than F# because it wins in the expressiveness and the culture departments; first, in Scala, you can work with higher-kinded types and type classes. To understand why that’s important, consider that Scala does not need .NET’s flavor of reification for generics because what it has is far more potent. These are features that Don Syme <a href="https://github.com/fsharp/fslang-suggestions/issues/243#issuecomment-916079347">has been explicitly against</a> because, according to him, it complicates the type system. This is partially true, I’m actually inclined to agree; however, in my experience, the actual problems in programming come from elsewhere, code reuse and static type-safety being good. And I’d also argue that this opinion against type-classes and higher-kinds may also be due to bias, with .NET itself making higher-kinds more complicated due to its runtime-based reification (you can do type-erasure on .NET, but people and libraries expect reification, which would mean interop would suffer). The irony of .NET’s original marketing is that the JVM has been an easier-to-target platform for languages that are not Java or C#.</p>
 
 <p>To give an example of a type-class in action:</p>
 
@@ -278,7 +274,7 @@ val l2: Array[Int] = flatten(Array(Array(1,2,3), Array(4,5,6)))
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2025-11-01T10:48:03+0200">
+    <time itemprop="dateModified" content="2025-11-01T10:50:14+0200">
         Updated: November 1, 2025
     </time>
     | Written by <a href="https://alexn.org/about/" itemprop="url" rel="author">Alexandru Nedelcu</a>
@@ -403,12 +399,12 @@ val l2: Array[Int] = flatten(Array(Array(1,2,3), Array(4,5,6)))
 
    <script
     defer
-    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202511010849"
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202511010852"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js/responsive-nav.min.js?202511010849"
+    src="/assets/js/responsive-nav.min.js?202511010852"
     type="text/javascript"
 ></script>
 
@@ -419,7 +415,7 @@ val l2: Array[Int] = flatten(Array(Array(1,2,3), Array(4,5,6)))
 ></script>
 <script
     defer
-    src="/assets/js/scripts.js?202511010849"
+    src="/assets/js/scripts.js?202511010852"
     type="text/javascript"
 ></script>
 
