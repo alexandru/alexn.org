@@ -19,13 +19,13 @@
     <meta property="og:description" content="Which language leans more towards functional programming? In this binary choice, people have perceived F# to be that language, due to its ML roots, but I have a different perspective…">
     <meta property="og:url" content="https://alexn.org/blog/2025/11/01/scala-vs-fsharp/">
     <meta property="article:published_time" content="2025-11-01T06:58:37+00:00">
-    <meta property="article:modified_time" content="2025-11-01T09:04:57+00:00">
+    <meta property="article:modified_time" content="2025-11-01T10:13:12+00:00">
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2025-scala-vs-fsharp.png?202511010908" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2025-scala-vs-fsharp.png?202511010908" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2025-scala-vs-fsharp.png?202511011014" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2025-scala-vs-fsharp.png?202511011014" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2025-scala-vs-fsharp.png?202511010908">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2025-scala-vs-fsharp.png?202511011014">
     <meta name="twitter:title" content="Scala vs F#">
     <meta name="twitter:url" content="https://alexn.org/blog/2025/11/01/scala-vs-fsharp/">
     <meta name="twitter:description" content="Which language leans more towards functional programming? In this binary choice, people have perceived F# to be that language, due to its ML roots, but I have a different perspective…">
@@ -232,14 +232,16 @@ import cats.{Foldable, MonoidK}
 
 def flatten[F[_], A](list: F[F[A]])(using Foldable[F], MonoidK[F]): F[A] =
     val m = summon[MonoidK[F]]
-    list.foldLeft(m.empty[A])((acc, fa) =&gt; m.combineK(acc, fa))
+    list.foldLeft(m.empty[A])(m.combineK)
 
-// note how type gets preserved
-val l1: List[Int] = flatten(List(List(1,2,3), List(4,5,6)))
-val l2: Array[Int] = flatten(Array(Array(1,2,3), Array(4,5,6)))
+// Note how the type gets preserved
+val l1: List[Int] = 
+    flatten(List(List(1,2,3), List(4,5,6)))
+val l2: Array[Int] =
+    flatten(Array(Array(1,2,3), Array(4,5,6)))
 </code></pre>
 
-<p>And there’s a lot more to talk about here, such as the ability to auto-derive type-class instances, which in Scala is great. For instance, in Scala, you can develop something like <a href="https://kotlinlang.org/docs/serialization.html">Kotlin Serialization</a> as a library, a library that can work for basic needs in a day. You don’t even need macros for it, unless you want customizability (e.g., by annotations).</p>
+<p>And there’s a lot more to talk about here, such as the ability to auto-derive type-class instances, which in Scala is great. For instance, in Scala, you can develop something like <a href="https://kotlinlang.org/docs/serialization.html">Kotlin Serialization</a> as a library, a library that can work for basic needs, in a day. You don’t even need macros for it, unless you want customizability (e.g., by annotations).</p>
 
 <p>This difference is not only academic, manifesting itself for example in F#’s <a href="https://github.com/fsprojects/FSharp.Control.AsyncSeq">AsyncSeq</a>, which is a library combining <code>Async</code> with <code>Seq</code>. This is nice and all, but in Scala, all the features in this <code>AsyncSeq</code> are expressed more generically in the <a href="https://typelevel.org/cats/">Typelevel Cats</a> library, increasing reuse for other types. To make a comparison, it’s like in Go, when people needing generics were simply duplicating the code for all the types they care about. This arguably works for some common cases, but also sucks.</p>
 
@@ -276,7 +278,7 @@ val l2: Array[Int] = flatten(Array(Array(1,2,3), Array(4,5,6)))
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2025-11-01T11:04:57+0200">
+    <time itemprop="dateModified" content="2025-11-01T12:13:12+0200">
         Updated: November 1, 2025
     </time>
     | Written by <a href="https://alexn.org/about/" itemprop="url" rel="author">Alexandru Nedelcu</a>
@@ -401,12 +403,12 @@ val l2: Array[Int] = flatten(Array(Array(1,2,3), Array(4,5,6)))
 
    <script
     defer
-    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202511010908"
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202511011014"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js/responsive-nav.min.js?202511010908"
+    src="/assets/js/responsive-nav.min.js?202511011014"
     type="text/javascript"
 ></script>
 
@@ -417,7 +419,7 @@ val l2: Array[Int] = flatten(Array(Array(1,2,3), Array(4,5,6)))
 ></script>
 <script
     defer
-    src="/assets/js/scripts.js?202511010908"
+    src="/assets/js/scripts.js?202511011014"
     type="text/javascript"
 ></script>
 
