@@ -19,13 +19,13 @@
     <meta property="og:description" content="Which language leans more towards functional programming? In this binary choice, people have perceived F# to be that language, due to its ML roots, but I have a different perspective…">
     <meta property="og:url" content="https://alexn.org/blog/2025/11/01/scala-vs-fsharp/">
     <meta property="article:published_time" content="2025-11-01T06:58:37+00:00">
-    <meta property="article:modified_time" content="2025-11-01T10:18:58+00:00">
+    <meta property="article:modified_time" content="2025-11-01T10:22:52+00:00">
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2025-scala-vs-fsharp.png?202511011020" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2025-scala-vs-fsharp.png?202511011020" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2025-scala-vs-fsharp.png?202511011024" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2025-scala-vs-fsharp.png?202511011024" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2025-scala-vs-fsharp.png?202511011020">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2025-scala-vs-fsharp.png?202511011024">
     <meta name="twitter:title" content="Scala vs F#">
     <meta name="twitter:url" content="https://alexn.org/blog/2025/11/01/scala-vs-fsharp/">
     <meta name="twitter:description" content="Which language leans more towards functional programming? In this binary choice, people have perceived F# to be that language, due to its ML roots, but I have a different perspective…">
@@ -247,7 +247,7 @@ val l2: Array[Int] =
 
 <p>F# does have Hindley-Milner type inference, however, it only works as long as OOP subtyping isn’t involved, and due to its .NET interop and dependence, it has a lot of OOP subtyping. Hindley-Milner in general, being a type system with global type inference, makes error messages hard to read and understand, although, granted, this is more relevant in languages with more advanced type systems. Even in languages with HM (e.g., Haskell), the general advice is for public functions to have explicit types; otherwise the contract exposed is fragile. And also, the more advanced the type system, the more difficult HM becomes. For example, the more advanced features of Haskell you use, the more HM breaks down. See also Idris, in which type inference is undecidable in general.</p>
 
-<p>I always felt that this is a general problem with F#, trying to combine two separate worlds. For example, its generic types can have restrictions that can’t be expressed in .NET (like in the <code>sumList</code> above). Therefore, to use them, you can only use <code>inline</code> functions, which are functions that are not seen by the .NET runtime, so they can’t be passed around as <em>values</em>. In fairness, Scala 3 makes heavy use of <code>inline</code> functions as well, for compile-time magic and macros, but in Scala you can use inline functions to reify types and then expose any compile-time information to normal functions, via implicit parameters. So it doesn’t have the mixture I’ve felt while using F#.</p>
+<p>I always felt that this is a general problem with F#, inspired by two separate worlds, and not trying hard enough to combine them. For example, its generic types can have restrictions that can’t be expressed in .NET (like in the <code>sumList</code> above). Therefore, to use them, you can only use <code>inline</code> functions, which are functions that are not seen by the .NET runtime, so they can’t be passed around as <em>values</em>. In fairness, Scala 3 makes heavy use of <code>inline</code> functions as well, for compile-time magic and macros, but in Scala you can use inline functions to reify types and then expose any compile-time information to normal functions, via implicit parameters. So it doesn’t have the mixture I’ve felt while using F#.</p>
 
 <p>F# has a sort of mixed personality to it, not trying too much to mix the functional aspects with OOP, like Scala or OCaml are trying. This can be considered a feature, except, one interacts with .NET and OOP <em>a lot</em> in F#, more than in your typical Scala FP project (IMO, YMMV). To give one example, when I last tried, in F# serialization was still done using runtime reflection, whereas in Scala we have libraries like <a href="https://github.com/circe/circe">Circe</a> which work entirely at compile-time, providing static type-safety, and exposing a very FP API. If you compare .NET’s solutions for serialization with Java’s Jackson, for sure, .NET wins due to generics reification, but if you compare .NET with Scala’s solutions, or even with Kotlin’s Serialization, it leaves something to be desired (in the type-safety department, at least).</p>
 
@@ -278,7 +278,7 @@ val l2: Array[Int] =
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2025-11-01T12:18:58+0200">
+    <time itemprop="dateModified" content="2025-11-01T12:22:52+0200">
         Updated: November 1, 2025
     </time>
     | Written by <a href="https://alexn.org/about/" itemprop="url" rel="author">Alexandru Nedelcu</a>
@@ -403,12 +403,12 @@ val l2: Array[Int] =
 
    <script
     defer
-    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202511011020"
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202511011024"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js/responsive-nav.min.js?202511011020"
+    src="/assets/js/responsive-nav.min.js?202511011024"
     type="text/javascript"
 ></script>
 
@@ -419,7 +419,7 @@ val l2: Array[Int] =
 ></script>
 <script
     defer
-    src="/assets/js/scripts.js?202511011020"
+    src="/assets/js/scripts.js?202511011024"
     type="text/javascript"
 ></script>
 
