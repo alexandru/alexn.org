@@ -10,24 +10,24 @@
     <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
     <meta name="theme-color" content="#493667">
 
-    <title>OOP vs Type Classes, Part 1: Ideology - Alexandru Nedelcu</title>
+    <title>OOP vs Type Classes: Ideology - Alexandru Nedelcu</title>
     
 
     <!-- Open Graph Meta -->
     <meta property="og:site_name" content="Alexandru Nedelcu">
-    <meta property="og:title" content="OOP vs Type Classes, Part 1: Ideology">
-    <meta property="og:description" content="This is the 1st article of a series that explores the difference between OOP design, and parametric polymorphism with Type Classes, as both are possible in Scala.">
+    <meta property="og:title" content="OOP vs Type Classes: Ideology">
+    <meta property="og:description" content="This article explores the difference between OOP design, and parametric polymorphism with Type Classes, as both are possible in Scala.">
     <meta property="og:url" content="https://alexn.org/blog/2022/05/13/oop-vs-type-classes-part-1-ideology/">
     <meta property="article:published_time" content="2022-05-13T00:00:00+00:00">
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg?202511020610" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg?202511020610" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg?202511020954" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg?202511020954" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg?202511020610">
-    <meta name="twitter:title" content="OOP vs Type Classes, Part 1: Ideology">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg?202511020954">
+    <meta name="twitter:title" content="OOP vs Type Classes: Ideology">
     <meta name="twitter:url" content="https://alexn.org/blog/2022/05/13/oop-vs-type-classes-part-1-ideology/">
-    <meta name="twitter:description" content="This is the 1st article of a series that explores the difference between OOP design, and parametric polymorphism with Type Classes, as both are possible in Scala.">
+    <meta name="twitter:description" content="This article explores the difference between OOP design, and parametric polymorphism with Type Classes, as both are possible in Scala.">
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/assets/logo/16px.png" sizes="16x16" type="image/png" />
@@ -112,7 +112,7 @@
         
         
           
-      OOP vs Type Classes, Part 1: Ideology
+      OOP vs Type Classes: Ideology
     
         
         
@@ -132,7 +132,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg" />
-          <img src="/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg?202511020610" width="1500" height="938" decoding="async" alt="Jacques-Louis David, The Intervention of the Sabine Women, 1799. Oil on canvas. Paris, musée du Louvre.
+          <img src="/assets/media/articles/scala-oop-vs-type-classes-ideology.jpg?202511020954" width="1500" height="938" decoding="async" alt="Jacques-Louis David, The Intervention of the Sabine Women, 1799. Oil on canvas. Paris, musée du Louvre.
 " />
           <figcaption itemprop="caption">Jacques-Louis David, The Intervention of the Sabine Women, 1799. Oil on canvas. Paris, musée du Louvre.
 </figcaption>
@@ -163,7 +163,7 @@
       <p class="toc-title">Table of Contents:</p>
       <ul>
   <li><a href="#motivation">Motivation</a></li>
-  <li><a href="#on-the-article-series">On the Article Series</a></li>
+  <li><a href="#video-presentation-youtube">Video Presentation (YouTube)</a></li>
   <li><a href="#abstraction">Abstraction</a>
     <ul>
       <li><a href="#black-box-abstraction">Black Box Abstraction</a></li>
@@ -190,7 +190,7 @@
 
   <div id="content" itemprop="articleBody">
     <p class="intro">
-  This is the 1<sup>st</sup> article of a series that explores the difference between OOP design, and parametric polymorphism with Type Classes, as both are possible in Scala.
+  This article explores the difference between OOP design, and parametric polymorphism with Type Classes, as both are possible in Scala.
 </p>
       <h2 id="motivation">
         
@@ -206,20 +206,31 @@
 <p>Thus, developers can also choose to use parametric polymorphism restricted by type classes (aka ad hoc polymorphism). As if choosing when to use immutability versus object identity wasn’t bad enough, developers are also faced with a difficult choice when expressing abstractions. Such choices create tension in teams, with the code style depending on the team leader or whoever does the code reviews.</p>
 
 <p>Let’s go through what is OOP, what is ad hoc polymorphism via type classes, how to design type classes, go through the pros and cons, and establish guidelines for what to pick, depending on the use case.</p>
-      <h2 id="on-the-article-series">
+      <h2 id="video-presentation-youtube">
         
         
-          On the Article Series <a href="#on-the-article-series" class="anchor">#</a>
+          Video Presentation (YouTube) <a href="#video-presentation-youtube" class="anchor">#</a>
         
         
       </h2>
     
 
-<p>When I started writing this article, it got too long, and I realized I’ll never be satisfied by it. So I’ll split it in smaller articles, until I exhaust the topic, or I lose interest 🙂</p>
-
 <p>I also gave a speech in 2021 at <a href="https://inthecity.scala.love/">Scala Love in the City</a> on this same topic. If you’re more into videos, rather than reading words, you can watch this as an alternative, although note this article series has more details that couldn’t fit in video form.</p>
 
-<p>Head over to YouTube if you want to watch it: <a href="https://www.youtube.com/watch?v=UT2K9c66xCU&amp;autoplay=1" target="_blank">video link</a>.</p>
+<p>Head over to YouTube if you want to watch it:</p>
+
+<figure class="video">
+  
+  <a href="https://www.youtube.com/watch?v=UT2K9c66xCU&amp;autoplay=1" target="_blank" class="youtube-play-link" title="Go to YouTube video">
+    <img src="https://img.youtube.com/vi/UT2K9c66xCU/maxresdefault.jpg?202511020954" alt="" class="play-thumb" width="1280" height="720" />
+  </a>
+  <figcaption>
+    <a href="https://www.youtube.com/watch?v=UT2K9c66xCU&amp;autoplay=1" target="_blank">
+      Video link
+      (open on YouTube.com)
+    </a>
+  </figcaption>
+</figure>
       <h2 id="abstraction">
         
         
@@ -829,12 +840,12 @@ Everything I just said is the conflict of visions that also applies whenever we 
 
    <script
     defer
-    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202511020610"
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202511020954"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js/responsive-nav.min.js?202511020610"
+    src="/assets/js/responsive-nav.min.js?202511020954"
     type="text/javascript"
 ></script>
 
@@ -845,7 +856,7 @@ Everything I just said is the conflict of visions that also applies whenever we 
 ></script>
 <script
     defer
-    src="/assets/js/scripts.js?202511020610"
+    src="/assets/js/scripts.js?202511020954"
     type="text/javascript"
 ></script>
 
@@ -870,7 +881,7 @@ Everything I just said is the conflict of visions that also applies whenever we 
 
         var now = new Date();
         var url =
-            "https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=OOP+vs+Type+Classes%2C+Part+1%3A+Ideology&url=https%3A%2F%2Falexn.org%2Fblog%2F2022%2F05%2F13%2Foop-vs-type-classes-part-1-ideology%2F" +
+            "https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=OOP+vs+Type+Classes%3A+Ideology&url=https%3A%2F%2Falexn.org%2Fblog%2F2022%2F05%2F13%2Foop-vs-type-classes-part-1-ideology%2F" +
             "&rand=" +
             encodeURIComponent(
                 Math.floor(Math.random() * Number.MAX_SAFE_INTEGER),
@@ -909,7 +920,7 @@ Everything I just said is the conflict of visions that also applies whenever we 
 <noscript>
     <img
         referrerpolicy="no-referrer-when-downgrade"
-        src="https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=OOP+vs+Type+Classes%2C+Part+1%3A+Ideology&url=https%3A%2F%2Falexn.org%2Fblog%2F2022%2F05%2F13%2Foop-vs-type-classes-part-1-ideology%2F"
+        src="https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=OOP+vs+Type+Classes%3A+Ideology&url=https%3A%2F%2Falexn.org%2Fblog%2F2022%2F05%2F13%2Foop-vs-type-classes-part-1-ideology%2F"
         width="1"
         height="1"
         style="
@@ -943,7 +954,7 @@ Everything I just said is the conflict of visions that also applies whenever we 
       var d = document;
       var a = d.createElement("a");
       a.setAttribute("target", "_blank");
-      a.setAttribute("href", "mailto:" + lhs + "@" + rhs + "?subject=Comment%20on%3A%20OOP%20vs%20Type%20Classes,%20Part%201:%20Ideology");
+      a.setAttribute("href", "mailto:" + lhs + "@" + rhs + "?subject=Comment%20on%3A%20OOP%20vs%20Type%20Classes:%20Ideology");
       a.text = lhs + "@" + rhs;
       var es = d.getElementById("email-script");
       es.parentNode.insertBefore(a, es);
@@ -976,7 +987,7 @@ Everything I just said is the conflict of visions that also applies whenever we 
           data-isso-vote="false"
           data-vote-levels=""
           src="https://alexn.org/comments/alexn/js/embed.min.js"></script>
-  <section id="isso-thread" data-title="OOP vs Type Classes, Part 1: Ideology">
+  <section id="isso-thread" data-title="OOP vs Type Classes: Ideology">
   </section>
 </div>
 <noscript>
