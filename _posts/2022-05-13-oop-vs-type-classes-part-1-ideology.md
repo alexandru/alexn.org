@@ -1,5 +1,5 @@
 ---
-title: "OOP vs Type Classes, Part 1: Ideology"
+title: "OOP vs Type Classes: Ideology"
 image: /assets/media/articles/scala-oop-vs-type-classes-ideology.jpg
 image_caption: >
   Jacques-Louis David, The Intervention of the Sabine Women, 1799. Oil on canvas. Paris, musée du Louvre.
@@ -9,11 +9,11 @@ tags:
   - Scala
 generate_toc: true
 description: >
-  This is the 1st article of a series that explores the difference between OOP design, and parametric polymorphism with Type Classes, as both are possible in Scala.
+  This article explores the difference between OOP design, and parametric polymorphism with Type Classes, as both are possible in Scala.
 ---
 
 <p class="intro">
-  This is the 1<sup>st</sup> article of a series that explores the difference between OOP design, and parametric polymorphism with Type Classes, as both are possible in Scala.
+  This article explores the difference between OOP design, and parametric polymorphism with Type Classes, as both are possible in Scala.
 </p>
 
 ## Motivation
@@ -24,13 +24,13 @@ Thus, developers can also choose to use parametric polymorphism restricted by ty
 
 Let's go through what is OOP, what is ad hoc polymorphism via type classes, how to design type classes, go through the pros and cons, and establish guidelines for what to pick, depending on the use case.
 
-## On the Article Series
-
-When I started writing this article, it got too long, and I realized I'll never be satisfied by it. So I'll split it in smaller articles, until I exhaust the topic, or I lose interest 🙂
+## Video Presentation (YouTube)
 
 I also gave a speech in 2021 at [Scala Love in the City](https://inthecity.scala.love/) on this same topic. If you're more into videos, rather than reading words, you can watch this as an alternative, although note this article series has more details that couldn't fit in video form.
 
-Head over to YouTube if you want to watch it: [video link](https://www.youtube.com/watch?v=UT2K9c66xCU&autoplay=1){:target="_blank"}.
+Head over to YouTube if you want to watch it: 
+
+{% include youtube.html ratio=56.25 id="UT2K9c66xCU" %}
 
 ## Abstraction
 
