@@ -1,8 +1,10 @@
 ---
 title: "Scala vs F#"
 date: 2025-11-01T08:58:37+02:00
-last_modified_at: 2025-11-01T16:53:21+02:00
+last_modified_at: 2025-11-02T07:32:31+02:00
 image: /assets/media/articles/2025-scala-vs-fsharp.png
+image_caption: >
+  Scala log on the left, F# logo on the right.
 tags:
   - FP
   - Scala
