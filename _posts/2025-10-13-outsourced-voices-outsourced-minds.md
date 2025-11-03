@@ -1,7 +1,7 @@
 ---
 title: "Outsourced Voices, Outsourced Minds"
 date: 2025-10-13T08:24:14+03:00
-last_modified_at: 2025-10-13T16:02:18+03:00
+last_modified_at: 2025-11-03T09:05:47+02:00
 image: /assets/media/articles/2025-thomas-in-a-box.jpg
 image_caption: >
   My cat, Thomas, sitting in a box, telling me that maybe it's better if I went to touch some grass.
@@ -27,7 +27,7 @@ This was happening around 2010, it was right when people were starting to use so
 
 Up until around 2010, it seemed like RSS/Atom feeds were thriving, but then in 2013 [Google killed Reader](https://en.wikipedia.org/wiki/Google_Reader#Discontinuation), being perceived as the death of RSS/Atom feed readers. They were trying to create their own Facebook competitor, [Google+](https://en.wikipedia.org/wiki/Google%2B), and Reader was standing in their way. I can't tell you how much joy the death of Google+ brought, I've never been happier about an online service dying, but I digress. Well, feed readers are still alive and thriving, just with a much smaller audience. The web is dying, and Google Reader proved to be the canary in the coal mine.
 
-It's 2025, and you're still posting and commenting on links, but you're most likely doing it on social media. Facebook, 𝕏/Twitter, LinkedIn are deprioritizing links, which means that posts containing links will have a lower reach. Let me repeat that — social media silos are fighting against web links, the foundation of the open web. They do so to "encourage" content and discussions on their own platforms, noble goals a stakeholder would say, except that now these platforms are filled with politics, rage, and AI slop.
+It's 2025, and you're still posting and commenting on links, but you're most likely doing it on social media. Facebook, 𝕏/Twitter, LinkedIn are deprioritizing links, which means that posts containing links will have a lower reach. Let me repeat that — social media silos are fighting against web links, the foundation of the open web. They do so to "encourage" content and discussions on their own platforms, and now these platforms are filled with politics, rage, and AI slop.
 
 You're no longer in control of what you consume on the web. [Algorithms are now in control](https://www.youtube.com/watch?v=QEJpZjg8GuA), and those algorithms want you to be a mindless zombie that consumes ads, ads that serve malware, scams, or politics. Not to be misunderstood, I recently bought theater tickets to a show via an ad, curated ads can clearly be valuable, but curation is incompatible with the ambitions of these social networks.
 
