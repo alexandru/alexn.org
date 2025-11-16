@@ -1,7 +1,7 @@
 ---
 title: 'Programming Languages in the Age of AI Agents'
 date: 2025-11-16T08:14:15+02:00
-last_modified_at: 2025-11-16T12:28:43+02:00
+last_modified_at: 2025-11-16T13:21:32+02:00
 image: /assets/media/articles/2025-math-github-copilot.png
 image_hide_in_post: true
 tags:
@@ -16,7 +16,7 @@ tags:
 In the age of "AI" Agents generating the code, **is your programming language choice still relevant?** Or will we just converge on using the top 5 programming languages, because that's what the "AI" has been trained on? You can also ask the same question for any other piece of tech from your stack.
 </p>
 
-At work, I've built several Python scripts doing various boring chores. GitHub's Copilot, powered by GPT or Claude Sonnet, does a reasonably good job at writing Python scripts. Furthermore, I've seen Python scripts developed by rookies that are worse than what these agents can generate. A programming language's popularity is a feedback loop. These days, because Python is popular, having available a huge training corpus, "AI" agents can be successful at generating Python scripts that work.
+At work, I've built several Python scripts doing various boring chores. GitHub's Copilot, powered by GPT or Claude Sonnet, does a reasonably good job at writing Python scripts. Furthermore, I've seen Python scripts developed by rookies that are worse than what these agents can generate. A programming language's popularity is a feedback loop. These days, because Python is popular, having available a huge training corpus, "AI" agents can be successful at generating Python scripts that work, making Python even more popular.
 
 For programming language aficionados, for people loving their craft, while there is reason to worry that "AI" Agents can kill the long tail, I also think there are reasons to celebrate the dawn of "AI". Here's why:
 
@@ -30,7 +30,7 @@ This ability to iterate and converge towards a working solution based on externa
 
 **2) We need the ability to review what the "AI" Agent does. Can you reason about the generated code?**
 
-Programmers may describe *"what they want"* instead of *"how"* in natural language, however, they still need to ensure that they're getting what they've asked for. Just executing the program, and looking at the output, is a very superficial way to test it, as we should all know by now. So at the very least you want tests, and tests are boring, we want them automated, so you want to see the tests that the agent has generated. Did the agent generate tests for all corner cases? You can't really say that without looking at the code.
+Programmers may describe *"what they want"* instead of *"how"* in natural language, however, they still need to ensure that they're getting what they've asked for. Just executing the program, and looking at the output, is a very superficial way to test it, as we should all know by now. So at the very least you want tests, and tests are boring, we want them automated, so you want to see the tests that the agent has generated. Did the agent generate tests for the obvious edge cases? You can't really say that without looking at the code.
 
 And there's another looming issue that's happening with agent-generated code that people aren't aware of, yet: **[the comprehension debt](https://codemanship.wordpress.com/2025/09/30/comprehension-debt-the-ticking-time-bomb-of-llm-generated-code/)**. You see, the software project isn't just about telling the computer how it needs to behave, in order to produce some desired outcome. It's also about the knowledge you've built along the way. And if you have no people left on the team that understand the inner workings of a project, you're screwed. And "AI" Agents won't help, because they have a limited context window that tends to vanish. You won't keep around the dialogs you have with the agent, and even if you do, that kind of documentation is poor and can be misinterpreted; context poisoning is also a thing.
 
