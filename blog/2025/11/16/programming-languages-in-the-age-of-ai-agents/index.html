@@ -10,25 +10,26 @@
     <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
     <meta name="theme-color" content="#493667">
 
-    <title>Bitwarden / Vaultwarden - Alexandru Nedelcu</title>
+    <title>Programming Languages in the Age of AI Agents - Alexandru Nedelcu</title>
     
 
     <!-- Open Graph Meta -->
     <meta property="og:site_name" content="Alexandru Nedelcu">
-    <meta property="og:title" content="Bitwarden / Vaultwarden">
-    <meta property="og:description" content="Personal, volatile wiki documentation">
-    <meta property="og:url" content="https://alexn.org/wiki/bitwarden/">
-    <meta property="article:published_time" content="2024-08-26T10:45:19+00:00">
-    <meta property="article:modified_time" content="2024-08-26T14:46:39+00:00">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://alexn.org/assets/logo/800px-bordered.png" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/logo/800px-bordered.png" />
+    <meta property="og:title" content="Programming Languages in the Age of AI Agents">
+    
+    <meta property="og:description" content="On programming and personal projects">
+    <meta property="og:url" content="https://alexn.org/blog/2025/11/16/programming-languages-in-the-age-of-ai-agents/">
+    <meta property="article:published_time" content="2025-11-16T06:14:15+00:00">
+    <meta property="article:modified_time" content="2025-11-16T07:21:28+00:00">
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2025-math-github-copilot.png?202511160727" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2025-math-github-copilot.png?202511160727" />
     <!-- Twitter Cards -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/logo/800px-bordered.png">
-    <meta name="twitter:title" content="Bitwarden / Vaultwarden">
-    <meta name="twitter:url" content="https://alexn.org/wiki/bitwarden/">
-    <meta name="twitter:description" content="Personal, volatile wiki documentation">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2025-math-github-copilot.png?202511160727">
+    <meta name="twitter:title" content="Programming Languages in the Age of AI Agents">
+    <meta name="twitter:url" content="https://alexn.org/blog/2025/11/16/programming-languages-in-the-age-of-ai-agents/">
+    <meta name="twitter:description" content="On programming and personal projects">
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/assets/logo/16px.png" sizes="16x16" type="image/png" />
@@ -41,9 +42,9 @@
     <meta name="msapplication-TileImage" content="/assets/logo/270px.png" />
 
     <!-- Come and get me RSS readers -->
-    <link rel="alternate" type="application/rss+xml" title="Wiki articles" href="/feeds/wiki.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Blog articles" href="/feeds/blog.xml" />
     <!-- Points at alexn.org, taking care of the search-engine indexing of mirrors: -->
-    <link rel="canonical" href="https://alexn.org/wiki/bitwarden/">
+    <link rel="canonical" href="https://alexn.org/blog/2025/11/16/programming-languages-in-the-age-of-ai-agents/">
 
     <style type="text/css" media="all">
       /*! normalize.css v6.0.0 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:rgba(0,0,0,0);-webkit-text-decoration-skip:objects}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-0.25em}sup{top:-0.5em}audio,video{display:inline-block}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{margin:0}button,input{overflow:visible}button,select{text-transform:none}button,html [type=button],[type=reset],[type=submit]{-webkit-appearance:button}button::-moz-focus-inner,[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring{outline:1px dotted ButtonText}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{display:inline-block;vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details,menu{display:block}summary{display:list-item}canvas{display:inline-block}template{display:none}[hidden]{display:none}body .intro{font-size:1.25em;line-height:1.7}h1,.h1,h2,.h2,h3,.h3,h4,.h4,h5,.h5,h6,.h6{margin:.5rem 0 1.5rem;font-family:Tahoma,Helvetica,Arial,sans-serif}h1,.h1{font-size:2em;line-height:1.25}@media(min-width: 43.75em){h1,.h1{font-size:2.5em;line-height:1.125}}@media(min-width: 56.25em){h1,.h1{font-size:3em;line-height:1.05}}h2,.h2{font-size:1.625em;line-height:1.15384615}@media(min-width: 43.75em){h2,.h2{font-size:2em;line-height:1.25}}@media(min-width: 56.25em){h2,.h2{font-size:2.25em;line-height:1.25}}h3,.h3{font-size:1.375em;line-height:1.13636364}@media(min-width: 43.75em){h3,.h3{font-size:1.5em;line-height:1.25}}@media(min-width: 56.25em){h3,.h3{font-size:1.75em;line-height:1.25}}h4,.h4{font-size:1.125em;line-height:1.11111111}@media(min-width: 43.75em){h4,.h4{line-height:1.22222222}}.button__outline,.button-tertiary,.button-secondary,.button{background-color:#00649e;display:inline-block;position:relative;font-family:Tahoma,Helvetica,Arial,sans-serif;text-decoration:none;color:#fff;font-size:1em;line-height:1.2em;font-weight:normal;padding:.5em 1.5em;border:0;border-radius:4px;cursor:pointer;margin-bottom:.5em;transition:background-color .14s ease-in-out}.button__outline:hover,.button-tertiary:hover,.button-secondary:hover,.button:hover,.button__outline:focus,.button-tertiary:focus,.button-secondary:focus,.button:focus{color:#fff;text-decoration:none;background-color:rgb(0,67.7215189873,107)}.button__outline:active,.button-tertiary:active,.button-secondary:active,.button:active{top:1px}.button-secondary{background-color:#008bd8}.button-secondary:hover{background-color:rgb(0,106.1805555556,165)}.button-tertiary{background-color:#aaa}.button-tertiary:hover{background-color:rgb(144.5,144.5,144.5)}.button__outline{background-color:rgba(0,0,0,0);border:3px solid #00649e;color:#00649e}.button__outline:hover{background-color:#00649e;color:#fff}span.link-logo{text-decoration:none !important}span.link-logo img{height:28px;width:28px;vertical-align:middle;margin-right:10px}a span.link-logo img{filter:invert(17%) sepia(47%) saturate(1856%) hue-rotate(174deg) brightness(95%) contrast(97%)}label{display:block;margin-bottom:5px}input[type=text],input[type=email],input[type=phone],input[type=password],input[type=number],input[type=search],textarea{background:hsl(0,0%,90%);padding:5px;outline:none;border:none;height:44px;width:300px;margin-bottom:.5rem;font-size:100%}input[type=text]:focus,input[type=email]:focus,input[type=phone]:focus,input[type=password]:focus,input[type=number]:focus,input[type=search]:focus,textarea:focus{border:1px solid #00649e}input[type=text].full-width,input[type=email].full-width,input[type=phone].full-width,input[type=password].full-width,input[type=number].full-width,input[type=search].full-width,textarea.full-width{width:100%}textarea{height:132px}form{margin-bottom:40px}form .field{margin-bottom:20px}form label{color:#666}form .note-warning{margin-top:5px;color:#aaa}form .req{font-style:italic}form .asterisk{color:darkred}form .error .reason{margin-top:5px;color:#ff4136}form .error input[type=text],form .error input[type=email],form .error input[type=phone],form .error input[type=password],form .error input[type=number],form .error input[type=search],form .error textarea{border-color:#ff4136}table{width:100%;border:1px solid hsl(0,0%,81.6666666667%);margin-bottom:1.5em}table caption{margin:0 0 7px;font-size:.75em;color:#aaa;text-transform:uppercase;letter-spacing:1px}tr{border-bottom:1px solid hsl(0,0%,81.6666666667%)}tr:nth-child(even){background-color:rgb(246.5,246.5,246.5)}td{padding:7px;border-right:1px solid hsl(0,0%,81.6666666667%)}td:last-child{border-right:0}th{background-color:rgb(246.5,246.5,246.5);border-bottom:1px solid hsl(0,0%,81.6666666667%);border-right:1px solid hsl(0,0%,81.6666666667%)}th:last-child{border-right:0}pre>code{color:#333;background:#f8f8f8;display:block;white-space:pre;overflow:auto;word-wrap:normal;border:1px solid #e8e8e8;line-height:1.3;font-size:.9em}:not(pre)>code{background-color:rgba(27,31,35,.05);padding:.2em .4em;margin:0;font-size:85%;border-radius:3px}div.formula-code{color:#333;background:#f8f8f8;display:block;white-space:pre;overflow:auto;word-wrap:normal;border:1px solid #e8e8e8;margin:0 0 20px 0}div.formula-code .MathJax_Display{margin:0 !important}.post .math-display{overflow-x:auto;overflow-y:hidden;max-width:100%;-webkit-overflow-scrolling:touch}.post .math-display img{max-width:unset}@media(max-width: 768px){.post .math-display[display=block]{background:linear-gradient(90deg, transparent 0%, transparent calc(100% - 40px), rgba(0, 0, 0, 0.05) 100%);padding-right:10px}.post .math-display img{transform:scale(0.9);transform-origin:left center}}.math-inline{vertical-align:middle}#isso-thread *{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}#isso-thread{padding:0;margin:0}h4.isso-thread-heading{color:#555;font-weight:bold}.isso-feedlink{float:right;padding-left:1em}.isso-feedlink a{font-size:.8em;vertical-align:bottom}.isso-comment{max-width:68em;margin:0 auto}.isso-preview .isso-comment{padding-top:0;margin:0}.isso-comment:not(:first-of-type),.isso-follow-up .isso-comment{border-top:1px solid rgba(0,0,0,.1);margin-bottom:.5em}.isso-avatar{display:block;float:left;margin:.95em .95em 0}.isso-avatar svg{max-width:48px;max-height:48px;width:100%;height:100%;border:1px solid rgba(0,0,0,.2);border-radius:3px;box-shadow:0 1px 2px rgba(0,0,0,.1)}.isso-text-wrapper{display:block;padding:.95em}.isso-follow-up{padding-left:calc(7% + 20px)}.isso-comment-footer{font-size:.95em}.isso-comment-header{font-size:.85em}.isso-comment-header a{text-decoration:none}.isso-comment-header .isso-spacer{padding:0 6px}.isso-spacer,.isso-permalink,.isso-note,.isso-parent{color:gray;font-weight:normal;text-shadow:none}.isso-spacer:hover,.isso-permalink:hover,.isso-note:hover,.isso-parent:hover{color:#606060}.isso-note{float:right}.isso-author{font-weight:bold;color:#555}.isso-page-author-suffix{font-weight:bold;color:#2c2c2c}.isso-textarea,.isso-preview{margin-top:.2em;width:100%;border:1px solid #f0f0f0;border-radius:2px;box-shadow:0 0 2px #888}.isso-text p{margin-top:.2em}.isso-text p:last-child{margin-bottom:.2em}.isso-text h1,.isso-text h2,.isso-text h3,.isso-text h4,.isso-text h5,.isso-text h6{font-size:130%;font-weight:bold}.isso-text pre{background:#eee;border:1px solid #ddd;padding:10px 15px;color:#4d4d4c;overflow:auto;line-height:1.5em}.isso-text :not(pre)>code{padding:.2em .4em;margin:0;font-size:85%;background-color:#eee;border-radius:6px}.isso-comment-footer{font-size:.8em;color:gray;clear:left}.isso-feedlink,.isso-comment-footer a{font-weight:bold;text-decoration:none}.isso-feedlink:hover,.isso-comment-footer a:hover{color:#111;text-shadow:#aaa 0 0 1px}.isso-comment-footer>a{position:relative;top:.2em}.isso-comment-footer>a+a{padding-left:1em}.isso-comment-footer .isso-votes{color:gray}.isso-upvote svg,.isso-downvote svg{position:relative;top:.2em}.isso-comment .isso-postbox{margin-top:.8em}.isso-comment.isso-no-votes>*>.isso-comment-footer .isso-votes{display:none}.isso-postbox{max-width:68em;margin:0 auto 2em;clear:right}.isso-form-wrapper{display:block;padding:0}.isso-textarea,.isso-preview{margin:0 0 .3em;padding:.4em .8em;border-radius:3px;background-color:#fff;border:1px solid rgba(0,0,0,.2);box-shadow:0 1px 2px rgba(0,0,0,.1)}.isso-textarea{outline:0;width:100%;resize:none}.isso-form-wrapper input[type=checkbox]{vertical-align:middle;position:relative;bottom:1px;margin-left:0}.isso-notification-section{font-size:.9em;padding-top:.3em;display:none;padding-bottom:10px}.isso-auth-section{display:block}.isso-textarea:focus,.isso-input-wrapper input:focus,.isso-auth-section input:focus{outline:2px solid #3584e4}.isso-input-wrapper{display:inline-block;position:relative;margin:0 1% 0 0}.isso-input-wrapper input{display:block;padding:.3em 10px;max-width:100%;border-radius:3px;background-color:#fff;line-height:1.4em;border:1px solid rgba(0,0,0,.2);box-shadow:0 1px 2px rgba(0,0,0,.1)}.isso-input-wrapper label{display:block;line-height:1.4em;height:1.4em}.isso-post-action{display:block;float:right;margin:1.4em 0 0 5px}.isso-post-action>input{padding:calc(.3em - 1px);border-radius:2px;border:1px solid #ccc;background-color:#ddd;cursor:pointer;outline:0;line-height:1.4em;box-shadow:0 1px 2px rgba(0,0,0,.1)}.isso-post-action>input:hover{background-color:#ccc}.isso-post-action>input:active{background-color:#bbb}.isso-preview,.isso-post-action input[name=edit],.isso-postbox.isso-preview-mode>.isso-form-wrapper input[name=preview],.isso-postbox.isso-preview-mode>.isso-form-wrapper .isso-textarea{display:none}.isso-postbox.isso-preview-mode>.isso-form-wrapper .isso-preview{display:block}.isso-postbox.isso-preview-mode>.isso-form-wrapper input[name=edit]{display:inline}.isso-preview{background-color:#f8f8f8;background:repeating-linear-gradient(-45deg, #f8f8f8, #f8f8f8 10px, #fff 10px, #fff 20px)}.isso-target{animation:isso-target-fade 5s ease-out}@keyframes isso-target-fade{0%{background-color:#eee5a1}}@media screen and (max-width: 600px){.isso-input-wrapper{display:block;max-width:100%;margin:0 0 .3em}.isso-input-wrapper input{width:100%}.isso-post-action{margin-top:0}}html.dark-reader body{background-image:none}html.dark-reader body .footer{background-image:none}html{box-sizing:border-box;background-color:#fefefe}*,*:before,*:after{box-sizing:inherit}body{background-color:#fff;background-image:url("/assets/media/tile-graphpaper.png");font-family:Georgia,Times,serif;line-height:1.75;font-size:112.5%;color:#111;overflow-x:hidden;margin:0}body p,body ul{margin:0 0 2rem}body code{font-family:"ui-monospace","SFMono-Regular","SF Mono",Menlo,Consolas,"Liberation Mono",monospace;font-variant-ligatures:common-ligatures}::-moz-selection{background:#00649e;color:#fff}::selection{background:#00649e;color:#fff}img,video,audio,iframe,object{max-width:100%;height:auto}.container{max-width:610px;padding:0 20px;margin-left:auto;margin-right:auto}a{color:#00649e}a:hover{color:rgb(0,51.582278481,81.5)}.nav-collapse{z-index:1}.nav-collapse ul{margin:0;padding:0;width:100%;display:block;list-style:none}.nav-collapse ul li{width:100%;display:block;background:#57457a;border-bottom:2px solid rgb(103.2612565445,81.8968586387,144.8031413613)}.nav-collapse ul li a{color:#fff;text-decoration:none;display:block;padding:5px 2rem}.nav-collapse{clip:rect(0 0 0 0);max-height:0;position:absolute;display:block;overflow:hidden;transform:scale(1);transform-origin:0 0;clear:both;width:100%}.no-js .nav-collapse{position:relative;max-height:none}.nav-collapse.opened{max-height:9999px}.nav-toggle{-webkit-tap-highlight-color:rgba(0,0,0,0);-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none;float:right;line-height:2em;margin-top:.5em;background-color:#00649e;border-radius:4px;padding:0 .5em;color:#fff;text-decoration:none;position:relative;right:2rem;transition:all .2s ease-in-out}.nav-toggle:hover{color:#fff;background-color:rgb(0,67.7215189873,107)}.noList{list-style:none;padding-left:0;margin-left:0}dt{font-weight:bold}dd{margin:0 0 1.5rem}.post ul ul,.post ul ol,.post ol ul,.post ol ol{margin:0}ul.links-with-icons,ol.links-with-icons{list-style:none;padding-left:20px}.pageTitle{margin:2rem auto 1em;text-align:center}.pageTitle .type{color:#888}.content{padding-top:1em}.js .header{height:3em}.header{background-color:#473864;background-size:cover;background-position:center center;color:#fff;padding:0}.header .container{padding:0;max-width:100%}.header h1{margin:0;float:left;padding-left:2rem;font-size:1em;line-height:3em;font-family:Tahoma,Helvetica,Arial,sans-serif;text-transform:lowercase}.header h1 .wide1,.header h1 .wide2{display:none}.header h1 a{color:#e9d9ff;text-decoration:none;font-family:Tahoma,Helvetica,Arial,sans-serif;letter-spacing:.1rem;font-variant-ligatures:common-ligatures;text-shadow:0px 0px 4px #000}.post .postTitle{text-align:center;margin-top:2rem;margin-bottom:1rem}.post blockquote{color:#57606a;border-left:.25em solid hsl(0,0%,85%);display:block;margin:0;padding-left:1rem}.post blockquote p{margin-left:0;margin-right:0;width:100%}.post .meta,.post #article-details{text-align:center;color:hsl(0,0%,50%);font-family:Georgia,Times,serif;font-weight:normal}.post .meta a,.post #article-details a{color:rgb(29.3125,140.6257911392,205.1875);text-decoration:none}.post .meta a:hover,.post #article-details a:hover{text-decoration:underline}.post figure{margin:3rem 0}.post figure figcaption{text-align:center;font-size:.9em;font-style:italic;color:rgb(93.5,93.5,93.5)}.post figure img{margin:0 auto;display:block}.post img{border-radius:3px}.post img.left{float:left;margin-right:1em;margin-bottom:1em}.post img.right{float:right;margin-left:1em;margin-bottom:1em}.post pre>code{clear:both;margin-bottom:2rem}.post .intro::first-letter{color:#00649e;font-size:250%;line-height:1}.post .featuredImage{position:relative;margin-top:2rem}.post .featuredImage img{margin-bottom:0}.post #article-details{border:0;border-top:2px solid hsl(0,0%,85%);width:100%;text-align:left;margin:0 auto;padding:1rem 0}.post #article-details #all-categories{margin-top:1rem;padding-top:1rem;border-top:1px solid hsl(0,0%,90%)}.post .snippets ul{margin-top:1rem}.post .snippets ul li time{font-weight:normal;font-size:.9em;color:hsl(0,0%,50%)}.post hr{border-style:solid;border-color:hsl(0,0%,85%);border-width:1.5px 0 0 0;margin-top:2rem;margin-bottom:2rem}.post div.footnotes{font-size:85%}.post div.footnotes ol{margin:0;margin-bottom:2rem;width:100%;list-style-position:outside;padding-left:30px}.post div.footnotes li p{margin-left:0;margin-right:0;width:100%}.post.snippet .postTitle{font-size:100%}.post div.related{border-top:1.5px solid hsl(0,0%,85%)}.post div.related,div.archive_list{width:100%;margin:0 auto}.post div.related h2,div.archive_list h2{margin:0;margin-top:1rem;color:hsl(0,0%,-3.3333333333%)}.post div.related div.container,div.archive_list div.container{display:block;margin-top:2rem}.post div.related div.container div.item,div.archive_list div.container div.item{clear:left;margin-bottom:1rem;width:100%}.post div.related div.container div.item div.related-image,div.archive_list div.container div.item div.related-image{display:block;float:right;margin-bottom:1rem;margin-left:1rem;width:42px;height:42px;background-position:center;background-repeat:no-repeat;background-size:cover;background-color:rgba(0,0,0,.1);border-radius:2px;text-decoration:none;padding:1rem}.post div.related div.container div.item .related-meta,div.archive_list div.container div.item .related-meta{font-family:Georgia,Times,serif;font-weight:normal;font-size:.9em;color:hsl(0,0%,50%);line-height:1.5}.post div.related div.container div.item .related-meta a,div.archive_list div.container div.item .related-meta a{color:rgb(29.3125,140.6257911392,205.1875);text-decoration:none}.post div.related div.container div.item .related-meta a:hover,div.archive_list div.container div.item .related-meta a:hover{text-decoration:underline}div.archive_list{position:relative}div.archive_list h3{margin-top:4rem;color:#a66c75}div.archive_list:before{content:"";position:absolute;bottom:-2rem;left:0;background:hsl(0,0%,90%);height:2px;width:60px}div.archive_list.last:before{display:none}.postNav{border-top:1px solid hsl(0,0%,85%);border-bottom:1px solid hsl(0,0%,85%);overflow:hidden}.postNav .prev,.postNav .next{display:block;width:100%;height:5rem;overflow:hidden;position:relative;font-family:Tahoma,Helvetica,Arial,sans-serif;font-weight:800;font-size:.9em;text-transform:uppercase;text-align:center}.postNav .prev img,.postNav .next img{z-index:1;display:block;position:absolute;top:50%;transform:translateY(-50%);left:0;width:100%;height:auto}.postNav .prev span,.postNav .next span{z-index:10;position:relative;padding:.5rem;position:absolute;top:50%;transform:translateY(-50%);width:100%;line-height:1.4}.postNav .prev.image,.postNav .next.image{text-decoration:none;color:#fff;text-shadow:1px 1px 3px rgba(0,0,0,.8);padding:0 .5rem;position:relative;transition:all .2s ease-in-out}.postNav .prev:hover.image,.postNav .next:hover.image{opacity:.8}.postNav .prev span{left:0}.postNav .next span{right:0}.footer{margin-top:2rem;clear:both;background:#fafafa}.footer hr{display:block;clear:both;border:1px solid #eaeaea;margin:1rem 0}.footer #footer-comments-widget{border-bottom:2px solid #eaeaea;margin-bottom:1rem}.footer .contributions{padding:1rem 0}.footer .contributions .note-warning{border:1px solid #e1e4e8;background-color:#f6f8fa;border-radius:3px;padding:16px;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;margin-bottom:1rem}.footer .contributions .note-warning .extra{color:#586069}.footer .contributions .note-warning .extra .link-logo img{opacity:.6}.footer .contributions #disqus_thread{max-width:90%;margin:0 auto;overflow:auto}.footer .contributions h2,.footer .contributions h3{margin-top:0;color:#a66c75}.footer .contributions #share{border-bottom:1px solid #c69aa1}.footer .contributions #isso-thread{font-size:90%}.footer .contributions #isso-thread .isso-comment>.isso-text-wrapper>div.isso-comment-header{display:inline-block;vertical-align:middle}.footer .contributions #isso-thread .isso-comment>.isso-text-wrapper>div.isso-text{clear:both}.footer .contributions #isso-thread .isso-comment>.isso-text-wrapper p{margin:0 0 .7rem}.footer .contributions #isso-thread .isso-comment>.isso-text-wrapper blockquote{color:#777;margin:5px 0;padding:5px;padding-left:10px;border-left:4px solid #ddd;background-color:#f7f7f7}.footer .contributions #isso-thread .isso-comment>.isso-text-wrapper code{color:#333;background:#f8f8f8}.footer .contributions #isso-thread .isso-comment>.isso-text-wrapper pre{color:#333;background:#f8f8f8;display:block;white-space:pre;overflow:auto;word-wrap:normal;border:1px solid #e8e8e8}.footer .contributions #isso-thread .isso-form-wrapper{font-size:90%}.footer .contributions #isso-thread .isso-textarea-wrapper textarea.isso-textarea{height:80px}.footer .contributions #isso-thread .isso-auth-section{font-size:90%}.footer .contributions #isso-thread .isso-auth-section .isso-input-wrapper{display:block}.footer .contributions #isso-thread .isso-auth-section .isso-input-wrapper input{width:100%;height:auto}.footer .contributions #isso-thread .isso-auth-section .isso-post-action{margin:.5em 0px 0px 5px}.footer .contributions #isso-thread .isso-auth-section .isso-post-action input{padding:.2em 1em;border-radius:4px;border:0;margin-right:5px}.footer .contributions #isso-thread .isso-auth-section .isso-post-action input[type=submit]{background-color:#00649e;color:#fff;font-weight:bold;border:0;cursor:pointer}.footer .contributions #isso-thread .isso-auth-section .isso-post-action input[type=submit]:hover{color:#fff;background-color:rgb(0,122.5949367089,193.7)}.footer .contributions #isso-thread #isso-root{clear:both}.footer .contributions #isso-thread .isso-avatar img{max-width:24px;max-height:24px;border-radius:3px}.footer .contributions #mc_embed_signup form{margin-bottom:0}.footer .bottom{background:hsl(0,0%,95%);font-size:.8em;color:#656c7a;border-top:2px solid rgb(233.9,233.9,233.9);border-bottom:2px solid rgb(233.9,233.9,233.9);padding:1rem 0}.footer .bottom .container{max-width:90%;text-align:center}.footer .bottom .container .copy,.footer .bottom .container .links{display:block}.pagination div.page_number{color:hsl(0,0%,50%);border-top:1px dashed #aaa;padding:1rem 0}.pagination .next{float:left}.pagination .previous{float:right}.posts li{margin-bottom:4rem;position:relative}.posts li:before{content:"";position:absolute;bottom:-2rem;left:0;background:hsl(0,0%,90%);height:2px;width:60px}.posts li:last-child:before{display:none}.posts li a{text-decoration:none}.posts li a:hover{text-decoration:underline}.posts li .meta{font-family:Georgia,Times,serif;font-weight:normal;font-size:.9em;color:hsl(0,0%,50%)}.posts li .meta time{display:block}.posts li .meta a{color:rgb(29.3125,140.6257911392,205.1875);text-decoration:none}.posts li .meta a:hover{text-decoration:underline}.posts li h3{margin:0 0 .5em}#home{padding-top:2em}#home .postTitle{text-align:center}img.right{float:none}.patreon-button img{width:170px;height:40px}.post.about img.avatar{width:100px}.post.about img.signal{max-width:150px}.small-note{font-size:80%;color:gray}.video .youtube-play-link{position:relative;display:block;box-shadow:0px 0px 5px 0px rgba(50,50,50,.3);border-radius:3px}.video .youtube-play-link:before{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);-webkit-transform:translate(-50%, -50%);display:block;width:80px;height:56px;font-size:1px;content:" ";opacity:.8;z-index:100;background-image:url(/assets/media/youtube.png);background-size:80px 56px;background-position:center;background-repeat:no-repeat;transition-timing-function:ease-in;transition:opacity .3s}.video .youtube-play-link:hover:before{opacity:1}.video .youtube-play-link img.play-thumb{display:block;min-height:70px}.video .video-container{position:relative;padding-bottom:56.25%;padding-top:10px;height:0;overflow:hidden}.video .video-container iframe,.video .video-container object,.video .video-container embed{position:absolute;top:0;left:0;width:100%;height:100%}.no-js .only-js{display:none}.no-js .video .video-container{display:none}.posts img{border-radius:3px}.posts figure{margin:1rem 0}.posts figure figcaption{text-align:center;font-size:.9em;font-style:italic;color:rgb(93.5,93.5,93.5)}.posts figure img{margin:0 auto;display:block}.hidden{display:none}.post header nav.toc{border-top:1px solid hsl(0,0%,85%);border-bottom:1px solid hsl(0,0%,85%);margin-bottom:1rem}.post header nav.toc ul{margin-bottom:1rem}.post header nav.toc .toc-title{font-weight:bold;margin:1rem auto 1rem}.post .warn-bubble,.post .info-bubble,.post.privacy_policy #opt_out_frame iframe{background-color:rgba(226,231,240,.3);color:#555;padding:7px;border:2px dashed #e2f0e7;border-radius:10px}.post .warn-bubble{color:#655;background-color:rgba(243,235,237,.3);border:2px dashed #f6ddd7}.post pre>code,.post pre>code.hljs{border-radius:0;margin:0 auto;padding:2px;width:100%}.post .formula-code,.post pre>code{font-size:90%}.post.privacy_policy #opt_out_frame iframe{width:100%;height:300px}h1,h2,h3,h4,h5,h6{color:#111;font-weight:700}h1 a.anchor,h2 a.anchor,h3 a.anchor,h4 a.anchor,h5 a.anchor,h6 a.anchor{color:#d3d3d3;font-weight:normal;text-decoration:none}h1 a.anchor:hover,h2 a.anchor:hover,h3 a.anchor:hover,h4 a.anchor:hover,h5 a.anchor:hover,h6 a.anchor:hover{color:gray}.nobr{white-space:nowrap}.clearfix{transform:scale(1);transform-origin:0 0}.clearfix:before,.clearfix:after{content:" ";display:block;height:0;overflow:hidden}.clearfix:after{clear:both}@media only screen and (min-width: 375px){.header h1 .wide1{display:inline}}@media only screen and (min-width: 500px){.header h1 .wide1,.header h1 .wide2{display:inline}.post.privacy_policy #opt_out_frame iframe{height:260px}}@media only screen and (min-width: 800px){body{font-size:125%}.content{padding-top:0;position:relative;z-index:1}.container{max-width:880px;margin-left:auto;margin-right:auto;padding:0}#home .posts,#home .pageTitle,#home .pagination,#home .archive_list{width:75%;float:none;margin:0 auto 1.5em}#home .pageTitle{margin:2rem auto 1em}.js .header,.no-js .header{height:6em;position:relative;padding-bottom:0}.js .header .wide1,.js .header .wide2,.no-js .header .wide1,.no-js .header .wide2{display:inline}.js .header .container,.no-js .header .container{position:relative;top:50%;transform:translateY(-50%);max-width:880px;overflow:hidden}.js .header .container .inner-container,.no-js .header .container .inner-container{width:75%;margin:0 auto}.js .header h1,.no-js .header h1{font-size:2em;line-height:1;padding-left:0}.js .header nav,.no-js .header nav{float:left;clear:left}.js .header nav ul,.no-js .header nav ul{margin:0}.js .header nav ul li,.no-js .header nav ul li{display:inline;line-height:3em;background:none;padding:0 5px;border:none}.js .header nav ul li a,.no-js .header nav ul li a{color:#fff;font-size:.9em;text-decoration:none;padding:0 .25em}.js .header nav ul li a:hover,.no-js .header nav ul li a:hover{color:#ccc}.js .header nav ul li.current,.no-js .header nav ul li.current{padding-bottom:.25em;border-bottom:4px solid hsla(0,0%,100%,.4)}.nav-collapse{position:relative;max-height:none}.nav-collapse.closed{max-height:none}.nav-collapse ul li a{display:inline-block}.nav-toggle{display:none}.post h1,.post h2,.post h3,.post h4,.post h5,.post h6,.post p,.post ul,.post ol,.post dl,.post .pageTitle,.post .content,.post .page-width,.post blockquote,.post div.footnotes{width:75%;float:none;margin:0 auto 2rem}.post hr{width:75%}.post div.footnotes{margin:0 auto 1rem}.post div.footnotes p{margin-bottom:1rem}.post h1,.post .h1,.post h2,.post .h2,.post h3,.post .h3,.post h4,.post .h4,.post h5,.post .h5,.post h6,.post .h6{margin:1rem auto}.post .pageTitle{margin:2rem auto 1em}.post .featuredImage{position:relative;margin-top:2rem}.post pre>code,.post pre>code.hljs{font-size:.8em;padding:1em;border-radius:4px}.post div.formula-code{padding:20px 10px}.post blockquote{padding-left:2rem}.post.snippet .postTitle{font-size:120%}.postNav .prev,.postNav .next{width:50%}.postNav .prev{float:left;text-align:left}.postNav .next{text-align:right;float:right}.footer .container{max-width:880px}.footer .contributions{width:75%;margin:0 auto}.footer .contributions .avatar img{max-width:48px;max-height:48px;border-radius:5px}.footer .contributions #isso-thread .isso-avatar img{max-width:32px;max-height:32px}.footer .bottom .container .copy::after{content:"|"}.footer .bottom .container .copy,.footer .bottom .container .links{display:inline}.contactContent{max-width:48%;margin-right:2%;float:left}#contact form{max-width:48%;width:48%;float:right;margin-right:0}img.right{float:right}.post.about img.avatar{width:300px}div.header nav{text-shadow:0px 0px 4px #000}#abonament form{width:75%;margin:0 auto 2rem}.post div.related{width:75%}.post #article-details{width:75%}.post.privacy_policy #opt_out_frame iframe{height:190px}.video .youtube-play-link:before{width:120px;height:84px;background-size:120px 84px}}@media only screen and (min-width: 1200px){body{font-size:137.5%}.container{max-width:990px}.container .inner-container{width:75%;margin:0 auto}.js .header .container,.no-js .header .container{max-width:990px}.post.privacy_policy #opt_out_frame iframe{height:180px}.footer .container{max-width:990px}.post.snippet .postTitle{font-size:140%}}@media(prefers-color-scheme: light){pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
@@ -83,11 +84,11 @@
       <nav class="nav-collapse">
         <ul class="noList">
           
-          <li class="element first  ">
+          <li class="element first current ">
             <a href="/blog/">Blog</a>
           </li>
           
-          <li class="element  current ">
+          <li class="element   ">
             <a href="/wiki/">Wiki</a>
           </li>
           
@@ -108,182 +109,216 @@
 
    <div class="content">
       <div class="container">
-         <article class="post " itemscope itemtype="http://schema.org/Article">
+         <article class="post" itemscope itemtype="http://schema.org/BlogPosting"><header>
       <h1 class="postTitle" itemprop="headline">
         
         
-          Bitwarden / Vaultwarden
+          
+      Programming Languages in the Age of AI Agents
+    
         
         
       </h1>
     
-  
-  <p class="meta">
-    <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://alexn.org/wiki/bitwarden/"/>
-    
-      <meta itemprop="datePublished" content="2024-08-26T10:45:19+0000"/>
+    <p class="meta">
+      <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://alexn.org/blog/2025/11/16/programming-languages-in-the-age-of-ai-agents/"/>
+      <meta itemprop="datePublished" content="2025-11-16T06:14:15+0000"/>
       
+      <time itemprop="dateCreated" datetime="2025-11-16T06:14:15+0000">November 16, 2025</time>
+      | <span class="nobr"><span class="time">6</span> minutes</span>
       
-      <time itemprop="dateModified" content="2024-08-26T17:46:39+0300">
-        Updated: August 26, 2024
-      </time>
+      | <a href="/blog/2025/11/16/programming-languages-in-the-age-of-ai-agents/#isso-thread" class="nobr">Comments</a>
       
-      
-      | <a href="/wiki/bitwarden/#isso-thread" class="nobr">Comments</a>
-      
-    
-  </p>
+    </p>
 
-  <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-    <meta itemprop="name" content="Alexandru Nedelcu">
-    <meta itemprop="url" content="https://alexn.org/about/">
-    <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-      <meta itemprop="url" content="https://alexn.org/assets/raw/logo-green.png">
+    
+      <div class="hidden" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="https://alexn.org/assets/media/articles/2025-math-github-copilot.png" />
+        
+      </div>
+      
+    
+
+    <div class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Alexandru Nedelcu">
+      <meta itemprop="url" content="https://alexn.org/about/">
+      <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="https://alexn.org/assets/raw/logo-green.png">
+      </div>
+    </div>
+    <div class="hidden" itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Alexandru Nedelcu" />
+      <meta itemprop="url" content="https://alexn.org/about/" />
+      <meta itemprop="url" content="https://mastodon.social/@alexelcu" />
+      <meta itemprop="url" content="https://bsky.app/profile/alexn.org" />
+      <meta itemprop="url" content="https://github.com/alexandru" />
+      <meta itemprop="url" content="https://www.linkedin.com/in/alexelcu/" />
+    </div>
+
+    </header>
+
+  <div id="content" itemprop="articleBody">
+    <p class="intro">
+In the age of “AI” Agents generating the code, <strong>is your programming language choice still relevant?</strong> Or will we just converge on using the top 5 programming languages, because that’s what the “AI” has been trained on? You can also ask the same question for any other piece of tech from your stack.
+</p>
+
+<p>At work, I’ve built several Python scripts doing various boring chores. GitHub’s Copilot, powered by GPT or Claude Sonnet, does a reasonably good job at writing Python scripts. Furthermore, I’ve seen Python scripts developed by rookies that are worse than what these agents can generate. A programming language’s popularity is a feedback loop. These days, because Python is popular, having available a huge training corpus, “AI” agents can be successful at generating Python scripts that work.</p>
+
+<p>For programming language aficionados, for people loving their craft, while there is reason to worry that “AI” Agents can kill the long tail, I also think there are reasons to celebrate the dawn of “AI”. Here’s why:</p>
+
+<p><strong>1) Having a compiler with an expressive static type system helps the “AI” Agent converge on a solution with a much shorter feedback loop.</strong></p>
+
+<p><em>“If it compiles, it runs”</em> was never fully true, but in programming languages like Scala, Haskell, or Rust, our confidence in the code is indeed much higher once the code compiles.</p>
+
+<p>To give an example, Scala 3 has been on the market for a while, but there’s not much public code published that deals with Scala 3’s new macro system, and yet, “AI” Agents are able to generate code that works. This is very visible when using VS Code with GitHub Copilot, because it’s integrated with the LSP server, so you see its mistakes in real-time (<a href="https://scalameta.org/metals/">Metals</a> being quick to highlight compilation errors); and so the agent goes through several iterations trying to fix whatever compiler error it sees; with the result most often being code that compiles.</p>
+
+<p>This ability to iterate and converge towards a working solution based on external feedback (from a compiler, from unit tests) is what makes “AI” Agents usable. And, having an expressive/powerful static type system provides much faster feedback than other validation types, such as unit tests. When people complain about Scala’s or Rust’s compilers being slow, they forget that they eliminate the need for unit tests guarding against entire classes of errors.</p>
+
+<p><strong>2) The ability to review what the “AI” Agent does is now more valuable than ever. Can you reason about the generated code?</strong></p>
+
+<p>Programmers may describe <em>“what they want”</em> instead of <em>“how”</em> in natural language, however, they still need to ensure that they’re getting what they’ve asked for. Just executing the program, and looking at the output, is a very superficial way to test it, as we should all know by now. So at the very least you want tests, and tests are boring, we want them automated, so you want to see the tests that the agent has generated. Did the agent generate tests for all corner cases? You can’t really say that without looking at the code.</p>
+
+<p>And there’s another looming issue that’s happening with agent-generated code that people don’t understand … <a href="https://codemanship.wordpress.com/2025/09/30/comprehension-debt-the-ticking-time-bomb-of-llm-generated-code/">the comprehension debt</a>. You see, the software project isn’t just about telling the computer how it needs to behave, in order to produce some desired outcome. It’s also about the knowledge you’ve built along the way. And if you have no people left on the team that understand the inner workings of a project, you’re screwed. And “AI” Agents won’t help, because they have a limited context window that tends to vanish. You won’t keep around the dialogs you have with the agent, and even if you do, that kind of documentation is poor and can be misinterpreted; context poisoning is also a thing.</p>
+
+<p>Peter Naur writes in <a href="https://pages.cs.wisc.edu/~remzi/Naur.pdf">Programming as Theory Building</a> that:</p>
+
+<blockquote>
+  <p>“<em>Although it is essential to upgrade software to prevent aging, changing software can cause a different form of aging. The designer of a piece of software usually had a simple concept in mind when writing the program. If the program is large, understanding that concept allows one to find those sections of the program that must be altered when an update or correction is needed. Understanding that concept also implies understanding the interfaces used within the system and between the system and its environment.</em>”</p>
+
+  <p>“<em>Changes made by people who do not understand the original design concept almost always cause the structure of the program to degrade. Under those circumstances, changes will be inconsistent with the original concept; in fact, they will invalidate the original concept. Sometimes the damage is small, but often it is quite severe. After those changes, one must know both the original design rules, and the newly introduced exceptions to the rules, to understand the product. After many such changes, the original designers no longer understand the product. Those who made the changes, never did. In other words, nobody understands the modified product. Software that has been repeatedly modified (maintained) in this way becomes very expensive to update. Changes take longer and are more likely to introduce new “bugs”. Change induced aging is often exacerbated by the fact that the maintainers feel that they do not have time to update the documentation. The documentation becomes increasingly inaccurate thereby making future changes even more difficult.</em>”</p>
+
+  <p>…</p>
+
+  <p>“<em>At least with certain kinds of large programs, the continued adaptation, modification, and correction of errors in them, is essentially dependent on a certain kind of knowledge possessed by a group of programmers who are closely and continuously connected with them.</em>”</p>
+
+  <p>“<em>Programming should be regarded as an activity by which the programmers form or achieve a certain kind of insight, a theory, of the matters at hand. This suggestion is in contrast to what appears to be a more common notion, that programming should be regarded as a production of a program and certain other texts.</em>”</p>
+</blockquote>
+
+<p>At the same time, it’s still true that the <em>source of truth</em> is the source code itself, always has been, always will be. So how do you preserve knowledge, despite the natural churn and evolution that happens in software projects?</p>
+
+<p>Well, one way of doing it is with great source code that makes design and intent clear. And great source code is like math, ageless, describing what you want, not how, with an architecture that allows for evolution, but at the same time makes clear the design’s invariants, i.e., its so-called laws. Programming in a higher-level language matters for “AI” Agents as well. It matters if the source code fully describes the specifications (e.g., the original intent or design constraints) or not. “AI” Agents may be good at assembly language, but they can’t be that good, given that serializing specs in assembly is a lossy process.</p>
+
+<p>And for reviewing the source code, <a href="https://en.wikipedia.org/wiki/Deductive_reasoning">deductive reasoning</a> will never go out of fashion, because it’s how the human brains work. Therefore, <a href="/blog/2017/10/15/functional-programming/">functional programming</a> with its “<em>equational reasoning</em>” is still valuable in the age of “AI” Agents, and arguably, even more so, because you’re dealing with <a href="/blog/2025/10/27/ai-sucks-the-joy-out-of-programming/">an inconsistent idiot that can’t learn</a>.</p>
+
+  </div>
+
+  <div id="article-details">
+    
+    <time itemprop="dateModified" content="2025-11-16T09:21:28+0200">
+        Updated: November 16, 2025
+    </time>
+    | Written by <a href="https://alexn.org/about/" itemprop="url" rel="author">Alexandru Nedelcu</a>
+
+    <div id="all-categories">
+      Tags:
+      
+        
+        <a href="/blog/tag/ai/" class="category">AI</a>
+      
+         | 
+        <a href="/blog/tag/fp/" class="category">FP</a>
+      
+         | 
+        <a href="/blog/tag/opinion/" class="category">Opinion</a>
+      
+         | 
+        <a href="/blog/tag/programming/" class="category">Programming</a>
+      
     </div>
   </div>
 
-  <div id="content" itemprop="articleBody">
-    
-
-  <p><strong>Contents:</strong></p>
-  <ul>
-  <li><a href="#self-hosting-vaultwarden">Self-hosting (Vaultwarden)</a></li>
-  <li><a href="#cli-commands">CLI commands</a></li>
-</ul>
-      <h2 id="self-hosting-vaultwarden">
+  
+  <div class="related">
+      <h2 id="related-articles">
         
         
-          Self-hosting (Vaultwarden) <a href="#self-hosting-vaultwarden" class="anchor">#</a>
+          Related Articles <a href="#related-articles" class="anchor">#</a>
         
         
       </h2>
     
-
-<p>See <a href="https://github.com/dani-garcia/vaultwarden/wiki">documentation</a>.</p>
-
-<p>Setup for <code>docker-compose.yaml</code>:</p>
-
-<pre><code class="language-yaml">vaultwarden:
-  container_name: vaultwarden
-  image: vaultwarden/server:latest
-  restart: always
-  healthcheck:
-    test: ['CMD-SHELL', 'curl --silent --fail http://localhost:80/ || exit 1']
-  ports:
-    - "3201:80"
-  volumes:
-    - vaultwarden:/data
-  networks:
-    - external_network
-  env_file:
-    - ./envs/vaultwarden.env
-</code></pre>
-
-<p>Related <code>./envs/vaultwarden.env</code> file:</p>
-
-<pre><code class="language-bash">##
-# Documentation:
-# https://github.com/dani-garcia/vaultwarden/wiki/Enabling-admin-page
-#
-# To generate:
-# echo -n "MySecretPassword" | argon2 "$(openssl rand -base64 32)" -e -id -k 65540 -t 3 -p 4
-#
-ADMIN_TOKEN=
-
-##
-# https://github.com/dani-garcia/vaultwarden/wiki/Disable-registration-of-new-users
-#
-SIGNUPS_ALLOWED=false
-
-##
-# https://github.com/dani-garcia/vaultwarden/wiki/SMTP-Configuration
-#
-# NOTE: Hetzner and other cloud providers, are blocking port 467
-# https://www.fastmail.help/hc/en-us/articles/1500000278342-Server-names-and-ports
-#
-SMTP_HOST=smtp.fastmail.com
-SMTP_PORT=587
-SMTP_SECURITY=starttls
-SMTP_FROM=
-SMTP_USERNAME=
-SMTP_PASSWORD=
-
-##
-# https://github.com/dani-garcia/vaultwarden/wiki/Enabling-Mobile-Client-push-notification
-# https://bitwarden.com/host/
-#
-PUSH_RELAY_URI=https://api.bitwarden.eu
-PUSH_IDENTITY_URI=https://identity.bitwarden.eu
-PUSH_ENABLED=true
-PUSH_INSTALLATION_ID=
-PUSH_INSTALLATION_KEY=
-</code></pre>
-
-<p>My Nginx reverse proxy configuration:</p>
-
-<pre><code class="language-conf">root /var/www/vault.nedelcu.net;
-log_not_found off;
-
-include ./snippets/gzip.conf;
-
-location / {
-    proxy_pass http://vaultwarden;
-    include ./snippets/proxy-backend.conf;
-}
-</code></pre>
-
-<p>Where <code>./snippets/proxy-backend.conf</code> is:</p>
-
-<pre><code class="language-conf">include ./snippets/cloudflare-ips.conf;
-
-proxy_set_header Host $host;
-proxy_set_header X-Real-IP $remote_addr;
-proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-proxy_set_header X-Forwarded-Proto $scheme;
-proxy_set_header Proxy "";
-proxy_pass_header Server;
-
-proxy_buffering on;
-proxy_redirect off;
-proxy_http_version 1.1;
-proxy_set_header Upgrade $http_upgrade;
-proxy_set_header Connection $connection_upgrade;
-
-proxy_cache CACHE;
-proxy_cache_valid 200 7d;
-proxy_cache_valid 410 24h;
-proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
-
-add_header X-Cached $upstream_cache_status;
-tcp_nodelay on;
-</code></pre>
-
-<p>For <code>./snippets/cloudflare-ips.conf</code> see <a href="https://developers.cloudflare.com/support/troubleshooting/restoring-visitor-ips/restoring-original-visitor-ips/">Restoring original visitor IPs (Cloudflare.com)</a>.</p>
-      <h2 id="cli-commands">
-        
-        
-          CLI commands <a href="#cli-commands" class="anchor">#</a>
-        
-        
-      </h2>
-    
-
-<p>Installation for macOS:</p>
-
-<pre><code>brew install bitwarden-cli jq
-</code></pre>
-
-<p>Lists items in the order they were modified:</p>
-
-<pre><code class="language-bash">bw list items | jq '[.[] | {name: .name, date: .revisionDate}] | sort_by(.date)'
-</code></pre>
-
-<p>Lists items with <a href="https://www.passkeys.io/">passkeys</a> defined:</p>
-
-<pre><code class="language-bash">bw list items | jq '.[] | select(.login.fido2Credentials | length &gt; 0) | {name: .name, id: .id, updated: .revisionDate}'
-</code></pre>
-
+    <div class="container">
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2025/10/27/ai-sucks-the-joy-out-of-programming/">
+          &#39;AI&#39; Sucks the Joy Out of Programming
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/ai" class="tag">AI</a>
+            
+               | <a href="/blog/tag/opinion" class="tag">Opinion</a>
+            
+               | <a href="/blog/tag/programming" class="tag">Programming</a>
+            
+               | <a href="/blog/tag/programming%20rant" class="tag">Programming Rant</a>
+            
+          </div>
+          <time>October 27, 2025</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2025/10/13/outsourced-voices-outsourced-minds/">
+          Outsourced Voices, Outsourced Minds
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/ai" class="tag">AI</a>
+            
+               | <a href="/blog/tag/blogging" class="tag">Blogging</a>
+            
+               | <a href="/blog/tag/opinion" class="tag">Opinion</a>
+            
+               | <a href="/blog/tag/politics" class="tag">Politics</a>
+            
+               | <a href="/blog/tag/web" class="tag">Web</a>
+            
+          </div>
+          <time>October 13, 2025</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      
+      <div class="item">
+        <a class="related-link" href="/blog/2025/09/17/effects-and-concurrency-in-functional-programming-youtube/">
+          Effects and Concurrency in Functional Programming
+        </a>
+        <div class="related-meta">
+          <div class="tags">
+            
+            
+              <a href="/blog/tag/fp" class="tag">FP</a>
+            
+               | <a href="/blog/tag/programming" class="tag">Programming</a>
+            
+               | <a href="/blog/tag/scala" class="tag">Scala</a>
+            
+               | <a href="/blog/tag/video" class="tag">Video</a>
+            
+          </div>
+          <time>September 17, 2025</time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
+  
+
+  
 </article>
 
       </div>
@@ -332,7 +367,7 @@ tcp_nodelay on;
 
         var now = new Date();
         var url =
-            "https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=Bitwarden+%2F+Vaultwarden&url=https%3A%2F%2Falexn.org%2Fwiki%2Fbitwarden%2F" +
+            "https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=Programming+Languages+in+the+Age+of+AI+Agents&url=https%3A%2F%2Falexn.org%2Fblog%2F2025%2F11%2F16%2Fprogramming-languages-in-the-age-of-ai-agents%2F" +
             "&rand=" +
             encodeURIComponent(
                 Math.floor(Math.random() * Number.MAX_SAFE_INTEGER),
@@ -371,7 +406,7 @@ tcp_nodelay on;
 <noscript>
     <img
         referrerpolicy="no-referrer-when-downgrade"
-        src="https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=Bitwarden+%2F+Vaultwarden&url=https%3A%2F%2Falexn.org%2Fwiki%2Fbitwarden%2F"
+        src="https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=Programming+Languages+in+the+Age+of+AI+Agents&url=https%3A%2F%2Falexn.org%2Fblog%2F2025%2F11%2F16%2Fprogramming-languages-in-the-age-of-ai-agents%2F"
         width="1"
         height="1"
         style="
@@ -405,7 +440,7 @@ tcp_nodelay on;
       var d = document;
       var a = d.createElement("a");
       a.setAttribute("target", "_blank");
-      a.setAttribute("href", "mailto:" + lhs + "@" + rhs + "?subject=Comment%20on%3A%20Bitwarden%20/%20Vaultwarden");
+      a.setAttribute("href", "mailto:" + lhs + "@" + rhs + "?subject=Comment%20on%3A%20Programming%20Languages%20in%20the%20Age%20of%20AI%20Agents");
       a.text = lhs + "@" + rhs;
       var es = d.getElementById("email-script");
       es.parentNode.insertBefore(a, es);
@@ -438,7 +473,7 @@ tcp_nodelay on;
           data-isso-vote="false"
           data-vote-levels=""
           src="https://alexn.org/comments/alexn/js/embed.min.js"></script>
-  <section id="isso-thread" data-title="Bitwarden / Vaultwarden">
+  <section id="isso-thread" data-title="Programming Languages in the Age of AI Agents">
   </section>
 </div>
 <noscript>
@@ -463,7 +498,7 @@ tcp_nodelay on;
 
 <p>
   Fix or add to this article by submitting a pull request:<br/>
-  <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/main/_wiki/bitwarden.md" target="_blank">Edit Page on GitHub</a>
+  <a style="white-space: nowrap;" href="https://github.com/alexandru/alexn.org/blob/main/_posts/2025-11-16-programming-languages-in-the-age-of-ai-agents.md" target="_blank">Edit Page on GitHub</a>
 </p>
 
 <p>
