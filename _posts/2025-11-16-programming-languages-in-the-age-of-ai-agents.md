@@ -1,7 +1,7 @@
 ---
 title: 'Programming Languages in the Age of AI Agents'
 date: 2025-11-16T08:14:15+02:00
-last_modified_at: 2025-11-16T09:21:28+02:00
+last_modified_at: 2025-11-16T10:03:10+02:00
 image: /assets/media/articles/2025-math-github-copilot.png
 image_hide_in_post: true
 tags:
@@ -9,6 +9,7 @@ tags:
   - FP
   - Opinion
   - Programming
+  - Languages
 ---
 
 <p class="intro" markdown=1>
