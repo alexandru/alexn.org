@@ -95,7 +95,7 @@ The good news is that it's easier than ever to learn, the Internet being filled 
 
 You're not a true DevOps if you don't have a cat occasionally sitting on your keyboard, wreaking havoc.
 
-<figure class="page-width">
+<figure>
   <img src="{% link assets/media/articles/2025-cat-on-macbook.jpeg %}" />
   <figcaption markdown=1>
 Cat sitting on Macbook keyboard ([source](https://commons.wikimedia.org/wiki/File:Cat_on_a_macbook.JPG))
