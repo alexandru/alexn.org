@@ -19,7 +19,7 @@
     <meta property="og:description" content="Alternative to Scala’s Promise and Cats-Effect’s Deferred, exposing a hybrid API, useful for interoperability between imperative libraries (e.g., Akka/Pekko) and Cats-Effect.">
     <meta property="og:url" content="https://alexn.org/blog/2026/02/17/hybrid-io-driven-promise-in-scala-snippet/">
     <meta property="article:published_time" content="2026-02-17T12:03:04+00:00">
-    <meta property="article:modified_time" content="2026-02-17T13:16:22+00:00">
+    <meta property="article:modified_time" content="2026-02-17T13:20:09+00:00">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://alexn.org/assets/logo/800px-bordered.png" />
     <meta property="og:image:secure_url" content="https://alexn.org/assets/logo/800px-bordered.png" />
@@ -163,8 +163,7 @@ Alternative to <a href="https://www.scala-lang.org/api/current/scala/concurrent/
   <li>The advantage of using this, over <code>cats.effect.Deferred</code>, is that it allows for completing the promise in an imperative context, without needing to instantiate a <a href="https://typelevel.org/cats-effect/docs/std/dispatcher">Dispatcher</a> or having to import <a href="https://typelevel.org/cats-effect/api/3.x/cats/effect/unsafe/IORuntime$.html#global:cats.effect.unsafe.IORuntime">cats.effect.unsafe.global</a>, thus being safer, more efficient and with a lighter API.</li>
 </ul>
 
-<pre><code class="language-scala">//&gt; using toolkit typelevel:default
-//&gt; using dep "org.typelevel::cats-effect:3.6.3"
+<pre><code class="language-scala">//&gt; using dep "org.typelevel::cats-effect:3.6.3"
 //&gt; using scala "3.3.7"
 
 import cats.effect.IO
@@ -390,7 +389,7 @@ object IOPromise {
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2026-02-17T15:16:22+0200">
+    <time itemprop="dateModified" content="2026-02-17T15:20:09+0200">
         Updated: February 17, 2026
     </time>
     | Written by <a href="https://alexn.org/about/" itemprop="url" rel="author">Alexandru Nedelcu</a>
@@ -518,12 +517,12 @@ object IOPromise {
 
    <script
     defer
-    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202602171318"
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202602171321"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js/responsive-nav.min.js?202602171318"
+    src="/assets/js/responsive-nav.min.js?202602171321"
     type="text/javascript"
 ></script>
 
@@ -534,7 +533,7 @@ object IOPromise {
 ></script>
 <script
     defer
-    src="/assets/js/scripts.js?202602171318"
+    src="/assets/js/scripts.js?202602171321"
     type="text/javascript"
 ></script>
 
