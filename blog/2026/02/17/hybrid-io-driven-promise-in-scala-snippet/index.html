@@ -19,7 +19,7 @@
     <meta property="og:description" content="Alternative to Scala’s Promise and Cats-Effect’s Deferred, exposing a hybrid API, useful for interoperability between imperative libraries (e.g., Akka/Pekko) and Cats-Effect.">
     <meta property="og:url" content="https://alexn.org/blog/2026/02/17/hybrid-io-driven-promise-in-scala-snippet/">
     <meta property="article:published_time" content="2026-02-17T12:03:04+00:00">
-    <meta property="article:modified_time" content="2026-02-17T13:20:09+00:00">
+    <meta property="article:modified_time" content="2026-02-17T13:40:57+00:00">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://alexn.org/assets/logo/800px-bordered.png" />
     <meta property="og:image:secure_url" content="https://alexn.org/assets/logo/800px-bordered.png" />
@@ -124,7 +124,7 @@
       <meta itemprop="datePublished" content="2026-02-17T12:03:04+0000"/>
       
       <time itemprop="dateCreated" datetime="2026-02-17T12:03:04+0000">February 17, 2026</time>
-      | <span class="nobr"><span class="time">5</span> minutes</span>
+      | <span class="nobr"><span class="time">7</span> minutes</span>
       
       | <a href="/blog/2026/02/17/hybrid-io-driven-promise-in-scala-snippet/#isso-thread" class="nobr">Comments</a>
       
@@ -277,12 +277,10 @@ final class IOPromise[A] private (ref: AtomicReference[IOPromise.State[A]]) {
     *
     * @see
     *   [[awaitOrGet]] for the safe (IO-driven) version of this method.
-    * @param ec
-    *   is the `ExecutionContext` on which the callback will get executed.
     * @return
     *   a `Future` that completes when the promise is completed.
     */
-  def unsafeAwaitOrGet(implicit ec: ExecutionContext): Future[A] = {
+  def unsafeAwaitOrGet(using ec: ExecutionContext): Future[A] = {
     @tailrec
     def tryCompleteOrEnqueue(cb: Callback[A]): Unit = {
       val state = ref.get()
@@ -385,11 +383,123 @@ object IOPromise {
 }
 </code></pre>
 
+<p>As a usage example, here’s a <a href="https://pekko.apache.org/japi/pekko/snapshot/org/apache/pekko/stream/KillSwitch.html">KillSwitch</a> implementation on which we can await the shutdown via <code>cats.effect.IO</code>, very useful for <a href="/blog/2023/04/17/integrating-akka-with-cats-effect-3/">Akka/Pekko+Cats-Effect interop</a>.</p>
+
+<pre><code class="language-scala">//&gt; using dep "org.apache.pekko::pekko-stream-typed:1.4.0"
+
+import cats.effect.kernel.Resource
+import cats.effect.IO
+import org.apache.pekko.stream.FlowShape
+import org.apache.pekko.stream.Graph
+import org.apache.pekko.stream.KillSwitch
+import org.apache.pekko.stream.KillSwitches
+import org.slf4j.LoggerFactory
+
+/** Replacement for Akka/Pekko `SharedKillSwitch`.
+  *
+  * It's primary innovation is the [[awaitShutdown]] method.
+  *
+  * NOTE: the use of `SharedKillSwitch` in this project is now banned ;-)
+  */
+trait BetterKillSwitch extends KillSwitch {
+  def flow[T]: Graph[FlowShape[T, T], BetterKillSwitch]
+  def awaitShutdown: IO[KillSwitchOutcome]
+}
+
+object BetterKillSwitch {
+  def unsafe(name: String): BetterKillSwitch = {
+    val underlying = KillSwitches.shared(name)
+    val awaitShutdownPromise = IOPromise.unsafe[KillSwitchOutcome]()
+    new BetterKillSwitchEfficient(underlying, awaitShutdownPromise)
+  }
+
+  def apply(name: String): IO[BetterKillSwitch] =
+    IO(unsafe(name))
+
+  def resource(name: String): Resource[IO, BetterKillSwitch] =
+    Resource(apply(name).map { ks =&gt;
+      (ks, IO(ks.shutdown()))
+    })
+}
+
+final private class BetterKillSwitchEfficient(
+  underlying: org.apache.pekko.stream.SharedKillSwitch,
+  awaitShutdownPromise: IOPromise[KillSwitchOutcome]
+) extends BetterKillSwitch {
+  override def awaitShutdown: IO[KillSwitchOutcome] =
+    awaitShutdownPromise.awaitOrGet
+
+  override def shutdown(): Unit =
+    try
+      underlying.shutdown()
+    finally {
+      val _ = awaitShutdownPromise.unsafeTrySuccess(KillSwitchOutcome.Completed)
+    }
+
+  override def abort(ex: Throwable): Unit =
+    try
+      underlying.abort(ex)
+    finally
+      if (!awaitShutdownPromise.unsafeTrySuccess(KillSwitchOutcome.Errored(ex)))
+        LoggerFactory.getLogger(getClass).error(
+          "Kill switch was already shutdown when aborting with error",
+          ex
+        )
+
+  override def flow[T]: Graph[FlowShape[T, T], BetterKillSwitch] =
+    underlying.flow[T].mapMaterializedValue { it =&gt;
+      if (it == underlying) BetterKillSwitchEfficient.this
+      else new BetterKillSwitchEfficient(it, awaitShutdownPromise)
+    }
+}
+
+/** Kill-switches can be shutdown gracefully (i.e., by completing the stream),
+  * or via an error.
+  *
+  * The effect on the downstream is not the same, as `onError` short-circuits
+  * the stream, while `shutdown` allows the in-process messages to complete.
+  *
+  * This type is used to signal to shut down listener whenever the kill-switch
+  * is shutdown gracefully or aborted via an error.
+  */
+enum KillSwitchOutcome {
+  case Completed
+  case Errored(e: Throwable)
+
+  def toEither: Either[Throwable, Unit] =
+    this match {
+      case Completed =&gt; Right(())
+      case Errored(e) =&gt; Left(e)
+    }
+}
+</code></pre>
+
+<p>Note that when using a <a href="https://pekko.apache.org/japi/pekko/1.4/org/apache/pekko/stream/SharedKillSwitch.html">SharedKillSwitch</a> (the standard implementation provided by Akka/Pekko), we could already do something like the following, by leveraging Akka/Pekko streams, but it’s definitely heavier, API-wise as well (notice the <code>Materializer</code> requirement):</p>
+
+<pre><code class="language-scala">import cats.effect.syntax.*
+import org.apache.pekko.stream.Materializer
+import org.apache.pekko.stream.SharedKillSwitch
+import org.apache.pekko.stream.scaladsl.Source
+
+def awaitShutdown(
+  ref: SharedKillSwitch
+)(using Materializer): IO[Either[Throwable, Unit]] = {
+  val start = IO {
+    val done = Source.never[Unit]
+      .via(ref.flow)
+      .run()
+    (done, IO.unit)
+  }
+  IO.fromFutureCancelable(start)
+    .void.attempt
+}
+</code></pre>
+
   </div>
 
   <div id="article-details">
     
-    <time itemprop="dateModified" content="2026-02-17T15:20:09+0200">
+    <time itemprop="dateModified" content="2026-02-17T15:40:57+0200">
         Updated: February 17, 2026
     </time>
     | Written by <a href="https://alexn.org/about/" itemprop="url" rel="author">Alexandru Nedelcu</a>
@@ -398,10 +508,13 @@ object IOPromise {
       Tags:
       
         
-        <a href="/blog/tag/snippet/" class="category">Snippet</a>
+        <a href="/blog/tag/akka/" class="category">Akka</a>
       
          | 
-        <a href="/blog/tag/scala/" class="category">Scala</a>
+        <a href="/blog/tag/cats%20effect/" class="category">Cats Effect</a>
+      
+         | 
+        <a href="/blog/tag/concurrency/" class="category">Concurrency</a>
       
          | 
         <a href="/blog/tag/fp/" class="category">FP</a>
@@ -410,10 +523,10 @@ object IOPromise {
         <a href="/blog/tag/programming/" class="category">Programming</a>
       
          | 
-        <a href="/blog/tag/cats%20effect/" class="category">Cats Effect</a>
+        <a href="/blog/tag/scala/" class="category">Scala</a>
       
          | 
-        <a href="/blog/tag/concurrency/" class="category">Concurrency</a>
+        <a href="/blog/tag/snippet/" class="category">Snippet</a>
       
     </div>
   </div>
@@ -517,12 +630,12 @@ object IOPromise {
 
    <script
     defer
-    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202602171321"
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202602171342"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js/responsive-nav.min.js?202602171321"
+    src="/assets/js/responsive-nav.min.js?202602171342"
     type="text/javascript"
 ></script>
 
@@ -533,7 +646,7 @@ object IOPromise {
 ></script>
 <script
     defer
-    src="/assets/js/scripts.js?202602171321"
+    src="/assets/js/scripts.js?202602171342"
     type="text/javascript"
 ></script>
 
