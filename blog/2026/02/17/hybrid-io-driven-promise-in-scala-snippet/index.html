@@ -205,7 +205,7 @@ final class IOPromise[A] private (ref: AtomicReference[IOPromise.State[A]]) {
           task.run()
           true
         } else {
-          // Another thread completed the promise concurrently, so we retry.
+          // Retry...
           unsafeTryComplete(result)
         }
     }
@@ -518,12 +518,12 @@ object IOPromise {
 
    <script
     defer
-    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202602171317"
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202602171318"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js/responsive-nav.min.js?202602171317"
+    src="/assets/js/responsive-nav.min.js?202602171318"
     type="text/javascript"
 ></script>
 
@@ -534,7 +534,7 @@ object IOPromise {
 ></script>
 <script
     defer
-    src="/assets/js/scripts.js?202602171317"
+    src="/assets/js/scripts.js?202602171318"
     type="text/javascript"
 ></script>
 
