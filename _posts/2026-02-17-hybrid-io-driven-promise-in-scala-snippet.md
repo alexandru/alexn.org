@@ -1,7 +1,7 @@
 ---
 title: "Hybrid IO-driven Promise (Scala snippet)"
 date: 2026-02-17T14:03:04+02:00
-last_modified_at: 2026-02-17T15:40:57+02:00
+last_modified_at: 2026-02-17T15:41:57+02:00
 tags:
   - Akka
   - Cats Effect
@@ -273,8 +273,8 @@ trait BetterKillSwitch extends KillSwitch {
 object BetterKillSwitch {
   def unsafe(name: String): BetterKillSwitch = {
     val underlying = KillSwitches.shared(name)
-    val awaitShutdownPromise = IOPromise.unsafe[KillSwitchOutcome]()
-    new BetterKillSwitchEfficient(underlying, awaitShutdownPromise)
+    val promise = IOPromise.unsafe[KillSwitchOutcome]()
+    new BetterKillSwitchEfficient(underlying, promise)
   }
 
   def apply(name: String): IO[BetterKillSwitch] =
@@ -288,23 +288,23 @@ object BetterKillSwitch {
 
 final private class BetterKillSwitchEfficient(
   underlying: org.apache.pekko.stream.SharedKillSwitch,
-  awaitShutdownPromise: IOPromise[KillSwitchOutcome]
+  promise: IOPromise[KillSwitchOutcome]
 ) extends BetterKillSwitch {
   override def awaitShutdown: IO[KillSwitchOutcome] =
-    awaitShutdownPromise.awaitOrGet
+    promise.awaitOrGet
 
   override def shutdown(): Unit =
     try
       underlying.shutdown()
     finally {
-      val _ = awaitShutdownPromise.unsafeTrySuccess(KillSwitchOutcome.Completed)
+      val _ = promise.unsafeTrySuccess(KillSwitchOutcome.Completed)
     }
 
   override def abort(ex: Throwable): Unit =
     try
       underlying.abort(ex)
     finally
-      if (!awaitShutdownPromise.unsafeTrySuccess(KillSwitchOutcome.Errored(ex)))
+      if (!promise.unsafeTrySuccess(KillSwitchOutcome.Errored(ex)))
         LoggerFactory.getLogger(getClass).error(
           "Kill switch was already shutdown when aborting with error",
           ex
@@ -313,7 +313,7 @@ final private class BetterKillSwitchEfficient(
   override def flow[T]: Graph[FlowShape[T, T], BetterKillSwitch] =
     underlying.flow[T].mapMaterializedValue { it =>
       if (it == underlying) BetterKillSwitchEfficient.this
-      else new BetterKillSwitchEfficient(it, awaitShutdownPromise)
+      else new BetterKillSwitchEfficient(it, promise)
     }
 }
 
