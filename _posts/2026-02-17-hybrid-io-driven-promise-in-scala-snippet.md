@@ -1,7 +1,8 @@
 ---
 title: "Hybrid IO-driven Promise (Scala snippet)"
 date: 2026-02-17T14:03:04+02:00
-last_modified_at: 2026-02-17T15:41:57+02:00
+last_modified_at: 2026-02-17T15:46:11+02:00
+image: /assets/media/articles/2026-iopromise-snippet.png
 tags:
   - Akka
   - Cats Effect
