@@ -1,14 +1,15 @@
 ---
 title: "Hybrid IO-driven Promise (Scala snippet)"
 date: 2026-02-17T14:03:04+02:00
-last_modified_at: 2026-02-17T15:20:09+02:00
+last_modified_at: 2026-02-17T15:40:57+02:00
 tags:
-  - Snippet
-  - Scala
-  - FP
-  - Programming
+  - Akka
   - Cats Effect
   - Concurrency
+  - FP
+  - Programming
+  - Scala
+  - Snippet
 description: >
   Alternative to Scala's `Promise` and Cats-Effect's `Deferred`, exposing a hybrid API, useful for interoperability between imperative libraries (e.g., Akka/Pekko) and Cats-Effect.
 ---
@@ -139,12 +140,10 @@ final class IOPromise[A] private (ref: AtomicReference[IOPromise.State[A]]) {
     *
     * @see
     *   [[awaitOrGet]] for the safe (IO-driven) version of this method.
-    * @param ec
-    *   is the `ExecutionContext` on which the callback will get executed.
     * @return
     *   a `Future` that completes when the promise is completed.
     */
-  def unsafeAwaitOrGet(implicit ec: ExecutionContext): Future[A] = {
+  def unsafeAwaitOrGet(using ec: ExecutionContext): Future[A] = {
     @tailrec
     def tryCompleteOrEnqueue(cb: Callback[A]): Unit = {
       val state = ref.get()
@@ -244,5 +243,119 @@ object IOPromise {
       */
     final case class Completed[A](result: Either[Throwable, A]) extends State[A]
   }
+}
+```
+
+As a usage example, here's a [KillSwitch](https://pekko.apache.org/japi/pekko/snapshot/org/apache/pekko/stream/KillSwitch.html) implementation on which we can await the shutdown via `cats.effect.IO`, very useful for [Akka/Pekko+Cats-Effect interop](./2023-04-17-integrating-akka-with-cats-effect-3.md).
+
+```scala
+//> using dep "org.apache.pekko::pekko-stream-typed:1.4.0"
+
+import cats.effect.kernel.Resource
+import cats.effect.IO
+import org.apache.pekko.stream.FlowShape
+import org.apache.pekko.stream.Graph
+import org.apache.pekko.stream.KillSwitch
+import org.apache.pekko.stream.KillSwitches
+import org.slf4j.LoggerFactory
+
+/** Replacement for Akka/Pekko `SharedKillSwitch`.
+  *
+  * It's primary innovation is the [[awaitShutdown]] method.
+  *
+  * NOTE: the use of `SharedKillSwitch` in this project is now banned ;-)
+  */
+trait BetterKillSwitch extends KillSwitch {
+  def flow[T]: Graph[FlowShape[T, T], BetterKillSwitch]
+  def awaitShutdown: IO[KillSwitchOutcome]
+}
+
+object BetterKillSwitch {
+  def unsafe(name: String): BetterKillSwitch = {
+    val underlying = KillSwitches.shared(name)
+    val awaitShutdownPromise = IOPromise.unsafe[KillSwitchOutcome]()
+    new BetterKillSwitchEfficient(underlying, awaitShutdownPromise)
+  }
+
+  def apply(name: String): IO[BetterKillSwitch] =
+    IO(unsafe(name))
+
+  def resource(name: String): Resource[IO, BetterKillSwitch] =
+    Resource(apply(name).map { ks =>
+      (ks, IO(ks.shutdown()))
+    })
+}
+
+final private class BetterKillSwitchEfficient(
+  underlying: org.apache.pekko.stream.SharedKillSwitch,
+  awaitShutdownPromise: IOPromise[KillSwitchOutcome]
+) extends BetterKillSwitch {
+  override def awaitShutdown: IO[KillSwitchOutcome] =
+    awaitShutdownPromise.awaitOrGet
+
+  override def shutdown(): Unit =
+    try
+      underlying.shutdown()
+    finally {
+      val _ = awaitShutdownPromise.unsafeTrySuccess(KillSwitchOutcome.Completed)
+    }
+
+  override def abort(ex: Throwable): Unit =
+    try
+      underlying.abort(ex)
+    finally
+      if (!awaitShutdownPromise.unsafeTrySuccess(KillSwitchOutcome.Errored(ex)))
+        LoggerFactory.getLogger(getClass).error(
+          "Kill switch was already shutdown when aborting with error",
+          ex
+        )
+
+  override def flow[T]: Graph[FlowShape[T, T], BetterKillSwitch] =
+    underlying.flow[T].mapMaterializedValue { it =>
+      if (it == underlying) BetterKillSwitchEfficient.this
+      else new BetterKillSwitchEfficient(it, awaitShutdownPromise)
+    }
+}
+
+/** Kill-switches can be shutdown gracefully (i.e., by completing the stream),
+  * or via an error.
+  *
+  * The effect on the downstream is not the same, as `onError` short-circuits
+  * the stream, while `shutdown` allows the in-process messages to complete.
+  *
+  * This type is used to signal to shut down listener whenever the kill-switch
+  * is shutdown gracefully or aborted via an error.
+  */
+enum KillSwitchOutcome {
+  case Completed
+  case Errored(e: Throwable)
+
+  def toEither: Either[Throwable, Unit] =
+    this match {
+      case Completed => Right(())
+      case Errored(e) => Left(e)
+    }
+}
+```
+
+Note that when using a [SharedKillSwitch](https://pekko.apache.org/japi/pekko/1.4/org/apache/pekko/stream/SharedKillSwitch.html) (the standard implementation provided by Akka/Pekko), we could already do something like the following, by leveraging Akka/Pekko streams, but it's definitely heavier, API-wise as well (notice the `Materializer` requirement):
+
+```scala
+import cats.effect.syntax.*
+import org.apache.pekko.stream.Materializer
+import org.apache.pekko.stream.SharedKillSwitch
+import org.apache.pekko.stream.scaladsl.Source
+
+def awaitShutdown(
+  ref: SharedKillSwitch
+)(using Materializer): IO[Either[Throwable, Unit]] = {
+  val start = IO {
+    val done = Source.never[Unit]
+      .via(ref.flow)
+      .run()
+    (done, IO.unit)
+  }
+  IO.fromFutureCancelable(start)
+    .void.attempt
 }
 ```
