@@ -9,6 +9,7 @@ tags:
   - Cats Effect
   - Concurrency
   - FP
+  - Pekko
   - Programming
   - Scala
   - Snippet
