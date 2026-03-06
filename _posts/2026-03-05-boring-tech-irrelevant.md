@@ -4,7 +4,7 @@ image: /assets/media/articles/2026-thomas-worried.jpg
 image_caption: >
   Thomas, self-employed tomcat, worried about the evolution of the software industry.
 date: 2026-03-05T18:12:06+02:00
-last_modified_at: 2026-03-06T06:49:04+02:00
+last_modified_at: 2026-03-06T06:49:20+02:00
 tags:
   - AI
   - FP
@@ -35,7 +35,7 @@ But in 2026 we are facing the reality of AI/LLMs. I'll use the example of less p
 - The cost of dependency upgrades goes to zero, becoming an automated process, even when it involves API breakage.
 - Frontier models are good, but they still do dumb shit all the time, so having better tech, like a potent compiler to watch your back, matters.
 - The feedback loop matters, and static, expressive type systems provide the most bang for the buck (optimal token usage).
-- Top programming languages have the advantage of a large corpus available for training, however, that's also a liability, as the common denominator of all code seen in the wild is not very good (which is why by simply telling the LLM to use FP, it will generate better code for the simple fact that FP code seen in the wild tends to be higher quality)
+- Top programming languages have the advantage of a large corpus available for training, however, that's also a liability, as the common denominator of all code seen in the wild is not very good (which is why by simply telling the LLM to use FP, it will generate better code for the simple fact that FP code seen in the wild tends to be higher quality).
 
 People are already talking about programming languages designed for LLMs, not humans. I think that's nonsense; we'll use languages designed for LLMs *and* humans, because even if you are an AI maximalist, you still need to communicate with the AI system efficiently, and to have the ability to review what it did. And what will such a language look like?
 
