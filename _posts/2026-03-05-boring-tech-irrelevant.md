@@ -4,7 +4,7 @@ image: /assets/media/articles/2026-thomas-worried.jpg
 image_caption: >
   Thomas, self-employed tomcat, worried about the evolution of the software industry.
 date: 2026-03-05T18:12:06+02:00
-last_modified_at: 2026-03-05T19:13:17+02:00
+last_modified_at: 2026-03-06T06:39:21+02:00
 tags:
   - AI
   - FP
@@ -17,7 +17,9 @@ tags:
 You may have read the ["Boring" Tech Stack](https://mcfunley.com/choose-boring-technology) in 2015, a view with which I've wholeheartedly agreed. And if you didn't agree with this view, the corporation you're working for surely agreed. It's why companies like Google have had a list of "approved" languages, for example. But is this view relevant in 2026? I think not.
 </p>
 
+<p class="info-bubble" markdown="1">
 This is a continuation of [Programming Languages in the Age of AI Agents](./2025-11-16-programming-languages-in-the-age-of-ai-agents.md).
+</p>
 
 Companies pick "boring" tech because boring is reliable, it does the job, and most importantly, it minimizes risk. Companies don't want to be locked into tech stacks that are obsolete, because:
 
