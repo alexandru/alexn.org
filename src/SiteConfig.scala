@@ -87,7 +87,7 @@ object SiteConfig {
                     |
                     |The requested path does not exist in the Laika scaffold output yet.
                     |
-                    |Try returning to the home page.
+                    |Try returning to the [home page](https://alexn.org/).
                     |""".stripMargin
     )
   )
