@@ -5,6 +5,7 @@ on:
       - "main"
 
 jobs:
+  # Existing Jekyll build job – kept intact during the migration parallel phase.
   build:
     runs-on: ubuntu-latest
 
@@ -42,3 +43,29 @@ jobs:
           ./scripts/build
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Laika/Scala build validation job – added as part of migration workstream W0.5.
+  # Runs on every PR alongside the Jekyll job; does NOT deploy output.
+  laika-build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache Scala-CLI build artifacts
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/scala-cli
+          key: scala-cli-${{ runner.os }}-${{ hashFiles('build.scala', 'src/**/*.scala') }}
+          restore-keys: |
+            scala-cli-${{ runner.os }}-
+
+      - name: Install Scala CLI
+        uses: VirtusLab/scala-cli-setup@v1
+
+      - name: Laika build (validation only)
+        run: |
+          scala-cli run build.scala src/ -- build --out _site-laika
