@@ -33,22 +33,22 @@ object Main extends IOApp {
       .withDefault(defaultPort)
       .validate("Port must be greater than 0")(_ > 0)
 
-  private val buildCommand =
+  private val buildCommand: Command[AppCommand] =
     Command("build", "Build the Laika scaffold output") {
-      outputDirectoryOpt.map(AppCommand.Build(_))
+      outputDirectoryOpt.map[AppCommand](AppCommand.Build(_))
     }
 
-  private val serveCommand =
+  private val serveCommand: Command[AppCommand] =
     Command("serve", "Build and serve the Laika scaffold locally") {
-      (outputDirectoryOpt, portOpt).mapN(AppCommand.Serve(_, _))
+      (outputDirectoryOpt, portOpt).mapN[AppCommand](AppCommand.Serve(_, _))
     }
 
-  private val verifyCommand =
+  private val verifyCommand: Command[AppCommand] =
     Command("verify", "Build the Laika scaffold and verify expected output files") {
-      outputDirectoryOpt.map(AppCommand.Verify(_))
+      outputDirectoryOpt.map[AppCommand](AppCommand.Verify(_))
     }
 
-  private val subcommands = List(buildCommand, serveCommand, verifyCommand)
+  private val subcommands: List[Command[AppCommand]] = List(buildCommand, serveCommand, verifyCommand)
 
   private val command =
     Command("alexn.org", "Scala-CLI entrypoint for the alexn.org Laika migration scaffold") {
