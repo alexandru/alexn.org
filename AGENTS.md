@@ -8,10 +8,10 @@ Use `plans/tech-conversion-to-laika.md` for migration scope and sequencing.
 - Use Scala 3.
 - Required scalac options: `--no-indent --rewrite`.
 - Keep `build.scala` at repo root as a thin entrypoint.
-- To update dependencies to their latest versions, run:
-  ```
-  scala-cli --power dependency-update ./build.scala --all
-  ```
+- For keeping Scala dependencies up to date: 
+  `scala-cli --power dependency-update ./build.scala --all` 
+- Verify that Scala code compiles: 
+  `scala-cli compile ./build.scala`.
 
 ## Project Organization Rules
 

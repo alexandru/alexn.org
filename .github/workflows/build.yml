@@ -1,8 +1,6 @@
 name: build
 on:
   pull_request:
-    branches:
-      - "main"
 
 jobs:
   # Existing Jekyll build job – kept intact during the migration parallel phase.
@@ -66,6 +64,10 @@ jobs:
       - name: Install Scala CLI
         uses: VirtusLab/scala-cli-setup@v1
 
+      - name: Check build
+        run: |
+          scala-cli compile --server=false ./build.scala
+
       - name: Laika build (validation only)
         run: |
-          scala-cli run build.scala src/ -- build --out _site-laika
+          scala-cli run --server=false build.scala src/ -- build --out _site-laika
