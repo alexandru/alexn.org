@@ -4,12 +4,14 @@ Use `plans/tech-conversion-to-laika.md` for migration scope and sequencing.
 
 ## Scala and Build Rules
 
-- Build tool is `Scala-CLI` only. Do not add `sbt` files.
+- Build tool is `Scala-CLI` only (available as standalone script as `./scala`). Do not add `sbt` files.
 - Use Scala 3.
 - Required scalac options: `--no-indent --rewrite`.
 - Keep `build.scala` at repo root as a thin entrypoint.
-- When adding or updating Scala dependencies, first run `scala-cli --power dependency-update ./build.scala --all` and keep dependency versions current.
-- Verify Scala code compiles by running `scala-cli compile ./build.scala`.
+- To keep Scala dependencies up to date: 
+  `./scala --power dependency-update ./build.scala --all`
+- Verify Scala code compiles by running: 
+  `./scala compile ./build.scala`.
 
 ## Project Organization Rules
 
