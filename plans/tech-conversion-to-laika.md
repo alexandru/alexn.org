@@ -12,3 +12,4 @@ All this website's features have to be preserved:
 - Feeds (see `./feeds/`)
 - Website design (see `_layouts`, `_sass`)
 - Pay attention to functionality described in `_plugins/`
+- Pay attention to Node integration (for bringing in dependencies such as MathJax)
