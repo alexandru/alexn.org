@@ -15,7 +15,7 @@ import java.nio.file.StandardCopyOption
 import java.nio.file.attribute.BasicFileAttributes
 
 object SiteBuilder {
-  private val markdownTransformer =
+  private def markdownTransformer =
     Transformer
       .from(Markdown)
       .to(HTML)
@@ -36,15 +36,19 @@ object SiteBuilder {
 
   private def writePage(outputDirectory: Path, page: SitePage): IO[Unit] = {
     for {
-      body <- renderMarkdown(page.markdown)
+      body <- renderMarkdown(page)
       content = renderShell(page, body)
       target = outputDirectory.resolve(page.outputPath)
       _ <- writeUtf8(target, content)
     } yield ()
   }
 
-  private def renderMarkdown(markdown: String): IO[String] = {
-    IO.fromEither(markdownTransformer.transform(markdown).leftMap(error => new RuntimeException(error.toString)))
+  private def renderMarkdown(page: SitePage): IO[String] = {
+    IO.fromEither(
+      markdownTransformer.transform(page.markdown).leftMap { error =>
+        new RuntimeException(s"Unable to render page '${page.title}' (${page.outputPath}): $error")
+      }
+    )
   }
 
   private def copyStaticInputs(repositoryRoot: Path, outputDirectory: Path): IO[Unit] = {

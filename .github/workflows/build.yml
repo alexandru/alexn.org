@@ -45,6 +45,8 @@ jobs:
 
   laika-scaffold:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout
