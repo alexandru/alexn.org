@@ -1,4 +1,4 @@
-//> using scala "3.6.3"
+//> using scala "3.8.2"
 //> using options "--no-indent"
 //> using options "--rewrite"
 //> using dep "org.typelevel::cats-effect:3.6.3"

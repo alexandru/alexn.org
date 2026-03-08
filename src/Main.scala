@@ -48,11 +48,13 @@ object Main extends IOApp {
       outputDirectoryOpt.map[AppCommand](AppCommand.Verify(_))
     }
 
-  private val subcommands: List[Command[AppCommand]] = List(buildCommand, serveCommand, verifyCommand)
-
   private val command =
     Command("alexn.org", "Scala-CLI entrypoint for the alexn.org Laika migration scaffold") {
-      Opts.subcommands(subcommands.head, subcommands.tail)
+      Opts.subcommands(
+        buildCommand, 
+        serveCommand, 
+        verifyCommand
+      )
     }
 
   def run(args: List[String]): IO[ExitCode] = {
