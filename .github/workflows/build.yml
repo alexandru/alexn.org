@@ -66,7 +66,7 @@ jobs:
 
       - name: Check build
         run: |
-          scala-cli compile --server=false ./build.scala
+          scala-cli compile --server=false ./build.scala src/
 
       - name: Laika build (validation only)
         run: |
