@@ -1,8 +1,6 @@
 name: build
 on:
   pull_request:
-    branches:
-      - "main"
 
 jobs:
   build:
@@ -53,11 +51,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Scala CLI
+        uses: VirtusLab/scala-cli-setup@v1
+
+      - name: Check build
         run: |
-          curl -fsSL --output scala-cli.gz https://github.com/VirtusLab/scala-cli/releases/download/v1.6.1/scala-cli-x86_64-pc-linux.gz
-          gunzip scala-cli.gz
-          chmod +x scala-cli
-          sudo mv scala-cli /usr/local/bin/scala-cli
+          scala-cli compile --server=false ./build.scala
 
       - name: Validate Laika scaffold
         run: |
