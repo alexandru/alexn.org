@@ -10,13 +10,15 @@ import com.monovore.decline.Opts
 import java.nio.file.Path
 
 object Main extends IOApp {
-  private final case class Settings(command: CommandKind, outputDirectory: Path, port: Int)
+  private val defaultPort = 4000
 
-  private sealed trait CommandKind
-  private object CommandKind {
-    case object Build extends CommandKind
-    case object Serve extends CommandKind
-    case object Verify extends CommandKind
+  private sealed trait AppCommand {
+    def outputDirectory: Path
+  }
+  private object AppCommand {
+    final case class Build(outputDirectory: Path) extends AppCommand
+    final case class Serve(outputDirectory: Path, port: Int) extends AppCommand
+    final case class Verify(outputDirectory: Path) extends AppCommand
   }
 
   private val outputDirectoryOpt =
@@ -28,27 +30,29 @@ object Main extends IOApp {
   private val portOpt =
     Opts
       .option[Int]("port", help = "Port for the local preview server")
-      .withDefault(4000)
+      .withDefault(defaultPort)
       .validate("Port must be greater than 0")(_ > 0)
 
   private val buildCommand =
     Command("build", "Build the Laika scaffold output") {
-      outputDirectoryOpt.map(Settings(CommandKind.Build, _, 4000))
+      outputDirectoryOpt.map(AppCommand.Build(_))
     }
 
   private val serveCommand =
     Command("serve", "Build and serve the Laika scaffold locally") {
-      (outputDirectoryOpt, portOpt).mapN(Settings(CommandKind.Serve, _, _))
+      (outputDirectoryOpt, portOpt).mapN(AppCommand.Serve(_, _))
     }
 
   private val verifyCommand =
     Command("verify", "Build the Laika scaffold and verify expected output files") {
-      outputDirectoryOpt.map(Settings(CommandKind.Verify, _, 4000))
+      outputDirectoryOpt.map(AppCommand.Verify(_))
     }
 
+  private val subcommands = List(buildCommand, serveCommand, verifyCommand)
+
   private val command =
-    Command("alexn-build", "Scala-CLI entrypoint for the alexn.org Laika migration scaffold") {
-      Opts.subcommands(buildCommand, List(serveCommand, verifyCommand))
+    Command("alexn.org", "Scala-CLI entrypoint for the alexn.org Laika migration scaffold") {
+      Opts.subcommands(subcommands.head, subcommands.tail)
     }
 
   def run(args: List[String]): IO[ExitCode] = {
@@ -60,23 +64,23 @@ object Main extends IOApp {
     }
   }
 
-  private def execute(settings: Settings): IO[Unit] = {
-    settings.command match {
-      case CommandKind.Build =>
-        SiteBuilder.build(settings.outputDirectory) *>
-          IO.println(s"Built Laika scaffold into ${settings.outputDirectory.toAbsolutePath.normalize()}")
-      case CommandKind.Serve =>
-        SiteBuilder.build(settings.outputDirectory) *>
+  private def execute(command: AppCommand): IO[Unit] = {
+    command match {
+      case AppCommand.Build(outputDirectory) =>
+        SiteBuilder.build(outputDirectory) *>
+          IO.println(s"Built Laika scaffold into ${outputDirectory.toAbsolutePath.normalize()}")
+      case AppCommand.Serve(outputDirectory, port) =>
+        SiteBuilder.build(outputDirectory) *>
           PreviewServer
-            .serve(settings.outputDirectory, settings.port)
+            .serve(outputDirectory, port)
             .use { boundPort =>
-              IO.println(s"Serving ${settings.outputDirectory.toAbsolutePath.normalize()} at http://127.0.0.1:$boundPort") *>
+              IO.println(s"Serving ${outputDirectory.toAbsolutePath.normalize()} at http://127.0.0.1:$boundPort") *>
                 IO.never
             }
-      case CommandKind.Verify =>
-        SiteBuilder.build(settings.outputDirectory) *>
-          SiteVerifier.verify(settings.outputDirectory) *>
-          IO.println(s"Verified Laika scaffold output in ${settings.outputDirectory.toAbsolutePath.normalize()}")
+      case AppCommand.Verify(outputDirectory) =>
+        SiteBuilder.build(outputDirectory) *>
+          SiteVerifier.verify(outputDirectory) *>
+          IO.println(s"Verified Laika scaffold output in ${outputDirectory.toAbsolutePath.normalize()}")
     }
   }
 }
