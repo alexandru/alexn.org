@@ -13,6 +13,7 @@ Reference material:
 - [ ] **No broken URLs**: keep existing permalinks and redirects stable.
 - [ ] **No regressions in published output**: preserve page structure, metadata, feeds, and UX.
 - [ ] **Incremental cutover**: run Jekyll and Laika builds in parallel before switching production.
+- [ ] **Early CI coverage for migration PRs**: update per-PR GitHub Actions first so every migration PR exercises `build.scala`, even before feature parity.
 - [ ] **Preserve author workflow**: replace helper scripts (`scripts/add-blog`, `scripts/add-wiki`, etc.) with equivalent Scala tooling or keep wrappers.
 - [ ] **Make behavior explicit**: every Jekyll plugin/filter/custom include gets mapped to a named Laika extension or build step.
 - [ ] **Toolchain lock**: use Scala 3 and compile with `--no-indent --rewrite` options.
@@ -88,7 +89,10 @@ Front matter keys currently in active use include (not exhaustive):
 - [ ] Use **Scala-CLI** as the build runner (`scala-cli run ...`), not `sbt`.
 - [ ] Keep a thin command entrypoint script at repo root (`build.scala`) and place implementation code under top-level `src/**`.
 - [ ] Define Laika input trees for posts, wiki, docs/pages, and static assets.
-- [ ] Keep output in `_site/` initially to avoid changing deployment plumbing too early.
+- [ ] Use separate output roots during migration to avoid artifact collision:
+  - [ ] Jekyll output: `_site-jekyll/`
+  - [ ] Laika output: `_site-laika/`
+  - [ ] Deployment handoff path (`_site/`) is produced only by the active generator in release jobs.
 
 ### 3.2 Laika extension strategy
 
@@ -116,16 +120,25 @@ Front matter keys currently in active use include (not exhaustive):
 
 ## W0 - Baseline and Safety Net
 
-- [ ] Freeze baseline outputs from current Jekyll build (`_site/`) for comparison snapshots.
+- [ ] Freeze baseline outputs from current Jekyll build (`_site-jekyll/`) for comparison snapshots.
 - [ ] Define golden-page comparison set (home, blog index, wiki index, representative post types, feed XMLs, 404, about, subscribe).
 - [ ] Add URL crawl snapshot (all existing output paths + redirect map).
 - [ ] Add feed validation script (XML parse + required fields checks).
 
 Deliverable: reproducible baseline artifact and acceptance script.
 
+## W0.5 - PR Workflow Bootstrap (First Step)
+
+- [ ] Update `.github/workflows/build.yml` immediately so `pull_request` runs a Scala/Laika build validation job.
+- [ ] Wire a minimal command that must execute on PRs (even if functionality is still a scaffold), e.g. `scala-cli run build.scala -- build --out _site-laika`.
+- [ ] Keep existing Jekyll checks intact while migration is in progress.
+- [ ] Keep this strictly validation-only for PRs: do not deploy Laika output from this workflow stage.
+
+Deliverable: all migration PRs run a Scala/Laika build job in CI from day one.
+
 ## W1 - Bootstrap Laika Build
 
-- [ ] Initialize Scala-CLI + Laika project and wire CLI tasks (e.g. `scala-cli run build.scala -- build --out _site`).
+- [ ] Initialize Scala-CLI + Laika project and wire CLI tasks (e.g. `scala-cli run build.scala -- build --out _site-laika`).
 - [ ] Ensure code organization from day one (`src/**`), avoiding a monolithic root script.
 - [ ] Configure Scala version to Scala 3 and set compiler options to `--no-indent --rewrite` in Scala-CLI directives.
 - [ ] Configure site-wide metadata (`title`, `description`, author links, domain/url/baseurl semantics).
@@ -183,12 +196,14 @@ Deliverable: navigation flows (home -> post/wiki -> tag/archive) fully working.
 - [ ] Preserve item filtering rules (`secret`, `is_noise` etc.).
 - [ ] Preserve campaign/tracking parameter behavior in feed links.
 - [ ] Preserve math image rewriting to white SVG variant for feeds.
+- [ ] Treat feed parity sign-off as blocked until W6 math asset prerequisites are complete.
 - [ ] Validate social-description length guard logic.
 
 Deliverable: feed XML validated + diff-reviewed against baseline.
 
 ## W6 - Math and Media Processing
 
+- [ ] Complete W6 before final W5 feed parity checks.
 - [ ] Port `mathjax: true` content transformation using existing `scripts/tex2svg.js`.
 - [ ] Keep deterministic hash-based caching behavior.
 - [ ] Ensure generated SVG assets are copied to `/assets/math/{transparent,white}/`.
@@ -226,7 +241,7 @@ Deliverable: no broken script imports after cutover.
 
 ## W10 - CI/CD and Deployment
 
-- [ ] Replace Ruby/Jekyll workflow with Scala/Laika workflow in `.github/workflows/*`.
+- [ ] Expand the early PR workflow bootstrap (W0.5) into full Scala/Laika CI/CD ownership in `.github/workflows/*`.
 - [ ] Preserve Node and math cache strategy (or improve with equivalent cache keys).
 - [ ] Keep deployment target behavior stable (current gh-pages / Cloudflare pipeline expectations).
 - [ ] Remove Ruby dependencies only after successful parallel phase.
@@ -235,7 +250,7 @@ Deliverable: green CI for PRs + deploy on main.
 
 ## W11 - Parallel Run, Diffing, and Cutover
 
-- [ ] Run both generators in CI for a period and publish comparison reports.
+- [ ] Run both generators in CI for a period and publish comparison reports using isolated outputs (`_site-jekyll/` vs `_site-laika/`).
 - [ ] Classify diffs into: acceptable, bug, intentional improvement.
 - [ ] Fix blocking diffs (URLs, feeds, metadata, redirects, math, pagination).
 - [ ] Cut over production build to Laika once acceptance gates pass.
@@ -285,20 +300,34 @@ Deliverable: source content no longer depends on legacy Liquid syntax for core f
 - [ ] CSS/JS asset loading has no broken links.
 - [ ] CI and deploy pipeline stable for at least N consecutive main-branch deploys.
 
+### 6.1 Comparator rules (machine-decidable parity)
+
+- [ ] URL inventory parity: exact path-set match after sorting; no missing or extra canonical URLs.
+- [ ] Redirect parity: rule-level semantic match (source pattern, status/type, destination).
+- [ ] Feed parity: XML parsed and compared on semantic fields (`title`, `link`, `guid`, `pubDate`, categories, author, enclosure/media where applicable) ignoring non-semantic whitespace.
+- [ ] HTML parity: normalized DOM comparison for selected golden pages with explicit ignore list:
+  - [ ] ignore whitespace-only text node differences
+  - [ ] ignore attribute ordering differences
+  - [ ] ignore known generated nonces/timestamps/build IDs
+  - [ ] do not ignore URL, metadata, heading IDs, or content text
+
 ---
 
 ## 7) Recommended Execution Order
 
-1. W0 Baseline + W1 Bootstrap
-2. W2 Content ingestion
-3. W3 Templates + W4 Taxonomy/pagination
-4. W5 Feeds
-5. W6/W7 Media + post-processing
-6. W8 Redirect artifacts
-7. W9 Node asset pipeline
-8. W10 CI/CD
-9. W11 Parallel run + cutover
-10. W12 Source canonicalization (deferred)
+1. W0.5 PR workflow bootstrap (first implementation step)
+2. W0 Baseline + W1 Bootstrap
+3. W2 Content ingestion
+4. W3 Templates + W4 Taxonomy/pagination
+5. W5 Feeds
+6. W6 Math/media prerequisites
+7. W5 Feeds final parity pass
+8. W7 Media post-processing
+9. W8 Redirect artifacts
+10. W9 Node asset pipeline
+11. W10 CI/CD full cutover
+12. W11 Parallel run + cutover
+13. W12 Source canonicalization (deferred)
 
 ---
 
@@ -394,8 +423,6 @@ Why this plan: preserves Jekyll as a validation oracle during migration, then al
 - [ ] Keep a thin entry script for commands, but all substantial logic lives in top-level `src/**`.
 - [ ] Avoid a monolithic single-file script architecture.
 
----
-
 ## 12) Laika API Blueprint (Implementation-Level)
 
 This is the concrete API-level picture of what to implement.
@@ -405,7 +432,7 @@ This is the concrete API-level picture of what to implement.
 - [ ] Use Scala-CLI commands as the only build/serve entrypoint.
 - [ ] Keep dependency declarations in the command entry script (or dedicated Scala-CLI directive file), while implementation is split across top-level `src/**`.
 - [ ] Command surface should include at least:
-  - [ ] `build` (render to `_site`)
+  - [ ] `build` (render to `_site-laika` by default)
   - [ ] `serve` (preview server)
   - [ ] `verify` (parity checks against Jekyll output)
 
@@ -428,7 +455,7 @@ val transformer = Transformer
 ```
 
 - [ ] Use `InputTree[IO]` composition (`addDirectory`, `addString`, `addClassResource`) for merging existing sources, generated artifacts, and compatibility-generated docs.
-- [ ] Keep output target `_site/` during migration.
+- [ ] Keep default Laika output target `_site-laika/` during migration; reserve `_site/` for release handoff only.
 
 ### 12.2 Parse/render separation for multi-output workflows
 
@@ -508,6 +535,17 @@ This is the most important migration-specific work that pure Laika docs do not s
   - [ ] Implement only the minimum Laika interpretation needed for parity.
   - [ ] Keep Jekyll build fully functional for side-by-side validation.
   - [ ] Add content linter that reports unresolved/unsupported Liquid constructs.
+  - [ ] Lock a Phase 1 compatibility matrix to avoid scope creep:
+
+| Construct | Phase 1 status | Behavior |
+|---|---|---|
+| `{% link ... %}` | supported | resolve to canonical internal URL or fail with diagnostic |
+| `{% post_url ... %}` | supported | resolve post permalink using post index metadata |
+| `{% include youtube.html ... %}` | supported | map to existing YouTube embed component |
+| `{% raw %}...{% endraw %}` | supported | preserve literal body without Liquid interpretation |
+| `{{ site.* }}`, `{{ page.* }}` (known keys) | supported | substitute from site/page metadata map |
+| unknown `{% include ... %}` | lint-warning | render with compatibility fallback marker + warning |
+| unsupported custom Liquid tags/filters | hard-fail | CI failure in strict mode |
 - [ ] **Phase 2 (after parity approval):** implement deterministic Liquid -> plain HTML marker transformation.
   - [ ] Transform known tags to HTML markers/attributes:
     - [ ] `{% link ... %}`
@@ -562,6 +600,7 @@ This is the most important migration-specific work that pure Laika docs do not s
 - [ ] All 5 feeds validate as XML.
 - [ ] Item order, `<guid>`, `<pubDate>`, category/tag emission, and campaign URLs match expected semantics.
 - [ ] Math image variant switching (transparent vs white) verified in feed content.
+- [ ] Feed comparator runs in semantic mode with explicit normalization rules from section 6.1.
 
 ### Gate C - Content rendering parity
 
@@ -571,6 +610,7 @@ This is the most important migration-specific work that pure Laika docs do not s
   - [ ] legacy HTML posts
   - [ ] wiki pages with heavy `{% link %}` usage
 - [ ] No unresolved Liquid artifacts in rendered HTML.
+- [ ] HTML comparator uses normalized DOM checks with explicit ignore list from section 6.1.
 
 ### Gate D - Asset/runtime behavior
 
@@ -581,5 +621,6 @@ This is the most important migration-specific work that pure Laika docs do not s
 ### Gate E - Operational readiness
 
 - [ ] CI runtime acceptable and stable.
+- [ ] Per-PR GitHub Actions includes a required Scala/Laika build check for migration PRs.
 - [ ] local preview workflow documented.
 - [ ] rollback plan tested at least once.
