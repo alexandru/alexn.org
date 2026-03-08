@@ -1,10 +1,13 @@
-//> using scala "3.3.4"
+//> using scala "3.3.6"
 //> using options "-no-indent", "-rewrite"
-//> using dep "org.typelevel::laika-io:1.2.0"
-//> using dep "org.typelevel::cats-effect:3.5.4"
-//> using dep "org.slf4j:slf4j-nop:2.0.9"
+//> using dep "org.typelevel::laika-io:1.3.2"
+//> using dep "org.typelevel::cats-effect:3.6.3"
+//> using dep "com.monovore::decline-effect:2.6.0"
+//> using dep "org.slf4j:slf4j-nop:2.0.17"
 
-import cats.effect.{IO, IOApp, ExitCode}
+import com.monovore.decline.effect.CommandIOApp
+import com.monovore.decline.{Command, Opts}
+import cats.effect.{IO, ExitCode}
 
 /** Thin Scala-CLI command entrypoint for the Laika build.
   *
@@ -13,8 +16,11 @@ import cats.effect.{IO, IOApp, ExitCode}
   *   scala-cli run build.scala src/ -- serve [--port <port>]
   *   scala-cli run build.scala src/ -- verify
   */
-object Main extends IOApp {
-  def run(args: List[String]): IO[ExitCode] = {
-    Build.run(args)
+object Main extends CommandIOApp(
+  name    = "build",
+  header  = "alexn.org site build tool (Laika)"
+) {
+  override def main: Opts[IO[ExitCode]] = {
+    Build.command
   }
 }

@@ -1,5 +1,6 @@
 import cats.effect.{IO, ExitCode, Resource}
 import cats.syntax.all.*
+import com.monovore.decline.{Command, Opts}
 import laika.api.Transformer
 import laika.format.{Markdown, HTML}
 import laika.io.syntax.*
@@ -10,44 +11,44 @@ import extensions.CompatBundle
 
 /** Main build pipeline orchestration.
   *
-  * Commands:
+  * Subcommands (wired via Decline):
   *   build  -- render all content to _site-laika/ (or --out <dir>)
   *   serve  -- start a local preview server (--port <n>, default 4000)
   *   verify -- compare selected Laika output against Jekyll baseline
   */
 object Build {
 
-  def run(args: List[String]): IO[ExitCode] = {
-    args match {
-      case "build" :: rest  => runBuild(parseOutDir(rest))
-      case "serve" :: rest  => runServe(parsePort(rest))
-      case "verify" :: _    => runVerify()
-      case _                => printUsage *> IO.pure(ExitCode.Error)
+  // ---------------------------------------------------------------------------
+  // CLI model (Decline)
+
+  /** Top-level Decline command exposed to `Main` in `build.scala`. */
+  val command: Opts[IO[ExitCode]] = {
+    Opts.subcommands(buildCmd, serveCmd, verifyCmd)
+  }
+
+  private val buildCmd: Command[IO[ExitCode]] = {
+    val outDir = Opts
+      .option[String]("out", help = "Output directory (default: _site-laika)", short = "o")
+      .withDefault("_site-laika")
+    Command("build", "Render the site to an output directory") {
+      outDir.map(runBuild)
     }
   }
 
-  // ---------------------------------------------------------------------------
-  // Argument helpers
-
-  private def parseOutDir(args: List[String]): String = {
-    val idx = args.indexOf("--out")
-    if (idx >= 0 && idx + 1 < args.length) args(idx + 1)
-    else "_site-laika"
+  private val serveCmd: Command[IO[ExitCode]] = {
+    val port = Opts
+      .option[Int]("port", help = "Port for the preview server (default: 4000)", short = "p")
+      .withDefault(4000)
+    Command("serve", "Start a local preview server") {
+      port.map(runServe)
+    }
   }
 
-  private def parsePort(args: List[String]): Int = {
-    val idx = args.indexOf("--port")
-    if (idx >= 0 && idx + 1 < args.length)
-      args(idx + 1).toIntOption.getOrElse(4000)
-    else 4000
+  private val verifyCmd: Command[IO[ExitCode]] = {
+    Command("verify", "Compare Laika output against Jekyll baseline") {
+      Opts(runVerify())
+    }
   }
-
-  private val printUsage: IO[Unit] = IO.println(
-    """|Usage:
-       |  scala-cli run build.scala src/ -- build  [--out <dir>]
-       |  scala-cli run build.scala src/ -- serve  [--port <port>]
-       |  scala-cli run build.scala src/ -- verify""".stripMargin
-  )
 
   // ---------------------------------------------------------------------------
   // Transformer
@@ -119,3 +120,4 @@ object Build {
     ) *> IO.pure(ExitCode.Success)
   }
 }
+
