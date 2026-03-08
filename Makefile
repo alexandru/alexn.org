@@ -14,6 +14,9 @@ scala-edit:
 scala-compile:
 	scala-cli compile ./build.scala
 
+scala-build:
+	scala-cli ./build.scala -- build --out _site-laika
+
 scala-update-dependencies:
 	scala-cli --power dependency-update ./build.scala --all
 
