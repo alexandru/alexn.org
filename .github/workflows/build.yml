@@ -61,4 +61,4 @@ jobs:
 
       - name: Validate Laika scaffold
         run: |
-          scala-cli run --server=false build.scala -- build --out _site-laika
+          scala-cli run --server=false build.scala -- verify --out _site-laika
