@@ -12,10 +12,10 @@ scala-edit:
 	code . --goto ./build.scala	
 
 scala-compile:
-	./scala compile ./build.scala ./src/
+	./scala compile ./build.scala
 
 scala-build:
-	./scala ./build.scala ./src/ -- build --out _site-laika
+	./scala ./build.scala -- build --out _site-laika
 
 scala-update-dependencies:
 	./scala --power dependency-update ./build.scala --all

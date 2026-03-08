@@ -21,11 +21,6 @@ object Build {
   // ---------------------------------------------------------------------------
   // CLI model (Decline)
 
-  /** Top-level Decline command exposed to `Main` in `build.scala`. */
-  val command: Opts[IO[ExitCode]] = {
-    Opts.subcommands(buildCmd, serveCmd, verifyCmd)
-  }
-
   private val buildCmd: Command[IO[ExitCode]] = {
     val outDir = Opts
       .option[String]("out", help = "Output directory (default: _site-laika)", short = "o")
@@ -48,6 +43,11 @@ object Build {
     Command("verify", "Compare Laika output against Jekyll baseline") {
       Opts(runVerify())
     }
+  }
+
+  /** Top-level Decline command exposed to `Main` in `build.scala`. */
+  val command: Opts[IO[ExitCode]] = {
+    Opts.subcommands(buildCmd, serveCmd, verifyCmd)
   }
 
   // ---------------------------------------------------------------------------

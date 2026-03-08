@@ -1,5 +1,6 @@
 //> using scala "3.8.2"
 //> using options "-no-indent" "-rewrite"
+//> using files "./src/"
 //> using dep "org.typelevel::laika-io:1.3.2"
 //> using dep "org.typelevel::cats-effect:3.6.3"
 //> using dep "com.monovore::decline-effect:2.6.0"
@@ -12,9 +13,9 @@ import cats.effect.{IO, ExitCode}
 /** Thin Scala-CLI command entrypoint for the Laika build.
   *
   * Run with:
-  *   scala-cli run build.scala src/ -- build [--out <dir>]
-  *   scala-cli run build.scala src/ -- serve [--port <port>]
-  *   scala-cli run build.scala src/ -- verify
+  *   ./scala build.scala -- build [--out <dir>]
+  *   ./scala build.scala -- serve [--port <port>]
+  *   ./scala build.scala -- verify
   */
 object Main extends CommandIOApp(
   name    = "build",
