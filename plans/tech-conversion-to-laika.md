@@ -141,7 +141,7 @@ Deliverable: all migration PRs run a Scala/Laika build job in CI from day one.
 - [x] Initialize Scala-CLI + Laika project and wire CLI tasks (e.g. `scala-cli run build.scala -- build --out _site-laika`).
 - [x] Ensure code organization from day one (`src/**`), avoiding a monolithic root script.
 - [x] Configure Scala version to Scala 3 and set compiler options to `--no-indent --rewrite` in Scala-CLI directives.
-- [ ] Configure site-wide metadata (`title`, `description`, author links, domain/url/baseurl semantics).
+- [x] Configure site-wide metadata (`title`, `description`, author links, domain/url/baseurl semantics).
 - [x] Ensure static file passthrough works (`assets`, `.well-known`, `CNAME`, `robots.txt`, etc.).
 - [x] Add dev-mode command for local preview (e.g. `scala-cli run build.scala -- serve --port 4000`).
 
@@ -149,11 +149,11 @@ Deliverable: minimal Laika build producing homepage shell and static assets.
 
 ## W2 - Content Ingestion and Front Matter Compatibility
 
-- [ ] Map `_posts/` to blog document tree with correct dates and URL schema.
-- [ ] Map `_wiki/` to wiki document tree with `/wiki/:title/` URLs.
-- [ ] Support existing front matter fields used by templates/logic.
-- [ ] Implement migration-safe parser behavior for date formats currently present in repo.
-- [ ] Preserve markdown rendering characteristics needed by existing content.
+- [x] Map `_posts/` to blog document tree with correct dates and URL schema.
+- [x] Map `_wiki/` to wiki document tree with `/wiki/:title/` URLs.
+- [x] Support existing front matter fields used by templates/logic.
+- [x] Implement migration-safe parser behavior for date formats currently present in repo.
+- [x] Preserve markdown rendering characteristics needed by existing content.
 
 Deliverable: documents render with correct URLs and metadata.
 
