@@ -40,7 +40,9 @@ object PreviewServer {
           override def handle(exchange: HttpExchange): Unit = {
             dispatcher.unsafeRunAndForget {
               handleRequest(rootDirectory, exchange).handleErrorWith { error =>
-                IO.println(s"Error while handling request ${exchange.getRequestURI}: ${error.getMessage}")
+                IO.println(
+                  s"Error while handling request ${exchange.getRequestURI}: ${error.getMessage}"
+                )
               }
             }
           }
@@ -78,7 +80,7 @@ object PreviewServer {
     val sanitized = requestPath.stripPrefix("/")
     val base = rootDirectory.resolve(sanitized).normalize()
     val nestedIndex =
-      if (sanitized.isEmpty) {
+      if sanitized.isEmpty then {
         rootDirectory.resolve("index.html").normalize()
       } else {
         rootDirectory.resolve(sanitized).resolve("index.html").normalize()
@@ -93,13 +95,13 @@ object PreviewServer {
     candidates.foldLeft(IO.pure(Option.empty[(Int, Path)])) { (acc, candidate) =>
       acc.flatMap {
         case some @ Some(_) => IO.pure(some)
-        case None =>
-          if (!candidate.startsWith(rootDirectory)) {
+        case None           =>
+          if !candidate.startsWith(rootDirectory) then {
             IO.pure(None)
           } else {
             IO.blocking(Files.isRegularFile(candidate)).map { exists =>
-              if (exists) {
-                val status = if (candidate == rootDirectory.resolve("404.html")) 404 else 200
+              if exists then {
+                val status = if candidate == rootDirectory.resolve("404.html") then 404 else 200
                 Some(status -> candidate)
               } else {
                 None
@@ -113,29 +115,29 @@ object PreviewServer {
   private def contentType(path: Path): String = {
     val name = path.getFileName.toString
 
-    if (name.endsWith(".html")) {
+    if name.endsWith(".html") then {
       "text/html; charset=utf-8"
-    } else if (name.endsWith(".css")) {
+    } else if name.endsWith(".css") then {
       "text/css; charset=utf-8"
-    } else if (name.endsWith(".js")) {
+    } else if name.endsWith(".js") then {
       "application/javascript; charset=utf-8"
-    } else if (name.endsWith(".json")) {
+    } else if name.endsWith(".json") then {
       "application/json; charset=utf-8"
-    } else if (name.endsWith(".webmanifest")) {
+    } else if name.endsWith(".webmanifest") then {
       "application/manifest+json; charset=utf-8"
-    } else if (name.endsWith(".xml")) {
+    } else if name.endsWith(".xml") then {
       "application/xml; charset=utf-8"
-    } else if (name.endsWith(".svg")) {
+    } else if name.endsWith(".svg") then {
       "image/svg+xml"
-    } else if (name.endsWith(".png")) {
+    } else if name.endsWith(".png") then {
       "image/png"
-    } else if (name.endsWith(".jpg") || name.endsWith(".jpeg")) {
+    } else if name.endsWith(".jpg") || name.endsWith(".jpeg") then {
       "image/jpeg"
-    } else if (name.endsWith(".webp")) {
+    } else if name.endsWith(".webp") then {
       "image/webp"
-    } else if (name.endsWith(".ico")) {
+    } else if name.endsWith(".ico") then {
       "image/x-icon"
-    } else if (name.endsWith(".txt")) {
+    } else if name.endsWith(".txt") then {
       "text/plain; charset=utf-8"
     } else {
       "application/octet-stream"

@@ -17,6 +17,9 @@ scala-compile:
 scala-build:
 	./scala run --server=false ./build.scala -- build --out _site-laika
 
+scala-format:
+	./scala fmt --server=false build.scala ./src
+
 scala-update-dependencies:
 	./scala --power dependency-update ./build.scala --all
 

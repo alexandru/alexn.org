@@ -71,7 +71,7 @@ object SiteBuilder {
   private def writeUtf8(path: Path, content: String): IO[Unit] = {
     IO.blocking {
       val parent = path.getParent
-      if (parent != null) {
+      if parent != null then {
         Files.createDirectories(parent)
       }
       Files.writeString(path, content, StandardCharsets.UTF_8)
@@ -80,29 +80,40 @@ object SiteBuilder {
 
   private def copyPath(source: Path, target: Path): IO[Unit] = {
     IO.blocking {
-      if (Files.isDirectory(source)) {
-        Files.walkFileTree(source, new SimpleFileVisitor[Path] {
-          override def preVisitDirectory(dir: Path, attrs: BasicFileAttributes): FileVisitResult = {
-            Files.createDirectories(target.resolve(source.relativize(dir)))
-            FileVisitResult.CONTINUE
-          }
+      if Files.isDirectory(source) then {
+        Files.walkFileTree(
+          source,
+          new SimpleFileVisitor[Path] {
+            override def preVisitDirectory(
+                dir: Path,
+                attrs: BasicFileAttributes
+            ): FileVisitResult = {
+              Files.createDirectories(target.resolve(source.relativize(dir)))
+              FileVisitResult.CONTINUE
+            }
 
-          override def visitFile(file: Path, attrs: BasicFileAttributes): FileVisitResult = {
-            Files.copy(
-              file,
-              target.resolve(source.relativize(file)),
-              StandardCopyOption.REPLACE_EXISTING,
-              StandardCopyOption.COPY_ATTRIBUTES
-            )
-            FileVisitResult.CONTINUE
+            override def visitFile(file: Path, attrs: BasicFileAttributes): FileVisitResult = {
+              Files.copy(
+                file,
+                target.resolve(source.relativize(file)),
+                StandardCopyOption.REPLACE_EXISTING,
+                StandardCopyOption.COPY_ATTRIBUTES
+              )
+              FileVisitResult.CONTINUE
+            }
           }
-        })
+        )
       } else {
         val parent = target.getParent
-        if (parent != null) {
+        if parent != null then {
           Files.createDirectories(parent)
         }
-        Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.COPY_ATTRIBUTES)
+        Files.copy(
+          source,
+          target,
+          StandardCopyOption.REPLACE_EXISTING,
+          StandardCopyOption.COPY_ATTRIBUTES
+        )
       }
     }.void
   }
@@ -110,17 +121,23 @@ object SiteBuilder {
   private def deleteIfExists(path: Path): IO[Unit] = {
     pathExists(path).ifM(
       IO.blocking {
-        Files.walkFileTree(path, new SimpleFileVisitor[Path] {
-          override def visitFile(file: Path, attrs: BasicFileAttributes): FileVisitResult = {
-            Files.delete(file)
-            FileVisitResult.CONTINUE
-          }
+        Files.walkFileTree(
+          path,
+          new SimpleFileVisitor[Path] {
+            override def visitFile(file: Path, attrs: BasicFileAttributes): FileVisitResult = {
+              Files.delete(file)
+              FileVisitResult.CONTINUE
+            }
 
-          override def postVisitDirectory(dir: Path, exc: java.io.IOException): FileVisitResult = {
-            Files.delete(dir)
-            FileVisitResult.CONTINUE
+            override def postVisitDirectory(
+                dir: Path,
+                exc: java.io.IOException
+            ): FileVisitResult = {
+              Files.delete(dir)
+              FileVisitResult.CONTINUE
+            }
           }
-        })
+        )
       }.void,
       IO.unit
     )
@@ -129,16 +146,16 @@ object SiteBuilder {
   private def renderShell(page: SitePage, body: String): String = {
     val pageTitle = page.title
     val title =
-      if (pageTitle == "Home") {
+      if pageTitle == "Home" then {
         SiteConfig.title
       } else {
         s"$pageTitle · ${SiteConfig.title}"
       }
 
     val canonicalPath =
-      if (page.outputPath == "index.html") {
+      if page.outputPath == "index.html" then {
         "/"
-      } else if (page.outputPath == "404.html") {
+      } else if page.outputPath == "404.html" then {
         "/404.html"
       } else {
         s"/${page.outputPath.stripSuffix("index.html")}"

@@ -51,8 +51,8 @@ object Main extends IOApp {
   private val command =
     Command("alexn.org", "Scala-CLI entrypoint for the alexn.org Laika migration scaffold") {
       Opts.subcommands(
-        buildCommand, 
-        serveCommand, 
+        buildCommand,
+        serveCommand,
         verifyCommand
       )
     }
@@ -76,13 +76,17 @@ object Main extends IOApp {
           PreviewServer
             .serve(outputDirectory, port)
             .use { boundPort =>
-              IO.println(s"Serving ${outputDirectory.toAbsolutePath.normalize()} at http://127.0.0.1:$boundPort") *>
+              IO.println(
+                s"Serving ${outputDirectory.toAbsolutePath.normalize()} at http://127.0.0.1:$boundPort"
+              ) *>
                 IO.never
             }
       case AppCommand.Verify(outputDirectory) =>
         SiteBuilder.build(outputDirectory) *>
           SiteVerifier.verify(outputDirectory) *>
-          IO.println(s"Verified Laika scaffold output in ${outputDirectory.toAbsolutePath.normalize()}")
+          IO.println(
+            s"Verified Laika scaffold output in ${outputDirectory.toAbsolutePath.normalize()}"
+          )
     }
   }
 }

@@ -43,7 +43,8 @@ object SiteConfig {
     SitePage(
       title = "Blog",
       outputPath = "blog/index.html",
-      markdown = """# Blog
+      markdown =
+        """# Blog
                     |
                     |Blog post ingestion from `_posts/` has not been ported yet.
                     |
@@ -53,7 +54,8 @@ object SiteConfig {
     SitePage(
       title = "Wiki",
       outputPath = "wiki/index.html",
-      markdown = """# Wiki
+      markdown =
+        """# Wiki
                     |
                     |Wiki ingestion from `_wiki/` is planned in the next migration slices.
                     |
@@ -73,7 +75,8 @@ object SiteConfig {
     SitePage(
       title = "Subscribe",
       outputPath = "subscribe/index.html",
-      markdown = """# Subscribe
+      markdown =
+        """# Subscribe
                     |
                     |Subscription flows have not been ported yet.
                     |
