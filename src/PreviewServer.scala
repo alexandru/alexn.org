@@ -1,0 +1,154 @@
+package alexn.build
+
+import cats.effect.IO
+import cats.effect.Resource
+import cats.effect.std.Dispatcher
+import com.sun.net.httpserver.HttpExchange
+import com.sun.net.httpserver.HttpHandler
+import com.sun.net.httpserver.HttpServer
+
+import java.net.InetSocketAddress
+import java.nio.file.Files
+import java.nio.file.Path
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
+
+object PreviewServer {
+  def serve(rootDirectory: Path, port: Int): Resource[IO, Int] = {
+    Dispatcher.parallel[IO].flatMap { dispatcher =>
+      val normalizedRoot = rootDirectory.toAbsolutePath.normalize()
+
+      for {
+        executor <- Resource.make(IO.blocking(Executors.newCachedThreadPool()))(shutdownExecutor)
+        server <- Resource.make(start(normalizedRoot, port, dispatcher, executor))(stopServer)
+      } yield server.getAddress.getPort
+    }
+  }
+
+  private def start(
+      rootDirectory: Path,
+      port: Int,
+      dispatcher: Dispatcher[IO],
+      executor: ExecutorService
+  ): IO[HttpServer] = {
+    IO.blocking {
+      val server = HttpServer.create(new InetSocketAddress(port), 0)
+      server.setExecutor(executor)
+      server.createContext(
+        "/",
+        new HttpHandler {
+          override def handle(exchange: HttpExchange): Unit = {
+            dispatcher.unsafeRunAndForget {
+              handleRequest(rootDirectory, exchange).handleErrorWith { error =>
+                IO.println(
+                  s"Error while handling request ${exchange.getRequestURI}: ${error.getMessage}"
+                )
+              }
+            }
+          }
+        }
+      )
+      server.start()
+      server
+    }
+  }
+
+  private def handleRequest(rootDirectory: Path, exchange: HttpExchange): IO[Unit] = {
+    val requestPath = Option(exchange.getRequestURI.getPath).getOrElse("/")
+
+    resolveTarget(rootDirectory, requestPath).flatMap {
+      case Some((status, target)) =>
+        for {
+          bytes <- IO.blocking(Files.readAllBytes(target))
+          _ <- IO.blocking(exchange.getResponseHeaders.set("Content-Type", contentType(target)))
+          _ <- IO.blocking(exchange.sendResponseHeaders(status, bytes.length.toLong))
+          _ <- IO.blocking {
+            val output = exchange.getResponseBody
+            try {
+              output.write(bytes)
+            } finally {
+              output.close()
+            }
+          }
+        } yield ()
+      case None =>
+        IO.blocking(exchange.sendResponseHeaders(404, -1)).void
+    }.guarantee(IO.blocking(exchange.close()).void)
+  }
+
+  private def resolveTarget(rootDirectory: Path, requestPath: String): IO[Option[(Int, Path)]] = {
+    val sanitized = requestPath.stripPrefix("/")
+    val base = rootDirectory.resolve(sanitized).normalize()
+    val nestedIndex =
+      if sanitized.isEmpty then {
+        rootDirectory.resolve("index.html").normalize()
+      } else {
+        rootDirectory.resolve(sanitized).resolve("index.html").normalize()
+      }
+    val candidates = List(
+      base,
+      base.resolve("index.html"),
+      nestedIndex,
+      rootDirectory.resolve("404.html").normalize()
+    ).distinct
+
+    candidates.foldLeft(IO.pure(Option.empty[(Int, Path)])) { (acc, candidate) =>
+      acc.flatMap {
+        case some @ Some(_) => IO.pure(some)
+        case None           =>
+          if !candidate.startsWith(rootDirectory) then {
+            IO.pure(None)
+          } else {
+            IO.blocking(Files.isRegularFile(candidate)).map { exists =>
+              if exists then {
+                val status = if candidate == rootDirectory.resolve("404.html") then 404 else 200
+                Some(status -> candidate)
+              } else {
+                None
+              }
+            }
+          }
+      }
+    }
+  }
+
+  private def contentType(path: Path): String = {
+    val name = path.getFileName.toString
+
+    if name.endsWith(".html") then {
+      "text/html; charset=utf-8"
+    } else if name.endsWith(".css") then {
+      "text/css; charset=utf-8"
+    } else if name.endsWith(".js") then {
+      "application/javascript; charset=utf-8"
+    } else if name.endsWith(".json") then {
+      "application/json; charset=utf-8"
+    } else if name.endsWith(".webmanifest") then {
+      "application/manifest+json; charset=utf-8"
+    } else if name.endsWith(".xml") then {
+      "application/xml; charset=utf-8"
+    } else if name.endsWith(".svg") then {
+      "image/svg+xml"
+    } else if name.endsWith(".png") then {
+      "image/png"
+    } else if name.endsWith(".jpg") || name.endsWith(".jpeg") then {
+      "image/jpeg"
+    } else if name.endsWith(".webp") then {
+      "image/webp"
+    } else if name.endsWith(".ico") then {
+      "image/x-icon"
+    } else if name.endsWith(".txt") then {
+      "text/plain; charset=utf-8"
+    } else {
+      "application/octet-stream"
+    }
+  }
+
+  private def stopServer(server: HttpServer): IO[Unit] = {
+    IO.blocking(server.stop(0)).void
+  }
+
+  private def shutdownExecutor(executor: ExecutorService): IO[Unit] = {
+    IO.blocking(executor.shutdown()).void
+  }
+}

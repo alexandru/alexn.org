@@ -13,10 +13,10 @@ Reference material:
 - [ ] **No broken URLs**: keep existing permalinks and redirects stable.
 - [ ] **No regressions in published output**: preserve page structure, metadata, feeds, and UX.
 - [ ] **Incremental cutover**: run Jekyll and Laika builds in parallel before switching production.
-- [ ] **Early CI coverage for migration PRs**: update per-PR GitHub Actions first so every migration PR exercises `build.scala`, even before feature parity.
+- [x] **Early CI coverage for migration PRs**: update per-PR GitHub Actions first so every migration PR exercises `build.scala`, even before feature parity.
 - [ ] **Preserve author workflow**: replace helper scripts (`scripts/add-blog`, `scripts/add-wiki`, etc.) with equivalent Scala tooling or keep wrappers.
 - [ ] **Make behavior explicit**: every Jekyll plugin/filter/custom include gets mapped to a named Laika extension or build step.
-- [ ] **Toolchain lock**: use Scala 3 and compile with `--no-indent --rewrite` options.
+- [x] **Toolchain lock**: use Scala 3 and compile with `--no-indent --rewrite` options.
 
 ---
 
@@ -86,8 +86,8 @@ Front matter keys currently in active use include (not exhaustive):
 
 ### 3.1 Build topology
 
-- [ ] Use **Scala-CLI** as the build runner (`scala-cli run ...`), not `sbt`.
-- [ ] Keep a thin command entrypoint script at repo root (`build.scala`) and place implementation code under top-level `src/**`.
+- [x] Use **Scala-CLI** as the build runner (`scala-cli run ...`), not `sbt`.
+- [x] Keep a thin command entrypoint script at repo root (`build.scala`) and place implementation code under top-level `src/**`.
 - [ ] Define Laika input trees for posts, wiki, docs/pages, and static assets.
 - [ ] Use separate output roots during migration to avoid artifact collision:
   - [ ] Jekyll output: `_site-jekyll/`
@@ -129,21 +129,21 @@ Deliverable: reproducible baseline artifact and acceptance script.
 
 ## W0.5 - PR Workflow Bootstrap (First Step)
 
-- [ ] Update `.github/workflows/build.yml` immediately so `pull_request` runs a Scala/Laika build validation job.
-- [ ] Wire a minimal command that must execute on PRs (even if functionality is still a scaffold), e.g. `scala-cli run build.scala -- build --out _site-laika`.
-- [ ] Keep existing Jekyll checks intact while migration is in progress.
-- [ ] Keep this strictly validation-only for PRs: do not deploy Laika output from this workflow stage.
+- [x] Update `.github/workflows/build.yml` immediately so `pull_request` runs a Scala/Laika build validation job.
+- [x] Wire a minimal command that must execute on PRs (even if functionality is still a scaffold), e.g. `scala-cli run build.scala -- build --out _site-laika`.
+- [x] Keep existing Jekyll checks intact while migration is in progress.
+- [x] Keep this strictly validation-only for PRs: do not deploy Laika output from this workflow stage.
 
 Deliverable: all migration PRs run a Scala/Laika build job in CI from day one.
 
 ## W1 - Bootstrap Laika Build
 
-- [ ] Initialize Scala-CLI + Laika project and wire CLI tasks (e.g. `scala-cli run build.scala -- build --out _site-laika`).
-- [ ] Ensure code organization from day one (`src/**`), avoiding a monolithic root script.
-- [ ] Configure Scala version to Scala 3 and set compiler options to `--no-indent --rewrite` in Scala-CLI directives.
+- [x] Initialize Scala-CLI + Laika project and wire CLI tasks (e.g. `scala-cli run build.scala -- build --out _site-laika`).
+- [x] Ensure code organization from day one (`src/**`), avoiding a monolithic root script.
+- [x] Configure Scala version to Scala 3 and set compiler options to `--no-indent --rewrite` in Scala-CLI directives.
 - [ ] Configure site-wide metadata (`title`, `description`, author links, domain/url/baseurl semantics).
-- [ ] Ensure static file passthrough works (`assets`, `.well-known`, `CNAME`, `robots.txt`, etc.).
-- [ ] Add dev-mode command for local preview (e.g. `scala-cli run build.scala -- serve --port 4000`).
+- [x] Ensure static file passthrough works (`assets`, `.well-known`, `CNAME`, `robots.txt`, etc.).
+- [x] Add dev-mode command for local preview (e.g. `scala-cli run build.scala -- serve --port 4000`).
 
 Deliverable: minimal Laika build producing homepage shell and static assets.
 
@@ -418,10 +418,10 @@ Why this plan: preserves Jekyll as a validation oracle during migration, then al
 
 ### D5 - Build tool and code organization
 
-- [ ] **Decision:** use Scala-CLI as the build driver.
-- [ ] **Decision:** standardize on Scala 3 with scalac options `--no-indent --rewrite`.
-- [ ] Keep a thin entry script for commands, but all substantial logic lives in top-level `src/**`.
-- [ ] Avoid a monolithic single-file script architecture.
+- [x] **Decision:** use Scala-CLI as the build driver.
+- [x] **Decision:** standardize on Scala 3 with scalac options `--no-indent --rewrite`.
+- [x] Keep a thin entry script for commands, but all substantial logic lives in top-level `src/**`.
+- [x] Avoid a monolithic single-file script architecture.
 
 ## 12) Laika API Blueprint (Implementation-Level)
 
@@ -429,11 +429,11 @@ This is the concrete API-level picture of what to implement.
 
 ### 12.0 Scala-CLI execution model
 
-- [ ] Use Scala-CLI commands as the only build/serve entrypoint.
-- [ ] Keep dependency declarations in the command entry script (or dedicated Scala-CLI directive file), while implementation is split across top-level `src/**`.
+- [x] Use Scala-CLI commands as the only build/serve entrypoint.
+- [x] Keep dependency declarations in the command entry script (or dedicated Scala-CLI directive file), while implementation is split across top-level `src/**`.
 - [ ] Command surface should include at least:
-  - [ ] `build` (render to `_site-laika` by default)
-  - [ ] `serve` (preview server)
+  - [x] `build` (render to `_site-laika` by default)
+  - [x] `serve` (preview server)
   - [ ] `verify` (parity checks against Jekyll output)
 
 ### 12.1 Core build pipeline (cats-effect + laika-io)
@@ -566,8 +566,8 @@ This is the most important migration-specific work that pure Laika docs do not s
 
 ## 14) Repository Layout Proposal for Laika Migration Code
 
-- [ ] `build.scala` at repo root as a **thin Scala-CLI command entrypoint** (CLI wiring + dependencies only).
-- [ ] Keep source layout flat under top-level `src/` (no `src/main/scala`, no org-style nesting).
+- [x] `build.scala` at repo root as a **thin Scala-CLI command entrypoint** (CLI wiring + dependencies only).
+- [x] Keep source layout flat under top-level `src/` (no `src/main/scala`, no org-style nesting).
 - [ ] `src/Build.scala` (pipeline orchestration).
 - [ ] `src/extensions/`:
   - [ ] `CompatBundle.scala`
@@ -583,8 +583,8 @@ This is the most important migration-specific work that pure Laika docs do not s
   - [ ] `default.template.html`
   - [ ] page/post/wiki/feed templates
 - [ ] Keep static assets at top level (`assets/`, `feeds/`, `docs/`, root files) and wire them via `InputTree.addDirectory(...)` mappings.
-- [ ] `src/` is reserved for Scala source files and template code only.
-- [ ] No `sbt` files required for the migration path.
+- [x] `src/` is reserved for Scala source files and template code only.
+- [x] No `sbt` files required for the migration path.
 
 ---
 

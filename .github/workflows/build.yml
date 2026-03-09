@@ -1,8 +1,6 @@
 name: build
 on:
   pull_request:
-    branches:
-      - "main"
 
 jobs:
   build:
@@ -42,3 +40,23 @@ jobs:
           ./scripts/build
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  laika-scaffold:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Scala CLI
+        uses: VirtusLab/scala-cli-setup@v1
+
+      - name: Check build
+        run: |
+          scala-cli compile --server=false ./build.scala
+
+      - name: Validate Laika scaffold
+        run: |
+          scala-cli run --server=false build.scala -- verify --out _site-laika
