@@ -314,7 +314,8 @@ object ContentLoader {
   private def renderYamlScalar(value: Any, rawValue: Option[String]): String = {
     value match {
       case null                 => ""
-      case _: java.util.Date    => rawValue.getOrElse(value.toString)
+      case date: java.util.Date =>
+        rawValue.getOrElse(date.toInstant.atOffset(ZoneOffset.UTC).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME))
       case other                => other.toString.trim
     }
   }
@@ -408,7 +409,8 @@ object ContentLoader {
 
   private def tryParseLocalDate(value: String): Option[OffsetDateTime] = {
     try {
-      Some(LocalDate.parse(value, DateTimeFormatter.ISO_LOCAL_DATE).atTime(LocalTime.MIDNIGHT).atOffset(ZoneOffset.UTC))
+      val parsed = LocalDate.parse(value, DateTimeFormatter.ISO_LOCAL_DATE)
+      Some(parsed.atTime(LocalTime.MIDNIGHT).atOffset(ZoneOffset.UTC))
     } catch {
       case _: DateTimeParseException => None
     }
@@ -499,7 +501,7 @@ object ContentLoader {
       .getOrElse {
         val cleaned = normalized.stripPrefix("/")
         if cleaned.startsWith("_posts/") || cleaned.startsWith("_wiki/") then {
-          lookups.legacyLinks.getOrElse(cleaned, s"/$cleaned")
+          throw new IllegalStateException(s"Unresolved legacy content link: $rawTarget")
         } else {
           s"/$cleaned"
         }

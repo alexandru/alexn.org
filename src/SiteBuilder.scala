@@ -288,7 +288,7 @@ object SiteBuilder {
   }
 
   private def stripKramdownAttributes(content: String): String =
-    content.replaceAll("""\{:\s*[^}]+\}""", "")
+    content.replaceAll("""(?m)(\))\{:\s*[^}]+\}""", "$1")
 
   private def expandMarkdownInHtmlBlocks(content: String): IO[String] = {
     val pattern = """(?s)<p([^>]*)\smarkdown=['"]1['"]([^>]*)>(.*?)</p>""".r
@@ -298,7 +298,7 @@ object SiteBuilder {
       .foldLeft(IO.pure(List.empty[(scala.util.matching.Regex.Match, String)])) { (acc, matched) =>
         acc.flatMap { replacements =>
           renderInlineMarkdown(matched.group(3)).map { rendered =>
-            val attributes = s"${matched.group(1)} ${matched.group(2)}".replaceAll("""\s+""", " ").trim
+            val attributes = normalizeHtmlAttributes(matched.group(1), matched.group(2))
             val openTag =
               if attributes.isBlank then {
                 "<p>"
@@ -332,6 +332,9 @@ object SiteBuilder {
       )
     ).map(stripOuterParagraph)
   }
+
+  private def normalizeHtmlAttributes(left: String, right: String): String =
+    s"$left $right".replaceAll("""\s+""", " ").trim
 
   private def stripOuterParagraph(content: String): String = {
     val trimmed = content.trim
