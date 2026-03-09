@@ -1,3 +1,5 @@
+#!/usr/bin/env -S scala shebang
+
 //> using scala "3.8.2"
 //> using options "--no-indent"
 //> using options "--rewrite"
