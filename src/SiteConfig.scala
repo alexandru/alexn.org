@@ -1,18 +1,37 @@
 package alexn.build
 
-final case class SiteLink(label: String, href: String)
-final case class SitePage(title: String, outputPath: String, markdown: String)
-
 object SiteConfig {
-  val title = "Alexandru Nedelcu"
-  val description = "On programming and personal projects"
-  val domain = "https://alexn.org"
+  val metadata = SiteMetadata(
+    title = "Alexandru Nedelcu",
+    description = "On programming and personal projects",
+    domain = "alexn.org",
+    url = "https://alexn.org",
+    baseurl = "",
+    author = SiteAuthor(
+      name = "Alexandru Nedelcu",
+      github = "https://github.com/alexandru",
+      linkedin = "https://www.linkedin.com/in/alexelcu/",
+      mastodon = "https://mastodon.social/@alexelcu",
+      bluesky = "https://bsky.app/profile/alexn.org"
+    )
+  )
+
+  val title = metadata.title
+  val description = metadata.description
+  val domain = metadata.domain
 
   val navigation = List(
-    SiteLink("Blog", "/blog/"),
-    SiteLink("Wiki", "/wiki/"),
-    SiteLink("About", "/about/"),
-    SiteLink("Subscribe", "/subscribe/")
+    SiteLink("Blog", metadata.sitePath("/blog/")),
+    SiteLink("Wiki", metadata.sitePath("/wiki/")),
+    SiteLink("About", metadata.sitePath("/about/")),
+    SiteLink("Subscribe", metadata.sitePath("/subscribe/"))
+  )
+
+  val authorLinks = List(
+    SiteLink("GitHub", metadata.author.github),
+    SiteLink("LinkedIn", metadata.author.linkedin),
+    SiteLink("Mastodon", metadata.author.mastodon),
+    SiteLink("Bluesky", metadata.author.bluesky)
   )
 
   val staticInputs = List(
@@ -27,71 +46,70 @@ object SiteConfig {
     "_redirects"
   )
 
-  val pages = List(
+  val staticPages = List(
     SitePage(
       title = "Home",
       outputPath = "index.html",
-      markdown = s"""# $title
-                    |
-                    |$description
-                    |
-                    |The Laika migration is now bootstrapped in this repository. This scaffold keeps static assets available while the Jekyll layouts, collections, and feeds are ported incrementally.
-                    |
-                    |Use the navigation links above to preview the first generated pages.
-                    |""".stripMargin
-    ),
-    SitePage(
-      title = "Blog",
-      outputPath = "blog/index.html",
-      markdown =
-        """# Blog
-                    |
-                    |Blog post ingestion from `_posts/` has not been ported yet.
-                    |
-                    |This placeholder page exists so the new Scala-CLI build has a stable route to validate in CI while the migration continues.
-                    |""".stripMargin
-    ),
-    SitePage(
-      title = "Wiki",
-      outputPath = "wiki/index.html",
-      markdown =
-        """# Wiki
-                    |
-                    |Wiki ingestion from `_wiki/` is planned in the next migration slices.
-                    |
-                    |For now the Laika scaffold exposes the route and static assets needed for incremental work.
-                    |""".stripMargin
+      content = s"""# ${metadata.title}
+                   |
+                   |${metadata.description}
+                   |
+                   |The Laika migration now ingests the blog and wiki source trees directly from this repository while layout and feed parity continue in later milestones.
+                   |
+                   |Use the navigation links above to browse the generated blog and wiki indexes.
+                   |""".stripMargin,
+      description = Some(metadata.description)
     ),
     SitePage(
       title = "About",
       outputPath = "about/index.html",
-      markdown = s"""# About
-                    |
-                    |$title is migrating this site from Jekyll to Laika in small verified steps.
-                    |
-                    |The existing published site remains powered by Jekyll until output parity checks pass.
-                    |""".stripMargin
+      content = s"""# About
+                   |
+                   |${metadata.author.name} is migrating this site from Jekyll to Laika in small verified steps.
+                   |
+                   |The existing published site remains powered by Jekyll until output parity checks pass.
+                   |""".stripMargin
     ),
     SitePage(
       title = "Subscribe",
       outputPath = "subscribe/index.html",
-      markdown =
+      content =
         """# Subscribe
-                    |
-                    |Subscription flows have not been ported yet.
-                    |
-                    |This page is intentionally minimal while the migration scaffolding is being wired into CI.
-                    |""".stripMargin
+          |
+          |Subscription flows have not been ported yet.
+          |
+          |This page is intentionally minimal while the migration scaffolding is being wired into CI.
+          |""".stripMargin
     ),
     SitePage(
       title = "Not Found",
       outputPath = "404.html",
-      markdown = """# Page not found
-                    |
-                    |The requested path does not exist in the Laika scaffold output yet.
-                    |
-                    |Try returning to the [home page](https://alexn.org/).
-                    |""".stripMargin
+      content = """# Page not found
+                  |
+                  |The requested path does not exist in the Laika scaffold output yet.
+                  |
+                  |Try returning to the [home page](/).
+                  |""".stripMargin,
+      canonicalPath = Some("/404.html")
+    )
+  )
+
+  val postDefaults = FrontMatter(
+    Map(
+      "layout" -> FrontMatterValue.Text("post"),
+      "has_contributions" -> FrontMatterValue.BooleanValue(true),
+      "has_comments" -> FrontMatterValue.BooleanValue(true),
+      "nav_id" -> FrontMatterValue.Text("/blog/")
+    )
+  )
+
+  val wikiDefaults = FrontMatter(
+    Map(
+      "layout" -> FrontMatterValue.Text("wiki"),
+      "has_contributions" -> FrontMatterValue.BooleanValue(true),
+      "has_comments" -> FrontMatterValue.BooleanValue(true),
+      "nav_id" -> FrontMatterValue.Text("/wiki/"),
+      "description" -> FrontMatterValue.Text("Personal, volatile wiki documentation")
     )
   )
 }
