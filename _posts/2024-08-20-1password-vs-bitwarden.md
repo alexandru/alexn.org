@@ -84,3 +84,11 @@ As downsides for Bitwarden:
 I've tried self-hosting Vaultwarden, the clone, via my Docker-enabled server, and it was effortless to install, and the running process very efficient. I'm impressed, that's how all FOSS projects meant for self-hosting should be. Furthermore, I want more stuff built with Rust + SQLite. The Fediverse should take notes 😉
 
 For me, Bitwarden's Open-Source nature almost makes up for the above deficiencies. Almost, but not quite. I can see myself using Bitwarden, if I were solo, but I'm trying to get my family to use password managers, and right now the UX makes that difficult. I'll try it again next year.
+
+## Update 2026-05-16
+
+I tried Bitwarden by self-hosting my Vaultwarden instance — for more than a year. It ... works, although nothing I mentioned above changed. Bitwarden is the same — they styled their UIs a bit, but it's still ugly, and every issue mentioned above is still valid, nothing was fixed.
+
+I could live it it, but then [news of a massive malware](https://www.youtube.com/watch?v=gwTQLZSIlsU) running amok in the dev ecosystem changed my mind. I need more than a classic UI. For example, I need to no longer keep `.env` files unprotected on disk, or to validate all accesses to the SSH key via biometrics. My hope, Bitwarden's newer [Secrets Manager](https://bitwarden.com/help/secrets-manager-overview/) is not Open Source, so it's not included in Vaultwarden.
+
+1Password has a CLI that has integration with the desktop app, so it can do biometrics. And also, they've added [Developer Environments](https://www.1password.dev/environments), their equivalent, which is nice. For instance, when I chdir into a directory, and `direnv` tries to load the included `.env` file, the read needs to go through 1Password's authentication, and it works with biometrics (TouchID), so it isn't painful.
