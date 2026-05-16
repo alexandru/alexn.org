@@ -127,7 +127,7 @@
       <meta itemprop="datePublished" content="2024-08-20T06:41:41+0000"/>
       
       <time itemprop="dateCreated" datetime="2024-08-20T06:41:41+0000">August 20, 2024</time>
-      | <span class="nobr"><span class="time">7</span> minutes</span>
+      | <span class="nobr"><span class="time">8</span> minutes</span>
       
       | <a href="/blog/2024/08/20/1password-vs-bitwarden/#isso-thread" class="nobr">Comments</a>
       
@@ -257,6 +257,20 @@ Take this comparisson for what it is: a snapshot in time. In a year from now, bo
 <p>I’ve tried self-hosting Vaultwarden, the clone, via my Docker-enabled server, and it was effortless to install, and the running process very efficient. I’m impressed, that’s how all FOSS projects meant for self-hosting should be. Furthermore, I want more stuff built with Rust + SQLite. The Fediverse should take notes 😉</p>
 
 <p>For me, Bitwarden’s Open-Source nature almost makes up for the above deficiencies. Almost, but not quite. I can see myself using Bitwarden, if I were solo, but I’m trying to get my family to use password managers, and right now the UX makes that difficult. I’ll try it again next year.</p>
+      <h2 id="update-2026-05-16">
+        
+        
+          Update 2026-05-16 <a href="#update-2026-05-16" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<p>I tried Bitwarden by self-hosting my Vaultwarden instance — for more than a year. It … works, although nothing I mentioned above changed. Bitwarden is the same — they styled their UIs a bit, but it’s still ugly, and every issue mentioned above is still valid, nothing was fixed.</p>
+
+<p>I could live it it, but then <a href="https://www.youtube.com/watch?v=gwTQLZSIlsU">news of a massive malware</a> running amok in the dev ecosystem changed my mind. I need more than a classic UI. For example, I need to no longer keep <code>.env</code> files unprotected on disk, or to validate all accesses to the SSH key via biometrics. My hope, Bitwarden’s newer <a href="https://bitwarden.com/help/secrets-manager-overview/">Secrets Manager</a> is not Open Source, so it’s not included in Vaultwarden.</p>
+
+<p>1Password has a CLI that has integration with the desktop app, so it can do biometrics. And also, they’ve added <a href="https://www.1password.dev/environments">Developer Environments</a>, their equivalent, which is nice. For instance, when I chdir into a directory, and <code>direnv</code> tries to load the included <code>.env</code> file, the read needs to go through 1Password’s authentication, and it works with biometrics (TouchID), so it isn’t painful.</p>
 
   </div>
 
@@ -383,12 +397,12 @@ Take this comparisson for what it is: a snapshot in time. In a year from now, bo
 
    <script
     defer
-    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202605160810"
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202605160940"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js/responsive-nav.min.js?202605160810"
+    src="/assets/js/responsive-nav.min.js?202605160940"
     type="text/javascript"
 ></script>
 
@@ -399,7 +413,7 @@ Take this comparisson for what it is: a snapshot in time. In a year from now, bo
 ></script>
 <script
     defer
-    src="/assets/js/scripts.js?202605160810"
+    src="/assets/js/scripts.js?202605160940"
     type="text/javascript"
 ></script>
 

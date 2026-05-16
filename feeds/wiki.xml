@@ -10,13 +10,48 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 16 May 2026 08:09:50 +0000</pubDate>
-    <lastBuildDate>Sat, 16 May 2026 08:09:50 +0000</lastBuildDate>
+    <pubDate>Sat, 16 May 2026 09:39:48 +0000</pubDate>
+    <lastBuildDate>Sat, 16 May 2026 09:39:48 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v4.4.1</generator>
     
+<item>
+  <title>Direnv</title>
+  <description>Article
+    updated at May 16, 2026, 
+    created at May 16, 2026.</description>
+  <content:encoded>&lt;p&gt;
+    Article
+    updated at May 16, 2026, 
+    created at May 16, 2026.
+  &lt;/p&gt;
+  &lt;hr&gt;
+  
+  &lt;img referrerpolicy=&quot;no-referrer-when-downgrade&quot; src=&quot;https://ly.alexn.org/m.php?idsite=1&amp;rec=1&amp;action_name=%2Ffeeds%2Fwiki.xml&amp;url=https%3A%2F%2Falexn.org%2Ffeeds%2Fwiki.xml&amp;pk_campaign=rss&amp;pk_kwd=open&quot; width=&quot;1&quot; height=&quot;1&quot; style=&quot;position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;&quot; alt=&quot;&quot;&gt;
+&lt;pre&gt;&lt;code&gt;brew install direnv
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Normally, to make it also work with &lt;code&gt;.env&lt;/code&gt; files, this can be configured in &lt;code&gt;~/.config/direnv/direnv.toml&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-toml&quot;&gt;[global]
+load_dotenv = true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Unfortunately, it has &lt;a href=&quot;https://github.com/direnv/direnv/issues/1570&quot;&gt;issues&lt;/a&gt; with 1Password’s &lt;a href=&quot;https://www.1password.dev/environments&quot;&gt;Developer Environments&lt;/a&gt;, so for each &lt;code&gt;.env&lt;/code&gt; I’m creating a companion &lt;code&gt;.envrc&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;set -a; source .env; set +a
+&lt;/code&gt;&lt;/pre&gt;</content:encoded><pubDate>Sat, 16 May 2026 09:31:13 +0000</pubDate>
+  <dc:modified>Sat, 16 May 2026 09:31:13 +0000</dc:modified>
+  <atom:modified>Sat, 16 May 2026 09:31:13 +0000</atom:modified>
+  <link>https://alexn.org/wiki/direnv/?pk_campaign=rss</link>
+  <guid isPermaLink="true">https://alexn.org/wiki/direnv/</guid>
+  <dc:creator>Alexandru Nedelcu</dc:creator>
+  <category>Wiki</category>
+  
+</item>
+
 <item>
   <title>Bitwarden / Vaultwarden</title>
   <description>Article
@@ -28,9 +63,7 @@
     created at August 26, 2024.
   &lt;/p&gt;
   &lt;hr&gt;
-  
-  &lt;img referrerpolicy=&quot;no-referrer-when-downgrade&quot; src=&quot;https://ly.alexn.org/m.php?idsite=1&amp;rec=1&amp;action_name=%2Ffeeds%2Fwiki.xml&amp;url=https%3A%2F%2Falexn.org%2Ffeeds%2Fwiki.xml&amp;pk_campaign=rss&amp;pk_kwd=open&quot; width=&quot;1&quot; height=&quot;1&quot; style=&quot;position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;&quot; alt=&quot;&quot;&gt;
-&lt;h2 id=&quot;self-hosting-vaultwarden&quot;&gt;Self-hosting (Vaultwarden)&lt;/h2&gt;
+  &lt;h2 id=&quot;self-hosting-vaultwarden&quot;&gt;Self-hosting (Vaultwarden)&lt;/h2&gt;
 
 &lt;p&gt;See &lt;a href=&quot;https://github.com/dani-garcia/vaultwarden/wiki&quot;&gt;documentation&lt;/a&gt;.&lt;/p&gt;
 
