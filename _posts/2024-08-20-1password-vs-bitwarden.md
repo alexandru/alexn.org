@@ -1,7 +1,7 @@
 ---
 title: "1Password vs. Bitwarden"
 date: 2024-08-20 09:41:41 +03:00
-last_modified_at: 2024-09-04T09:58:20+03:00
+last_modified_at: 2026-05-19T17:35:04+03:00
 tags:
   - Products
   - Self Hosting
@@ -25,7 +25,7 @@ I'm not enumerating here what they both do well, such as trustworthiness, the ab
 * Full history of items, available on the web UI — Bitwarden only keeps a history of the main password.
 * Attachments management (that doesn't suck).
 * Flawless Passkey support — I did not bump into any issues with it.
-* Auto-filling works for TOTP codes, and multi-step dialogs are now automated, no longer requiring intervention (i.e., UIs that first ask for email, then for password, then for TOTP).
+* Auto-filling works for TOTP codes, and multistep dialogs are now automated, no longer requiring intervention (i.e., UIs that first ask for email, then for password, then for TOTP).
 * Useful [CLI](https://developer.1password.com/docs/cli/get-started/), very straightforward to use for managing secrets in your local environment.
 * Flawless unlocking with [Touch ID](https://support.1password.com/touch-id-mac/), including the CLI.
 * [SSH key management](https://developer.1password.com/docs/ssh/manage-keys/).
@@ -69,13 +69,13 @@ As downsides for Bitwarden:
 * No usable offline support — you can disconnect from the network, but it becomes read-only, and the UI is confusingly letting you edit items, and you can lose those edits.
 * Managing organizations is less than ideal. E.g., if you move items in an organization, you can only change their ownership afterward by cloning them, and you can only do that on the web UI.
 * The browser extension fails to auto-complete TOTP codes, you have to rely on those codes being copied in the clipboard.
-* Almost no usable keyboard shortcuts — i.e., `Cmd+Shift+Y` in the browser, for activating the extension, is unusable because it doesn't let you do anything via the keyboard next. [Their documentation](https://bitwarden.com/help/keyboard-shortcuts/) should warn people that the handful of available shortcuts are not usable in keyboard-only flows. The desktop app is really bad at it, e.g., when editing an item, you can't even press `Cmd/Ctrl+S` for save, or `Esc` for cancel, like in every other app. This isn't just a nice to have, for people with visual impairment being an accessibility disaster.
+* Almost no usable keyboard shortcuts — i.e., `Cmd+Shift+Y` in the browser, for activating the extension, is unusable because it doesn't let you do anything via the keyboard next. [Their documentation](https://bitwarden.com/help/keyboard-shortcuts/) should warn people that the handful of available shortcuts are not usable in keyboard-only flows. The desktop app is awful at it, e.g., when editing an item, you can't even press `Cmd/Ctrl+S` for save, or `Esc` for cancel, like in every other app. This isn't just a nice to have, for people with visual impairment being an accessibility disaster.
 * Managing attachments is very unintuitive. And you can't view attached PDFs without downloading them.
 * The browser extension is difficult to configure, e.g., to use Touch ID, although this has more to do with it being more conservative when asking for permissions.
 * Passkey support isn't as flawless, I bumped into some issues with it when generating passkeys.
 * CLI utility is very slow; it's as if it interrogates the server on every command, yet it still needs `bw sync` for the synchronization of the latest changes.
 * CLI utility does not have integration with the desktop app's biometrics login, so you end up with a `BW_SESSION` in your bash/zsh profile, making it insecure, or you have to introduce your master password every time, which is annoying.
-* Exports (for backups or migrations) don't contain attachments, and you need separate exports for organizations — makes it unintuitive and hard to backup your data. And most of their documentation articles on exports don't mention that organizations need separate exports.
+* Exports (for backups or migrations) don't contain attachments, and you need separate exports for organizations — makes it unintuitive and hard to back up your data. And most of their documentation articles on exports don't mention that organizations need separate exports.
 * On Android, the UI can become very slow, if the server is slow — at the time of writing, when using the `vault.bitwarden.eu` server, the app was unusable for me due to how slow it was, with Android sometimes complaining that the app should be killed, but it worked significantly better with my self-hosted Vaultwarden instance. So the app is very dependent on the server's latency, and doesn't have good cache management.
 * On Android, the UX for auto-completion is not ideal, with the accessibility draw-over being frequently in the way.
 * Bitwarden took VC capital as well, and while it's Open-Source nature may protect the project's future...
@@ -89,6 +89,6 @@ For me, Bitwarden's Open-Source nature almost makes up for the above deficiencie
 
 I tried Bitwarden by self-hosting my Vaultwarden instance — for more than a year. It ... works, although nothing I mentioned above changed. Bitwarden is the same — they styled their UIs a bit, but it's still ugly, and every issue mentioned above is still valid, nothing was fixed.
 
-I could live it it, but then [news of a massive malware](https://www.youtube.com/watch?v=gwTQLZSIlsU) running amok in the dev ecosystem changed my mind. I need more than a classic UI. For example, I need to no longer keep `.env` files unprotected on disk, or to validate all accesses to the SSH key via biometrics. My hope, Bitwarden's newer [Secrets Manager](https://bitwarden.com/help/secrets-manager-overview/) is not Open Source, so it's not included in Vaultwarden.
+I could live with it, but then [news of a massive malware](https://www.youtube.com/watch?v=gwTQLZSIlsU) running amok in the dev ecosystem changed my mind. I need more than a classic UI. For example, I need to no longer keep `.env` files unprotected on disk, or to validate all accesses to the SSH key via biometrics. My hope, Bitwarden's newer [Secrets Manager](https://bitwarden.com/help/secrets-manager-overview/) is not Open Source, so it's not included in Vaultwarden.
 
-1Password has a CLI that has integration with the desktop app, so it can do biometrics. And also, they've added [Developer Environments](https://www.1password.dev/environments), their equivalent, which is nice. For instance, when I chdir into a directory, and `direnv` tries to load the included `.env` file, the read needs to go through 1Password's authentication, and it works with biometrics (TouchID), so it isn't painful.
+1Password has a CLI that has integration with the desktop app, so it can do biometrics. And also, they've added [Developer Environments](https://www.1password.dev/environments), their equivalent, which is nice. For instance, when I `chdir` into a directory, and `direnv` tries to load the included `.env` file, the read needs to go through 1Password's authentication, and it works with biometrics (TouchID), so it isn't painful.
