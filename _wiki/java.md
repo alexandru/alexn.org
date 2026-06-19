@@ -1,6 +1,6 @@
 ---
 date: 2022-09-12 08:58:10 +03:00
-last_modified_at: 2025-04-04T12:15:04+03:00
+last_modified_at: 2026-06-19 14:50:33 +0300
 ---
 
 # Java
@@ -76,7 +76,6 @@ Also install the `native-image`:
 ${GRAALVM_HOME}/bin/gu install native-image
 ```
 
-
 ### OpenJDK Builds
 
 Noteworthy:
@@ -100,6 +99,14 @@ Also see: [JDK distributions](https://sdkman.io/jdks).
 ## GC / Garbage Collection tweaks
 
 Since Java 24+:
+
 ```
 -XX:+UnlockExperimentalVMOptions -XX:+UseCompactObjectHeaders
+```
+
+## Profiling
+
+```
+-J-Xlog:gc*,gc+heap=info,safepoint:file=/tmp/my-process-gc.log:time,uptime,level,tags:filecount=5,filesize=20M
+-J-XX:StartFlightRecording=filename=/tmp/my-process.jfr,settings=profile,dumponexit=true,disk=true,maxsize=512M
 ```
