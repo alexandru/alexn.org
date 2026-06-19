@@ -19,7 +19,7 @@
     <meta property="og:description" content="Personal, volatile wiki documentation">
     <meta property="og:url" content="https://alexn.org/wiki/java/">
     <meta property="article:published_time" content="2022-09-12T05:58:10+00:00">
-    <meta property="article:modified_time" content="2025-04-04T09:15:04+00:00">
+    <meta property="article:modified_time" content="2026-06-19T11:50:33+00:00">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://alexn.org/assets/logo/800px-bordered.png" />
     <meta property="og:image:secure_url" content="https://alexn.org/assets/logo/800px-bordered.png" />
@@ -126,8 +126,8 @@
       <meta itemprop="datePublished" content="2022-09-12T05:58:10+0000"/>
       
       
-      <time itemprop="dateModified" content="2025-04-04T12:15:04+0300">
-        Updated: April 4, 2025
+      <time itemprop="dateModified" content="2026-06-19T14:50:33+0300">
+        Updated: June 19, 2026
       </time>
       
       
@@ -170,6 +170,7 @@
     </ul>
   </li>
   <li><a href="#gc--garbage-collection-tweaks">GC / Garbage Collection tweaks</a></li>
+  <li><a href="#profiling">Profiling</a></li>
 </ul>
       <h2 id="resources">
         
@@ -352,7 +353,20 @@ sdk install 17.0.4-oracle
     
 
 <p>Since Java 24+:</p>
+
 <pre><code>-XX:+UnlockExperimentalVMOptions -XX:+UseCompactObjectHeaders
+</code></pre>
+      <h2 id="profiling">
+        
+        
+          Profiling <a href="#profiling" class="anchor">#</a>
+        
+        
+      </h2>
+    
+
+<pre><code>-J-Xlog:gc*,gc+heap=info,safepoint:file=/tmp/my-process-gc.log:time,uptime,level,tags:filecount=5,filesize=20M
+-J-XX:StartFlightRecording=filename=/tmp/my-process.jfr,settings=profile,dumponexit=true,disk=true,maxsize=512M
 </code></pre>
 
   </div>
@@ -363,12 +377,12 @@ sdk install 17.0.4-oracle
 
    <script
     defer
-    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202605191436"
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202606191151"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js/responsive-nav.min.js?202605191436"
+    src="/assets/js/responsive-nav.min.js?202606191151"
     type="text/javascript"
 ></script>
 
@@ -379,7 +393,7 @@ sdk install 17.0.4-oracle
 ></script>
 <script
     defer
-    src="/assets/js/scripts.js?202605191436"
+    src="/assets/js/scripts.js?202606191151"
     type="text/javascript"
 ></script>
 
