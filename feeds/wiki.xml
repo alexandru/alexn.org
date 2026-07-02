@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 19 Jun 2026 11:51:27 +0000</pubDate>
-    <lastBuildDate>Fri, 19 Jun 2026 11:51:27 +0000</lastBuildDate>
+    <pubDate>Thu, 02 Jul 2026 15:47:34 +0000</pubDate>
+    <lastBuildDate>Thu, 02 Jul 2026 15:47:34 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -5593,24 +5593,17 @@ bind Down last-window \; swap-pane -s tmp.1 \; kill-window -t tmp
 </item>
 
 <item>
-  <title>Windows 10</title>
+  <title>Windows</title>
   <description>Article
-    updated at January 21, 2025, 
+    updated at July 2, 2026, 
     created at August 24, 2020.</description>
   <content:encoded>&lt;p&gt;
     Article
-    updated at January 21, 2025, 
+    updated at July 2, 2026, 
     created at August 24, 2020.
   &lt;/p&gt;
   &lt;hr&gt;
   &lt;h2 id=&quot;installation-on-macbooks&quot;&gt;Installation on Macbooks&lt;/h2&gt;
-
-&lt;h3 id=&quot;create-bootable-usb-stick-for-installing-windows&quot;&gt;Create bootable USB stick for installing Windows&lt;/h3&gt;
-
-&lt;p&gt;1: Download the Windows ISO file from Microsoft’s website.
-2: Identify the disk number of the USB drive: &lt;code&gt;diskutil list&lt;/code&gt;
-3: &lt;code&gt;diskutil unmountDisk /dev/diskN&lt;/code&gt; 
-4: &lt;code&gt;sudo dd if=/path/to/windows.iso of=/dev/rdiskN bs=1m&lt;/code&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;boot-camp&quot;&gt;Boot Camp&lt;/h3&gt;
 
@@ -5622,6 +5615,52 @@ bind Down last-window \; swap-pane -s tmp.1 \; kill-window -t tmp
 &lt;/li&gt;
 &lt;/ol&gt;
 
+&lt;h3 id=&quot;workaround-tpm-20-requirement&quot;&gt;Workaround TPM 2.0 requirement&lt;/h3&gt;
+
+&lt;p&gt;Intel Macbooks have a T2 security chip, so Windows 11 is NOT officially supported.&lt;/p&gt;
+
+&lt;p&gt;To install:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Use Microsoft’s Windows 11 Media Creation Tool to create the USB.&lt;/li&gt;
+  &lt;li&gt;Boot the Mac from it.&lt;/li&gt;
+  &lt;li&gt;When Windows Setup complains about TPM / unsupported hardware, press: 
+&lt;code&gt;Shift + F10&lt;/code&gt;
+&lt;/li&gt;
+  &lt;li&gt;Run &lt;code&gt;regedit&lt;/code&gt;
+&lt;/li&gt;
+  &lt;li&gt;Create this key: &lt;code&gt;HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig&lt;/code&gt;
+&lt;/li&gt;
+  &lt;li&gt;Add these DWORD values set to &lt;code&gt;1&lt;/code&gt;…&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code&gt;BypassTPMCheck
+BypassSecureBootCheck
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;activate-windows-license&quot;&gt;Activate Windows license&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://massgrave.dev/&quot;&gt;https://massgrave.dev/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/massgravel/Microsoft-Activation-Scripts&quot;&gt;https://github.com/massgravel/Microsoft-Activation-Scripts&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;set-caps-lock-as-ctrl&quot;&gt;Set Caps-Lock as Ctrl&lt;/h3&gt;
+
+&lt;p&gt;Open &lt;em&gt;Powershell as Administrator&lt;/em&gt; and execute:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-powershell&quot;&gt;$hex = &quot;0000000000000000020000001D003A0000000000&quot;
+$bytes = for ($i = 0; $i -lt $hex.Length; $i += 2) {
+    [Convert]::ToByte($hex.Substring($i, 2), 16)
+}
+
+New-ItemProperty `
+  -Path &quot;HKLM:\SYSTEM\CurrentControlSet\Control\Keyboard Layout&quot; `
+  -Name &quot;Scancode Map&quot; `
+  -PropertyType Binary `
+  -Value $bytes `
+  -Force
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;h3 id=&quot;third-party-utilities&quot;&gt;Third-party utilities&lt;/h3&gt;
 
 &lt;ul&gt;
@@ -5629,16 +5668,13 @@ bind Down last-window \; swap-pane -s tmp.1 \; kill-window -t tmp
 &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;support-for-hyper-threading&quot;&gt;Support for Hyper-Threading&lt;/h3&gt;
+&lt;h3 id=&quot;support-for-hyperv&quot;&gt;Support for HyperV&lt;/h3&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;Source: &lt;a href=&quot;https://news.ycombinator.com/item?id=22875681&quot;&gt;Hacker News comment&lt;/a&gt;
-&lt;/li&gt;
-  &lt;li&gt;Documentation: &lt;a href=&quot;https://dea.nbird.com.au/2017/02/24/enabling-vt-x-on-mac-book-air-in-bootcamp/&quot;&gt;Enabling VT-x on Mac Book Air in Bootcamp&lt;/a&gt;
-&lt;/li&gt;
-  &lt;li&gt;Download: &lt;a href=&quot;https://www.rodsbooks.com/refind/&quot;&gt;rEFInd&lt;/a&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;Required for WSL2.&lt;/p&gt;
+
+&lt;p&gt;Install &lt;a href=&quot;https://www.rodsbooks.com/refind/&quot;&gt;rEFInd&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;NOTE: for some reason, on my Macbook Pro 2019, with Windows 11, I had to do nothing, so this may not be needed.&lt;/p&gt;
 
 &lt;h2 id=&quot;set-up-tutorials&quot;&gt;Set-up tutorials&lt;/h2&gt;
 
@@ -5646,8 +5682,8 @@ bind Down last-window \; swap-pane -s tmp.1 \; kill-window -t tmp
   &lt;li&gt;
 &lt;a href=&quot;https://b.s5.pm/os/2021/08/28/windows-setup.html&quot;&gt;A No-Bullshit Guide to Setting up Windows 10&lt;/a&gt; (&lt;a href=&quot;https://web.archive.org/web/20210809064346/https://b.s5.pm/os/2021/08/28/windows-setup.html&quot;&gt;archive&lt;/a&gt;)&lt;/li&gt;
 &lt;/ul&gt;</content:encoded><pubDate>Mon, 24 Aug 2020 13:24:31 +0000</pubDate>
-  <dc:modified>Tue, 21 Jan 2025 16:59:34 +0000</dc:modified>
-  <atom:modified>Tue, 21 Jan 2025 16:59:34 +0000</atom:modified>
+  <dc:modified>Thu, 02 Jul 2026 15:46:24 +0000</dc:modified>
+  <atom:modified>Thu, 02 Jul 2026 15:46:24 +0000</atom:modified>
   <link>https://alexn.org/wiki/windows/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/windows/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>

@@ -10,16 +10,16 @@
     <!--https://developers.google.com/web/fundamentals/design-and-ux/browser-customization-->
     <meta name="theme-color" content="#493667">
 
-    <title>Windows 10 - Alexandru Nedelcu</title>
+    <title>Windows - Alexandru Nedelcu</title>
     
 
     <!-- Open Graph Meta -->
     <meta property="og:site_name" content="Alexandru Nedelcu">
-    <meta property="og:title" content="Windows 10">
+    <meta property="og:title" content="Windows">
     <meta property="og:description" content="Personal, volatile wiki documentation">
     <meta property="og:url" content="https://alexn.org/wiki/windows/">
     <meta property="article:published_time" content="2020-08-24T13:24:31+00:00">
-    <meta property="article:modified_time" content="2025-01-21T16:59:34+00:00">
+    <meta property="article:modified_time" content="2026-07-02T15:46:24+00:00">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://alexn.org/assets/logo/800px-bordered.png" />
     <meta property="og:image:secure_url" content="https://alexn.org/assets/logo/800px-bordered.png" />
@@ -28,7 +28,7 @@
     <meta name="twitter:image:src" content="https://alexn.org/assets/logo/800px-bordered.png">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
-    <meta name="twitter:title" content="Windows 10">
+    <meta name="twitter:title" content="Windows">
     <meta name="twitter:url" content="https://alexn.org/wiki/windows/">
     <meta name="twitter:description" content="Personal, volatile wiki documentation">
     <!-- Favicon -->
@@ -114,7 +114,7 @@
       <h1 class="postTitle" itemprop="headline">
         
         
-          Windows 10
+          Windows
         
         
       </h1>
@@ -126,8 +126,8 @@
       <meta itemprop="datePublished" content="2020-08-24T13:24:31+0000"/>
       
       
-      <time itemprop="dateModified" content="2025-01-21T18:59:34+0200">
-        Updated: January 21, 2025
+      <time itemprop="dateModified" content="2026-07-02T18:46:24+0300">
+        Updated: July 2, 2026
       </time>
       
       
@@ -151,10 +151,12 @@
   <ul>
   <li><a href="#installation-on-macbooks">Installation on Macbooks</a>
     <ul>
-      <li><a href="#create-bootable-usb-stick-for-installing-windows">Create bootable USB stick for installing Windows</a></li>
       <li><a href="#boot-camp">Boot Camp</a></li>
+      <li><a href="#workaround-tpm-20-requirement">Workaround TPM 2.0 requirement</a></li>
+      <li><a href="#activate-windows-license">Activate Windows license</a></li>
+      <li><a href="#set-caps-lock-as-ctrl">Set Caps-Lock as Ctrl</a></li>
       <li><a href="#third-party-utilities">Third-party utilities</a></li>
-      <li><a href="#support-for-hyper-threading">Support for Hyper-Threading</a></li>
+      <li><a href="#support-for-hyperv">Support for HyperV</a></li>
     </ul>
   </li>
   <li><a href="#set-up-tutorials">Set-up tutorials</a></li>
@@ -167,19 +169,6 @@
         
       </h2>
     
-      <h3 id="create-bootable-usb-stick-for-installing-windows">
-        
-        
-          Create bootable USB stick for installing Windows <a href="#create-bootable-usb-stick-for-installing-windows" class="anchor">#</a>
-        
-        
-      </h3>
-    
-
-<p>1: Download the Windows ISO file from Microsoft’s website.
-2: Identify the disk number of the USB drive: <code>diskutil list</code>
-3: <code>diskutil unmountDisk /dev/diskN</code> 
-4: <code>sudo dd if=/path/to/windows.iso of=/dev/rdiskN bs=1m</code></p>
       <h3 id="boot-camp">
         
         
@@ -195,6 +184,67 @@
   <li>From MacOS: Boot Camp Assistant -&gt; Menu -&gt; “Action” -&gt; “Download Windows Support Software”</li>
   <li>From Windows: <a href="https://github.com/timsutton/brigadier">https://github.com/timsutton/brigadier</a></li>
 </ol>
+      <h3 id="workaround-tpm-20-requirement">
+        
+        
+          Workaround TPM 2.0 requirement <a href="#workaround-tpm-20-requirement" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Intel Macbooks have a T2 security chip, so Windows 11 is NOT officially supported.</p>
+
+<p>To install:</p>
+<ol>
+  <li>Use Microsoft’s Windows 11 Media Creation Tool to create the USB.</li>
+  <li>Boot the Mac from it.</li>
+  <li>When Windows Setup complains about TPM / unsupported hardware, press: 
+<code>Shift + F10</code></li>
+  <li>Run <code>regedit</code></li>
+  <li>Create this key: <code>HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig</code></li>
+  <li>Add these DWORD values set to <code>1</code>…</li>
+</ol>
+
+<pre><code>BypassTPMCheck
+BypassSecureBootCheck
+</code></pre>
+      <h3 id="activate-windows-license">
+        
+        
+          Activate Windows license <a href="#activate-windows-license" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<ul>
+  <li><a href="https://massgrave.dev/">https://massgrave.dev/</a></li>
+  <li><a href="https://github.com/massgravel/Microsoft-Activation-Scripts">https://github.com/massgravel/Microsoft-Activation-Scripts</a></li>
+</ul>
+      <h3 id="set-caps-lock-as-ctrl">
+        
+        
+          Set Caps-Lock as Ctrl <a href="#set-caps-lock-as-ctrl" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Open <em>Powershell as Administrator</em> and execute:</p>
+
+<pre><code class="language-powershell">$hex = "0000000000000000020000001D003A0000000000"
+$bytes = for ($i = 0; $i -lt $hex.Length; $i += 2) {
+    [Convert]::ToByte($hex.Substring($i, 2), 16)
+}
+
+New-ItemProperty `
+  -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Keyboard Layout" `
+  -Name "Scancode Map" `
+  -PropertyType Binary `
+  -Value $bytes `
+  -Force
+</code></pre>
       <h3 id="third-party-utilities">
         
         
@@ -207,20 +257,20 @@
 <ul>
   <li>To make the Macbook’s touchpad not suck: <a href="https://github.com/imbushuo/mac-precision-touchpad">https://github.com/imbushuo/mac-precision-touchpad</a></li>
 </ul>
-      <h3 id="support-for-hyper-threading">
+      <h3 id="support-for-hyperv">
         
         
-          Support for Hyper-Threading <a href="#support-for-hyper-threading" class="anchor">#</a>
+          Support for HyperV <a href="#support-for-hyperv" class="anchor">#</a>
         
         
       </h3>
     
 
-<ul>
-  <li>Source: <a href="https://news.ycombinator.com/item?id=22875681">Hacker News comment</a></li>
-  <li>Documentation: <a href="https://dea.nbird.com.au/2017/02/24/enabling-vt-x-on-mac-book-air-in-bootcamp/">Enabling VT-x on Mac Book Air in Bootcamp</a></li>
-  <li>Download: <a href="https://www.rodsbooks.com/refind/">rEFInd</a></li>
-</ul>
+<p>Required for WSL2.</p>
+
+<p>Install <a href="https://www.rodsbooks.com/refind/">rEFInd</a>.</p>
+
+<p>NOTE: for some reason, on my Macbook Pro 2019, with Windows 11, I had to do nothing, so this may not be needed.</p>
       <h2 id="set-up-tutorials">
         
         
@@ -242,12 +292,12 @@
 
    <script
     defer
-    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202606191151"
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202607021547"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js/responsive-nav.min.js?202606191151"
+    src="/assets/js/responsive-nav.min.js?202607021547"
     type="text/javascript"
 ></script>
 
@@ -258,7 +308,7 @@
 ></script>
 <script
     defer
-    src="/assets/js/scripts.js?202606191151"
+    src="/assets/js/scripts.js?202607021547"
     type="text/javascript"
 ></script>
 
@@ -283,7 +333,7 @@
 
         var now = new Date();
         var url =
-            "https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=Windows+10&url=https%3A%2F%2Falexn.org%2Fwiki%2Fwindows%2F" +
+            "https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=Windows&url=https%3A%2F%2Falexn.org%2Fwiki%2Fwindows%2F" +
             "&rand=" +
             encodeURIComponent(
                 Math.floor(Math.random() * Number.MAX_SAFE_INTEGER),
@@ -322,7 +372,7 @@
 <noscript>
     <img
         referrerpolicy="no-referrer-when-downgrade"
-        src="https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=Windows+10&url=https%3A%2F%2Falexn.org%2Fwiki%2Fwindows%2F"
+        src="https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=Windows&url=https%3A%2F%2Falexn.org%2Fwiki%2Fwindows%2F"
         width="1"
         height="1"
         style="
@@ -356,7 +406,7 @@
       var d = document;
       var a = d.createElement("a");
       a.setAttribute("target", "_blank");
-      a.setAttribute("href", "mailto:" + lhs + "@" + rhs + "?subject=Comment%20on%3A%20Windows%2010");
+      a.setAttribute("href", "mailto:" + lhs + "@" + rhs + "?subject=Comment%20on%3A%20Windows");
       a.text = lhs + "@" + rhs;
       var es = d.getElementById("email-script");
       es.parentNode.insertBefore(a, es);
@@ -389,7 +439,7 @@
           data-isso-vote="false"
           data-vote-levels=""
           src="https://alexn.org/comments/alexn/js/embed.min.js"></script>
-  <section id="isso-thread" data-title="Windows 10">
+  <section id="isso-thread" data-title="Windows">
   </section>
 </div>
 <noscript>
