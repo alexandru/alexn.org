@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 02 Jul 2026 15:47:34 +0000</pubDate>
-    <lastBuildDate>Thu, 02 Jul 2026 15:47:34 +0000</lastBuildDate>
+    <pubDate>Thu, 02 Jul 2026 15:50:42 +0000</pubDate>
+    <lastBuildDate>Thu, 02 Jul 2026 15:50:42 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -5637,6 +5637,23 @@ bind Down last-window \; swap-pane -s tmp.1 \; kill-window -t tmp
 BypassSecureBootCheck
 &lt;/code&gt;&lt;/pre&gt;
 
+&lt;h3 id=&quot;support-for-hyperv&quot;&gt;Support for HyperV&lt;/h3&gt;
+
+&lt;p&gt;Required for WSL2.&lt;/p&gt;
+
+&lt;p&gt;Install &lt;a href=&quot;https://www.rodsbooks.com/refind/&quot;&gt;rEFInd&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;NOTE: for some reason, on my Macbook Pro 2019, with Windows 11, I had to do nothing, so this may not be needed.&lt;/p&gt;
+
+&lt;h3 id=&quot;third-party-utilities&quot;&gt;Third-party utilities&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;To make the Macbook’s touchpad not suck: &lt;a href=&quot;https://github.com/imbushuo/mac-precision-touchpad&quot;&gt;https://github.com/imbushuo/mac-precision-touchpad&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;tips-and-tricks&quot;&gt;Tips and Tricks&lt;/h2&gt;
+
 &lt;h3 id=&quot;activate-windows-license&quot;&gt;Activate Windows license&lt;/h3&gt;
 
 &lt;ul&gt;
@@ -5661,20 +5678,12 @@ New-ItemProperty `
   -Force
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3 id=&quot;third-party-utilities&quot;&gt;Third-party utilities&lt;/h3&gt;
+&lt;h3 id=&quot;wsl2-tips&quot;&gt;WSL2 Tips&lt;/h3&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;To make the Macbook’s touchpad not suck: &lt;a href=&quot;https://github.com/imbushuo/mac-precision-touchpad&quot;&gt;https://github.com/imbushuo/mac-precision-touchpad&lt;/a&gt;
-&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.boxofcables.dev/wsl2-per-device-swiotlb-pools-for-virtiofs-and-virtioproxy/&quot;&gt;Enable faster Windows file system access in WSL2&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://devblogs.microsoft.com/commandline/wsl-container-is-now-available-for-public-preview/&quot;&gt;WSL containers&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;h3 id=&quot;support-for-hyperv&quot;&gt;Support for HyperV&lt;/h3&gt;
-
-&lt;p&gt;Required for WSL2.&lt;/p&gt;
-
-&lt;p&gt;Install &lt;a href=&quot;https://www.rodsbooks.com/refind/&quot;&gt;rEFInd&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;NOTE: for some reason, on my Macbook Pro 2019, with Windows 11, I had to do nothing, so this may not be needed.&lt;/p&gt;
 
 &lt;h2 id=&quot;set-up-tutorials&quot;&gt;Set-up tutorials&lt;/h2&gt;
 
@@ -5682,8 +5691,8 @@ New-ItemProperty `
   &lt;li&gt;
 &lt;a href=&quot;https://b.s5.pm/os/2021/08/28/windows-setup.html&quot;&gt;A No-Bullshit Guide to Setting up Windows 10&lt;/a&gt; (&lt;a href=&quot;https://web.archive.org/web/20210809064346/https://b.s5.pm/os/2021/08/28/windows-setup.html&quot;&gt;archive&lt;/a&gt;)&lt;/li&gt;
 &lt;/ul&gt;</content:encoded><pubDate>Mon, 24 Aug 2020 13:24:31 +0000</pubDate>
-  <dc:modified>Thu, 02 Jul 2026 15:46:24 +0000</dc:modified>
-  <atom:modified>Thu, 02 Jul 2026 15:46:24 +0000</atom:modified>
+  <dc:modified>Thu, 02 Jul 2026 15:50:11 +0000</dc:modified>
+  <atom:modified>Thu, 02 Jul 2026 15:50:11 +0000</atom:modified>
   <link>https://alexn.org/wiki/windows/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/windows/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>

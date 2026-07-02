@@ -19,7 +19,7 @@
     <meta property="og:description" content="Personal, volatile wiki documentation">
     <meta property="og:url" content="https://alexn.org/wiki/windows/">
     <meta property="article:published_time" content="2020-08-24T13:24:31+00:00">
-    <meta property="article:modified_time" content="2026-07-02T15:46:24+00:00">
+    <meta property="article:modified_time" content="2026-07-02T15:50:11+00:00">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://alexn.org/assets/logo/800px-bordered.png" />
     <meta property="og:image:secure_url" content="https://alexn.org/assets/logo/800px-bordered.png" />
@@ -126,7 +126,7 @@
       <meta itemprop="datePublished" content="2020-08-24T13:24:31+0000"/>
       
       
-      <time itemprop="dateModified" content="2026-07-02T18:46:24+0300">
+      <time itemprop="dateModified" content="2026-07-02T18:50:11+0300">
         Updated: July 2, 2026
       </time>
       
@@ -153,10 +153,15 @@
     <ul>
       <li><a href="#boot-camp">Boot Camp</a></li>
       <li><a href="#workaround-tpm-20-requirement">Workaround TPM 2.0 requirement</a></li>
+      <li><a href="#support-for-hyperv">Support for HyperV</a></li>
+      <li><a href="#third-party-utilities">Third-party utilities</a></li>
+    </ul>
+  </li>
+  <li><a href="#tips-and-tricks">Tips and Tricks</a>
+    <ul>
       <li><a href="#activate-windows-license">Activate Windows license</a></li>
       <li><a href="#set-caps-lock-as-ctrl">Set Caps-Lock as Ctrl</a></li>
-      <li><a href="#third-party-utilities">Third-party utilities</a></li>
-      <li><a href="#support-for-hyperv">Support for HyperV</a></li>
+      <li><a href="#wsl2-tips">WSL2 Tips</a></li>
     </ul>
   </li>
   <li><a href="#set-up-tutorials">Set-up tutorials</a></li>
@@ -209,6 +214,40 @@
 <pre><code>BypassTPMCheck
 BypassSecureBootCheck
 </code></pre>
+      <h3 id="support-for-hyperv">
+        
+        
+          Support for HyperV <a href="#support-for-hyperv" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<p>Required for WSL2.</p>
+
+<p>Install <a href="https://www.rodsbooks.com/refind/">rEFInd</a>.</p>
+
+<p>NOTE: for some reason, on my Macbook Pro 2019, with Windows 11, I had to do nothing, so this may not be needed.</p>
+      <h3 id="third-party-utilities">
+        
+        
+          Third-party utilities <a href="#third-party-utilities" class="anchor">#</a>
+        
+        
+      </h3>
+    
+
+<ul>
+  <li>To make the Macbook’s touchpad not suck: <a href="https://github.com/imbushuo/mac-precision-touchpad">https://github.com/imbushuo/mac-precision-touchpad</a></li>
+</ul>
+      <h2 id="tips-and-tricks">
+        
+        
+          Tips and Tricks <a href="#tips-and-tricks" class="anchor">#</a>
+        
+        
+      </h2>
+    
       <h3 id="activate-windows-license">
         
         
@@ -245,32 +284,19 @@ New-ItemProperty `
   -Value $bytes `
   -Force
 </code></pre>
-      <h3 id="third-party-utilities">
+      <h3 id="wsl2-tips">
         
         
-          Third-party utilities <a href="#third-party-utilities" class="anchor">#</a>
+          WSL2 Tips <a href="#wsl2-tips" class="anchor">#</a>
         
         
       </h3>
     
 
 <ul>
-  <li>To make the Macbook’s touchpad not suck: <a href="https://github.com/imbushuo/mac-precision-touchpad">https://github.com/imbushuo/mac-precision-touchpad</a></li>
+  <li><a href="https://www.boxofcables.dev/wsl2-per-device-swiotlb-pools-for-virtiofs-and-virtioproxy/">Enable faster Windows file system access in WSL2</a></li>
+  <li><a href="https://devblogs.microsoft.com/commandline/wsl-container-is-now-available-for-public-preview/">WSL containers</a></li>
 </ul>
-      <h3 id="support-for-hyperv">
-        
-        
-          Support for HyperV <a href="#support-for-hyperv" class="anchor">#</a>
-        
-        
-      </h3>
-    
-
-<p>Required for WSL2.</p>
-
-<p>Install <a href="https://www.rodsbooks.com/refind/">rEFInd</a>.</p>
-
-<p>NOTE: for some reason, on my Macbook Pro 2019, with Windows 11, I had to do nothing, so this may not be needed.</p>
       <h2 id="set-up-tutorials">
         
         
@@ -292,12 +318,12 @@ New-ItemProperty `
 
    <script
     defer
-    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202607021547"
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202607021550"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js/responsive-nav.min.js?202607021547"
+    src="/assets/js/responsive-nav.min.js?202607021550"
     type="text/javascript"
 ></script>
 
@@ -308,7 +334,7 @@ New-ItemProperty `
 ></script>
 <script
     defer
-    src="/assets/js/scripts.js?202607021547"
+    src="/assets/js/scripts.js?202607021550"
     type="text/javascript"
 ></script>
 
