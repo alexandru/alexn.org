@@ -1,6 +1,6 @@
 ---
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2026-07-02 18:46:24 +0300
+last_modified_at: 2026-07-02 18:50:11 +0300
 ---
 
 # Windows
@@ -32,6 +32,20 @@ BypassTPMCheck
 BypassSecureBootCheck
 ```
 
+### Support for HyperV
+
+Required for WSL2.
+
+Install [rEFInd](https://www.rodsbooks.com/refind/).
+
+NOTE: for some reason, on my Macbook Pro 2019, with Windows 11, I had to do nothing, so this may not be needed.
+
+### Third-party utilities
+
+- To make the Macbook's touchpad not suck: <https://github.com/imbushuo/mac-precision-touchpad>
+
+## Tips and Tricks
+
 ### Activate Windows license
 
 - <https://massgrave.dev/>
@@ -55,17 +69,10 @@ New-ItemProperty `
   -Force
 ```
 
-### Third-party utilities
+### WSL2 Tips
 
-- To make the Macbook's touchpad not suck: <https://github.com/imbushuo/mac-precision-touchpad>
-
-### Support for HyperV
-
-Required for WSL2.
-
-Install [rEFInd](https://www.rodsbooks.com/refind/).
-
-NOTE: for some reason, on my Macbook Pro 2019, with Windows 11, I had to do nothing, so this may not be needed.
+- [Enable faster Windows file system access in WSL2](https://www.boxofcables.dev/wsl2-per-device-swiotlb-pools-for-virtiofs-and-virtioproxy/)
+- [WSL containers](https://devblogs.microsoft.com/commandline/wsl-container-is-now-available-for-public-preview/)
 
 ## Set-up tutorials
 
