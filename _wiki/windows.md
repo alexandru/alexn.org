@@ -1,6 +1,6 @@
 ---
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2026-07-02 18:44:09 +0300
+last_modified_at: 2026-07-02 18:46:24 +0300
 ---
 
 # Windows
@@ -36,6 +36,24 @@ BypassSecureBootCheck
 
 - <https://massgrave.dev/>
 - <https://github.com/massgravel/Microsoft-Activation-Scripts>
+
+### Set Caps-Lock as Ctrl
+
+Open *Powershell as Administrator* and execute:
+
+```powershell
+$hex = "0000000000000000020000001D003A0000000000"
+$bytes = for ($i = 0; $i -lt $hex.Length; $i += 2) {
+    [Convert]::ToByte($hex.Substring($i, 2), 16)
+}
+
+New-ItemProperty `
+  -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Keyboard Layout" `
+  -Name "Scancode Map" `
+  -PropertyType Binary `
+  -Value $bytes `
+  -Force
+```
 
 ### Third-party utilities
 
