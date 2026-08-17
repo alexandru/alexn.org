@@ -54,7 +54,7 @@ Tangent: GC makes certain paradigms easier, and here there are "safety" aspects 
 But I don't want to diminish the advantages that languages like C++ or Rust have over GC-managed languages:
 
 - For programming many embedded systems, having a GC is a dealbreaker.
-- For hard real-time systems, too, having a GC is a dealbreaker. Imagine the braking system of a car, imagine what it would mean for a GC pause to happen right when you're pressing the break; in which case any extra latency is simply not tolerable.
+- For hard real-time systems, too, having a GC is a dealbreaker. Imagine the braking system of a car, imagine what it would mean for a GC pause to happen right when you're pressing the brake; in which case any extra latency is simply not tolerable.
 - GC-managed programs will use more RAM, simply because generational GCs will pre-allocate more RAM. And Java in particular is memory hungry, having been optimized for servers with plenty of memory. This is quite significant. For instance an HTTP server I've built in Rust and able to use only 5 MB of RAM would require 50 MB when built with Java (and this with optimizations to remove standard library modules from the classpath).
 - GC-managed programs tend to have a slower startup (again, latency suffers).
 - Optimizing memory-access patterns in languages with manual memory management is much easier.
