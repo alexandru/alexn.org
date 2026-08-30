@@ -10,13 +10,26 @@
     <description>Feed meant for publishing notifications to Twitter/LinkedIn.</description>
     <link>https://alexn.org/</link>
     <atom:link href="https://alexn.org/feeds/social.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 21 Jul 2026 19:28:48 +0000</pubDate>
-    <lastBuildDate>Tue, 21 Jul 2026 19:28:48 +0000</lastBuildDate>
+    <pubDate>Sun, 30 Aug 2026 08:09:54 +0000</pubDate>
+    <lastBuildDate>Sun, 30 Aug 2026 08:09:54 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v4.4.1</generator>
     
+<item>
+  <title>AI/LLM</title>
+  <description>Started #Wiki page.</description>
+  <pubDate>Mon, 17 Aug 2026 05:17:23 +0000</pubDate>
+  <dc:modified>Sun, 30 Aug 2026 08:09:01 +0000</dc:modified>
+  <atom:modified>Sun, 30 Aug 2026 08:09:01 +0000</atom:modified>
+  <link>https://alexn.org/wiki/ai/</link>
+  <guid isPermaLink="true">https://alexn.org/wiki/ai/</guid>
+  <dc:creator>Alexandru Nedelcu</dc:creator>
+  <category>Wiki</category>
+  
+</item>
+
 
 <item>
   <title>On Performance, GCs and Rust</title>
@@ -3007,25 +3020,6 @@
   <category>Mining</category>
   <category>Ruby</category>
   <category>Math</category>
-  </item>
-
-
-<item>
-  <title>Blogging Platform for Hackers</title>
-  <description>#Blog #Blogging #Server #Cloud #Heroku #Ruby #Jekyll</description>
-  <pubDate>Thu, 05 Jan 2012 00:00:00 +0000</pubDate>
-  <dc:modified>Thu, 19 Dec 2019 00:00:00 +0000</dc:modified>
-  <atom:modified>Thu, 19 Dec 2019 00:00:00 +0000</atom:modified>
-  <link>https://alexn.org/blog/2012/01/05/blogging-for-hackers/</link>
-  <guid isPermaLink="true">https://alexn.org/blog/2012/01/05/blogging-for-hackers/</guid>
-  <dc:creator>Alexandru Nedelcu</dc:creator>
-  <category>Blog</category>
-  <category>Blogging</category>
-  <category>Server</category>
-  <category>Cloud</category>
-  <category>Heroku</category>
-  <category>Ruby</category>
-  <category>Jekyll</category>
   </item>
 </channel>
 </rss>

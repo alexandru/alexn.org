@@ -21,11 +21,11 @@
     <meta property="og:url" content="https://alexn.org/blog/2026/07/21/on-performance-gcs-rust/">
     <meta property="article:published_time" content="2026-07-21T00:00:00+00:00">
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://alexn.org/assets/media/articles/2026-arrogant-thomas.jpg?202607211929" />
-    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2026-arrogant-thomas.jpg?202607211929" />
+    <meta property="og:image" content="https://alexn.org/assets/media/articles/2026-arrogant-thomas.jpg?202608300810" />
+    <meta property="og:image:secure_url" content="https://alexn.org/assets/media/articles/2026-arrogant-thomas.jpg?202608300810" />
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2026-arrogant-thomas.jpg?202607211929">
+    <meta name="twitter:image:src" content="https://alexn.org/assets/media/articles/2026-arrogant-thomas.jpg?202608300810">
     <meta name="twitter:site" content="@alexelcu">
     <meta name="twitter:creator" content="@alexelcu">
     <meta name="twitter:title" content="On Performance, GCs and Rust">
@@ -135,7 +135,7 @@
     
         <figure class="featuredImage" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://alexn.org/assets/media/articles/2026-arrogant-thomas.jpg" />
-          <img src="/assets/media/articles/2026-arrogant-thomas.jpg?202607211929" width="1500" height="938" decoding="async" alt="Thomas, my cat, thinking about freeing himself from the shackles of GC.
+          <img src="/assets/media/articles/2026-arrogant-thomas.jpg?202608300810" width="1500" height="938" decoding="async" alt="Thomas, my cat, thinking about freeing himself from the shackles of GC.
 " />
           <figcaption itemprop="caption">Thomas, my cat, thinking about freeing himself from the shackles of GC.
 </figcaption>
@@ -211,7 +211,7 @@ Tangent: GC makes certain paradigms easier, and here there are “safety” aspe
 
 <ul>
   <li>For programming many embedded systems, having a GC is a dealbreaker.</li>
-  <li>For hard real-time systems, too, having a GC is a dealbreaker. Imagine the braking system of a car, imagine what it would mean for a GC pause to happen right when you’re pressing the break; in which case any extra latency is simply not tolerable.</li>
+  <li>For hard real-time systems, too, having a GC is a dealbreaker. Imagine the braking system of a car, imagine what it would mean for a GC pause to happen right when you’re pressing the brake; in which case any extra latency is simply not tolerable.</li>
   <li>GC-managed programs will use more RAM, simply because generational GCs will pre-allocate more RAM. And Java in particular is memory hungry, having been optimized for servers with plenty of memory. This is quite significant. For instance an HTTP server I’ve built in Rust and able to use only 5 MB of RAM would require 50 MB when built with Java (and this with optimizations to remove standard library modules from the classpath).</li>
   <li>GC-managed programs tend to have a slower startup (again, latency suffers).</li>
   <li>Optimizing memory-access patterns in languages with manual memory management is much easier.</li>
@@ -358,12 +358,12 @@ Tangent: GC makes certain paradigms easier, and here there are “safety” aspe
 
    <script
     defer
-    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202607211929"
+    src="/assets/js-managed/jquery/dist/jquery.slim.min.js?202608300810"
     type="text/javascript"
 ></script>
 <script
     defer
-    src="/assets/js/responsive-nav.min.js?202607211929"
+    src="/assets/js/responsive-nav.min.js?202608300810"
     type="text/javascript"
 ></script>
 
@@ -374,7 +374,7 @@ Tangent: GC makes certain paradigms easier, and here there are “safety” aspe
 ></script>
 <script
     defer
-    src="/assets/js/scripts.js?202607211929"
+    src="/assets/js/scripts.js?202608300810"
     type="text/javascript"
 ></script>
 

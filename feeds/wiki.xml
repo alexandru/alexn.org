@@ -10,13 +10,79 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 21 Jul 2026 19:28:48 +0000</pubDate>
-    <lastBuildDate>Tue, 21 Jul 2026 19:28:48 +0000</lastBuildDate>
+    <pubDate>Sun, 30 Aug 2026 08:09:54 +0000</pubDate>
+    <lastBuildDate>Sun, 30 Aug 2026 08:09:54 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <generator>Jekyll v4.4.1</generator>
     
+<item>
+  <title>AI/LLM</title>
+  <description>Article
+    updated at August 30, 2026, 
+    created at August 17, 2026.</description>
+  <content:encoded>&lt;p&gt;
+    Article
+    updated at August 30, 2026, 
+    created at August 17, 2026.
+  &lt;/p&gt;
+  &lt;hr&gt;
+  
+  &lt;img referrerpolicy=&quot;no-referrer-when-downgrade&quot; src=&quot;https://ly.alexn.org/m.php?idsite=1&amp;rec=1&amp;action_name=%2Ffeeds%2Fwiki.xml&amp;url=https%3A%2F%2Falexn.org%2Ffeeds%2Fwiki.xml&amp;pk_campaign=rss&amp;pk_kwd=open&quot; width=&quot;1&quot; height=&quot;1&quot; style=&quot;position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;&quot; alt=&quot;&quot;&gt;
+&lt;h2 id=&quot;agent-harnesses&quot;&gt;Agent Harnesses&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/features/copilot/cli&quot;&gt;Copilot CLI&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://opencode.ai/&quot;&gt;OpenCode&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://pi.dev/&quot;&gt;Pi&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;configurations&quot;&gt;Configurations&lt;/h2&gt;
+
+&lt;p&gt;Mine:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/alexandru/opencode-config&quot;&gt;opencode-config&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;github.com/alexandru/copilot-cli-config&quot;&gt;copilot-cli-config&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/alexandru/agents-config&quot;&gt;agents-config&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;skills-repositories&quot;&gt;Skills repositories&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/alexandru/skills&quot;&gt;alexandru/skills&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/mattpocock/skills&quot;&gt;mattpocock/skills&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;tooling&quot;&gt;Tooling&lt;/h2&gt;
+
+&lt;h3 id=&quot;cellar-query-the-public-api-of-any-maven-jvm-dependency&quot;&gt;Cellar: query the public API of any Maven JVM dependency&lt;/h3&gt;
+
+&lt;p&gt;Repository: &lt;a href=&quot;https://github.com/VirtusLab/cellar&quot;&gt;VirtusLab/cellar&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Installing the skill:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;npx skills add https://github.com/VirtusLab/cellar/ -y 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;tokscale-track-tokens-usage-across-sessions&quot;&gt;Tokscale: Track tokens usage across sessions&lt;/h3&gt;
+
+&lt;p&gt;With &lt;a href=&quot;https://github.com/junhoyeo/tokscale&quot;&gt;Tokscale&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;npx tokscale@latest \
+    --client opencode \
+    --since 2026-08-17 \
+    --until 2026-08-17
+&lt;/code&gt;&lt;/pre&gt;</content:encoded><pubDate>Mon, 17 Aug 2026 05:17:23 +0000</pubDate>
+  <dc:modified>Sun, 30 Aug 2026 08:09:01 +0000</dc:modified>
+  <atom:modified>Sun, 30 Aug 2026 08:09:01 +0000</atom:modified>
+  <link>https://alexn.org/wiki/ai/?pk_campaign=rss</link>
+  <guid isPermaLink="true">https://alexn.org/wiki/ai/</guid>
+  <dc:creator>Alexandru Nedelcu</dc:creator>
+  <category>Wiki</category>
+  
+</item>
+
 <item>
   <title>Direnv</title>
   <description>Article
@@ -28,9 +94,7 @@
     created at May 16, 2026.
   &lt;/p&gt;
   &lt;hr&gt;
-  
-  &lt;img referrerpolicy=&quot;no-referrer-when-downgrade&quot; src=&quot;https://ly.alexn.org/m.php?idsite=1&amp;rec=1&amp;action_name=%2Ffeeds%2Fwiki.xml&amp;url=https%3A%2F%2Falexn.org%2Ffeeds%2Fwiki.xml&amp;pk_campaign=rss&amp;pk_kwd=open&quot; width=&quot;1&quot; height=&quot;1&quot; style=&quot;position: fixed !important; bottom: -1px !important; right: -1px !important; border:none !important; margin:0px !important;&quot; alt=&quot;&quot;&gt;
-&lt;pre&gt;&lt;code&gt;brew install direnv
+  &lt;pre&gt;&lt;code&gt;brew install direnv
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Normally, to make it also work with &lt;code&gt;.env&lt;/code&gt; files, this can be configured in &lt;code&gt;~/.config/direnv/direnv.toml&lt;/code&gt;:&lt;/p&gt;
