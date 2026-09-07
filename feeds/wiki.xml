@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 30 Aug 2026 08:09:54 +0000</pubDate>
-    <lastBuildDate>Sun, 30 Aug 2026 08:09:54 +0000</lastBuildDate>
+    <pubDate>Mon, 07 Sep 2026 14:21:30 +0000</pubDate>
+    <lastBuildDate>Mon, 07 Sep 2026 14:21:30 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -4129,11 +4129,11 @@ services.sync.prefs.browser.urlbar.suggest.calculator = true
 <item>
   <title>Git</title>
   <description>Article
-    updated at September 1, 2022, 
+    updated at September 7, 2026, 
     created at August 24, 2020.</description>
   <content:encoded>&lt;p&gt;
     Article
-    updated at September 1, 2022, 
+    updated at September 7, 2026, 
     created at August 24, 2020.
   &lt;/p&gt;
   &lt;hr&gt;
@@ -4178,9 +4178,59 @@ services.sync.prefs.browser.urlbar.suggest.calculator = true
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://worthe-it.co.za/programming/2016/08/13/automated-syncing-with-git.html&quot;&gt;Automated Syncing with Git&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/simonthum/git-sync&quot;&gt;github.com/simonthum/git-sync&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content:encoded><pubDate>Mon, 24 Aug 2020 13:24:31 +0000</pubDate>
-  <dc:modified>Thu, 01 Sep 2022 14:21:01 +0000</dc:modified>
-  <atom:modified>Thu, 01 Sep 2022 14:21:01 +0000</atom:modified>
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;mirroring&quot;&gt;Mirroring&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;git clone --mirror &lt;origin-url&gt; ~/git-remotes/project.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Cloning the mirror as the origin:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git clone --no-local ~/git-remotes/project.git /workspace/project
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;sync-origin---workspace&quot;&gt;Sync origin -&gt; workspace&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;cd ~/git-remotes/project.git
+git fetch --prune
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then inside the workspace:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git fetch origin 
+git pull --rebase origin main
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;sync-workspace---origin&quot;&gt;Sync workspace -&gt; origin&lt;/h3&gt;
+
+&lt;p&gt;In &lt;code&gt;/workspace/project&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git push origin &lt;branch&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd ~/git-remotes/project.git
+git push --mirror
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;merge-conflicts&quot;&gt;Merge conflicts&lt;/h3&gt;
+
+&lt;p&gt;Conflicts get solved in the workspace’s directory.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# edit conflicted files 
+git add &lt;files&gt; 
+git rebase --continue
+# ...
+git push origin &lt;branch&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then publish from mirror to origin:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cd ~/git-remotes/project.git
+git push --mirror
+&lt;/code&gt;&lt;/pre&gt;</content:encoded><pubDate>Mon, 24 Aug 2020 13:24:31 +0000</pubDate>
+  <dc:modified>Mon, 07 Sep 2026 14:19:36 +0000</dc:modified>
+  <atom:modified>Mon, 07 Sep 2026 14:19:36 +0000</atom:modified>
   <link>https://alexn.org/wiki/git/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/git/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
