@@ -1,6 +1,6 @@
 ---
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2022-09-01 17:21:01 +03:00
+last_modified_at: 2026-09-07 17:19:36 +03:00
 ---
 
 # Git
@@ -48,3 +48,61 @@ git lfs track "*.psd"
 
 - [Automated Syncing with Git](https://worthe-it.co.za/programming/2016/08/13/automated-syncing-with-git.html)
 - [github.com/simonthum/git-sync](https://github.com/simonthum/git-sync)
+
+## Mirroring
+
+```
+git clone --mirror <origin-url> ~/git-remotes/project.git
+```
+
+Cloning the mirror as the origin:
+
+```
+git clone --no-local ~/git-remotes/project.git /workspace/project
+```
+
+### Sync origin -> workspace
+
+```
+cd ~/git-remotes/project.git
+git fetch --prune
+```
+
+Then inside the workspace:
+
+```
+git fetch origin 
+git pull --rebase origin main
+```
+
+### Sync workspace -> origin
+
+In `/workspace/project`:
+```
+git push origin <branch>
+```
+
+Then:
+```
+cd ~/git-remotes/project.git
+git push --mirror
+```
+
+### Merge conflicts
+
+Conflicts get solved in the workspace's directory.
+
+```
+# edit conflicted files 
+git add <files> 
+git rebase --continue
+# ...
+git push origin <branch>
+```
+
+Then publish from mirror to origin:
+
+```
+cd ~/git-remotes/project.git
+git push --mirror
+```
