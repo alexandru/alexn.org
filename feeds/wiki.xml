@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 07 Sep 2026 14:21:30 +0000</pubDate>
-    <lastBuildDate>Mon, 07 Sep 2026 14:21:30 +0000</lastBuildDate>
+    <pubDate>Mon, 07 Sep 2026 16:06:03 +0000</pubDate>
+    <lastBuildDate>Mon, 07 Sep 2026 16:06:03 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -4182,55 +4182,241 @@ services.sync.prefs.browser.urlbar.suggest.calculator = true
 
 &lt;h2 id=&quot;mirroring&quot;&gt;Mirroring&lt;/h2&gt;
 
-&lt;pre&gt;&lt;code&gt;git clone --mirror &lt;origin-url&gt; ~/git-remotes/project.git
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For the purposes of working in a Docker container with a macOS host:&lt;/p&gt;
 
-&lt;p&gt;Cloning the mirror as the origin:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;# macOS: initial corporate clone
+git clone --mirror &lt;corporate-origin-url&gt; /path/to/project.git
 
-&lt;pre&gt;&lt;code&gt;git clone --no-local ~/git-remotes/project.git /workspace/project
-&lt;/code&gt;&lt;/pre&gt;
+# macOS: allow branch-specific pushes
+git -C /path/to/project.git config remote.origin.mirror false
 
-&lt;h3 id=&quot;sync-origin---workspace&quot;&gt;Sync origin -&gt; workspace&lt;/h3&gt;
+# Docker: clone from the mounted macOS bare repo
+git clone --no-local /git/project.git /workspace/project
+cd /workspace/project
 
-&lt;pre&gt;&lt;code&gt;cd ~/git-remotes/project.git
-git fetch --prune
-&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Then inside the workspace:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;git fetch origin 
-git pull --rebase origin main
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&quot;sync-workspace---origin&quot;&gt;Sync workspace -&gt; origin&lt;/h3&gt;
-
-&lt;p&gt;In &lt;code&gt;/workspace/project&lt;/code&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git push origin &lt;branch&gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;cd ~/git-remotes/project.git
-git push --mirror
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&quot;merge-conflicts&quot;&gt;Merge conflicts&lt;/h3&gt;
-
-&lt;p&gt;Conflicts get solved in the workspace’s directory.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# edit conflicted files 
-git add &lt;files&gt; 
-git rebase --continue
-# ...
+# Docker -&gt; macOS bare repo
 git push origin &lt;branch&gt;
+
+# macOS bare repo -&gt; corporate origin
+git-up /path/to/project.git &lt;branch&gt;
+
+
+# corporate origin -&gt; macOS bare repo
+git-down /path/to/project.git &lt;branch&gt;
+
+# macOS bare repo -&gt; Docker
+git pull origin &lt;branch&gt;
+
+
+# If git-down reports divergence
+git fetch origin \
+  refs/remotes/origin/&lt;branch&gt;:refs/remotes/corporate/&lt;branch&gt;
+
+git merge corporate/&lt;branch&gt;
+# or
+git rebase corporate/&lt;branch&gt;
+
+# Resolve, then
+git add &lt;files&gt;
+git commit
+# or, for rebase
+git rebase --continue
+
+# Publish resolved branch
+git push origin &lt;branch&gt;
+git-up /path/to/project.git &lt;branch&gt;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Then publish from mirror to origin:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;~/bin/git-up&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;#!/usr/bin/env bash
+set -uo pipefail
 
-&lt;pre&gt;&lt;code&gt;cd ~/git-remotes/project.git
-git push --mirror
+usage() {
+  echo &quot;Usage: $(basename &quot;$0&quot;) &lt;repo.git&gt; &lt;branch&gt;&quot; &gt;&amp;2
+  exit 2
+}
+
+die() {
+  echo &quot;ERROR: $*&quot; &gt;&amp;2
+  exit 1
+}
+
+[[ $# -eq 2 ]] || usage
+
+repo=&quot;$1&quot;
+branch=&quot;$2&quot;
+ref=&quot;refs/heads/$branch&quot;
+
+command -v git &gt;/dev/null 2&gt;&amp;1 ||
+  die &quot;git is not installed or not in PATH&quot;
+
+[[ -d &quot;$repo&quot; ]] ||
+  die &quot;Repository does not exist: $repo&quot;
+
+git -C &quot;$repo&quot; rev-parse --git-dir &gt;/dev/null 2&gt;&amp;1 ||
+  die &quot;Not a Git repository: $repo&quot;
+
+[[ &quot;$(git -C &quot;$repo&quot; rev-parse --is-bare-repository)&quot; == &quot;true&quot; ]] ||
+  die &quot;Expected a bare Git repository: $repo&quot;
+
+git check-ref-format --branch &quot;$branch&quot; &gt;/dev/null 2&gt;&amp;1 ||
+  die &quot;Invalid branch name: $branch&quot;
+
+git -C &quot;$repo&quot; remote get-url origin &gt;/dev/null 2&gt;&amp;1 ||
+  die &quot;Remote &apos;origin&apos; is not configured&quot;
+
+git -C &quot;$repo&quot; show-ref --verify --quiet &quot;$ref&quot; ||
+  die &quot;Local branch does not exist: $branch&quot;
+
+echo &quot;Pushing &apos;$branch&apos; to origin...&quot;
+
+if ! git -C &quot;$repo&quot; \
+    -c remote.origin.mirror=false \
+    push origin &quot;$ref:$ref&quot;
+then
+  cat &gt;&amp;2 &lt;&lt;EOF
+
+ERROR: Push failed.
+
+Possible causes:
+  - origin contains commits not present locally
+  - authentication/credentials failed
+  - origin is unreachable
+  - the branch is protected
+
+No local refs were modified.
+EOF
+  exit 1
+fi
+
+echo &quot;Successfully pushed &apos;$branch&apos;.&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;~/bin/git-down&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;#!/usr/bin/env bash
+set -uo pipefail
+
+usage() {
+  echo &quot;Usage: $(basename &quot;$0&quot;) &lt;repo.git&gt; &lt;branch&gt;&quot; &gt;&amp;2
+  exit 2
+}
+
+die() {
+  echo &quot;ERROR: $*&quot; &gt;&amp;2
+  exit 1
+}
+
+[[ $# -eq 2 ]] || usage
+
+repo=&quot;$1&quot;
+branch=&quot;$2&quot;
+
+local_ref=&quot;refs/heads/$branch&quot;
+origin_ref=&quot;refs/remotes/origin/$branch&quot;
+remote_ref=&quot;refs/heads/$branch&quot;
+
+command -v git &gt;/dev/null 2&gt;&amp;1 ||
+  die &quot;git is not installed or not in PATH&quot;
+
+[[ -d &quot;$repo&quot; ]] ||
+  die &quot;Repository does not exist: $repo&quot;
+
+git -C &quot;$repo&quot; rev-parse --git-dir &gt;/dev/null 2&gt;&amp;1 ||
+  die &quot;Not a Git repository: $repo&quot;
+
+[[ &quot;$(git -C &quot;$repo&quot; rev-parse --is-bare-repository)&quot; == &quot;true&quot; ]] ||
+  die &quot;Expected a bare Git repository: $repo&quot;
+
+git check-ref-format --branch &quot;$branch&quot; &gt;/dev/null 2&gt;&amp;1 ||
+  die &quot;Invalid branch name: $branch&quot;
+
+git -C &quot;$repo&quot; remote get-url origin &gt;/dev/null 2&gt;&amp;1 ||
+  die &quot;Remote &apos;origin&apos; is not configured&quot;
+
+echo &quot;Fetching &apos;$branch&apos; from origin...&quot;
+
+if ! git -C &quot;$repo&quot; \
+  fetch origin &quot;$remote_ref:$origin_ref&quot;
+then
+  die &quot;Could not fetch &apos;$branch&apos; from origin&quot;
+fi
+
+origin_commit=&quot;$(git -C &quot;$repo&quot; rev-parse &quot;$origin_ref&quot;)&quot; ||
+  die &quot;Could not resolve fetched origin branch&quot;
+
+#
+# Branch doesn&apos;t exist locally yet.
+#
+if ! git -C &quot;$repo&quot; show-ref --verify --quiet &quot;$local_ref&quot;; then
+  git -C &quot;$repo&quot; update-ref &quot;$local_ref&quot; &quot;$origin_commit&quot; ||
+    die &quot;Could not create local branch &apos;$branch&apos;&quot;
+
+  echo &quot;Created local &apos;$branch&apos;.&quot;
+  exit 0
+fi
+
+local_commit=&quot;$(git -C &quot;$repo&quot; rev-parse &quot;$local_ref&quot;)&quot; ||
+  die &quot;Could not resolve local branch &apos;$branch&apos;&quot;
+
+#
+# Already identical.
+#
+if [[ &quot;$local_commit&quot; == &quot;$origin_commit&quot; ]]; then
+  echo &quot;&apos;$branch&apos; is already up to date.&quot;
+  exit 0
+fi
+
+#
+# Local is behind origin: safe fast-forward.
+#
+if git -C &quot;$repo&quot; merge-base --is-ancestor \
+  &quot;$local_commit&quot; &quot;$origin_commit&quot;
+then
+  git -C &quot;$repo&quot; update-ref \
+    &quot;$local_ref&quot; \
+    &quot;$origin_commit&quot; \
+    &quot;$local_commit&quot; ||
+      die &quot;Could not fast-forward &apos;$branch&apos;&quot;
+
+  echo &quot;Fast-forwarded &apos;$branch&apos;.&quot;
+  exit 0
+fi
+
+#
+# Local is ahead: nothing to pull.
+#
+if git -C &quot;$repo&quot; merge-base --is-ancestor \
+  &quot;$origin_commit&quot; &quot;$local_commit&quot;
+then
+  echo &quot;Local &apos;$branch&apos; is ahead of origin; nothing to pull.&quot;
+  exit 0
+fi
+
+#
+# Diverged.
+#
+cat &gt;&amp;2 &lt;&lt;EOF
+ERROR: &apos;$branch&apos; has diverged from origin.
+
+Local:
+  $local_commit
+
+Origin:
+  $origin_commit
+
+The local branch was NOT modified.
+
+The origin version is available as:
+  $origin_ref
+
+Resolve the divergence in your Docker working clone.
+EOF
+
+exit 1
 &lt;/code&gt;&lt;/pre&gt;</content:encoded><pubDate>Mon, 24 Aug 2020 13:24:31 +0000</pubDate>
-  <dc:modified>Mon, 07 Sep 2026 14:19:36 +0000</dc:modified>
-  <atom:modified>Mon, 07 Sep 2026 14:19:36 +0000</atom:modified>
+  <dc:modified>Mon, 07 Sep 2026 16:04:59 +0000</dc:modified>
+  <atom:modified>Mon, 07 Sep 2026 16:04:59 +0000</atom:modified>
   <link>https://alexn.org/wiki/git/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/git/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
