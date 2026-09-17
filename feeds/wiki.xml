@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 07 Sep 2026 16:06:03 +0000</pubDate>
-    <lastBuildDate>Mon, 07 Sep 2026 16:06:03 +0000</lastBuildDate>
+    <pubDate>Thu, 17 Sep 2026 05:35:48 +0000</pubDate>
+    <lastBuildDate>Thu, 17 Sep 2026 05:35:48 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -5441,11 +5441,11 @@ to the project’s directory and create &lt;code&gt;.python-version&lt;/code&gt;
 <item>
   <title>Rust</title>
   <description>Article
-    updated at September 15, 2024, 
+    updated at September 17, 2026, 
     created at August 24, 2020.</description>
   <content:encoded>&lt;p&gt;
     Article
-    updated at September 15, 2024, 
+    updated at September 17, 2026, 
     created at August 24, 2020.
   &lt;/p&gt;
   &lt;hr&gt;
@@ -5478,9 +5478,9 @@ to the project’s directory and create &lt;code&gt;.python-version&lt;/code&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
-&lt;a href=&quot;https://neon-bindings.com/&quot;&gt;Neon: Write fast, safe native Node plugins with Rust&lt;/a&gt;;&lt;/li&gt;
+&lt;a href=&quot;https://neon-rs.dev/&quot;&gt;Neon: Write fast, safe native Node plugins with Rust&lt;/a&gt;;&lt;/li&gt;
   &lt;li&gt;
-&lt;a href=&quot;https://amethyst.rs/&quot;&gt;Amethyst - Game Engine&lt;/a&gt;;&lt;/li&gt;
+&lt;a href=&quot;https://bevyengine.org/&quot;&gt;Bevy - Game Engine&lt;/a&gt;;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Web:&lt;/p&gt;
@@ -5518,17 +5518,6 @@ to the project’s directory and create &lt;code&gt;.python-version&lt;/code&gt;
 &lt;ul&gt;
   &lt;li&gt;
 &lt;a href=&quot;https://www.youtube.com/watch?v=DMAnfOlhSpU&quot;&gt;Choosing Rust - Intro to Rust and Ownership&lt;/a&gt; (YouTube video)&lt;/li&gt;
-  &lt;li&gt;
-&lt;a href=&quot;https://www.youtube.com/watch?v=GFi_EdS_s_c&quot;&gt;Beginning Game Development with Amethyst&lt;/a&gt; (YouTube video)
-    &lt;ul&gt;
-      &lt;li&gt;
-&lt;a href=&quot;https://mtigley.dev/posts/sprite-animations-with-amethyst/&quot;&gt;Creating a Simple Spritesheet Animation with Amethyst&lt;/a&gt; (&lt;a href=&quot;https://web.archive.org/web/20200915172323/https://mtigley.dev/posts/sprite-animations-with-amethyst/&quot;&gt;archive&lt;/a&gt;)&lt;/li&gt;
-      &lt;li&gt;
-&lt;a href=&quot;https://mtigley.dev/posts/running-animation/&quot;&gt;Running Animation&lt;/a&gt; (&lt;a href=&quot;https://web.archive.org/web/20200915172354/https://mtigley.dev/posts/running-animation/&quot;&gt;archive&lt;/a&gt;)&lt;/li&gt;
-      &lt;li&gt;
-&lt;a href=&quot;https://mtigley.dev/posts/camera-follow-system/&quot;&gt;Camera Follow System&lt;/a&gt; (&lt;a href=&quot;https://web.archive.org/web/20200821172558/https://mtigley.dev/posts/camera-follow-system/&quot;&gt;archive&lt;/a&gt;)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;how-to&quot;&gt;How-to&lt;/h2&gt;
@@ -5542,7 +5531,7 @@ to the project’s directory and create &lt;code&gt;.python-version&lt;/code&gt;
 
 &lt;p&gt;To build:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;carbo build
+&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;cargo build
 
 # To build for release:
 
@@ -5570,10 +5559,38 @@ cargo check
 
 &lt;h3 id=&quot;language-server&quot;&gt;Language Server&lt;/h3&gt;
 
-&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;rustup component add rls
+&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;rustup component add rust-analyzer
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;build-executable-scripts&quot;&gt;Build executable scripts&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-rust&quot;&gt;#!/usr/bin/env -S cargo +nightly -q -Zscript
+
+---cargo
+[package]
+edition = &quot;2024&quot;
+
+[dependencies]
+anyhow = &quot;1&quot;
+clap = { version = &quot;4&quot;, features = [&quot;derive&quot;] }
+---
+
+use anyhow::Result;
+use clap::Parser;
+
+#[derive(Parser)]
+struct Args {
+    name: String,
+}
+
+fn main() -&gt; Result&lt;()&gt; {
+    let args = Args::parse();
+    println!(&quot;Hello, {}!&quot;, args.name);
+    Ok(())
+}
 &lt;/code&gt;&lt;/pre&gt;</content:encoded><pubDate>Mon, 24 Aug 2020 13:24:31 +0000</pubDate>
-  <dc:modified>Sun, 15 Sep 2024 15:15:04 +0000</dc:modified>
-  <atom:modified>Sun, 15 Sep 2024 15:15:04 +0000</atom:modified>
+  <dc:modified>Thu, 17 Sep 2026 05:32:13 +0000</dc:modified>
+  <atom:modified>Thu, 17 Sep 2026 05:32:13 +0000</atom:modified>
   <link>https://alexn.org/wiki/rust/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/rust/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
