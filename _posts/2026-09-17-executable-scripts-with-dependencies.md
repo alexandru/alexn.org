@@ -84,7 +84,7 @@ brew install borkdude/brew/babashka
 #!/usr/bin/env bb
 
 (require '[babashka.deps :as deps])
-(deps/add-deps '{:deps {org.babashka/cli {:mvn/version "0.8.65"}}})
+(deps/add-deps '{:deps {org.babashka/cli {:mvn/version "0.12.91"}}})
 (require '[babashka.cli :as cli])
 
 (defn hello [{:keys [name]}]
@@ -427,6 +427,7 @@ opts = Optimist.options do
 end
 
 name = ARGV[0]
+Optimist.die "name is required" if name.nil?
 puts "Hello, #{name}!"
 ```
 
