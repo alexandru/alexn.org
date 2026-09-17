@@ -150,6 +150,13 @@ function LazyMathItemMixin(BaseMathItem) {
                 this.state(MathItem_js_1.STATE.COMPILED);
             }
         };
+        class_1.prototype.state = function (state, restore) {
+            if (state === void 0) { state = null; }
+            if (restore === void 0) { restore = false; }
+            if (restore !== null)
+                _super.prototype.state.call(this, state, restore);
+            return _super.prototype.state.call(this);
+        };
         class_1.prototype.typeset = function (document) {
             var _a;
             if (!this.lazyTypeset) {
@@ -385,7 +392,7 @@ function LazyMathDocumentMixin(BaseDocument) {
                     for (var _b = __values(this.math), _c = _b.next(); !_c.done; _c = _b.next()) {
                         var item = _c.value;
                         var earlier = item;
-                        if (earlier === math || !(earlier === null || earlier === void 0 ? void 0 : earlier.lazyCompile)) {
+                        if (earlier === math || !(earlier === null || earlier === void 0 ? void 0 : earlier.lazyCompile) || !earlier.lazyTex) {
                             break;
                         }
                         earlier.lazyCompile = false;

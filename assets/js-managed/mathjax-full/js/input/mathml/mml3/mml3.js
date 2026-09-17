@@ -74,9 +74,10 @@ var Mml3 = (function () {
             var parsed = document.adaptor.parse(Mml3.XSLT, 'text/xml');
             processor_1.importStylesheet(parsed);
             this.transform = function (node) {
-                var div = document.adaptor.node('div', {}, [document.adaptor.clone(node)]);
+                var adaptor = document.adaptor;
+                var div = adaptor.node('div', {}, [adaptor.clone(node)]);
                 var mml = processor_1.transformToDocument(div);
-                return document.adaptor.firstChild(mml);
+                return adaptor.tags(mml, 'math')[0];
             };
         }
     }
