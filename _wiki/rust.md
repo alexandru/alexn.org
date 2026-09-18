@@ -1,6 +1,6 @@
 ---
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2024-09-15T18:15:04+03:00
+last_modified_at: 2026-09-17T08:32:13+03:00
 ---
 
 # Rust
@@ -30,8 +30,8 @@ Build tools:
 
 Fun stuff:
 
-- [Neon: Write fast, safe native Node plugins with Rust](https://neon-bindings.com/);
-- [Amethyst - Game Engine](https://amethyst.rs/);
+- [Neon: Write fast, safe native Node plugins with Rust](https://neon-rs.dev/);
+- [Bevy - Game Engine](https://bevyengine.org/);
 
 Web:
 
@@ -55,10 +55,6 @@ Web:
 ## Tutorials
 
 - [Choosing Rust - Intro to Rust and Ownership](https://www.youtube.com/watch?v=DMAnfOlhSpU) (YouTube video)
-- [Beginning Game Development with Amethyst](https://www.youtube.com/watch?v=GFi_EdS_s_c) (YouTube video)
-  - [Creating a Simple Spritesheet Animation with Amethyst](https://mtigley.dev/posts/sprite-animations-with-amethyst/) ([archive](https://web.archive.org/web/20200915172323/https://mtigley.dev/posts/sprite-animations-with-amethyst/))
-  - [Running Animation](https://mtigley.dev/posts/running-animation/) ([archive](https://web.archive.org/web/20200915172354/https://mtigley.dev/posts/running-animation/))
-  - [Camera Follow System](https://mtigley.dev/posts/camera-follow-system/) ([archive](https://web.archive.org/web/20200821172558/https://mtigley.dev/posts/camera-follow-system/))
 
 ## How-to
 
@@ -73,7 +69,7 @@ cargo new hello_world
 To build:
 
 ```sh
-carbo build
+cargo build
 
 # To build for release:
 
@@ -105,5 +101,34 @@ cargo doc --open
 ### Language Server
 
 ```sh
-rustup component add rls
+rustup component add rust-analyzer
+```
+
+### Build executable scripts
+
+```rust
+#!/usr/bin/env -S cargo +nightly -q -Zscript
+
+---cargo
+[package]
+edition = "2024"
+
+[dependencies]
+anyhow = "1"
+clap = { version = "4", features = ["derive"] }
+---
+
+use anyhow::Result;
+use clap::Parser;
+
+#[derive(Parser)]
+struct Args {
+    name: String,
+}
+
+fn main() -> Result<()> {
+    let args = Args::parse();
+    println!("Hello, {}!", args.name);
+    Ok(())
+}
 ```
