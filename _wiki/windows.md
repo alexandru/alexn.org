@@ -1,18 +1,11 @@
 ---
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2025-01-21T18:59:34+02:00
+last_modified_at: 2026-07-02 18:50:11 +0300
 ---
 
-# Windows 10
+# Windows
 
 ## Installation on Macbooks
-
-### Create bootable USB stick for installing Windows
-
-1: Download the Windows ISO file from Microsoft's website.
-2: Identify the disk number of the USB drive: `diskutil list`
-3: `diskutil unmountDisk /dev/diskN` 
-4: `sudo dd if=/path/to/windows.iso of=/dev/rdiskN bs=1m` 
 
 ### Boot Camp
 
@@ -21,15 +14,65 @@ To download the drivers:
 1. From MacOS: Boot Camp Assistant -> Menu -> "Action" -> "Download Windows Support Software"
 2. From Windows: <https://github.com/timsutton/brigadier>
 
+### Workaround TPM 2.0 requirement
+
+Intel Macbooks have a T2 security chip, so Windows 11 is NOT officially supported.
+
+To install:
+1. Use Microsoft’s Windows 11 Media Creation Tool to create the USB.
+2. Boot the Mac from it.
+3. When Windows Setup complains about TPM / unsupported hardware, press: 
+   `Shift + F10`
+4. Run `regedit`
+5. Create this key: `HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig`
+6. Add these DWORD values set to `1`...
+
+```
+BypassTPMCheck
+BypassSecureBootCheck
+```
+
+### Support for HyperV
+
+Required for WSL2.
+
+Install [rEFInd](https://www.rodsbooks.com/refind/).
+
+NOTE: for some reason, on my Macbook Pro 2019, with Windows 11, I had to do nothing, so this may not be needed.
+
 ### Third-party utilities
 
 - To make the Macbook's touchpad not suck: <https://github.com/imbushuo/mac-precision-touchpad>
 
-### Support for Hyper-Threading
+## Tips and Tricks
 
-- Source: [Hacker News comment](https://news.ycombinator.com/item?id=22875681)
-- Documentation: [Enabling VT-x on Mac Book Air in Bootcamp](https://dea.nbird.com.au/2017/02/24/enabling-vt-x-on-mac-book-air-in-bootcamp/)
-- Download: [rEFInd](https://www.rodsbooks.com/refind/)
+### Activate Windows license
+
+- <https://massgrave.dev/>
+- <https://github.com/massgravel/Microsoft-Activation-Scripts>
+
+### Set Caps-Lock as Ctrl
+
+Open *Powershell as Administrator* and execute:
+
+```powershell
+$hex = "0000000000000000020000001D003A0000000000"
+$bytes = for ($i = 0; $i -lt $hex.Length; $i += 2) {
+    [Convert]::ToByte($hex.Substring($i, 2), 16)
+}
+
+New-ItemProperty `
+  -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Keyboard Layout" `
+  -Name "Scancode Map" `
+  -PropertyType Binary `
+  -Value $bytes `
+  -Force
+```
+
+### WSL2 Tips
+
+- [Enable faster Windows file system access in WSL2](https://www.boxofcables.dev/wsl2-per-device-swiotlb-pools-for-virtiofs-and-virtioproxy/)
+- [WSL containers](https://devblogs.microsoft.com/commandline/wsl-container-is-now-available-for-public-preview/)
 
 ## Set-up tutorials
 
