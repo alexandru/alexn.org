@@ -1,8 +1,8 @@
 ---
 title: "Executable Scripts with Dependencies"
 image: /assets/media/articles/2026-scala-cli.png
-# date:
-# last_modified_at:
+date: 2026-09-18T08:21:33+03:00
+last_modified_at: 2026-09-18T08:21:33+03:00
 generate_toc: true
 tags:
   - CSharp
