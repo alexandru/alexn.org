@@ -1,8 +1,8 @@
 ---
 title: "Executable Scripts with Dependencies"
 image: /assets/media/articles/2026-scala-cli.png
-date: 2026-09-18T08:21:33+03:00
-last_modified_at: 2026-09-18T08:21:33+03:00
+date: 2026-09-17T10:00:00+03:00
+last_modified_at: 2026-09-18T08:23:31+03:00
 generate_toc: true
 tags:
   - CSharp
@@ -22,7 +22,7 @@ tags:
 ---
 
 <p class="intro" markdown="1">
-  The Unix shell is great for supporting executable scripts via the [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) header, but I've always found scripting languages limiting, due to the inability to specify dependencies (other than the standard library). This has always been Python's appeal with its "batteries included", but I dislike Python, and its standard library isn't enough either.
+  The Unix shell is great for supporting executable scripts via the [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) header, but I've always found scripting languages limiting, due to the inability to specify dependencies (other than the standard library). This has always been Python's appeal with its "batteries included", but I dislike Python, and its standard library isn't enough either. And then, [Scala CLI](https://scala-cli.virtuslab.org/) has spoiled me, now being my favorite way to build scripts.
 </p>
 
 So without further ado, here's how to build executable scripts that have dependencies in some of my favorite languages...
