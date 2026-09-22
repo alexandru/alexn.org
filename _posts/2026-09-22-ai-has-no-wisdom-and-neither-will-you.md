@@ -1,7 +1,7 @@
 ---
 title: "AI Has No Wisdom and Neither Will You"
 date: 2026-09-22 06:10:32 +00:00
-last_modified_at: 2026-09-22T09:57:54+03:00
+last_modified_at: 2026-09-22T10:07:56+03:00
 tags:
   - AI
   - Opinion
@@ -23,7 +23,7 @@ We can certainly define bad code: code that's hard to read, hard to understand, 
 
 And yet, we know it as a fact that noticing bad code takes time. Months, years. Of course, the experienced software engineers have a nose that can detect code smells and can take action long before the bad effects can be observed.
 
-The proficient developers, the experts, rely on their intuition built with sweat and tears, working long hours trying to debug and fix production issues, swearing to never again be so foolish as to repeat past mistakes. It's the kind of intuition that can't really be made into a list of rigid rules, because everything is context-dependent. Experts are incompatible with the same rules and recipes that make beginners more productive.
+The proficient developers, the experts, rely on their intuition built with sweat and tears, working long hours trying to debug and fix production issues, swearing to never again be so foolish as to repeat past mistakes. It's the kind of intuition that can't really be made into a list of rigid rules, because everything is context-dependent. Experts are incompatible with the same rules and recipes that make beginners more productive. *Experts don't follow the rules, they make the rules.*
 
 And so we have a problem...
 
