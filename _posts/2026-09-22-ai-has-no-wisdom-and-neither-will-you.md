@@ -1,7 +1,7 @@
 ---
 title: "AI Has No Wisdom and Neither Will You"
 date: 2026-09-22 06:10:32 +00:00
-last_modified_at: 2026-09-22T10:07:56+03:00
+last_modified_at: 2026-09-22T10:29:48+03:00
 tags:
   - AI
   - Opinion
@@ -29,13 +29,13 @@ And so we have a problem...
 
 For one, AI is not trained on what it means for code to be maintainable. For instance, any reinforcement learning done needs a reward signal that can be measured immediately, not in months or years. The AI learns rules from rulebooks meant for beginners. The AI notices patterns from code in the wild and let's be honest, most code in the wild is pretty bad. There is no fitness function you can define for maintainable code, at least not one that we can discern, otherwise it would've been baked into our linters.
 
-Case in point: have you noticed how terrible is the AI at "simplifying" code? Yes, SOTA. It can't even define functions properly, choosing to split functions into smaller functions that are not actually reusable. Extracting a smaller function from a bigger function is a very bad choice if, to understand the bigger function, you have to also read the implementation of the extracted smaller function. Defining reusable and clarifying functions is an art form, an art that takes mastery. Most developers, being still "advanced beginners" in the [Dreyfus model](https://en.wikipedia.org/wiki/Dreyfus_model_of_skill_acquisition), are not able to define good, clarifying, reusable functions and neither does the AI currently.
+Have you noticed how terrible is the AI at "simplifying" code? Yes, the SOTA models. It can't even define functions properly, choosing to split functions into smaller functions that are not actually reusable. Extracting a smaller function from a bigger function is a very bad choice if, to understand the bigger function, you have to also read the implementation of the extracted smaller function. Defining reusable and clarifying functions is an art form, an art that takes mastery. Most developers, being still *"advanced beginners"* in the [Dreyfus model](https://en.wikipedia.org/wiki/Dreyfus_model_of_skill_acquisition), are not able to define good, clarifying, reusable functions and neither does the AI currently.
 
-This wouldn't be so bad if people would still be in control. But we are seeing a trend of people relying on AI to write, and even read code.
+This wouldn't be so bad if people would still be in control and learn from those mistakes. But we are seeing a trend of people relying on AI to write, and even read code.
 
 Those people will never reach mastery, because they no longer make choices, they no longer take responsibility for mistakes in coding and no longer learn from those mistakes. It's the AI that's making mistakes now, the AI doesn't learn from those mistakes, and neither are the people relying on AI for coding.
 
-Yikes.
+Yikes!
 
 Don't get me wrong, I think LLMs are a great tool. I'm no Luddite, I've integrated AI in my everyday work, while actually teaching my colleagues what I've learned. I gladly use LLMs to take care of all the boring, soul-sucking shit we have to deal with. I'm also enjoying the efficiency benefits that I'm seeing. But at the end of the day, it's just a tool, and like all other revolutions, its light will also fade; IMO, it already is, as right now tech news is frankly quite boring.
 
@@ -43,6 +43,6 @@ People are actually terrible at making predictions. I believe the future will su
 
 > In the future we will see more and more companies proudly boasting their "NO-AI" policy as a competitive advantage. And they will be right.
 
-_"But automated assembly lines are always more efficient"_ people say, except that the software industry is special, because we've always done automation at scale, everything we do is automation, LLMs are not the only means for it, and depending on context, it may actually be a distraction. _"Coding isn't solved"_ in any meaningful sense. Sure, you can instruct the LLM to build you a C/C++ compiler, or you can just clone GCC or LLVM, and you'd get a better C/C++ compiler, for free, too.
+_"But automated assembly lines are always more efficient"_ people say, except that the software industry is special, because we've always done automation at scale, everything we do is automation, LLMs are not the only means for it, and depending on context, it may actually be a distraction. _"Coding isn't solved"_ in any meaningful sense. Sure, you can instruct the LLM to build you a C/C++ compiler, or you can just clone GCC or LLVM, and you'd get a better C/C++ compiler, for free, too. And maybe there are better ways to spend our time and resources than reinvent the same CRUD apps (human needs and desires are infinite, there's no shortage of new goals to work on).
 
 If people and companies don't start being responsible about its use, there will be consequences.
