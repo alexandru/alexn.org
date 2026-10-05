@@ -1,6 +1,6 @@
 ---
 date: 2020-08-24 16:24:31 +03:00
-last_modified_at: 2026-10-05T12:02:02+03:00
+last_modified_at: 2026-10-05T12:06:31+03:00
 ---
 
 # Git
@@ -55,7 +55,7 @@ Let's say we have this non-default identity file: `~/.ssh/id_corp.pub`
 
 All commands below are run with plain `git config` (no `--global`), so they apply only the repository's `.git/config` (in the current directory).
 
-### Commit signing (agent-agnostic)
+### Commit signing
 
 ```bash
 git config user.signingKey "$(cat ~/.ssh/id_corp.pub)"
