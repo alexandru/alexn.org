@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 22 Sep 2026 07:30:22 +0000</pubDate>
-    <lastBuildDate>Tue, 22 Sep 2026 07:30:22 +0000</lastBuildDate>
+    <pubDate>Mon, 05 Oct 2026 09:01:53 +0000</pubDate>
+    <lastBuildDate>Mon, 05 Oct 2026 09:01:53 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -4129,11 +4129,11 @@ services.sync.prefs.browser.urlbar.suggest.calculator = true
 <item>
   <title>Git</title>
   <description>Article
-    updated at September 7, 2026, 
+    updated at October 5, 2026, 
     created at August 24, 2020.</description>
   <content:encoded>&lt;p&gt;
     Article
-    updated at September 7, 2026, 
+    updated at October 5, 2026, 
     created at August 24, 2020.
   &lt;/p&gt;
   &lt;hr&gt;
@@ -4180,243 +4180,42 @@ services.sync.prefs.browser.urlbar.suggest.calculator = true
   &lt;li&gt;&lt;a href=&quot;https://github.com/simonthum/git-sync&quot;&gt;github.com/simonthum/git-sync&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;mirroring&quot;&gt;Mirroring&lt;/h2&gt;
+&lt;h2 id=&quot;git-repos-with-different-ssh-key-for-authentication--signing&quot;&gt;Git repos with different SSH key for authentication &amp; signing&lt;/h2&gt;
 
-&lt;p&gt;For the purposes of working in a Docker container with a macOS host:&lt;/p&gt;
+&lt;p&gt;Let’s say we have this non-default identity file: &lt;code&gt;~/.ssh/id_corp.pub&lt;/code&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;# macOS: initial corporate clone
-git clone --mirror &lt;corporate-origin-url&gt; /path/to/project.git
+&lt;p&gt;All commands below are run with plain &lt;code&gt;git config&lt;/code&gt; (no &lt;code&gt;--global&lt;/code&gt;), so they apply only to this repository’s &lt;code&gt;.git/config&lt;/code&gt;.&lt;/p&gt;
 
-# macOS: allow branch-specific pushes
-git -C /path/to/project.git config remote.origin.mirror false
+&lt;h3 id=&quot;commit-signing-agent-agnostic&quot;&gt;Commit signing (agent-agnostic)&lt;/h3&gt;
 
-# Docker: clone from the mounted macOS bare repo
-git clone --no-local /git/project.git /workspace/project
-cd /workspace/project
-
-
-# Docker -&gt; macOS bare repo
-git push origin &lt;branch&gt;
-
-# macOS bare repo -&gt; corporate origin
-git-up /path/to/project.git &lt;branch&gt;
-
-
-# corporate origin -&gt; macOS bare repo
-git-down /path/to/project.git &lt;branch&gt;
-
-# macOS bare repo -&gt; Docker
-git pull origin &lt;branch&gt;
-
-
-# If git-down reports divergence
-git fetch origin \
-  refs/remotes/origin/&lt;branch&gt;:refs/remotes/corporate/&lt;branch&gt;
-
-git merge corporate/&lt;branch&gt;
-# or
-git rebase corporate/&lt;branch&gt;
-
-# Resolve, then
-git add &lt;files&gt;
-git commit
-# or, for rebase
-git rebase --continue
-
-# Publish resolved branch
-git push origin &lt;branch&gt;
-git-up /path/to/project.git &lt;branch&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;git config user.signingKey &quot;$(cat ~/.ssh/id_corp.pub)&quot;
+git config gpg.format ssh
+git config commit.gpgsign true
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;code&gt;~/bin/git-up&lt;/code&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;#!/usr/bin/env bash
-set -uo pipefail
+&lt;p&gt;Git passes this public key to &lt;code&gt;ssh-keygen -Y sign&lt;/code&gt;, which asks whatever agent is on &lt;code&gt;SSH_AUTH_SOCK&lt;/code&gt; for the matching private key.&lt;/p&gt;
 
-usage() {
-  echo &quot;Usage: $(basename &quot;$0&quot;) &lt;repo.git&gt; &lt;branch&gt;&quot; &gt;&amp;2
-  exit 2
-}
+&lt;h3 id=&quot;transport-authentication-origin-over-ssh&quot;&gt;Transport authentication (&lt;code&gt;origin&lt;/code&gt; over SSH)&lt;/h3&gt;
 
-die() {
-  echo &quot;ERROR: $*&quot; &gt;&amp;2
-  exit 1
-}
-
-[[ $# -eq 2 ]] || usage
-
-repo=&quot;$1&quot;
-branch=&quot;$2&quot;
-ref=&quot;refs/heads/$branch&quot;
-
-command -v git &gt;/dev/null 2&gt;&amp;1 ||
-  die &quot;git is not installed or not in PATH&quot;
-
-[[ -d &quot;$repo&quot; ]] ||
-  die &quot;Repository does not exist: $repo&quot;
-
-git -C &quot;$repo&quot; rev-parse --git-dir &gt;/dev/null 2&gt;&amp;1 ||
-  die &quot;Not a Git repository: $repo&quot;
-
-[[ &quot;$(git -C &quot;$repo&quot; rev-parse --is-bare-repository)&quot; == &quot;true&quot; ]] ||
-  die &quot;Expected a bare Git repository: $repo&quot;
-
-git check-ref-format --branch &quot;$branch&quot; &gt;/dev/null 2&gt;&amp;1 ||
-  die &quot;Invalid branch name: $branch&quot;
-
-git -C &quot;$repo&quot; remote get-url origin &gt;/dev/null 2&gt;&amp;1 ||
-  die &quot;Remote &apos;origin&apos; is not configured&quot;
-
-git -C &quot;$repo&quot; show-ref --verify --quiet &quot;$ref&quot; ||
-  die &quot;Local branch does not exist: $branch&quot;
-
-echo &quot;Pushing &apos;$branch&apos; to origin...&quot;
-
-if ! git -C &quot;$repo&quot; \
-    -c remote.origin.mirror=false \
-    push origin &quot;$ref:$ref&quot;
-then
-  cat &gt;&amp;2 &lt;&lt;EOF
-
-ERROR: Push failed.
-
-Possible causes:
-  - origin contains commits not present locally
-  - authentication/credentials failed
-  - origin is unreachable
-  - the branch is protected
-
-No local refs were modified.
-EOF
-  exit 1
-fi
-
-echo &quot;Successfully pushed &apos;$branch&apos;.&quot;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;git config core.sshCommand &quot;ssh -i ~/.ssh/id_corp.pub -o IdentitiesOnly=yes&quot;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;code&gt;~/bin/git-down&lt;/code&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;#!/usr/bin/env bash
-set -uo pipefail
+&lt;p&gt;If having issues, might want to specify the agent explicitly:&lt;/p&gt;
 
-usage() {
-  echo &quot;Usage: $(basename &quot;$0&quot;) &lt;repo.git&gt; &lt;branch&gt;&quot; &gt;&amp;2
-  exit 2
-}
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;# 1Password
+git config core.sshCommand &apos;ssh -i ~/.ssh/id_corp.pub -o IdentitiesOnly=yes -o IdentityAgent=&quot;~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock&quot;&apos;
 
-die() {
-  echo &quot;ERROR: $*&quot; &gt;&amp;2
-  exit 1
-}
+# Bitwarden
+git config core.sshCommand &quot;ssh -i ~/.ssh/id_corp.pub -o IdentitiesOnly=yes -o IdentityAgent=~/.bitwarden-ssh-agent.sock&quot;
+&lt;/code&gt;&lt;/pre&gt;
 
-[[ $# -eq 2 ]] || usage
+&lt;h3 id=&quot;verification&quot;&gt;Verification&lt;/h3&gt;
 
-repo=&quot;$1&quot;
-branch=&quot;$2&quot;
-
-local_ref=&quot;refs/heads/$branch&quot;
-origin_ref=&quot;refs/remotes/origin/$branch&quot;
-remote_ref=&quot;refs/heads/$branch&quot;
-
-command -v git &gt;/dev/null 2&gt;&amp;1 ||
-  die &quot;git is not installed or not in PATH&quot;
-
-[[ -d &quot;$repo&quot; ]] ||
-  die &quot;Repository does not exist: $repo&quot;
-
-git -C &quot;$repo&quot; rev-parse --git-dir &gt;/dev/null 2&gt;&amp;1 ||
-  die &quot;Not a Git repository: $repo&quot;
-
-[[ &quot;$(git -C &quot;$repo&quot; rev-parse --is-bare-repository)&quot; == &quot;true&quot; ]] ||
-  die &quot;Expected a bare Git repository: $repo&quot;
-
-git check-ref-format --branch &quot;$branch&quot; &gt;/dev/null 2&gt;&amp;1 ||
-  die &quot;Invalid branch name: $branch&quot;
-
-git -C &quot;$repo&quot; remote get-url origin &gt;/dev/null 2&gt;&amp;1 ||
-  die &quot;Remote &apos;origin&apos; is not configured&quot;
-
-echo &quot;Fetching &apos;$branch&apos; from origin...&quot;
-
-if ! git -C &quot;$repo&quot; \
-  fetch origin &quot;$remote_ref:$origin_ref&quot;
-then
-  die &quot;Could not fetch &apos;$branch&apos; from origin&quot;
-fi
-
-origin_commit=&quot;$(git -C &quot;$repo&quot; rev-parse &quot;$origin_ref&quot;)&quot; ||
-  die &quot;Could not resolve fetched origin branch&quot;
-
-#
-# Branch doesn&apos;t exist locally yet.
-#
-if ! git -C &quot;$repo&quot; show-ref --verify --quiet &quot;$local_ref&quot;; then
-  git -C &quot;$repo&quot; update-ref &quot;$local_ref&quot; &quot;$origin_commit&quot; ||
-    die &quot;Could not create local branch &apos;$branch&apos;&quot;
-
-  echo &quot;Created local &apos;$branch&apos;.&quot;
-  exit 0
-fi
-
-local_commit=&quot;$(git -C &quot;$repo&quot; rev-parse &quot;$local_ref&quot;)&quot; ||
-  die &quot;Could not resolve local branch &apos;$branch&apos;&quot;
-
-#
-# Already identical.
-#
-if [[ &quot;$local_commit&quot; == &quot;$origin_commit&quot; ]]; then
-  echo &quot;&apos;$branch&apos; is already up to date.&quot;
-  exit 0
-fi
-
-#
-# Local is behind origin: safe fast-forward.
-#
-if git -C &quot;$repo&quot; merge-base --is-ancestor \
-  &quot;$local_commit&quot; &quot;$origin_commit&quot;
-then
-  git -C &quot;$repo&quot; update-ref \
-    &quot;$local_ref&quot; \
-    &quot;$origin_commit&quot; \
-    &quot;$local_commit&quot; ||
-      die &quot;Could not fast-forward &apos;$branch&apos;&quot;
-
-  echo &quot;Fast-forwarded &apos;$branch&apos;.&quot;
-  exit 0
-fi
-
-#
-# Local is ahead: nothing to pull.
-#
-if git -C &quot;$repo&quot; merge-base --is-ancestor \
-  &quot;$origin_commit&quot; &quot;$local_commit&quot;
-then
-  echo &quot;Local &apos;$branch&apos; is ahead of origin; nothing to pull.&quot;
-  exit 0
-fi
-
-#
-# Diverged.
-#
-cat &gt;&amp;2 &lt;&lt;EOF
-ERROR: &apos;$branch&apos; has diverged from origin.
-
-Local:
-  $local_commit
-
-Origin:
-  $origin_commit
-
-The local branch was NOT modified.
-
-The origin version is available as:
-  $origin_ref
-
-Resolve the divergence in your Docker working clone.
-EOF
-
-exit 1
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;GIT_SSH_COMMAND=&quot;$(git config core.sshCommand) -v&quot; git fetch origin
+git log --show-signature -1
 &lt;/code&gt;&lt;/pre&gt;</content:encoded><pubDate>Mon, 24 Aug 2020 13:24:31 +0000</pubDate>
-  <dc:modified>Mon, 07 Sep 2026 16:04:59 +0000</dc:modified>
-  <atom:modified>Mon, 07 Sep 2026 16:04:59 +0000</atom:modified>
+  <dc:modified>Mon, 05 Oct 2026 09:01:06 +0000</dc:modified>
+  <atom:modified>Mon, 05 Oct 2026 09:01:06 +0000</atom:modified>
   <link>https://alexn.org/wiki/git/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/git/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
