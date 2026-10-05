@@ -10,8 +10,8 @@
     <description>Feed of wiki articles, published at alexn.org/wiki/</description>
     <link>https://alexn.org/wiki/</link>
     <atom:link href="https://alexn.org/feeds/wiki.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 05 Oct 2026 09:02:36 +0000</pubDate>
-    <lastBuildDate>Mon, 05 Oct 2026 09:02:36 +0000</lastBuildDate>
+    <pubDate>Mon, 05 Oct 2026 09:07:03 +0000</pubDate>
+    <lastBuildDate>Mon, 05 Oct 2026 09:07:03 +0000</lastBuildDate>
     <language>en</language>
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
@@ -4186,7 +4186,7 @@ services.sync.prefs.browser.urlbar.suggest.calculator = true
 
 &lt;p&gt;All commands below are run with plain &lt;code&gt;git config&lt;/code&gt; (no &lt;code&gt;--global&lt;/code&gt;), so they apply only the repository’s &lt;code&gt;.git/config&lt;/code&gt; (in the current directory).&lt;/p&gt;
 
-&lt;h3 id=&quot;commit-signing-agent-agnostic&quot;&gt;Commit signing (agent-agnostic)&lt;/h3&gt;
+&lt;h3 id=&quot;commit-signing&quot;&gt;Commit signing&lt;/h3&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;git config user.signingKey &quot;$(cat ~/.ssh/id_corp.pub)&quot;
 git config gpg.format ssh
@@ -4214,8 +4214,8 @@ git config core.sshCommand &quot;ssh -i ~/.ssh/id_corp.pub -o IdentitiesOnly=yes
 &lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;GIT_SSH_COMMAND=&quot;$(git config core.sshCommand) -v&quot; git fetch origin
 git log --show-signature -1
 &lt;/code&gt;&lt;/pre&gt;</content:encoded><pubDate>Mon, 24 Aug 2020 13:24:31 +0000</pubDate>
-  <dc:modified>Mon, 05 Oct 2026 09:02:02 +0000</dc:modified>
-  <atom:modified>Mon, 05 Oct 2026 09:02:02 +0000</atom:modified>
+  <dc:modified>Mon, 05 Oct 2026 09:06:31 +0000</dc:modified>
+  <atom:modified>Mon, 05 Oct 2026 09:06:31 +0000</atom:modified>
   <link>https://alexn.org/wiki/git/?pk_campaign=rss</link>
   <guid isPermaLink="true">https://alexn.org/wiki/git/</guid>
   <dc:creator>Alexandru Nedelcu</dc:creator>
