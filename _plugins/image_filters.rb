@@ -18,9 +18,13 @@ module MyImages
     
     unless @@image_cache.include? local_path
       unless File.exist? local_path
-        throw ArgumentError.new("Cannot find image at path: '#{local_path}'")
+        raise ArgumentError, "Cannot find image at path: '#{local_path}'"
       end
-      @@image_cache[local_path] = FastImage.size(local_path)
+      size = FastImage.size(local_path)
+      unless size
+        raise ArgumentError, "Cannot determine image dimensions at path: '#{local_path}'"
+      end
+      @@image_cache[local_path] = size
       puts "MyImages::size_of — Not cached: #{local_path}" if log
     else
       puts "MyImages::size_of — Cached: #{local_path}" if log
