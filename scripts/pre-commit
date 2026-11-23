@@ -10,6 +10,7 @@ trap 'rm -f "$TEMP_FILE"' EXIT
 
 while IFS= read -r -d '' FILE; do
     [ -f "$FILE" ] || continue
+    cmp -s <(head -c 4 "$FILE") <(printf '%s\n' '---') || continue
 
     awk -v current_date="$CURRENT_DATE" '
         NR == 1 && $0 == "---" {
