@@ -45,12 +45,11 @@ var matchExpr = jQuery.extend( {
 
 jQuery.extend( {
 	find: function( selector, context, results, seed ) {
-		var elem, nid, groups, newSelector,
+		var i, elem, nid, groups, newSelector,
 			newContext = context && context.ownerDocument,
 
 			// nodeType defaults to 9, since context defaults to document
-			nodeType = context ? context.nodeType : 9,
-			i = 0;
+			nodeType = context ? context.nodeType : 9;
 
 		results = results || [];
 		context = context || document;
@@ -66,7 +65,8 @@ jQuery.extend( {
 		}
 
 		if ( seed ) {
-			while ( ( elem = seed[ i++ ] ) ) {
+			for ( i = 0; i < seed.length; i++ ) {
+				elem = seed[ i ];
 				if ( jQuery.find.matchesSelector( elem, selector ) ) {
 					results.push( elem );
 				}
@@ -93,7 +93,11 @@ jQuery.extend( {
 
 				// Outside of IE, if we're not changing the context we can
 				// use :scope instead of an ID.
-				if ( newContext !== context || isIE ) {
+				// Support: IE 11+
+				// IE sometimes throws a "Permission denied" error when strict-comparing
+				// two documents; shallow comparisons work.
+				// eslint-disable-next-line eqeqeq
+				if ( newContext != context || isIE ) {
 
 					// Capture the context ID, setting it first if necessary
 					if ( ( nid = context.getAttribute( "id" ) ) ) {

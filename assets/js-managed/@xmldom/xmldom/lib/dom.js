@@ -330,14 +330,31 @@ NodeList.prototype = {
 	/**
 	 * Returns a string representation of the NodeList.
 	 *
-	 * @param {unknown} nodeFilter
-	 * __A filter function? Not implemented according to the spec?__.
+	 * Accepts the same `options` object as `XMLSerializer.prototype.serializeToString`
+	 * (`requireWellFormed`, `splitCDATASections`, `nodeFilter`). Passing a function is treated as
+	 * a legacy `nodeFilter` for backward compatibility.
+	 *
+	 * @param {Object | function} [options]
+	 * @param {boolean} [options.requireWellFormed=false]
+	 * @param {boolean} [options.splitCDATASections=true]
+	 * @param {function} [options.nodeFilter]
 	 * @returns {string}
-	 * A string representation of the NodeList.
 	 */
-	toString: function (nodeFilter) {
+	toString: function (options) {
+		var opts;
+		if (typeof options === 'function') {
+			opts = { requireWellFormed: false, splitCDATASections: true, nodeFilter: options };
+		} else if (!!options) {
+			opts = {
+				requireWellFormed: !!options.requireWellFormed,
+				splitCDATASections: options.splitCDATASections !== false,
+				nodeFilter: options.nodeFilter || null,
+			};
+		} else {
+			opts = { requireWellFormed: false, splitCDATASections: true, nodeFilter: null };
+		}
 		for (var buf = [], i = 0; i < this.length; i++) {
-			serializeToString(this[i], buf, nodeFilter);
+			serializeToString(this[i], buf, null, opts);
 		}
 		return buf.join('');
 	},
@@ -468,7 +485,22 @@ _extends(LiveNodeList, NodeList);
  * @see https://webidl.spec.whatwg.org/#dfn-supported-property-names
  * @constructs NamedNodeMap
  */
-function NamedNodeMap() {}
+/**
+ * A live collection of an element's attributes, keyed by name.
+ *
+ * The numbered entries and `length` are the sole authority for attribute order.
+ * A separate two-level null-prototype membership index (`namespaceURI` ->
+ * `localName` -> `Attr`, with the null/empty namespace held in its own bucket)
+ * lets the parse-time de-duplication in `setNamedItem` resolve an existing
+ * attribute in O(1) instead of scanning the list, so building an element with M
+ * attributes costs O(M) rather than O(M^2). The index never reorders attributes.
+ */
+function NamedNodeMap() {
+	// namespaceURI (non-empty string) -> (localName -> Attr)
+	this._nsIndex = Object.create(null);
+	// localName -> Attr, for the null / empty-string namespace
+	this._noNsIndex = Object.create(null);
+}
 /**
  * Returns the index of a node within the list.
  *
@@ -487,6 +519,70 @@ function _findNodeIndex(list, node) {
 			return i;
 		}
 		i++;
+	}
+}
+/**
+ * Returns the second-level index bucket (`localName` -> `Attr`) for a namespace,
+ * replicating `getNamedItemNS`'s falsy-namespace normalization: `null`,
+ * `undefined` and `''` all resolve to the dedicated null-namespace bucket, kept separate from
+ * any real URI (so a namespace URI equal to the string `"null"`
+ * cannot collide with the null namespace). Both levels are null-prototype objects, so an
+ * attribute named `__proto__` or `constructor` is an ordinary key.
+ *
+ * @param {NamedNodeMap} map
+ * @param {string | null | undefined} namespaceURI
+ * @param {boolean} create
+ * Create the bucket if it does not exist yet.
+ * @returns {Object | undefined}
+ * @private
+ */
+function _nnmBucket(map, namespaceURI, create) {
+	if (!namespaceURI) {
+		return map._noNsIndex;
+	}
+	var bucket = map._nsIndex[namespaceURI];
+	if (!bucket && create) {
+		bucket = map._nsIndex[namespaceURI] = Object.create(null);
+	}
+	return bucket;
+}
+/**
+ * Looks up an attribute by namespace and local name through the membership index.
+ *
+ * @param {NamedNodeMap} map
+ * @param {string | null | undefined} namespaceURI
+ * @param {string} localName
+ * @returns {Attr | null}
+ * The matching attribute, or `null` when absent.
+ * @private
+ */
+function _nnmIndexFind(map, namespaceURI, localName) {
+	var bucket = _nnmBucket(map, namespaceURI, false);
+	var found = bucket && bucket[localName];
+	return found ? found : null;
+}
+/**
+ * Records `attr` in the membership index under its namespace and local name,
+ * replacing any previous attribute with the same key.
+ *
+ * @param {NamedNodeMap} map
+ * @param {Attr} attr
+ * @private
+ */
+function _nnmIndexAdd(map, attr) {
+	_nnmBucket(map, attr.namespaceURI, true)[attr.localName] = attr;
+}
+/**
+ * Removes `attr` from the membership index.
+ *
+ * @param {NamedNodeMap} map
+ * @param {Attr} attr
+ * @private
+ */
+function _nnmIndexRemove(map, attr) {
+	var bucket = _nnmBucket(map, attr.namespaceURI, false);
+	if (bucket) {
+		delete bucket[attr.localName];
 	}
 }
 /**
@@ -510,6 +606,10 @@ function _addNamedNode(el, list, newAttr, oldAttr) {
 		list[list.length] = newAttr;
 		list.length++;
 	}
+	// Keep the membership index in sync with the ordered list. On replacement
+	// `oldAttr` shares `newAttr`'s (namespace, localName) key, so this overwrites
+	// its entry; on append it adds a new one.
+	_nnmIndexAdd(list, newAttr);
 	if (el) {
 		newAttr.ownerElement = el;
 		var doc = el.ownerDocument;
@@ -540,6 +640,7 @@ function _removeNamedNode(el, list, attr) {
 			list[i] = list[++i];
 		}
 		list.length = lastIndex;
+		_nnmIndexRemove(list, attr);
 		if (el) {
 			var doc = el.ownerDocument;
 			if (doc) {
@@ -597,7 +698,10 @@ NamedNodeMap.prototype = {
 		if (el && el !== this._ownerElement) {
 			throw new DOMException(DOMException.INUSE_ATTRIBUTE_ERR);
 		}
-		var oldAttr = this.getNamedItemNS(attr.namespaceURI, attr.localName);
+		// Resolve any existing attribute with the same (namespace, localName)
+		// through the O(1) membership index rather than an O(M) scan — this is the
+		// parse-dedup hot path (`setAttributeNode` per attribute during parse).
+		var oldAttr = _nnmIndexFind(this, attr.namespaceURI, attr.localName);
 		if (oldAttr === attr) {
 			return attr;
 		}
@@ -866,11 +970,21 @@ DOMImplementation.prototype = {
 	 * The {@link https://www.w3.org/TR/DOM-Level-3-Core/glossary.html#dt-qualifiedname qualified
 	 * name} of the document type to be created.
 	 * @param {string} [publicId]
-	 * The external subset public identifier.
+	 * The external subset public identifier. Stored verbatim including surrounding quotes.
+	 * When serialized with `requireWellFormed: true`, the serializer throws `InvalidStateError`
+	 * if the value is non-empty and does not match the XML `PubidLiteral` production
+	 * (W3C DOM Parsing §3.2.1.3; XML 1.0 production [12]). Creation-time validation is not
+	 * enforced — deferred to a future breaking release.
 	 * @param {string} [systemId]
-	 * The external subset system identifier.
+	 * The external subset system identifier. Stored verbatim including surrounding quotes.
+	 * When serialized with `requireWellFormed: true`, the serializer throws `InvalidStateError`
+	 * if the value is non-empty and does not match the XML `SystemLiteral` production
+	 * (W3C DOM Parsing §3.2.1.3; XML 1.0 production [11]). Creation-time validation is not
+	 * enforced — deferred to a future breaking release.
 	 * @param {string} [internalSubset]
-	 * the internal subset or an empty string if it is not present
+	 * The internal subset or an empty string if it is not present. Stored verbatim.
+	 * When serialized with `requireWellFormed: true`, the serializer throws `InvalidStateError`
+	 * if the value contains `"]>"`. Creation-time validation is not enforced.
 	 * @returns {DocumentType}
 	 * A new {@link DocumentType} node with {@link Node#ownerDocument} set to null.
 	 * @throws {DOMException}
@@ -1082,7 +1196,7 @@ Node.prototype = {
 		var parent = other;
 		do {
 			if (this === parent) return true;
-			parent = other.parentNode;
+			parent = parent.parentNode;
 		} while (parent);
 		return false;
 	},
@@ -1114,56 +1228,68 @@ Node.prototype = {
 	/**
 	 * Checks whether the given node is equal to this node.
 	 *
+	 * Two nodes are equal when they have the same type, defining characteristics (for the type),
+	 * and the same childNodes. The comparison is iterative to avoid stack overflows on
+	 * deeply-nested trees. Attribute nodes of each Element pair are also pushed onto the stack
+	 * and compared the same way.
+	 *
 	 * @param {Node} [otherNode]
+	 * @returns {boolean}
 	 * @see https://dom.spec.whatwg.org/#concept-node-equals
+	 * @see ../docs/walk-dom.md.
 	 */
 	isEqualNode: function (otherNode) {
 		if (!otherNode) return false;
 
-		if (this.nodeType !== otherNode.nodeType) return false;
+		// Use an explicit {node, other} pair stack to avoid call-stack overflow on deep trees.
+		// walkDOM cannot be used here — parallel two-tree traversal requires pairing
+		// corresponding nodes at each step across both trees simultaneously.
+		var stack = [{ node: this, other: otherNode }];
+		while (stack.length > 0) {
+			var pair = stack.pop();
+			var node = pair.node;
+			var other = pair.other;
 
-		switch (this.nodeType) {
-			case this.DOCUMENT_TYPE_NODE:
-				if (this.name !== otherNode.name) return false;
-				if (this.publicId !== otherNode.publicId) return false;
-				if (this.systemId !== otherNode.systemId) return false;
-				break;
-			case this.ELEMENT_NODE:
-				if (this.namespaceURI !== otherNode.namespaceURI) return false;
-				if (this.prefix !== otherNode.prefix) return false;
-				if (this.localName !== otherNode.localName) return false;
-				if (this.attributes.length !== otherNode.attributes.length) return false;
-				for (var i = 0; i < this.attributes.length; i++) {
-					var attr = this.attributes.item(i);
-					if (!attr.isEqualNode(otherNode.getAttributeNodeNS(attr.namespaceURI, attr.localName))) {
-						return false;
+			if (node.nodeType !== other.nodeType) return false;
+
+			switch (node.nodeType) {
+				case node.DOCUMENT_TYPE_NODE:
+					if (node.name !== other.name) return false;
+					if (node.publicId !== other.publicId) return false;
+					if (node.systemId !== other.systemId) return false;
+					break;
+				case node.ELEMENT_NODE:
+					if (node.namespaceURI !== other.namespaceURI) return false;
+					if (node.prefix !== other.prefix) return false;
+					if (node.localName !== other.localName) return false;
+					if (node.attributes.length !== other.attributes.length) return false;
+					for (var i = 0; i < node.attributes.length; i++) {
+						var attr = node.attributes.item(i);
+						var otherAttr = other.getAttributeNodeNS(attr.namespaceURI, attr.localName);
+						if (!otherAttr) return false;
+						stack.push({ node: attr, other: otherAttr });
 					}
-				}
-				break;
-			case this.ATTRIBUTE_NODE:
-				if (this.namespaceURI !== otherNode.namespaceURI) return false;
-				if (this.localName !== otherNode.localName) return false;
-				if (this.value !== otherNode.value) return false;
+					break;
+				case node.ATTRIBUTE_NODE:
+					if (node.namespaceURI !== other.namespaceURI) return false;
+					if (node.localName !== other.localName) return false;
+					if (node.value !== other.value) return false;
+					break;
+				case node.PROCESSING_INSTRUCTION_NODE:
+					if (node.target !== other.target || node.data !== other.data) return false;
+					break;
+				case node.TEXT_NODE:
+				case node.CDATA_SECTION_NODE:
+				case node.COMMENT_NODE:
+					if (node.data !== other.data) return false;
+					break;
+			}
 
-				break;
-			case this.PROCESSING_INSTRUCTION_NODE:
-				if (this.target !== otherNode.target || this.data !== otherNode.data) {
-					return false;
-				}
-				break;
-			case this.TEXT_NODE:
-			case this.COMMENT_NODE:
-				if (this.data !== otherNode.data) return false;
-				break;
-		}
+			if (node.childNodes.length !== other.childNodes.length) return false;
 
-		if (this.childNodes.length !== otherNode.childNodes.length) {
-			return false;
-		}
-
-		for (var i = 0; i < this.childNodes.length; i++) {
-			if (!this.childNodes[i].isEqualNode(otherNode.childNodes[i])) {
-				return false;
+			// Push children in reverse order so index 0 is processed first (LIFO).
+			for (var i = node.childNodes.length - 1; i >= 0; i--) {
+				stack.push({ node: node.childNodes[i], other: other.childNodes[i] });
 			}
 		}
 
@@ -1283,7 +1409,7 @@ Node.prototype = {
 	 * is `TEXT_NODE`) into a single node with the combined data. It also removes any empty text
 	 * nodes.
 	 *
-	 * This method operates recursively, so it also normalizes any and all descendent nodes within
+	 * This method iterativly traverses all child nodes to normalize all descendent nodes within
 	 * the subtree.
 	 *
 	 * @throws {DOMException}
@@ -1292,19 +1418,57 @@ Node.prototype = {
 	 * @since Modified in DOM Level 2
 	 * @see {@link Node.removeChild}
 	 * @see {@link CharacterData.appendData}
+	 * @see ../docs/walk-dom.md.
 	 */
 	normalize: function () {
-		var child = this.firstChild;
-		while (child) {
-			var next = child.nextSibling;
-			if (next && next.nodeType == TEXT_NODE && child.nodeType == TEXT_NODE) {
-				this.removeChild(next);
-				child.appendData(next.data);
-			} else {
-				child.normalize();
-				child = next;
-			}
-		}
+		walkDOM(this, null, {
+			enter: function (node) {
+				// Merge adjacent text children of node before walkDOM schedules them.
+				// walkDOM reads lastChild/previousSibling after enter returns, so the
+				// surviving post-merge children are what it descends into.
+				var child = node.firstChild;
+				while (child) {
+					var next = child.nextSibling;
+					if (next !== null && next.nodeType === TEXT_NODE && child.nodeType === TEXT_NODE) {
+						// Merge the whole run of adjacent text nodes at once: gather the
+						// following text siblings' data, unlink them in a single pass, and
+						// re-index the child list a single time. Per-sibling `removeChild`
+						// (each an O(K) re-index) plus per-sibling `appendData` (each an O(K)
+						// string rebuild) is O(K^2) over a long run of single-character text
+						// nodes; this keeps it O(K). The first text node of the run survives
+						// and carries the concatenated data, preserving node identity and
+						// locator semantics.
+						var tail = [];
+						var sibling = next;
+						while (sibling !== null && sibling.nodeType === TEXT_NODE) {
+							tail.push(sibling.data);
+							sibling = sibling.nextSibling;
+						}
+						// `sibling` is now the first non-text node after the run, or null.
+						var removed = child.nextSibling;
+						while (removed !== sibling) {
+							var following = removed.nextSibling;
+							removed.parentNode = null;
+							removed.previousSibling = null;
+							removed.nextSibling = null;
+							removed = following;
+						}
+						child.nextSibling = sibling;
+						if (sibling !== null) {
+							sibling.previousSibling = child;
+						} else {
+							node.lastChild = child;
+						}
+						child.appendData(tail.join('')); // single O(K) string rebuild
+						_onUpdateChild(node.ownerDocument, node); // single O(K) re-index
+						child = sibling;
+					} else {
+						child = next;
+					}
+				}
+				return true; // descend into surviving children
+			},
+		});
 	},
 	/**
 	 * Checks whether the DOM implementation implements a specific feature and its version.
@@ -1521,23 +1685,111 @@ copy(DocumentPosition, Node);
 copy(DocumentPosition, Node.prototype);
 
 /**
- * @param callback
- * Return true for continue,false for break.
- * @returns
- * boolean true: break visit;
+ * Visits every node in the subtree rooted at `node` in depth-first pre-order.
+ *
+ * Delegates to {@link walkDOM} for traversal. The `callback` is called on each node;
+ * if it returns a truthy value, traversal stops immediately.
+ *
+ * @param {Node} node
+ * Root of the subtree to visit.
+ * @param {function(Node): *} callback
+ * Called for each node. A truthy return value stops traversal early.
  */
 function _visitNode(node, callback) {
-	if (callback(node)) {
-		return true;
-	}
-	if ((node = node.firstChild)) {
-		do {
-			if (_visitNode(node, callback)) {
-				return true;
+	walkDOM(node, null, {
+		enter: function (n) {
+			return callback(n) ? walkDOM.STOP : true;
+		},
+	});
+}
+
+/**
+ * Depth-first pre/post-order DOM tree walker.
+ *
+ * Visits every node in the subtree rooted at `node`. For each node:
+ *
+ * 1. Calls `callbacks.enter(node, context)` before descending into the node's children. The
+ * return value becomes the `context` passed to each child's `enter` call and to the matching
+ * `exit` call.
+ * 2. If `enter` returns `null` or `undefined`, the node's children are skipped;
+ * sibling traversal continues normally.
+ * 3. If `enter` returns `walkDOM.STOP`, the entire traversal is aborted immediately — no
+ * further `enter` or `exit` calls are made.
+ * 4. `lastChild` and `previousSibling` are read **after** `enter` returns, so `enter` may
+ * safely modify the node's own child list before the walker descends. Modifying siblings of
+ * the current node or any other part of the tree produces unpredictable results: nodes already
+ * queued on the stack are visited regardless of DOM changes, and newly inserted nodes outside
+ * the current child list are never visited.
+ * 5. Calls `callbacks.exit(node, context)` (if provided) after all of a node's children have
+ * been visited, passing the same `context` that `enter`
+ * returned for that node.
+ *
+ * This implementation uses an explicit stack and does not recurse — it is safe on arbitrarily
+ * deep trees.
+ *
+ * @param {Node} node
+ * Root of the subtree to walk.
+ * @param {*} context
+ * Initial context value passed to the root node's `enter`.
+ * @param {{ enter: function(Node, *): *, exit?: function(Node, *): void }} callbacks
+ * @returns {void | walkDOM.STOP}
+ * @see ../docs/walk-dom.md.
+ */
+function walkDOM(node, context, callbacks) {
+	// Each stack frame is {node, context, phase}:
+	//   walkDOM.ENTER — call enter, then push children
+	//   walkDOM.EXIT  — call exit
+	var stack = [{ node: node, context: context, phase: walkDOM.ENTER }];
+	while (stack.length > 0) {
+		var frame = stack.pop();
+		if (frame.phase === walkDOM.ENTER) {
+			var childContext = callbacks.enter(frame.node, frame.context);
+			if (childContext === walkDOM.STOP) {
+				return walkDOM.STOP;
 			}
-		} while ((node = node.nextSibling));
+			// Push exit frame before children so it fires after all children are processed (Last In First Out)
+			stack.push({ node: frame.node, context: childContext, phase: walkDOM.EXIT });
+			if (childContext === null || childContext === undefined) {
+				continue; // skip children
+			}
+			// lastChild is read after enter returns, so enter may modify the child list.
+			var child = frame.node.lastChild;
+			// Traverse from lastChild backwards so that pushing onto the stack
+			// naturally yields firstChild on top (processed first).
+			while (child) {
+				stack.push({ node: child, context: childContext, phase: walkDOM.ENTER });
+				child = child.previousSibling;
+			}
+		} else {
+			// frame.phase === walkDOM.EXIT
+			if (callbacks.exit) {
+				callbacks.exit(frame.node, frame.context);
+			}
+		}
 	}
 }
+
+/**
+ * Sentinel value returned from a `walkDOM` `enter` callback to abort the entire traversal
+ * immediately.
+ *
+ * @type {symbol}
+ */
+walkDOM.STOP = Symbol('walkDOM.STOP');
+/**
+ * Phase constant for a stack frame that has not yet been visited.
+ * The `enter` callback is called and children are scheduled.
+ *
+ * @type {number}
+ */
+walkDOM.ENTER = 0;
+/**
+ * Phase constant for a stack frame whose subtree has been fully visited.
+ * The `exit` callback is called.
+ *
+ * @type {number}
+ */
+walkDOM.EXIT = 1;
 
 /**
  * @typedef DocumentOptions
@@ -2125,7 +2377,20 @@ Document.prototype = {
 			this.documentElement = newChild;
 		}
 	},
-	// Introduced in DOM Level 2:
+	/**
+	 * Imports a node from another document into this document, creating a new copy owned by this
+	 * document. The source node and its subtree are not modified.
+	 *
+	 * @param {Node} importedNode
+	 * The node to import.
+	 * @param {boolean} deep
+	 * If true, the contents of the node are recursively imported.
+	 * If false, only the node itself (and its attributes, if it is an element) are imported.
+	 * @returns {Node}
+	 * Returns the newly created import of the node.
+	 * @see {@link importNode}
+	 * @see {@link https://dom.spec.whatwg.org/#dom-document-importnode}
+	 */
 	importNode: function (importedNode, deep) {
 		return importNode(this, importedNode, deep);
 	},
@@ -2201,6 +2466,15 @@ Document.prototype = {
 	/**
 	 * @param {string} data
 	 * @returns {Comment}
+	 * @see https://dom.spec.whatwg.org/#dom-document-createcomment
+	 * @see https://www.w3.org/TR/xml/#NT-Comment XML 1.0 production [15]
+	 * @see https://www.w3.org/TR/DOM-Parsing/#dfn-concept-serialize-xml §3.2.1.3
+	 *
+	 *      Note: no validation is performed at creation time. When the resulting document is
+	 *      serialized with `requireWellFormed: true`, the serializer throws `InvalidStateError`
+	 *      if the comment data contains `--` anywhere, ends with `-`, or contains characters
+	 *      outside the XML Char production (W3C DOM Parsing §3.2.1.3). Without that option the
+	 *      data is emitted verbatim.
 	 */
 	createComment: function (data) {
 		var node = new Comment(PDC);
@@ -2210,10 +2484,22 @@ Document.prototype = {
 		return node;
 	},
 	/**
+	 * Returns a new CDATASection node whose data is `data`.
+	 *
+	 * __This implementation differs from the specification:__ - calling this method on an HTML
+	 * document does not throw `NotSupportedError`.
+	 *
 	 * @param {string} data
 	 * @returns {CDATASection}
+	 * @throws {DOMException}
+	 * With code `INVALID_CHARACTER_ERR` if `data` contains `"]]>"`.
+	 * @see https://developer.mozilla.org/en-US/docs/Web/API/Document/createCDATASection
+	 * @see https://dom.spec.whatwg.org/#dom-document-createcdatasection
 	 */
 	createCDATASection: function (data) {
+		if (data.indexOf(']]>') !== -1) {
+			throw new DOMException(DOMException.INVALID_CHARACTER_ERR, 'data contains "]]>"');
+		}
 		var node = new CDATASection(PDC);
 		node.ownerDocument = this;
 		node.childNodes = new NodeList();
@@ -2221,9 +2507,24 @@ Document.prototype = {
 		return node;
 	},
 	/**
+	 * Returns a ProcessingInstruction node whose target is target and data is data.
+	 *
+	 * __This behavior is slightly different from the in the specs__:
+	 * - it does not do any input validation on the arguments and doesn't throw
+	 * "InvalidCharacterError".
+	 *
+	 * Note: When the resulting document is serialized with `requireWellFormed: true`, the
+	 * serializer throws `InvalidStateError` if `.target` is not a valid XML `NCName` (a `Name`
+	 * with no colon) or is an ASCII case-insensitive match for `"xml"`, or if `.data` contains
+	 * `?>` or characters outside the XML Char production (W3C DOM Parsing §3.2.1.7). Without that
+	 * option the target and data are emitted verbatim.
+	 *
 	 * @param {string} target
 	 * @param {string} data
 	 * @returns {ProcessingInstruction}
+	 * @see https://developer.mozilla.org/docs/Web/API/Document/createProcessingInstruction
+	 * @see https://dom.spec.whatwg.org/#dom-document-createprocessinginstruction
+	 * @see https://www.w3.org/TR/DOM-Parsing/#dfn-concept-serialize-xml §3.2.1.7
 	 */
 	createProcessingInstruction: function (target, data) {
 		var node = new ProcessingInstruction(PDC);
@@ -2271,19 +2572,29 @@ Document.prototype = {
 	 * The current implementation does not fill the `childNodes` with those of the corresponding
 	 * `Entity`
 	 *
+	 * The `name` is validated against the XML `Name` production at creation time; an invalid name
+	 * throws `InvalidCharacterError`. When the resulting node is serialized with
+	 * `requireWellFormed: true`, the serializer re-validates `nodeName` against the XML `Name`
+	 * production and throws `InvalidStateError` if a later `nodeName` mutation made it invalid;
+	 * without that option the name is emitted verbatim.
+	 *
+	 * __This implementation differs from the specification:__ xmldom does not expand entities —
+	 * the parser resolves entity references inline and never constructs `EntityReference` nodes,
+	 * so this method is the only producer.
+	 *
 	 * @deprecated
 	 * In DOM Level 4.
 	 * @param {string} name
 	 * The name of the entity to reference. No namespace well-formedness checks are performed.
 	 * @returns {EntityReference}
 	 * @throws {DOMException}
-	 * With code `INVALID_CHARACTER_ERR` when `name` is not valid.
+	 * With code `INVALID_CHARACTER_ERR` when `name` is not a valid XML `Name`.
 	 * @throws {DOMException}
 	 * with code `NOT_SUPPORTED_ERR` when the document is of type `html`
 	 * @see https://www.w3.org/TR/DOM-Level-3-Core/core.html#ID-392B75AE
 	 */
 	createEntityReference: function (name) {
-		if (!g.Name.test(name)) {
+		if (!g.Name_exact.test(name)) {
 			throw new DOMException(DOMException.INVALID_CHARACTER_ERR, 'not a valid xml name "' + name + '"');
 		}
 		if (this.type === 'html') {
@@ -2656,6 +2967,37 @@ CDATASection.prototype = {
 };
 _extends(CDATASection, Text);
 
+/**
+ * @class DocumentType
+ * @augments Node
+ * @property {string} name
+ * The doctype name, stored verbatim. Declared `readonly` by the WHATWG DOM spec; xmldom does
+ * not enforce this constraint — direct property writes succeed and the written value is
+ * serialized verbatim. When serialized with `requireWellFormed: true`, the serializer
+ * validates the value against the XML `Name` production and throws `InvalidStateError` if it
+ * does not match.
+ * @property {string} publicId
+ * The external subset public identifier, stored verbatim (including surrounding quotes).
+ * Declared `readonly` by the WHATWG DOM spec; xmldom does not enforce this constraint —
+ * direct property writes succeed and the written value is serialized verbatim.
+ * When serialized with `requireWellFormed: true`, the serializer validates the value against
+ * the XML `PubidLiteral` production and throws `InvalidStateError` if it does not match.
+ * @property {string} systemId
+ * The external subset system identifier, stored verbatim (including surrounding quotes).
+ * Declared `readonly` by the WHATWG DOM spec; xmldom does not enforce this constraint —
+ * direct property writes succeed and the written value is serialized verbatim.
+ * When serialized with `requireWellFormed: true`, the serializer validates the value against
+ * the XML `SystemLiteral` production and throws `InvalidStateError` if it does not match.
+ * @property {string} internalSubset
+ * The internal subset string (the raw content between `[` and `]`), or an empty string.
+ * Declared `readonly` by the WHATWG DOM spec; xmldom does not enforce this constraint —
+ * direct property writes succeed and the written value is serialized verbatim.
+ * When serialized with `requireWellFormed: true`, the serializer throws `InvalidStateError`
+ * if the value contains `"]>"`.
+ * @see https://developer.mozilla.org/docs/Web/API/DocumentType MDN
+ * @see https://dom.spec.whatwg.org/#interface-documenttype WHATWG DOM
+ * @prettierignore
+ */
 function DocumentType(symbol) {
 	checkSymbol(symbol);
 }
@@ -2674,6 +3016,21 @@ function Entity(symbol) {
 Entity.prototype.nodeType = ENTITY_NODE;
 _extends(Entity, Node);
 
+/**
+ * Represents an EntityReference node, serialized as `&nodeName;`.
+ *
+ * `nodeName` is the referenced entity's name, stored verbatim. When serialized with
+ * `requireWellFormed: true`, the serializer validates `nodeName` against the XML `Name`
+ * production and throws `InvalidStateError` if it does not match; without that option the name
+ * is emitted verbatim between `&` and `;`.
+ *
+ * __This implementation differs from the specification:__ xmldom does not expand entities —
+ * the parser resolves entity references inline and never constructs `EntityReference` nodes,
+ * so the only producer is {@link Document#createEntityReference}.
+ *
+ * @class
+ * @see https://www.w3.org/TR/xml/#NT-Name
+ */
 function EntityReference(symbol) {
 	checkSymbol(symbol);
 }
@@ -2693,11 +3050,91 @@ function ProcessingInstruction(symbol) {
 ProcessingInstruction.prototype.nodeType = PROCESSING_INSTRUCTION_NODE;
 _extends(ProcessingInstruction, CharacterData);
 function XMLSerializer() {}
-XMLSerializer.prototype.serializeToString = function (node, nodeFilter) {
-	return nodeSerializeToString.call(node, nodeFilter);
+/**
+ * Returns the result of serializing `node` to XML.
+ *
+ * When `options.requireWellFormed` is `true`, the serializer throws `InvalidStateError` for
+ * content that would produce ill-formed XML (e.g. CDATASection data containing `"]]>"`, Text
+ * data containing characters outside the XML Char production, or a Document with no
+ * `documentElement`).
+ *
+ * When `options.splitCDATASections` is `false`, CDATASection data is emitted verbatim even
+ * when it contains `"]]>"`. When `true` (the default), `"]]>"` sequences are split across
+ * concatenated CDATA sections — this behavior is **deprecated** and will be removed in the
+ * next breaking release. Callers should migrate to `{ requireWellFormed: true }`, which throws
+ * `InvalidStateError` instead of transforming.
+ *
+ * __This implementation differs from the specification:__ - CDATASection serialization is not
+ * specified by W3C DOM Parsing or WHATWG DOM Parsing (see
+ * {@link https://github.com/w3c/DOM-Parsing/issues/38 w3c/DOM-Parsing#38}).
+ * When `splitCDATASections` is `true` (the default), `"]]>"` sequences in CDATASection data
+ * are split across concatenated CDATA sections — this mechanism is derived from DOM Level 3
+ * Core and is **deprecated**. The split mechanics will be removed in the next breaking
+ * release. Callers that rely on this behavior should migrate to `{ requireWellFormed: true }`.
+ * - W3C DOM Parsing §3.2.1.1 requires well-formedness checks on Element `localName`s,
+ * prefixes,
+ * and attribute serialization (duplicate attributes, namespace declarations, attribute value
+ * characters) when `requireWellFormed` is `true`. Element and attribute qualified names (which
+ * cover the namespace prefix) are validated against the XML `QName` production; the remaining
+ * §3.2.1.1 checks (duplicate attributes, namespace-declaration consistency) and creation-time
+ * name validation are **not implemented** in this release — see the tracking issue filed
+ * against the next breaking milestone.
+ *
+ * @param {Node} node
+ * @param {Object | function} [options]
+ * Options object, or a legacy nodeFilter function (backward compatible).
+ * @param {boolean} [options.requireWellFormed=false]
+ * When `true`, throws `InvalidStateError` for content that would produce ill-formed XML.
+ * @param {boolean} [options.splitCDATASections=true]
+ * When `true` (default), splits `"]]>"` sequences in CDATASection data across concatenated
+ * CDATA sections. **Deprecated** — will be removed in the next breaking release.
+ * @param {function} [options.nodeFilter]
+ * A filter function applied to each node before serialization.
+ * @returns {string}
+ * @throws {DOMException}
+ * With name `InvalidStateError` when `requireWellFormed` is `true` and any of the following
+ * conditions hold:
+ * - an Element's qualified name (including any namespace prefix) is not a valid XML QName
+ * - an attribute's qualified name (including a synthesized `xmlns:` namespace declaration) is
+ * not a valid XML QName
+ * - CDATASection data contains `"]]>"`
+ * - Text data contains characters outside the XML Char production
+ * - a Comment node's data contains `--` anywhere or ends with `-`
+ * - a ProcessingInstruction's target is not a valid XML `NCName` (a `Name` with no colon) or is
+ * an ASCII case-insensitive match for `"xml"`, or its data contains `?>` or characters outside
+ * the XML Char production
+ * - a DocumentType's `name` is not a valid XML `Name` (XML 1.0 production [5])
+ * - a DocumentType's `publicId` is non-empty and does not match the XML `PubidLiteral`
+ * production (W3C DOM Parsing §3.2.1.3; XML 1.0 production [12])
+ * - a DocumentType's `systemId` is non-empty and does not match the XML `SystemLiteral`
+ * production (W3C DOM Parsing §3.2.1.3; XML 1.0 production [11])
+ * - a DocumentType's `internalSubset` contains `"]>"`
+ * - an EntityReference's `nodeName` is not a valid XML `Name` (XML 1.0 production [5])
+ * - the Document has no `documentElement`
+ * @see https://developer.mozilla.org/docs/Web/API/XMLSerializer/serializeToString
+ * @see https://html.spec.whatwg.org/#dom-xmlserializer-serializetostring
+ * @see https://github.com/w3c/DOM-Parsing/issues/84
+ * @prettierignore
+ */
+XMLSerializer.prototype.serializeToString = function (node, options) {
+	return nodeSerializeToString.call(node, options);
 };
 Node.prototype.toString = nodeSerializeToString;
-function nodeSerializeToString(nodeFilter) {
+function nodeSerializeToString(options) {
+	// Normalize the user-supplied options into a single internal opts object so that the
+	// internal serializer always works with a consistent shape rather than positional flags.
+	var opts;
+	if (typeof options === 'function') {
+		opts = { requireWellFormed: false, splitCDATASections: true, nodeFilter: options };
+	} else if (options != null) {
+		opts = {
+			requireWellFormed: !!options.requireWellFormed,
+			splitCDATASections: options.splitCDATASections !== false,
+			nodeFilter: options.nodeFilter || null,
+		};
+	} else {
+		opts = { requireWellFormed: false, splitCDATASections: true, nodeFilter: null };
+	}
 	var buf = [];
 	var refNode = (this.nodeType === DOCUMENT_NODE && this.documentElement) || this;
 	var prefix = refNode.prefix;
@@ -2712,7 +3149,7 @@ function nodeSerializeToString(nodeFilter) {
 			];
 		}
 	}
-	serializeToString(this, buf, nodeFilter, visibleNamespaces);
+	serializeToString(this, buf, visibleNamespaces, opts);
 	return buf.join('');
 }
 
@@ -2758,239 +3195,349 @@ function needNamespaceDefine(node, isHTML, visibleNamespaces) {
  * @see https://w3c.github.io/DOM-Parsing/#serializing-an-element-s-attributes
  * @prettierignore
  */
-function addSerializedAttribute(buf, qualifiedName, value) {
+function addSerializedAttribute(buf, qualifiedName, value, requireWellFormed) {
+	if (requireWellFormed && !g.QName_exact.test(qualifiedName)) {
+		throw new DOMException(
+			'The attribute name "' + qualifiedName + '" is not a valid XML QName',
+			DOMExceptionName.InvalidStateError
+		);
+	}
 	buf.push(' ', qualifiedName, '="', value.replace(/[<>&"\t\n\r]/g, _xmlEncoder), '"');
 }
 
-function serializeToString(node, buf, nodeFilter, visibleNamespaces) {
+function serializeToString(node, buf, visibleNamespaces, opts) {
 	if (!visibleNamespaces) {
 		visibleNamespaces = [];
 	}
+	var nodeFilter = opts.nodeFilter;
+	var requireWellFormed = opts.requireWellFormed;
+	var splitCDATASections = opts.splitCDATASections;
 	var doc = node.nodeType === DOCUMENT_NODE ? node : node.ownerDocument;
 	var isHTML = doc.type === 'html';
 
-	if (nodeFilter) {
-		node = nodeFilter(node);
-		if (node) {
-			if (typeof node == 'string') {
-				buf.push(node);
-				return;
-			}
-		} else {
-			return;
-		}
-		//buf.sort.apply(attrs, attributeSorter);
-	}
+	walkDOM(
+		node,
+		{ ns: visibleNamespaces },
+		{
+			enter: function (n, ctx) {
+				var namespaces = ctx.ns;
 
-	switch (node.nodeType) {
-		case ELEMENT_NODE:
-			var attrs = node.attributes;
-			var len = attrs.length;
-			var child = node.firstChild;
-			var nodeName = node.tagName;
-
-			var prefixedNodeName = nodeName;
-			if (!isHTML && !node.prefix && node.namespaceURI) {
-				var defaultNS;
-				// lookup current default ns from `xmlns` attribute
-				for (var ai = 0; ai < attrs.length; ai++) {
-					if (attrs.item(ai).name === 'xmlns') {
-						defaultNS = attrs.item(ai).value;
-						break;
-					}
-				}
-				if (!defaultNS) {
-					// lookup current default ns in visibleNamespaces
-					for (var nsi = visibleNamespaces.length - 1; nsi >= 0; nsi--) {
-						var namespace = visibleNamespaces[nsi];
-						if (namespace.prefix === '' && namespace.namespace === node.namespaceURI) {
-							defaultNS = namespace.namespace;
-							break;
+				if (nodeFilter) {
+					n = nodeFilter(n);
+					if (n) {
+						if (typeof n == 'string') {
+							buf.push(n);
+							return null;
 						}
+					} else {
+						return null;
 					}
 				}
-				if (defaultNS !== node.namespaceURI) {
-					for (var nsi = visibleNamespaces.length - 1; nsi >= 0; nsi--) {
-						var namespace = visibleNamespaces[nsi];
-						if (namespace.namespace === node.namespaceURI) {
-							if (namespace.prefix) {
-								prefixedNodeName = namespace.prefix + ':' + nodeName;
+
+				switch (n.nodeType) {
+					case ELEMENT_NODE:
+						var attrs = n.attributes;
+						var len = attrs.length;
+						var nodeName = n.tagName;
+
+						var prefixedNodeName = nodeName;
+						if (!isHTML && !n.prefix && n.namespaceURI) {
+							var defaultNS;
+							// lookup current default ns from `xmlns` attribute
+							for (var ai = 0; ai < attrs.length; ai++) {
+								if (attrs.item(ai).name === 'xmlns') {
+									defaultNS = attrs.item(ai).value;
+									break;
+								}
 							}
-							break;
+							if (!defaultNS) {
+								// lookup current default ns in visibleNamespaces
+								for (var nsi = namespaces.length - 1; nsi >= 0; nsi--) {
+									var nsEntry = namespaces[nsi];
+									if (nsEntry.prefix === '' && nsEntry.namespace === n.namespaceURI) {
+										defaultNS = nsEntry.namespace;
+										break;
+									}
+								}
+							}
+							if (defaultNS !== n.namespaceURI) {
+								for (var nsi = namespaces.length - 1; nsi >= 0; nsi--) {
+									var nsEntry = namespaces[nsi];
+									if (nsEntry.namespace === n.namespaceURI) {
+										if (nsEntry.prefix) {
+											prefixedNodeName = nsEntry.prefix + ':' + nodeName;
+										}
+										break;
+									}
+								}
+							}
 						}
-					}
-				}
-			}
 
-			buf.push('<', prefixedNodeName);
+						if (requireWellFormed && !g.QName_exact.test(prefixedNodeName)) {
+							throw new DOMException(
+								'The element name "' + prefixedNodeName + '" is not a valid XML QName',
+								DOMExceptionName.InvalidStateError
+							);
+						}
 
-			for (var i = 0; i < len; i++) {
-				// add namespaces for attributes
-				var attr = attrs.item(i);
-				if (attr.prefix == 'xmlns') {
-					visibleNamespaces.push({
-						prefix: attr.localName,
-						namespace: attr.value,
-					});
-				} else if (attr.nodeName == 'xmlns') {
-					visibleNamespaces.push({ prefix: '', namespace: attr.value });
-				}
-			}
+						buf.push('<', prefixedNodeName);
 
-			for (var i = 0; i < len; i++) {
-				var attr = attrs.item(i);
-				if (needNamespaceDefine(attr, isHTML, visibleNamespaces)) {
-					var prefix = attr.prefix || '';
-					var uri = attr.namespaceURI;
-					addSerializedAttribute(buf, prefix ? 'xmlns:' + prefix : 'xmlns', uri);
-					visibleNamespaces.push({ prefix: prefix, namespace: uri });
-				}
-				serializeToString(attr, buf, nodeFilter, visibleNamespaces);
-			}
+						// Build a fresh namespace snapshot for this element's children.
+						// The slice prevents sibling elements from inheriting each other's declarations.
+						var childNamespaces = namespaces.slice();
 
-			// add namespace for current node
-			if (nodeName === prefixedNodeName && needNamespaceDefine(node, isHTML, visibleNamespaces)) {
-				var prefix = node.prefix || '';
-				var uri = node.namespaceURI;
-				addSerializedAttribute(buf, prefix ? 'xmlns:' + prefix : 'xmlns', uri);
-				visibleNamespaces.push({ prefix: prefix, namespace: uri });
-			}
-			// in XML elements can be closed when they have no children
-			var canCloseTag = !child;
-			if (canCloseTag && (isHTML || node.namespaceURI === NAMESPACE.HTML)) {
-				// in HTML (doc or ns) only void elements can be closed right away
-				canCloseTag = isHTMLVoidElement(nodeName);
-			}
-			if (canCloseTag) {
-				buf.push('/>');
-			} else {
-				buf.push('>');
-				//if is cdata child node
-				if (isHTML && isHTMLRawTextElement(nodeName)) {
-					while (child) {
-						if (child.data) {
-							buf.push(child.data);
+						for (var i = 0; i < len; i++) {
+							// add namespaces for attributes
+							var attr = attrs.item(i);
+							if (attr.prefix == 'xmlns') {
+								childNamespaces.push({
+									prefix: attr.localName,
+									namespace: attr.value,
+								});
+							} else if (attr.nodeName == 'xmlns') {
+								childNamespaces.push({ prefix: '', namespace: attr.value });
+							}
+						}
+
+						for (var i = 0; i < len; i++) {
+							var attr = attrs.item(i);
+							if (needNamespaceDefine(attr, isHTML, childNamespaces)) {
+								var attrPrefix = attr.prefix || '';
+								var uri = attr.namespaceURI;
+								addSerializedAttribute(buf, attrPrefix ? 'xmlns:' + attrPrefix : 'xmlns', uri, requireWellFormed);
+								childNamespaces.push({ prefix: attrPrefix, namespace: uri });
+							}
+							// Apply nodeFilter and serialize the attribute.
+							var filteredAttr = nodeFilter ? nodeFilter(attr) : attr;
+							if (filteredAttr) {
+								if (typeof filteredAttr === 'string') {
+									buf.push(filteredAttr);
+								} else {
+									addSerializedAttribute(buf, filteredAttr.name, filteredAttr.value, requireWellFormed);
+								}
+							}
+						}
+
+						// add namespace for current node
+						if (nodeName === prefixedNodeName && needNamespaceDefine(n, isHTML, childNamespaces)) {
+							var nodePrefix = n.prefix || '';
+							var uri = n.namespaceURI;
+							addSerializedAttribute(buf, nodePrefix ? 'xmlns:' + nodePrefix : 'xmlns', uri, requireWellFormed);
+							childNamespaces.push({ prefix: nodePrefix, namespace: uri });
+						}
+
+						// in XML elements can be closed when they have no children
+						var canCloseTag = !n.firstChild;
+						if (canCloseTag && (isHTML || n.namespaceURI === NAMESPACE.HTML)) {
+							// in HTML (doc or ns) only void elements can be closed right away
+							canCloseTag = isHTMLVoidElement(nodeName);
+						}
+						if (canCloseTag) {
+							buf.push('/>');
+							// Self-closing: no children and no closing tag needed from exit.
+							return null;
+						}
+
+						buf.push('>');
+
+						// HTML raw text elements: serialize children as raw data without further descent.
+						if (isHTML && isHTMLRawTextElement(nodeName)) {
+							var child = n.firstChild;
+							while (child) {
+								if (child.data) {
+									buf.push(child.data);
+								} else {
+									serializeToString(child, buf, childNamespaces.slice(), opts);
+								}
+								child = child.nextSibling;
+							}
+							buf.push('</', prefixedNodeName, '>');
+							// Children handled manually above; prevent walkDOM from also traversing them.
+							return null;
+						}
+
+						// Return child context so walkDOM descends; exit will emit the closing tag.
+						return { ns: childNamespaces, tag: prefixedNodeName };
+					case DOCUMENT_NODE:
+					case DOCUMENT_FRAGMENT_NODE:
+						if (requireWellFormed && n.nodeType === DOCUMENT_NODE && n.documentElement == null) {
+							throw new DOMException('The Document has no documentElement', DOMExceptionName.InvalidStateError);
+						}
+						// Pass namespaces through; each child element will slice independently.
+						return { ns: namespaces };
+					case ATTRIBUTE_NODE:
+						addSerializedAttribute(buf, n.name, n.value, requireWellFormed);
+						return null;
+					case TEXT_NODE:
+						/*
+						 * The ampersand character (&) and the left angle bracket (<) must not appear in their literal form,
+						 * except when used as markup delimiters, or within a comment, a processing instruction,
+						 * or a CDATA section.
+						 * If they are needed elsewhere, they must be escaped using either numeric character
+						 * references or the strings `&amp;` and `&lt;` respectively.
+						 * The right angle bracket (>) may be represented using the string " &gt; ",
+						 * and must, for compatibility, be escaped using either `&gt;`,
+						 * or a character reference when it appears in the string `]]>` in content,
+						 * when that string is not marking the end of a CDATA section.
+						 *
+						 * In the content of elements, character data is any string of characters which does not
+						 * contain the start-delimiter of any markup and does not include the CDATA-section-close
+						 * delimiter, `]]>`.
+						 *
+						 * @see https://www.w3.org/TR/xml/#NT-CharData
+						 * @see https://w3c.github.io/DOM-Parsing/#xml-serializing-a-text-node
+						 */
+						if (requireWellFormed && g.InvalidChar.test(n.data)) {
+							throw new DOMException(
+								'The Text node data contains characters outside the XML Char production',
+								DOMExceptionName.InvalidStateError
+							);
+						}
+						buf.push(n.data.replace(/[<&>]/g, _xmlEncoder));
+						return null;
+					case CDATA_SECTION_NODE:
+						if (requireWellFormed && n.data.indexOf(']]>') !== -1) {
+							throw new DOMException('The CDATASection data contains "]]>"', DOMExceptionName.InvalidStateError);
+						}
+						if (splitCDATASections) {
+							buf.push(g.CDATA_START, n.data.replace(/]]>/g, ']]]]><![CDATA[>'), g.CDATA_END);
 						} else {
-							serializeToString(child, buf, nodeFilter, visibleNamespaces.slice());
+							buf.push(g.CDATA_START, n.data, g.CDATA_END);
 						}
-						child = child.nextSibling;
-					}
-				} else {
-					while (child) {
-						serializeToString(child, buf, nodeFilter, visibleNamespaces.slice());
-						child = child.nextSibling;
-					}
+						return null;
+					case COMMENT_NODE:
+						if (requireWellFormed) {
+							if (g.InvalidChar.test(n.data)) {
+								throw new DOMException(
+									'The comment node data contains characters outside the XML Char production',
+									DOMExceptionName.InvalidStateError
+								);
+							}
+							if (n.data.indexOf('--') !== -1 || n.data[n.data.length - 1] === '-') {
+								throw new DOMException(
+									'The comment node data contains "--" or ends with "-"',
+									DOMExceptionName.InvalidStateError
+								);
+							}
+						}
+						buf.push(g.COMMENT_START, n.data, g.COMMENT_END);
+						return null;
+					case DOCUMENT_TYPE_NODE:
+						var pubid = n.publicId;
+						var sysid = n.systemId;
+						if (requireWellFormed) {
+							if (!g.Name_exact.test(n.name)) {
+								throw new DOMException(
+									'The doctype name "' + n.name + '" is not a valid XML Name',
+									DOMExceptionName.InvalidStateError
+								);
+							}
+							if (pubid && !g.PubidLiteral_match.test(pubid)) {
+								throw new DOMException('DocumentType publicId is not a valid PubidLiteral', DOMExceptionName.InvalidStateError);
+							}
+							if (sysid && sysid !== '.' && !g.SystemLiteral_match.test(sysid)) {
+								throw new DOMException('DocumentType systemId is not a valid SystemLiteral', DOMExceptionName.InvalidStateError);
+							}
+							if (n.internalSubset && n.internalSubset.indexOf(']>') !== -1) {
+								throw new DOMException('DocumentType internalSubset contains "]>"', DOMExceptionName.InvalidStateError);
+							}
+						}
+						buf.push(g.DOCTYPE_DECL_START, ' ', n.name);
+						if (pubid) {
+							buf.push(' ', g.PUBLIC, ' ', pubid);
+							if (sysid && sysid !== '.') {
+								buf.push(' ', sysid);
+							}
+						} else if (sysid && sysid !== '.') {
+							buf.push(' ', g.SYSTEM, ' ', sysid);
+						}
+						if (n.internalSubset) {
+							buf.push(' [', n.internalSubset, ']');
+						}
+						buf.push('>');
+						return null;
+					case PROCESSING_INSTRUCTION_NODE:
+						if (requireWellFormed) {
+							if (!g.NCName_exact.test(n.target) || n.target.toLowerCase() === 'xml') {
+								throw new DOMException(
+									'The processing instruction target "' + n.target + '" is not a valid XML NCName or is reserved',
+									DOMExceptionName.InvalidStateError
+								);
+							}
+							if (g.InvalidChar.test(n.data)) {
+								throw new DOMException(
+									'The ProcessingInstruction data contains characters outside the XML Char production',
+									DOMExceptionName.InvalidStateError
+								);
+							}
+							if (n.data.indexOf('?>') !== -1) {
+								throw new DOMException('The ProcessingInstruction data contains "?>"', DOMExceptionName.InvalidStateError);
+							}
+						}
+						buf.push('<?', n.target, ' ', n.data, '?>');
+						return null;
+					case ENTITY_REFERENCE_NODE:
+						if (requireWellFormed && !g.Name_exact.test(n.nodeName)) {
+							throw new DOMException(
+								'The entity reference name "' + n.nodeName + '" is not a valid XML Name',
+								DOMExceptionName.InvalidStateError
+							);
+						}
+						buf.push('&', n.nodeName, ';');
+						return null;
+					//case ENTITY_NODE:
+					//case NOTATION_NODE:
+					default:
+						buf.push('??', n.nodeName);
+						return null;
 				}
-				buf.push('</', prefixedNodeName, '>');
-			}
-			// remove added visible namespaces
-			//visibleNamespaces.length = startVisibleNamespaces;
-			return;
-		case DOCUMENT_NODE:
-		case DOCUMENT_FRAGMENT_NODE:
-			var child = node.firstChild;
-			while (child) {
-				serializeToString(child, buf, nodeFilter, visibleNamespaces.slice());
-				child = child.nextSibling;
-			}
-			return;
-		case ATTRIBUTE_NODE:
-			return addSerializedAttribute(buf, node.name, node.value);
-		case TEXT_NODE:
-			/*
-			 * The ampersand character (&) and the left angle bracket (<) must not appear in their literal form,
-			 * except when used as markup delimiters, or within a comment, a processing instruction,
-			 * or a CDATA section.
-			 * If they are needed elsewhere, they must be escaped using either numeric character
-			 * references or the strings `&amp;` and `&lt;` respectively.
-			 * The right angle bracket (>) may be represented using the string " &gt; ",
-			 * and must, for compatibility, be escaped using either `&gt;`,
-			 * or a character reference when it appears in the string `]]>` in content,
-			 * when that string is not marking the end of a CDATA section.
-			 *
-			 * In the content of elements, character data is any string of characters which does not
-			 * contain the start-delimiter of any markup and does not include the CDATA-section-close
-			 * delimiter, `]]>`.
-			 *
-			 * @see https://www.w3.org/TR/xml/#NT-CharData
-			 * @see https://w3c.github.io/DOM-Parsing/#xml-serializing-a-text-node
-			 */
-			return buf.push(node.data.replace(/[<&>]/g, _xmlEncoder));
-		case CDATA_SECTION_NODE:
-			return buf.push(g.CDATA_START, node.data, g.CDATA_END);
-		case COMMENT_NODE:
-			return buf.push(g.COMMENT_START, node.data, g.COMMENT_END);
-		case DOCUMENT_TYPE_NODE:
-			var pubid = node.publicId;
-			var sysid = node.systemId;
-			buf.push(g.DOCTYPE_DECL_START, ' ', node.name);
-			if (pubid) {
-				buf.push(' ', g.PUBLIC, ' ', pubid);
-				if (sysid && sysid !== '.') {
-					buf.push(' ', sysid);
+			},
+			exit: function (n, childCtx) {
+				// Emit the closing tag for elements that were opened (not self-closed, not raw text).
+				if (childCtx && childCtx.tag) {
+					buf.push('</', childCtx.tag, '>');
 				}
-			} else if (sysid && sysid !== '.') {
-				buf.push(' ', g.SYSTEM, ' ', sysid);
-			}
-			if (node.internalSubset) {
-				buf.push(' [', node.internalSubset, ']');
-			}
-			buf.push('>');
-			return;
-		case PROCESSING_INSTRUCTION_NODE:
-			return buf.push('<?', node.target, ' ', node.data, '?>');
-		case ENTITY_REFERENCE_NODE:
-			return buf.push('&', node.nodeName, ';');
-		//case ENTITY_NODE:
-		//case NOTATION_NODE:
-		default:
-			buf.push('??', node.nodeName);
-	}
-}
-function importNode(doc, node, deep) {
-	var node2;
-	switch (node.nodeType) {
-		case ELEMENT_NODE:
-			node2 = node.cloneNode(false);
-			node2.ownerDocument = doc;
-		//var attrs = node2.attributes;
-		//var len = attrs.length;
-		//for(var i=0;i<len;i++){
-		//node2.setAttributeNodeNS(importNode(doc,attrs.item(i),deep));
-		//}
-		case DOCUMENT_FRAGMENT_NODE:
-			break;
-		case ATTRIBUTE_NODE:
-			deep = true;
-			break;
-		//case ENTITY_REFERENCE_NODE:
-		//case PROCESSING_INSTRUCTION_NODE:
-		////case TEXT_NODE:
-		//case CDATA_SECTION_NODE:
-		//case COMMENT_NODE:
-		//	deep = false;
-		//	break;
-		//case DOCUMENT_NODE:
-		//case DOCUMENT_TYPE_NODE:
-		//cannot be imported.
-		//case ENTITY_NODE:
-		//case NOTATION_NODE：
-		//can not hit in level3
-		//default:throw e;
-	}
-	if (!node2) {
-		node2 = node.cloneNode(false); //false
-	}
-	node2.ownerDocument = doc;
-	node2.parentNode = null;
-	if (deep) {
-		var child = node.firstChild;
-		while (child) {
-			node2.appendChild(importNode(doc, child, deep));
-			child = child.nextSibling;
+			},
 		}
-	}
-	return node2;
+	);
+}
+/**
+ * Imports a node from a different document into `doc`, creating a new copy.
+ * Delegates to {@link walkDOM} for traversal. Each node in the subtree is shallow-cloned,
+ * stamped with `doc` as its `ownerDocument`, and detached (`parentNode` set to `null`).
+ * Children are imported recursively when `deep` is `true`; for {@link Attr} nodes `deep` is
+ * always forced to `true`
+ * because an attribute's value lives in a child text node.
+ *
+ * @param {Document} doc
+ * The document that will own the imported node.
+ * @param {Node} node
+ * The node to import.
+ * @param {boolean} deep
+ * If `true`, descendants are imported recursively.
+ * @returns {Node}
+ * The newly imported node, now owned by `doc`.
+ */
+function importNode(doc, node, deep) {
+	var destRoot;
+	walkDOM(node, null, {
+		enter: function (srcNode, destParent) {
+			// Shallow-clone the node and stamp it into the target document.
+			var destNode = srcNode.cloneNode(false);
+			destNode.ownerDocument = doc;
+			destNode.parentNode = null;
+			// capture as the root of the imported subtree or attach to parent.
+			if (destParent === null) {
+				destRoot = destNode;
+			} else {
+				destParent.appendChild(destNode);
+			}
+			// ATTRIBUTE_NODE must always be imported deeply: its value lives in a child text node.
+			var shouldDeep = srcNode.nodeType === ATTRIBUTE_NODE || deep;
+			return shouldDeep ? destNode : null;
+		},
+	});
+	return destRoot;
 }
 
 /**
@@ -3010,47 +3557,76 @@ function importNode(doc, node, deep) {
  * potentially invoked in this function) do not meet their specific constraints.
  */
 function cloneNode(doc, node, deep) {
-	var node2 = new node.constructor(PDC);
-	for (var n in node) {
-		if (hasOwn(node, n)) {
-			var v = node[n];
-			if (typeof v != 'object') {
-				if (v != node2[n]) {
-					node2[n] = v;
+	var destRoot;
+	walkDOM(node, null, {
+		enter: function (srcNode, destParent) {
+			// 1. Create a blank node of the same type and copy all scalar own properties.
+			var destNode = new srcNode.constructor(PDC);
+			for (var n in srcNode) {
+				if (hasOwn(srcNode, n)) {
+					var v = srcNode[n];
+					if (typeof v != 'object') {
+						if (v != destNode[n]) {
+							destNode[n] = v;
+						}
+					}
 				}
 			}
-		}
-	}
-	if (node.childNodes) {
-		node2.childNodes = new NodeList();
-	}
-	node2.ownerDocument = doc;
-	switch (node2.nodeType) {
-		case ELEMENT_NODE:
-			var attrs = node.attributes;
-			var attrs2 = (node2.attributes = new NamedNodeMap());
-			var len = attrs.length;
-			attrs2._ownerElement = node2;
-			for (var i = 0; i < len; i++) {
-				node2.setAttributeNode(cloneNode(doc, attrs.item(i), true));
+			if (srcNode.childNodes) {
+				destNode.childNodes = new NodeList();
 			}
-			break;
-		case ATTRIBUTE_NODE:
-			deep = true;
-	}
-	if (deep) {
-		var child = node.firstChild;
-		while (child) {
-			node2.appendChild(cloneNode(doc, child, deep));
-			child = child.nextSibling;
-		}
-	}
-	return node2;
+			destNode.ownerDocument = doc;
+			// 2. Handle node-type-specific setup.
+			//    Attributes are not DOM children, so they are cloned inline here
+			//    rather than by walkDOM descent.
+			//    ATTRIBUTE_NODE forces deep=true so its own children are walked.
+			var shouldDeep = deep;
+			switch (destNode.nodeType) {
+				case ELEMENT_NODE:
+					var attrs = srcNode.attributes;
+					var attrs2 = (destNode.attributes = new NamedNodeMap());
+					var len = attrs.length;
+					attrs2._ownerElement = destNode;
+					for (var i = 0; i < len; i++) {
+						destNode.setAttributeNode(cloneNode(doc, attrs.item(i), true));
+					}
+					break;
+				case ATTRIBUTE_NODE:
+					shouldDeep = true;
+			}
+			// 3. Attach to parent, or capture as the root of the cloned subtree.
+			if (destParent !== null) {
+				destParent.appendChild(destNode);
+			} else {
+				destRoot = destNode;
+			}
+			// 4. Return destNode as the context for children (causes walkDOM to descend),
+			//    or null to skip children (shallow clone).
+			return shouldDeep ? destNode : null;
+		},
+	});
+	return destRoot;
 }
 
 function __set__(object, key, value) {
 	object[key] = value;
 }
+
+// Returns a new array of direct Element children.
+// Passed to LiveNodeList to implement ParentNode.children.
+// https://dom.spec.whatwg.org/#dom-parentnode-children
+function childrenRefresh(node) {
+	var ls = [];
+	var child = node.firstChild;
+	while (child) {
+		if (child.nodeType === ELEMENT_NODE) {
+			ls.push(child);
+		}
+		child = child.nextSibling;
+	}
+	return ls;
+}
+
 //do dynamic
 try {
 	if (Object.defineProperty) {
@@ -3061,9 +3637,37 @@ try {
 			},
 		});
 
+		/**
+		 * The text content of this node and its descendants.
+		 *
+		 * For {@link Element} and {@link DocumentFragment} nodes, returns the concatenation of the
+		 * `nodeValue` of every descendant text node, excluding processing instruction and comment
+		 * nodes. For all other node types, returns `nodeValue`.
+		 *
+		 * Setting `textContent` on an element or document fragment replaces all child nodes with a
+		 * single text node; on other nodes it sets `data`, `value`, and `nodeValue` directly.
+		 *
+		 * @type {string | null}
+		 * @see {@link https://dom.spec.whatwg.org/#dom-node-textcontent}
+		 */
 		Object.defineProperty(Node.prototype, 'textContent', {
 			get: function () {
-				return getTextContent(this);
+				if (this.nodeType === ELEMENT_NODE || this.nodeType === DOCUMENT_FRAGMENT_NODE) {
+					var buf = [];
+					walkDOM(this, null, {
+						enter: function (n) {
+							if (n.nodeType === ELEMENT_NODE || n.nodeType === DOCUMENT_FRAGMENT_NODE) {
+								return true; // enter children
+							}
+							if (n.nodeType === PROCESSING_INSTRUCTION_NODE || n.nodeType === COMMENT_NODE) {
+								return null; // excluded from text content
+							}
+							buf.push(n.nodeValue);
+						},
+					});
+					return buf.join('');
+				}
+				return this.nodeValue;
 			},
 
 			set: function (data) {
@@ -3086,23 +3690,42 @@ try {
 			},
 		});
 
-		function getTextContent(node) {
-			switch (node.nodeType) {
-				case ELEMENT_NODE:
-				case DOCUMENT_FRAGMENT_NODE:
-					var buf = [];
-					node = node.firstChild;
-					while (node) {
-						if (node.nodeType !== 7 && node.nodeType !== 8) {
-							buf.push(getTextContent(node));
-						}
-						node = node.nextSibling;
-					}
-					return buf.join('');
-				default:
-					return node.nodeValue;
-			}
-		}
+		Object.defineProperty(CharacterData.prototype, 'data', {
+			get: function () {
+				return this._data != null ? this._data : '';
+			},
+			set: function (v) {
+				this._data = v;
+				this.length = typeof v === 'string' ? v.length : 0;
+			},
+		});
+
+		Object.defineProperty(CharacterData.prototype, 'nodeValue', {
+			get: function () {
+				return this.data;
+			},
+			set: function (v) {
+				this.data = v;
+			},
+			enumerable: true,
+			configurable: true,
+		});
+
+		Object.defineProperty(Element.prototype, 'children', {
+			get: function () {
+				return new LiveNodeList(this, childrenRefresh);
+			},
+		});
+		Object.defineProperty(Document.prototype, 'children', {
+			get: function () {
+				return new LiveNodeList(this, childrenRefresh);
+			},
+		});
+		Object.defineProperty(DocumentFragment.prototype, 'children', {
+			get: function () {
+				return new LiveNodeList(this, childrenRefresh);
+			},
+		});
 
 		__set__ = function (object, key, value) {
 			//console.log(value)
@@ -3132,4 +3755,5 @@ exports.NodeList = NodeList;
 exports.Notation = Notation;
 exports.Text = Text;
 exports.ProcessingInstruction = ProcessingInstruction;
+exports.walkDOM = walkDOM;
 exports.XMLSerializer = XMLSerializer;

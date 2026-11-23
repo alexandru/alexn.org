@@ -1,5 +1,5 @@
 import { jQuery } from "./core.js";
-import { document } from "./var/document.js";
+import { createElement } from "./var/createElement.js";
 import { rnothtmlwhite } from "./var/rnothtmlwhite.js";
 import { location } from "./ajax/var/location.js";
 import { nonce } from "./ajax/var/nonce.js";
@@ -44,7 +44,7 @@ var
 	allTypes = "*/".concat( "*" ),
 
 	// Anchor tag for parsing the document origin
-	originAnchor = document.createElement( "a" );
+	originAnchor = createElement( "a" );
 
 originAnchor.href = location.href;
 
@@ -59,14 +59,14 @@ function addToPrefiltersOrTransports( structure ) {
 			dataTypeExpression = "*";
 		}
 
-		var dataType,
-			i = 0,
+		var dataType, i,
 			dataTypes = dataTypeExpression.toLowerCase().match( rnothtmlwhite ) || [];
 
 		if ( typeof func === "function" ) {
 
 			// For each dataType in the dataTypeExpression
-			while ( ( dataType = dataTypes[ i++ ] ) ) {
+			for ( i = 0; i < dataTypes.length; i++ ) {
+				dataType = dataTypes[ i ];
 
 				// Prepend if requested
 				if ( dataType[ 0 ] === "+" ) {
@@ -139,7 +139,7 @@ function ajaxHandleResponses( s, jqXHR, responses ) {
 		dataTypes = s.dataTypes;
 
 	// Remove auto dataType and get content-type in the process
-	while ( dataTypes[ 0 ] === "*" ) {
+	while ( dataTypes.length && dataTypes[ 0 ] === "*" ) {
 		dataTypes.shift();
 		if ( ct === undefined ) {
 			ct = s.mimeType || jqXHR.getResponseHeader( "Content-Type" );
@@ -541,7 +541,7 @@ jQuery.extend( {
 
 		// A cross-domain request is in order when the origin doesn't match the current origin.
 		if ( s.crossDomain == null ) {
-			urlAnchor = document.createElement( "a" );
+			urlAnchor = createElement( "a" );
 
 			// Support: IE <=8 - 11+
 			// IE throws exception on accessing the href property if url is malformed,
@@ -713,8 +713,21 @@ jQuery.extend( {
 
 		// Callback for when everything is done
 		function done( status, nativeStatusText, responses, headers ) {
-			var isSuccess, success, error, response, modified,
-				statusText = nativeStatusText;
+			var isSuccess, success, error, response, modified, statusText,
+				responseURL;
+
+			if ( typeof status === "object" ) {
+
+				// The new, object-based API
+				nativeStatusText = status.statusText;
+				responses = status.responses;
+				headers = status.headers;
+				responseURL = status.responseURL;
+
+				status = status.status;
+			}
+
+			statusText = nativeStatusText;
 
 			// Ignore repeat invocations
 			if ( completed ) {
@@ -801,6 +814,7 @@ jQuery.extend( {
 			// Set data for the fake xhr object
 			jqXHR.status = status;
 			jqXHR.statusText = ( nativeStatusText || statusText ) + "";
+			jqXHR.responseURL = responseURL;
 
 			// Success/Error
 			if ( isSuccess ) {

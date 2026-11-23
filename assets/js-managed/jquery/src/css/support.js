@@ -1,11 +1,11 @@
 import { jQuery } from "../core.js";
-import { document } from "../var/document.js";
+import { createElement } from "../var/createElement.js";
 import { documentElement } from "../var/documentElement.js";
 import { support } from "../var/support.js";
 import { isIE } from "../var/isIE.js";
 
 var reliableTrDimensionsVal, reliableColDimensionsVal,
-	table = document.createElement( "table" );
+	table = createElement( "table" );
 
 // Executing table tests requires only one layout, so they're executed
 // at the same time to save the second computation.
@@ -22,9 +22,9 @@ function computeTableStyleTests() {
 	}
 
 	var trStyle,
-		col = document.createElement( "col" ),
-		tr = document.createElement( "tr" ),
-		td = document.createElement( "td" );
+		col = createElement( "col" ),
+		tr = createElement( "tr" ),
+		td = createElement( "td" );
 
 	table.style.cssText = "position:absolute;left:-11111px;" +
 		"border-collapse:separate;border-spacing:0";
@@ -44,7 +44,7 @@ function computeTableStyleTests() {
 
 	// Don't run until window is visible
 	if ( table.offsetWidth === 0 ) {
-		documentElement.removeChild( table );
+		documentElement.removeChild( table ).textContent = "";
 		return;
 	}
 

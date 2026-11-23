@@ -8,7 +8,7 @@ export class Variables {
         return loc;
     }
 }
-Variables.VERSION = '4.1.2';
+Variables.VERSION = '4.1.5';
 Variables.LOCALES = new Map([
     ['af', 'Africaans'],
     ['ca', 'Catalan'],

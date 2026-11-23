@@ -79,7 +79,7 @@ function reg(args) {
 				return isStr ? part : part.source;
 			})
 			.join(''),
-		UNICODE_SUPPORT ? 'mu' : 'm'
+		UNICODE_SUPPORT ? 'u' : ''
 	);
 }
 
@@ -136,6 +136,11 @@ if (UNICODE_SUPPORT) {
 	// eslint-disable-next-line es5/no-unicode-code-point-escape
 	Char = reg('[', chars(Char), '\\u{10000}-\\u{10FFFF}', ']');
 }
+// Negation of Char: matches any character that is NOT a valid XML 1.0 Char.
+// Derived directly from the Char character class above (after the unicode-support extension).
+// XML 1.0 Char production [2]: #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
+// @see https://www.w3.org/TR/xml/#NT-Char
+var InvalidChar = new RegExp('[^' + chars(Char) + ']', UNICODE_SUPPORT ? 'u' : '');
 
 var _SChar = /[\x20\x09\x0D\x0A]/;
 var SChar_s = chars(_SChar);
@@ -163,6 +168,9 @@ var NameChar = reg('[', NameStartChar_s, chars(/[-.0-9\xB7]/), chars(/[\u0300-\u
 // https://www.w3.org/TR/xml11/#NT-Name
 // `[5] Name ::= NameStartChar (NameChar)*`
 var Name = reg(NameStartChar, NameChar, '*');
+// Full-string anchored matcher for requireWellFormed serializer checks
+// https://w3c.github.io/DOM-Parsing/#xml-serializing-a-document-node
+var Name_exact = reg('^', Name, '$');
 /*
 https://www.w3.org/TR/xml11/#NT-Names
 `[6] Names ::= Name (#x20 Name)*`
@@ -221,6 +229,9 @@ var NCNameChar = chars_without(NameChar, ':');
 // `[4] NCName ::= Name - (Char* ':' Char*)`
 // An XML Name, minus the ":"
 var NCName = reg(NCNameStartChar, NCNameChar, '*');
+// Full-string anchored matcher for requireWellFormed serializer checks
+// https://w3c.github.io/DOM-Parsing/#xml-serializing-a-document-node
+var NCName_exact = reg('^', NCName, '$');
 
 /**
 https://www.w3.org/TR/xml-names/#ns-qualnames
@@ -253,7 +264,11 @@ var SystemLiteral = regg(/"[^"]*"|'[^']*'/);
  ```
  target /xml/i is not excluded!
 */
-var PI = reg(/^<\?/, '(', Name, ')', regg(S, '(', Char, '*?)'), '?', /\?>/);
+// The `(?!S)` after the leading `S+` asserts the data starts with a non-whitespace
+// character (greedy `S+` already consumes all separating whitespace), pruning the
+// `S+`/`Char*?` whitespace overlap that otherwise makes an unterminated PI (no `?>`)
+// backtrack quadratically. The lookahead is non-capturing, so the data stays group 2.
+var PI = reg(/^<\?/, '(', Name, ')', regg(S, '(?!', _SChar, ')(', Char, '*?)'), '?', /\?>/);
 
 // https://www.w3.org/TR/xml11/#NT-PubidChar
 // `[13] PubidChar ::= #x20 | #xD | #xA | [a-zA-Z0-9] | [-'()+,./:=?;!*#@$_%]`
@@ -397,6 +412,12 @@ var ExternalID_match = reg(
 		regg(PUBLIC, S, '(?<PubidLiteral>', PubidLiteral, ')', S, '(?<SystemLiteral>', SystemLiteral, ')')
 	)
 );
+// Full-string anchored matcher for requireWellFormed serializer checks
+// https://w3c.github.io/DOM-Parsing/#xml-serializing-a-document-node
+var PubidLiteral_match = reg('^', PubidLiteral, '$');
+// Full-string anchored matcher for requireWellFormed serializer checks
+// https://w3c.github.io/DOM-Parsing/#xml-serializing-a-document-node
+var SystemLiteral_match = reg('^', SystemLiteral, '$');
 
 // https://www.w3.org/TR/xml11/#NT-NDataDecl
 // `[76] NDataDecl ::= S 'NDATA' S Name` [VC: Notation Declared]
@@ -514,12 +535,15 @@ exports.EntityValue = EntityValue;
 exports.ExternalID = ExternalID;
 exports.ExternalID_match = ExternalID_match;
 exports.Name = Name;
+exports.Name_exact = Name_exact;
+exports.NCName_exact = NCName_exact;
 exports.NotationDecl = NotationDecl;
 exports.Reference = Reference;
 exports.PEReference = PEReference;
 exports.PI = PI;
 exports.PUBLIC = PUBLIC;
 exports.PubidLiteral = PubidLiteral;
+exports.PubidLiteral_match = PubidLiteral_match;
 exports.QName = QName;
 exports.QName_exact = QName_exact;
 exports.QName_group = QName_group;
@@ -528,6 +552,8 @@ exports.SChar_s = SChar_s;
 exports.S_OPT = S_OPT;
 exports.SYSTEM = SYSTEM;
 exports.SystemLiteral = SystemLiteral;
+exports.SystemLiteral_match = SystemLiteral_match;
+exports.InvalidChar = InvalidChar;
 exports.UNICODE_REPLACEMENT_CHARACTER = UNICODE_REPLACEMENT_CHARACTER;
 exports.UNICODE_SUPPORT = UNICODE_SUPPORT;
 exports.XMLDecl = XMLDecl;
